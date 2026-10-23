@@ -1,0 +1,1850 @@
+{
+  "date": "2026-10-23",
+  "chrome": {
+    "label": "Chrome",
+    "variants": {
+      "baseline": {
+        "browserVersion": "156.0.8078.47",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-baseline",
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        },
+        "layerQuota": {
+          "overQuotaWrite": {
+            "name": "StorageQuotaError",
+            "code": "QUOTA_EXCEEDED",
+            "message": "تعذّر الحفظ لأن مساحة التخزين المحلية المتاحة للإضافة امتلأت. لم تُغيَّر بياناتك السابقة. صدِّر بياناتك أو احذف ما لا تحتاجه.",
+            "details": {
+              "phase": "write",
+              "key": "notes",
+              "requestedBytes": 12582931,
+              "remedies": [
+                "export"
+              ]
+            },
+            "causeMessage": "Resource::kQuotaBytes quota exceeded",
+            "isStorageQuotaError": true
+          },
+          "notesAfterWrite": "سليمة",
+          "overQuotaImport": {
+            "name": "StorageQuotaError",
+            "code": "QUOTA_EXCEEDED",
+            "message": "امتلأت مساحة التخزين أثناء الاستيراد، فأُعيدت بياناتك إلى حالتها السابقة. صدِّر بياناتك أو احذف ما لا تحتاجه.",
+            "details": {
+              "phase": "import",
+              "requestedBytes": 12583107,
+              "remedies": [
+                "export"
+              ]
+            },
+            "causeMessage": "Resource::kQuotaBytes quota exceeded",
+            "isStorageQuotaError": true
+          },
+          "notesAfterImport": "سليمة",
+          "leftoverJournal": [],
+          "exportStillWorks": true
+        },
+        "core04": {
+          "contexts": [
+            "صفحة إضافة 1 (تبويب)",
+            "صفحة إضافة 2 (تبويب)",
+            "سكربت محتوى على صفحة github.com معترَضة"
+          ],
+          "init": [
+            {
+              "schemaVersion": 1
+            },
+            {
+              "schemaVersion": 1
+            }
+          ],
+          "contentScriptReady": true,
+          "initialInjected": 1,
+          "page2ReceivedRemoteOff": true,
+          "contentScriptUnmounted": true,
+          "page2ValueOff": false,
+          "domClean": true,
+          "page1ReceivedRemoteOn": true,
+          "contentScriptRemounted": true,
+          "spaReactOrder": "issue:high",
+          "spaReactFinal": "issue:high",
+          "spaReactInjected": 1,
+          "spaReactReconciles": 2,
+          "spaTabsOrder": "pr-commits:high",
+          "spaTabsFinal": "pr-commits:high",
+          "spaTabsInjected": 1,
+          "navigationApi": "object",
+          "finalValues": [
+            true,
+            true
+          ],
+          "finalInjected": 1,
+          "consistentAfterToggles": true,
+          "latencyMs": {
+            "pageToPageMedian": 1,
+            "pageToContentDomMedian": 2,
+            "samples": {
+              "page": [
+                7,
+                3,
+                2,
+                1,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "dom": [
+                9,
+                4,
+                3,
+                3,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          "concurrentMigration": {
+            "versions": [
+              1,
+              1
+            ],
+            "backups": 1,
+            "metaVersion": 1,
+            "journalLeft": false,
+            "dataIntact": true,
+            "pass": true
+          },
+          "persistsAfterReload": true,
+          "contentErrors": null,
+          "pass": true,
+          "notRun": [
+            "لوحة جانبية (sidePanel): لا تُفتح دون فعل مستخدم فعلي؛ تُغطيها T-1.4 (TEST-CORE-05 وTEST-CORE-06)",
+            "نافذة ثانية منفصلة: التبويبات تشترك في ملف التعريف نفسه ومسار البث نفسه"
+          ]
+        }
+      },
+      "optional": {
+        "browserVersion": "156.0.8078.47",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "optional_permissions": [
+              "unlimitedStorage",
+              "alarms"
+            ],
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        },
+        "request": {
+          "permission": "unlimitedStorage",
+          "activation": true,
+          "error": "Only permissions specified in the manifest may be requested."
+        },
+        "requestControl": {
+          "permission": "alarms",
+          "activation": true,
+          "granted": true
+        },
+        "probeAfterRequest": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "optional_permissions": [
+              "unlimitedStorage",
+              "alarms"
+            ],
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "alarms",
+              "storage"
+            ]
+          }
+        },
+        "quotaAfterRequest": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        }
+      },
+      "declared": {
+        "browserVersion": "156.0.8078.47",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-declared",
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 12582943,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        }
+      }
+    },
+    "browserVersion": "156.0.8078.47"
+  },
+  "edge": {
+    "label": "Edge",
+    "variants": {
+      "baseline": {
+        "browserVersion": "155.0.4283.60",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-baseline",
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        },
+        "layerQuota": {
+          "overQuotaWrite": {
+            "name": "StorageQuotaError",
+            "code": "QUOTA_EXCEEDED",
+            "message": "تعذّر الحفظ لأن مساحة التخزين المحلية المتاحة للإضافة امتلأت. لم تُغيَّر بياناتك السابقة. صدِّر بياناتك أو احذف ما لا تحتاجه.",
+            "details": {
+              "phase": "write",
+              "key": "notes",
+              "requestedBytes": 12582931,
+              "remedies": [
+                "export"
+              ]
+            },
+            "causeMessage": "Resource::kQuotaBytes quota exceeded",
+            "isStorageQuotaError": true
+          },
+          "notesAfterWrite": "سليمة",
+          "overQuotaImport": {
+            "name": "StorageQuotaError",
+            "code": "QUOTA_EXCEEDED",
+            "message": "امتلأت مساحة التخزين أثناء الاستيراد، فأُعيدت بياناتك إلى حالتها السابقة. صدِّر بياناتك أو احذف ما لا تحتاجه.",
+            "details": {
+              "phase": "import",
+              "requestedBytes": 12583107,
+              "remedies": [
+                "export"
+              ]
+            },
+            "causeMessage": "Resource::kQuotaBytes quota exceeded",
+            "isStorageQuotaError": true
+          },
+          "notesAfterImport": "سليمة",
+          "leftoverJournal": [],
+          "exportStillWorks": true
+        },
+        "core04": {
+          "contexts": [
+            "صفحة إضافة 1 (تبويب)",
+            "صفحة إضافة 2 (تبويب)",
+            "سكربت محتوى على صفحة github.com معترَضة"
+          ],
+          "init": [
+            {
+              "schemaVersion": 1
+            },
+            {
+              "schemaVersion": 1
+            }
+          ],
+          "contentScriptReady": true,
+          "initialInjected": 1,
+          "page2ReceivedRemoteOff": true,
+          "contentScriptUnmounted": true,
+          "page2ValueOff": false,
+          "domClean": true,
+          "page1ReceivedRemoteOn": true,
+          "contentScriptRemounted": true,
+          "spaReactOrder": "issue:high",
+          "spaReactFinal": "issue:high",
+          "spaReactInjected": 1,
+          "spaReactReconciles": 2,
+          "spaTabsOrder": "pr-commits:high",
+          "spaTabsFinal": "pr-commits:high",
+          "spaTabsInjected": 1,
+          "navigationApi": "object",
+          "finalValues": [
+            true,
+            true
+          ],
+          "finalInjected": 1,
+          "consistentAfterToggles": true,
+          "latencyMs": {
+            "pageToPageMedian": 1,
+            "pageToContentDomMedian": 2,
+            "samples": {
+              "page": [
+                4,
+                4,
+                2,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "dom": [
+                6,
+                5,
+                3,
+                2,
+                1,
+                1,
+                2,
+                2,
+                2,
+                1
+              ]
+            }
+          },
+          "concurrentMigration": {
+            "versions": [
+              1,
+              1
+            ],
+            "backups": 1,
+            "metaVersion": 1,
+            "journalLeft": false,
+            "dataIntact": true,
+            "pass": true
+          },
+          "persistsAfterReload": true,
+          "contentErrors": null,
+          "pass": true,
+          "notRun": [
+            "لوحة جانبية (sidePanel): لا تُفتح دون فعل مستخدم فعلي؛ تُغطيها T-1.4 (TEST-CORE-05 وTEST-CORE-06)",
+            "نافذة ثانية منفصلة: التبويبات تشترك في ملف التعريف نفسه ومسار البث نفسه"
+          ]
+        }
+      },
+      "optional": {
+        "browserVersion": "155.0.4283.60",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "optional_permissions": [
+              "unlimitedStorage",
+              "alarms"
+            ],
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        },
+        "request": {
+          "permission": "unlimitedStorage",
+          "activation": true,
+          "error": "Only permissions specified in the manifest may be requested."
+        },
+        "requestControl": {
+          "permission": "alarms",
+          "activation": true,
+          "granted": true
+        },
+        "probeAfterRequest": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "optional_permissions": [
+              "unlimitedStorage",
+              "alarms"
+            ],
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "alarms",
+              "storage"
+            ]
+          }
+        },
+        "quotaAfterRequest": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        }
+      },
+      "declared": {
+        "browserVersion": "155.0.4283.60",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-declared",
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 12582943,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        }
+      }
+    },
+    "browserVersion": "155.0.4283.60"
+  },
+  "brave": {
+    "label": "Brave",
+    "variants": {
+      "baseline": {
+        "browserVersion": "156.0.8078.48",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-baseline",
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        },
+        "layerQuota": {
+          "overQuotaWrite": {
+            "name": "StorageQuotaError",
+            "code": "QUOTA_EXCEEDED",
+            "message": "تعذّر الحفظ لأن مساحة التخزين المحلية المتاحة للإضافة امتلأت. لم تُغيَّر بياناتك السابقة. صدِّر بياناتك أو احذف ما لا تحتاجه.",
+            "details": {
+              "phase": "write",
+              "key": "notes",
+              "requestedBytes": 12582931,
+              "remedies": [
+                "export"
+              ]
+            },
+            "causeMessage": "Resource::kQuotaBytes quota exceeded",
+            "isStorageQuotaError": true
+          },
+          "notesAfterWrite": "سليمة",
+          "overQuotaImport": {
+            "name": "StorageQuotaError",
+            "code": "QUOTA_EXCEEDED",
+            "message": "امتلأت مساحة التخزين أثناء الاستيراد، فأُعيدت بياناتك إلى حالتها السابقة. صدِّر بياناتك أو احذف ما لا تحتاجه.",
+            "details": {
+              "phase": "import",
+              "requestedBytes": 12583107,
+              "remedies": [
+                "export"
+              ]
+            },
+            "causeMessage": "Resource::kQuotaBytes quota exceeded",
+            "isStorageQuotaError": true
+          },
+          "notesAfterImport": "سليمة",
+          "leftoverJournal": [],
+          "exportStillWorks": true
+        },
+        "core04": {
+          "contexts": [
+            "صفحة إضافة 1 (تبويب)",
+            "صفحة إضافة 2 (تبويب)",
+            "سكربت محتوى على صفحة github.com معترَضة"
+          ],
+          "init": [
+            {
+              "schemaVersion": 1
+            },
+            {
+              "schemaVersion": 1
+            }
+          ],
+          "contentScriptReady": true,
+          "initialInjected": 1,
+          "page2ReceivedRemoteOff": true,
+          "contentScriptUnmounted": true,
+          "page2ValueOff": false,
+          "domClean": true,
+          "page1ReceivedRemoteOn": true,
+          "contentScriptRemounted": true,
+          "spaReactOrder": "issue:high",
+          "spaReactFinal": "issue:high",
+          "spaReactInjected": 1,
+          "spaReactReconciles": 2,
+          "spaTabsOrder": "pr-commits:high",
+          "spaTabsFinal": "pr-commits:high",
+          "spaTabsInjected": 1,
+          "navigationApi": "object",
+          "finalValues": [
+            true,
+            true
+          ],
+          "finalInjected": 1,
+          "consistentAfterToggles": true,
+          "latencyMs": {
+            "pageToPageMedian": 1,
+            "pageToContentDomMedian": 2,
+            "samples": {
+              "page": [
+                3,
+                1,
+                3,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "dom": [
+                4,
+                2,
+                4,
+                2,
+                2,
+                1,
+                2,
+                1,
+                2,
+                1
+              ]
+            }
+          },
+          "concurrentMigration": {
+            "versions": [
+              1,
+              1
+            ],
+            "backups": 1,
+            "metaVersion": 1,
+            "journalLeft": false,
+            "dataIntact": true,
+            "pass": true
+          },
+          "persistsAfterReload": true,
+          "contentErrors": null,
+          "pass": true,
+          "notRun": [
+            "لوحة جانبية (sidePanel): لا تُفتح دون فعل مستخدم فعلي؛ تُغطيها T-1.4 (TEST-CORE-05 وTEST-CORE-06)",
+            "نافذة ثانية منفصلة: التبويبات تشترك في ملف التعريف نفسه ومسار البث نفسه"
+          ]
+        }
+      },
+      "optional": {
+        "browserVersion": "156.0.8078.48",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "optional_permissions": [
+              "unlimitedStorage",
+              "alarms"
+            ],
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        },
+        "request": {
+          "permission": "unlimitedStorage",
+          "activation": true,
+          "error": "Only permissions specified in the manifest may be requested."
+        },
+        "requestControl": {
+          "permission": "alarms",
+          "activation": true,
+          "granted": true
+        },
+        "probeAfterRequest": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "optional_permissions": [
+              "unlimitedStorage",
+              "alarms"
+            ],
+            "permissions": [
+              "storage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "alarms",
+              "storage"
+            ]
+          }
+        },
+        "quotaAfterRequest": {
+          "batchOverQuota": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keysAfterBatch": [],
+          "bytesAfterBatch": 0,
+          "fillBelowQuota": "نجحت",
+          "overflow": {
+            "name": "Error",
+            "message": "Resource::kQuotaBytes quota exceeded"
+          },
+          "keepIntact": true,
+          "overflowWritten": false
+        }
+      },
+      "declared": {
+        "browserVersion": "156.0.8078.48",
+        "loadInfo": {
+          "state": "ENABLED",
+          "manifestErrors": [],
+          "runtimeErrors": [],
+          "installWarnings": [],
+          "permissions": {
+            "runtimeHostPermissions": {
+              "hasAllHosts": false,
+              "hostAccess": "ON_ALL_SITES",
+              "hosts": [
+                {
+                  "granted": true,
+                  "host": "https://github.com/*"
+                }
+              ]
+            },
+            "simplePermissions": []
+          }
+        },
+        "probe": {
+          "quotaBytes": 10485760,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "background": {
+              "service_worker": "background.js"
+            },
+            "content_scripts": [
+              {
+                "js": [
+                  "content.js"
+                ],
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle"
+              }
+            ],
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "manifest_version": 3,
+            "name": "mijhar-core-test-declared",
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ],
+            "version": "0.0.1"
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 12582943,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        }
+      }
+    },
+    "browserVersion": "156.0.8078.48"
+  },
+  "firefox": {
+    "label": "Firefox",
+    "variants": {
+      "baseline": {
+        "browserVersion": "158.0.1",
+        "manifestMessages": {
+          "host": "c7f9f3ec-346e-4477-9f12-8593117b323a",
+          "warnings": [],
+          "errors": []
+        },
+        "probe": {
+          "quotaBytes": null,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "author": null,
+            "browser_specific_settings": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            },
+            "description": null,
+            "developer": null,
+            "homepage_url": null,
+            "install_origins": null,
+            "manifest_version": 3,
+            "name": "mijhar-core-test-baseline",
+            "short_name": null,
+            "version": "0.0.1",
+            "background": {
+              "page": null,
+              "preferred_environment": null,
+              "scripts": [
+                "moz-extension://c7f9f3ec-346e-4477-9f12-8593117b323a/background.js"
+              ],
+              "service_worker": null,
+              "type": null
+            },
+            "content_scripts": [
+              {
+                "all_frames": null,
+                "css": null,
+                "css_origin": "author",
+                "exclude_globs": null,
+                "exclude_matches": null,
+                "include_globs": null,
+                "js": [
+                  "moz-extension://c7f9f3ec-346e-4477-9f12-8593117b323a/content.js"
+                ],
+                "match_about_blank": null,
+                "match_origin_as_fallback": null,
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle",
+                "world": "ISOLATED"
+              }
+            ],
+            "content_security_policy": null,
+            "granted_host_permissions": false,
+            "hidden": false,
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "icons": null,
+            "incognito": "spanning",
+            "minimum_chrome_version": null,
+            "minimum_opera_version": null,
+            "optional_host_permissions": [],
+            "optional_permissions": [],
+            "options_page": null,
+            "options_ui": null,
+            "permissions": [
+              "storage"
+            ],
+            "sandbox": null,
+            "web_accessible_resources": null,
+            "action": null,
+            "chrome_settings_overrides": null,
+            "commands": null,
+            "devtools_page": null,
+            "omnibox": null,
+            "page_action": null,
+            "chrome_url_overrides": null,
+            "declarative_net_request": null,
+            "default_locale": null,
+            "l10n_resources": null,
+            "theme_experiment": null,
+            "sidebar_action": null,
+            "protocol_handlers": null,
+            "experiment_apis": null,
+            "applications": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            }
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "data_collection": [],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 12582976,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        },
+        "layerQuota": {
+          "overQuotaWrite": "نجحت",
+          "notesAfterWrite": "تغيّرت",
+          "overQuotaImport": "نجحت",
+          "notesAfterImport": "تغيّرت",
+          "leftoverJournal": [],
+          "exportStillWorks": true
+        },
+        "quotaLarge": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 100663360,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        }
+      },
+      "optional": {
+        "browserVersion": "158.0.1",
+        "manifestMessages": {
+          "host": "0d7c1867-129a-4d3f-af0f-6440d821ad61",
+          "warnings": [
+            "Reading manifest: Warning processing optional_permissions: Error processing optional_permissions.0: Value \"unlimitedStorage\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"nativeMessaging\"], or be one of [\"webNavigation\"]], must either [be one of [], be one of [\"trialML\"], or be one of [\"userScripts\"]], or must either [be one of [\"<all_urls>\"], must either [match the pattern /^(https?|wss?|file|ftp|\\*):\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$/, or match the pattern /^file:\\/\\/\\/.*$/], or match the pattern /^resource:\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$|^about:/]",
+            "Reading manifest: Warning processing optional_permissions: Error processing optional_permissions.1: Value \"alarms\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"nativeMessaging\"], or be one of [\"webNavigation\"]], must either [be one of [], be one of [\"trialML\"], or be one of [\"userScripts\"]], or must either [be one of [\"<all_urls>\"], must either [match the pattern /^(https?|wss?|file|ftp|\\*):\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$/, or match the pattern /^file:\\/\\/\\/.*$/], or match the pattern /^resource:\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$|^about:/]"
+          ],
+          "errors": []
+        },
+        "probe": {
+          "quotaBytes": null,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "author": null,
+            "browser_specific_settings": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            },
+            "description": null,
+            "developer": null,
+            "homepage_url": null,
+            "install_origins": null,
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "short_name": null,
+            "version": "0.0.1",
+            "background": {
+              "page": null,
+              "preferred_environment": null,
+              "scripts": [
+                "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/background.js"
+              ],
+              "service_worker": null,
+              "type": null
+            },
+            "content_scripts": [
+              {
+                "all_frames": null,
+                "css": null,
+                "css_origin": "author",
+                "exclude_globs": null,
+                "exclude_matches": null,
+                "include_globs": null,
+                "js": [
+                  "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/content.js"
+                ],
+                "match_about_blank": null,
+                "match_origin_as_fallback": null,
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle",
+                "world": "ISOLATED"
+              }
+            ],
+            "content_security_policy": null,
+            "granted_host_permissions": false,
+            "hidden": false,
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "icons": null,
+            "incognito": "spanning",
+            "minimum_chrome_version": null,
+            "minimum_opera_version": null,
+            "optional_host_permissions": [],
+            "optional_permissions": [],
+            "options_page": null,
+            "options_ui": null,
+            "permissions": [
+              "storage"
+            ],
+            "sandbox": null,
+            "web_accessible_resources": null,
+            "action": null,
+            "chrome_settings_overrides": null,
+            "commands": null,
+            "devtools_page": null,
+            "declarative_net_request": null,
+            "omnibox": null,
+            "sidebar_action": null,
+            "page_action": null,
+            "default_locale": null,
+            "l10n_resources": null,
+            "chrome_url_overrides": null,
+            "protocol_handlers": null,
+            "theme_experiment": null,
+            "experiment_apis": null,
+            "applications": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            }
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "data_collection": [],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 12582976,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        },
+        "request": {
+          "permission": "unlimitedStorage",
+          "activation": true,
+          "error": "Type error for parameter permissions (Error processing permissions.0: Value \"unlimitedStorage\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"webNavigation\"], or be one of [\"nativeMessaging\"]], or must either [be one of [], be one of [\"userScripts\"], or be one of [\"trialML\"]]) for permissions.request."
+        },
+        "requestControl": {
+          "permission": "alarms",
+          "activation": true,
+          "error": "Type error for parameter permissions (Error processing permissions.0: Value \"alarms\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"webNavigation\"], or be one of [\"nativeMessaging\"]], or must either [be one of [], be one of [\"userScripts\"], or be one of [\"trialML\"]]) for permissions.request."
+        },
+        "probeAfterRequest": {
+          "quotaBytes": null,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "author": null,
+            "browser_specific_settings": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            },
+            "description": null,
+            "developer": null,
+            "homepage_url": null,
+            "install_origins": null,
+            "manifest_version": 3,
+            "name": "mijhar-core-test-optional",
+            "short_name": null,
+            "version": "0.0.1",
+            "background": {
+              "page": null,
+              "preferred_environment": null,
+              "scripts": [
+                "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/background.js"
+              ],
+              "service_worker": null,
+              "type": null
+            },
+            "content_scripts": [
+              {
+                "all_frames": null,
+                "css": null,
+                "css_origin": "author",
+                "exclude_globs": null,
+                "exclude_matches": null,
+                "include_globs": null,
+                "js": [
+                  "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/content.js"
+                ],
+                "match_about_blank": null,
+                "match_origin_as_fallback": null,
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle",
+                "world": "ISOLATED"
+              }
+            ],
+            "content_security_policy": null,
+            "granted_host_permissions": false,
+            "hidden": false,
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "icons": null,
+            "incognito": "spanning",
+            "minimum_chrome_version": null,
+            "minimum_opera_version": null,
+            "optional_host_permissions": [],
+            "optional_permissions": [],
+            "options_page": null,
+            "options_ui": null,
+            "permissions": [
+              "storage"
+            ],
+            "sandbox": null,
+            "web_accessible_resources": null,
+            "action": null,
+            "chrome_settings_overrides": null,
+            "commands": null,
+            "devtools_page": null,
+            "declarative_net_request": null,
+            "omnibox": null,
+            "sidebar_action": null,
+            "page_action": null,
+            "default_locale": null,
+            "l10n_resources": null,
+            "chrome_url_overrides": null,
+            "protocol_handlers": null,
+            "theme_experiment": null,
+            "experiment_apis": null,
+            "applications": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            }
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "data_collection": [],
+            "permissions": [
+              "storage"
+            ]
+          }
+        },
+        "quotaAfterRequest": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 12582976,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        }
+      },
+      "declared": {
+        "browserVersion": "158.0.1",
+        "manifestMessages": {
+          "host": "8b4b1443-b91c-4a62-ad17-63b1ac14148d",
+          "warnings": [],
+          "errors": []
+        },
+        "probe": {
+          "quotaBytes": null,
+          "hasGetBytesInUse": true,
+          "manifestPermissions": {
+            "author": null,
+            "browser_specific_settings": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            },
+            "description": null,
+            "developer": null,
+            "homepage_url": null,
+            "install_origins": null,
+            "manifest_version": 3,
+            "name": "mijhar-core-test-declared",
+            "short_name": null,
+            "version": "0.0.1",
+            "background": {
+              "page": null,
+              "preferred_environment": null,
+              "scripts": [
+                "moz-extension://8b4b1443-b91c-4a62-ad17-63b1ac14148d/background.js"
+              ],
+              "service_worker": null,
+              "type": null
+            },
+            "content_scripts": [
+              {
+                "all_frames": null,
+                "css": null,
+                "css_origin": "author",
+                "exclude_globs": null,
+                "exclude_matches": null,
+                "include_globs": null,
+                "js": [
+                  "moz-extension://8b4b1443-b91c-4a62-ad17-63b1ac14148d/content.js"
+                ],
+                "match_about_blank": null,
+                "match_origin_as_fallback": null,
+                "matches": [
+                  "https://github.com/*"
+                ],
+                "run_at": "document_idle",
+                "world": "ISOLATED"
+              }
+            ],
+            "content_security_policy": null,
+            "granted_host_permissions": false,
+            "hidden": false,
+            "host_permissions": [
+              "https://github.com/*"
+            ],
+            "icons": null,
+            "incognito": "spanning",
+            "minimum_chrome_version": null,
+            "minimum_opera_version": null,
+            "optional_host_permissions": [],
+            "optional_permissions": [],
+            "options_page": null,
+            "options_ui": null,
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ],
+            "sandbox": null,
+            "web_accessible_resources": null,
+            "action": null,
+            "chrome_settings_overrides": null,
+            "commands": null,
+            "devtools_page": null,
+            "page_action": null,
+            "omnibox": null,
+            "sidebar_action": null,
+            "chrome_url_overrides": null,
+            "declarative_net_request": null,
+            "default_locale": null,
+            "l10n_resources": null,
+            "protocol_handlers": null,
+            "theme_experiment": null,
+            "experiment_apis": null,
+            "applications": {
+              "gecko": {
+                "admin_install_only": null,
+                "data_collection_permissions": {
+                  "has_previous_consent": false,
+                  "optional": [],
+                  "required": [
+                    "none"
+                  ]
+                },
+                "id": "core-test@mijhar.local",
+                "strict_max_version": null,
+                "strict_min_version": null,
+                "update_url": null
+              },
+              "gecko_android": null
+            }
+          },
+          "permissions": {
+            "origins": [
+              "https://github.com/*"
+            ],
+            "data_collection": [],
+            "permissions": [
+              "storage",
+              "unlimitedStorage"
+            ]
+          }
+        },
+        "quota": {
+          "batchOverQuota": "نجحت",
+          "keysAfterBatch": [
+            "big",
+            "small"
+          ],
+          "bytesAfterBatch": 12582976,
+          "fillBelowQuota": "نجحت",
+          "overflow": "نجحت",
+          "keepIntact": true,
+          "overflowWritten": true
+        }
+      }
+    },
+    "browserVersion": "158.0.1"
+  }
+}

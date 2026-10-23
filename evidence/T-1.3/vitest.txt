@@ -1,0 +1,103 @@
+# tests/core/storage (T-1.3) — vitest 5.0.5، التاريخ 2026-10-23
+# الأمر: npx vitest run tests/core/storage --reporter=verbose
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj2-92ceb0
+
+ ✓ tests/core/storage/capabilities.test.ts > نتيجة HYP-06 في الشيفرة مطابقة للتجربة الفعلية > لا تُطلب وقت التشغيل في أي متصفح مقيس 1ms
+ ✓ tests/core/storage/capabilities.test.ts > نتيجة HYP-06 في الشيفرة مطابقة للتجربة الفعلية > سقف الحصة الافتراضي المسجَّل هو ما قيس، وإعلانها أساسية يرفعه 0ms
+ ✓ tests/core/storage/capabilities.test.ts > نتيجة HYP-06 في الشيفرة مطابقة للتجربة الفعلية > شاهد الطلب (alarms) مُنح في عائلة Chromium عبر المسار نفسه فرفض unlimitedStorage بسبب المانيفست لا غياب النقر 0ms
+ ✓ tests/core/storage/capabilities.test.ts > المانيفست المولَّد والتخزين > chromium: يعلن storage ولا يعلن unlimitedStorage اختيارية 1ms
+ ✓ tests/core/storage/capabilities.test.ts > المانيفست المولَّد والتخزين > firefox: يعلن storage ولا يعلن unlimitedStorage اختيارية 0ms
+ ✓ tests/core/storage/quota.test.ts > تجاوز الحصة عند الكتابة > يرفع StorageQuotaError برسالة عربية وعلاج التصدير، ولا يغيّر ما سبق 4ms
+ ✓ tests/core/storage/quota.test.ts > تجاوز الحصة عند الكتابة > يعرض طلب unlimitedStorage علاجًا حين يُعلَن أنه يُطلب وقت التشغيل 0ms
+ ✓ tests/core/storage/quota.test.ts > تجاوز الحصة عند الكتابة > بعد الفشل تنجح الكتابة الأصغر (لا حالة معطوبة) 0ms
+ ✓ tests/core/storage/quota.test.ts > تجاوز الحصة عند الكتابة > update التي تتجاوز الحصة تبقي القيمة القديمة 0ms
+ ✓ tests/core/storage/quota.test.ts > تجاوز الحصة عند الكتابة > التصدير يعمل والحصة ممتلئة (يقرأ ولا يكتب) 0ms
+ ✓ tests/core/storage/quota.test.ts > تجاوز الحصة عند الاستيراد > الاستيراد الأكبر من الحصة يُرفض بخطأ مفهوم وتعود البيانات كما كانت 3ms
+ ✓ tests/core/storage/quota.test.ts > isQuotaError > اسم QuotaExceededError 0ms
+ ✓ tests/core/storage/quota.test.ts > isQuotaError > رسالة Chromium QUOTA_BYTES 0ms
+ ✓ tests/core/storage/quota.test.ts > isQuotaError > رسالة Chromium المقيسة في Chrome 156 وEdge 155 وBrave 156 0ms
+ ✓ tests/core/storage/quota.test.ts > isQuotaError > رسالة تحوي quota في Firefox 0ms
+ ✓ tests/core/storage/quota.test.ts > isQuotaError > خطأ آخر 0ms
+ ✓ tests/core/storage/quota.test.ts > isQuotaError > null 0ms
+ ✓ tests/core/storage/quota.test.ts > isQuotaError > نص لا كائن 0ms
+ ✓ tests/core/storage/migration.test.ts > من الإصدار 0 (بلا ختم) إلى الحالي بالترحيل المرفق > ينجح، ويختم الإصدار، ويحفظ نسخة احتياطية حرفية قبل الترحيل، ولا يترك سجل عملية 5ms
+ ✓ tests/core/storage/migration.test.ts > من الإصدار 0 (بلا ختم) إلى الحالي بالترحيل المرفق > فتح ثانٍ لا يرحّل ولا ينشئ نسخة جديدة 0ms
+ ✓ tests/core/storage/migration.test.ts > سلسلة خطوات من إصدار مختوم > 1←2←3: تتحول البيانات خطوة خطوة بنسخة احتياطية واحدة للحالة الأصلية 1ms
+ ✓ tests/core/storage/migration.test.ts > سلسلة خطوات من إصدار مختوم > migrationPath: يتصل أو ينقطع 0ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > خطأ في دالة ترحيل: لا يُكتب شيء إطلاقًا (لا نسخة ولا سجل)، ويُعرف الموضع 1ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > ناتج ترحيل غير صالح (قيمة لا تُخزَّن) يُعامل كفشل خطوة ولا يُكتب 0ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > انقطاع المسار (لا خطوة من الإصدار الحالي) يرفض دون كتابة 0ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > فشل الكتابة الذرّية: يُعاد كل شيء وتبقى النسخة الاحتياطية ولا يبقى سجل عملية 1ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > كتابة جزئية (منطقة غير ذرّية) ثم فشل: الإرجاع يعيد المفاتيح كلها 2ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > انهيار الاسترجاع نفسه: يبقى السجل، وفتح لاحق يستردّ تلقائيًا بلا فقد ثم يرحّل بنجاح 6ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > انهيار بعد انتصاف الكتابة: الفتح التالي يُرجع النسخة ويبقى الترحيل الفاشل فاشلًا دون فقد 1ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > فشل التنظيف بعد الكتابة الذرّية لا يُرجع ترحيلًا ناجحًا، ويُكمَل عند الفتح التالي 0ms
+ ✓ tests/core/storage/migration.test.ts > الفشل لا يفقد بيانات > النسخة الاحتياطية الأكبر من الحصة توقف الترحيل قبل أي تغيير بخطأ مفهوم 0ms
+ ✓ tests/core/storage/migration.test.ts > إصدارات لا يرحّلها هذا السياق > بيانات بمخطط أحدث من المدعوم: يرفض ولا يعدّل (لا تراجع للأقدم) 0ms
+ ✓ tests/core/storage/migration.test.ts > إصدارات لا يرحّلها هذا السياق > سياق migrate:false يرفض بيانات أقدم بدل أن يرحّلها 0ms
+ ✓ tests/core/storage/migration.test.ts > إصدارات لا يرحّلها هذا السياق > سياق migrate:false يفتح بيانات بالإصدار الحالي 0ms
+ ✓ tests/core/storage/migration.test.ts > النسخ الاحتياطية بعد ترحيلات متتالية > تحتفظ بالأحدث فقط (keepBackups) 0ms
+ ✓ tests/core/storage/migration.test.ts > تزامن السياقات > سياقان يفتحان بيانات قديمة معًا بالقفل: ترحيل واحد ونسخة احتياطية واحدة وبيانات سليمة 0ms
+ ✓ tests/core/storage/migration.test.ts > تزامن السياقات > فتح سياق أثناء استيراد في آخر لا يستردّ العملية الجارية 0ms
+ ✓ tests/core/storage/migration.test.ts > تزامن السياقات > سياق migrate:false يرفض عملية لم تكتمل بدل أن يستردّها، ولا يمس شيئًا 0ms
+ ✓ tests/core/storage/migration.test.ts > تزامن السياقات > سياق migrate:false يقرأ بعد كتابة ذرّية مكتملة ولا يستردّ ولا يحذف سجل العملية 0ms
+ ✓ tests/core/storage/migration.test.ts > تزامن السياقات > سياق يرحّل يُكمل عملية مكتملة ذرّيًا ثم انقطعت: يحذف المتبقي ولا يُرجع 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > مخزن جديد: يختم الإصدار الحالي ولا ينشئ نسخة احتياطية 3ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > قراءة سجل غير موجود تعيد نسخة من الافتراضي لا مرجعه 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > كتابة ثم قراءة ثم حذف 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > عشرون update متزامنة لا تدهس بعضها (تسلسل داخل السياق) 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > update تعيد القيمة المكتوبة وتقبل قيمة جديدة بدل تعديل المسودة 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > فشل update في المنتصف لا يعطّل ما بعده من الكتابات 1ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > قيمة غير قابلة للتخزين مرفوضة: undefined 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > قيمة غير قابلة للتخزين مرفوضة: دالة 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > قيمة غير قابلة للتخزين مرفوضة: NaN داخل كائن 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > قيمة غير قابلة للتخزين مرفوضة: Date 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > قيمة غير قابلة للتخزين مرفوضة: undefined داخل كائن 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > اسم سجل غير صالح مرفوض: «» 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > اسم سجل غير صالح مرفوض: «1abc» 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > اسم سجل غير صالح مرفوض: «a b» 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > اسم سجل غير صالح مرفوض: «a:b» 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > اسم سجل غير صالح مرفوض: «mijhar:x» 0ms
+ ✓ tests/core/storage/store.test.ts > الفتح والسجلات > usage يعيد البايتات المستعملة (بـgetBytesInUse إن وُجدت، وإلا بالتقدير) 0ms
+ ✓ tests/core/storage/store.test.ts > الاشتراك والبث بين السياقات > تغيّر سجل في سياق يصل مشتركي سياق آخر (يتشاركان المنطقة) 4ms
+ ✓ tests/core/storage/store.test.ts > الاشتراك والبث بين السياقات > الكاتب نفسه يستلم الحدث (كما storage.onChanged) والإلغاء يوقفه 2ms
+ ✓ tests/core/storage/store.test.ts > الاشتراك والبث بين السياقات > لا يصل المشترك تغيّر سجل آخر ولا مفاتيح النظام 2ms
+ ✓ tests/core/storage/store.test.ts > الاشتراك والبث بين السياقات > dispose يفك الاشتراكات من المصدر 1ms
+ ✓ tests/core/storage/store.test.ts > الاشتراك والبث بين السياقات > subscribe بلا ChangeSource خطأ صريح 0ms
+ ✓ tests/core/storage/store.test.ts > النسخ الاحتياطية اليدوية والإرجاع > createBackup ثم تغيير ثم restoreBackup يعيد الحالة السابقة بعد نسخة أمان 6ms
+ ✓ tests/core/storage/store.test.ts > النسخ الاحتياطية اليدوية والإرجاع > restoreBackup لنسخة غير موجودة يرفض ولا يغيّر شيئًا 0ms
+ ✓ tests/core/storage/store.test.ts > النسخ الاحتياطية اليدوية والإرجاع > keepBackups يحتفظ بالأحدث فقط 1ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > تصدير ثم استيراد في مخزن آخر يعيد السجلات نفسها 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > replace يستبدل ما ليس في الملف ويحذفه، وmerge يبقيه 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > الاستيراد ينشئ نسخة احتياطية من الحالة السابقة قبل أي كتابة 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > ملف استيراد غير صالح مرفوض ولا يمس البيانات: ليس كائنًا 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > ملف استيراد غير صالح مرفوض ولا يمس البيانات: صيغة مجهولة 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > ملف استيراد غير صالح مرفوض ولا يمس البيانات: إصدار غير صالح 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > ملف استيراد غير صالح مرفوض ولا يمس البيانات: records ليست كائنًا 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > ملف استيراد غير صالح مرفوض ولا يمس البيانات: إصدار أحدث من المدعوم 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > اسم سجل أو قيمة غير صالحة داخل الملف ترفض الاستيراد كله 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > ملف بمخطط أقدم يُرحَّل في الذاكرة قبل الكتابة 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > فشل ترحيل ملف الاستيراد يرفض دون كتابة 0ms
+ ✓ tests/core/storage/store.test.ts > التصدير والاستيراد > فشل الكتابة أثناء الاستيراد يعيد البيانات كما كانت 1ms
+ ✓ tests/core/storage/settings.test.ts > SettingsRegistry > يرفض المفتاح المكرر والمفتاح غير الصالح والافتراضي الذي لا يجتاز مدققه 1ms
+ ✓ tests/core/storage/settings.test.ts > SettingsRegistry > defineModuleToggle يعرّف modules.<id>.enabled بافتراضي صريح 0ms
+ ✓ tests/core/storage/settings.test.ts > القراءة والكتابة > الافتراضي ثم الكتابة ثم إعادة الضبط؛ ولا يُخزَّن إلا ما خالف الافتراضي 2ms
+ ✓ tests/core/storage/settings.test.ts > القراءة والكتابة > يرفض قيمة لا تجتاز المدقق ومفتاحًا غير معرَّف دون كتابة 1ms
+ ✓ tests/core/storage/settings.test.ts > القراءة والكتابة > كتابة بقيمة مساوية للفعلية لا تكتب ولا تُصدر حدثًا 2ms
+ ✓ tests/core/storage/settings.test.ts > القراءة والكتابة > قيم مخزنة غير صالحة أو لمفاتيح مجهولة تُهمل في العرض وتبقى في التخزين كما هي 0ms
+ ✓ tests/core/storage/settings.test.ts > القراءة والكتابة > all يعيد القيم الفعلية لكل المعرَّف 0ms
+ ✓ tests/core/storage/settings.test.ts > البث إلى السياقات المفتوحة (AC-1.3) > تغيّر في سياق يصل الآخر بمصدر remote، ويرى الكاتب حدثًا واحدًا local دون تكرار 1ms
+ ✓ tests/core/storage/settings.test.ts > البث إلى السياقات المفتوحة (AC-1.3) > سياق ثالث يُفتح لاحقًا يرى الحالة المحفوظة 0ms
+ ✓ tests/core/storage/settings.test.ts > البث إلى السياقات المفتوحة (AC-1.3) > عشر كتابات متتابعة: يرى الآخر النتيجة النهائية وبترتيب الكتابة، والكاتب أحداثه local العشرة 1ms
+ ✓ tests/core/storage/settings.test.ts > البث إلى السياقات المفتوحة (AC-1.3) > كتابات من سياقين في وقت واحد تنتهي بحالة واحدة متفق عليها في الاثنين 1ms
+ ✓ tests/core/storage/settings.test.ts > البث إلى السياقات المفتوحة (AC-1.3) > فشل الكتابة بالحصة: لا تغيير ولا حدث، ويبقى البث اللاحق سليمًا 3ms
+ ✓ tests/core/storage/settings.test.ts > البث إلى السياقات المفتوحة (AC-1.3) > dispose يفك الاشتراك فلا يصل شيء بعده 1ms
+ ✓ tests/core/storage/settings.test.ts > ربط مفاتيح الوحدات بمدير دورة الحياة في سياقين > إيقاف وحدة في سياق يزيلها من صفحة السياق الآخر، وتفعيلها يعيد تركيبها 63ms
+ ✓ tests/core/storage/settings.test.ts > ربط مفاتيح الوحدات بمدير دورة الحياة في سياقين > تغيّر إعداد غير مفتاح وحدة لا يعيد توفيق الوحدات 9ms
+
+ Test Files  5 passed (5)
+      Tests  92 passed (92)
+   Start at  09:09:34
+   Duration  482ms (import 52%, tests 25%, transform 21%, worker 2%)
+

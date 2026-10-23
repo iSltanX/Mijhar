@@ -1,0 +1,13 @@
+# الأنواع والاختبارات كاملة على فرع MJ2 — 2026-10-23
+$ npx tsc --noEmit
+(خرج 0)
+$ npx vitest run
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj2-92ceb0
+
+
+ Test Files  12 passed (12)
+      Tests  230 passed (230)
+   Start at  09:09:36
+   Duration  2.58s (tests 53%, import 43%, transform 3%, worker 1%)
+

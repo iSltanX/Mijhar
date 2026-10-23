@@ -13,6 +13,7 @@
       "strict_min_version": "142.0"
     }
   },
+  "permissions": ["storage"],
   "host_permissions": ["https://github.com/*"],
   "background": {
     "scripts": ["background.js"]
