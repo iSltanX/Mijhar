@@ -7,7 +7,7 @@ $ npx vitest run
 
 
  Test Files  12 passed (12)
-      Tests  225 passed (225)
-   Start at  09:04:26
-   Duration  2.52s (tests 54%, import 39%, transform 6%)
+      Tests  230 passed (230)
+   Start at  09:09:36
+   Duration  2.58s (tests 53%, import 43%, transform 3%, worker 1%)
 

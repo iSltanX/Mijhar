@@ -1260,7 +1260,7 @@
       "baseline": {
         "browserVersion": "158.0.1",
         "manifestMessages": {
-          "host": "1c87b862-e77a-4ef8-bb38-5c65823d4618",
+          "host": "c7f9f3ec-346e-4477-9f12-8593117b323a",
           "warnings": [],
           "errors": []
         },
@@ -1298,7 +1298,7 @@
               "page": null,
               "preferred_environment": null,
               "scripts": [
-                "moz-extension://1c87b862-e77a-4ef8-bb38-5c65823d4618/background.js"
+                "moz-extension://c7f9f3ec-346e-4477-9f12-8593117b323a/background.js"
               ],
               "service_worker": null,
               "type": null
@@ -1312,7 +1312,7 @@
                 "exclude_matches": null,
                 "include_globs": null,
                 "js": [
-                  "moz-extension://1c87b862-e77a-4ef8-bb38-5c65823d4618/content.js"
+                  "moz-extension://c7f9f3ec-346e-4477-9f12-8593117b323a/content.js"
                 ],
                 "match_about_blank": null,
                 "match_origin_as_fallback": null,
@@ -1343,18 +1343,18 @@
             "sandbox": null,
             "web_accessible_resources": null,
             "action": null,
+            "chrome_settings_overrides": null,
             "commands": null,
             "devtools_page": null,
-            "chrome_settings_overrides": null,
-            "page_action": null,
             "omnibox": null,
-            "sidebar_action": null,
+            "page_action": null,
             "chrome_url_overrides": null,
             "declarative_net_request": null,
             "default_locale": null,
             "l10n_resources": null,
-            "protocol_handlers": null,
             "theme_experiment": null,
+            "sidebar_action": null,
+            "protocol_handlers": null,
             "experiment_apis": null,
             "applications": {
               "gecko": {
@@ -1420,10 +1420,10 @@
       "optional": {
         "browserVersion": "158.0.1",
         "manifestMessages": {
-          "host": "45ad5b5f-aceb-478d-94de-35b1528a909f",
+          "host": "0d7c1867-129a-4d3f-af0f-6440d821ad61",
           "warnings": [
-            "Reading manifest: Warning processing optional_permissions: Error processing optional_permissions.0: Value \"unlimitedStorage\" must either: must either [must either [be one of [\"idle\"], be one of [\"menus.overrideContext\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"activeTab\"], be one of [\"cookies\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"find\"], be one of [\"history\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"tabs\", \"tabHide\"], be one of [\"topSites\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"management\"], be one of [\"privacy\"], be one of [\"proxy\"], be one of [\"nativeMessaging\"], or be one of [\"webNavigation\"]], must either [be one of [], be one of [\"trialML\"], or be one of [\"userScripts\"]], or must either [be one of [\"<all_urls>\"], must either [match the pattern /^(https?|wss?|file|ftp|\\*):\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$/, or match the pattern /^file:\\/\\/\\/.*$/], or match the pattern /^resource:\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$|^about:/]",
-            "Reading manifest: Warning processing optional_permissions: Error processing optional_permissions.1: Value \"alarms\" must either: must either [must either [be one of [\"idle\"], be one of [\"menus.overrideContext\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"activeTab\"], be one of [\"cookies\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"find\"], be one of [\"history\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"tabs\", \"tabHide\"], be one of [\"topSites\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"management\"], be one of [\"privacy\"], be one of [\"proxy\"], be one of [\"nativeMessaging\"], or be one of [\"webNavigation\"]], must either [be one of [], be one of [\"trialML\"], or be one of [\"userScripts\"]], or must either [be one of [\"<all_urls>\"], must either [match the pattern /^(https?|wss?|file|ftp|\\*):\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$/, or match the pattern /^file:\\/\\/\\/.*$/], or match the pattern /^resource:\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$|^about:/]"
+            "Reading manifest: Warning processing optional_permissions: Error processing optional_permissions.0: Value \"unlimitedStorage\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"nativeMessaging\"], or be one of [\"webNavigation\"]], must either [be one of [], be one of [\"trialML\"], or be one of [\"userScripts\"]], or must either [be one of [\"<all_urls>\"], must either [match the pattern /^(https?|wss?|file|ftp|\\*):\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$/, or match the pattern /^file:\\/\\/\\/.*$/], or match the pattern /^resource:\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$|^about:/]",
+            "Reading manifest: Warning processing optional_permissions: Error processing optional_permissions.1: Value \"alarms\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"nativeMessaging\"], or be one of [\"webNavigation\"]], must either [be one of [], be one of [\"trialML\"], or be one of [\"userScripts\"]], or must either [be one of [\"<all_urls>\"], must either [match the pattern /^(https?|wss?|file|ftp|\\*):\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$/, or match the pattern /^file:\\/\\/\\/.*$/], or match the pattern /^resource:\\/\\/(\\*|\\*\\.[^*/]+|[^*/]+)\\/.*$|^about:/]"
           ],
           "errors": []
         },
@@ -1461,7 +1461,7 @@
               "page": null,
               "preferred_environment": null,
               "scripts": [
-                "moz-extension://45ad5b5f-aceb-478d-94de-35b1528a909f/background.js"
+                "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/background.js"
               ],
               "service_worker": null,
               "type": null
@@ -1475,7 +1475,7 @@
                 "exclude_matches": null,
                 "include_globs": null,
                 "js": [
-                  "moz-extension://45ad5b5f-aceb-478d-94de-35b1528a909f/content.js"
+                  "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/content.js"
                 ],
                 "match_about_blank": null,
                 "match_origin_as_fallback": null,
@@ -1509,13 +1509,13 @@
             "chrome_settings_overrides": null,
             "commands": null,
             "devtools_page": null,
-            "omnibox": null,
-            "page_action": null,
-            "sidebar_action": null,
-            "chrome_url_overrides": null,
             "declarative_net_request": null,
+            "omnibox": null,
+            "sidebar_action": null,
+            "page_action": null,
             "default_locale": null,
             "l10n_resources": null,
+            "chrome_url_overrides": null,
             "protocol_handlers": null,
             "theme_experiment": null,
             "experiment_apis": null,
@@ -1562,12 +1562,12 @@
         "request": {
           "permission": "unlimitedStorage",
           "activation": true,
-          "error": "Type error for parameter permissions (Error processing permissions.0: Value \"unlimitedStorage\" must either: must either [must either [be one of [\"idle\"], be one of [\"menus.overrideContext\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"activeTab\"], be one of [\"cookies\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"find\"], be one of [\"history\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"tabs\", \"tabHide\"], be one of [\"topSites\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"management\"], be one of [\"privacy\"], be one of [\"proxy\"], be one of [\"webNavigation\"], or be one of [\"nativeMessaging\"]], or must either [be one of [], be one of [\"userScripts\"], or be one of [\"trialML\"]]) for permissions.request."
+          "error": "Type error for parameter permissions (Error processing permissions.0: Value \"unlimitedStorage\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"webNavigation\"], or be one of [\"nativeMessaging\"]], or must either [be one of [], be one of [\"userScripts\"], or be one of [\"trialML\"]]) for permissions.request."
         },
         "requestControl": {
           "permission": "alarms",
           "activation": true,
-          "error": "Type error for parameter permissions (Error processing permissions.0: Value \"alarms\" must either: must either [must either [be one of [\"idle\"], be one of [\"menus.overrideContext\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"activeTab\"], be one of [\"cookies\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"find\"], be one of [\"history\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"tabs\", \"tabHide\"], be one of [\"topSites\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"management\"], be one of [\"privacy\"], be one of [\"proxy\"], be one of [\"webNavigation\"], or be one of [\"nativeMessaging\"]], or must either [be one of [], be one of [\"userScripts\"], or be one of [\"trialML\"]]) for permissions.request."
+          "error": "Type error for parameter permissions (Error processing permissions.0: Value \"alarms\" must either: must either [must either [be one of [\"idle\"], be one of [\"activeTab\"], be one of [\"menus.overrideContext\"], be one of [\"cookies\"], be one of [\"search\"], be one of [\"tabGroups\"], be one of [\"publicSuffix\"], be one of [\"scripting\"], or be one of [\"webRequest\", \"webRequestAuthProvider\", \"webRequestBlocking\", \"webRequestFilterResponse\", \"webRequestFilterResponse.serviceWorkerScript\"]], be one of [\"clipboardRead\", \"clipboardWrite\", \"geolocation\", \"notifications\"], be one of [\"bookmarks\"], be one of [\"browsingData\"], be one of [\"devtools\"], be one of [\"history\"], be one of [\"find\"], be one of [\"topSites\"], be one of [\"tabs\", \"tabHide\"], be one of [\"browserSettings\"], be one of [\"declarativeNetRequestFeedback\"], be one of [\"downloads\", \"downloads.open\"], be one of [\"pkcs11\"], be one of [\"sessions\"], be one of [\"privacy\"], be one of [\"management\"], be one of [\"proxy\"], be one of [\"webNavigation\"], or be one of [\"nativeMessaging\"]], or must either [be one of [], be one of [\"userScripts\"], or be one of [\"trialML\"]]) for permissions.request."
         },
         "probeAfterRequest": {
           "quotaBytes": null,
@@ -1603,7 +1603,7 @@
               "page": null,
               "preferred_environment": null,
               "scripts": [
-                "moz-extension://45ad5b5f-aceb-478d-94de-35b1528a909f/background.js"
+                "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/background.js"
               ],
               "service_worker": null,
               "type": null
@@ -1617,7 +1617,7 @@
                 "exclude_matches": null,
                 "include_globs": null,
                 "js": [
-                  "moz-extension://45ad5b5f-aceb-478d-94de-35b1528a909f/content.js"
+                  "moz-extension://0d7c1867-129a-4d3f-af0f-6440d821ad61/content.js"
                 ],
                 "match_about_blank": null,
                 "match_origin_as_fallback": null,
@@ -1651,13 +1651,13 @@
             "chrome_settings_overrides": null,
             "commands": null,
             "devtools_page": null,
-            "omnibox": null,
-            "page_action": null,
-            "sidebar_action": null,
-            "chrome_url_overrides": null,
             "declarative_net_request": null,
+            "omnibox": null,
+            "sidebar_action": null,
+            "page_action": null,
             "default_locale": null,
             "l10n_resources": null,
+            "chrome_url_overrides": null,
             "protocol_handlers": null,
             "theme_experiment": null,
             "experiment_apis": null,
@@ -1705,7 +1705,7 @@
       "declared": {
         "browserVersion": "158.0.1",
         "manifestMessages": {
-          "host": "a32272fc-4e15-4432-ab3a-34f0e3847171",
+          "host": "8b4b1443-b91c-4a62-ad17-63b1ac14148d",
           "warnings": [],
           "errors": []
         },
@@ -1743,7 +1743,7 @@
               "page": null,
               "preferred_environment": null,
               "scripts": [
-                "moz-extension://a32272fc-4e15-4432-ab3a-34f0e3847171/background.js"
+                "moz-extension://8b4b1443-b91c-4a62-ad17-63b1ac14148d/background.js"
               ],
               "service_worker": null,
               "type": null
@@ -1757,7 +1757,7 @@
                 "exclude_matches": null,
                 "include_globs": null,
                 "js": [
-                  "moz-extension://a32272fc-4e15-4432-ab3a-34f0e3847171/content.js"
+                  "moz-extension://8b4b1443-b91c-4a62-ad17-63b1ac14148d/content.js"
                 ],
                 "match_about_blank": null,
                 "match_origin_as_fallback": null,
@@ -1792,8 +1792,8 @@
             "chrome_settings_overrides": null,
             "commands": null,
             "devtools_page": null,
-            "omnibox": null,
             "page_action": null,
+            "omnibox": null,
             "sidebar_action": null,
             "chrome_url_overrides": null,
             "declarative_net_request": null,

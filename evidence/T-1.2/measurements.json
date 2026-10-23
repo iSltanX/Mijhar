@@ -6,45 +6,45 @@
     "results": {
       "repo/معطلة": {
         "n": 30,
-        "median": 1.145,
-        "p95": 1.624,
-        "min": 1.082,
-        "max": 7.464
+        "median": 1.135,
+        "p95": 1.634,
+        "min": 1.04,
+        "max": 8.282
       },
       "repo/مفعلة": {
         "n": 30,
-        "median": 2.597,
-        "p95": 5.522,
-        "min": 2.211,
-        "max": 8.606
+        "median": 2.44,
+        "p95": 3.273,
+        "min": 2.147,
+        "max": 7.135
       },
       "pr/معطلة": {
         "n": 30,
-        "median": 1.146,
-        "p95": 7.511,
-        "min": 1.044,
-        "max": 10.688
+        "median": 1.135,
+        "p95": 6.718,
+        "min": 0.986,
+        "max": 7.156
       },
       "pr/مفعلة": {
         "n": 30,
-        "median": 2.21,
-        "p95": 3.556,
-        "min": 1.992,
-        "max": 10.769
+        "median": 2.124,
+        "p95": 3.53,
+        "min": 1.954,
+        "max": 9.941
       },
       "issue/معطلة": {
         "n": 30,
-        "median": 1.229,
-        "p95": 1.984,
-        "min": 1.136,
-        "max": 2.192
+        "median": 1.222,
+        "p95": 1.846,
+        "min": 1.108,
+        "max": 2.034
       },
       "issue/مفعلة": {
         "n": 30,
-        "median": 2.19,
-        "p95": 4.232,
-        "min": 1.958,
-        "max": 4.952
+        "median": 2.401,
+        "p95": 5.241,
+        "min": 2.061,
+        "max": 5.431
       }
     }
   },
@@ -54,22 +54,22 @@
     "navigations": 30,
     "pb07Ms": {
       "n": 30,
-      "median": 0.794,
-      "p95": 1.088,
-      "min": 0.554,
-      "max": 1.221
+      "median": 0.824,
+      "p95": 2.174,
+      "min": 0.447,
+      "max": 2.548
     },
     "heap": {
       "gcForced": true,
       "withModules": {
-        "slopeBytesPerNavigation": 59564.1,
-        "firstBytes": 69872984,
-        "lastBytes": 71597120
+        "slopeBytesPerNavigation": 58908.6,
+        "firstBytes": 69879024,
+        "lastBytes": 71591312
       },
       "controlNoModules": {
-        "slopeBytesPerNavigation": 48948.4,
-        "firstBytes": 67062760,
-        "lastBytes": 68155944
+        "slopeBytesPerNavigation": 50845.6,
+        "firstBytes": 67064168,
+        "lastBytes": 68156512
       }
     }
   },
@@ -80,31 +80,31 @@
     "results": {
       "repo": {
         "n": 30,
-        "median": 0.231,
-        "p95": 0.322,
-        "min": 0.173,
-        "max": 1.026
+        "median": 0.24,
+        "p95": 0.39,
+        "min": 0.186,
+        "max": 0.396
       },
       "pr": {
         "n": 30,
-        "median": 0.201,
-        "p95": 0.258,
-        "min": 0.173,
-        "max": 0.288
+        "median": 0.197,
+        "p95": 0.271,
+        "min": 0.178,
+        "max": 0.277
       },
       "issue": {
         "n": 30,
         "median": 0.194,
-        "p95": 0.275,
-        "min": 0.176,
-        "max": 0.352
+        "p95": 0.296,
+        "min": 0.175,
+        "max": 0.311
       },
       "blob": {
         "n": 30,
-        "median": 0.202,
-        "p95": 0.27,
-        "min": 0.179,
-        "max": 0.311
+        "median": 0.197,
+        "p95": 0.304,
+        "min": 0.174,
+        "max": 5.904
       }
     }
   }

@@ -3,7 +3,7 @@
 
  RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj2-92ceb0
 
- ✓ tests/core/detector/page-types.test.ts > classifyPath > / ← home 1ms
+ ✓ tests/core/detector/page-types.test.ts > classifyPath > / ← home 3ms
  ✓ tests/core/detector/page-types.test.ts > classifyPath > /octocat ← profile 0ms
  ✓ tests/core/detector/page-types.test.ts > classifyPath > /octo/demo ← repo 0ms
  ✓ tests/core/detector/page-types.test.ts > classifyPath > /octo/demo/ ← repo 0ms
@@ -41,95 +41,95 @@
  ✓ tests/core/detector/page-types.test.ts > classifyPath > مقاطع مرمَّزة بالنسبة المئوية تُفك، وغير الصالح منها لا يرمي 0ms
  ✓ tests/core/detector/page-types.test.ts > classifyPath > أسماء الجذور المحجوزة غير حساسة لحالة الأحرف 0ms
  ✓ tests/core/detector/page-types.test.ts > classifyPath > كل نوع يُعيده التصنيف مُعرَّف في PAGE_TYPES 1ms
- ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > عينة repo: النوع https://github.com/octo/demo بثقة high مع حاوية رئيسية 59ms
- ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > عينة pr: النوع https://github.com/octo/demo/pull/42 بثقة high مع حاوية رئيسية 7ms
+ ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > عينة repo: النوع https://github.com/octo/demo بثقة high مع حاوية رئيسية 60ms
+ ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > عينة pr: النوع https://github.com/octo/demo/pull/42 بثقة high مع حاوية رئيسية 8ms
  ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > عينة issue: النوع https://github.com/octo/demo/issues/7 بثقة high مع حاوية رئيسية 7ms
  ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > عينة blob: النوع https://github.com/octo/demo/blob/main/README.md بثقة high مع حاوية رئيسية 5ms
- ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > ينقل المستودع ورقم طلب الدمج من المسار 5ms
+ ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > ينقل المستودع ورقم طلب الدمج من المسار 7ms
  ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > المسار لا يطابق البنية: ثقة low دون انهيار، والحاوية بديلة (BLK-DOM-SELECTOR) 6ms
  ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > ترقيع محدد واحد في الجدول يعيد الثقة دون المساس بغيره 5ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > insert: يُزال العنصر المحقون ويعود DOM كما كان 41ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > setAttribute على سمة موجودة وغائبة 7ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > removeAttribute يعيد السمة بقيمتها الأصلية 4ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > addClass لا يزيل عند العكس صنفًا كان موجودًا؛ وclass الفارغة تُزال إن لم تكن موجودة أصلًا 4ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > removeClass يعيد الأصناف المزالة فقط 8ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > setStyle يعيد القيمة السابقة أو يزيل الخاصية والسمة style الفارغة 7ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > replace يعيد العقدة الأصلية في موضعها 6ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > custom يُنفَّذ ضمن الترتيب المعاكس مع غيره 13ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > الترتيب المعاكس يعيد الكتابات المتتابعة على السمة نفسها إلى الأصل 15ms
- ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > عند البدء تُركَّب الوحدات المفعَّلة الملائمة للصفحة فقط 70ms
- ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > start مرتين لا يركّب مرتين 8ms
+ ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة repo: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 70ms
+ ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة pr: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 20ms
+ ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة issue: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 13ms
+ ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > عند البدء تُركَّب الوحدات المفعَّلة الملائمة للصفحة فقط 61ms
+ ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > start مرتين لا يركّب مرتين 9ms
  ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > refresh بلا تغيير في الإعدادات لا يركّب ولا يوقف ولا يعيد تركيب أحد 7ms
- ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > إيقاف وحدة لا يمس غيرها، وإعادة تفعيلها تركّبها مرة واحدة 16ms
- ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة repo: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 67ms
- ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة pr: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 16ms
- ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة issue: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 14ms
- ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة blob: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 8ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > سمة غيّرها GitHub بعد الكتابة 4ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > سمة حذفها طرف آخر 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > سمة أزالتها الإضافة ثم أعاد طرف آخر كتابتها 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > خاصية style غيّرها طرف آخر 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > عنصر محقون أزاله الصفحة: لا شيء يُعاد ويُعدّ alreadyGone لا استثناء 2ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > عقدة بديلة فصلها GitHub: يُعتمد ما صنعه ولا يُدرَج الأصل 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > أعادت الصفحة العقدة الأصلية بنفسها: لا يُكتب فوقها وتُزال البديلة 4ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > custom يرمي: يُسجَّل ولا يوقف بقية الاستعادة 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > عملية DOM داخلية ترمي وقت الاستعادة: تُسجَّل undo-threw وتستمر بقية الاستعادة 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > restore مرتين: الثاني فارغ 2ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > كتابة بعد الإغلاق تُرفض ولا تمس DOM وتُعدّ 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > insert يرفض عقدة مرتبطة بأب وDocumentFragment؛ replace يرفض أصلًا بلا أب 3ms
- ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > معرّف الوحدة والمدة في التقرير 0ms
- ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > كل تنقل: الوحدات الملائمة والمفعَّلة فقط مركَّبة، وكل واحدة بحقن واحد 181ms
- ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > مضيف غير github.com يُصنَّف external بثقة low 5ms
- ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > نوع بلا مفتاح confirm يبقى low (other) 7ms
- ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > محدد معطوب الصياغة في الجدول يُعامَل كغياب لا استثناء 6ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > start يعلن الحالة الأولى بلا سابق، وتكراره بلا أثر 6ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > turbo:render ثم turbo:load للتنقل الواحد يعلنان تغيّرًا واحدًا 10ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > تغيّر الهاش وحده لا يُعلن تغيّرًا 11ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > تنقل يستبدل body لنفس المسار يُعلن (إعادة تحميل فعلية) 21ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > popstate يُعلن بعد هدوء settleMs لا فورًا 14ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > خطأ مشترك لا يمنع بقية المشتركين ويصل إلى onError 6ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > stop يفك كل المستمعات والمراقبات والمؤقتات ولا يعلن بعده 9ms
- ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > subscribe يعيد دالة إلغاء 7ms
- ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > stop يعيد DOM إلى لقطة ما قبل البدء حرفيًا ويفك كل المستمعات 23ms
- ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > stop يوقف الوحدات بترتيب معاكس لتركيبها، وstop الثاني بلا أثر 9ms
- ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > إلغاء ctx.signal عند الإيقاف، والكتابة اللاحقة من استمرار غير متزامن تُرفض 6ms
+ ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > إيقاف وحدة لا يمس غيرها، وإعادة تفعيلها تركّبها مرة واحدة 9ms
+ ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > stop يعيد DOM إلى لقطة ما قبل البدء حرفيًا ويفك كل المستمعات 11ms
+ ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > stop يوقف الوحدات بترتيب معاكس لتركيبها، وstop الثاني بلا أثر 11ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > insert: يُزال العنصر المحقون ويعود DOM كما كان 47ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > setAttribute على سمة موجودة وغائبة 4ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > removeAttribute يعيد السمة بقيمتها الأصلية 6ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > addClass لا يزيل عند العكس صنفًا كان موجودًا؛ وclass الفارغة تُزال إن لم تكن موجودة أصلًا 11ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > removeClass يعيد الأصناف المزالة فقط 5ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > setStyle يعيد القيمة السابقة أو يزيل الخاصية والسمة style الفارغة 11ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > replace يعيد العقدة الأصلية في موضعها 24ms
+ ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > كل تنقل: الوحدات الملائمة والمفعَّلة فقط مركَّبة، وكل واحدة بحقن واحد 168ms
+ ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > إلغاء ctx.signal عند الإيقاف، والكتابة اللاحقة من استمرار غير متزامن تُرفض 7ms
  ✓ tests/core/lifecycle/manager.test.ts > التركيب والإيقاف > ctx.onTeardown ينفَّذ بترتيب معاكس قبل استعادة DOM 7ms
- ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > فشل تركيب وحدة يستعيد تعديلاتها الجزئية ولا يمس بقية الوحدات 8ms
- ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > الوحدة الفاشلة تُعاد محاولتها عند التوفيق التالي (تنقل أو تغيّر إعدادات) وتُمسح حالة الفشل بنجاحها 10ms
- ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > mount غير المتزامنة تُعدّ فشلًا وتُستعاد تعديلاتها 6ms
- ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > استثناء في unmount يُبلَّغ وتبقى الاستعادة المسجَّلة تعمل 5ms
- ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > استثناء في isEnabled يعني معطَّلة ويُبلَّغ 11ms
- ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > استثناء في إنشاء ctx.observe بعد الإغلاق لا يفتح مراقبًا 5ms
- ✓ tests/core/lifecycle/manager.test.ts > SelectorsRegistry والوحدات > تضيف الوحدة محدداتها مرة، ولا تستبدل مفتاحًا رُقّع قبلها 7ms
+ ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > فشل تركيب وحدة يستعيد تعديلاتها الجزئية ولا يمس بقية الوحدات 14ms
+ ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > الوحدة الفاشلة تُعاد محاولتها عند التوفيق التالي (تنقل أو تغيّر إعدادات) وتُمسح حالة الفشل بنجاحها 19ms
+ ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > mount غير المتزامنة تُعدّ فشلًا وتُستعاد تعديلاتها 8ms
+ ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > استثناء في unmount يُبلَّغ وتبقى الاستعادة المسجَّلة تعمل 7ms
+ ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > استثناء في isEnabled يعني معطَّلة ويُبلَّغ 12ms
+ ✓ tests/core/lifecycle/manager.test.ts > عزل الأخطاء > استثناء في إنشاء ctx.observe بعد الإغلاق لا يفتح مراقبًا 6ms
+ ✓ tests/core/lifecycle/manager.test.ts > SelectorsRegistry والوحدات > تضيف الوحدة محدداتها مرة، ولا تستبدل مفتاحًا رُقّع قبلها 5ms
  ✓ tests/core/lifecycle/manager.test.ts > عقد الوحدة وسجلها > pages وminConfidence وshouldMount معًا 0ms
  ✓ tests/core/lifecycle/manager.test.ts > عقد الوحدة وسجلها > صفحة external لا تُركَّب فيها وحدة ولو كانت pages = "*" 0ms
- ✓ tests/core/lifecycle/manager.test.ts > عقد الوحدة وسجلها > السجل يرفض المعرّف المكرر والفارغ وغياب mount ويحفظ ترتيب التسجيل 0ms
- ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > تعديل شجرة body يُحرّك الفحص بعد الهدوء، والدفعات المتتالية تؤجله 6ms
- ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > نمط React: يتغير المسار أولًا ثم يصل DOM: إعلان واحد بثقة high لا حالة low وسيطة 11ms
- ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > نمط تبويبات طلب الدمج: يصل DOM أولًا ثم يتغير المسار في آخر التنقل 7ms
- ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > حدث Navigation API «navigatesuccess» وحده يحرّك الفحص 6ms
+ ✓ tests/core/lifecycle/manager.test.ts > عقد الوحدة وسجلها > السجل يرفض المعرّف المكرر والفارغ وغياب mount ويحفظ ترتيب التسجيل 1ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > custom يُنفَّذ ضمن الترتيب المعاكس مع غيره 7ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الاستعادة النظيفة لكل عملية > الترتيب المعاكس يعيد الكتابات المتتابعة على السمة نفسها إلى الأصل 4ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > سمة غيّرها GitHub بعد الكتابة 10ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > سمة حذفها طرف آخر 9ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > سمة أزالتها الإضافة ثم أعاد طرف آخر كتابتها 7ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > خاصية style غيّرها طرف آخر 4ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > عنصر محقون أزاله الصفحة: لا شيء يُعاد ويُعدّ alreadyGone لا استثناء 4ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > عقدة بديلة فصلها GitHub: يُعتمد ما صنعه ولا يُدرَج الأصل 4ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > أعادت الصفحة العقدة الأصلية بنفسها: لا يُكتب فوقها وتُزال البديلة 5ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > custom يرمي: يُسجَّل ولا يوقف بقية الاستعادة 11ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > فحص الملكية: ما غيّره طرف آخر لا يُلمس ويُسجَّل > عملية DOM داخلية ترمي وقت الاستعادة: تُسجَّل undo-threw وتستمر بقية الاستعادة 5ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > restore مرتين: الثاني فارغ 2ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > كتابة بعد الإغلاق تُرفض ولا تمس DOM وتُعدّ 3ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > insert يرفض عقدة مرتبطة بأب وDocumentFragment؛ replace يرفض أصلًا بلا أب 5ms
+ ✓ tests/core/lifecycle/mutation-registry.test.ts > الإغلاق وحراس الإدخال > معرّف الوحدة والمدة في التقرير 0ms
+ ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > مضيف غير github.com يُصنَّف external بثقة low 8ms
+ ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > نوع بلا مفتاح confirm يبقى low (other) 7ms
+ ✓ tests/core/detector/detector.test.ts > detect: النوع والثقة > محدد معطوب الصياغة في الجدول يُعامَل كغياب لا استثناء 9ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > start يعلن الحالة الأولى بلا سابق، وتكراره بلا أثر 6ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > turbo:render ثم turbo:load للتنقل الواحد يعلنان تغيّرًا واحدًا 11ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > تغيّر الهاش وحده لا يُعلن تغيّرًا 5ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > تنقل يستبدل body لنفس المسار يُعلن (إعادة تحميل فعلية) 7ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > popstate يُعلن بعد هدوء settleMs لا فورًا 16ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > خطأ مشترك لا يمنع بقية المشتركين ويصل إلى onError 6ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > stop يفك كل المستمعات والمراقبات والمؤقتات ولا يعلن بعده 13ms
+ ✓ tests/core/detector/detector.test.ts > start/subscribe/stop > subscribe يعيد دالة إلغاء 18ms
+ ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > تعديل شجرة body يُحرّك الفحص بعد الهدوء، والدفعات المتتالية تؤجله 15ms
+ ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > نمط React: يتغير المسار أولًا ثم يصل DOM: إعلان واحد بثقة high لا حالة low وسيطة 9ms
+ ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > نمط تبويبات طلب الدمج: يصل DOM أولًا ثم يتغير المسار في آخر التنقل 6ms
+ ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > حدث Navigation API «navigatesuccess» وحده يحرّك الفحص 5ms
  ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > حدث Navigation API «currententrychange» وحده يحرّك الفحص 5ms
- ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > استبدال body كاملًا بلا أحداث يُلتقط، ويُعاد ربط المراقب بالجديد 8ms
- ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > استمرار التعديلات لا يؤخر الفحص أكثر من settleMaxMs 5ms
- ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > تعديلات الوحدات (حقن عناصر) بلا تغيّر في الصفحة لا تُعلن تغيّرًا 4ms
+ ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > استبدال body كاملًا بلا أحداث يُلتقط، ويُعاد ربط المراقب بالجديد 6ms
+ ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > استمرار التعديلات لا يؤخر الفحص أكثر من settleMaxMs 6ms
+ ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > تعديلات الوحدات (حقن عناصر) بلا تغيّر في الصفحة لا تُعلن تغيّرًا 5ms
  ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > stop يفصل المراقب ومستمعات Navigation API فلا يُعلن شيء بعده 4ms
  ✓ tests/core/detector/detector.test.ts > تنقل بلا أحداث Turbo > observeDom=false: لا مراقب إطلاقًا، ويبقى Navigation API وTurbo 6ms
- ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > حدث التنقل الواحد (render ثم load) يوفّق مرة واحدة فقط 65ms
+ ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > حدث التنقل الواحد (render ثم load) يوفّق مرة واحدة فقط 66ms
  ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > لا مستمعات ولا مراقبات متراكمة: العدد في كل نوع صفحة يثبت عبر الدورات 49ms
- ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > الوحدة المركَّبة في صفحتين متتاليتين تُعاد تركيبها (لا تُحمَل سياقاتها القديمة) 8ms
- ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > popstate بلا تغيّر فعلي لا يعيد التركيب، وتنقل بلا أحداث Turbo يلتقطه الكاشف بعد الهدوء 8ms
- ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > stop بعد التنقلات يعيد الصفحة الحالية نظيفة من أي حقن 48ms
- ✓ tests/core/lifecycle/navigation.test.ts > قياس تمهيدي: PB-07 وميل نمو الذاكرة (يُسجَّل ولا يُقارَن؛ المقارنة في T-10.1) > ثلاثون تنقلًا بعد ثلاثة تسخين، بوحدات وهمية ومعها شاهد بلا وحدات 57ms
- ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > تركيب وإيقاف متكرران خمس مرات لا يتراكم فيهما شيء 15ms
- ✓ tests/core/lifecycle/restore.test.ts > ما يغيّره طرف آخر أثناء تشغيل الوحدة > يبقى كما كتبه GitHub ويُسرد برقم من القائمة الموثقة، وما سواه يعود حرفيًا 13ms
+ ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > الوحدة المركَّبة في صفحتين متتاليتين تُعاد تركيبها (لا تُحمَل سياقاتها القديمة) 7ms
+ ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > popstate بلا تغيّر فعلي لا يعيد التركيب، وتنقل بلا أحداث Turbo يلتقطه الكاشف بعد الهدوء 9ms
+ ✓ tests/core/lifecycle/navigation.test.ts > ثلاثون تنقلًا متتاليًا على الأقل > stop بعد التنقلات يعيد الصفحة الحالية نظيفة من أي حقن 57ms
+ ✓ tests/core/lifecycle/navigation.test.ts > قياس تمهيدي: PB-07 وميل نمو الذاكرة (يُسجَّل ولا يُقارَن؛ المقارنة في T-10.1) > ثلاثون تنقلًا بعد ثلاثة تسخين، بوحدات وهمية ومعها شاهد بلا وحدات 79ms
+ ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > عينة blob: لقطة ما بعد الإيقاف = لقطة ما قبل التركيب حرفيًا بثماني وحدات 16ms
+ ✓ tests/core/lifecycle/restore.test.ts > تطابق DOM بعد التركيب والإيقاف > تركيب وإيقاف متكرران خمس مرات لا يتراكم فيهما شيء 19ms
+ ✓ tests/core/lifecycle/restore.test.ts > ما يغيّره طرف آخر أثناء تشغيل الوحدة > يبقى كما كتبه GitHub ويُسرد برقم من القائمة الموثقة، وما سواه يعود حرفيًا 11ms
  ✓ tests/core/lifecycle/restore.test.ts > قائمة «استثناءات الاستعادة» (AC-1.2 بند 4) > معرّفات فريدة وكل مدخلة مكتملة الحقول 0ms
- ✓ tests/core/lifecycle/restore.test.ts > قائمة «استثناءات الاستعادة» (AC-1.2 بند 4) > كل ما يظهر وقت التشغيل في RestoreReport.skipped مُعلَّم reported في القائمة، والعكس 7ms
- ✓ tests/core/lifecycle/restore.test.ts > قائمة «استثناءات الاستعادة» (AC-1.2 بند 4) > evidence/T-1.2/restore-exceptions.md يذكر كل معرّف في القائمة الموثقة 2ms
- ✓ tests/core/lifecycle/restore.test.ts > قياس تمهيدي PB-01 وPB-06 على وحدات وهمية (لا يُعدّ قبولًا) > PB-06: بدء التشغيل حتى اكتمال الاكتشاف وتركيب الوحدات، ثماني معطلة وثماني مفعلة 905ms
- ✓ tests/core/lifecycle/restore.test.ts > قياس تمهيدي PB-01 وPB-06 على وحدات وهمية (لا يُعدّ قبولًا) > PB-01: من استدعاء الإيقاف حتى اكتمال استعادة DOM بثماني وحدات مفعلة 593ms
+ ✓ tests/core/lifecycle/restore.test.ts > قائمة «استثناءات الاستعادة» (AC-1.2 بند 4) > كل ما يظهر وقت التشغيل في RestoreReport.skipped مُعلَّم reported في القائمة، والعكس 13ms
+ ✓ tests/core/lifecycle/restore.test.ts > قائمة «استثناءات الاستعادة» (AC-1.2 بند 4) > evidence/T-1.2/restore-exceptions.md يذكر كل معرّف في القائمة الموثقة 1ms
+ ✓ tests/core/lifecycle/restore.test.ts > قياس تمهيدي PB-01 وPB-06 على وحدات وهمية (لا يُعدّ قبولًا) > PB-06: بدء التشغيل حتى اكتمال الاكتشاف وتركيب الوحدات، ثماني معطلة وثماني مفعلة 940ms
+ ✓ tests/core/lifecycle/restore.test.ts > قياس تمهيدي PB-01 وPB-06 على وحدات وهمية (لا يُعدّ قبولًا) > PB-01: من استدعاء الإيقاف حتى اكتمال استعادة DOM بثماني وحدات مفعلة 613ms
 
  Test Files  6 passed (6)
       Tests  124 passed (124)
-   Start at  09:04:22
-   Duration  2.09s (tests 63%, import 33%, transform 4%)
+   Start at  09:09:32
+   Duration  2.27s (tests 56%, import 39%, transform 4%)
 

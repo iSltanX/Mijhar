@@ -77,14 +77,14 @@ describe('تجاوز الحصة عند الاستيراد', () => {
 
 describe('isQuotaError', () => {
   it.each([
-    [{ name: 'QuotaExceededError', message: '' }, true],
-    [new Error('QUOTA_BYTES quota exceeded'), true],
-    [new Error('Resource::kQuotaBytes quota exceeded'), true],
-    [new Error('storage.local set: QuotaExceededError: disk quota'), true],
-    [new Error('شيء آخر'), false],
-    [null, false],
-    ['quota', false],
-  ])('%j → %s', (error, expected) => {
+    ['اسم QuotaExceededError', { name: 'QuotaExceededError', message: '' }, true],
+    ['رسالة Chromium QUOTA_BYTES', new Error('QUOTA_BYTES quota exceeded'), true],
+    ['رسالة Chromium المقيسة في Chrome 156 وEdge 155 وBrave 156', new Error('Resource::kQuotaBytes quota exceeded'), true],
+    ['رسالة تحوي quota في Firefox', new Error('storage.local set: QuotaExceededError: disk quota'), true],
+    ['خطأ آخر', new Error('شيء آخر'), false],
+    ['null', null, false],
+    ['نص لا كائن', 'quota', false],
+  ])('%s', (_label, error, expected) => {
     expect(isQuotaError(error)).toBe(expected);
   });
 });
