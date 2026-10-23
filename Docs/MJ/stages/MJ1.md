@@ -1,8 +1,8 @@
 ---
 id: MJ1
 title: هيكل الإضافة ونظام البناء
-status: active
-delivery: branch
+status: done
+delivery: merged
 wave: A
 order: 1
 depends: []
@@ -13,9 +13,9 @@ why_model: افتراضي الخطة: مهام محددة المواصفات ب�
 session: worktree
 branch: mj/1-core-scaffold
 base: mj-A/base
-commit: 104ca8c
+commit: 345c6d2
 updated: 2026-10-23
-resume: سُلّمت للدمج في الموجة A (التسليم `branch`) بعد استكمال شق Firefox وحسم الاسم وإعلان جمع البيانات. لا عمل آخر في هذه الجلسة.
+resume: مغلقة — دُمجت في الموجة A
 ---
 
 # MJ1 — هيكل الإضافة ونظام البناء
@@ -89,7 +89,7 @@ resume: سُلّمت للدمج في الموجة A (التسليم `branch`) ب
 
 | المهمة | الحالة | ما أُنجز | الدليل |
 | :--- | :--- | :--- | :--- |
-| `T-1.1` | منفّذة | هيكل TypeScript وVite وvitest؛ `npm run build` يبني `dist/chromium/` و`dist/firefox/` بمانيفست لكل هدف ومولّد يفرض `https://github.com/*` وحدها؛ `web-ext lint` بلا أخطاء ولا تحذيرات؛ وتحميل فعلي بلا أخطاء مانيفست في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1؛ والاسم «مِجهَر» (`DEC-06`)؛ و14 اختبارًا (`TEST-BUILD-01`) | [`evidence/T-1.1/report.md`](../../../evidence/T-1.1/report.md) |
+| `T-1.1` | مدمجة | هيكل TypeScript وVite وvitest؛ `npm run build` يبني `dist/chromium/` و`dist/firefox/` بمانيفست لكل هدف ومولّد يفرض `https://github.com/*` وحدها؛ `web-ext lint` بلا أخطاء ولا تحذيرات؛ وتحميل فعلي بلا أخطاء مانيفست في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1؛ والاسم «مِجهَر» (`DEC-06`)؛ و14 اختبارًا (`TEST-BUILD-01`) | [`evidence/T-1.1/report.md`](../../../evidence/T-1.1/report.md) · [`evidence/wave-A/gate.md`](../../../evidence/wave-A/gate.md) |
 
 الحالات: لم تبدأ · جارٍ التنفيذ · متوقفة: السبب · منفّذة (على الفرع) · مدمجة (يكتبها منسّق الدمج وحده). الدليل مسار تقرير في `evidence/` أو رابط.
 
@@ -103,7 +103,7 @@ resume: سُلّمت للدمج في الموجة A (التسليم `branch`) ب
 | 2026-10-23 | أدلة `T-1.1`: بناء وlint وtypecheck واختبارات وتحميل في Chrome وEdge وBrave، مع تحكمات سلبية | `dc3a20d` · [`evidence/T-1.1/report.md`](../../../evidence/T-1.1/report.md) |
 | 2026-10-23 | بعد تثبيت Firefox 158.0.1: فحص تحميل فعلي فيه (Marionette)؛ الاسم «مِجهَر» وفق `DEC-06` بدل `placeholder`؛ إعلان `data_collection_permissions: none` مع `strict_min_version 140` ← `web-ext lint` بلا تحذيرات | `104ca8c` |
 
-**المتبقي:** الدمج في الموجة A.
+**المتبقي:** لا شيء — دُمجت في الموجة A (`345c6d2`) واجتازت بوابتها.
 
 ### تقرير التسليم — MJ1
 

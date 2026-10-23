@@ -73,7 +73,7 @@ resume: لم تبدأ. تبدأ من الخطوة 1 في «المهام» بعد
 - اختبارات الخطة لمهام المرحلة: `TEST-GLOSS-01`، `TEST-GLOSS-02`، `TEST-GLOSS-03`، `TEST-GLOSS-06`، `TEST-GLOSS-05`، `TEST-PR-01`، `TEST-PR-02`، `TEST-DIFF-01`.
 - `npx vitest run tests/modules/b/card tests/modules/d` أخضر (`TEST-GLOSS-01` إلى `TEST-GLOSS-03` و`TEST-GLOSS-06` و`TEST-PR-01` و`TEST-PR-02` و`TEST-DIFF-01`).
 - e2e على صفحات PR عامة محفوظة في Chrome وEdge وBrave.
-- المتصفحات المتاحة Chrome وEdge وBrave؛ وكل بند يخص Firefox يُسجَّل «لم يُجرَ» ما دام غير مثبت (`EV-06`)، ولا يُغلق به معيار.
+- المتصفحات المتاحة Chrome وEdge وBrave وFirefox 158.0.1 (`EV-09`)؛ وأي بند يتعذر في متصفح يُسجَّل «لم يُجرَ» بسببه، ولا يُغلق به معيار.
 - الفحوص بحسب الأثر: ما تمسّه المرحلة فقط، ولا يُعاد طقم كامل بعد كل تعديل؛ والفحوص التي تشترك في متصفح أو منفذ تُجرى متسلسلة.
 
 ## المخاطر
