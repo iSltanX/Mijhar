@@ -1,0 +1,114 @@
+{
+  "readme-shakkala": {
+    "flipped": 6,
+    "lists": 0,
+    "scanned": 74,
+    "verdicts": {
+      "flip": 6,
+      "native-rtl": 0,
+      "explicit-ltr": 0,
+      "no-letters": 4,
+      "latin": 61,
+      "mixed-latin-context": 1,
+      "mixed-latin-sentence": 2
+    }
+  },
+  "readme-js-algorithms-ar": {
+    "flipped": 125,
+    "lists": 8,
+    "scanned": 381,
+    "verdicts": {
+      "flip": 125,
+      "native-rtl": 47,
+      "explicit-ltr": 0,
+      "no-letters": 48,
+      "latin": 161,
+      "mixed-latin-context": 0,
+      "mixed-latin-sentence": 0
+    }
+  },
+  "repo-arabic-stop-words": {
+    "flipped": 0,
+    "lists": 0,
+    "scanned": 13,
+    "verdicts": {
+      "flip": 0,
+      "native-rtl": 2,
+      "explicit-ltr": 0,
+      "no-letters": 1,
+      "latin": 8,
+      "mixed-latin-context": 0,
+      "mixed-latin-sentence": 2
+    }
+  },
+  "issue-etos-1": {
+    "flipped": 16,
+    "lists": 3,
+    "scanned": 84,
+    "verdicts": {
+      "flip": 16,
+      "native-rtl": 60,
+      "explicit-ltr": 0,
+      "no-letters": 6,
+      "latin": 2,
+      "mixed-latin-context": 0,
+      "mixed-latin-sentence": 0
+    }
+  },
+  "issue-winscreen-1": {
+    "flipped": 1,
+    "lists": 0,
+    "scanned": 23,
+    "verdicts": {
+      "flip": 1,
+      "native-rtl": 22,
+      "explicit-ltr": 0,
+      "no-letters": 0,
+      "latin": 0,
+      "mixed-latin-context": 0,
+      "mixed-latin-sentence": 0
+    }
+  },
+  "pr-watad-80": {
+    "flipped": 0,
+    "lists": 0,
+    "scanned": 22,
+    "verdicts": {
+      "flip": 0,
+      "native-rtl": 7,
+      "explicit-ltr": 0,
+      "no-letters": 0,
+      "latin": 15,
+      "mixed-latin-context": 0,
+      "mixed-latin-sentence": 0
+    }
+  },
+  "commits-bms": {
+    "flipped": 9,
+    "lists": 0,
+    "scanned": 35,
+    "verdicts": {
+      "flip": 9,
+      "native-rtl": 0,
+      "explicit-ltr": 0,
+      "no-letters": 0,
+      "latin": 26,
+      "mixed-latin-context": 0,
+      "mixed-latin-sentence": 0
+    }
+  },
+  "commit-bms-1": {
+    "flipped": 1,
+    "lists": 0,
+    "scanned": 2,
+    "verdicts": {
+      "flip": 1,
+      "native-rtl": 0,
+      "explicit-ltr": 0,
+      "no-letters": 0,
+      "latin": 1,
+      "mixed-latin-context": 0,
+      "mixed-latin-sentence": 0
+    }
+  }
+}

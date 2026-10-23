@@ -5,12 +5,15 @@
 // الكتلة التي قُلبت لا يُعاد تقييمها؛ وما لم يُقلب يُقاس ثانية إذا تغيّر محتواه أو أضاف GitHub محتوى جديدًا.
 import type { MutationRecorder, SelectorsRegistry } from '../../../core';
 import { measureBlock, measureContainer, resolveNative } from './bidi';
-import type { BlockMeasure } from './bidi';
+import type { BlockMeasure, Direction } from './bidi';
 import { DEFAULT_DIRECTION_OPTIONS, decide } from './decide';
 import type { BlockVerdict, DirectionOptions } from './decide';
 import { CONTAINER_BLOCKS, DIRECTION_SELECTOR_KEYS, LISTS, NEVER_INSIDE, STANDALONE_KEYS } from './selectors';
 
 export const DIR_ATTR = 'data-mijhar-dir';
+
+/** قياس لا يُستعمل: decide تحكم بالاتجاه الأصلي قبل النظر فيه. */
+const EMPTY: BlockMeasure = { ratio: 0, arabic: 0, letters: 0, arabicRun: 0, latinLead: 0, linksCounted: false };
 export const ORIG_DIR_ATTR = 'data-mijhar-orig-dir';
 
 export interface DirectionHost {
@@ -95,21 +98,29 @@ export class DirectionProcessor {
     return el.closest(this.containerSelector);
   }
 
+  // الأرخص أولًا: الاتجاه الأصلي (يُتخطى ما يعرضه GitHub rtl أو بـdir صريحة دون قياس)، ثم القياس، ونسبة الحاوية عند أول كتلة
+  // مختلطة فقط.
   private processContainer(container: Element, stats: DirectionStats): void {
     if (container.closest(NEVER_INSIDE)) return;
-    const blocks = [...container.querySelectorAll(CONTAINER_BLOCKS)].filter((block) => this.nearestContainer(block) === container && !block.closest(NEVER_INSIDE));
-    if (!blocks.length) return;
-    const containerRatio = measureContainer(container).ratio;
+    const auto = new Map<Element, Direction>();
+    let containerRatio: number | null = null;
+    const ratio = (): number => (containerRatio ??= measureContainer(container).ratio);
     const flippedOrRtl = new Set<Element>();
-    const measured = new Map<Element, BlockMeasure>();
-    for (const block of blocks) {
+    for (const block of container.querySelectorAll(CONTAINER_BLOCKS)) {
       if (block.hasAttribute(DIR_ATTR)) {
         flippedOrRtl.add(block);
         continue;
       }
-      const measure = measureBlock(block);
-      measured.set(block, measure);
-      const verdict = decide(measure, { native: resolveNative(block), containerRatio }, this.options);
+      if (this.nearestContainer(block) !== container) continue;
+      const native = resolveNative(block, auto);
+      let verdict: BlockVerdict;
+      if (native.direction === 'rtl' || native.source === 'explicit') verdict = decide(EMPTY, { native, containerRatio: null }, this.options);
+      else {
+        if (block.closest(NEVER_INSIDE)) continue;
+        const measure = measureBlock(block);
+        // داخل حاوية: النسبة لا تُقرأ إلا للكتلة المختلطة (وحدها تحتاجها decide)، فيُمرَّر 0 لغيرها.
+        verdict = decide(measure, { native, containerRatio: this.isMixed(measure) ? ratio() : 0 }, this.options);
+      }
       stats.scanned += 1;
       stats.verdicts[verdict] += 1;
       if (verdict === 'flip') {
@@ -119,21 +130,28 @@ export class DirectionProcessor {
       }
     }
     for (const list of container.querySelectorAll(LISTS)) {
-      if (list.hasAttribute(DIR_ATTR) || this.nearestContainer(list) !== container || list.closest(NEVER_INSIDE)) continue;
-      const items = [...list.children].filter((child) => child.localName === 'li' && (measured.get(child) ?? measureBlock(child)).letters > 0);
-      const native = resolveNative(list);
-      if (items.length && items.every((item) => flippedOrRtl.has(item)) && native.direction === 'ltr' && native.source !== 'explicit') {
+      if (list.hasAttribute(DIR_ATTR) || this.nearestContainer(list) !== container) continue;
+      const native = resolveNative(list, auto);
+      if (native.direction !== 'ltr' || native.source === 'explicit' || list.closest(NEVER_INSIDE)) continue;
+      const items = [...list.children].filter((child) => child.localName === 'li' && (flippedOrRtl.has(child) || measureBlock(child).letters > 0));
+      if (items.length && items.every((item) => flippedOrRtl.has(item))) {
         this.flip(list);
         stats.lists += 1;
       }
     }
   }
 
+  private isMixed(measure: BlockMeasure): boolean {
+    return measure.ratio < this.options.strong && (measure.ratio >= this.options.mixed || measure.arabicRun >= this.options.minRun);
+  }
+
   private processStandalone(el: Element, stats: DirectionStats): void {
     if (el.hasAttribute(DIR_ATTR) || el.closest(NEVER_INSIDE)) return;
     const container = this.nearestContainer(el);
-    const measure = measureBlock(el);
-    const verdict = decide(measure, { native: resolveNative(el), containerRatio: container ? measureContainer(container).ratio : null }, this.options);
+    const native = resolveNative(el);
+    const measure = native.direction === 'rtl' || native.source === 'explicit' ? EMPTY : measureBlock(el);
+    const containerRatio = container ? (this.isMixed(measure) ? measureContainer(container).ratio : 0) : null;
+    const verdict = decide(measure, { native, containerRatio }, this.options);
     stats.scanned += 1;
     stats.verdicts[verdict] += 1;
     if (verdict === 'flip') {

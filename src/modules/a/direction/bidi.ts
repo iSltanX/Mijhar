@@ -1,23 +1,35 @@
 // الكشف الموزون للاتجاه (Weighted Bidi Heuristic، EXECUTION_PLAN.md ‏3.أ البند 1): قياس نص الكتلة بعد استبعاد الكود والروابط
 // والإشارات، والاتجاه الذي يعرضه GitHub أصلًا (لا يُكتب فوقه إلا حيث يخطئ، AC-A1 بند و). دوال نقية على DOM لا تكتب شيئًا.
 
-/** حرف عربي الكتابة (حرف لا حركة ولا رقم ولا ترقيم). يوسّع النطاق ؀-ۿ في الخطة إلى ملحقاته وأشكال العرض. */
+/** حرف عربي الكتابة (حرف لا حركة ولا رقم ولا ترقيم). يوسّع نطاق الخطة U+0600..U+06FF إلى ملحقاته وأشكال العرض. */
 const ARABIC_LETTER = /(?=\p{L})\p{Script=Arabic}/gu;
+const ARABIC_IN_TOKEN = /(?=\p{L})\p{Script=Arabic}/u;
 const LETTER = /\p{L}/gu;
+const FIRST_LETTER = /\p{L}/u;
 const LATIN_LETTER = /(?=\p{L})\p{Script=Latin}/u;
 /** حرف قوي من اليمين إلى اليسار (فئتا R وAL في UBA) بتقريب الكتابات. */
-const RTL_STRONG = /(?=\p{L})[\p{Script=Arabic}\p{Script=Hebrew}\p{Script=Syriac}\p{Script=Thaana}\p{Script=Nko}\p{Script=Samaritan}\p{Script=Mandaic}\p{Script=Adlam}]/u;
-const STRONG = /\p{L}/u;
+const RTL_STRONG = /[\p{Script=Arabic}\p{Script=Hebrew}\p{Script=Syriac}\p{Script=Thaana}\p{Script=Nko}\p{Script=Samaritan}\p{Script=Mandaic}\p{Script=Adlam}]/u;
 
-/** ما لا يدخل نصه في قياس الحاوية: الكود والإشارات والمراجع (والروابط تُستبعد أولًا كما في الكتلة). */
-const CONTEXT_EXCLUDED = [
-  'code', 'pre', 'kbd', 'samp', 'script', 'style', 'textarea', 'template', 'svg', 'math',
-  '.user-mention', '.team-mention', 'a.issue-link', 'a.commit-link', 'span.reference',
-].join(', ');
-/** ما لا يدخل نصه في قياس الكتلة: ما سبق، وكتل متداخلة تُقاس وحدها. */
-export const MEASURE_EXCLUDED = `${CONTEXT_EXCLUDED}, ul, ol, table, blockquote`;
-/** الروابط تُستبعد أولًا؛ وإن لم يبقَ بعدها حرف قيست الكتلة بنص روابطها (عنصر قائمة كله رابط عربي). */
-const LINKS = 'a';
+// ما لا يدخل نصه في القياس: الكود والإشارات والمراجع (في الكتلة والحاوية)، وكتل متداخلة تُقاس وحدها (في الكتلة فقط)، والروابط
+// (تُستبعد أولًا؛ وإن لم يبقَ بعدها حرف قيست الكتلة بنص روابطها، كعنصر قائمة كله رابط عربي). فحص بالوسم والصنف لا بـmatches():
+// القياس يمر على كل عنصر في كل كتلة، فكلفته جزء من PB-02.
+const EXCLUDED_TAGS: ReadonlySet<string> = new Set(['code', 'pre', 'kbd', 'samp', 'script', 'style', 'textarea', 'template', 'svg', 'math']);
+const NESTED_BLOCKS: ReadonlySet<string> = new Set(['ul', 'ol', 'table', 'blockquote']);
+
+interface Exclusion {
+  readonly nested: boolean;
+  readonly excludeLinks: boolean;
+}
+
+function excluded(el: Element, exclusion: Exclusion): boolean {
+  const name = el.localName;
+  if (EXCLUDED_TAGS.has(name)) return true;
+  if (exclusion.nested && NESTED_BLOCKS.has(name)) return true;
+  const classes = el.classList;
+  if (classes.contains('user-mention') || classes.contains('team-mention')) return true;
+  if (name === 'a') return exclusion.excludeLinks || classes.contains('issue-link') || classes.contains('commit-link');
+  return name === 'span' && classes.contains('reference');
+}
 
 export interface BlockMeasure {
   /** نسبة الحروف العربية إلى كل الحروف في النص المقيس (0 إن لم يكن فيه حرف). */
@@ -35,26 +47,17 @@ export interface BlockMeasure {
 export type Direction = 'ltr' | 'rtl';
 
 export function firstStrong(text: string): Direction | null {
-  for (const ch of text) {
-    if (!STRONG.test(ch)) continue;
-    return RTL_STRONG.test(ch) ? 'rtl' : 'ltr';
-  }
-  return null;
+  const letter = FIRST_LETTER.exec(text);
+  if (!letter) return null;
+  return RTL_STRONG.test(letter[0]) ? 'rtl' : 'ltr';
 }
 
-// ثوابت NodeFilter (لا يُفترض وجود NodeFilter العام خارج نافذة).
-const SHOW_ELEMENT = 0x1;
-const SHOW_TEXT = 0x4;
-const ACCEPT = 1;
-const REJECT = 2;
-const SKIP = 3;
-
-function collectText(el: Element, exclude: string): string {
-  const walker = el.ownerDocument.createTreeWalker(el, SHOW_ELEMENT | SHOW_TEXT, {
-    acceptNode: (node) => (node.nodeType === 1 ? ((node as Element).matches(exclude) ? REJECT : SKIP) : ACCEPT),
-  });
+function collectText(el: Element, exclusion: Exclusion): string {
   let out = '';
-  for (let node = walker.nextNode(); node; node = walker.nextNode()) out += node.nodeValue ?? '';
+  for (let child = el.firstChild; child; child = child.nextSibling) {
+    if (child.nodeType === 3) out += (child as Text).data;
+    else if (child.nodeType === 1 && !excluded(child as Element, exclusion)) out += collectText(child as Element, exclusion);
+  }
   return out;
 }
 
@@ -67,7 +70,7 @@ export function measureText(text: string): Omit<BlockMeasure, 'linksCounted'> {
   let seenArabic = false;
   for (const token of text.split(/\s+/)) {
     if (!token) continue;
-    const hasArabic = /(?=\p{L})\p{Script=Arabic}/u.test(token);
+    const hasArabic = ARABIC_IN_TOKEN.test(token);
     const hasLatin = LATIN_LETTER.test(token);
     if (hasArabic && !hasLatin) {
       seenArabic = true;
@@ -82,39 +85,39 @@ export function measureText(text: string): Omit<BlockMeasure, 'linksCounted'> {
   return { ratio: letters ? arabic / letters : 0, arabic, letters, arabicRun, latinLead };
 }
 
-function measureWith(el: Element, exclude: string): BlockMeasure {
-  const primary = measureText(collectText(el, `${exclude}, ${LINKS}`));
+function measureWith(el: Element, nested: boolean): BlockMeasure {
+  const primary = measureText(collectText(el, { nested, excludeLinks: true }));
   if (primary.letters > 0) return { ...primary, linksCounted: false };
-  return { ...measureText(collectText(el, exclude)), linksCounted: true };
+  return { ...measureText(collectText(el, { nested, excludeLinks: false })), linksCounted: true };
 }
 
 /** يقيس نص الكتلة المرئي بعد الاستبعاد. */
 export function measureBlock(el: Element): BlockMeasure {
-  return measureWith(el, MEASURE_EXCLUDED);
+  return measureWith(el, true);
 }
 
 /** يقيس نص حاوية المحتوى كلها (سياق الكتل المختلطة فيها). */
 export function measureContainer(el: Element): BlockMeasure {
-  return measureWith(el, CONTEXT_EXCLUDED);
+  return measureWith(el, false);
 }
 
 // نص dir="auto" كما يحسبه المتصفح: أول حرف قوي في عقد النص الفرعية، متخطيًا bdi وscript وstyle وtextarea وكل فرع له dir صالح.
-function autoDirection(el: Element): Direction {
-  const walker = el.ownerDocument.createTreeWalker(el, SHOW_ELEMENT | SHOW_TEXT, {
-    acceptNode(node) {
-      if (node.nodeType !== 1) return ACCEPT;
-      const child = node as Element;
-      const name = child.localName;
-      if (name === 'bdi' || name === 'script' || name === 'style' || name === 'textarea') return REJECT;
-      const dir = child.getAttribute('dir')?.toLowerCase();
-      return dir === 'ltr' || dir === 'rtl' || dir === 'auto' ? REJECT : SKIP;
-    },
-  });
-  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-    const found = firstStrong(node.nodeValue ?? '');
-    if (found) return found;
+function firstStrongIn(el: Element): Direction | null {
+  for (let child = el.firstChild; child; child = child.nextSibling) {
+    if (child.nodeType === 3) {
+      const found = firstStrong((child as Text).data);
+      if (found) return found;
+    } else if (child.nodeType === 1) {
+      const element = child as Element;
+      const name = element.localName;
+      if (name === 'bdi' || name === 'script' || name === 'style' || name === 'textarea') continue;
+      const dir = element.getAttribute('dir')?.toLowerCase();
+      if (dir === 'ltr' || dir === 'rtl' || dir === 'auto') continue;
+      const found = firstStrongIn(element);
+      if (found) return found;
+    }
   }
-  return 'ltr';
+  return null;
 }
 
 export interface NativeDirection {
@@ -126,12 +129,20 @@ export interface NativeDirection {
 /**
  * الاتجاه الذي يعرضه GitHub للعنصر بسمات dir وحدها (دون ما تكتبه الإضافة): أقرب سلف بـdir صالح، وdir="auto" (وعنصر bdi بلا dir)
  * يُحسب من أول حرف قوي، والافتراضي ltr. لا يرى اتجاهًا مضبوطًا بـCSS في أنماط الصفحة (لا تفعله صفحات GitHub في حاويات المحتوى).
+ * cache: ذاكرة لحساب dir="auto" لكل عنصر خلال مسح واحد (الكتل تشترك غالبًا في سلف auto واحد هو حاوية التعليق).
  */
-export function resolveNative(el: Element): NativeDirection {
+export function resolveNative(el: Element, cache?: Map<Element, Direction>): NativeDirection {
   for (let node: Element | null = el; node; node = node.parentElement) {
     const dir = node.getAttribute('dir')?.toLowerCase();
     if (dir === 'rtl' || dir === 'ltr') return { direction: dir, source: 'explicit' };
-    if (dir === 'auto' || node.localName === 'bdi') return { direction: autoDirection(node), source: 'auto' };
+    if (dir === 'auto' || node.localName === 'bdi') {
+      let direction = cache?.get(node);
+      if (!direction) {
+        direction = firstStrongIn(node) ?? 'ltr';
+        cache?.set(node, direction);
+      }
+      return { direction, source: 'auto' };
+    }
   }
   return { direction: 'ltr', source: 'default' };
 }
