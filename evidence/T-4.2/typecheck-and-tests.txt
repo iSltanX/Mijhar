@@ -1,0 +1,105 @@
+$ npx tsc --noEmit
+exit=0
+
+$ npx vitest run tests/modules/c/masking --reporter=verbose
+
+ RUN  v5.0.5 <مجلد المشروع>
+
+ ✓ tests/modules/c/masking/validator.test.ts > الصيغة المقنَّعة المفترضة للاختبارات > ثلاثة رموز بالأسماء المعتمدة 1ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02A — الحالة السليمة > تعود الرموز بالعدد والهوية نفسيهما فيقبل الفاحص 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02A — الحالة السليمة > تُستبدل بعناصرها الأصلية المعزولة بـdir="ltr" دون محارف خفية 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02A — الحالة السليمة > HTML الناتج يعزل كل جزء محمي بـdir="ltr" ويهرّب القيم 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02A — الحالة السليمة > تبديل ترتيب الرموز لا يُرفض (العقد عدد وهوية لا موضع) 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02B — فقدان رمز > يرفض الفاحص ويسمّي الرمز المفقود 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02B — فقدان رمز > فك التقنيع يُرفض ولا يُنتج نصًا مشوَّهًا 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02C — تكرار رمز > يرفض الفاحص ويسمّي الرمز المكرر 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02C — تكرار رمز > لا يُكرَّر الكود: فك التقنيع مرفوض 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02C — تكرار رمز > مكرر مع فقدان آخر يحفظ العدد لكن تسقط الهوية والتكرار معًا 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > أقواس ASCII: [CODE_0] 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > ترجمة اسم النوع: ⟦كود_0⟧ 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > أرقام هندية: ⟦CODE_٠⟧ 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > اسم بلا أقواس: CODE_0 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > حالة أحرف مختلفة: ⟦code_0⟧ 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > مسافات داخل الأقواس: ⟦ CODE_0 ⟧ 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > قوس إغلاق مفقود: ⟦CODE_0 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > شرطة سفلية بدل رقم: ⟦CODE_⟧ 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02D — تحريف هوية رمز > رمز محرَّف لا يُستبدل بعنصره بالتخمين: لا يخرج أي نص من فك التقنيع 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02E — رمز غريب غير مسجل > ظهور ⟦CODE_99⟧ مع اكتمال الرموز المسجلة يرفض بفحص الاختلاق والعدد 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02E — رمز غريب غير مسجل > رمز غريب بدل رمز مسجل يحفظ العدد لكن تسقط الهوية والاختلاق 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02E — رمز غريب غير مسجل > قوس إغلاق زائد بعد رمز سليم: الرموز المسجلة كلها حاضرة لكن القوس اليتيم مختلَق فيُرفض 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02E — رمز غريب غير مسجل > قوس فتح زائد قبل رمز سليم: الرموز المسجلة كلها حاضرة لكن القوس اليتيم مختلَق فيُرفض 0ms
+ ✓ tests/modules/c/masking/validator.test.ts > TEST-TR-02E — رمز غريب غير مسجل > نص لا رموز مسجلة له يرفض أي رمز يظهر فيه 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > صيغة الرموز وسجلها > رمز مفهرس بصيغة ⟦TYPE_INDEX⟧ بفهرس متصل مشترك بين الأنواع بترتيب الظهور 4ms
+ ✓ tests/modules/c/masking/mask.test.ts > صيغة الرموز وسجلها > نص بلا عناصر محمية يبقى كما هو بخريطة فارغة 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > صيغة الرموز وسجلها > tokenName تبني الصيغة المعتمدة 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > رابط http(s) 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > رابط بين قوسين تُقتطع منه الفاصلة وقوس الإغلاق 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > بريد إلكتروني 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > مسار مطلق ونسبي ومنزلي 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > مسار نسبي بامتداد معروف 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > مسار بمجلد جذر معروف بلا امتداد 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > مجلد بشرطة مائلة أخيرة 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > مسار ويندوز 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > ملفات النقاط 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > اسم ملف بامتداد معروف 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > أمر مع أعلامه وسلسلته المقتبسة 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > أمر بلا أعلام 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > npx مع الحزمة 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > إشارات #123 وowner/repo#12 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > إشارة مستخدم وفريق 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > بصمة SHA قصيرة وطويلة 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > مقطع كود مضمّن بحدوده 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > الكتلة المسوّرة تُحمى كاملة بسياجها، وغير المغلقة حتى نهاية النص 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > علامة اقتباس عكسي غير مغلقة تبقى نصًا ولا تبتلع ما بعدها 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > المصطلحات: الأطول أولًا وبحدود كلمة وبحساسية الأحرف 1ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > القائمة الافتراضية تحمي GitHub وREADME، وتمرير قائمة فارغة يعطّل المصطلحات 1ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما يُحمى > مصطلح داخل رابط أو مسار لا يُقتطع منه 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما لا يُحمى (اكتشاف محافظ) > Use and/or choose input/output pairs, true/false. 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما لا يُحمى (اكتشاف محافظ) > We use git for version control and make sure it works. 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما لا يُحمى (اكتشاف محافظ) > See owner/repo for the code. 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما لا يُحمى (اكتشاف محافظ) > Choose docs or src, not build or test, as plain words. 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما لا يُحمى (اكتشاف محافظ) > It costs 50% / 60%, e.g. later... or i.e. never. 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > ما لا يُحمى (اكتشاف محافظ) > Version 1.2 shipped in 2024 with #hashtag and 12345 items. 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > المقاطع المحددة والأقواس الأصلية > عنصر محدد النوع يُقنَّع حرفيًا ولو بدا نثرًا، والنص حوله يُكتشف فيه المحمي 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > المقاطع المحددة والأقواس الأصلية > عنصر محدد فارغ لا يُنشئ رمزًا 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > المقاطع المحددة والأقواس الأصلية > أقواس الرمز الواردة في النص الأصلي تُحمى حرفيًا فلا تلتبس بالمحقونة 1ms
+ ✓ tests/modules/c/masking/mask.test.ts > الاستعادة بلا ترجمة تعيد النص حرفيًا > "Run `npm test`, then edit src/core/index.ts (see #42 and @octocat) on GitHub." 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > الاستعادة بلا ترجمة تعيد النص حرفيًا > "Plain English only." 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > الاستعادة بلا ترجمة تعيد النص حرفيًا > "Fence:\n```sh\nnpm ci\n```\nand https://example.com/x?y=1&z=2." 0ms
+ ✓ tests/modules/c/masking/mask.test.ts > الاستعادة بلا ترجمة تعيد النص حرفيًا > "Literal ⟦CODE_0⟧ stays as written." 1ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 1: المحمي في المعروض يطابق الأصل 8ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 2: المحمي في المعروض يطابق الأصل 1ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 3: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 4: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 5: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 6: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 7: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 8: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 9: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 10: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 11: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 12: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 13: المحمي في المعروض يطابق الأصل 2ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > فقرة 14: المحمي في المعروض يطابق الأصل 0ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > الاستعادة بلا ترجمة تعيد كل فقرة حرفيًا (لا فقد ولا إضافة) 1ms
+ ✓ tests/modules/c/masking/corpus.test.ts > AC-C2 — مجموعة الاختبار كلها > محرك يعكس ترتيب الجمل يقبله الفاحص ويطابق المحمي الأصل 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > التمرير الأول ناجح > نداء واحد ولا إعادة محاولة 4ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > التمرير الأول ناجح > نص مقنَّع فارغ لا يستدعي المحرك 2ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > التمرير الأول مرفوض ثم تنجح إعادة الجمل > تُعاد الترجمة جملةً جملةً مرة واحدة (عدّاد المحاولات 1) وتُعرض الأصلية مستعادة 7ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > التمرير الأول مرفوض ثم تنجح إعادة الجمل > رمز لا يقع على حدود الجملة ولا يُمرَّر للمحرك بديل المقسِّم 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > الرفض في الجولتين: يبقى الأصل مع التنبيه > لا تتجاوز إعادة المحاولة واحدة، ويبقى النص الأصلي كما سُلِّم، ولا ترجمة مرفوضة في المخرج 1ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > الرفض في الجولتين: يبقى الأصل مع التنبيه > تنبيه المستخدم حرفيًا كما في الخطة 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > الرفض في الجولتين: يبقى الأصل مع التنبيه > رفض جملة في الوسط يوقف الباقي بعد نداءات الجمل السابقة فقط 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > الرفض في الجولتين: يبقى الأصل مع التنبيه > جمل المحاولة الثانية سليمة لكن مجموعها لا يطابق: تُرفض أيضًا 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > محرك يُخلّ بنص بلا رموز > اختلاق رمز في فقرة بلا عناصر محمية يُرفض ويبقى الأصل 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > الإلغاء وأخطاء المحرك > إشارة ملغاة تمنع أي نداء للمحرك 1ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > الإلغاء وأخطاء المحرك > خطأ المحرك يصل إلى المستدعي ولا يُبتلع 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > المدخل مقاطع جاهزة > العنصر المحدد يُقنَّع حرفيًا ويُعاد حرفيًا 0ms
+ ✓ tests/modules/c/masking/fail-safe.test.ts > المدخل مقاطع جاهزة > الأصل المحفوظ عند الفشل هو نص المقاطع المجمّع 0ms
+
+ Test Files  4 passed (4)
+      Tests  91 passed (91)
+   Start at  08:57:42
+   Duration  132ms (tests 40%, import 31%, transform 22%, worker 6%)
+
+exit=0

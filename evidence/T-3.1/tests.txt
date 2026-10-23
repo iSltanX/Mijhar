@@ -1,0 +1,53 @@
+$ GHSIM_SOURCE=<ghsim-source> npx vitest run tests/data --reporter=verbose
+
+ RUN  v5.0.5 <مجلد المشروع>
+
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > تجتاز التحقق من المخطط لكل مدخل بلا مخالفة 1ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > أمر validate.mjs يجتاز ويطبع عدد المدخلات وما أُزيل من عبارات المحاكاة 13ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > العدد المعلن في الملف وفي README يطابق الفعلي، ولا معرّفات مكررة 0ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > كل المداخل الـ107 المنقولة حاضرة ما عدا ما سُجِّل حذفه، والمضاف مسجَّل بمعرّفاته 0ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > لكل مدخل مستويات الشرح الثلاثة وحقول القرار الجديدة، والصلاحية من المجموعة المضبوطة 3ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > لا أثر لعبارات المحاكاة ولا لحقل route ولا لأسماء المشروع السابق في أي مدخل 2ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > سجل ما أُزيل: كل نص أُزيل بسبب المحاكاة لم يعد في مدخله 0ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > المصطلحات الأساسية: كل مدخل حساس أو خطر فيها، ولكل منها مثال عملي 0ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > عنصر الواجهة بتوقيع، والمصطلح المجرد بلا توقيع، ولا يتطابق توقيعان لعنصرين في الصفحة نفسها 1ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > قائمة «تبقى بالإنجليزية» في المعجم محمية كلها في قائمة «لا تُترجم» لتقنيع الترجمة (T-4.2) 0ms
+ ✓ tests/data/glossary/glossary.test.ts > بيانات القاموس الفعلية > لا مصطلح عربي مختلف لنفس الاسم الإنجليزي، ولا مصطلح في المعجم وفي قائمة الإبقاء معًا 0ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > حقل مطلوب مفقود 16ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > حقل غير معرّف في المخطط 14ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > معرّف مكرر 13ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > صلاحية خارج المجموعة المضبوطة 13ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > عبارة محاكاة «في هذه المحاكاة لا يُحذف شيء» في detailed 17ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > عبارة محاكاة «مستودع iSltanX/Raff» في example 15ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > عبارة محاكاة «تطبيق ghsim» في brief 15ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > عبارة محاكاة «simulation only» في whenToUse 14ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > صيغة عربية غير معتمدة من المعجم 14ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > «عربي (English)» بعربي لا يحمل جذر الصيغة المعتمدة 17ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > ترجمة عربية لا تطابق المعجم لمصطلح معرَّف 18ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > عدد معلن لا يطابق الفعلي في الملف وفي README 27ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > رابط وثائق خارج docs.github.com أو بشرطة أخيرة أو استعلام 41ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > تحقق «verified» بلا رابط وثائق 14ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > عنصر واجهة بلا توقيع، ومصطلح مجرد بتوقيع 26ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > توقيع بدور أو صفحة خارج المجموعة أو نمط رابط غير صالح 14ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > مدخل حساس خارج قائمة الأساسية، ومصطلح أساسي بلا مثال 26ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > طول خارج الحدود وتطابق المستويات 26ms
+ ✓ tests/data/glossary/glossary.test.ts > المدقق يرفض المخالفات المحقونة (TEST-GLOSS-05 السلبي) > سجل ما أُزيل ناقص 14ms
+ ✓ tests/data/glossary/glossary.test.ts > النقل من المشروع السابق > إعادة النقل من ghsim-source تطابق entries.json وسجل ما أُزيل حرفيًا (GHSIM_SOURCE) 8ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  08:57:50
+   Duration  506ms (tests 92%, import 6%, transform 2%)
+
+exit=0
+
+$ npx vitest run tests/data   (بلا GHSIM_SOURCE: اختبار إعادة النقل يُتخطى)
+ RUN  v5.0.5 <مجلد المشروع>
+
+
+ Test Files  1 passed (1)
+      Tests  30 passed | 1 skipped (31)
+   Start at  08:57:51
+   Duration  489ms (tests 92%, import 6%, transform 1%)
+
+exit=0

@@ -1,0 +1,357 @@
+{
+  "repository": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "عرض مستودع عام لا يحتاج حسابًا؛ وإنشاء مستودع يحتاج حسابًا.",
+    "whenToUse": "عند بدء مشروع جديد أو حين تريد حفظ ملفاتك وتاريخ تعديلاتها في مكان واحد يمكن مشاركته أو إبقاؤه خاصًا.",
+    "reversalLimits": "الإنشاء يُتراجع عنه بحذف المستودع، والحذف يحتاج صلاحية Admin أو مالك المنظمة، ويحذف صلاحيات الفرق نهائيًا. يمكن استعادة بعض المستودعات المحذوفة خلال 90 يومًا، ولا يُستعاد ما كان ضمن شبكة نسخ متفرعة غير فارغة.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories",
+    "verification": {
+      "status": "verified",
+      "note": "طوبقت صلاحية الحذف وعدم التراجع عن صلاحيات الفرق ونافذة 90 يومًا وشرط شبكة النسخ المتفرعة على صفحتي حذف المستودع واستعادته."
+    },
+    "signature": null
+  },
+  "commit": {
+    "kind": "concept",
+    "permission": "Write",
+    "permissionNote": "الالتزام محليًا على جهازك لا يحتاج صلاحية؛ ودفعه إلى المستودع يحتاج صلاحية الكتابة.",
+    "whenToUse": "عند الانتهاء من وحدة عمل صغيرة مكتملة المعنى تريد حفظها في تاريخ المشروع مع رسالة تشرح سببها.",
+    "reversalLimits": "الالتزام المحلي يمكن تعديله أو حذفه قبل دفعه. بعد دفعه إلى مستودع مشترك يبقى في التاريخ، ويُلغى أثره بالتزام عكسي (revert) لا بمحوه.",
+    "docsUrl": "https://docs.github.com/en/pull-requests/reference/commits",
+    "verification": {
+      "status": "unverified",
+      "note": "صفحة الوثائق تصف الالتزامات ولا تنص على التراجع بـrevert؛ الحكم من معرفة Git العامة ولم يُطابَق على صفحة GitHub."
+    },
+    "signature": null
+  },
+  "branch": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند بدء ميزة أو إصلاح جديد تريد عزله عن الفرع الرئيسي حتى يصبح جاهزًا للمراجعة والدمج.",
+    "reversalLimits": "إنشاء الفرع يُتراجع عنه بحذفه. حذف فرع طلب سحب مدموج أو مغلق يمكن استرجاعه من صفحة الطلب، أما حذف فرع مرتبط بطلب سحب مفتوح فيغلق ذلك الطلب.",
+    "docsUrl": "https://docs.github.com/en/pull-requests/reference/branches",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق اشتراط الكتابة لإنشاء الفرع وحذفه، وإغلاق الطلبات المفتوحة بحذف فرعها، واسترجاع الفروع من طلب مغلق أو مدموج (صفحتا إدارة الفروع وحذفها واستعادتها)."
+    },
+    "signature": null
+  },
+  "pull_request": {
+    "kind": "concept",
+    "permission": "Write",
+    "permissionNote": "فتح الطلب من فرع داخل المستودع يحتاج الكتابة؛ ومن نسخة متفرعة لا يحتاج كتابة في المستودع الأصلي.",
+    "whenToUse": "عند اكتمال عمل على فرع وتريد أن يراجعه الآخرون قبل دمجه في الفرع الهدف.",
+    "reversalLimits": "إغلاق الطلب دون دمج لا يحذف الفرع ولا الالتزامات. وبعد الدمج لا يُلغى الدمج نفسه، بل يُنشأ طلب سحب جديد يعكس أثره (Revert).",
+    "docsUrl": "https://docs.github.com/en/pull-requests/get-started/about-pull-requests",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق اشتراط الكتابة لفتح طلب من فرع داخل المستودع، وعدم الحاجة إليها عند العمل من نسخة متفرعة، وعكس طلب مدموج بطلب جديد."
+    },
+    "signature": null
+  },
+  "issue": {
+    "kind": "concept",
+    "permission": "Read",
+    "permissionNote": "فتح مشكلة في مستودع عام ممكن لأي حساب؛ وإغلاق مشكلة فتحها غيرك يحتاج Triage على الأقل في مستودعات المنظمات.",
+    "whenToUse": "عند الإبلاغ عن خطأ أو طلب ميزة أو طرح سؤال تريد أن يتتبعه فريق المشروع.",
+    "reversalLimits": "إغلاق المشكلة لا يحذفها ويمكن إعادة فتحها. أما حذف المشكلة فنهائي ويحتاج صلاحية Admin، ولا يفتح رابطها بعد ذلك.",
+    "docsUrl": "https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues",
+    "verification": {
+      "status": "verified",
+      "note": "طوبقت صلاحية الإغلاق (Triage فأعلى في المنظمات، وصاحب المشكلة) وأن الحذف نهائي ويحتاج Admin أو Owner (صفحتا إغلاق مشكلة وحذفها)."
+    },
+    "signature": null
+  },
+  "release": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند نشر نسخة من المشروع جاهزة للتنزيل مع ملاحظات التغييرات والملفات المبنية.",
+    "reversalLimits": "يمكن تعديل الإصدار أو حذفه، وحذفه لا يحذف الوسم المرتبط به. وإن فُعِّلت الإصدارات غير القابلة للتعديل (immutable) فلا تُضاف الملفات أو تُستبدل أو تُحذف بعد النشر ولا يُنقل وسمه أو يُحذف ما دام الإصدار قائمًا.",
+    "docsUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases",
+    "verification": {
+      "status": "unverified",
+      "note": "طوبقت صلاحية الكتابة وقيود الإصدارات غير القابلة للتعديل على صفحة إدارة الإصدارات؛ ولم تُطابَق عبارة «حذف الإصدار لا يحذف الوسم» على نص صريح."
+    }
+  },
+  "tag": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند تعليم التزام بعينه تريد الرجوع إليه دائمًا، كرقم إصدار v1.0.0.",
+    "reversalLimits": "الوسم الخفيف يمكن حذفه أو إعادة توجيهه لالتزام آخر، لكن من استنسخ المستودع قبل ذلك يحتفظ بالوسم القديم. وحماية الوسوم إن فُعِّلت تمنع حذفه أو تحريكه، وفي الإصدارات غير القابلة للتعديل لا يُنقل الوسم ولا يُحذف ما دام الإصدار قائمًا.",
+    "docsUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/viewing-your-repositorys-releases-and-tags",
+    "verification": {
+      "status": "unverified",
+      "note": "طوبق قيد الإصدارات غير القابلة للتعديل على وثائق الإصدارات؛ وبقية الحكم من معرفة Git العامة ولم تُطابَق على صفحة GitHub."
+    }
+  },
+  "fork": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في تعديل مشروع لا تملك الكتابة فيه، أو تجربة تغييرات في نسختك دون أثر على الأصل.",
+    "reversalLimits": "النسخة المتفرعة مستودع مستقل يمكنك حذفه دون أثر على المستودع الأصلي. لكن حذف مستودع خاص أو داخلي يحذف كل نسخه المتفرعة.",
+    "docsUrl": "https://docs.github.com/en/pull-requests/get-started/about-forks",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق استقلال النسخة المتفرعة عن الأصل (صفحة الفروع المتفرعة)، وحذف نسخ المستودع الخاص عند حذفه (صفحة حذف المستودع)."
+    },
+    "signature": {
+      "labels": [
+        "Fork"
+      ],
+      "roles": [
+        "button",
+        "link"
+      ],
+      "pages": [
+        "repo-home"
+      ],
+      "hrefPatterns": [
+        "/fork$"
+      ]
+    }
+  },
+  "star": {
+    "kind": "element",
+    "permission": "None",
+    "permissionNote": "تحتاج تسجيل الدخول فقط.",
+    "whenToUse": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه.",
+    "reversalLimits": "يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع.",
+    "docsUrl": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق إلغاء النجمة بالضغط على Starred وإزالة المستودع من القائمة."
+    },
+    "signature": {
+      "labels": [
+        "Star",
+        "Starred"
+      ],
+      "roles": [
+        "button"
+      ],
+      "pages": [
+        "repo-home"
+      ]
+    }
+  },
+  "watch": {
+    "kind": "element",
+    "permission": "None",
+    "permissionNote": "تحتاج تسجيل الدخول والوصول إلى المستودع.",
+    "whenToUse": "عند رغبتك في استقبال إشعارات عن نشاط مستودع تهتم بمتابعته.",
+    "reversalLimits": "يُتراجع عن الاشتراك في أي وقت بتغيير الخيار إلى تجاهل أو إلغاء الاشتراك من الزر نفسه؛ والإشعارات السابقة تبقى في صندوقك.",
+    "docsUrl": "https://docs.github.com/en/subscriptions-and-notifications/concepts/about-notifications",
+    "verification": {
+      "status": "unverified",
+      "note": "طوبق أن الاشتراك يُلغى من زر Unsubscribe أو بإيقاف المراقبة؛ وبقاء الإشعارات السابقة في الصندوق لم يُطابَق على نص صريح."
+    },
+    "signature": {
+      "labels": [
+        "Watch",
+        "Unwatch",
+        "Watching"
+      ],
+      "roles": [
+        "button"
+      ],
+      "pages": [
+        "repo-home"
+      ]
+    }
+  },
+  "workflow": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند رغبتك في أتمتة مهمة متكررة كتشغيل الاختبارات عند كل دفع أو نشر إصدار عند إنشاء وسم.",
+    "reversalLimits": "تعديل ملف سير العمل يُتراجع عنه بالتزام يعيد محتواه السابق. لكن ما نفّذه سير عمل سابق خارج المستودع (كنشر أو حذف أو إرسال) لا يعكسه تغيير الملف.",
+    "docsUrl": "https://docs.github.com/en/actions/concepts/workflows-and-actions/workflows",
+    "verification": {
+      "status": "unverified",
+      "note": "الحكم مبني على أن سير العمل ملف في المستودع (Git يحفظ نسخه)؛ لم يُطابَق على نص صريح في صفحة الوثائق."
+    },
+    "signature": null
+  },
+  "action": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند رغبتك في استخدام خطوة جاهزة داخل سير العمل بدل كتابتها، كتثبيت لغة أو جلب الشفرة.",
+    "reversalLimits": "إزالة الإجراء من الملف أو تغيير إصداره يُتراجع عنه بالتزام. لكن ما نفّذه الإجراء في تشغيل سابق خارج المستودع لا يُلغى بإزالته من الملف.",
+    "docsUrl": "https://docs.github.com/en/actions/concepts/workflows-and-actions/custom-actions",
+    "verification": {
+      "status": "unverified",
+      "note": "الحكم مبني على أن الإجراء سطر في ملف سير العمل؛ لم يُطابَق على نص صريح في صفحة الوثائق."
+    },
+    "signature": null
+  },
+  "deployment": {
+    "kind": "concept",
+    "permission": "Write",
+    "permissionNote": "إطلاق النشر إلى بيئة محمية قد يتطلب موافقة مراجعين يحددهم المستودع.",
+    "whenToUse": "عند وضع نسخة من المشروع في بيئة تعمل فيها فعلًا كالاختبار أو الإنتاج.",
+    "reversalLimits": "سجل النشر لا يُحذف، ويُتراجع عن أثره بنشر نسخة سابقة، لا بإلغاء نشر انتهى. والتراجع الفعلي في البيئة نفسها (بياناتها وخدماتها) خارج نطاق GitHub.",
+    "docsUrl": "https://docs.github.com/en/actions/concepts/workflows-and-actions/deployment-environments",
+    "verification": {
+      "status": "unverified",
+      "note": "لم تُطابَق عبارتا «سجل النشر لا يُحذف» و«الموافقة قبل النشر» على نص صريح في الصفحة."
+    },
+    "signature": null
+  },
+  "contributions": {
+    "kind": "concept",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في رؤية نشاطك أو نشاط غيرك خلال السنة من التزامات وطلبات ومراجعات.",
+    "reversalLimits": "لا إجراء يُتراجع عنه؛ المخطط يعرض نشاطًا حدث. ويمكن إخفاء المساهمات الخاصة من ملفك الشخصي من إعدادات الملف.",
+    "docsUrl": "https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/viewing-contributions-on-your-profile",
+    "verification": {
+      "status": "unverified",
+      "note": "الصفحة تصف عرض المساهمات؛ وإخفاء المساهمات الخاصة من الإعدادات لم يُطابَق على نص ظاهر في الاستخراج."
+    },
+    "signature": null
+  },
+  "followers": {
+    "kind": "concept",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في معرفة من يتابع نشاطك العام.",
+    "reversalLimits": "لا إجراء يُتراجع عنه؛ ولا تتحكم بمتابعة غيرك لك إلا بحظر الحساب.",
+    "docsUrl": "https://docs.github.com/en/get-started/exploring-projects-on-github/following-people",
+    "verification": {
+      "status": "unverified",
+      "note": "الحكم الخاص بالحظر لم يُطابَق على نص صريح؛ المطابَق أن المتابعة اجتماعية وتُلغى بإلغاء المتابعة."
+    },
+    "signature": null
+  },
+  "following": {
+    "kind": "concept",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في مراجعة الحسابات التي تتابعها أو إلغاء متابعة بعضها.",
+    "reversalLimits": "تُلغى المتابعة بزر Unfollow في أي وقت، ولا يصل إشعار إلى الطرف الآخر.",
+    "docsUrl": "https://docs.github.com/en/get-started/exploring-projects-on-github/following-people",
+    "verification": {
+      "status": "unverified",
+      "note": "طوبقت إمكانية إلغاء المتابعة بزر Unfollow؛ وعدم إشعار الطرف الآخر لم يُطابَق على نص صريح."
+    },
+    "signature": null
+  },
+  "clone_https": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في نسخة محلية من المستودع بأبسط إعداد، دون مفاتيح SSH.",
+    "reversalLimits": "الاستنساخ ينسخ المستودع إلى جهازك ولا يغيّر شيئًا في GitHub؛ ويُتراجع عنه بحذف المجلد المحلي.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository",
+    "verification": {
+      "status": "unverified",
+      "note": "طوبق أن روابط HTTPS متاحة لكل المستودعات وأن Git يطلب بيانات الدخول للمستودعات الخاصة؛ ولم يُطابَق صراحةً أن الاستنساخ لا يغيّر شيئًا في GitHub."
+    },
+    "signature": {
+      "labels": [
+        "HTTPS"
+      ],
+      "roles": [
+        "tab",
+        "button"
+      ],
+      "pages": [
+        "repo-home"
+      ]
+    }
+  },
+  "clone_ssh": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند تعاملك المتكرر مع المستودع وقد سجّلت مفتاح SSH في حسابك لتجنب إدخال بيانات الدخول.",
+    "reversalLimits": "الاستنساخ لا يغيّر شيئًا في GitHub ويُتراجع عنه بحذف المجلد المحلي. ومفتاح SSH نفسه يمكن حذفه من إعدادات الحساب فتتوقف المصادقة به.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository",
+    "verification": {
+      "status": "unverified",
+      "note": "لم تُطابَق عبارات التراجع على نص صريح في صفحة الاستنساخ."
+    },
+    "signature": {
+      "labels": [
+        "SSH"
+      ],
+      "roles": [
+        "tab",
+        "button"
+      ],
+      "pages": [
+        "repo-home"
+      ]
+    }
+  },
+  "clone_cli": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في استنساخ المستودع من الطرفية بأداة GitHub CLI المثبتة لديك.",
+    "reversalLimits": "الاستنساخ لا يغيّر شيئًا في GitHub ويُتراجع عنه بحذف المجلد المحلي؛ وتسجيل الخروج من الأداة يلغي مصادقتها على جهازك.",
+    "docsUrl": "https://docs.github.com/en/github-cli/github-cli/about-github-cli",
+    "verification": {
+      "status": "unverified",
+      "note": "صفحة التعريف بالأداة لا تتناول التراجع؛ الحكم مبني على طبيعة الاستنساخ."
+    },
+    "signature": {
+      "labels": [
+        "GitHub CLI"
+      ],
+      "roles": [
+        "tab",
+        "button"
+      ],
+      "pages": [
+        "repo-home"
+      ]
+    }
+  },
+  "download_zip": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند حاجتك إلى ملفات الفرع الحالي فقط دون سجل Git ولا نية في المساهمة.",
+    "reversalLimits": "التنزيل لا يغيّر شيئًا في GitHub ويُتراجع عنه بحذف الملف المنزَّل.",
+    "docsUrl": "https://docs.github.com/en/repositories/working-with-files/using-files/downloading-source-code-archives",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق أن الأرشيف لقطة من الفرع أو الوسم أو الالتزام ولا يحوي كامل السجل، وأن الاستنساخ هو الطريق لسجل كامل."
+    },
+    "signature": {
+      "labels": [
+        "Download ZIP"
+      ],
+      "roles": [
+        "menuitem",
+        "link",
+        "button"
+      ],
+      "pages": [
+        "repo-home"
+      ],
+      "hrefPatterns": [
+        "/archive/.*\\.zip$"
+      ]
+    }
+  },
+  "readme": {
+    "kind": "concept",
+    "permission": "Read",
+    "permissionNote": "قراءته تحتاج الوصول إلى المستودع؛ وإضافته أو تعديله يحتاج الكتابة.",
+    "whenToUse": "عند رغبتك في فهم مشروع قبل استخدامه، أو عند كتابة مقدمة لمشروعك تشرح غرضه وطريقة تثبيته واستخدامه.",
+    "reversalLimits": "تعديل README التزام عادي يُتراجع عنه بالتزام جديد أو من سجل الملف، ولا أثر له على بقية الملفات.",
+    "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
+    "verification": {
+      "status": "unverified",
+      "note": "صفحة التعريف لا تتناول التراجع؛ الحكم مبني على أن README ملف عادي في Git."
+    },
+    "signature": null
+  },
+  "license": {
+    "kind": "concept",
+    "permission": "Write",
+    "permissionNote": "قراءة الترخيص تحتاج الوصول إلى المستودع؛ وإضافته أو تغييره يحتاج الكتابة.",
+    "whenToUse": "عند نشر شفرة تريد أن يعرف الآخرون ما يحق لهم فعله بها، أو قبل استخدام شفرة غيرك.",
+    "reversalLimits": "تغيير الترخيص في المستودع ممكن، لكن من حصل على نسخة تحت ترخيص سابق يبقى مستحقًا للشروط التي نُشرت بها. ولا تُسحب نسخ نُشرت علنًا بتغيير الترخيص لاحقًا.",
+    "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository",
+    "verification": {
+      "status": "unverified",
+      "note": "الصفحة تنص على حق المستخدمين الآخرين في عرض المستودع العام ونسخه المتفرعة؛ وعبارة بقاء الشروط السابقة حكم قانوني عام لم يُطابَق على نص صريح ولا يُعدّ استشارة قانونية."
+    }
+  }
+}

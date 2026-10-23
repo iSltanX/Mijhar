@@ -1,0 +1,3 @@
+$ GHSIM_SOURCE=<ghsim-source> node scripts/glossary/migrate.mjs --check
+مطابق للناتج: 112 مدخلًا و94 بندًا في سجل ما أُزيل
+exit=0

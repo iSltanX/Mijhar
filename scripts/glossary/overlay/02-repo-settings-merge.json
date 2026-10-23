@@ -1,0 +1,174 @@
+{
+  "topics": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في تسهيل اكتشاف مستودعك في البحث بوصف غرضه أو مجاله بكلمات قصيرة.",
+    "reversalLimits": "تُضاف الوسوم الوصفية وتُحذف في أي وقت من لوحة «حول المشروع» دون أثر على الشفرة. أقصى عدد 20 وسمًا للمستودع.",
+    "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics",
+    "verification": { "status": "verified", "note": "طوبقت صلاحية مديري المستودع (Admin) لإضافة الوسوم وحد العشرين وسمًا في صفحة الوثائق؛ وحذف الوسم في أي وقت من حكم الواجهة العام." },
+    "signature": null
+  },
+  "default_branch": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في تغيير الفرع الذي يفتحه الزوار أولًا وتُقارَن به طلبات السحب الجديدة، كالانتقال من master إلى main.",
+    "reversalLimits": "يمكن إعادة الفرع الافتراضي السابق في أي وقت من الإعدادات. لكن تغييره يغيّر الفرع الهدف الافتراضي لطلبات السحب الجديدة، ولا يعدّل الطلبات المفتوحة فعلًا.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/changing-the-default-branch",
+    "verification": { "status": "unverified", "note": "طوبقت صلاحية Admin لتغيير الفرع الافتراضي؛ أما أثر التغيير في الطلبات المفتوحة فلم يُطابَق على نص صريح." },
+    "signature": null
+  },
+  "commit_changes": {
+    "kind": "element",
+    "permission": "Write",
+    "permissionNote": "الاعتماد المباشر على فرع محمي قد يُمنع بقاعدة حماية؛ فيُنشأ فرع جديد بدلًا منه.",
+    "whenToUse": "عند الانتهاء من تعديل ملف في محرر GitHub وحفظه كالتزام في الفرع.",
+    "reversalLimits": "الالتزام الذي اعتُمد على الفرع يبقى في تاريخه، ويُلغى أثره بالتزام عكسي (revert) أو بحذف الفرع إن كان فرعًا جديدًا لم يُدمج.",
+    "docsUrl": "https://docs.github.com/en/repositories/working-with-files/managing-files/creating-new-files",
+    "verification": { "status": "unverified", "note": "طوبق أن إنشاء الملفات من المتصفح يحتاج صلاحية الكتابة؛ وبقية عبارات التراجع من معرفة Git العامة." },
+    "signature": { "labels": ["Commit changes", "Commit changes..."], "roles": ["button"], "pages": ["repo-files"] }
+  },
+  "create_new_file": {
+    "kind": "element",
+    "permission": "Write",
+    "whenToUse": "عند الحاجة إلى إضافة ملف نصي صغير كتوثيق أو إعداد دون تشغيل Git على جهازك.",
+    "reversalLimits": "الملف المُنشأ يُحذف بالتزام جديد؛ ولا يضيع شيء من التاريخ، فيبقى الالتزام الأول مسجلًا.",
+    "docsUrl": "https://docs.github.com/en/repositories/working-with-files/managing-files/creating-new-files",
+    "verification": { "status": "verified", "note": "طوبق اشتراط صلاحية الكتابة وإنشاء المجلدات الفرعية بكتابة / في اسم الملف." },
+    "signature": { "labels": ["Create new file"], "roles": ["menuitem", "link", "button"], "pages": ["repo-home", "repo-files"], "hrefPatterns": ["/new/"] }
+  },
+  "upload_files": {
+    "kind": "element",
+    "permission": "Write",
+    "whenToUse": "عند رغبتك في إضافة ملفات جاهزة (صور أو مستندات أو شفرة) من جهازك دون أوامر Git.",
+    "reversalLimits": "الرفع يُنشئ التزامًا؛ ويُتراجع عنه بحذف الملفات بالتزام جديد، ويبقى الرفع الأول في التاريخ. ما رُفع فعلًا إلى مستودع عام قد يكون نُسخ قبل حذفه.",
+    "docsUrl": "https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository",
+    "verification": { "status": "verified", "note": "طوبقت حدود الرفع: 25 ميبيبايت للملف عبر المتصفح و100 عبر سطر الأوامر وحتى 100 ملف دفعة واحدة؛ وبقية عبارات التراجع من معرفة Git العامة." },
+    "signature": { "labels": ["Upload files"], "roles": ["menuitem", "link", "button"], "pages": ["repo-home", "repo-files"], "hrefPatterns": ["/upload/"] }
+  },
+  "pin_repo": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في إبراز أفضل أعمالك أعلى صفحتك الشخصية لكل زائر.",
+    "reversalLimits": "يُلغى التثبيت وإعادة الترتيب في أي وقت دون أثر على المستودعات نفسها. أقصى عدد ستة عناصر معًا.",
+    "docsUrl": "https://docs.github.com/en/account-and-profile/how-tos/profile-customization/pinning-items-to-your-profile",
+    "verification": { "status": "verified", "note": "طوبق حد الستة عناصر (مستودعات وGists معًا)؛ وإلغاء التثبيت وإعادة الترتيب من حكم الواجهة العام." },
+    "signature": { "labels": ["Customize your pins"], "roles": ["button"], "pages": ["profile"] }
+  },
+  "visibility_public": {
+    "kind": "concept",
+    "permission": "Admin",
+    "permissionNote": "قد تقيّد المنظمة تغيير مستوى الظهور على مالكيها وحدهم.",
+    "whenToUse": "عند رغبتك في أن يرى الجميع مستودعك ويستنسخوه، كمشروع مفتوح المصدر.",
+    "reversalLimits": "يمكن إعادة المستودع إلى خاص، لكن كل ما نُشر وهو عام (الشفرة وتاريخ الالتزامات) قد يكون نُسخ أو فُهرس أو نُسخ متفرع منه. فحافظ على الأسرار خارج التاريخ قبل النشر.",
+    "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility",
+    "verification": { "status": "unverified", "note": "طوبق أن المنظمة قد تقصر تغيير الظهور على مالكيها؛ وعبارات النسخ والفهرسة بعد النشر العام لم تُطابَق على نص صريح في الصفحة." },
+    "signature": null
+  },
+  "visibility_private": {
+    "kind": "concept",
+    "permission": "Admin",
+    "permissionNote": "قد تقيّد المنظمة تغيير مستوى الظهور على مالكيها وحدهم.",
+    "whenToUse": "عند رغبتك في إبقاء المستودع مرئيًا لك ولمن تدعوهم فقط.",
+    "reversalLimits": "يمكن جعله عامًا لاحقًا، لكن ذلك يكشف كل تاريخه لا حالته الحالية فقط. وعند تحويل مستودع عام إلى خاص تتوقف جهات تعتمد على عموميته، منها قراءة Git المجهولة وبعض قواعد التنبيه المخصصة.",
+    "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility",
+    "verification": { "status": "verified", "note": "طوبق أن تحويل المستودع إلى خاص يوقف قراءة Git المجهولة ويعطّل قواعد تنبيه مخصصة وقواعد الدفع (rulesets) المعيّنة له، وأن المنظمة قد تقصر التغيير على مالكيها." },
+    "signature": null
+  },
+  "archive_repo": {
+    "kind": "element",
+    "permission": "Admin",
+    "whenToUse": "عند توقف المشروع أو اكتماله وتريد إبقاءه مرجعًا للقراءة فقط دون استقبال نشاط جديد.",
+    "reversalLimits": "تُلغى الأرشفة بالزر Unarchive this repository من منطقة الخطر فيعود الكتابة. أثناء الأرشفة تكون القضايا وطلبات السحب والشفرة والتعليقات والصلاحيات للقراءة فقط، ولا يمكن إضافة متعاونين ولا فرق.",
+    "docsUrl": "https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories",
+    "verification": { "status": "verified", "note": "طوبق كون المستودع المؤرشف للقراءة فقط في عناصره، وإمكانية إلغاء الأرشفة من منطقة الخطر؛ وصلاحية Admin حكم عام لم يُطابَق على نص صريح." },
+    "signature": { "labels": ["Archive this repository"], "roles": ["button"], "pages": ["settings-repo"] }
+  },
+  "delete_repo": {
+    "kind": "element",
+    "permission": "Admin",
+    "permissionNote": "مالك المنظمة أو من لديه Admin على المستودع؛ وقد تقيّده سياسة المنظمة أو المؤسسة.",
+    "whenToUse": "عند التأكد من أنك لا تحتاج المستودع ولا تاريخه ولا مشكلاته ولا إصداراته.",
+    "reversalLimits": "يمكن استعادة بعض المستودعات المحذوفة خلال 90 يومًا فقط، ولا يُستعاد ما كان ضمن شبكة نسخ متفرعة غير فارغة، ولا تُستعاد صلاحيات الفرق. حذف مستودع خاص أو داخلي يحذف كل نسخه المتفرعة. فلا تعتمد على الاستعادة.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/deleting-a-repository",
+    "verification": { "status": "verified", "note": "طوبقت الصلاحية (Admin أو مالك المنظمة)، ونافذة 90 يومًا، وشرط شبكة النسخ المتفرعة، وعدم استعادة صلاحيات الفرق، وحذف نسخ المستودع الخاص (صفحتا حذف المستودع واستعادته)." },
+    "signature": { "labels": ["Delete this repository"], "roles": ["button"], "pages": ["settings-repo"] }
+  },
+  "transfer_ownership": {
+    "kind": "element",
+    "permission": "Admin",
+    "permissionNote": "قد يشترط النقل إلى منظمة أن تكون مالكها أو أن تملك صلاحية إنشاء مستودعات فيها.",
+    "whenToUse": "عند رغبتك في نقل مشروعك إلى حساب آخر أو إلى منظمة تديره.",
+    "reversalLimits": "ينقل المالك الجديد إدارة كل شيء فيه فور اكتمال النقل، ويُضاف المالك السابق متعاونًا. وإعادة المستودع إليك تحتاج نقلًا جديدًا يقبله المالك الجديد. وقد يُمنع إعادة استخدام اسم مستودع مشهور بعد نقله.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/transferring-a-repository",
+    "verification": { "status": "verified", "note": "طوبق: قبول النقل بين حسابين شخصيين خلال يوم، وإضافة المالك السابق متعاونًا، وإعادة توجيه الروابط والاستنساخ، وسحب اسم المستودع المشهور نهائيًا؛ وتفصيل الصلاحية في المنظمات لم يُطابَق." },
+    "signature": { "labels": ["Transfer ownership", "Transfer"], "roles": ["button"], "pages": ["settings-repo"] }
+  },
+  "squash_merge": {
+    "kind": "element",
+    "permission": "Write",
+    "permissionNote": "تقيّد قواعد الحماية أو إعدادات المستودع أساليب الدمج المتاحة.",
+    "whenToUse": "عند رغبتك في تاريخ نظيف يمثّل كل طلب سحب فيه التزام واحد على الفرع الرئيسي.",
+    "reversalLimits": "لا يُلغى الدمج نفسه، بل يُنشأ طلب سحب جديد يعكس الالتزام الواحد (Revert). وتفاصيل الالتزامات الوسيطة تبقى في صفحة الطلب لا في تاريخ الفرع الرئيسي.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github",
+    "verification": { "status": "unverified", "note": "طوبقت صفحة أساليب الدمج (تخصيصها بدفع الوصول) وعكس الطلب المدموج بطلب جديد؛ ولم يُطابَق نص «التفاصيل تبقى في صفحة الطلب»." },
+    "signature": { "labels": ["Squash and merge"], "roles": ["button"], "pages": ["pull-request"] }
+  },
+  "rebase_merge": {
+    "kind": "element",
+    "permission": "Write",
+    "permissionNote": "تقيّد قواعد الحماية أو إعدادات المستودع أساليب الدمج المتاحة.",
+    "whenToUse": "عند رغبتك في تاريخ خطي يحتفظ بكل التزامات الفرع منفصلة دون التزام دمج.",
+    "reversalLimits": "لا يُلغى الدمج نفسه، بل يُنشأ طلب سحب جديد يعكس أثره. وتتغير معرّفات الالتزامات (SHA) فتصبح النسخ المحلية القديمة من الفرع مختلفة تاريخيًا وتحتاج إلى مزامنة.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github",
+    "verification": { "status": "verified", "note": "طوبق أن إعادة الأساس والدمج قد تتطلب إعادة أساس محليًا ودفعًا قسريًا حذرًا؛ وإعادة كتابة SHA حكم Git عام." },
+    "signature": { "labels": ["Rebase and merge"], "roles": ["button"], "pages": ["pull-request"] }
+  },
+  "merge_commit": {
+    "kind": "element",
+    "permission": "Write",
+    "permissionNote": "تقيّد قواعد الحماية أو إعدادات المستودع أساليب الدمج المتاحة.",
+    "whenToUse": "عند رغبتك في الاحتفاظ بتاريخ الفرع كما هو مع التزام يوضح نقطة الدمج.",
+    "reversalLimits": "لا يُلغى الدمج نفسه، بل يُنشأ طلب سحب جديد يعكس أثره. وتبقى الالتزامات الأصلية كما هي.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github",
+    "verification": { "status": "unverified", "note": "طوبق عكس الطلب المدموج بطلب جديد؛ وبقية الأحكام من معرفة Git العامة." },
+    "signature": { "labels": ["Create a merge commit"], "roles": ["button"], "pages": ["pull-request"] }
+  },
+  "merge_conflict": {
+    "kind": "concept",
+    "permission": "Write",
+    "permissionNote": "حل التعارض من محرر GitHub يحتاج صلاحية الكتابة على فرع الطلب.",
+    "whenToUse": "عند ظهور تنبيه بوجود تعارض في طلب سحب يمنع الدمج، وتريد اختيار المحتوى الصحيح بنفسك.",
+    "reversalLimits": "حل التعارض التزام عادي على الفرع؛ ويمكن تجاهله وإعادة المحاولة بحل مختلف قبل الدمج. التعارضات المعقدة تُحل محليًا.",
+    "docsUrl": "https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-on-github",
+    "verification": { "status": "verified", "note": "طوبق أن التعارضات البسيطة تُحل من محرر GitHub والمعقدة من سطر الأوامر؛ وصلاحية الكتابة وإمكانية إعادة المحاولة حكم عام." },
+    "signature": null
+  },
+  "force_push": {
+    "kind": "concept",
+    "permission": "Write",
+    "permissionNote": "تمنعه قاعدة حماية الفرع افتراضيًا ما لم يُسمح به صراحة.",
+    "whenToUse": "عند الاضطرار إلى إعادة كتابة تاريخ فرعك الشخصي بعد إعادة أساس أو دمج التزامات، ولا يعتمد غيرك عليه.",
+    "reversalLimits": "لا يوفر GitHub زر تراجع. استعادة الفرع تتطلب معرفة معرّف الالتزام السابق ودفعه من جديد، ولا يُضمن بقاء الالتزامات القديمة. وما بنى عليه متعاونون يُفقدهم عملهم.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches",
+    "verification": { "status": "unverified", "note": "طوبق أن قاعدة الحماية تمنع الدفع القسري افتراضيًا؛ وعبارة عدم ضمان بقاء الالتزامات القديمة لم تُطابَق على نص صريح." },
+    "signature": null
+  },
+  "branch_protection": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في حماية فرع مهم كالرئيسي من الدفع المباشر والحذف وفرض مراجعة واختبارات قبل الدمج.",
+    "reversalLimits": "تُعدَّل القاعدة أو تُحذف في أي وقت وتسري فورًا. ما حدث أثناء تعطيلها (كدفع مباشر أو حذف الفرع) لا تعكسه إعادة تفعيلها.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches",
+    "verification": { "status": "unverified", "note": "طوبق أن كل قاعدة تمنع الدفع القسري والحذف افتراضيًا ويمكن تعطيل ذلك؛ وصلاحية Admin وعبارة الأثر الفوري لم تُطابَقا على نص صريح." },
+    "signature": null
+  },
+  "ruleset": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في تطبيق شروط حماية موحدة على عدة فروع أو وسوم، أو معاينة أثر قاعدة قبل فرضها.",
+    "reversalLimits": "تُعطَّل مجموعة القواعد أو تُحذف أو تُحوَّل إلى وضع التقييم (Evaluate) في أي وقت. ما سُمح به أثناء تعطيلها لا تعكسه إعادة تفعيلها.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets",
+    "verification": { "status": "unverified", "note": "لم تُقرأ تفاصيل الصلاحية ولا وضع التقييم من صفحة الوثائق؛ الحكم من معرفة عامة." },
+    "signature": null
+  }
+}

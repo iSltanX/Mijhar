@@ -1,0 +1,242 @@
+{
+  "tag_protection": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في منع حذف وسوم الإصدارات أو إعادة توجيهها بالخطأ؛ وتُدار الحماية اليوم عبر مجموعات القواعد (Rulesets) التي تستهدف الوسوم.",
+    "reversalLimits": "تُعدَّل القاعدة أو تُحذف في أي وقت وتسري فورًا. ما حدث أثناء تعطيلها (كحذف وسم أو نقله) لا تعكسه إعادة تفعيلها، ومن نزّل الإصدار قبل ذلك يحتفظ بما نزّله.",
+    "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets",
+    "verification": {
+      "status": "unverified",
+      "note": "طوبق أن مجموعات القواعد تستهدف الفروع والوسوم؛ ولم تعد وثائق GitHub تحوي صفحة لقواعد حماية الوسوم القديمة. وصلاحية Admin وبقية العبارات لم تُطابَق على نص صريح."
+    },
+    "signature": null
+  },
+  "two_factor": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "إجراء على حسابك وحدك.",
+    "whenToUse": "عند رغبتك في حماية حسابك من الدخول بكلمة المرور وحدها، وهو مطلوب قبل بعض الإجراءات الحساسة.",
+    "reversalLimits": "يمكن تعطيلها من إعدادات الحساب، لكن تعطيلها قد يفقدك الوصول إلى منظمات تشترطها حتى تعيد تفعيلها، ولا تستطيع بعض الحسابات الملزَمة بها تعطيلها. ورمز الاسترداد يُستعمل مرة واحدة، وتوليد مجموعة جديدة يبطل القديمة.",
+    "docsUrl": "https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/disabling-two-factor-authentication-for-your-personal-account",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق على صفحتي تعطيل المصادقة الثنائية وطرق الاسترداد: فقدان الوصول إلى منظمات تشترطها عند التعطيل، وعدم إمكان التعطيل لبعض الحسابات الملزَمة، واستعمال رمز الاسترداد مرة واحدة وإبطال المجموعة القديمة بتوليد جديدة."
+    },
+    "signature": null
+  },
+  "passkey": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "إجراء على حسابك وحدك.",
+    "whenToUse": "عند رغبتك في تسجيل الدخول دون كلمة مرور ببصمة جهازك أو رمز قفله.",
+    "reversalLimits": "يمكن حذف مفتاح المرور من إعدادات الحساب. بعض مفاتيح المرور مرتبطة بجهاز واحد ولا تُنسخ احتياطيًا، فاحتفظ بوسيلة دخول أخرى.",
+    "docsUrl": "https://docs.github.com/en/authentication/authenticating-with-a-passkey/about-passkeys",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق أن بعض مفاتيح المرور مقيّدة بجهاز واحد ولا يمكن نسخها أو نقلها (صفحة الوثائق)؛ والحذف من الإعدادات حكم واجهة عام."
+    },
+    "signature": null
+  },
+  "ssh_key": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "إجراء على حسابك وحدك.",
+    "whenToUse": "عند رغبتك في التعامل المتكرر مع المستودعات دون إدخال بيانات الدخول في كل مرة، أو في توقيع الالتزامات.",
+    "reversalLimits": "يُحذف المفتاح من إعدادات الحساب فتنقطع عنه المصادقة به. المفتاح الخاص على جهازك يبقى ويجب حذفه أو حمايته، وما فُعل به قبل الحذف لا يُلغى.",
+    "docsUrl": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-ssh-keys",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق على صفحة مراجعة مفاتيح SSH: حذف مفتاح غير مصرَّح أو مشتبه فيه يمنع المهاجم من الوصول إلى المستودعات؛ وبقاء المفتاح الخاص على الجهاز حكم عام."
+    },
+    "signature": null
+  },
+  "gpg_key": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "إجراء على حسابك وحدك.",
+    "whenToUse": "عند رغبتك في توقيع التزاماتك رقميًا لتظهر بشارة Verified وتثبت أنك مؤلفها.",
+    "reversalLimits": "يمكن حذف المفتاح العام من الحساب في أي وقت، وقد تفقد الالتزامات الموقعة به شارة Verified. والتزام وُقّع لا يُحذف توقيعه.",
+    "docsUrl": "https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification",
+    "verification": {
+      "status": "unverified",
+      "note": "لم تُقرأ عبارات الحذف وأثره في الشارة من صفحات الوثائق."
+    },
+    "signature": null
+  },
+  "verified_commit": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في التأكد من أن التزامًا وقّعه صاحب الحساب فعلًا قبل الاعتماد عليه.",
+    "reversalLimits": "الشارة وصف لحالة التوقيع لا إجراء يُتراجع عنه؛ وقد تتغير إن حُذف المفتاح أو أُبطل.",
+    "docsUrl": "https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification",
+    "verification": {
+      "status": "unverified",
+      "note": "لم تُقرأ عبارة تغير الشارة بعد حذف المفتاح من الصفحة."
+    },
+    "signature": {
+      "labels": [
+        "Verified"
+      ],
+      "roles": [
+        "status",
+        "button",
+        "link"
+      ],
+      "pages": [
+        "repo-home",
+        "pull-request"
+      ]
+    }
+  },
+  "personal_access_token": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "إجراء على حسابك وحدك.",
+    "whenToUse": "عند استعمال Git أو الواجهة البرمجية من سكربت أو أداة وتحتاج هوية بديلة عن كلمة المرور؛ ويُفضَّل الرمز الدقيق إن أمكن.",
+    "reversalLimits": "يمكن حذف الرمز (إبطاله) أو ينتهي بانتهاء مدته فيتوقف عن العمل، ولا يمكن استعادة رمز منتهٍ أو مُبطَل بل يُنشأ غيره. وما نفّذه به من استعمله أثناء تسريبه لا يُلغى. اختر تاريخ انتهاء قصيرًا.",
+    "docsUrl": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق على صفحة انتهاء الرموز وإبطالها: الرمز المنتهي أو المُبطَل لا يُستعاد ولا يصلح للمصادقة؛ وعلى صفحة إدارة الرموز أنه بديل عن كلمة المرور."
+    },
+    "signature": null
+  },
+  "fine_grained_token": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "إجراء على حسابك وحدك، وقد تشترط المنظمة موافقتها على استعماله مع مستودعاتها.",
+    "whenToUse": "عند حاجتك إلى رمز محصور بمستودعات محددة وصلاحيات ضيقة بدل صلاحية شاملة على الحساب.",
+    "reversalLimits": "يمكن حذف الرمز (إبطاله) أو ينتهي بانتهاء مدته، ولا يمكن استعادة رمز منتهٍ أو مُبطَل بل يُنشأ غيره. لا يغطي كل المهام بعد، ويُنصح بتاريخ انتهاء قصير؛ وقد تمنع المنظمة الرموز بلا انتهاء.",
+    "docsUrl": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق أن الرمز الدقيق لا يدعم كل مهام الرمز الكلاسيكي، وأن مدة الانتهاء غير المحدودة مسموحة لكن قد تمنعها سياسة المنظمة؛ وقد صُحّح بذلك ادعاء المصدر «تاريخ انتهاء إلزامي»."
+    },
+    "signature": null
+  },
+  "oauth_app": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "الترخيص على حسابك وحدك؛ ووصول المنظمة قد يتطلب موافقة مالكها.",
+    "whenToUse": "عند ظهور طلب من تطبيق خارجي للدخول أو التصرف باسمك، وتحتاج قرار الموافقة أو الرفض.",
+    "reversalLimits": "يمكن إلغاء ترخيص التطبيق من إعدادات الحساب في أي وقت فيفقد وصوله. لكن ما أنجزه أثناء ترخيصه، وما نسخه من بيانات، لا يُسترد.",
+    "docsUrl": "https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/deciding-when-to-build-a-github-app",
+    "verification": {
+      "status": "unverified",
+      "note": "صفحة الوثائق تقارن بين التطبيقات؛ عبارات الإلغاء والأثر لم تُطابَق على نص صريح."
+    },
+    "signature": null
+  },
+  "github_app": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "التثبيت على حسابك وحدك؛ وعلى المنظمة يحتاج صلاحية من مالكها.",
+    "whenToUse": "عند تثبيت تكامل يحتاج صلاحيات محددة على مستودعات مختارة بهوية مستقلة عن حسابك.",
+    "reversalLimits": "يلغي من فوّض التطبيق تفويضه من إعداداته في أي وقت، ويستطيع مالك المنظمة أو المؤسسة إلغاء تثبيته من حسابها دون إلغاء تفويضات أعضائها. وما نفّذه التطبيق أثناء تفويضه لا يُلغى.",
+    "docsUrl": "https://docs.github.com/en/apps/using-github-apps/reviewing-and-revoking-authorization-of-github-apps",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق على صفحة مراجعة تفويض تطبيقات GitHub وإلغائه: لا يلغي التفويض إلا من فوّض، ويمكن للمالكين إلغاء التثبيت فقط."
+    },
+    "signature": null
+  },
+  "webhook": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في إعلام خدمة خارجية آليًا بأحداث المستودع كفتح مشكلة أو دفع التزام.",
+    "reversalLimits": "التعطيل (Deactivate) يوقف الإرسال ويمكن إعادة تفعيله لاحقًا، أما الحذف فلا يمكن استعادته. والطلبات التي أُرسلت فعلًا إلى الرابط لا تُسترد، وللرابط الخارجي أن يحتفظ بما استلمه.",
+    "docsUrl": "https://docs.github.com/en/webhooks/using-webhooks/disabling-webhooks",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق على صفحة تعطيل الخطافات: التعطيل يوقف الإرسال ويقبل إعادة التفعيل، والحذف لا يُستعاد؛ وصلاحية Admin حكم عام لم يُطابَق."
+    },
+    "signature": null
+  },
+  "secret_scanning": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في كشف أسرار (مفاتيح أو رموز) رُفعت بالخطأ إلى المستودع وتاريخه.",
+    "reversalLimits": "يمكن تعطيل الفحص في أي وقت. لكن سرًّا تسرب يجب إبطاله لدى مزوّده، فحذفه من المستودع لا يمحوه من التاريخ ولا ممن نسخه.",
+    "docsUrl": "https://docs.github.com/en/code-security/concepts/secret-security",
+    "verification": {
+      "status": "unverified",
+      "note": "صفحة الوثائق مدخل لمفاهيم أمان الأسرار؛ لم تُقرأ عباراتها التفصيلية. وصلاحية Admin لتفعيله طُوبقت على صفحة حماية الدفع."
+    },
+    "signature": null
+  },
+  "push_protection": {
+    "kind": "concept",
+    "permission": "Admin",
+    "permissionNote": "تفعيله لمدير المستودع أو مالك المنظمة أو مدير الأمان.",
+    "whenToUse": "عند رغبتك في منع رفع الأسرار إلى المستودع قبل وصولها للخادم.",
+    "reversalLimits": "يمكن تعطيله في أي وقت. ويمكن لمن يدفع تجاوز الحظر بذكر السبب، ويُسجَّل ذلك للمراجعة؛ والتجاوز يرفع السر فعلًا فيجب إبطاله لدى مزوّده.",
+    "docsUrl": "https://docs.github.com/en/code-security/concepts/secret-security/push-protection",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق أن حماية الدفع معطلة افتراضيًا ويفعّلها مدير المستودع أو مالك المنظمة أو مدير الأمان أو مالك المؤسسة (صفحة الوثائق)؛ وتفصيل التجاوز لم يُقرأ."
+    },
+    "signature": null
+  },
+  "dependabot_alerts": {
+    "kind": "concept",
+    "permission": "Admin",
+    "permissionNote": "تفعيلها لمدير المستودع؛ ويصل التنبيه إلى من لهم صلاحية على المستودع.",
+    "whenToUse": "عند رغبتك في معرفة اعتماديات مشروعك التي تحمل ثغرات أمنية معروفة.",
+    "reversalLimits": "يمكن إغلاق التنبيه (Dismiss) مع السبب وإعادة فتحه، وتعطيل الميزة في أي وقت. وإغلاق التنبيه لا يصلح الثغرة.",
+    "docsUrl": "https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-alerts",
+    "verification": {
+      "status": "unverified",
+      "note": "لم تُقرأ تفاصيل الصلاحية ولا عبارات الإغلاق من صفحة الوثائق."
+    },
+    "signature": null
+  },
+  "code_scanning": {
+    "kind": "concept",
+    "permission": "Admin",
+    "permissionNote": "تفعيله لمدير المستودع؛ ويقرأ النتائج من لهم صلاحية الكتابة.",
+    "whenToUse": "عند رغبتك في تحليل شفرة مشروعك آليًا بحثًا عن ثغرات وأخطاء أمنية شائعة.",
+    "reversalLimits": "يمكن تعطيل الفحص أو إغلاق تنبيه مع سببه وإعادة فتحه. وإغلاق التنبيه لا يصلح الثغرة.",
+    "docsUrl": "https://docs.github.com/en/code-security/concepts/code-scanning/code-scanning",
+    "verification": {
+      "status": "unverified",
+      "note": "لم تُقرأ تفاصيل الصلاحية ولا عبارات الإغلاق من صفحة الوثائق."
+    },
+    "signature": null
+  },
+  "security_policy": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند رغبتك في توجيه من يكتشف ثغرة في مشروعك إلى قناة الإبلاغ المسؤول بدل نشرها علنًا.",
+    "reversalLimits": "ملف عادي في المستودع (SECURITY.md) يُعدَّل أو يُحذف بالتزام. ما أُبلغ عنه سابقًا يبقى عند أصحابه.",
+    "docsUrl": "https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/add-security-policy",
+    "verification": {
+      "status": "unverified",
+      "note": "صفحة الوثائق تشرح إضافة السياسة؛ لم تُقرأ عبارات الصلاحية."
+    },
+    "signature": null
+  },
+  "environment": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في فصل إعدادات وأسرار كل مرحلة نشر (اختبار وإنتاج) واشتراط موافقة قبل النشر الحساس.",
+    "reversalLimits": "تُعدَّل البيئة وقواعد حمايتها في أي وقت. ويمكن اشتراط حتى ستة مراجعين أو فرق ملزمين بالموافقة قبل نشر سير العمل. وقد تتوقف المراجعون المطلوبون على نوع الخطة في المستودعات الخاصة.",
+    "docsUrl": "https://docs.github.com/en/actions/concepts/workflows-and-actions/deployment-environments",
+    "verification": {
+      "status": "verified",
+      "note": "طوبق حد ستة مراجعين مطلوبين كحد أقصى، وأن المراجعين يلزم أن تكون لديهم قراءة على الأقل، وأن المراجعين المطلوبين في الخطط المجانية والفريق متاحون للمستودعات العامة فقط (صفحة المرجع)؛ وصلاحية Admin لم تُطابَق على نص صريح."
+    },
+    "signature": null
+  },
+  "secrets_var": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في تمرير مفتاح أو كلمة سر إلى سير العمل دون كتابتها في الشفرة.",
+    "reversalLimits": "لا يمكن قراءة قيمة السر بعد حفظه، بل استبداله أو حذفه فقط. وإن تسرب سر فيجب إبطاله لدى مزوّده، فحذفه من GitHub لا يعيد سريته.",
+    "docsUrl": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets",
+    "verification": {
+      "status": "unverified",
+      "note": "طوبق أن الأسرار لا تُقرأ مباشرة في الشروط (if:) وأن القيم الحساسة غير الأسرار تُقنَّع بـ::add-mask::؛ وعدم إمكان قراءتها بعد الحفظ لم يُطابَق على نص صريح في الاستخراج."
+    },
+    "signature": null
+  }
+}
