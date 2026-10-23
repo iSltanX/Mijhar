@@ -1,0 +1,169 @@
+{
+  "nav-search": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في الوصول السريع إلى مستودع أو مشكلة أو شفرة أو مستخدم دون التنقل بين الصفحات.",
+    "reversalLimits": "البحث قراءة فقط ولا يغيّر شيئًا. وما تبحث عنه يظهر بحسب صلاحياتك على المستودعات.",
+    "docsUrl": "https://docs.github.com/en/search-github/getting-started-with-searching-on-github/about-searching-on-github",
+    "verification": { "status": "unverified", "note": "لم تُقرأ صفحة الوثائق؛ الحكم من طبيعة البحث. واختصار / يوافق صفحة اختصارات لوحة المفاتيح." },
+    "signature": { "labels": ["Search or jump to...", "Search GitHub"], "roles": ["textbox", "button", "combobox"], "pages": ["any"] }
+  },
+  "nav-create": {
+    "kind": "element",
+    "permission": "None",
+    "permissionNote": "إنشاء عناصر داخل منظمة يعتمد على صلاحياتك فيها.",
+    "whenToUse": "عند رغبتك في بدء عنصر جديد بسرعة: مستودع أو استيراد مستودع أو منظمة أو مساحة شفرة أو مشروع.",
+    "reversalLimits": "فتح القائمة لا يغيّر شيئًا. وما تنشئه منها يُتراجع عنه بحذفه أو أرشفته بحسب نوعه.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository",
+    "verification": { "status": "unverified", "note": "لم تُقرأ صفحة الوثائق؛ الخيارات المعروضة تختلف باختلاف نوع الحساب والخطة." },
+    "signature": { "labels": ["Create new...", "New"], "roles": ["button", "menuitem"], "pages": ["any"] }
+  },
+  "nav-notifications": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في مراجعة ما يحتاج اهتمامك: مراجعات مطلوبة وإسنادات وإشارات إلى اسمك ونشاط مستودعات تراقبها.",
+    "reversalLimits": "تعليم الإشعار مقروءًا أو منجزًا لا يحذفه، ويمكن استعراضه لاحقًا من الصندوق. وتغيير الاشتراكات يؤثر في الإشعارات القادمة لا السابقة.",
+    "docsUrl": "https://docs.github.com/en/subscriptions-and-notifications/how-tos/viewing-and-triaging-notifications/managing-notifications-from-your-inbox",
+    "verification": { "status": "unverified", "note": "لم تُقرأ عبارات التعليم بالمقروء والمنجز من صفحة الوثائق." },
+    "signature": { "labels": ["Notifications"], "roles": ["link", "button"], "pages": ["any"], "hrefPatterns": ["^/notifications"] }
+  },
+  "nav-profile-menu": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في الوصول إلى ملفك الشخصي أو مستودعاتك أو نجومك أو إعداداتك أو تسجيل الخروج.",
+    "reversalLimits": "فتح القائمة لا يغيّر شيئًا. وتسجيل الخروج يُتراجع عنه بتسجيل الدخول من جديد.",
+    "docsUrl": "https://docs.github.com/en/account-and-profile/get-started/profile",
+    "verification": { "status": "unverified", "note": "لم تُقرأ صفحة الوثائق؛ محتوى القائمة يتغير بتغير الواجهة." },
+    "signature": { "labels": ["Open user navigation menu"], "roles": ["button"], "pages": ["any"] }
+  },
+  "search_repos": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في تصفية قائمة مستودعاتك بالاسم أو الوصف أثناء الكتابة.",
+    "reversalLimits": "التصفية عرض فقط، تُمسح بإفراغ الحقل ولا تغيّر شيئًا في المستودعات.",
+    "docsUrl": "https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories",
+    "verification": { "status": "unverified", "note": "صفحة الوثائق تخص البحث في GitHub كله لا حقل التصفية في قائمة مستودعاتك؛ ولم تُطابَق." },
+    "signature": { "labels": ["Find a repository..."], "roles": ["textbox"], "pages": ["profile"] }
+  },
+  "repos-new-btn": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في بدء مستودع جديد بتحديد اسمه ووصفه ومستوى ظهوره وملفاته الأولية.",
+    "reversalLimits": "فتح النموذج لا يغيّر شيئًا. والمستودع بعد إنشائه يُحذف من إعداداته (يحتاج Admin) ضمن حدود الاستعادة المذكورة في مدخل حذف المستودع.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository",
+    "verification": { "status": "unverified", "note": "لم تُقرأ صفحة الوثائق؛ حدود الاستعادة مأخوذة من مدخل حذف المستودع الموثَّق." },
+    "signature": { "labels": ["New", "New repository"], "roles": ["link", "button"], "pages": ["dashboard", "profile", "new-repo"], "hrefPatterns": ["/new$"] }
+  },
+  "profile-edit-btn": {
+    "kind": "element",
+    "permission": "None",
+    "permissionNote": "على ملفك الشخصي أنت فقط.",
+    "whenToUse": "عند رغبتك في تغيير ما يراه الزوار في ملفك: الاسم والنبذة والموقع والروابط والصورة.",
+    "reversalLimits": "تعديل بيانات العرض يُعاد إلى قيمه السابقة بتعديل جديد. وما رآه الآخرون قبل التعديل لا يُسحب منهم.",
+    "docsUrl": "https://docs.github.com/en/account-and-profile/get-started/profile",
+    "verification": { "status": "unverified", "note": "لم تُقرأ حقول النموذج الحالية من صفحة الوثائق." },
+    "signature": { "labels": ["Edit profile"], "roles": ["button"], "pages": ["profile"] }
+  },
+  "profile-followers": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في استعراض من يتابعونك ومن تتابعهم.",
+    "reversalLimits": "الرقمان عرض فقط؛ وإلغاء متابعة حساب يتم من صفحته بزر Unfollow.",
+    "docsUrl": "https://docs.github.com/en/get-started/exploring-projects-on-github/following-people",
+    "verification": { "status": "unverified", "note": "طوبق إلغاء المتابعة بزر Unfollow؛ ولم تُطابَق عبارة الرقمين كرابطين على نص صريح." },
+    "signature": { "labels": ["followers", "following"], "roles": ["link"], "pages": ["profile"], "hrefPatterns": ["tab=followers", "tab=following"] }
+  },
+  "profile-pinned-repos": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في إبراز أفضل أعمالك لأي زائر قبل ترتيب المستودعات التلقائي.",
+    "reversalLimits": "التثبيت يُلغى ويُعاد ترتيبه في أي وقت من صفحة التخصيص دون أثر على المستودعات.",
+    "docsUrl": "https://docs.github.com/en/account-and-profile/how-tos/profile-customization/pinning-items-to-your-profile",
+    "verification": { "status": "verified", "note": "طوبق حد ستة عناصر (مستودعات وGists معًا) وتخصيص التثبيت من الملف الشخصي." },
+    "signature": { "labels": ["Pinned"], "roles": ["region", "list"], "pages": ["profile"] }
+  },
+  "profile-contrib-graph": {
+    "kind": "element",
+    "permission": "None",
+    "whenToUse": "عند رغبتك في رؤية كثافة النشاط خلال السنة، لا جودته.",
+    "reversalLimits": "المخطط عرض فقط. وإظهار المساهمات الخاصة فيه يُبدَّل من إعدادات الملف الشخصي في أي وقت.",
+    "docsUrl": "https://docs.github.com/en/account-and-profile/concepts/contributions-on-your-profile",
+    "verification": { "status": "unverified", "note": "وُجدت صفحة المساهمات وصفحة رؤية المساهمات الخاصة؛ ولم تُقرأ عباراتهما." },
+    "signature": { "labels": ["contributions in the last year"], "roles": ["table", "img", "region"], "pages": ["profile"] }
+  },
+  "repo-tab-code": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في تصفح ملفات المستودع وقراءة README والعودة إلى الصفحة الأساسية.",
+    "reversalLimits": "عرض فقط؛ لا إجراء فيه يُتراجع عنه.",
+    "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories",
+    "verification": { "status": "unverified", "note": "الحكم من طبيعة التبويب؛ لم يُطابَق على نص صريح." },
+    "signature": { "labels": ["Code"], "roles": ["tab", "link"], "pages": ["repo-home", "repo-files"] }
+  },
+  "repo-tab-issues": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في استعراض المشكلات المفتوحة والمغلقة أو فتح مشكلة جديدة.",
+    "reversalLimits": "عرض فقط. وإغلاق المشكلة يُتراجع عنه بإعادة فتحها، أما حذفها فنهائي (انظر مدخل المشكلة).",
+    "docsUrl": "https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues",
+    "verification": { "status": "verified", "note": "طوبقت صلاحيات الإغلاق ونهائية الحذف على صفحتي إغلاق المشكلة وحذفها." },
+    "signature": { "labels": ["Issues"], "roles": ["tab", "link"], "pages": ["repo-home", "issues"], "hrefPatterns": ["/issues$"] }
+  },
+  "repo-tab-pulls": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في مراجعة التعديلات المقترحة المفتوحة والمغلقة والمدموجة أو فتح طلب سحب.",
+    "reversalLimits": "عرض فقط. والدمج لا يُلغى بل يُعكس بطلب سحب جديد (Revert) كما في مدخل طلب السحب.",
+    "docsUrl": "https://docs.github.com/en/pull-requests/get-started/about-pull-requests",
+    "verification": { "status": "verified", "note": "طوبق عكس الطلب المدموج بطلب جديد على صفحة عكس طلب السحب." },
+    "signature": { "labels": ["Pull requests"], "roles": ["tab", "link"], "pages": ["repo-home", "pull-requests"], "hrefPatterns": ["/pulls$"] }
+  },
+  "repo-tab-actions": {
+    "kind": "element",
+    "permission": "Read",
+    "permissionNote": "عرض التشغيلات يحتاج الوصول إلى المستودع؛ وإعادة التشغيل أو الإلغاء تحتاج الكتابة.",
+    "whenToUse": "عند رغبتك في متابعة تشغيلات سير العمل ونتائجها وسجلاتها.",
+    "reversalLimits": "العرض لا يغيّر شيئًا. أما إلغاء تشغيل أو حذفه أو تعطيل سير عمل فتفاصيلها في مدخلات سير العمل.",
+    "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/index",
+    "verification": { "status": "unverified", "note": "وُجدت صفحات إدارة التشغيلات (إلغاء وحذف وتعطيل)؛ ولم تُقرأ صلاحياتها." },
+    "signature": { "labels": ["Actions"], "roles": ["tab", "link"], "pages": ["repo-home", "actions"], "hrefPatterns": ["/actions$"] }
+  },
+  "repo-tab-releases": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في تنزيل نسخة رسمية من المشروع أو الاطلاع على ملاحظات إصداراته.",
+    "reversalLimits": "عرض فقط. المسودات لا يراها إلا ذوو الكتابة، وإنشاء الإصدار أو حذفه يعود إلى مدخل الإصدار.",
+    "docsUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/viewing-your-repositorys-releases-and-tags",
+    "verification": { "status": "unverified", "note": "لم تُقرأ عبارة رؤية المسودات من صفحة الوثائق." },
+    "signature": { "labels": ["Releases"], "roles": ["link"], "pages": ["repo-home", "releases"], "hrefPatterns": ["/releases$"] }
+  },
+  "repo-tab-wiki": {
+    "kind": "element",
+    "permission": "Read",
+    "permissionNote": "تعديل الصفحات في المستودع العام محصور افتراضيًا بالمتعاونين.",
+    "whenToUse": "عند رغبتك في قراءة توثيق موسّع أو الإسهام فيه إن سمح مالك المستودع.",
+    "reversalLimits": "العرض لا يغيّر شيئًا. وتعديلات الصفحات تُسجَّل في تاريخ Git الخاص بالويكي فيمكن استرجاعها.",
+    "docsUrl": "https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis",
+    "verification": { "status": "unverified", "note": "طوبقت قيود التعديل في صفحة صلاحيات الويكي؛ ولم تُقرأ صفحة «حول الويكي»." },
+    "signature": { "labels": ["Wiki"], "roles": ["tab", "link"], "pages": ["repo-home"], "hrefPatterns": ["/wiki$"] }
+  },
+  "repo-tab-security": {
+    "kind": "element",
+    "permission": "Read",
+    "permissionNote": "رؤية التنبيهات التفصيلية تتطلب صلاحية أعلى أو دورًا أمنيًا بحسب نوع التنبيه.",
+    "whenToUse": "عند رغبتك في معرفة حالة حماية المستودع والتنبيهات النشطة وسياسة الأمان.",
+    "reversalLimits": "العرض لا يغيّر شيئًا. أما تفعيل الميزات الأمنية أو تعطيلها فتفاصيله في مداخلها.",
+    "docsUrl": "https://docs.github.com/en/code-security/concepts/security-at-scale/security-overview",
+    "verification": { "status": "unverified", "note": "طوبقت صلاحية Admin ومدير الأمان لتفعيل حماية الدفع؛ وظهور التبويب لغير الإداريين لم يُطابَق على نص صريح." },
+    "signature": { "labels": ["Security"], "roles": ["tab", "link"], "pages": ["repo-home", "security"], "hrefPatterns": ["/security$"] }
+  },
+  "repo-tab-insights": {
+    "kind": "element",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في فهم صحة المشروع من رسوم النشاط والمساهمين والاعتماديات.",
+    "reversalLimits": "عرض فقط؛ لا يمكن تعديل أي بيانات منه.",
+    "docsUrl": "https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/about-repository-graphs",
+    "verification": { "status": "unverified", "note": "الحكم مبني على أن التبويب عرض بيانات؛ لم يُطابَق على نص صريح." },
+    "signature": { "labels": ["Insights"], "roles": ["tab", "link"], "pages": ["repo-home", "insights"], "hrefPatterns": ["/pulse$"] }
+  }
+}

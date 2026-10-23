@@ -1,0 +1,136 @@
+{
+  "variables": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند الحاجة إلى قيمة إعداد غير حساسة (كاسم بيئة أو رقم إصدار) تتكرر في أكثر من سير عمل.",
+    "reversalLimits": "يمكن تعديل المتغير أو حذفه في أي وقت وتبقى قيمته ظاهرة في الإعدادات. التشغيلات اللاحقة تقرأ القيمة الجديدة، وما نُفّذ سابقًا لا يتغير.",
+    "docsUrl": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables",
+    "verification": { "status": "unverified", "note": "لم تُقرأ صلاحية الإدارة ولا عبارات التعديل والحذف من صفحة الوثائق." },
+    "signature": null
+  },
+  "runner": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "اختيار عامل التشغيل جزء من تعديل ملف سير العمل (الكتابة)؛ وتسجيل عامل مستضاف ذاتيًا يحتاج صلاحية إدارية على المستودع أو المنظمة.",
+    "whenToUse": "عند اختيار الجهاز الذي ينفّذ سير العمل: عامل تستضيفه GitHub للراحة والنظافة، أو عامل مستضاف ذاتيًا لتحكم أكبر.",
+    "reversalLimits": "تغيير عامل التشغيل يُتراجع عنه بتعديل ملف سير العمل. وما نفّذه عامل مستضاف ذاتيًا على جهازك (من تثبيت أو تعديل) يبقى عليه، ويحتاج تنظيفًا من جهتك.",
+    "docsUrl": "https://docs.github.com/en/actions/concepts/runners/github-hosted-runners",
+    "verification": { "status": "unverified", "note": "لم تُقرأ عبارات الصلاحية ولا التنظيف من صفحة الوثائق." },
+    "signature": null
+  },
+  "artifact": {
+    "kind": "concept",
+    "permission": "Read",
+    "whenToUse": "عند الحاجة إلى حفظ ملفات ناتجة عن تشغيل (تقارير أو ملفات مبنية) لتنزيلها أو تمريرها بين مهام التشغيل.",
+    "reversalLimits": "تُحذف المُخرَجات تلقائيًا بعد انتهاء مدة الاحتفاظ ويمكن حذفها يدويًا، ولا تُستعاد بعد حذفها. من نزّلها يحتفظ بنسخته.",
+    "docsUrl": "https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts",
+    "verification": { "status": "unverified", "note": "وُجدت صفحتا المُخرَجات وحذفها في الوثائق؛ ولم تُقرأ عباراتهما." },
+    "signature": null
+  },
+  "codespaces": {
+    "kind": "concept",
+    "permission": "Read",
+    "permissionNote": "حفظ تعديلاتك في المستودع الأصلي يحتاج الكتابة أو نسخة متفرعة.",
+    "whenToUse": "عند رغبتك في بدء العمل على مشروع فورًا من المتصفح دون تجهيز جهازك.",
+    "reversalLimits": "تُوقف المساحة وتُحذف في أي وقت. ما لم يُدفع من تعديلاتها إلى المستودع يضيع بحذفها. وتُحتسب ساعات التشغيل والتخزين ضمن حصة الحساب.",
+    "docsUrl": "https://docs.github.com/en/codespaces/about-codespaces/what-are-codespaces",
+    "verification": { "status": "unverified", "note": "لم تُقرأ عبارات الحذف ولا الحصة من صفحة الوثائق." },
+    "signature": null
+  },
+  "pages_deploy": {
+    "kind": "concept",
+    "permission": "Admin",
+    "whenToUse": "عند رغبتك في نشر موقع ثابت (توثيق أو صفحة تعريف) مباشرة من مستودعك.",
+    "reversalLimits": "يمكن إيقاف النشر أو تعطيل الصفحات من الإعدادات فيُزال الموقع. وما دام منشورًا فهو عام حتى لو كان المستودع خاصًا (إلا في خطة تدعم تقييد الظهور)، وما نُسخ منه لا يُسحب.",
+    "docsUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages",
+    "verification": { "status": "unverified", "note": "لم تُقرأ عبارات الإيقاف ولا ظهور المواقع العامة من المستودعات الخاصة من صفحة الوثائق." },
+    "signature": null
+  },
+  "collaborator": {
+    "kind": "concept",
+    "permission": "Admin",
+    "permissionNote": "في مستودع حساب شخصي: المالك. وفي مستودع منظمة: من لديه Admin أو مالك المنظمة.",
+    "whenToUse": "عند رغبتك في السماح لشخص بعينه بالوصول إلى مستودعك أو الكتابة فيه.",
+    "reversalLimits": "تُزال صلاحية المتعاون في أي وقت. والدعوة لا تمنح وصولًا قبل قبولها. ما نسخه المتعاون من المستودع أثناء وصوله لا يُسحب منه.",
+    "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/permission-levels-for-a-personal-account-repository",
+    "verification": { "status": "verified", "note": "طوبق: مستودع الحساب الشخصي بمستويين فقط (مالك ومتعاون)، والمتعاون في المستودع الخاص يحصل على الكتابة لا القراءة وحدها، ولا وصول قبل قبول الدعوة (صفحتا مستويات الصلاحية ودعوة المتعاونين)؛ وقد صُحّح بذلك ادعاء المصدر عن تدرج الأدوار." },
+    "signature": null
+  },
+  "team_permission": {
+    "kind": "concept",
+    "permission": "Owner",
+    "permissionNote": "مالك المنظمة، أو من يملك صلاحية إدارة الفريق أو المستودع بحسب الحالة.",
+    "whenToUse": "عند رغبتك في منح مجموعة من أعضاء المنظمة مستوى وصول موحدًا على مستودع أو أكثر.",
+    "reversalLimits": "تُعدَّل صلاحية الفريق أو تُسحب في أي وقت وتسري على أعضائه فورًا. وما أنجزه الأعضاء بها لا يُلغى. والفرق الفرعية ترث وصول الفريق الأب.",
+    "docsUrl": "https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams",
+    "verification": { "status": "unverified", "note": "لم تُقرأ تفاصيل الصلاحية ولا الوراثة من صفحة الوثائق." },
+    "signature": null
+  },
+  "insights": {
+    "kind": "concept",
+    "permission": "Read",
+    "whenToUse": "عند رغبتك في تقييم صحة المشروع بنظرة: النشاط والمساهمون والاعتماديات ومعايير المجتمع.",
+    "reversalLimits": "عرض للقراءة فقط؛ لا إجراء فيه يُتراجع عنه.",
+    "docsUrl": "https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/about-repository-graphs",
+    "verification": { "status": "unverified", "note": "الحكم مبني على أن التبويب عرض بيانات؛ لم يُطابَق على نص صريح." },
+    "signature": null
+  },
+  "wiki": {
+    "kind": "concept",
+    "permission": "Write",
+    "permissionNote": "التعديل في المستودعات العامة محصور افتراضيًا بالمتعاونين، ويمكن فتحه لكل صاحب حساب.",
+    "whenToUse": "عند الحاجة إلى توثيق أطول وأكثر تفصيلًا من README كدليل استخدام أو أسئلة شائعة.",
+    "reversalLimits": "كل تعديل يُسجَّل في تاريخ Git الخاص بالويكي، فيمكن استرجاع صياغة سابقة لأي صفحة. وفتح التعديل لكل صاحب حساب يعرّض الصفحات للعبث؛ ويُقيَّد من الإعدادات.",
+    "docsUrl": "https://docs.github.com/en/communities/documenting-your-project-with-wikis/changing-access-permissions-for-wikis",
+    "verification": { "status": "verified", "note": "طوبق أن تعديل ويكي المستودع العام محصور افتراضيًا بالمتعاونين وأنه يُفتح بإلغاء خيار تقييد التعديل بالمتعاونين فقط؛ وقد صُحّح بذلك ادعاء المصدر. أما سجل Git للويكي فحكم عام." },
+    "signature": null
+  },
+  "project_board": {
+    "kind": "concept",
+    "permission": "None",
+    "permissionNote": "تتبع صلاحيات المشروع نفسه وصلاحيات المستودعات المرتبطة به.",
+    "whenToUse": "عند رغبتك في تتبع تقدّم العمل عبر مشكلات وطلبات سحب من مستودع أو أكثر في لوحة أو جدول أو مخطط زمني.",
+    "reversalLimits": "تُؤرشف العناصر أو تُحذف من اللوحة بلا حذف المشكلات الأصلية، وتُحذف اللوحة نفسها بعروضها وحقولها المخصصة.",
+    "docsUrl": "https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects",
+    "verification": { "status": "unverified", "note": "لم تُقرأ عبارات الأرشفة والحذف ولا تفاصيل الصلاحية من صفحة الوثائق." },
+    "signature": null
+  },
+  "package_registry": {
+    "kind": "concept",
+    "permission": "Read",
+    "permissionNote": "النشر يحتاج الكتابة أو صلاحية على الحزمة.",
+    "whenToUse": "عند رغبتك في استضافة حزمة أو صورة حاوية مرتبطة بمستودعك وبصلاحياته.",
+    "reversalLimits": "يمكن حذف الحزمة أو أحد إصداراتها، واستعادة الحزم المحذوفة بشروط وفي مدة محدودة. وما نزّله الآخرون يبقى لديهم.",
+    "docsUrl": "https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages",
+    "verification": { "status": "unverified", "note": "وُجدت صفحة الأذونات؛ ولم تُقرأ مدة الاستعادة وشروطها." },
+    "signature": null
+  },
+  "draft_release": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند تجهيز وصف الإصدار وملفاته مسبقًا دون إظهاره للجميع قبل أن تكون جاهزًا.",
+    "reversalLimits": "المسودة مخفية عن غير ذوي الكتابة وتُحذف قبل النشر دون أثر عام. عند النشر يظهر الإصدار ويُنشأ وسمه إن لم يكن موجودًا.",
+    "docsUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository",
+    "verification": { "status": "unverified", "note": "طوبقت صلاحية الكتابة على الإصدارات؛ وعبارات المسودة والوسم لم تُطابَق على نص صريح." },
+    "signature": null
+  },
+  "prerelease": {
+    "kind": "concept",
+    "permission": "Write",
+    "whenToUse": "عند نشر نسخة مبكرة للاختبار لا تريدها أن تظهر كأحدث إصدار مستقر.",
+    "reversalLimits": "يمكن تغيير تعليم الإصدار بين تجريبي ومستقر بعد النشر بتعديله، حتى مع الإصدارات غير القابلة للتعديل (immutable).",
+    "docsUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository",
+    "verification": { "status": "verified", "note": "طوبق أن تغيير تعليم الإصدار بين تجريبي وأحدث إصدار يبقى ممكنًا حتى مع الإصدارات غير القابلة للتعديل، وأن الكتابة تكفي لتعديل الإصدار." },
+    "signature": null
+  },
+  "billing_plan": {
+    "kind": "concept",
+    "permission": "Owner",
+    "permissionNote": "صاحب الحساب، أو مالك المنظمة أو مدير الفوترة فيها.",
+    "whenToUse": "عند مراجعة خطتك واستهلاكك قبل تجاوز الحصة المجانية، أو لضبط الميزانية.",
+    "reversalLimits": "يمكن تغيير الخطة وطريقة الدفع لاحقًا، لكن الاستهلاك الذي سبق لا يُلغى. وتتيح الميزانيات (Budgets) تتبع الإنفاق وإيقافه عند حد صارم لبعض المنتجات.",
+    "docsUrl": "https://docs.github.com/en/billing/concepts/budgets-and-alerts",
+    "verification": { "status": "verified", "note": "طوبق أن الميزانيات تتبع الإنفاق على المنتجات المقيسة وأن الميزانية الصارمة تمنع الاستهلاك الإضافي؛ وقد استُبدل بها مصطلح «حد الإنفاق» القديم في المصدر." },
+    "signature": null
+  }
+}

@@ -1,0 +1,754 @@
+[
+  {
+    "id": "repository",
+    "field": "route",
+    "removed": "/iSltanX/Raff",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "مسار الصفحة في المحاكاة (مستودع شخصي من المشروع السابق)"
+  },
+  {
+    "id": "pull_request",
+    "field": "permission",
+    "removed": "الكتابة في المستودع لفتح الطلب، والإدارة أو صلاحية الدمج لإتمامه",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "release",
+    "field": "permission",
+    "removed": "الكتابة في المستودع",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "workflow",
+    "field": "permission",
+    "removed": "الكتابة في المستودع لتعديل الملف",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "default_branch",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "create_new_file",
+    "field": "permission",
+    "removed": "الكتابة في المستودع",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "upload_files",
+    "field": "permission",
+    "removed": "الكتابة في المستودع",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "visibility_public",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "visibility_private",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "archive_repo",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "delete_repo",
+    "field": "permission",
+    "removed": "ملكية المستودع أو صلاحية إدارية كاملة",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "transfer_ownership",
+    "field": "permission",
+    "removed": "ملكية المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "squash_merge",
+    "field": "permission",
+    "removed": "صلاحية الدمج",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "rebase_merge",
+    "field": "permission",
+    "removed": "صلاحية الدمج",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "merge_commit",
+    "field": "permission",
+    "removed": "صلاحية الدمج",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "force_push",
+    "field": "permission",
+    "removed": "الكتابة في المستودع (ما لم يكن ممنوعًا بقاعدة حماية)",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "branch_protection",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "ruleset",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "tag_protection",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "two_factor",
+    "field": "permission",
+    "removed": "صاحب الحساب فقط",
+    "replacement": "None",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "personal_access_token",
+    "field": "permission",
+    "removed": "صاحب الحساب فقط",
+    "replacement": "None",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "fine_grained_token",
+    "field": "permission",
+    "removed": "صاحب الحساب فقط",
+    "replacement": "None",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "webhook",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "secret_scanning",
+    "field": "permission",
+    "removed": "إدارة المستودع لتفعيله",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "push_protection",
+    "field": "permission",
+    "removed": "إدارة المستودع لتفعيله",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "environment",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "secrets_var",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "variables",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "pages_deploy",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "collaborator",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "team_permission",
+    "field": "permission",
+    "removed": "إدارة المنظمة",
+    "replacement": "Owner",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "billing_plan",
+    "field": "permission",
+    "removed": "صاحب الحساب فقط",
+    "replacement": "Owner",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "nav-search",
+    "field": "route",
+    "removed": "/iSltanX",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "مسار الصفحة في المحاكاة (مستودع شخصي من المشروع السابق)"
+  },
+  {
+    "id": "nav-notifications",
+    "field": "route",
+    "removed": "/notifications",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "مسار الصفحة في المحاكاة (مستودع شخصي من المشروع السابق)"
+  },
+  {
+    "id": "profile-edit-btn",
+    "field": "route",
+    "removed": "/settings/profile",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "مسار الصفحة في المحاكاة (مستودع شخصي من المشروع السابق)"
+  },
+  {
+    "id": "repo-tab-settings",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "add-file-menu",
+    "field": "permission",
+    "removed": "الكتابة في المستودع",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "release-new-btn",
+    "field": "permission",
+    "removed": "الكتابة في المستودع",
+    "replacement": "Write",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "settings-visibility",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "settings-2fa-enable",
+    "field": "permission",
+    "removed": "صاحب الحساب فقط",
+    "replacement": "None",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "settings-ssh-add",
+    "field": "permission",
+    "removed": "صاحب الحساب فقط",
+    "replacement": "None",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "settings-branch-protect-add",
+    "field": "permission",
+    "removed": "إدارة المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "settings-danger-delete",
+    "field": "permission",
+    "removed": "ملكية المستودع",
+    "replacement": "Admin",
+    "kind": "schema",
+    "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
+  },
+  {
+    "id": "pr-merge-demo",
+    "field": "*",
+    "removed": "محاكاة الدمج / Merge simulation",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "مدخل يصف رسم المحاكاة التفاعلي في المشروع السابق وليس عنصرًا في GitHub؛ وطرق الدمج الثلاث مشروحة في مداخلها (الدمج بضغط الالتزامات، إعادة الأساس والدمج، التزام الدمج)."
+  },
+  {
+    "id": "repository",
+    "field": "example",
+    "removed": "iSltanX/Raff هو مستودع عام يحتوي على شفرة تطبيق «رفّ» لإدارة الحافظة.",
+    "replacement": "octocat/hello-world مستودع عام يحتوي على شفرة مشروع صغير وسجل تعديلاته.",
+    "kind": "simulation",
+    "reason": "مثال بمستودع شخصي من المشروع السابق"
+  },
+  {
+    "id": "release",
+    "field": "example",
+    "removed": "Raff-1.2.0.dmg",
+    "replacement": "hello-1.2.0.dmg",
+    "kind": "simulation",
+    "reason": "اسم ملف من تطبيق شخصي في المشروع السابق"
+  },
+  {
+    "id": "clone_https",
+    "field": "example",
+    "removed": "iSltanX/Raff.git",
+    "replacement": "octocat/hello-world.git",
+    "kind": "simulation",
+    "reason": "رابط مستودع شخصي من المشروع السابق"
+  },
+  {
+    "id": "clone_ssh",
+    "field": "example",
+    "removed": "iSltanX/Raff.git",
+    "replacement": "octocat/hello-world.git",
+    "kind": "simulation",
+    "reason": "رابط مستودع شخصي من المشروع السابق"
+  },
+  {
+    "id": "clone_cli",
+    "field": "example",
+    "removed": "iSltanX/Raff",
+    "replacement": "octocat/hello-world",
+    "kind": "simulation",
+    "reason": "اسم مستودع شخصي من المشروع السابق"
+  },
+  {
+    "id": "license",
+    "field": "example",
+    "removed": "مستودع iSltanX/SAWB مرخّص بموجب MIT License.",
+    "replacement": "مستودع مرخّص بموجب MIT License يسمح لغيرك باستخدام شفرته وتعديلها بشرط إبقاء إشعار الترخيص.",
+    "kind": "simulation",
+    "reason": "مثال بمستودع شخصي من المشروع السابق"
+  },
+  {
+    "id": "delete_repo",
+    "field": "detailed",
+    "removed": " في هذه المحاكاة التعليمية لا يُحذف أي شيء فعليًا مهما ضغطت.",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "جملة عن سلوك المحاكاة لا عن GitHub"
+  },
+  {
+    "id": "delete_repo",
+    "field": "detailed",
+    "removed": "لا يمكن التراجع عن الحذف بعد تأكيده؛",
+    "replacement": "التراجع عن الحذف بعد تأكيده محدود؛ إذ تُستعاد بعض المستودعات خلال 90 يومًا فقط ولا تُستعاد صلاحيات الفرق، فلا تعتمد على الاستعادة؛",
+    "kind": "correction",
+    "reason": "وثائق GitHub تنص على إمكان استعادة بعض المستودعات المحذوفة خلال 90 يومًا بشروط، فإطلاق «لا يمكن التراجع» غير دقيق"
+  },
+  {
+    "id": "delete_repo",
+    "field": "reversible",
+    "removed": "لا",
+    "replacement": "جزئيًا",
+    "kind": "correction",
+    "reason": "وثائق GitHub: تُستعاد بعض المستودعات المحذوفة خلال 90 يومًا بشروط (صفحة استعادة مستودع محذوف)"
+  },
+  {
+    "id": "webhook",
+    "field": "detailed",
+    "removed": " في هذه المحاكاة لا تُرسَل أي طلبات شبكية حقيقية.",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "جملة عن سلوك المحاكاة لا عن GitHub"
+  },
+  {
+    "id": "nav-search",
+    "field": "brief",
+    "removed": "يبحث في المستودعات والإعدادات والمصطلحات والشروحات كلها من مكان واحد.",
+    "replacement": "يبحث في المستودعات والمشكلات والشفرة والمستخدمين من مكان واحد في أعلى كل صفحة.",
+    "kind": "simulation",
+    "reason": "وصف بحث المحاكاة (المصطلحات والشروحات) لا بحث GitHub"
+  },
+  {
+    "id": "nav-search",
+    "field": "medium",
+    "removed": "شريط البحث في أعلى كل صفحة يفتح لوحة بحث شاملة تغطي المستودعات، وصفحات الإعدادات، ومصطلحات القاموس، ومسارات التعلّم، وأسئلة شائعة، مع رابط مباشر للنتيجة المطلوبة.",
+    "replacement": "شريط البحث في أعلى الصفحة (Search or jump to…) يفتح لوحة بحث تغطي المستودعات والمشكلات وطلبات السحب والشفرة والمستخدمين، مع رابط مباشر للنتيجة المطلوبة.",
+    "kind": "simulation",
+    "reason": "وصف بحث المحاكاة (مصطلحات القاموس ومسارات التعلم) لا بحث GitHub"
+  },
+  {
+    "id": "nav-search",
+    "field": "detailed",
+    "removed": "يمكن فتحه أيضًا بالضغط على مفتاح / في أي مكان بالصفحة دون الحاجة للنقر بالماوس أولًا، وهو نفس الاختصار السريع الذي يوفره GitHub الحقيقي. النتائج تُرتَّب حسب مطابقة العنوان أولًا ثم الكلمات المفتاحية، وتُفتح مباشرة بالنقر أو بمفتاح Enter.",
+    "replacement": "يمكن فتحه أيضًا بالضغط على مفتاح / في أي مكان بالصفحة دون النقر بالماوس أولًا. تُفتح النتيجة بالنقر أو بمفتاح Enter، وتتغير النتائج بحسب صلاحياتك على المستودعات.",
+    "kind": "simulation",
+    "reason": "مقارنة بين المحاكاة وGitHub الحقيقي وترتيب نتائج خاص بالمحاكاة"
+  },
+  {
+    "id": "nav-create",
+    "field": "detailed",
+    "removed": "من هذه القائمة، خيارا «مستودع جديد» و«مشروع جديد» فقط يفتحان نموذجًا فعليًا تعمل عليه في هذه المحاكاة؛ أما «استيراد مستودع» و«منظمة جديدة» فيعرضان تنبيهًا بأنهما غير مفعّلين هنا، كحال بعض الميزات المتقدمة الأخرى في التطبيق.",
+    "replacement": "تتغير الخيارات بحسب حسابك والمنظمات التي تنتمي إليها؛ ومنها مستودع جديد واستيراد مستودع ومساحة شفرة وGist ومنظمة ومشروع.",
+    "kind": "simulation",
+    "reason": "جملة عن خيارات غير مفعّلة في المحاكاة"
+  },
+  {
+    "id": "nav-profile-menu",
+    "field": "detailed",
+    "removed": "تضم القائمة أيضًا اختصارين خاصين بهذا التطبيق التعليمي: قاموس GitHub ومسارات التعلّم، إلى جانب روابط الحساب المعتادة. زر «تسجيل الخروج» هنا معلوماتي فقط؛ إذ لا يوجد تسجيل دخول حقيقي أصلًا في هذه المحاكاة.",
+    "replacement": "تضم القائمة روابط ملفك الشخصي ومستودعاتك ومشاريعك ونجومك وإعداداتك، وزر تسجيل الخروج؛ وتتغير الخيارات بحسب الحساب والخطة.",
+    "kind": "simulation",
+    "reason": "اختصاران خاصان بالتطبيق التعليمي وتسجيل خروج معلوماتي"
+  },
+  {
+    "id": "search_repos",
+    "field": "detailed",
+    "removed": "بأنه محصور فقط بقائمة مستودعاتك الظاهرة أمامك، ولا يمتد لصفحات الإعدادات أو مصطلحات القاموس.",
+    "replacement": "بأنه محصور بقائمة مستودعاتك الظاهرة أمامك، ولا يمتد إلى بقية GitHub.",
+    "kind": "simulation",
+    "reason": "إشارة إلى بحث المحاكاة الذي يشمل المصطلحات والإعدادات"
+  },
+  {
+    "id": "repos-new-btn",
+    "field": "brief",
+    "removed": "يفتح نموذجًا تعليميًا يشرح كل حقل قبل إنشاء مستودع.",
+    "replacement": "يفتح نموذج إنشاء مستودع جديد.",
+    "kind": "simulation",
+    "reason": "نموذج تعليمي خاص بالمحاكاة"
+  },
+  {
+    "id": "actions-run-row",
+    "field": "detailed",
+    "removed": "النقر على الصف يوسّعه في مكانه مباشرة (كأكورديون) دون الانتقال إلى صفحة منفصلة؛ والنقر عليه مرة أخرى يطويه من جديد. هذا يختلف عن GitHub الحقيقي الذي يفتح عادة صفحة تفصيلية مستقلة لكل تشغيل.",
+    "replacement": "الضغط على صف التشغيل يفتح صفحة تفصيلية له تعرض مهامه وخطواته وسجلاتها، ويستطيع من يملك الكتابة إعادة تشغيله أو إلغاءه منها.",
+    "kind": "simulation",
+    "reason": "وصف توسيع الصف كأكورديون والمقارنة بـGitHub الحقيقي"
+  },
+  {
+    "id": "settings-privacy-toggle",
+    "field": "medium",
+    "removed": "مجموعة مفاتيح تتيح إظهار الوقت المحلي، أو إخفاء نشاط المتابعة، أو إظهار عدد المساهمات الخاصة دون كشف تفاصيلها.",
+    "replacement": "إعدادات في الملف الشخصي تتحكم فيما يظهر للعامة، منها إظهار عدد المساهمات الخاصة في مخططك دون كشف تفاصيلها.",
+    "kind": "simulation",
+    "reason": "مفاتيح فورية الحفظ خاصة بالمحاكاة"
+  },
+  {
+    "id": "settings-privacy-toggle",
+    "field": "detailed",
+    "removed": "كل مفتاح هنا مستقل عن الآخر ويُطبَّق فور تبديله دون الحاجة لزر حفظ منفصل. مفتاح إظهار المساهمات الخاصة تحديدًا لا يكشف أي تفاصيل عن تلك المستودعات، بل يضيف فقط عددًا مجهول المصدر إلى إجمالي مخطط المساهمات العلني.",
+    "replacement": "إظهار المساهمات الخاصة لا يكشف أي تفاصيل عن تلك المستودعات، بل يضيف عددًا مجهول المصدر إلى إجمالي مخطط المساهمات العلني.",
+    "kind": "simulation",
+    "reason": "مفاتيح فورية الحفظ خاصة بالمحاكاة"
+  },
+  {
+    "id": "settings-theme-toggle",
+    "field": "medium",
+    "removed": "يُطبَّق فورًا ويُحفظ في متصفحك فقط.",
+    "replacement": "يُطبَّق فورًا ويُحفظ تفضيله في إعدادات حسابك.",
+    "kind": "simulation",
+    "reason": "حفظ التفضيل في متصفح المحاكاة لا في حساب GitHub"
+  },
+  {
+    "id": "settings-theme-toggle",
+    "field": "detailed",
+    "removed": "بما أنه يُحفظ محليًا في هذا المتصفح فقط، فإن فتح المحاكاة من متصفح أو جهاز آخر يعيد المظهر إلى حالته الافتراضية؛ هذا خلافًا لحساب GitHub الحقيقي الذي يحفظ تفضيل المظهر على مستوى الحساب نفسه فيظهر متطابقًا على كل أجهزتك.",
+    "replacement": "يمكن اختيار مظهر واحد دائمًا (فاتح أو داكن) أو تلقائي يتبع إعداد نظام تشغيل جهازك، ويُضبط من إعدادات حسابك.",
+    "kind": "simulation",
+    "reason": "مقارنة بين المحاكاة وحساب GitHub الحقيقي في حفظ المظهر"
+  },
+  {
+    "id": "settings-2fa-enable",
+    "field": "medium",
+    "removed": "يبدأ نموذجًا تعليميًا لخطوات تفعيل المصادقة الثنائية عبر تطبيق مصادقة، مع رموز استرداد احتياطية — دون توليد أي سر حقيقي.",
+    "replacement": "يبدأ تدفق تفعيل المصادقة الثنائية: اختيار وسيلة المصادقة (تطبيق مصادقة أو رسالة نصية أو مفتاح أمان)، ثم حفظ رموز الاسترداد الاحتياطية.",
+    "kind": "simulation",
+    "reason": "نموذج تعليمي لا يولّد سرًّا حقيقيًا"
+  },
+  {
+    "id": "settings-2fa-enable",
+    "field": "detailed",
+    "removed": "يسير النموذج بنفس تسلسل الخطوات الحقيقي في GitHub: مسح رمز الاستجابة السريعة بتطبيق المصادقة، ثم إدخال الرمز المتولّد للتأكيد، ثم حفظ رموز الاسترداد. الفارق الوحيد أنه هنا لا يُفعَّل أي حماية فعلية ولا يُنشأ أي سر حقيقي قابل للاستخدام خارج هذه المحاكاة.",
+    "replacement": "تسلسل الخطوات: مسح رمز الاستجابة السريعة بتطبيق المصادقة، ثم إدخال الرمز المتولّد للتأكيد، ثم حفظ رموز الاسترداد في مكان آمن منفصل عن جهاز المصادقة.",
+    "kind": "simulation",
+    "reason": "فقرة عن الفارق بين المحاكاة والتفعيل الحقيقي"
+  },
+  {
+    "id": "settings-ssh-add",
+    "field": "medium",
+    "removed": " لا يُولَّد أو يُخزَّن أي مفتاح حقيقي هنا.",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "جملة عن سلوك المحاكاة"
+  },
+  {
+    "id": "settings-ssh-add",
+    "field": "detailed",
+    "removed": "فعليًا على GitHub الحقيقي",
+    "replacement": "فعليًا على GitHub",
+    "kind": "simulation",
+    "reason": "مقارنة بين المحاكاة وGitHub الحقيقي"
+  },
+  {
+    "id": "settings-danger-delete",
+    "field": "detailed",
+    "removed": " في هذه المحاكاة تحديدًا، مهما أكملت خطوات التأكيد وضغطت الزر، لا يُنفَّذ أي حذف أو نقل حقيقي؛ كل ما يحدث هو عرض توضيحي آمن بالكامل.",
+    "replacement": "",
+    "kind": "simulation",
+    "reason": "جملة عن سلوك المحاكاة"
+  },
+  {
+    "id": "settings-danger-delete",
+    "field": "detailed",
+    "removed": "في GitHub الحقيقي",
+    "replacement": "في GitHub",
+    "kind": "simulation",
+    "reason": "مقارنة بين المحاكاة وGitHub الحقيقي"
+  },
+  {
+    "id": "upload_files",
+    "field": "detailed",
+    "removed": "تفرض GitHub حدًا أقصى لحجم الملف الواحد (نحو 100 ميجابايت عبر الواجهة)، وللملفات الأكبر",
+    "replacement": "تفرض GitHub حدًا أقصى لحجم الملف الواحد: 25 ميجابايت (MiB) عند الرفع من المتصفح مع حد 100 ملف في المرة، و100 ميجابايت (MiB) عبر سطر الأوامر، وللملفات الأكبر",
+    "kind": "correction",
+    "reason": "وثائق GitHub (إضافة ملف إلى مستودع): 25 MiB للملف عبر المتصفح و100 MiB عبر سطر الأوامر وحتى 100 ملف في الرفع الواحد"
+  },
+  {
+    "id": "pin_repo",
+    "field": "detailed",
+    "removed": "يمكن تثبيت حتى ستة مستودعات فقط، وليست",
+    "replacement": "يمكن تثبيت حتى ستة عناصر في المجموع (مستودعات وGists معًا)، وليست",
+    "kind": "correction",
+    "reason": "وثائق GitHub: يُختار حتى ستة مستودعات وGists معًا"
+  },
+  {
+    "id": "transfer_ownership",
+    "field": "medium",
+    "removed": "وتفقد صلاحية الإدارة عليه فور اكتمال النقل ما لم يُعاد دعوتك كمتعاون.",
+    "replacement": "ويُضاف المالك السابق متعاونًا على المستودع المنقول، ويدير المالك الجديد كل شيء فيه فور اكتمال النقل.",
+    "kind": "correction",
+    "reason": "وثائق GitHub: يُضاف المالك الأصلي متعاونًا على المستودع المنقول"
+  },
+  {
+    "id": "transfer_ownership",
+    "field": "detailed",
+    "removed": "لا يكتمل النقل من طرف واحد؛ يجب أن يقبل الحساب أو المنظمة المستقبلة الدعوة أولًا.",
+    "replacement": "عند النقل إلى حساب شخصي آخر يصله بريد تأكيد ويجب أن يقبل النقل خلال يوم واحد وإلا انتهت الدعوة.",
+    "kind": "correction",
+    "reason": "وثائق GitHub: القبول خلال يوم لحساب شخصي آخر؛ والمالك الجديد يدير فورًا"
+  },
+  {
+    "id": "transfer_ownership",
+    "field": "detailed",
+    "removed": "توجيه الرابط القديم تلقائيًا إلى المسار الجديد لفترة، فلا تتعطل الاستنساخات المحلية القديمة فجأة.",
+    "replacement": "توجيه الروابط القديمة وعمليات Git عليها تلقائيًا إلى المسار الجديد، ويُنصح مع ذلك بتحديث عناوين الاستنساخ المحلية.",
+    "kind": "correction",
+    "reason": "وثائق GitHub: تُوجَّه كل الروابط وعمليات Git تلقائيًا مع توصية بتحديث الاستنساخات المحلية؛ ولا تنص على «لفترة»"
+  },
+  {
+    "id": "watch",
+    "field": "detailed",
+    "removed": "تتوفر ثلاثة مستويات: عدم المشاركة (Ignore) لإسكات كل الإشعارات، المشاركة في المحادثات فقط (Participating)، أو كل النشاط (All Activity).",
+    "replacement": "تتوفر خيارات منها: المشاركة والإشارات فقط (Participating and @mentions)، وكل النشاط (All Activity)، والتجاهل (Ignore) لإسكات كل الإشعارات، ومخصص (Custom) لاختيار أنواع النشاط.",
+    "kind": "correction",
+    "reason": "وثائق الإشعارات: خيارات المراقبة تشمل Participating and @mentions وCustom وIgnore"
+  },
+  {
+    "id": "tag",
+    "field": "detailed",
+    "removed": "أو موقّعة (Annotated) تحمل رسالة ومعلومات مؤلف.",
+    "replacement": "أو مشروحة (Annotated) تحمل رسالة ومعلومات مؤلف، ويمكن توقيع الوسوم المشروحة أيضًا.",
+    "kind": "correction",
+    "reason": "الوسم المشروح (Annotated) ليس هو الموقّع؛ التوقيع خيار إضافي"
+  },
+  {
+    "id": "fine_grained_token",
+    "field": "detailed",
+    "removed": "وله دائمًا تاريخ انتهاء إلزامي.",
+    "replacement": "ويُنصح بتاريخ انتهاء قصير، وقد تمنع المنظمة الرموز بلا انتهاء.",
+    "kind": "correction",
+    "reason": "وثائق إدارة رموز الوصول: مدد الانتهاء غير المحدودة مسموحة لكن قد تمنعها سياسة المنظمة"
+  },
+  {
+    "id": "security_policy",
+    "field": "detailed",
+    "removed": "مباشرة ومشفّرة",
+    "replacement": "خاصة",
+    "kind": "correction",
+    "reason": "لا مصدر على أن القناة مشفّرة؛ الثابت أنها خاصة"
+  },
+  {
+    "id": "collaborator",
+    "field": "detailed",
+    "removed": "تترتب صلاحيات المتعاون على مستودع شخصي في مستويات متدرجة، من القراءة فقط، إلى الفرز (Triage) لإدارة المشكلات دون الكتابة في الشفرة، إلى الكتابة، فالصيانة، فالإدارة الكاملة — وكل مستوى يشمل قدرات ما دونه.",
+    "replacement": "في مستودعات المنظمات تتدرج الأدوار: القراءة، ثم الفرز (Triage) لإدارة المشكلات دون الكتابة في الشفرة، ثم الكتابة، فالصيانة، فالإدارة الكاملة، وكل مستوى يشمل قدرات ما دونه. أما مستودع الحساب الشخصي فله مستويان فقط: المالك والمتعاون الذي يملك الكتابة.",
+    "kind": "correction",
+    "reason": "وثائق GitHub: مستودع الحساب الشخصي بمستويين (مالك ومتعاون) والأدوار المتدرجة لمستودعات المنظمات"
+  },
+  {
+    "id": "wiki",
+    "field": "detailed",
+    "removed": "في المستودعات العامة، يستطيع افتراضيًا أي مستخدم مسجّل في GitHub تعديل صفحات الويكي، ما لم يُقيَّد ذلك ليقتصر على المتعاونين فقط من الإعدادات.",
+    "replacement": "في المستودعات العامة يقتصر تعديل الويكي افتراضيًا على المتعاونين، ويمكن فتحه لأي صاحب حساب في GitHub من الإعدادات فيصبح عرضة للعبث.",
+    "kind": "correction",
+    "reason": "وثائق GitHub: تعديل ويكي المستودع العام محصور افتراضيًا بالمتعاونين"
+  },
+  {
+    "id": "billing_plan",
+    "field": "detailed",
+    "removed": "يمكن ضبط حد إنفاق أقصى (Spending limit) يوقف تلقائيًا أي استهلاك إضافي بعد تجاوز الحصة المجانية بدل الفوترة التلقائية بلا سقف،",
+    "replacement": "يمكن ضبط ميزانية (Budget) لتتبع الإنفاق على المنتجات المقيسة، وميزانية صارمة توقف الاستهلاك الإضافي عند بلوغ سقفها بدل الفوترة بلا سقف،",
+    "kind": "correction",
+    "reason": "وثائق الفوترة الحالية تعتمد الميزانيات (Budgets) لا حد الإنفاق القديم"
+  },
+  {
+    "id": "repo-tab-security",
+    "field": "detailed",
+    "removed": "في المستودعات الخاصة تحديدًا، لا يرى هذا التبويب إلا من يملك صلاحية إدارية أو صلاحية أمان محددة؛ فليس كل متعاون بصلاحية كتابة عادية يستطيع الوصول إليه، بعكس بقية التبويبات المتاحة لأي متعاون.",
+    "replacement": "رؤية التنبيهات التفصيلية في هذا التبويب تعتمد على صلاحيتك ونوع التنبيه؛ فليس كل متعاون يرى كل التنبيهات.",
+    "kind": "correction",
+    "reason": "لا نص في الوثائق يحصر رؤية التبويب بالإداريين؛ المطابَق أن بعض ميزات الأمان لها صلاحيات تفعيل وقراءة خاصة"
+  },
+  {
+    "id": "branch",
+    "field": "medium",
+    "removed": "عن الفرع الرئيسي (Default Branch)",
+    "replacement": "عن الفرع الافتراضي (Default branch)",
+    "kind": "unify",
+    "reason": "توحيد المصطلح وفق المعجم: الفرع الافتراضي"
+  },
+  {
+    "id": "pull_request",
+    "field": "detailed",
+    "removed": "دمج عادي، دمج ودمج التزامات (Squash)، أو إعادة الأساس (Rebase)",
+    "replacement": "الدمج بالتزام دمج (Create a merge commit)، أو الدمج بضغط الالتزامات (Squash and merge)، أو إعادة الأساس والدمج (Rebase and merge)",
+    "kind": "unify",
+    "reason": "توحيد أسماء أساليب الدمج وفق المعجم"
+  },
+  {
+    "id": "merge_commit",
+    "field": "medium",
+    "removed": "الدمج العادي (Create a merge commit)",
+    "replacement": "الدمج بالتزام دمج (Create a merge commit)",
+    "kind": "unify",
+    "reason": "توحيد اسم أسلوب الدمج وفق المعجم"
+  },
+  {
+    "id": "clone_https",
+    "field": "detailed",
+    "removed": "توكن وصول شخصي (Personal Access Token)",
+    "replacement": "رمز الوصول الشخصي (Personal Access Token)",
+    "kind": "unify",
+    "reason": "«توكن» غير معتمدة؛ المعجم: رمز الوصول الشخصي"
+  },
+  {
+    "id": "code_scanning",
+    "field": "detailed",
+    "removed": "داخل الفرق (Diff)",
+    "replacement": "داخل الفروقات (Diff)",
+    "kind": "unify",
+    "reason": "توحيد ترجمة Diff: الفروقات"
+  },
+  {
+    "id": "repo-tab-actions",
+    "field": "medium",
+    "removed": "كل أسطر عمل (Workflows) المعرَّفة في مجلد",
+    "replacement": "كل سير عمل (Workflow) معرَّف في مجلد",
+    "kind": "unify",
+    "reason": "«أسطر عمل» غير معتمدة؛ المعجم: سير العمل"
+  },
+  {
+    "id": "squash_merge",
+    "field": "detailed",
+    "removed": "على عكس الدمج العادي، لا يُبقي",
+    "replacement": "على عكس الدمج بالتزام دمج، لا يُبقي",
+    "kind": "unify",
+    "reason": "«الدمج العادي» غير معتمد؛ المعجم: الدمج بالتزام دمج"
+  },
+  {
+    "id": "squash_merge",
+    "field": "detailed",
+    "removed": "عن دمج عادي متعدد الالتزامات",
+    "replacement": "عن دمج بالتزام دمج متعدد الالتزامات",
+    "kind": "unify",
+    "reason": "«دمج عادي» غير معتمد؛ المعجم: الدمج بالتزام دمج"
+  },
+  {
+    "id": "add-file-menu",
+    "field": "detailed",
+    "removed": "اعتماد التغييرات (Commit)",
+    "replacement": "اعتماد التغييرات (Commit changes)",
+    "kind": "unify",
+    "reason": "الاسم الإنجليزي لزر الاعتماد Commit changes لا Commit؛ توحيدًا مع المعجم"
+  }
+]
