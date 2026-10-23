@@ -1,0 +1,731 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-23",
+  "policy": [
+    "لا تتغير حالة مهمة إلى «مكتملة» ولا حالة اختبار إلى «اجتاز» أو «فشل» إلا بدليل مرفق (مسار تقرير في `evidence/` أو رابط).",
+    "الحالات المشتقة (جاهزة، بانتظار اعتماديات، بانتظار قرار، مشروط، لا ينطبق) تُحسب من الاعتماديات والقرارات ولا تُكتب يدويًا.",
+    "تعديل الحالة في لوحة المتابعة يُحفظ في المتصفح وحده؛ ولا يتغير هذا الملف إلا بتصدير الحالة واستبداله ثم تشغيل `tools/build.mjs`."
+  ],
+  "evidence": [
+    {
+      "id": "EV-01",
+      "date": "2026-10-22",
+      "text": "قبل هذا التحديث كانت مساحة العمل تحوي `EXECUTION_PLAN.md` وحده (ومعه `.DS_Store`)، ولم تكن مستودع git.",
+      "how": "`ls -la` في جذر المشروع"
+    },
+    {
+      "id": "EV-02",
+      "date": "2026-10-22",
+      "text": "لا توجد في مساحة العمل شيفرة للإضافة: لا `manifest.json` ولا `package.json` ولا مجلد `src/` ولا `tests/`.",
+      "how": "`find . -name manifest.json -o -name package.json -o -name src -o -name tests` بلا نتائج"
+    },
+    {
+      "id": "EV-03",
+      "date": "2026-10-22",
+      "text": "لا يوجد تقرير تنفيذ لأي اختبار ولا لأي تجربة جدوى، ولا مجلد `evidence/` بعد.",
+      "how": "غياب المجلد والتقارير"
+    },
+    {
+      "id": "EV-04",
+      "date": "2026-10-22",
+      "text": "اعتمد المالك اسم «مِجهَر» في المحادثة، وطلب تغيير اسم مجلد المشروع واعتماد الاسم في كل الملفات.",
+      "how": "قرار المالك في المحادثة؛ `DEC-06` في `data/plan.json`"
+    },
+    {
+      "id": "EV-05",
+      "date": "2026-10-23",
+      "text": "اكتمل تصميم الهوية ونظام التصميم وواجهات الإضافة في Figma: اللوحة الجانبية وصفحة الإعدادات والعناصر المدمجة في GitHub، بحالاتها والوضعين الفاتح والداكن، مع Prototype للمسارات الأساسية. هذا تصميم لا تنفيذ، ولا يغيّر حالة أي مهمة أو اختبار؛ وتبقى الأجزاء المرتبطة بـ`DEC-01` و`DEC-02` و`DEC-03` و`DEC-04` و`DEC-05` و`DEC-08` مشروطة بحسمها.",
+      "how": "ملف التصميم https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp؛ والشعار المعتمد في `AD-13`"
+    }
+  ],
+  "deliverables": [],
+  "tasks": {
+    "T-0.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-0.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-0.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-0.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-1.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-1.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-1.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-1.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-2.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-2.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-2.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-2.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-2.5": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-2.6": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-2.7": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-3.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-3.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-3.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-3.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-3.5": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-4.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-4.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-4.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-4.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-4.5": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-5.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-5.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-5.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-5.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-5.5": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-6.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-6.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-6.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-7.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-7.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-7.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-8.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-8.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-8.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-8.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-9.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-9.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-9.3": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-9.4": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-9.5": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-10.1": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    },
+    "T-10.2": {
+      "status": "not_started",
+      "evidence": [],
+      "note": ""
+    }
+  },
+  "tests": {
+    "TEST-SPIKE-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SPIKE-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SPIKE-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SPIKE-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-BUILD-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CORE-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CORE-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NAV-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CORE-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CORE-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-STORAGE-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CORE-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CORE-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PERF-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-A11Y-ALL": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-BROW-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PKG-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-05A": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-05B": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-05C": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-05D": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-05E": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-05F": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-05G": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-RTL-07": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GUARD-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GUARD-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GUARD-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GUARD-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GLOSS-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GLOSS-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GLOSS-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GLOSS-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GLOSS-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-GLOSS-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TOUR-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-A11Y-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-A11Y-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-02A": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-02B": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-02C": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-02D": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-02E": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-02F": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-TR-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PRIV-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PR-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PR-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PR-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PR-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-LOG-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-DIFF-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SEC-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SEC-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SEC-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SEC-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PRIV-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-WRITE-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-WRITE-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-WRITE-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-WRITE-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-WRITE-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-03A": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-03B": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-03C": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-03D": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-03E": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-NOTE-03F": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-STORAGE-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PRIV-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-COMM-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-COMM-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-COMM-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-COMM-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-COMM-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-COMM-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    }
+  }
+}

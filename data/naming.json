@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-10-22",
+  "workingName": {
+    "id": "mijhar",
+    "text": "لا اسم مؤقت بعد الآن: الاسم المعتمد «مِجهَر» (Mijhar) والمعرّف `mijhar`."
+  },
+  "function": "إضافة متصفح (`Manifest V3`) لـChrome وEdge وBrave وFirefox، تعمل طبقةً مساعدة فوق صفحات GitHub الحقيقية دون أن تغيّر متنها: تضبط اتجاه النص العربي وخطوطه، وتشرح المصطلحات والأزرار في سياقها مع حدود التراجع، وتترجم عند الطلب محليًا مع حفظ الكود، وتلخّص حالة طلبات الدمج والفحوص والسجلات بالأدلة، وتجهّز حزم سياق للنماذج أو الزملاء، وتساعد في كتابة البلاغات والمراجعات، وتحفظ ملاحظات خاصة و«أكمل لاحقًا»، وترشد المبتدئ إلى أول مساهمة. أي أنها رفيق يصعد بالمستخدم من القراءة والفهم إلى العمل ثم المساهمة.",
+  "criteria": [
+    "يعبّر عن وظيفة الإضافة كاملة (الفهم والتعلم والعمل والمساهمة)، لا عن الترجمة وحدها.",
+    "سهل النطق بالعربية، وله كتابة لاتينية قصيرة.",
+    "لا يوحي بأنه منتج رسمي من GitHub، ولا يتضمن كلمة GitHub.",
+    "لا يطابق أسماء مشاريعك القائمة (مثل مسبار ورفّ ورصد).",
+    "أقل تعارض ظاهر في GitHub ومتاجر الإضافات الثلاثة والبحث العام وقاعدة WIPO."
+  ],
+  "candidates": [
+    {
+      "ar": "مِرقاة",
+      "latin": "Mirqat",
+      "variants": [
+        "Mirqat",
+        "Mirqah",
+        "Mirqaat",
+        "مرقاة"
+      ],
+      "meaning": "المرقاة: الدرجة أو السُّلَّم الذي يُصعد به.",
+      "fit": "تصف رحلة المستخدم في الإضافة درجةً درجة: يقرأ ويفهم (الاتجاه والقاموس والترجمة)، ثم يعمل (الفحوص وحزم السياق والبلاغات والملاحظات)، ثم يساهم (مرشد أول مساهمة). تناسب المبتدئ ولا تحصر الإضافة في وظيفة واحدة.",
+      "conflictsSummary": "لا شيء في متاجر Chrome وFirefox وEdge ولا في WIPO. في GitHub 7 مستودعات صغيرة بلا إضافات، أبرزها عرض لـ«مساعد إسلامي» بنجمة واحدة. اسم مشابه نطقًا: تطبيقات «ميقات» للحج.",
+      "severity": "low",
+      "severityLabel": "منخفض",
+      "findings": [
+        {
+          "where": "GitHub (تحققت منه بنفسي)",
+          "text": "7 مستودعات باسم `mirqat`، أبرزها `MIRQAT-showcase` «MIRQAT Islamic assistant» (نجمة واحدة، عرض بلا شيفرة)، و`Mirqat_translation`، و`mirqatinstitute`، والبقية بلا وصف. `mirqah`: مخططات دراسية لطلاب. لا إضافة متصفح ولا أداة لـGitHub.",
+          "url": "https://github.com/mohammedbinagel/MIRQAT-showcase"
+        },
+        {
+          "where": "حسابات GitHub",
+          "text": "`Mirqat` و`Mirqaat` أعادا 404 وقت الفحص؛ و`Mirqah` حساب قائم بلا مستودعات. غياب الحساب لا يعني أنه متاح للحجز.",
+          "url": null
+        },
+        {
+          "where": "Chrome Web Store",
+          "text": "لا نتائج لـ`مرقاة` و`Mirqat` و`Mirqah` (الصفحة الأولى من البحث).",
+          "url": "https://chromewebstore.google.com/search/Mirqat"
+        },
+        {
+          "where": "Firefox Add-ons (تحققت منه بنفسي)",
+          "text": "البحث المرن أعاد 81 نتيجة ليس في أسمائها Mirqat ولا Mirqah ولا مرقاة.",
+          "url": "https://addons.mozilla.org/api/v5/addons/search/?q=mirqat&app=firefox&lang=en-US"
+        },
+        {
+          "where": "Edge Add-ons",
+          "text": "لا نتيجة تحمل الاسم.",
+          "url": "https://microsoftedge.microsoft.com/addons/search/Mirqat"
+        },
+        {
+          "where": "WIPO Global Brand Database",
+          "text": "«No results found» لـ`Mirqat` و`Mirqah` و`مرقاة` (أُعيد الفحص).",
+          "url": null
+        },
+        {
+          "where": "البحث العام وnpm",
+          "text": "لا منتج بالاسم؛ أقرب ما ظهر تطبيق «Miqat» للحج والعمرة، وهو اسم آخر قريب النطق. حزمتا `mirqat` و`mirqah` في npm: 404.",
+          "url": "https://apps.apple.com/us/app/id1469809342"
+        },
+        {
+          "where": "ملاحظة",
+          "text": "«مرقاة المفاتيح» عنوان شرح حديثي معروف (من المعرفة العامة، لا من نتائج الفحص)؛ لا يعدّ تعارضًا تجاريًا لكنه يجعل الكلمة مألوفة.",
+          "url": null
+        }
+      ]
+    },
+    {
+      "ar": "حاشية",
+      "latin": "Hashiya",
+      "variants": [
+        "Hashiya",
+        "Hashiyah",
+        "Hashiah",
+        "حاشية"
+      ],
+      "meaning": "الحاشية: الشرح الذي يُكتب على هامش المتن.",
+      "fit": "أدق وصف لآلية الإضافة: لا تغيّر متن GitHub، بل تضيف حوله شروحًا وترجمات وملاحظات وتلخيصات، كما تُكتب الحاشية على المتن.",
+      "conflictsSummary": "تطبيق iOS تعليمي اسمه «Hashiya: Research Papers» صدر في 2026-10-01 ويشرح اسمه بالمعنى نفسه، ومستودعات GitHub له. لا إضافة بالاسم في المتاجر الثلاثة. في WIPO علامتان يابانيتان في فئتي طعام وشراب.",
+      "severity": "medium",
+      "severityLabel": "متوسط",
+      "findings": [
+        {
+          "where": "App Store (تحققت منه بنفسي)",
+          "text": "«Hashiya: Research Papers» للمطوّر Fady Fouad، فئة Education، صدر 2026-10-01، لطلاب الدراسات العليا، ويذكر أن اسمه من «الحاشية» العربية. منتج قريب المجال (القراءة والدراسة) وإن لم يكن إضافة متصفح.",
+          "url": "https://apps.apple.com/us/app/hashiya-research-papers/id6817343027"
+        },
+        {
+          "where": "GitHub",
+          "text": "`x6one/hashiya-ios` «Hashiya - حاشية: مساحة دراسة لـiPhone وiPad» (أُنشئ 2026-09-29)، و`FadyFouad/Hashiya`، ومستودعات أخرى بلا نجوم. الحسابان `hashiya` و`hashiyah` قائمان، و`Hashiah` منظمة.",
+          "url": "https://github.com/x6one/hashiya-ios"
+        },
+        {
+          "where": "Chrome Web Store",
+          "text": "لا اسم مطابق. ظهرت «TracePaste» للبحث العربي فقط لأن وصفها يذكر «إنشاء حاشية عربية».",
+          "url": "https://chromewebstore.google.com/detail/tracepaste/cbcgilfeeifcddomlgnkcfdempfjfkjg"
+        },
+        {
+          "where": "Firefox وEdge",
+          "text": "لا اسم مطابق.",
+          "url": null
+        },
+        {
+          "where": "WIPO",
+          "text": "`HASHIYA` في اليابان: فئة 33 منتهية (2007)، و«ショコラ・テリーヌHASHIYA» فئة 30 مسجلة (2022). لا شيء بالعربية ولا لـHashiyah.",
+          "url": null
+        },
+        {
+          "where": "ملاحظة",
+          "text": "في مجلد مشاريعك مشروع باسم `Matn` (متن). لم أقرأ محتواه؛ و«متن/حاشية» زوج معروف قد يكون عائلة أسماء أو مصدر لبس، وهذا تقديرك.",
+          "url": null
+        }
+      ]
+    },
+    {
+      "ar": "شارِح",
+      "latin": "Sharih",
+      "variants": [
+        "Sharih",
+        "Shareh",
+        "شارح"
+      ],
+      "meaning": "الشارح: من يوضّح المعنى ويفسّره.",
+      "fit": "يعبّر مباشرة عن الوظيفة الأكثر حضورًا: شرح المصطلحات والأزرار، وشرح سجلات الفحوص، والترجمة الموضِّحة، وشرح طريق أول مساهمة.",
+      "conflictsSummary": "لا شيء في المتاجر الثلاثة ولا في WIPO. في GitHub مشروعان عربيان صغيران بالاسم نفسه لمنصات دراسة بالذكاء الاصطناعي (بلا نجوم). الكتابة `Shareh` تختلط بكلمة share.",
+      "severity": "medium",
+      "severityLabel": "متوسط",
+      "findings": [
+        {
+          "where": "GitHub",
+          "text": "`8cy7/sharih` «منصة دراسة عربية بالذكاء الاصطناعي» (2026-09-30، بلا نجوم)، و`fillqi/sharih-ai-champion` «شارح: رفيق دراسة عربي» (مشروع هاكاثون). الحسابان `sharih` و`shareh` قائمان.",
+          "url": "https://github.com/8cy7/sharih"
+        },
+        {
+          "where": "Chrome Web Store",
+          "text": "لا نتائج لـ`شارح` و`Sharih` و`Shareh`. أقرب ما ظهر في البحث العام «Sharh Notes»، وهي كلمة أخرى.",
+          "url": "https://chromewebstore.google.com/detail/agckogheghnmpdabgkmlnlpngaoenoej"
+        },
+        {
+          "where": "Firefox وEdge",
+          "text": "لا اسم مطابق؛ نتائج `Shareh` تهيمن عليها إضافات «Share».",
+          "url": null
+        },
+        {
+          "where": "WIPO وnpm",
+          "text": "لا نتائج لـ`Sharih` و`Shareh` و`شارح` في WIPO؛ و404 في npm.",
+          "url": null
+        }
+      ]
+    },
+    {
+      "ar": "إيضاح",
+      "latin": "Eedah",
+      "variants": [
+        "Eedah",
+        "Idah",
+        "Iydah",
+        "إيضاح",
+        "ايضاح"
+      ],
+      "meaning": "الإيضاح: جعل الشيء بيّنًا واضحًا.",
+      "fit": "يعكس مبدأ الخطة في الوضوح: بيان المصدر والتقادم، والفصل بين الحقيقة المثبتة والاحتمال، وشرح أثر الأزرار وحدود التراجع.",
+      "conflictsSummary": "لا شيء في المتاجر الثلاثة، ولا في WIPO بالعربية أو بـEedah. الكتابة اللاتينية ملتبسة: `Idah` اسم علم شائع وله نحو 30 علامة إندونيسية في فئات غير برمجية.",
+      "severity": "low",
+      "severityLabel": "منخفض",
+      "findings": [
+        {
+          "where": "GitHub",
+          "text": "`idah-ai/idah` أداة توسيم بيانات (15 نجمة)؛ وبقية النتائج حسابات شخصية. لا أداة عربية ولا إضافة.",
+          "url": "https://github.com/idah-ai/idah"
+        },
+        {
+          "where": "المتاجر الثلاثة",
+          "text": "لا اسم مطابق لـ`إيضاح` و`Eedah` و`Idah`.",
+          "url": "https://chromewebstore.google.com/search/Eedah"
+        },
+        {
+          "where": "WIPO",
+          "text": "لا نتائج لـ`إيضاح` و`ايضاح` و`Eedah`؛ و`Idah` نحو 30 علامة إندونيسية في فئات غير 9 و42.",
+          "url": null
+        },
+        {
+          "where": "App Store",
+          "text": "بائع باسم «IDAH INFO TECH» في مجال آخر.",
+          "url": "https://apps.apple.com/us/app/ai-wedding-assistant/id6744516527"
+        }
+      ]
+    },
+    {
+      "ar": "مِجهَر",
+      "latin": "Mijhar",
+      "variants": [
+        "Mijhar",
+        "Mejhar",
+        "مجهر"
+      ],
+      "meaning": "المجهر: أداة التكبير والفحص الدقيق.",
+      "fit": "يناسب جانب الفحص بالأدلة: حالة طلبات الدمج وموانعها، وسجلات الأخطاء، والمقارنات؛ وأضيق من أن يصف جانب التعلم والمساهمة.",
+      "conflictsSummary": "لا شيء في المتاجر الثلاثة. في GitHub عدة مشاريع عربية صغيرة بالاسم نفسه (تحليل برمجيات خبيثة، وكشف تلاعب مالي)، ونطاق `mijhar.io` صفحة «قريبًا». لم يُفحص في WIPO.",
+      "severity": "medium",
+      "severityLabel": "متوسط",
+      "findings": [
+        {
+          "where": "GitHub",
+          "text": "`kush-king249/Mijhar` أداة عربية لتحليل البرمجيات الخبيثة، و`bio-colab/mijhar-skill` «مِجْهَرٌ لا قاضٍ»، و`fadi500/Mijhar` و`abdullah-khader/mijhar` لكشف التلاعب المالي؛ كلها 0–1 نجمة. الحساب `mijhar` أُنشئ 2026-05-26 بلا مستودعات.",
+          "url": "https://github.com/bio-colab/mijhar-skill"
+        },
+        {
+          "where": "البحث العام",
+          "text": "`mijhar.io` صفحة «Launching Soon» بلا منتج معلن؛ و`mejhar.com` معروض للبيع.",
+          "url": "https://mijhar.io/"
+        },
+        {
+          "where": "المتاجر وnpm وApp Store",
+          "text": "لا اسم مطابق في Chrome وFirefox وEdge وApp Store، و404 في npm.",
+          "url": null
+        },
+        {
+          "where": "حد الفحص",
+          "text": "لم يُبحث هذا الاسم في WIPO.",
+          "url": null
+        }
+      ]
+    }
+  ],
+  "recommendation": {
+    "ar": "مِرقاة",
+    "latin": "Mirqat",
+    "why": "هو الاسم الوحيد بين الخمسة الذي لم يظهر له شيء في المتاجر الثلاثة ولا في WIPO، مع كتابة لاتينية قصيرة مستقرة، ولم يظهر له في GitHub إلا مستودعات صغيرة ليست إضافات ولا أدوات لـGitHub. ومعناه يصف الإضافة كلها: درجات من القراءة والفهم إلى العمل ثم المساهمة، لا ميزة واحدة. «حاشية» أدق مجازًا لكن تطبيقًا تعليميًا بالاسم والمعنى نفسيهما صدر قبل أسابيع؛ و«إيضاح» قليل التعارض لكن كتابته اللاتينية ملتبسة.",
+    "before": "بحث رسمي في سجلات العلامات التجارية للأسواق المستهدفة (منها الهيئة السعودية للملكية الفكرية)، وفحص Google Play وVS Code Marketplace والنطاقات والحسابات الاجتماعية، واختيار التهجئة اللاتينية (`Mirqat` أو `Mirqah`)، ومراجعة سياسة علامة GitHub إن ذُكرت في وصف المتجر."
+  },
+  "excluded": [
+    {
+      "name": "مِسبار (Misbar)",
+      "reason": "اسم مشروع قائم لديك (مصفاة برومبتات بحسب الخطة)، وهو أيضًا اسم منصة عربية معروفة للتحقق من الأخبار.",
+      "urls": [
+        "https://ijnet.org/ar/story/%D9%85%D9%86%D8%B5%D8%A9-%D9%85%D8%B3%D8%A8%D8%A7%D8%B1-%D9%84%D9%84%D8%AA%D8%AD%D9%82%D9%82-%D9%85%D9%86-%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%D9%8A%D8%AC%D9%8A%D8%A7%D8%AA-%D9%88%D9%86%D8%B5%D8%A7%D8%A6%D8%AD-%D9%84%D9%84%D8%B5%D8%AD%D9%81%D9%8A%D9%8A%D9%86"
+      ]
+    },
+    {
+      "name": "رَفّ (Raff)",
+      "reason": "اسم تطبيق الحافظة الخاص بك (مجلد `Raff` في مشاريعك).",
+      "urls": []
+    },
+    {
+      "name": "تِبيان (Tibyan / Tebyan)",
+      "reason": "إضافة Chrome باسم «Tebyan AI: Arabic Writing, Grammar, Dialects & Dictation» في مجال الكتابة العربية نفسه، وعلامة «TEBIAN» في مصر بالفئتين 41 و42، ومؤسسة «تبيان» الثقافية، وتطبيقات قرآنية كثيرة.",
+      "urls": [
+        "https://chromewebstore.google.com/detail/tebyan-ai-arabic-writing/ncnlcekpjkgfggekoigaapgkokdelfdl",
+        "https://github.com/MrGamesKingPro/Tebyan",
+        "https://en.wikipedia.org/wiki/Tebyan_Cultural_Institute"
+      ]
+    },
+    {
+      "name": "بَصيرة (Basira / Baseera)",
+      "reason": "مشروع في GitHub باسم `basira` يصف نفسه «مراجع شيفرة بالذكاء الاصطناعي لمستودعات GitHub»، وإضافة Chrome «Baseera Security Scanner»، وإضافة Firefox «Baseera»، وعلامة «بصيرة» في الأردن بالفئة 9.",
+      "urls": [
+        "https://github.com/2lba/basira",
+        "https://chromewebstore.google.com/detail/baseera-security-scanner/inapmbneppfcjdbagkgmgnkghkkceade",
+        "https://addons.mozilla.org/en-US/firefox/addon/baseera/"
+      ]
+    },
+    {
+      "name": "مَدار (Madar)",
+      "reason": "أداة `madar` تبني «حزم سياق» لوكلاء البرمجة (تتقاطع مع الوحدة هـ) ولها حزمة npm، وإضافتا Chrome بالاسم نفسه، ومئات العلامات في WIPO.",
+      "urls": [
+        "https://github.com/mohanagy/madar",
+        "https://chromewebstore.google.com/detail/madar-smart-aliexpress-sh/ekalkbdbekhmanlphapebmdpdglokhno"
+      ]
+    },
+    {
+      "name": "رافِد (Rafid / Rafed)",
+      "reason": "تطبيق «Rafid» لتدريب المعلمين في App Store، وعلامة «Rafed رافد» في الإمارات (2026)؛ وقد تُقرأ الكتابة اللاتينية قراءة طائفية غير مقصودة.",
+      "urls": [
+        "https://apps.apple.com/us/app/rafid/id1498599122"
+      ]
+    },
+    {
+      "name": "رَديف (Radif / Radeef)",
+      "reason": "منتج سعودي عربي بالذكاء الاصطناعي باسم «Radeef رديف» لدعم عملاء متاجر سلة، وقواميس «Radheef»، و«Radif» مصطلح موسيقي فارسي.",
+      "urls": [
+        "https://radeef.dev/",
+        "https://apps.apple.com/sa/app/arabi-dhivehi-radheef/id1565133361"
+      ]
+    },
+    {
+      "name": "مُرافِق (Murafiq)",
+      "reason": "تطبيق «Murafiq | مُرافِق» لعمليات الحج (2025)، وشركة «مرافق» للخدمات، وكلمة عامة تزدحم بها نتائج البحث، وثلاث تهجئات لاتينية متنافسة.",
+      "urls": [
+        "https://apps.apple.com/sa/app/murafiq-%D9%85-%D8%B1%D8%A7%D9%81-%D9%82/id6745889798",
+        "https://marafiq.com.sa/"
+      ]
+    },
+    {
+      "name": "مفتاح، دليل، معمل، رفيق (من الخطة السابقة)",
+      "reason": "لم يُعَد فحصها في هذه الجولة؛ استُبدلت بأسماء أوثق صلة بوظيفة الإضافة.",
+      "urls": []
+    }
+  ],
+  "methods": [
+    "ثلاثة وكلاء بحث فرعيين على `claude-sonnet-5-5` (أكّد كلٌّ منهم المعرّف من بيئته)، ثم تحقق يدوي مني من أبرز النتائج: بحث GitHub عن `mirqat`، وواجهة Firefox Add-ons لـ`mirqat`، وواجهة App Store لـ`hashiya`، وبحث عام عن «Mirqat».",
+    "GitHub: واجهة البحث عن المستودعات بالاسم (`in:name`) لكل تهجئة، وفحص وجود الحسابات `users/<name>`.",
+    "Chrome Web Store: قراءة صفحة البحث المولَّدة من الخادم (الصفحة الأولى)، ثم صفحات التفاصيل للمطابقات.",
+    "Firefox Add-ons: الواجهة العامة `api/v5/addons/search` حتى 50 نتيجة لكل تهجئة.",
+    "Edge Add-ons: نقطة البحث التي تستدعيها صفحة المتجر نفسها (غير موثقة رسميًا) حتى 5 صفحات.",
+    "WIPO Global Brand Database: بحث باسم العلامة دون حساب، للأسماء الثمانية الأولى بالعربية واللاتينية.",
+    "App Store عبر iTunes Search API (السعودية والولايات المتحدة)، وnpm، والبحث العام."
+  ],
+  "limits": [
+    "غياب النتائج يعني «لم يظهر شيء بهذه الطريقة» فقط؛ لا يثبت أن اسمًا متاح أو فريد، وليس رأيًا قانونيًا في العلامات التجارية.",
+    "لم تُفحص سجلات العلامات الوطنية (مثل الهيئة السعودية للملكية الفكرية وUSPTO وEUIPO) ولا Google Play ولا VS Code Marketplace ولا النطاقات ولا الحسابات الاجتماعية.",
+    "متجرا Chrome وEdge: الصفحة الأولى من النتائج فقط وبلغة en-US؛ والعناصر الجديدة أو قليلة الظهور قد لا تظهر.",
+    "بحث GitHub بالاسم مطابقة جزئية، ولا يلتقط أسماء المستودعات المكتوبة بالحروف العربية.",
+    "WIPO متقطع الاستجابة؛ لم تُشغَّل فيه المطابقة الصوتية، ولم يُفتح كل سجل، ولم يُبحث فيه اسم «مجهر».",
+    "كثير مما ظهر عمره أسابيع (سبتمبر وأكتوبر 2026)، فالنتائج صحيحة في 2026-10-22 فقط.",
+    "لم تُراجَع سياسة علامة GitHub ولا سياسات المتاجر في استعمال كلمة GitHub في الوصف؛ ولذلك لا عنوان فرعيًا مقترحًا هنا."
+  ],
+  "approved": {
+    "ar": "مِجهَر",
+    "latin": "Mijhar",
+    "id": "mijhar",
+    "decidedOn": "2026-10-22",
+    "decision": "DEC-06",
+    "note": "اعتمده المالك من بين الأسماء الخمسة. وهو يختلف عن ترشيحي (مِرقاة)؛ فدرجة تعارضه الظاهر «متوسط»: عدة مشاريع عربية صغيرة في GitHub بالاسم نفسه، ونطاق `mijhar.io` صفحة «قريبًا»، ولا شيء في المتاجر الثلاثة.",
+    "before": "بحث الاسم في WIPO (لم يُجرَ له)، وفي سجلات العلامات الوطنية للأسواق المستهدفة (منها الهيئة السعودية للملكية الفكرية)، وفي Google Play وVS Code Marketplace والنطاقات والحسابات الاجتماعية، قبل أي نشر في المتاجر."
+  }
+}

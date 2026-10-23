@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مِجهَر: متابعة الخطة</title>
+  <meta name="description" content="لوحة متابعة خطة مِجهَر، إضافة المتصفح العربية فوق GitHub: المراحل والمهام والقرارات والاختبارات والأسماء.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    // تطبيق الوضع المحفوظ قبل الرسم لتفادي الوميض.
+    (function () {
+      try {
+        var t = localStorage.getItem('mijhar-plan:theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { /* التخزين غير متاح: يُتبع وضع النظام */ }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css?v=8009f03f04">
+</head>
+<body>
+  <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">م</span>
+        <div>
+          <p class="brand__title">مِجهَر <bdi class="ltr brand__latin">Mijhar</bdi></p>
+          <p class="brand__sub">متابعة خطة إضافة المتصفح العربية فوق GitHub</p>
+        </div>
+      </div>
+      <div class="topbar__actions">
+        <button type="button" class="btn btn--ghost" id="statusPanelBtn" aria-haspopup="dialog">الحالة: حفظ وتصدير</button>
+        <button type="button" class="btn btn--ghost" id="themeBtn" aria-live="polite">الوضع: تلقائي</button>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="أقسام الصفحة">
+      <div class="wrap tabs__inner" id="tabs">
+        <a href="#summary" data-view="summary">الملخص</a>
+        <a href="#phases" data-view="phases">المراحل</a>
+        <a href="#tasks" data-view="tasks">المهام</a>
+        <a href="#features" data-view="features">الميزات</a>
+        <a href="#decisions" data-view="decisions">القرارات</a>
+        <a href="#tests" data-view="tests">الاختبارات</a>
+        <a href="#names" data-view="names">الأسماء</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <div id="localBanner" class="banner" hidden></div>
+    <noscript><p class="banner banner--warn">تحتاج هذه الصفحة إلى JavaScript لعرض البيانات.</p></noscript>
+  </div>
+
+  <section class="wrap filters" id="filters" aria-label="البحث والفلاتر">
+    <label class="field field--search">
+      <span class="field__label">بحث</span>
+      <input type="search" id="q" placeholder="ابحث بمعرّف أو كلمة: T-2.5، تشكيل، PAT…" autocomplete="off">
+    </label>
+    <label class="field" data-filter="phase">
+      <span class="field__label">المرحلة</span>
+      <select id="fPhase"></select>
+    </label>
+    <label class="field" data-filter="module">
+      <span class="field__label">الوحدة</span>
+      <select id="fModule"></select>
+    </label>
+    <label class="field" data-filter="status">
+      <span class="field__label">الحالة</span>
+      <select id="fStatus"></select>
+    </label>
+    <button type="button" class="btn btn--ghost filters__reset" id="resetFilters">مسح الفلاتر</button>
+    <p class="filters__count" id="resultCount" aria-live="polite"></p>
+  </section>
+
+  <main id="main" class="wrap main" tabindex="-1"></main>
+
+  <div class="savebar" id="savebar" hidden role="region" aria-label="تعديلات غير محفوظة">
+    <div class="wrap savebar__inner">
+      <p id="savebarText"></p>
+      <div class="savebar__actions">
+        <button type="button" class="btn btn--primary" id="saveDraft">حفظ في هذا المتصفح</button>
+        <button type="button" class="btn btn--ghost" id="discardDraft">تجاهل</button>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="statusDialog" class="dialog" aria-labelledby="statusDialogTitle">
+    <form method="dialog" class="dialog__body">
+      <h2 id="statusDialogTitle">حفظ الحالات وتصديرها واستيرادها</h2>
+      <p>تعديل الحالات في هذه الصفحة <strong>يُحفظ في هذا المتصفح وحده</strong> ولا يغيّر أي ملف في المشروع. لتطبيقه على ملفات الخطة:</p>
+      <ol>
+        <li>صدّر الملف <bdi class="ltr">status.json</bdi> من هنا.</li>
+        <li>ضعه مكان <bdi class="ltr">data/status.json</bdi> في المشروع.</li>
+        <li>شغّل <code dir="ltr">node tools/build.mjs</code> ثم <code dir="ltr">node tools/check.mjs</code>، فتتحدث <bdi class="ltr">STATUS.md</bdi> وبقية الملفات وهذه الصفحة.</li>
+      </ol>
+      <p id="dialogState" class="muted"></p>
+      <div class="dialog__actions">
+        <button type="button" class="btn btn--primary" id="exportBtn">تصدير status.json</button>
+        <label class="btn btn--ghost file-btn">استيراد ملف حالة<input type="file" id="importInput" accept="application/json,.json"></label>
+        <button type="button" class="btn btn--danger" id="clearLocalBtn">حذف التعديلات المحلية</button>
+      </div>
+      <p id="importMsg" class="msg" role="status"></p>
+      <div class="dialog__close"><button class="btn btn--ghost" value="close">إغلاق</button></div>
+    </form>
+  </dialog>
+
+  <footer class="wrap footer">
+    <p>البيانات من <bdi class="ltr">data/plan.json</bdi> و<bdi class="ltr">data/status.json</bdi> و<bdi class="ltr">data/naming.json</bdi> عبر <bdi class="ltr">dashboard/data.js</bdi> المولَّد. هذه الصفحة لا تُرسل شيئًا إلى أي خادم.</p>
+  </footer>
+
+  <script src="data.js?v=a5cac4e4aa"></script>
+  <script src="derive.js?v=b2d16707d1"></script>
+  <script src="app.js?v=df343230fa"></script>
+</body>
+</html>
