@@ -273,13 +273,14 @@ async function scenarios(d, check, ctx) {
   await d.ev('blob', probes.act, { host: 'g', sel: '[data-action="create"]', do: 'click' });
   await settle();
   const stored1 = await waitUntil(async () => ((await d.ev('options', probes.storageNotes)).length ? d.ev('options', probes.storageNotes) : null), 5000);
-  check('notes.line-note-stored', stored1?.length === 1 && stored1[0].level === 'line' && stored1[0].view === 'blob' && stored1[0].start === 3 && stored1[0].anchorStatus === 'unverified' && stored1[0].path === 'lib/response.js', { stored: stored1 });
+  // بعد MJ12 (T-8.3) تُنشأ للملاحظة مرساة عند إنشائها فتكون حالتها «matched» لا «unverified» (كانت الثانية قبل وجود المحرك).
+  check('notes.line-note-stored', stored1?.length === 1 && stored1[0].level === 'line' && stored1[0].view === 'blob' && stored1[0].start === 3 && stored1[0].anchorStatus === 'matched' && stored1[0].path === 'lib/response.js', { stored: stored1 });
   const markers1 = await waitUntil(async () => ((await d.ev('blob', probes.markers)).length ? d.ev('blob', probes.markers) : null), 5000);
   check('notes.marker-beside-line-number', markers1?.length === 1 && markers1[0].line === '3', { markers: markers1 });
   check('notes.marker-aria-label', markers1?.[0]?.label === 'ملاحظة خاصة على هذا السطر', {});
   await ctx.shot('blob-card-and-marker', 'blob');
   const card2 = await d.ev('blob', probes.card);
-  check('notes.card-lists-note', card2?.notes.length === 1 && card2.notes[0].anchor === 'unverified' && card2.count === '1', { notes: card2?.notes });
+  check('notes.card-lists-note', card2?.notes.length === 1 && card2.notes[0].anchor === 'matched' && card2.count === '1', { notes: card2?.notes });
 
   // اللوحة الأصلية في تبويب خلفي، وصفحة GitHub هي التبويب النشط
   await d.open('panel', `${d.origin}/sidepanel.html`);
@@ -296,7 +297,7 @@ async function scenarios(d, check, ctx) {
   const edited = await waitUntil(async () => ((await d.ev('blob', probes.card))?.notes[0]?.text === 'ملاحظة معدّلة من اللوحة' ? true : null), 6000);
   check('notes.edit-in-panel-reaches-page', Boolean(edited), { page: (await d.ev('blob', probes.card))?.notes });
   const keptStatus = (await d.ev('options', probes.storageNotes))[0];
-  check('notes.edit-keeps-anchor-status-separate', keptStatus?.anchorStatus === 'unverified' && keptStatus?.text === 'ملاحظة معدّلة من اللوحة', { keptStatus });
+  check('notes.edit-keeps-anchor-status-separate', keptStatus?.anchorStatus === 'matched' && keptStatus?.text === 'ملاحظة معدّلة من اللوحة', { keptStatus });
   // مستوى الملف من اللوحة
   await d.ev('panel', probes.page, { sel: '.chip[data-level="file"]', do: 'click' });
   await d.ev('panel', probes.page, { sel: '[data-notes-view] textarea', do: 'type', value: 'ملاحظة على الملف' });
@@ -361,7 +362,8 @@ async function scenarios(d, check, ctx) {
   await ctx.shot('drawer-notes-notice', 'community');
   check('drawer.no-text-fields-in-any-tab', Object.values(tabsSeen).every((t) => t && t.fields === 0), { tabs: tabsSeen });
   check('drawer.notes-tab-shows-native-only-notice', tabsSeen.notes?.notices?.includes('ملاحظاتي'), { notices: tabsSeen.notes?.notices });
-  check('drawer.community-tab', JSON.stringify(tabsSeen.community?.views) === JSON.stringify(['readme', 'guide']) && tabsSeen.community?.notices?.length === 2, { community: tabsSeen.community });
+  // الإشعاران الأصليان من MJ9 يبقيان؛ وأضافت MJ12 (T-9.2) ثالثًا لمعالج README، فيُقاس الأصليان ولا يُحصر العدد في اثنين.
+  check('drawer.community-tab', JSON.stringify(tabsSeen.community?.views) === JSON.stringify(['readme', 'guide']) && ['اكتشاف المحتوى العربي', 'موارد تعلّم عربية'].every((n) => tabsSeen.community?.notices?.includes(n)), { community: tabsSeen.community });
 
   // 5) لوحة المجتمع (تبويب GitHub نشط = /octo/community)
   await d.front('community');

@@ -4,7 +4,7 @@ import { moduleEnabledKey } from '../../../core/settings';
 import type { SettingsRegistry, SettingsStore } from '../../../core/settings';
 import { Ltr, Toggle } from '../../../shared/ui';
 import { useSetting } from '../../../shared/ui/useSetting';
-import type { SettingsSection, SettingsSectionProps } from '../../../options/sections';
+import type { SettingsSection, SettingsSectionProps, SettingsSurface } from '../../../options/sections';
 import { COMPARE_MODULE_ID, PR_STATUS_MODULE_ID } from './ids';
 import { LOG_MODULE_ID } from '../log-parser/ids';
 import { STALE_MINUTES_DEFAULT, STALE_MINUTES_KEY, defineDStatusSettings, isStaleMinutes } from './settings';
@@ -36,10 +36,23 @@ function FeatureToggle({ settings, feature }: { settings: SettingsStore; feature
 
 const STALE_CHOICES = [1, 2, 3, 5, 10, 15, 30, 60] as const;
 
-function StaleThreshold({ settings }: { settings: SettingsStore }) {
+function StaleThreshold({ settings, surface }: { settings: SettingsStore; surface: SettingsSurface }) {
   const stored = useSetting<number>(settings, STALE_MINUTES_KEY);
   const value = isStaleMinutes(stored) ? stored : STALE_MINUTES_DEFAULT;
   const choices = STALE_CHOICES.includes(value as (typeof STALE_CHOICES)[number]) ? STALE_CHOICES : [...STALE_CHOICES, value].sort((a, b) => a - b);
+  // الدرج داخل الصفحة بلا أي عنصر إدخال (قاعدة MJ5 وفحص MJ9)؛ فتُعرض القيمة قراءةً فقط وتُعدَّل من اللوحة الأصلية أو صفحة الإعدادات.
+  if (surface === 'drawer') {
+    return (
+      <div class="toggle-row" data-setting={STALE_MINUTES_KEY}>
+        <span class="label">
+          <strong>عتبة تقادم بيانات الفحوص</strong>
+          <span class="muted small">
+            {value} {value === 1 ? 'دقيقة' : 'دقائق'} — تُعدَّل من اللوحة الجانبية الأصلية أو صفحة الإعدادات.
+          </span>
+        </span>
+      </div>
+    );
+  }
   return (
     <div class="toggle-row" data-setting={STALE_MINUTES_KEY}>
       <label class="label" for="mj-d-stale">
@@ -64,13 +77,13 @@ function StaleThreshold({ settings }: { settings: SettingsStore }) {
   );
 }
 
-function StatusSection({ settings }: SettingsSectionProps) {
+function StatusSection({ settings, surface }: SettingsSectionProps) {
   return (
     <>
       {FEATURES.map((feature) => (
         <FeatureToggle key={feature.id} settings={settings} feature={feature} />
       ))}
-      <StaleThreshold settings={settings} />
+      <StaleThreshold settings={settings} surface={surface} />
       <p class="muted small">
         يقرأ مِجهَر ما تعرضه الصفحة وحده، وما لا تعرضه يظهر «غير متاح» ولا يُخمَّن. وحين لا تعرض صفحة الطلب صفوف الفحوص يطلب من <Ltr className="mono">github.com</Ltr> نفسه
         الجزء الذي تطلبه الصفحة بنفسها (طلب واحد لكل التزام، بلا رمز ولا ترويسة تعريفية). ولا يتصل بـ<Ltr className="mono">api.github.com</Ltr> إلا إن منحتَ صلاحيته الاختيارية

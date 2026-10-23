@@ -181,4 +181,19 @@ describe('أقسام الإعدادات', () => {
     }
     expect(modules.map((m) => m.textContent).join(' ')).toContain('api.github.com');
   });
+
+  it('عتبة التقادم (MJ11): قائمة اختيار في صفحة الإعدادات، ونص للقراءة فقط في الدرج بلا أي عنصر إدخال غير المفاتيح', async () => {
+    const settings = await open();
+    act(() => render(<SettingsTab settings={settings} surface="options" sections={SETTINGS_SECTIONS} />, container));
+    await act(() => flush());
+    expect(container.querySelector('select#mj-d-stale')).not.toBeNull();
+    act(() => void render(null, container));
+
+    act(() => render(<SettingsTab settings={settings} surface="drawer" sections={SETTINGS_SECTIONS} />, container));
+    await act(() => flush());
+    const fields = [...container.querySelectorAll('input, select, textarea, [contenteditable]')].filter((el) => !(el instanceof HTMLInputElement && ['checkbox', 'radio'].includes(el.type)));
+    expect(fields).toHaveLength(0);
+    const row = container.querySelector('[data-setting="d.pr-status.staleMinutes"]');
+    expect(row?.textContent).toMatch(/5 دقائق/);
+  });
 });
