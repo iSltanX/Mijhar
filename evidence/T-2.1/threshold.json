@@ -1,0 +1,220 @@
+{
+  "blocksWithLetters": 583,
+  "options": {
+    "strong": 0.6,
+    "mixed": 0.3,
+    "minRun": 3,
+    "context": 0.5,
+    "latinSentence": 3
+  },
+  "comparison": {
+    "plan": {
+      "label": "الخطة الأولية: 30% أو ثلاث كلمات عربية متصلة",
+      "arabicBlocks": 301,
+      "writesWhereGithubLtr": 163,
+      "writesOnBlocksWithoutArabic": 0
+    },
+    "t01Raise": {
+      "label": "اقتراح T-0.1 الأول: رفع العتبة إلى 60%",
+      "arabicBlocks": 288,
+      "writesWhereGithubLtr": 152,
+      "writesOnBlocksWithoutArabic": 0
+    },
+    "t01Sentence": {
+      "label": "اقتراح T-0.1 الثاني: 60%، أو مختلطة لا تبدأ بجملة لاتينية (أقل من 3 كلمات)",
+      "arabicBlocks": 296,
+      "writesWhereGithubLtr": 158,
+      "writesOnBlocksWithoutArabic": 0
+    },
+    "adopted": {
+      "label": "المعتمدة: 60%، أو مختلطة في حاوية عربية (≥ 50%)، أو مختلطة مستقلة لا تبدأ بجملة لاتينية",
+      "arabicBlocks": 296,
+      "writesWhereGithubLtr": 158,
+      "writesOnBlocksWithoutArabic": 0
+    }
+  },
+  "mixedBlocks": [
+    {
+      "sample": "readme-shakkala",
+      "tag": "p",
+      "text": "Deep learning for AR text Vocalization - التشكيل الالي للنصوص العربية",
+      "ratio": 0.43,
+      "latinLead": 6,
+      "containerRatio": null,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "يبقى",
+      "adopted": "يبقى"
+    },
+    {
+      "sample": "readme-shakkala",
+      "tag": "h1",
+      "text": "Shakkala Project مشروع شكّالة",
+      "ratio": 0.4,
+      "latinLead": 2,
+      "containerRatio": 0.07,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "rtl",
+      "adopted": "يبقى"
+    },
+    {
+      "sample": "readme-shakkala",
+      "tag": "p",
+      "text": "Deep learning for AR text Vocalization - التشكيل الالي للنصوص العربية",
+      "ratio": 0.43,
+      "latinLead": 6,
+      "containerRatio": null,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "يبقى",
+      "adopted": "يبقى"
+    },
+    {
+      "sample": "readme-js-algorithms-ar",
+      "tag": "li",
+      "text": "B طابور, Queue",
+      "ratio": 0.5,
+      "latinLead": 0,
+      "containerRatio": 0.85,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "rtl",
+      "adopted": "rtl"
+    },
+    {
+      "sample": "readme-js-algorithms-ar",
+      "tag": "li",
+      "text": "A شجرة AVL",
+      "ratio": 0.57,
+      "latinLead": 0,
+      "containerRatio": 0.85,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "rtl",
+      "adopted": "rtl"
+    },
+    {
+      "sample": "readme-js-algorithms-ar",
+      "tag": "li",
+      "text": "A Strongly Connected Components - خوارزمية Kosaraju",
+      "ratio": 0.5,
+      "latinLead": 0,
+      "containerRatio": 0.85,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "rtl",
+      "adopted": "rtl"
+    },
+    {
+      "sample": "readme-js-algorithms-ar",
+      "tag": "p",
+      "text": "قم بتشغيل ESLint",
+      "ratio": 0.57,
+      "latinLead": 0,
+      "containerRatio": 0.85,
+      "native": "rtl",
+      "plan": "يبقى",
+      "t01Raise": "يبقى",
+      "t01Sentence": "يبقى",
+      "adopted": "يبقى"
+    },
+    {
+      "sample": "repo-arabic-stop-words",
+      "tag": "p",
+      "text": "Largest list of Arabic stop words on Github. أكبر قائمة لمستبعدات الفهرسة العربي",
+      "ratio": 0.53,
+      "latinLead": 8,
+      "containerRatio": null,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "يبقى",
+      "adopted": "يبقى"
+    },
+    {
+      "sample": "repo-arabic-stop-words",
+      "tag": "p",
+      "text": "Largest list of Arabic stop words on Github. أكبر قائمة لمستبعدات الفهرسة العربي",
+      "ratio": 0.53,
+      "latinLead": 8,
+      "containerRatio": null,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "يبقى",
+      "adopted": "يبقى"
+    },
+    {
+      "sample": "issue-etos-1",
+      "tag": "li",
+      "text": "Test ETOSCore (iOS Simulator): ** TEST FAILED **. أول خطأ حقيقي: EnumConstraintM",
+      "ratio": 0.41,
+      "latinLead": 4,
+      "containerRatio": 0.65,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "يبقى",
+      "adopted": "rtl"
+    },
+    {
+      "sample": "issue-etos-1",
+      "tag": "li",
+      "text": "Test iOS app: ما ترجم الاختبارات: ChatSendFlightComposerLayoutTests.swift (سطر 9",
+      "ratio": 0.71,
+      "latinLead": 3,
+      "containerRatio": 0.65,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "rtl",
+      "t01Sentence": "rtl",
+      "adopted": "rtl"
+    },
+    {
+      "sample": "issue-etos-1",
+      "tag": "p",
+      "text": "مرجع ETOS: https://github.com/Eric-Terminal/ETOS-LLM-Studio/blob/main/docs/site/",
+      "ratio": 0.5,
+      "latinLead": 0,
+      "containerRatio": 0.92,
+      "native": "rtl",
+      "plan": "يبقى",
+      "t01Raise": "يبقى",
+      "t01Sentence": "يبقى",
+      "adopted": "يبقى"
+    },
+    {
+      "sample": "commits-bms",
+      "tag": "h4",
+      "text": "chore(security): ترقية dompurify إلى 3.4.17 وip-address إلى 10.7.4 لإغلاق بلاغات",
+      "ratio": 0.41,
+      "latinLead": 1,
+      "containerRatio": null,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "rtl",
+      "adopted": "rtl"
+    },
+    {
+      "sample": "commits-bms",
+      "tag": "h4",
+      "text": "chore(security): استثناء تنبيهي @vitest/mocker (أداة اختبار محضة خارج وقت التشغي",
+      "ratio": 0.57,
+      "latinLead": 1,
+      "containerRatio": null,
+      "native": "ltr",
+      "plan": "rtl",
+      "t01Raise": "يبقى",
+      "t01Sentence": "rtl",
+      "adopted": "rtl"
+    }
+  ]
+}

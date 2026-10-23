@@ -1,0 +1,156 @@
+# 2026-10-23T09:30:32Z · الفرع mj/6-direction-guard
+$ npx tsc --noEmit
+tsc: بلا أخطاء (exit 0)
+
+$ npx vitest run tests/modules/a
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj2-92ceb0
+ ✓ tests/modules/a/guard/exceptions.test.ts > قائمة استثناءات استعادة النصوص > كل معرّف في الشيفرة معروض في الوثيقة وكل معروض في الشيفرة 2ms
+ ✓ tests/modules/a/guard/exceptions.test.ts > قائمة استثناءات استعادة النصوص > المرصود وقت التشغيل في جدوله والحد التصميمي في جدوله 0ms
+ ✓ tests/modules/a/guard/exceptions.test.ts > قائمة استثناءات استعادة النصوص > لا يتصادم معرّف مع قائمة النواة، فيُفهم مصدر كل ترك من رقمه 1ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-01: كتابة خارجية بنص مختلف بعد كتابة الإضافة ثم استعادة > بعد تسليم سجلات المراقب: لا استعادة، ويُعتمد النص الخارجي، وتُستعاد بقية العقد 72ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-01: كتابة خارجية بنص مختلف بعد كتابة الإضافة ثم استعادة > قبل تسليم سجلات المراقب (في المهمة نفسها): لا استعادة، ويُعتمد النص الخارجي، وتُستعاد بقية العقد 9ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-01: كتابة خارجية بنص مختلف بعد كتابة الإضافة ثم استعادة > أثناء التفعيل: تُعلَّم العقدة ملوّثة ويُعتمد نص GitHub أصلًا جديدًا، ولا يكتب عليها تطبيق لاحق 14ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > العينة تغطي الحالات المطلوبة في الخطة 1ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > layout-header → keep 36ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > latest-commit-ar → rtl 16ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > file-tree → keep 18ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > h1-arabic-diacritized → keep 11ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-pure-arabic → keep 10ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-starts-with-code → rtl 14ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-02: كتابة خارجية بنص يساوي ما كتبته الإضافة > يساوي المنزوع، بعد التسليم: لا استعادة؛ الكشف من سجل الكتابات لا من مقارنة القيم 14ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-02: كتابة خارجية بنص يساوي ما كتبته الإضافة > يساوي المنزوع، قبل التسليم: لا استعادة؛ الكشف من سجل الكتابات لا من مقارنة القيم 7ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-02: كتابة خارجية بنص يساوي ما كتبته الإضافة > يساوي الأصل المشكول، بعد التسليم: لا استعادة؛ الكشف من سجل الكتابات لا من مقارنة القيم 10ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-02: كتابة خارجية بنص يساوي ما كتبته الإضافة > النص الحالي يساوي المنزوع لكن آخر كاتب هو GitHub: المساواة لا تكفي دليلًا 7ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 012 والتعطيل بعد 0 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 15ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 012 والتعطيل بعد 1 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 10ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 012 والتعطيل بعد 2 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 9ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 012 والتعطيل بعد 3 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 10ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 021 والتعطيل بعد 0 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 13ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 021 والتعطيل بعد 1 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 10ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 021 والتعطيل بعد 2 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 8ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 021 والتعطيل بعد 3 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 13ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 102 والتعطيل بعد 0 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 9ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 102 والتعطيل بعد 1 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 10ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 102 والتعطيل بعد 2 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 9ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 102 والتعطيل بعد 3 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 14ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 120 والتعطيل بعد 0 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 11ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 120 والتعطيل بعد 1 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 17ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-starts-with-mention → rtl 10ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-starts-with-issue-ref → keep 9ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-starts-with-latin-term → rtl 11ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-diacritized-latin-start → rtl 12ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-starts-with-path → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-arabic-with-path → keep 9ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-relative-time → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-pure-english → keep 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-english-with-path → keep 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-emoji-numbers → keep 11ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-author-explicit-ltr → keep 23ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (١): كل إعداد يعمل ضمن نطاقه المختار فقط > كل GitHub: تعمل الميزتان في صفحات أربعة مستودعات مختلفة 354ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 120 والتعطيل بعد 2 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 20ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 120 والتعطيل بعد 3 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 9ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 201 والتعطيل بعد 0 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 10ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 201 والتعطيل بعد 1 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 11ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 201 والتعطيل بعد 2 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 8ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 201 والتعطيل بعد 3 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 8ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 210 والتعطيل بعد 0 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 8ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 210 والتعطيل بعد 1 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 8ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 210 والتعطيل بعد 2 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 8ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > الترتيب 210 والتعطيل بعد 3 كتابات: تُفرَّغ السجلات قبل الاستعادة ولا تُستعاد عقدة لمسها طرف خارجي 7ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > تسليم جزئي: كتابة سُلِّمت وأخرى لم تُسلَّم قبل التعطيل، ولكل منهما الحكم نفسه 19ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-03: كتابات خارجية متتالية مع التعطيل قبل تسليم سجلات المراقب > تطبيق تحويل ثانٍ في المهمة نفسها بعد كتابة خارجية: التفريغ أولًا يمنع الكتابة فوقها 4ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > h2-latin-start → rtl 10ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > h2-bilingual-arabic-doc → rtl 9ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > ul-all-arabic → rtl 10ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-arabic-1 → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-arabic-2 → rtl 9ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-arabic-link → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-task → rtl 9ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > ul-mixed → keep 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-mixed-arabic → rtl 20ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-mixed-english → keep 16ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-04: استبدال العقدة أو فصلها أو نقلها > استبدال: لا كتابة على العقدة القديمة المفصولة، والجديدة لا يمسها المحرك 7ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-04: استبدال العقدة أو فصلها أو نقلها > العقدة الجديدة تُعامل جديدة: يطبَّق عليها التحويل بسجل جديد ويُستعاد أصلها هي 9ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-04: استبدال العقدة أو فصلها أو نقلها > فصل حاوية التعليق: لا كتابة على العقد المفصولة 6ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-04: استبدال العقدة أو فصلها أو نقلها > نقل الفقرة إلى موضع آخر ثم إعادتها: متصلة لكنها حالة شك فتُترك كما هي 8ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-04: استبدال العقدة أو فصلها أو نقلها > فصل الحاوية المراقَبة نفسها (لا يراه المراقب): فحص الاتصال وقت الاستعادة يمنع الكتابة 6ms
+ ✓ tests/modules/a/guard/guard.test.ts > TEST-GUARD-04: استبدال العقدة أو فصلها أو نقلها > لا يكتب المحرك على عقدة خارج حاويته 4ms
+ ✓ tests/modules/a/guard/guard.test.ts > تركيب التحويلات وإزالة كل منها > يتركّب التحويلان بترتيب تعريفهما أيًّا كان ترتيب التطبيق، وإزالة أحدهما تعيد عرض الآخر 9ms
+ ✓ tests/modules/a/guard/guard.test.ts > تركيب التحويلات وإزالة كل منها > إزالة تحويل بعد كتابة خارجية تُسرد مرة واحدة وتتحرر العقدة 5ms
+ ✓ tests/modules/a/guard/guard.test.ts > تركيب التحويلات وإزالة كل منها > تحويل لا يغيّر العقدة لا يُكتب ولا يُسجَّل 4ms
+ ✓ tests/modules/a/guard/guard.test.ts > تركيب التحويلات وإزالة كل منها > dispose مرة ثانية تقرير فارغ، وبعده لا يقبل المحرك كتابة 4ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-nested-parent → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > ol-nested-arabic → rtl 9ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-nested-1 → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > li-nested-2 → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > table → keep 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > th-arabic → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > th-english → keep 12ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > th-count → keep 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > td-arabic-diacritized → rtl 15ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > td-english → keep 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > td-number → keep 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > td-arabic-aligned → rtl 7ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (١): كل إعداد يعمل ضمن نطاقه المختار فقط > مستودع محدد: يعمل في صفحاته وحدها (بلا تفريق بين حالتي الأحرف)، ولا يعمل في مستودع آخر ولا في صفحة ليست لمستودع 194ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > td-english-2 → keep 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > td-number-2 → keep 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > blockquote → keep 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > blockquote-p-latin-start → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > code-block → keep 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-terminal-inline → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > english-container → keep 14ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-english-container-bilingual → keep 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-english-container-latin → keep 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > p-english-container-arabic → rtl 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > layout-sidebar → keep 7ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > repo-description-ar → rtl 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > (ج) شجرة الملفات وهيكل الصفحة يبقيان ltr: لا سمة خارج الحاويات والكتل المستقلة، وشجرة الملفات حرفيًا كما هي 9ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (١): كل إعداد يعمل ضمن نطاقه المختار فقط > الصفحة الحالية مؤقتًا: تشغيل لهذه الصفحة وحدها، يسقط بالتنقل عنها ولا يعود بالرجوع إليها، ولا يُحفظ 58ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (١): كل إعداد يعمل ضمن نطاقه المختار فقط > إيقاف مؤقت لهذه الصفحة وحدها فوق «كل GitHub» 87ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > (ب) لا تُقلب كتلة لا حرف عربيًا فيها؛ و(و) لا تُقلب كتلة يعرضها GitHub rtl أصلًا ولا كتلة بـdir="ltr" صريحة 10ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > نص relative-time والكود ومحتوى الكتل لا يتغير: المعالج يكتب سمتين فقط 9ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > الاستعادة تعيد المستند حرفيًا، والتشغيل ثانية لا يكرر شيئًا 14ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > القائمة تُقلب كلها حين تكون كل عناصرها عربية، والمختلطة يُقلب عنصرها العربي وحده 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: fixture-mixed-rtl-readme.html > محدد مستقل غائب أو معطوب لا يكسر المعالجة ويظهر في صحة الجدول 8ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: عينات التعليقات الحقيقية (T-0.1) > fixture-50-comments.html: كل كتلة عربية بوضوح يعرضها GitHub ltr تُقلب، ولا تُقلب كتلة لاتينية ولا كتلة يعرضها rtl 36ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: عينات التعليقات الحقيقية (T-0.1) > gh-issue-etos-1.html: كل كتلة عربية بوضوح يعرضها GitHub ltr تُقلب، ولا تُقلب كتلة لاتينية ولا كتلة يعرضها rtl 88ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (١): كل إعداد يعمل ضمن نطاقه المختار فقط > تغيير النطاق يسري فورًا دون إعادة تحميل ولا إعادة تركيب الوحدة 19ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (١): كل إعداد يعمل ضمن نطاقه المختار فقط > قيمة إعداد مرفوضة لا تُكتب، والمخزَّنة التالفة تُهمل إلى الافتراضي 12ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (١): كل إعداد يعمل ضمن نطاقه المختار فقط > resolveScope: القرار دالة نقية من الإعداد والصفحة والتجاوز 0ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٢): إيقاف الإعداد يزيل أثره كله دون إعادة تحميل > demo: إيقاف الإعدادين يعيد المستند حرفيًا كما كان قبل التركيب 19ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٢): إيقاف الإعداد يزيل أثره كله دون إعادة تحميل > shakkala: إيقاف الإعدادين يعيد المستند حرفيًا كما كان قبل التركيب 112ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: عينات التعليقات الحقيقية (T-0.1) > gh-issue-winscreen-1.html: كل كتلة عربية بوضوح يعرضها GitHub ltr تُقلب، ولا تُقلب كتلة لاتينية ولا كتلة يعرضها rtl 38ms
+ ✓ tests/modules/a/direction/direction.test.ts > TEST-RTL-01: عينات التعليقات الحقيقية (T-0.1) > gh-pr-watad-80.html: كل كتلة عربية بوضوح يعرضها GitHub ltr تُقلب، ولا تُقلب كتلة لاتينية ولا كتلة يعرضها rtl 82ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > عربية بوضوح 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > يعرضها GitHub rtl 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > dir="ltr" صريحة 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > بلا حروف 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > لاتينية 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > مختلطة في حاوية عربية 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > مختلطة في حاوية إنجليزية 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > مختلطة بتتابع ثلاث كلمات في حاوية عربية 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > مختلطة خارج الحاويات لا تبدأ بجملة لاتينية 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > مختلطة خارج الحاويات تبدأ بجملة لاتينية 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > قاعدة القلب (decide) > العتبات قابلة للضبط 0ms
+ ✓ tests/modules/a/direction/direction.test.ts > محتوى يضيفه GitHub أو يغيّره بعد التركيب (الميزة كاملة داخل الوحدة) > تعليق جديد عربي يُقلب، وإنجليزي لا يُقلب 15ms
+ ✓ tests/modules/a/direction/direction.test.ts > محتوى يضيفه GitHub أو يغيّره بعد التركيب (الميزة كاملة داخل الوحدة) > كتلة لم تُقلب يتغير نصها إلى عربي فتُقلب 21ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٢): إيقاف الإعداد يزيل أثره كله دون إعادة تحميل > algorithms: إيقاف الإعدادين يعيد المستند حرفيًا كما كان قبل التركيب 163ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٢): إيقاف الإعداد يزيل أثره كله دون إعادة تحميل > issue: إيقاف الإعدادين يعيد المستند حرفيًا كما كان قبل التركيب 102ms
+ ✓ tests/modules/a/direction/samples.test.ts > مراجعة العتبة على عينات T-0.1 الثماني > القاعدة المعتمدة: لا تكتب على كتلة بلا حرف عربي، وتكتب كل كتلة عربية بوضوح يعرضها GitHub ltr، وتُبقي الثنائية التي تبدأ بجملة إنجليزية في سياق إنجليزي 3ms
+ ✓ tests/modules/a/direction/samples.test.ts > مراجعة العتبة على عينات T-0.1 الثماني > مقارنة القواعد تُكتب دليلًا 1ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > readme-shakkala: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 74ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > readme-js-algorithms-ar: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 76ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٢): إيقاف الإعداد يزيل أثره كله دون إعادة تحميل > إيقاف الوحدة كلها (modules.a.enabled) يزيل أثر الميزتين معًا 98ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٢): إيقاف الإعداد يزيل أثره كله دون إعادة تحميل > زمن الإيقاف مقيس في كل تقرير (قياس تمهيدي على jsdom؛ PB-01 في المتصفحات: tests/modules/a/direction/browser) 82ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > repo-arabic-stop-words: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 33ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > issue-etos-1: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 50ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > issue-winscreen-1: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 31ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٥): ما لا يغطيه التسجيل يُسرد في «استثناءات الاستعادة» ولا تُدّعى له استعادة > كتابة GitHub على نص محوَّل، واستبدال عقدة، وتغيير سمة كتبتها الإضافة: تُترك كلها وتُسرد بأرقام موثقة 53ms
+ ✓ tests/modules/a/guard/scope.test.ts > TEST-RTL-07 (٥): ما لا يغطيه التسجيل يُسرد في «استثناءات الاستعادة» ولا تُدّعى له استعادة > التنقل يستبدل body: العقد المحوَّلة القديمة تُسرد عقدًا أُزيلت ولا يُكتب عليها 56ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > pr-watad-80: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 63ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > commits-bms: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 62ms
+ ✓ tests/modules/a/direction/samples.test.ts > المعالج كاملًا على كل عينة حقيقية > commit-bms-1: لا يقلب كتلة بلا حرف عربي ولا خارج الحاويات والكتل المستقلة، والاستعادة تعيد المستند حرفيًا 58ms
+ Test Files  5 passed (5)
+      Tests  146 passed (146)
+   Start at  12:30:33
+   Duration  1.87s (tests 60%, import 39%, transform 2%)

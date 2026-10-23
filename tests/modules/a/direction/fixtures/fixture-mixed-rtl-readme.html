@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto">
+<head>
+<meta charset="utf-8">
+<title>octo/mijhar-demo: README (fixture-mixed-rtl-readme, MJ6/T-2.1)</title>
+</head>
+<body class="logged-in env-production page-responsive">
+<!--
+  عينة اختبار مكتوبة لـT-2.1 (القسم 7.1 في الخطة: README طويل بفقرات عربية مشكولة وغير مشكولة، وفقرات تبدأ بـ@mentions و#123
+  و<code>، وجداول وأوامر طرفية ومسارات وإصدارات وعناصر relative-time). بنيتها بنية صفحة مستودع GitHub كما في عينات T-0.1
+  (fixtures/spikes/gh-readme-*.html): ترويسة وشجرة ملفات ووصف وREADME. لكل كتلة data-case وdata-expect:
+    rtl: يجب أن يصير اتجاهها rtl بالمعالج (data-mijhar-dir="rtl")؛ keep: لا تُلمس (سلوك GitHub صحيح أو ليست عربية).
+  الحالة data-case يقابلها سطر في evidence/T-2.1/report.md.
+-->
+<div class="application-main" data-commit-hovercards-enabled>
+  <main id="js-repo-pjax-container">
+    <div id="repository-container-header" data-expect="keep" data-case="layout-header">
+      <strong itemprop="name"><a href="/octo/mijhar-demo">mijhar-demo</a></strong>
+      <nav aria-label="Repository"><ul class="UnderlineNav-body"><li>Code</li><li>Issues</li><li>Pull requests</li></ul></nav>
+    </div>
+    <div id="repo-content-turbo-frame">
+      <div class="Layout">
+        <div class="Layout-main">
+          <div data-testid="latest-commit">
+            <span data-testid="latest-commit-html" data-case="latest-commit-ar" data-expect="rtl">docs: تحديث دليل المساهمة وإضافة أمثلة عربية</span>
+          </div>
+          <table aria-labelledby="folders-and-files" data-case="file-tree" data-expect="keep">
+            <thead><tr><th>Name</th><th>Last commit message</th><th>Last commit date</th></tr></thead>
+            <tbody>
+              <tr><td><a href="/octo/mijhar-demo/tree/main/src">src</a></td><td>إضافة مكوّن الشرح src/components/common/Explain.tsx</td><td><relative-time datetime="2026-10-20T08:00:00Z">Oct 20, 2026</relative-time></td></tr>
+              <tr><td><a href="/octo/mijhar-demo/blob/main/%D8%AF%D9%84%D9%8A%D9%84.md">دليل-المساهمة.md</a></td><td>تنسيق الدليل</td><td><relative-time datetime="2026-10-21T08:00:00Z">Oct 21, 2026</relative-time></td></tr>
+              <tr><td><a href="/octo/mijhar-demo/blob/main/package.json">package.json</a></td><td>chore: bump to v2.0.1-rc.3</td><td><relative-time datetime="2026-10-22T08:00:00Z">Oct 22, 2026</relative-time></td></tr>
+            </tbody>
+          </table>
+
+          <div id="readme" class="Box-body">
+            <article class="markdown-body entry-content container-lg" itemprop="text" data-case="readme">
+              <div class="markdown-heading"><h1 class="heading-element" dir="auto" data-case="h1-arabic-diacritized" data-expect="keep">مِجْهَرٌ: أَدَاةٌ لِفَهْمِ GitHub</h1><a class="anchor" href="#mijhar"><svg class="octicon octicon-link" viewBox="0 0 16 16"></svg></a></div>
+              <p dir="auto" data-case="p-pure-arabic" data-expect="keep">هذه الإضافة تساعد القارئ العربي على فهم المستودعات والمشكلات وطلبات الدمج دون أن تغيّر شيئًا في GitHub نفسه.</p>
+              <p dir="auto" data-case="p-starts-with-code" data-expect="rtl"><code>npm install</code> هو الأمر الأول، ثم شغّل البناء بالأمر التالي وانتظر حتى يكتمل.</p>
+              <p dir="auto" data-case="p-starts-with-mention" data-expect="rtl"><a class="user-mention notranslate" href="https://github.com/octocat">@octocat</a> شكرًا على المراجعة، عدّلت الملاحظات كلها في الالتزام الأخير.</p>
+              <p dir="auto" data-case="p-starts-with-issue-ref" data-expect="keep"><a class="issue-link js-issue-link" href="/octo/mijhar-demo/issues/123">#123</a> يصف المشكلة نفسها بتفصيل أكثر، فارجع إليه أولًا.</p>
+              <p dir="auto" data-case="p-starts-with-latin-term" data-expect="rtl">React هي المكتبة المستعملة في واجهة الإعدادات، ولا تُحمَّل في صفحات GitHub نفسها.</p>
+              <p dir="auto" data-case="p-diacritized-latin-start" data-expect="rtl">Git نِظَامٌ لِإِدَارَةِ النُّسَخِ يَحْفَظُ تَارِيخَ كُلِّ تَغْيِيرٍ فِي المَشْرُوعِ.</p>
+              <p dir="auto" data-case="p-starts-with-path" data-expect="rtl">src/components/common/Explain.tsx هو الملف المسؤول عن بطاقة الشرح في الإصدار v2.0.1-rc.3 وما بعده.</p>
+              <p dir="auto" data-case="p-arabic-with-path" data-expect="keep">حدّث الملف src/api/github.ts ثم انقل الإصدار إلى v2.0.1-rc.3 وأشر إلى المشكلة #452 في الوصف.</p>
+              <p dir="auto" data-case="p-relative-time" data-expect="rtl">Release v2.0.1-rc.3 صدر في <relative-time datetime="2026-10-22T10:00:00Z" class="no-wrap">Oct 22, 2026</relative-time> ويحوي إصلاحات الاتجاه كلها.</p>
+              <p dir="auto" data-case="p-pure-english" data-expect="keep">This extension never sends page content anywhere; everything runs locally in the browser.</p>
+              <p dir="auto" data-case="p-english-with-path" data-expect="keep">Edit src/components/common/Explain.tsx and run the tests before opening a pull request.</p>
+              <p dir="auto" data-case="p-emoji-numbers" data-expect="keep">🚀 2026 — 1.0</p>
+              <p dir="ltr" data-case="p-author-explicit-ltr" data-expect="keep">كتب المؤلف هذه الفقرة باتجاه صريح من اليسار، فلا تُقلب.</p>
+
+              <div class="markdown-heading"><h2 class="heading-element" dir="auto" data-case="h2-latin-start" data-expect="rtl">API الخاصة بالمشروع</h2><a class="anchor" href="#api"><svg class="octicon octicon-link" viewBox="0 0 16 16"></svg></a></div>
+              <div class="markdown-heading"><h2 class="heading-element" dir="auto" data-case="h2-bilingual-arabic-doc" data-expect="rtl">Quick start guide — الدليل السريع</h2><a class="anchor" href="#quick"><svg class="octicon octicon-link" viewBox="0 0 16 16"></svg></a></div>
+
+              <ul data-case="ul-all-arabic" data-expect="rtl">
+                <li data-case="li-arabic-1" data-expect="rtl">B كومة مع نسختي الحد الأعلى والأدنى</li>
+                <li data-case="li-arabic-2" data-expect="rtl">طابور الأولويات <code>PriorityQueue</code></li>
+                <li data-case="li-arabic-link" data-expect="rtl"><a href="#graph">الرسم البياني الموجّه وغير الموجّه</a></li>
+                <li class="task-list-item" data-case="li-task" data-expect="rtl"><input type="checkbox" class="task-list-item-checkbox" disabled> مراجعة ترجمة الدليل</li>
+              </ul>
+
+              <ul data-case="ul-mixed" data-expect="keep">
+                <li data-case="li-mixed-arabic" data-expect="rtl">A شجرة البحث الثنائية المتوازنة</li>
+                <li data-case="li-mixed-english" data-expect="keep">Binary search tree (English only)</li>
+                <li data-case="li-nested-parent" data-expect="rtl">قائمة متداخلة:
+                  <ol data-case="ol-nested-arabic" data-expect="rtl">
+                    <li data-case="li-nested-1" data-expect="rtl">البند الأول من القائمة الداخلية</li>
+                    <li data-case="li-nested-2" data-expect="rtl">البند الثاني من القائمة الداخلية</li>
+                  </ol>
+                </li>
+              </ul>
+
+              <table data-case="table" data-expect="keep">
+                <thead><tr><th data-case="th-arabic" data-expect="rtl">المصطلح</th><th data-case="th-english" data-expect="keep">Term</th><th data-case="th-count" data-expect="keep">#</th></tr></thead>
+                <tbody>
+                  <tr><td data-case="td-arabic-diacritized" data-expect="rtl">طَابِعَةٌ ثُلَاثِيَّةُ الأَبْعَادِ</td><td data-case="td-english" data-expect="keep">3D printer</td><td data-case="td-number" data-expect="keep">42</td></tr>
+                  <tr><td align="center" data-case="td-arabic-aligned" data-expect="rtl">طلب دمج</td><td data-case="td-english-2" data-expect="keep">Pull request</td><td data-case="td-number-2" data-expect="keep">7</td></tr>
+                </tbody>
+              </table>
+
+              <blockquote data-case="blockquote" data-expect="keep">
+                <p dir="auto" data-case="blockquote-p-latin-start" data-expect="rtl">Note: لا ترفع رمز الوصول إلى المستودع أبدًا، واحفظه في إعدادات الإضافة فقط.</p>
+              </blockquote>
+
+              <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-case="code-block" data-expect="keep"><pre><span># تثبيت الاعتماديات</span>
+npm ci
+<span># بناء الحزمتين</span>
+npm run build</pre></div>
+              <p dir="auto" data-case="p-terminal-inline" data-expect="rtl"><code>npm run build</code> يبني الحزمتين في المجلد <code>dist/</code> لكل متصفح.</p>
+            </article>
+          </div>
+
+          <div class="markdown-body" data-case="english-container" data-expect="keep">
+            <p dir="auto" data-case="p-english-container-bilingual" data-expect="keep">Largest list of Arabic stop words on GitHub. أكبر قائمة لمستبعدات الفهرسة العربية</p>
+            <p dir="auto" data-case="p-english-container-latin" data-expect="keep">Contributions are welcome. Please read the contributing guide first and open an issue.</p>
+            <p dir="auto" data-case="p-english-container-arabic" data-expect="rtl">React مكتبة لبناء الواجهات تعتمد على المكوّنات</p>
+          </div>
+        </div>
+        <div class="Layout-sidebar" data-case="layout-sidebar" data-expect="keep">
+          <h2 class="mb-3 h4">About</h2>
+          <p class="f4 my-3 description__x1Y2z" data-case="repo-description-ar" data-expect="rtl">أداة عربية لفهم GitHub وإنجاز العمل فيه</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
