@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // يبني حزمتي الإضافة: dist/chromium (عائلة Chromium) وdist/firefox.
 // الاستعمال: node scripts/build.mjs [chromium|firefox ...] [--out <مجلد>]
-// لكل هدف: مدخل Vite لكل نقطة دخول (iife لأن سكربتات الإضافة لا تقبل وحدات ES بلا تهيئة)، ثم manifest.json المولَّد ولوحة الواجهة المؤقتة.
+// لكل هدف: مدخل Vite لكل نقطة دخول (iife لأن سكربتات الإضافة لا تقبل وحدات ES بلا تهيئة)، ثم manifest.json المولَّد
+// وصفحتا الإضافة (اللوحة الجانبية والإعدادات).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -13,6 +14,14 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ENTRIES = [
   { name: 'background', source: 'src/background/index.ts', global: 'MijharBackground' },
   { name: 'content', source: 'src/content/index.ts', global: 'MijharContent' },
+  { name: 'sidepanel', source: 'src/sidepanel/main.tsx', global: 'MijharSidepanel' },
+  { name: 'options', source: 'src/options/main.tsx', global: 'MijharOptions' },
+];
+
+// صفحات الإضافة: كل صفحة تحمّل حزمة مدخلها بالاسم نفسه.
+const PAGES = [
+  { source: 'src/sidepanel/index.html', file: 'sidepanel.html' },
+  { source: 'src/options/index.html', file: 'options.html' },
 ];
 
 export async function buildTarget(target, outRoot = path.join(ROOT, 'dist')) {
@@ -40,8 +49,7 @@ export async function buildTarget(target, outRoot = path.join(ROOT, 'dist')) {
   const { version } = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   const manifest = generateManifest(target, { version });
   fs.writeFileSync(path.join(outDir, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
-  // لوحة مؤقتة يتطلبها sidebar_action.default_panel؛ تستبدلها T-1.4.
-  fs.copyFileSync(path.join(ROOT, 'src/manifest/sidepanel.placeholder.html'), path.join(outDir, 'sidepanel.html'));
+  for (const page of PAGES) fs.copyFileSync(path.join(ROOT, page.source), path.join(outDir, page.file));
   return outDir;
 }
 

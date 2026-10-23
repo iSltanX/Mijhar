@@ -1,0 +1,53 @@
+// سكربت المحتوى في صفحات https://github.com/*: الاكتشاف ودورة الحياة ومفاتيح الوحدات والدرج.
+//  - مستمع رسائل الدرج يُسجَّل فورًا، والفتح ينتظر الإعدادات إن لم تكن جاهزة.
+//  - مفاتيح الوحدات (modules.<a..h>.enabled) تركّب الوحدات وتزيلها في الصفحة المفتوحة عند تغيّرها من أي سياق.
+//  - الدرج لا يطلب صلاحية ولا يعرض حقل سرّ: ما يحتاج ذلك يُفتح في صفحة الإعدادات.
+import { BUILTIN_MODULES, bindModuleToggles, createModuleRegistry, createSettingsRegistry, Drawer, extensionApi, isDrawerMessage, isModuleEnabled, LifecycleManager, OPEN_OPTIONS_MESSAGE, openSettings, PageDetector } from '../core';
+import type { ExtensionApi, ExtensionModule, LifecycleManagerOptions, OpenedSettings } from '../core';
+import { defineSectionSettings, SETTINGS_SECTIONS } from '../options/sections';
+import { PanelApp } from '../sidepanel/PanelApp';
+
+export interface ContentOptions {
+  readonly api?: ExtensionApi;
+  readonly document?: Document;
+  readonly modules?: readonly ExtensionModule[];
+  readonly lifecycle?: Pick<LifecycleManagerOptions, 'onError' | 'onReconcile' | 'onRestore'>;
+}
+
+export interface ContentHandle {
+  readonly ready: Promise<{ opened: OpenedSettings; manager: LifecycleManager; drawer: Drawer }>;
+}
+
+export function startContent(options: ContentOptions = {}): ContentHandle {
+  const api = options.api ?? extensionApi();
+  const doc = options.document ?? document;
+  const opened = openSettings({ migrate: false, registry: createSettingsRegistry((registry) => defineSectionSettings(registry)) });
+
+  let drawer: Drawer | null = null;
+  api.runtime.onMessage.addListener((message) => {
+    if (!isDrawerMessage(message)) return undefined;
+    void opened.then(() => drawer?.[message.action]());
+    return undefined;
+  });
+
+  const ready = opened.then((handle) => {
+    const { settings } = handle;
+    const openOptions = () => void api.runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE });
+    drawer = new Drawer({
+      document: doc,
+      content: () => <PanelApp surface="drawer" settings={settings} sections={SETTINGS_SECTIONS} openOptions={openOptions} />,
+    });
+    const manager = new LifecycleManager({
+      registry: createModuleRegistry(options.modules ?? BUILTIN_MODULES),
+      detector: new PageDetector({ document: doc }),
+      isEnabled: (id) => isModuleEnabled(settings, id),
+      document: doc,
+      ...options.lifecycle,
+    });
+    manager.start();
+    bindModuleToggles(settings, manager);
+    return { opened: handle, manager, drawer };
+  });
+  ready.catch((error: unknown) => console.error('[mijhar] تعذّر بدء سكربت المحتوى', error));
+  return { ready };
+}

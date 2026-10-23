@@ -1,3 +1,4 @@
 // نقطة دخول سكربت المحتوى في صفحات https://github.com/* .
-// فارغة الوظيفة في T-1.1؛ تملؤها المراحل اللاحقة.
-export {};
+import { startContent } from './main';
+
+startContent();

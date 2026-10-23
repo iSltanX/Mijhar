@@ -5,3 +5,4 @@ export { BUILTIN_MODULES, ModuleRegistry, createModuleRegistry, moduleMatchesPag
 export type { ExtensionModule, ModuleContext } from './registry';
 export * from './storage';
 export * from './settings';
+export * from './ui-host';
