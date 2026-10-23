@@ -3,7 +3,7 @@
 //  - المراجعة اليدوية قبل الإدراج: لا تُفعَّل أزرار الإدراج قبل أن يؤكد المستخدم أنه راجع الترجمة، والإدراج بالإدراج الآمن نفسه (لا مسح للمسودة ولا استبدال لها)؛
 //  - غياب المحرك يعرض «المحرك غير متاح» ولا أثر له في القسم الثابت: لا تعديل في مكوّناته ولا في سلوكها.
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { INTEGRITY_WARNING, translateProtected } from '../../c/masking';
+import { translateProtected } from '../../c/masking';
 import type { ProtectedTranslation } from '../../c/masking';
 import { getTranslationService, isAbort, onTranslationServiceChange } from '../../c/ui/service';
 import type { Availability, TranslationService } from '../../c/ui/service';
@@ -110,7 +110,7 @@ export function TranslateDraftSection({ draft, onInsert }: TranslateDraftProps) 
           )}
           {run.phase === 'done' && run.result.status === 'original-kept' && (
             <p class="status" role="alert" data-tone="warn" data-translate-result="original-kept">
-              {INTEGRITY_WARNING || run.result.warning} لم يُعرض نص مترجم ولن يُدرج شيء.
+              {run.result.warning} لم يُعرض نص مترجم ولن يُدرج شيء.
             </p>
           )}
           {run.phase === 'done' && run.result.status === 'translated' && (
