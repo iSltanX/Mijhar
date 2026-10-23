@@ -1,5 +1,6 @@
 // شريط الترجمة فوق كل نص (F-C1/F-C3): زر «ترجمة إلى العربية» وحده قبل أي فعل؛ وأثناء الترجمة تقدّم وزر إلغاء؛ وبعدها ثلاثة أنماط عرض
-// (الأصل والترجمة معًا، الترجمة فقط، إظهار الأصل) و«إلغاء الترجمة». كل زر <button> أصلي باسم وصول، والحالة تُعلَن بـrole="status".
+// (الأصل والترجمة معًا، الترجمة فقط، إظهار الأصل) و«إلغاء الترجمة». وعند غياب المحرك سببه وزر «نسخ النص المقنَّع» (AC-C4).
+// كل زر <button> أصلي باسم وصول، والحالة تُعلَن بـrole="status".
 import type { DisplayMode, SessionSnapshot } from './session';
 
 export type BarKind = 'readme' | 'comment' | 'text';
@@ -10,9 +11,12 @@ export interface BarProps {
   /** سبب عدم توفر المحرك (يُعرض بدل الشروع في الترجمة). */
   readonly unavailable: string | null;
   readonly engineLabel: string;
+  /** نتيجة آخر نسخ للنص المقنَّع (بديل غياب المحرك، AC-C4). */
+  readonly copyNote?: string | null;
   readonly onTranslate: () => void;
   readonly onCancel: () => void;
   readonly onMode: (mode: DisplayMode) => void;
+  readonly onCopyMasked?: () => void;
 }
 
 const MODES: ReadonlyArray<{ readonly id: DisplayMode; readonly label: string; readonly hint: string }> = [
@@ -47,7 +51,7 @@ export function describe(snapshot: SessionSnapshot): string {
   }
 }
 
-export function TranslationBar({ kind, snapshot, unavailable, engineLabel, onTranslate, onCancel, onMode }: BarProps) {
+export function TranslationBar({ kind, snapshot, unavailable, engineLabel, copyNote, onTranslate, onCancel, onMode, onCopyMasked }: BarProps) {
   const { phase, mode } = snapshot;
   const working = phase === 'working';
   // بعد الانتهاء (أو الخطأ بعد ترجمة بعض الفقرات) تُعرض أنماط العرض وإلغاء الترجمة.
@@ -82,8 +86,19 @@ export function TranslationBar({ kind, snapshot, unavailable, engineLabel, onTra
           </button>
         </>
       )}
+      {unavailable && onCopyMasked && (
+        <button
+          type="button"
+          class="btn"
+          data-action="copy-masked"
+          title="ينسخ نص الفقرات إلى الحافظة والشيفرة والمسارات والروابط والإشارات مستبدلة برموز ⟦…⟧، بلا أي اتصال"
+          onClick={onCopyMasked}
+        >
+          نسخ النص المقنَّع
+        </button>
+      )}
       <span class="note" role="status" aria-live="polite" data-note>
-        {unavailable ? `المحرك غير متاح: ${unavailable}` : text}
+        {unavailable ? `المحرك غير متاح: ${unavailable}${copyNote ? ` ${copyNote}` : ''}` : text}
       </span>
     </div>
   );
