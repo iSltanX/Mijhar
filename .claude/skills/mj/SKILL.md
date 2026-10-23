@@ -3,7 +3,7 @@ name: mj
 description: يبدأ مرحلة من نظام MJ في مجهر أو يستأنفها في جلستها المستقلة داخل worktree. يُستدعى يدويًا فقط بـ`/mj MJn`.
 argument-hint: <MJn>
 disable-model-invocation: true
-allowed-tools: Bash(pwd) Bash(true) Bash(git rev-parse *) Bash(git worktree list) Bash(git status *) Bash(git tag -l *) Bash(git branch --list *) Bash(git show *) Bash(git merge-base *) Bash(git rev-list *) Bash(sed -n *) Bash(grep -n *) Bash(test *)
+allowed-tools: Bash(pwd) Bash(true) Bash(git diff *) Bash(git log *) Bash(git rev-parse *) Bash(git worktree list) Bash(git status *) Bash(git tag -l *) Bash(git branch --list *) Bash(git show *) Bash(git merge-base *) Bash(git rev-list *) Bash(sed -n *) Bash(grep -n *) Bash(test *)
 ---
 
 # /mj $0
@@ -35,7 +35,7 @@ allowed-tools: Bash(pwd) Bash(true) Bash(git rev-parse *) Bash(git worktree list
 3. **نفّذ «دور: جلسة مرحلة» في `Docs/MJ/README.md` حرفيًا.** كل شرط في خطوة التحقق يُقاس بأمر تشغّله أنت؛ ما طُبع
    أعلاه سياق لا دليل. وسقوط شرط واحد يوقف الجلسة بطباعة ما سقط: الفرع `‹BRANCH›` من الترويسة (استئناف إن كنت عليه؛
    وإنشاؤه من `main` إن كان الفرع الحالي تلقائيًا نظيفًا بلا التزامات فوق `main`)، والوسم `‹BASE›` من أسلاف الرأس،
-   وكل مرحلة في `depends` حالتها `done` في نسخة `main` من ملفها.
+   وكل مرحلة في `depends` حالتها `done` في نسخة `main` من ملفها. وفرع المرحلة يُنشأ من `main` الحالي (وفيه إصلاحات ما بعد الإغلاق إن وُجدت، وهي مذكورة في سجل الموجات)؛ ولا تُحرّك وسمًا ولا تُحدّث فرعًا بيدك، وفرق المرحلة في تقرير التسليم `git diff --stat main...HEAD` لا `‹BASE›...HEAD`.
 4. **القيم:** `‹ID›` هو $0، و`‹WAVE›` و`‹BRANCH›` و`‹BASE›` و`‹MODEL›` من الترويسة. إن كان مودل الجلسة غير المحدد
    فاذكر ذلك سطرًا للمالك وتابع فقط إن وافق؛ وإلا سجّل المرحلة `blocked` بالسبب.
 5. **القرار المفوَّض** إن ذكرته «المخاطر» أو `resume`: احسمه أولًا من تقرير تجربة الجدوى وسجّله في `data/plan.json` بسببه.
