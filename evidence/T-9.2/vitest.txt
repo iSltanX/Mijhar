@@ -1,0 +1,29 @@
+ ✓ tests/modules/h/readme-wizard/policy.test.ts > القراءة > يجرّب المسارات بالترتيب من github.com/<repo>/raw/HEAD، ويقف عند أول موجود، ويُعلن ما لم يُعثر عليه 2ms
+ ✓ tests/modules/h/readme-wizard/policy.test.ts > القراءة > المسار الظاهر في الصفحة يسبق التخمين؛ وفشل الشبكة «تعذّر» لا «غير موجود» 0ms
+ ✓ tests/modules/h/readme-wizard/policy.test.ts > التحليل المحلي > CONTRIBUTING العينة: طلب issue أولًا، والترجمات عبر Crowdin بسطورها، ولا عبارة رفض 1ms
+ ✓ tests/modules/h/readme-wizard/policy.test.ts > التحليل المحلي > ملف لا يذكر الترجمة: لا نظام ولا رفض ولا أسطر 0ms
+ ✓ tests/modules/h/readme-wizard/policy.test.ts > التحليل المحلي > أنظمة الترجمة الخارجية بروابطها، وعبارات قصر الترجمات عليها أو رفضها 0ms
+ ✓ tests/modules/h/readme-wizard/policy.test.ts > التحليل المحلي > قسم المساهمة في README حتى العنوان التالي، والعربية تُعرف كذلك 1ms
+ ✓ tests/modules/h/readme-wizard/policy.test.ts > المسودة > بالإنجليزية والعربية: تذكر رابط بحث التكرار ومراجعة السياسة وتسأل ولا تفترض، ولا تَعِد بطلب دمج قبل الموافقة 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > المستودع الحالي، و(is:issue OR is:pr) بلا قيد حالة (مفتوحة ومغلقة)، وREADME وكلمات الترجمة 1ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > القالب يجتاز الفحص الآلي لـocto/community قبل اعتماده، والرابط يعيد الاستعلام حرفيًا 1ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > القالب يجتاز الفحص الآلي لـexpressjs/express قبل اعتماده، والرابط يعيد الاستعلام حرفيًا 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > القالب يجتاز الفحص الآلي لـtwbs/bootstrap قبل اعتماده، والرابط يعيد الاستعلام حرفيًا 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > القالب يجتاز الفحص الآلي لـEbookFoundation/free-programming-books قبل اعتماده، والرابط يعيد الاستعلام حرفيًا 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > القالب يجتاز الفحص الآلي لـmy-org/repo.with.dots قبل اعتماده، والرابط يعيد الاستعلام حرفيًا 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > القالب يجتاز الفحص الآلي لـa_b/x_y-z.2 قبل اعتماده، والرابط يعيد الاستعلام حرفيًا 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > القالب > القالب يجتاز الفحص الآلي لـBarqawiz/Shakkala قبل اعتماده، والرابط يعيد الاستعلام حرفيًا 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > الفحص الآلي لاستعلام عدّله المستخدم > is:issue وis:pr بلا OR خطأ (يصيران «و» فلا نتيجة)، وغياب أحدهما خطأ 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > الفحص الآلي لاستعلام عدّله المستخدم > غياب repo: أو مستودع آخر خطأ؛ وقيد الحالة تحذير لا يمنع 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > الفحص الآلي لاستعلام عدّله المستخدم > أخطاء الصياغة العامة (OR معلّق، أقواس، اقتباس، أكثر من خمسة معاملات) تعطّل الرابط 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > الفحص الآلي لاستعلام عدّله المستخدم > or بأحرف صغيرة تحذير (كلمة بحث لا معامل) 0ms
+ ✓ tests/modules/h/readme-wizard/query.test.ts > الفحص الآلي لاستعلام عدّله المستخدم > الرابط يرمّز العربية وعلامات الاقتباس فيعود الاستعلام كما هو 0ms
+ ✓ tests/modules/h/readme-wizard/wizard.test.tsx > ترتيب الخطوات (AC-H2) > الخطوتان الثانية والثالثة مقفلتان حتى يُفتح البحث ويُجاب عنه، ولا طلب قبل أي نقر 83ms
+ ✓ tests/modules/h/readme-wizard/wizard.test.tsx > ترتيب الخطوات (AC-H2) > الاستعلام الكامل ظاهر وقابل للتعديل، ورابطه مرمَّز ومفحوص، ولا يُفتح إلا بالنقر 70ms
+ ✓ tests/modules/h/readme-wizard/wizard.test.tsx > ترتيب الخطوات (AC-H2) > «وجدت طلبًا مماثلًا» يوقف المعالج ويوجّه إلى النقاش القائم 149ms
+ ✓ tests/modules/h/readme-wizard/wizard.test.tsx > ترتيب الخطوات (AC-H2) > المسار كله: فتح البحث ثم الإجابة، ثم قراءة السياسة بنقر ومراجعتها، ثم مسودة تُعاين وتُنسخ يدويًا 308ms
+ ✓ tests/modules/h/readme-wizard/wizard.test.tsx > ترتيب الخطوات (AC-H2) > تعديل الاستعلام بعد الإجابة يعيد قفل ما بعده 228ms
+ ✓ tests/modules/h/readme-wizard/wizard.test.tsx > ترتيب الخطوات (AC-H2) > النسخ حين يتعذّر: يُحدَّد النص ليُنسخ يدويًا 269ms
+ ✓ tests/modules/h/readme-wizard/wizard.test.tsx > التسجيل > في تبويب المجتمع للوحة الأصلية وحدها، وفي الدرج رسالة بديلة 70ms
+ Test Files  3 passed (3)
+      Tests  27 passed (27)

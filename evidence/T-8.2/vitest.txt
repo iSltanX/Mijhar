@@ -1,0 +1,64 @@
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/capture.ts 1ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/context.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/index.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/module.tsx 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/repository.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/search.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/section.tsx 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/settings.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/types.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/ui/BookmarkEditor.tsx 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/ui/LaterCenter.tsx 1ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/ui/QuickSave.tsx 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/ui/styles.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/bookmarks/view.tsx 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/context.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/controller.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/fingerprint.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/index.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/page-view.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/privacy.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/reanchor.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/store.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/types.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/g/anchor/ui/AnchorStatusView.tsx 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/h/readme-wizard/Wizard.tsx 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/h/readme-wizard/draft.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/h/readme-wizard/index.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/h/readme-wizard/policy.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/h/readme-wizard/query.ts 0ms
+ ✓ tests/modules/g/bookmarks/bundle-text.test.ts > لا محارف يرفضها Chromium في سكربت المحتوى > src/modules/h/readme-wizard/view.tsx 0ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > البحث (TEST-NOTE-02) > الفهرس يضم العناصر الخمسمئة بنوعيها 1ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > البحث (TEST-NOTE-02) > كل كلمات البحث يجب أن ترد، بأي ترتيب، في النص أو العنوان أو الوسوم أو المستودع أو الملاحظة السريعة 6ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > البحث (TEST-NOTE-02) > التطبيع: حالة الأحرف والتشكيل وصور الألف لا تمنع المطابقة 1ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > البحث (TEST-NOTE-02) > بحث لا يطابق شيئًا يعيد قائمة فارغة، والبحث الفارغ يعيد الكل 0ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > التصفية (TEST-NOTE-02) > بالنوع والمستودع (بلا حساسية لحالة الأحرف) والمستوى 0ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > التصفية (TEST-NOTE-02) > بالوسم والحالة (للروابط وحدها؛ الملاحظات بلا وسم ولا حالة) 0ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > التصفية (TEST-NOTE-02) > بالتاريخ: حدّان شاملان بصيغة yyyy-mm-dd، وفترة من الآن 1ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > التصفية (TEST-NOTE-02) > المعايير مجتمعة تتقاطع 0ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > التصفية (TEST-NOTE-02) > قيم التصفية المتاحة بعددها من الفهرس 1ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > الفرز (TEST-NOTE-02) > الأحدث والأقدم حفظًا وآخر تعديل والمستودع والحالة 7ms
+ ✓ tests/modules/g/bookmarks/search.test.ts > PB-04: البحث والتصفية < 15ms على 500 عنصر > الاستعلامات النموذجية بالوسيط والأقصى بعد التسخين 13ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > ما يلتقطه الحفظ السريع (AC-G2) > صفحة ملف بنطاق أسطر: الرابط والعنوان وowner/repo والمرجع والمستوى والسطر 1ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > ما يلتقطه الحفظ السريع (AC-G2) > رابط ثابت على التزام: المرجع sha لا فرع 0ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > ما يلتقطه الحفظ السريع (AC-G2) > شجرة على فرع، وموضع التمرير حين لا سطر 0ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > ما يلتقطه الحفظ السريع (AC-G2) > طلب دمج: فرع الرأس من بيانات المحادثة المضمّنة أو ‎.head-ref، والمستوى «طلب دمج أو مشكلة» 43ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > ما يلتقطه الحفظ السريع (AC-G2) > الالتزام لا يحدد فرعًا، والمشكلة بلا فرع، والسطر في الفروق بجهته 0ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > ما يلتقطه الحفظ السريع (AC-G2) > صفحة GitHub خارج مستودع تُحفظ بمستوى «صفحة أخرى»، وما خارج github.com لا يُحفظ 0ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > ما يلتقطه الحفظ السريع (AC-G2) > الفرع من DOM صفحة الملف يغلب تخمين الرابط (فرع فيه شرطة مائلة) 5ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > الوسوم والهوية > الوسوم من نص بفاصلة عربية أو لاتينية، بلا تكرار ولا فراغ، وبحد العدد والطول 1ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > الوسوم والهوية > هوية الصفحة بلا الهاش 0ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > مستودع الروابط > الحفظ يكتب كل الحقول المعرّفة، والتعديل يمس ما طُلب وحده، والإزالة 2ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > مستودع الروابط > يرفض ما خارج github.com وملاحظة أطول من الحد، ولا يكتب شيئًا 0ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > مستودع الروابط > التغيير من سياق يصل إلى سياق آخر على المنطقة نفسها 2ms
+ ✓ tests/modules/g/bookmarks/model.test.ts > مستودع الروابط > عناصر مجموعة PB-04 كلها صالحة بالمخطط 1ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > زر «أكمل لاحقًا» في الصفحة (AC-G2) > نقرة واحدة تحفظ الرابط والعنوان وowner/repo والفرع والسطر والتاريخ والحالة الافتراضية 114ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > زر «أكمل لاحقًا» في الصفحة (AC-G2) > موضع التمرير يُحفظ حين لا سطر محدد، و«انتقل إلى موضعي» يعيده 58ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > زر «أكمل لاحقًا» في الصفحة (AC-G2) > «حدّث الموضع» يحدّث السطر المحفوظ، و«أزل» يطلب تأكيدًا 187ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > زر «أكمل لاحقًا» في الصفحة (AC-G2) > مفتاح الإعداد يخفي الزر، والإيقاف يعيد الصفحة كما كانت حرفيًا 48ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > مركز «ملاحظاتي وأكمل لاحقًا» في اللوحة > يحفظ التبويب النشط، ويبحث في الملاحظات والروابط معًا ويصفّي ويفرز 84ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > مركز «ملاحظاتي وأكمل لاحقًا» في اللوحة > تحرير رابط وإزالته من المركز 95ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > مركز «ملاحظاتي وأكمل لاحقًا» في اللوحة > PB-04 حتى ظهور النتائج: 500 عنصر، والنتائج تُرسم دفعات من 50 مع «اعرض المزيد» 566ms
+ ✓ tests/modules/g/bookmarks/ui.test.tsx > مركز «ملاحظاتي وأكمل لاحقًا» في اللوحة > مسجَّل في تبويب «ملاحظاتي»: اللوحة الأصلية وحدها، وفي الدرج رسالة بديلة؛ وقسم الإعدادات يبيّن ما يُحفظ من السطر 1ms
+ Test Files  4 passed (4)
+      Tests  62 passed (62)

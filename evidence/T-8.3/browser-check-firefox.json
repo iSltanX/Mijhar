@@ -1,0 +1,238 @@
+{
+  "label": "Firefox",
+  "checks": [
+    {
+      "name": "شريط «أكمل لاحقًا» وبطاقة «ملاحظاتي» في صفحة الملف",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": null,
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": []
+      }
+    },
+    {
+      "name": "الحفظ السريع كتب الحقول المعرّفة في التخزين الفعلي",
+      "ok": true,
+      "detail": {
+        "id": "e4146ade-a354-4b4f-a6d9-fb0c852bca12",
+        "version": 1,
+        "url": "https://github.com/octo/shop/blob/main/src/cart.js#L40",
+        "title": "cart.js at main · octo/shop",
+        "owner": "octo",
+        "repo": "shop",
+        "branch": "main",
+        "refKind": "ref",
+        "level": "line",
+        "position": {
+          "kind": "lines",
+          "start": 40,
+          "end": 40
+        },
+        "status": "reading",
+        "tags": [],
+        "note": "",
+        "savedAt": "2026-10-23T14:02:01.740Z",
+        "updatedAt": "2026-10-23T14:02:01.740Z"
+      }
+    },
+    {
+      "name": "مرساة السطر في التخزين: نص النطاق وسياقه (مستودع عام) والتزام الصفحة",
+      "ok": true,
+      "detail": {
+        "noteId": "7aa6db85-afb7-472f-831d-191c101d9270",
+        "version": 1,
+        "owner": "octo",
+        "repo": "shop",
+        "path": "src/cart.js",
+        "ref": "main",
+        "refKind": "ref",
+        "commit": "1111111111111111111111111111111111111111",
+        "start": 40,
+        "end": 40,
+        "visibility": "public",
+        "capturedAt": "2026-10-23T14:02:02.169Z",
+        "fingerprint": {
+          "mode": "text",
+          "block": [
+            "function calculateTotal(items) {"
+          ],
+          "before": [
+            "const limit33 = 231; // limit 33",
+            "const limit34 = 238; // limit 34"
+          ],
+          "after": [
+            "  let sum = 0;",
+            "  for (const item of items) sum += item.price * item.qty;"
+          ]
+        },
+        "missing": null
+      }
+    },
+    {
+      "name": "«مطابق» وعلامة على السطر 40",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "matched",
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": [
+          "40"
+        ]
+      }
+    },
+    {
+      "name": "«منزاح» مقترحًا على 55، بلا علامة ولا نقل تلقائي",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "shifted",
+        "candidate": "55",
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": []
+      }
+    },
+    {
+      "name": "نقر «انقل» يجعلها مطابقة بعلامة على 55",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "matched",
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": [
+          "55"
+        ]
+      }
+    },
+    {
+      "name": "لا طلب إلى github.com أثناء إعادة التثبيت غير وثيقة الصفحة",
+      "ok": true,
+      "detail": [
+        "document /octo/shop/blob/main/src/cart.js"
+      ]
+    },
+    {
+      "name": "«المورد غير متاح» برابط الفرع والرابط الثابت",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "resource-unavailable",
+        "candidate": null,
+        "links": [
+          "https://github.com/octo/shop/blob/main/src/cart.js#L55",
+          "https://github.com/octo/shop/blob/2222222222222222222222222222222222222222/src/cart.js#L55"
+        ],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": []
+      }
+    },
+    {
+      "name": "الخاص: بصمة مملّحة (hash) وملح محلي، ولا نص كود في التخزين، و«مطابق»",
+      "ok": true,
+      "detail": {
+        "view": "matched",
+        "fingerprint": {
+          "mode": "hash",
+          "saltId": "10c1b3b6cc02",
+          "block": [
+            "c647196f7925b629dc218c79d7c32bca666b6702e64d8b5f593a9be280062ed6"
+          ],
+          "before": [
+            "36c90f51bd7bec4ac45948fec6a6d182e84968bf90a160c408e5146a2958112b",
+            "31bdf0a1a5ba499490a504ecd055ff779da81a91b9b6261fb485655585af8d02"
+          ],
+          "after": [
+            "7d473f56630b19c006e2d6ac57eea4f909598d9cf048ad721df1f29dbb8ab88a",
+            "8aec17f92bf4d0474d6e149cf8594f202c204b0559ba1b140c0b003b2f937a10"
+          ]
+        }
+      }
+    },
+    {
+      "name": "الخاص المتغيّر: «متغيّر» بلا مقتطف وبلا علامة",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "changed",
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": true,
+        "markers": []
+      }
+    },
+    {
+      "name": "المركز يعرض الملاحظتين والرابط المحفوظين",
+      "ok": true,
+      "detail": {
+        "count": "3",
+        "kinds": [
+          "bookmark",
+          "note",
+          "note"
+        ]
+      }
+    },
+    {
+      "name": "البحث في المركز يصفّي إلى الملاحظة",
+      "ok": true,
+      "detail": {
+        "count": "1",
+        "kinds": [
+          "note"
+        ]
+      }
+    },
+    {
+      "name": "معالج README في تبويب المجتمع (التبويب النشط صفحة الإضافة: يطلب صفحة مستودع)",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "name": "لا رسائل خطأ من الإضافة في وحدة تحكم Firefox",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "صفر طلبات إلى api.github.com",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "browserVersion": "158.0.1",
+  "network": {
+    "apiGithub": [],
+    "github": [
+      "document /octo/shop/blob/main/src/cart.js",
+      "image /favicon.ico",
+      "document /octo/shop/blob/main/src/cart.js",
+      "document /octo/shop/blob/main/src/cart.js",
+      "image /404.png",
+      "document /octo/secret/blob/main/src/cart.js",
+      "document /octo/secret/blob/main/src/cart.js"
+    ],
+    "blockedExternalHosts": [
+      "content-signature-2.cdn.mozilla.net",
+      "firefox-settings-attachments.cdn.mozilla.net",
+      "firefox.settings.services.mozilla.com"
+    ]
+  }
+}
