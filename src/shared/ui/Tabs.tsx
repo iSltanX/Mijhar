@@ -22,7 +22,8 @@ export function Tabs({ idPrefix, label, tabs, selected, onSelect, children }: Ta
 
   const move = (event: KeyboardEvent) => {
     const index = tabs.findIndex((t) => t.id === selected);
-    const rtl = list.current ? getComputedStyle(list.current).direction !== 'ltr' : true;
+    // الاتجاه من سمة dir الأقرب (تضعها .mj-root)، والافتراضي RTL.
+    const rtl = list.current?.closest('[dir]')?.getAttribute('dir') !== 'ltr';
     const step: Record<string, number> = { ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1 };
     let next = -1;
     if (event.key in step) next = (index + (step[event.key] ?? 0) + tabs.length) % tabs.length;

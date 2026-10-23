@@ -3,7 +3,7 @@
 //  - مفاتيح الوحدات (modules.<a..h>.enabled) تركّب الوحدات وتزيلها في الصفحة المفتوحة عند تغيّرها من أي سياق.
 //  - الدرج لا يطلب صلاحية ولا يعرض حقل سرّ: ما يحتاج ذلك يُفتح في صفحة الإعدادات.
 import { BUILTIN_MODULES, bindModuleToggles, createModuleRegistry, createSettingsRegistry, Drawer, extensionApi, isDrawerMessage, isModuleEnabled, LifecycleManager, OPEN_OPTIONS_MESSAGE, openSettings, PageDetector } from '../core';
-import type { ExtensionApi, ExtensionModule, LifecycleManagerOptions, OpenedSettings } from '../core';
+import type { ExtensionApi, ExtensionModule, LifecycleManagerOptions, OpenedSettings, StorageBinding } from '../core';
 import { defineSectionSettings, SETTINGS_SECTIONS } from '../options/sections';
 import { PanelApp } from '../sidepanel/PanelApp';
 
@@ -11,6 +11,8 @@ export interface ContentOptions {
   readonly api?: ExtensionApi;
   readonly document?: Document;
   readonly modules?: readonly ExtensionModule[];
+  /** الافتراضي storage.local للإضافة. */
+  readonly binding?: StorageBinding;
   readonly lifecycle?: Pick<LifecycleManagerOptions, 'onError' | 'onReconcile' | 'onRestore'>;
 }
 
@@ -21,7 +23,11 @@ export interface ContentHandle {
 export function startContent(options: ContentOptions = {}): ContentHandle {
   const api = options.api ?? extensionApi();
   const doc = options.document ?? document;
-  const opened = openSettings({ migrate: false, registry: createSettingsRegistry((registry) => defineSectionSettings(registry)) });
+  const opened = openSettings({
+    migrate: false,
+    registry: createSettingsRegistry((registry) => defineSectionSettings(registry)),
+    ...(options.binding ? { binding: options.binding } : {}),
+  });
 
   let drawer: Drawer | null = null;
   api.runtime.onMessage.addListener((message) => {

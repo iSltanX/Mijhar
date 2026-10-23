@@ -11,11 +11,16 @@ import { openSettings } from '../core/ui-host/settings-runtime';
 import type { OpenedSettings } from '../core/ui-host/settings-runtime';
 import { createSettingsRegistry, SURFACE_KEY } from '../core/ui-host/units';
 import type { Surface } from '../core/ui-host/units';
+import type { StorageBinding } from '../core/storage';
 import { defineSectionSettings } from '../options/sections';
 
 export interface BackgroundOptions {
   readonly api?: ExtensionApi;
   readonly target?: 'chromium' | 'firefox';
+  /** الافتراضي storage.local للإضافة. */
+  readonly binding?: StorageBinding;
+  /** انعكاس التفضيل المتزامن في Firefox. الافتراضي localStorage صفحة الخلفية. */
+  readonly mirror?: Pick<Storage, 'getItem' | 'setItem'>;
   readonly onOutcome?: (outcome: PanelOutcome, detail?: string) => void;
 }
 
@@ -30,7 +35,7 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
 
   api.commands?.onCommand.addListener((command, tab) => {
     if (command !== PANEL_COMMAND) return;
-    openPanel({ api, target, surface: () => readSurfaceMirror() ?? surface, ...(options.onOutcome ? { onOutcome: options.onOutcome } : {}) }, tab);
+    openPanel({ api, target, surface: () => readSurfaceMirror(options.mirror) ?? surface, ...(options.onOutcome ? { onOutcome: options.onOutcome } : {}) }, tab);
   });
 
   api.runtime.onMessage.addListener((message) => {
@@ -38,12 +43,15 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     return undefined;
   });
 
-  const ready = openSettings({ registry: createSettingsRegistry((registry) => defineSectionSettings(registry)) });
+  const ready = openSettings({
+    registry: createSettingsRegistry((registry) => defineSectionSettings(registry)),
+    ...(options.binding ? { binding: options.binding } : {}),
+  });
   void ready.then(
     ({ settings }) => {
       const apply = (value: Surface): void => {
         surface = value;
-        applySurface({ api, target }, value).catch((error: unknown) => console.error('[mijhar] تعذّر تطبيق مكان اللوحة', error));
+        applySurface({ api, target }, value, options.mirror).catch((error: unknown) => console.error('[mijhar] تعذّر تطبيق مكان اللوحة', error));
       };
       apply(settings.get<Surface>(SURFACE_KEY));
       settings.subscribe((change) => {
