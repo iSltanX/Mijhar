@@ -5,6 +5,7 @@
 
   var TASK_STATES = {
     done: { label: 'مكتملة', tone: 'ok' },
+    implemented: { label: 'منفّذة وتنتظر الدمج', tone: 'info' },
     in_progress: { label: 'قيد التنفيذ', tone: 'info' },
     blocked: { label: 'متوقفة بمانع', tone: 'bad' },
     ready: { label: 'جاهزة للبدء', tone: 'ready' },
@@ -20,7 +21,16 @@
     failed: { label: 'فشل', tone: 'bad' },
     blocked: { label: 'متوقف', tone: 'bad' }
   };
-  var STORED_TASK = ['not_started', 'in_progress', 'done', 'blocked'];
+  var STORED_TASK = ['not_started', 'in_progress', 'implemented', 'done', 'blocked'];
+  // صياغة حالات الموجة كما طلبها المالك: مكتوبة لا بالألوان وحدها.
+  var WAVE_TASK_LABELS = { not_started: 'لم تبدأ', in_progress: 'جارٍ التنفيذ', blocked: 'متوقفة', implemented: 'منفّذة وتنتظر الدمج', done: 'مدمجة ومتحقق منها' };
+  var STAGE_STATES = {
+    not_started: { label: 'لم تبدأ', tone: 'muted' },
+    in_progress: { label: 'جارٍ التنفيذ', tone: 'info' },
+    blocked: { label: 'متوقفة', tone: 'bad' },
+    ready_to_merge: { label: 'منفّذة وتنتظر الدمج', tone: 'ready' },
+    merged: { label: 'مدمجة ومتحقق منها', tone: 'ok' }
+  };
   var STORED_TEST = ['planned', 'passed', 'failed', 'blocked'];
   var TYPE_LABELS = { spike: 'تجربة جدوى', core: 'بنية', feature: 'ميزة', data: 'بيانات', enabler: 'تمكين', integration: 'تكامل' };
   var GATE_LABELS = { start: 'يوقف البدء', partial: 'يوقف جزءًا والإغلاق', none: 'لا يوقف شيئًا' };
@@ -72,7 +82,7 @@
     var startGates = pending.filter(function (g) { return g.gate === 'start'; });
     var partialGates = pending.filter(function (g) { return g.gate === 'partial'; });
     var key;
-    if (stored === 'done' || stored === 'in_progress' || stored === 'blocked') key = stored;
+    if (stored === 'done' || stored === 'in_progress' || stored === 'blocked' || stored === 'implemented') key = stored;
     else if (waitingOn.length) key = 'waiting';
     else if (startGates.length) key = 'awaiting_decision';
     else if (partialGates.length) key = 'ready_partial';
@@ -159,8 +169,53 @@
     };
   }
 
+  // ---------- الموجة الأولى: حالة المرحلة مشتقة من مهامها وحقولها المسجلة ----------
+  function stageState(plan, status, stage) {
+    var entries = stage.tasks.map(function (id) { return status.tasks[id] || { status: 'not_started' }; });
+    var has = function (k) { return entries.some(function (e) { return e.status === k; }); };
+    var all = function (ks) { return entries.every(function (e) { return ks.indexOf(e.status) >= 0; }); };
+    var key;
+    if (stage.mergeCommit && all(['done'])) key = 'merged';
+    else if (has('blocked')) key = 'blocked';
+    else if (!stage.startedOn && all(['not_started'])) key = 'not_started';
+    else if (all(['implemented', 'done']) && has('implemented')) key = 'ready_to_merge';
+    else key = 'in_progress';
+    var reasons = [];
+    stage.tasks.forEach(function (id) { var e = status.tasks[id]; if (e && e.status === 'blocked') reasons.push(id + ': ' + (e.note || 'بلا سبب مسجَّل')); });
+    return { key: key, label: STAGE_STATES[key].label, tone: STAGE_STATES[key].tone, blockedReasons: reasons };
+  }
+
+  function fillCmd(tpl, n) { return String(tpl).replace('{n}', n); }
+
+  // نظرة الموجة: المرحلة الحالية والخطوة التالية ونص أمرَي البدء والدمج.
+  function waveView(plan, status) {
+    var w = status.wave;
+    if (!w) return null;
+    var stages = w.stages.map(function (s) { return { stage: s, state: stageState(plan, status, s), startCmd: fillCmd(w.commands.start, s.num), mergeCmd: fillCmd(w.commands.merge, s.num) }; });
+    var current = null;
+    for (var i = 0; i < stages.length; i++) { if (stages[i].state.key !== 'merged') { current = stages[i]; break; } }
+    var next;
+    if (!current) next = { text: 'اكتملت الموجة الأولى: كل مراحلها مدمجة ومتحقق منها.', cmd: null };
+    else if (current.state.key === 'not_started') next = { text: 'أرسل في المحادثة: «' + current.startCmd + '»' + (current.stage.beforeStart && current.stage.beforeStart.length ? '، بعد قراءة ما يلزم قبل البدء.' : '.'), cmd: current.startCmd };
+    else if (current.state.key === 'ready_to_merge') next = { text: 'المرحلة منفّذة على الفرع `' + current.stage.branch + '`. أرسل: «' + current.mergeCmd + '».', cmd: current.mergeCmd };
+    else if (current.state.key === 'blocked') next = { text: 'المرحلة متوقفة: ' + current.state.blockedReasons.join('؛ ') + '. يلزم قرارك أو إزالة المانع.', cmd: null };
+    else next = { text: 'التنفيذ جارٍ على الفرع `' + current.stage.branch + '`؛ لا يلزمك شيء الآن، وحدّث الصفحة لرؤية التقدم.', cmd: null };
+    var ids = []; w.stages.forEach(function (s) { ids = ids.concat(s.tasks); });
+    var merged = ids.filter(function (id) { return (status.tasks[id] || {}).status === 'done'; }).length;
+    var implemented = ids.filter(function (id) { return (status.tasks[id] || {}).status === 'implemented'; }).length;
+    return { wave: w, stages: stages, current: current, next: next, taskIds: ids, counts: { total: ids.length, merged: merged, implemented: implemented } };
+  }
+
+  function taskModel(status, id) {
+    var m = status.wave && status.wave.models;
+    if (!m) return null;
+    var ex = m.exceptions && m.exceptions[id];
+    return ex ? { name: ex.name, id: ex.id, why: ex.why, isException: true } : { name: m.default.name, id: m.default.id, why: m.default.why, isException: false };
+  }
+
   var api = {
     TASK_STATES: TASK_STATES, TEST_STATES: TEST_STATES, STORED_TASK: STORED_TASK, STORED_TEST: STORED_TEST,
+    WAVE_TASK_LABELS: WAVE_TASK_LABELS, STAGE_STATES: STAGE_STATES, stageState: stageState, waveView: waveView, taskModel: taskModel,
     TYPE_LABELS: TYPE_LABELS, GATE_LABELS: GATE_LABELS,
     index: index, decisionChosen: decisionChosen, applicability: applicability, taskState: taskState,
     testState: testState, levels: levels, criticalPath: criticalPath, phaseDeps: phaseDeps, summary: summary

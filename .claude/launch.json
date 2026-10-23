@@ -3,7 +3,8 @@
   "configurations": [
     {
       "name": "plan-dashboard",
-      "url": "http://localhost:8765",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["tools/serve.mjs", "8765"],
       "port": 8765
     }
   ]

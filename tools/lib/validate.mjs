@@ -121,6 +121,39 @@ export function validatePlan(plan, status, D) {
       if (!D.STORED_TASK.includes(s.status)) err(`status: حالة غير صالحة ${t.id}=${s.status}`);
       if (s.status === 'done' && !(s.evidence || []).length) err(`status: ${t.id} مكتملة بلا دليل`);
       if (s.status === 'blocked' && !s.note) err(`status: ${t.id} متوقفة بلا سبب`);
+      if (s.status === 'implemented' && !(s.commit && s.branch)) err(`status: ${t.id} منفّذة بلا مرجع التزام أو فرع`);
+    }
+    // الموجة الأولى: المراحل ومهامها واتساق حالاتها
+    const w = status.wave;
+    if (!w) err('status: قسم wave غائب');
+    else {
+      const seenT = new Set();
+      if (!w.commands?.start?.includes('{n}') || !w.commands?.merge?.includes('{n}')) err('wave: أمرا البدء والدمج يجب أن يحويا {n}');
+      if (!w.models?.default?.name || !w.models?.orchestrator?.name || !w.models?.review?.name) err('wave: المودل الافتراضي ومودلا الإدارة والمراجعة مطلوبة');
+      for (const [tid] of Object.entries(w.models?.exceptions || {})) if (!ix.tasks[tid]) err(`wave: استثناء مودل لمهمة غير معرّفة ${tid}`);
+      const nums = new Set();
+      for (const st of w.stages || []) {
+        if (nums.has(st.num)) err(`wave: رقم مرحلة مكرر ${st.num}`);
+        nums.add(st.num);
+        if (!st.branch) err(`wave: ${st.id} بلا اسم فرع`);
+        for (const tid of st.tasks) {
+          if (!ix.tasks[tid]) err(`wave: ${st.id} تضم مهمة غير معرّفة ${tid}`);
+          if (seenT.has(tid)) err(`wave: المهمة ${tid} في أكثر من مرحلة`);
+          seenT.add(tid);
+          // كل اعتمادية لمهمة في الموجة إما في مرحلة أسبق وإما خارج الموجة ومكتملة
+          for (const d of ix.tasks[tid]?.deps || []) {
+            const depStage = (w.stages || []).find((x) => x.tasks.includes(d));
+            if (depStage && depStage.num >= st.num) err(`wave: ${tid} في المرحلة ${st.num} تعتمد على ${d} في المرحلة ${depStage.num}`);
+            if (!depStage && status.tasks[d]?.status !== 'done') err(`wave: ${tid} تعتمد على ${d} خارج الموجة وغير مكتملة`);
+          }
+          if (ix.tasks[tid]?.decisions.some((g) => g.gate === 'start' && ix.decisions[g.id].status !== 'approved')) err(`wave: ${tid} تنتظر قرارًا يوقف البدء`);
+        }
+        const entries = st.tasks.map((tid) => status.tasks[tid]);
+        if (st.mergeCommit && !entries.every((e) => e?.status === 'done')) err(`wave: ${st.id} لها مرجع دمج ومهامها ليست كلها مكتملة`);
+        if (!st.mergeCommit && entries.some((e) => e?.status === 'done')) err(`wave: ${st.id} فيها مهمة مكتملة دون مرجع دمج للمرحلة`);
+        if (!st.startedOn && entries.some((e) => e && e.status !== 'not_started')) err(`wave: ${st.id} فيها مهمة بدأت دون تاريخ بدء للمرحلة`);
+        if (st.mergeCommit && !st.mergedOn) err(`wave: ${st.id} لها مرجع دمج بلا تاريخ دمج`);
+      }
     }
     for (const x of plan.tests) {
       const s = status.tests[x.id];

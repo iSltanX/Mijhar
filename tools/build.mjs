@@ -272,13 +272,50 @@ export function render({ plan, status, naming }, D) {
     status.policy.forEach((x) => L.push(`- ${x}`));
     L.push('');
     L.push('## الخلاصة', '');
-    L.push(`- **التنفيذ:** ${ts.done} من ${sum.tasks.total} مهمة مكتملة (${sum.pctTasks}%). لم تبدأ برمجة الإضافة؛ وهذا مقصود في هذه المرحلة بطلب المالك.`);
+    const WV = D.waveView(plan, status);
+    const startedAny = ts.done + ts.in_progress + ts.implemented + ts.blocked > 0;
+    L.push(`- **التنفيذ:** ${ts.done} من ${sum.tasks.total} مهمة مكتملة (${sum.pctTasks}%)${ts.implemented ? `، و${ts.implemented} منفّذة على فرع تنتظر الدمج` : ''}${ts.in_progress ? `، و${ts.in_progress} جارية` : ''}${ts.blocked ? `، و${ts.blocked} متوقفة` : ''}. ${startedAny ? 'التنفيذ يجري بنظام الموجة الأولى أدناه.' : 'لم تبدأ برمجة الإضافة؛ وتبدأ بأمر «' + (WV && WV.current ? WV.current.startCmd : 'ابدأ المرحلة 1') + '» من المالك.'}`);
     L.push(`- **الاختبارات:** ${sum.tests.total} اختبارًا معرَّفًا؛ نُفِّذ منها ${sum.tests.executed} (اجتاز ${xs.passed}، وفشل ${xs.failed}). ${xs.planned} مخطط، و${xs.conditional} مشروط بقرار، و${xs.not_applicable} لا ينطبق. **لا يُعدّ أي اختبار نتيجة نجاح.**`);
     L.push(`- **القرارات:** ${sum.decisions.approved} من ${sum.decisions.total} معتمدة.`);
     L.push(`- **فحص البيانات:** ${!validation.errors.length && !cross.length ? 'يجتاز `tools/check.mjs` بلا أخطاء' : `${validation.errors.length + cross.length} خطأ في \`tools/check.mjs\``}.`, '');
 
+    // ================= الموجة الأولى =================
+    if (WV) {
+      const w = WV.wave;
+      const wl = (id) => D.WAVE_TASK_LABELS[status.tasks[id].status];
+      L.push(`## ${w.title}: المراحل والتقدم الفعلي`, '');
+      L.push(`${w.scope} آخر تحديث لهذا القسم: \`${w.updatedAt}\`.`, '');
+      L.push(`- **المرحلة الحالية:** ${WV.current ? `المرحلة ${WV.current.stage.num} (${WV.current.stage.title}): ${WV.current.state.label}` : 'لا شيء؛ اكتملت الموجة'}.`);
+      L.push(`- **الخطوة التالية:** ${WV.next.text}`);
+      L.push(`- **المهام:** ${WV.counts.merged} من ${WV.counts.total} مدمجة ومتحقق منها${WV.counts.implemented ? `، و${WV.counts.implemented} منفّذة على فرع تنتظر الدمج` : ''}.`);
+      L.push(`- **المودلات:** الافتراضي ${w.models.default.name}؛ الإدارة والدمج ${w.models.orchestrator.name}؛ المراجعة ${w.models.review.name} (${w.models.review.why}). الاستثناءات: ${Object.entries(w.models.exceptions).map(([k, v]) => `${c(k)} ← ${v.name}`).join('، ')}. تحقق التوفر: ${c(w.models.verifiedBy)} (${w.models.verifiedOn}). ${w.models.rule}`, '');
+      L.push(table(['المرحلة', 'المهام', 'الحالة', 'الفرع', 'الدمج في main', 'أمر البدء', 'أمر الدمج'], WV.stages.map((x) => [
+        `${x.stage.num}. ${x.stage.title}`, x.stage.tasks.map((id) => tLink(id)).join('، '), x.state.label + (x.state.blockedReasons.length ? `: ${x.state.blockedReasons.join('؛ ')}` : ''), c(x.stage.branch), x.stage.mergeCommit ? `${c(x.stage.mergeCommit)} (${x.stage.mergedOn})` : 'لم يُدمج', `«${x.startCmd}»`, `«${x.mergeCmd}»`,
+      ])), '');
+      for (const x of WV.stages) {
+        const s = x.stage;
+        L.push(`### المرحلة ${s.num}: ${s.title} — ${x.state.label}`, '');
+        L.push(s.goal, '');
+        L.push(table(['المهمة', 'الحالة', 'المودل', 'ما أُنجز', 'المرجع'], s.tasks.map((id) => {
+          const e = status.tasks[id];
+          const m = D.taskModel(status, id);
+          const refs = [e.commit ? `التزام ${c(e.commit)}` : '', e.branch ? `فرع ${c(e.branch)}` : '', ...(e.evidence || []).map(c)].filter(Boolean);
+          return [tLink(id), wl(id) + (e.status === 'blocked' ? `: ${e.note}` : ''), `${m.name}${m.isException ? ' (استثناء)' : ''}`, e.summary || '—', refs.length ? refs.join('، ') : '—'];
+        })), '');
+        L.push('**الفحوص بحسب الأثر:**', '');
+        s.checks.forEach((k) => L.push(`- ${k}`));
+        L.push(`- **المراجعة:** ${s.review}`, '');
+        if (s.beforeStart.length) { L.push('**قبل البدء:**', ''); s.beforeStart.forEach((k) => L.push(`- ${k}`)); L.push(''); }
+        if (s.openItems.length) { L.push('**بنود مفتوحة:**', ''); s.openItems.forEach((k) => L.push(`- ${k}`)); L.push(''); }
+        if (s.summary) L.push(`**خلاصة المرحلة:** ${s.summary}`, '');
+      }
+      L.push('**طريقة العمل:**', '');
+      w.flow.forEach((k) => L.push(`- ${k}`));
+      L.push('');
+    }
+
     L.push('## ما أُنجز', '');
-    L.push('أعمال التخطيط فقط، ودليلها وجود الملفات واجتياز الفحص الآلي:', '');
+    L.push(startedAny ? 'أعمال التخطيط، ودليلها وجود الملفات واجتياز الفحص الآلي؛ وما أُنجز من الموجة الأولى مفصَّل في قسمها أعلاه بمراجعه:' : 'أعمال التخطيط فقط، ودليلها وجود الملفات واجتياز الفحص الآلي:', '');
     L.push(table(['المُخرَج', 'الدليل'], [
       ['`EXECUTION_PLAN.md` محدَّث (الإصلاحات 14 إلى 18 في القسم 0.1)', 'يطابق `data/plan.json` في فحص `tools/check.mjs`'],
       ['`data/plan.json` و`data/status.json` و`data/naming.json`: مصدر البيانات الموحد', 'تُولَّد منه الملفات أدناه ولوحة المتابعة'],
@@ -315,13 +352,14 @@ export function render({ plan, status, naming }, D) {
     L.push('- Chrome وFirefox وEdge وBrave على سطح المكتب، وجهاز مرجعي تُسجَّل مواصفاته لقياسات الأداء.');
     L.push('- وصول إلى صفحات GitHub عامة حية ومستودعات مرجعية عامة.');
     L.push('- رمز تجريبي من المالك لمستودع تجريبي **فقط** إن بقي `DEC-04` معلقًا أو اختير فيه دعم الرمز قبل `T-0.3`.');
-    L.push('- موافقتك على بدء التنفيذ، لأن هذه المرحلة تخطيط فقط.', '');
+    L.push('- Firefox غير مثبت الآن (`EV-06`)؛ تثبيته معلّق بقرار المالك، وبنوده تُسجَّل «لم يُجرَ».');
+    L.push('- أمر «ابدأ المرحلة X» من المالك لكل مرحلة؛ ولا تبدأ مرحلة تلقائيًا.', '');
     L.push('**موانع مسماة نشطة:** لا يوجد؛ الموانع الـ16 في الخطة شروط تظهر أثناء التنفيذ ولم يظهر منها شيء لأن التنفيذ لم يبدأ.', '');
 
     L.push('## الخطوة التالية', '');
-    L.push('1. حسم `DEC-04` إن أمكن قبل `T-0.3`: يحدد هل يلزم رمز تجريبي، ويختار فرع اختبارات `PAT`.');
-    L.push('2. عند موافقتك على بدء التنفيذ: تجارب الجدوى `T-0.1` إلى `T-0.4` و`T-1.1` بالتوازي؛ ثم `T-1.2` و`T-1.3` و`T-3.1` و`T-4.2`.');
-    L.push('3. حسم `DEC-01` قبل أن تكتمل `T-1.2` و`T-1.3`، حتى لا تنتظر `T-1.4`.');
+    L.push(`1. ${WV ? WV.next.text : 'تجهيز نظام الموجة الأولى.'}`);
+    L.push('2. حسم `DEC-04` قبل المرحلة 3 (تجارب الجدوى): يحدد هل يلزم رمز تجريبي في `T-0.3`؛ معناه وأثره مكتوبان في بنود «قبل البدء» للمرحلة 3.');
+    L.push('3. حسم `DEC-01` قبل أن تُدمج المرحلة 2، حتى لا تنتظر `T-1.4` بعدها.');
     L.push(`4. اعتماد الاختصارات (\`DEC-08\`) في أي وقت قبل إغلاق التغليف. الاسم محسوم: «${plan.meta.name.ar}» (${plan.meta.name.latin})، ويبقى له قبل النشر ما في \`NAMING.md\`.`, '');
     out['STATUS.md'] = L.join('\n');
   }
