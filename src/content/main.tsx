@@ -4,6 +4,7 @@
 //  - الدرج لا يطلب صلاحية ولا يعرض حقل سرّ: ما يحتاج ذلك يُفتح في صفحة الإعدادات.
 import { BUILTIN_MODULES, bindModuleToggles, createModuleRegistry, createSettingsRegistry, Drawer, extensionApi, isDrawerMessage, isModuleEnabled, LifecycleManager, OPEN_OPTIONS_MESSAGE, openSettings, PageDetector } from '../core';
 import type { ExtensionApi, ExtensionModule, LifecycleManagerOptions, OpenedSettings, StorageBinding } from '../core';
+import { connectModuleA } from '../modules/a/scope/module';
 import { defineSectionSettings, SETTINGS_SECTIONS } from '../options/sections';
 import { PanelApp } from '../sidepanel/PanelApp';
 
@@ -31,6 +32,8 @@ export function startContent(options: ContentOptions = {}): ContentHandle {
 
   const ready = opened.then((handle) => {
     const { settings } = handle;
+    // إعدادات ميزات الوحدة (أ) يعرّفها قسمها في SETTINGS_SECTIONS؛ وتصل إلى الوحدة بالربط قبل التركيب (MJ7).
+    connectModuleA(settings);
     const openOptions = () => void api.runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE });
     const drawer = new Drawer({
       document: doc,

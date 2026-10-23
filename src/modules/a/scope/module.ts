@@ -3,13 +3,21 @@
 // الإعدادات قبل فتحه، ثم connectModuleA(settings) قبل تشغيل مدير دورة الحياة. وقبل الربط تعمل الميزات بافتراضياتها.
 // ميزات بقية الوحدة (أ) (MJ7) تُضاف إلى MODULE_A_FEATURES أو تُمرَّر إلى createModuleA.
 import type { ExtensionModule, JsonValue, SettingsRegistry } from '../../../core';
+import { DIGITS_FEATURE } from '../digits/feature';
 import { DIRECTION_FEATURE } from '../direction/feature';
+import { EDITOR_FEATURE } from '../editor/feature';
+import { FONTS_FEATURE } from '../fonts/feature';
+import { HIJRI_FEATURE } from '../hijri/feature';
+import { ISOLATION_FEATURE } from '../isolation/feature';
+import { READING_FEATURE } from '../reading/feature';
 import type { ModuleAFeature } from './feature';
 import { ModuleARuntime } from './runtime';
 import type { FeatureStopReport, SettingsReader } from './runtime';
 import { MODULE_A_ID, PageOverrides, featureSettingKey, isFeatureSetting } from './scope';
 
-export const MODULE_A_FEATURES: readonly ModuleAFeature[] = [DIRECTION_FEATURE];
+// الترتيب ترتيب التركيب وكتل الأنماط ومراقبات DOM: العزل بعد الاتجاه (يعزل في ما قلبه)، والأرقام بعد العزل (لا تحوّل عقدة يقسمها).
+// MJ7 (T-2.2 إلى T-2.6): العزل والخطوط والأرقام والتاريخ الهجري وزر المحرر ووضع القراءة.
+export const MODULE_A_FEATURES: readonly ModuleAFeature[] = [DIRECTION_FEATURE, ISOLATION_FEATURE, FONTS_FEATURE, DIGITS_FEATURE, HIJRI_FEATURE, EDITOR_FEATURE, READING_FEATURE];
 
 export interface ModuleAOptions {
   /** قارئ الإعدادات وقت التركيب، أو null فتُستعمل الافتراضيات. */
