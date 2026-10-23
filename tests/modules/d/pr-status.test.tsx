@@ -35,9 +35,14 @@ describe('صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Pro
     expect(available(s.deletions)).toBe(1);
   });
 
-  it('ما لا تعرضه الصفحة لغير المسجَّل يبقى غير متاح بسببه: المراجعات والتعارضات والتأخر', () => {
+  it('المراجعات من قائمة المراجعين في الشريط الجانبي (تظهر لكل زائر): طلب أحدهم تغييرات', () => {
     const s = summary();
-    for (const value of [s.reviews, s.conflicts, s.behind]) {
+    expect(available(s.reviews)).toEqual({ state: 'changes-requested', evidence: 'Om4rMu requested changes', source: 'sidebar' });
+  });
+
+  it('ما لا تعرضه الصفحة لغير المسجَّل يبقى غير متاح بسببه: التعارضات والتأخر (صندوق الدمج للمسجَّل فقط)', () => {
+    const s = summary();
+    for (const value of [s.conflicts, s.behind]) {
       expect(value.available).toBe(false);
       expect(value.available === false && value.reason.length).toBeGreaterThan(10);
     }
@@ -129,6 +134,50 @@ describe('العينة المعقدة (صندوق دمج مسجَّل)', () => {
   });
 });
 
+describe('المراجعون في الشريط الجانبي', () => {
+  const sidebar = (tips: string[], extra = ''): void => {
+    loadHtml('fixture-pr-complex.html');
+    document.querySelector('[data-testid="mergebox-partial"]')?.remove();
+    const form = document.createElement('form');
+    form.setAttribute('aria-label', 'Select reviewers');
+    form.innerHTML = tips.map((tip, i) => `<a id="review-status-u${i}" aria-labelledby="t${i}" href="#"></a><tool-tip id="t${i}">${tip}</tool-tip>`).join('') + extra;
+    document.querySelector('main')!.append(form);
+  };
+  const state = (): string | undefined => {
+    const reviews = readPrSummary(document, selectors()).reviews;
+    return reviews.available ? reviews.value.state : undefined;
+  };
+
+  it('طلب التغييرات يغلب الاعتماد، والاعتماد يغلب التعليقات، والتعليقات تغلب الانتظار', () => {
+    sidebar(['ann approved these changes', 'bob requested changes']);
+    expect(state()).toBe('changes-requested');
+    sidebar(['ann approved these changes', 'bob left review comments']);
+    expect(state()).toBe('approved');
+    sidebar(['bob left review comments', 'cy requested a review']);
+    expect(state()).toBe('commented');
+    sidebar(['Awaiting requested review from cy']);
+    expect(state()).toBe('awaiting');
+  });
+
+  it('«No reviews» صراحةً = لا مراجعات، وقائمة بلا حالات مقروءة = غير متاح', () => {
+    sidebar([], '<p>No reviews</p>');
+    expect(state()).toBe('none');
+    sidebar([], '<p>Request up to 15 reviewers</p>');
+    expect(state()).toBeUndefined();
+  });
+
+  it('صندوق الدمج هو المرجع حين يذكر حالة، وإلا يُقرأ الشريط', () => {
+    loadHtml('fixture-pr-complex.html');
+    const form = document.createElement('form');
+    form.setAttribute('aria-label', 'Select reviewers');
+    form.innerHTML = '<a id="review-status-u" aria-labelledby="t"></a><tool-tip id="t">ann approved these changes</tool-tip>';
+    document.querySelector('main')!.append(form);
+    expect(available(readPrSummary(document, selectors()).reviews)).toMatchObject({ state: 'review-required', source: 'mergebox' });
+    document.querySelector('[data-testid="mergebox-partial"] section')!.remove();
+    expect(available(readPrSummary(document, selectors()).reviews)).toMatchObject({ state: 'approved', source: 'sidebar' });
+  });
+});
+
 describe('جزء status-details', () => {
   it('صفوف بلا تسجيل دخول: التصنيف من الرمز والوصف، وrequired = null (لا يعرضه الجزء)', () => {
     const doc = new DOMParser().parseFromString(readFixture('fixture-status-details.html'), 'text/html');
@@ -182,7 +231,8 @@ describe('الوحدة d.pr-status على الصفحة', () => {
     const text = shadowText(host);
     expect(text).toContain('feature/contractor-work-tabs');
     expect(text).toContain('5,381');
-    expect(host?.shadowRoot?.querySelector('[data-field="reviews"] [data-available="false"]')?.textContent).toBe(UNAVAILABLE_TEXT);
+    expect(host?.shadowRoot?.querySelector('[data-field="reviews"] [data-available="true"]')?.textContent?.trim()).toBe('طُلبت تغييرات');
+    expect(host?.shadowRoot?.querySelector('[data-field="reviews"] [data-review-source="sidebar"]')?.getAttribute('title')).toBe('Om4rMu requested changes');
     expect(host?.shadowRoot?.querySelector('[data-field="conflicts"] [data-available="false"]')?.textContent).toBe(UNAVAILABLE_TEXT);
     expect(host?.shadowRoot?.querySelector('[data-field="behind"] [data-available="false"]')?.textContent).toBe(UNAVAILABLE_TEXT);
     expect(host?.shadowRoot?.querySelector('[data-required="unavailable"]')).not.toBeNull();

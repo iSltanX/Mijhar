@@ -6,6 +6,7 @@
 import type { Confidence, PageState, PageType, SelectorEntry, SelectorsRegistry } from './detector';
 import type { MutationRecorder } from './lifecycle/mutation-registry';
 import { MODULE_A } from '../modules/a/scope/module';
+import { CARD_MODULE } from '../modules/b/card/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
 
@@ -86,6 +87,7 @@ export class ModuleRegistry {
 // الوحدات الجاهزة للتركيب في الإضافة. سطر واحد لكل وحدة، تضيفه مرحلتها.
 export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   MODULE_A, // MJ6 (T-2.1، T-2.7): الوحدة (أ)
+  CARD_MODULE, // MJ8 (T-3.2): الوحدة (ب): بطاقة الشرح
   PR_STATUS_MODULE, // MJ8 (T-5.1): الوحدة (د): ملخص حالة طلب الدمج
   COMPARE_MODULE, // MJ8 (T-5.4): الوحدة (د): ملخص المقارنة
 ];

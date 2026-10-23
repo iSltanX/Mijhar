@@ -4,12 +4,13 @@
 //    لا طلبات إلى api.github.com هنا (طبقة API الموثَّقة في T-5.2)، وفشله يُعلَن «غير متاح» ولا يُعرض نجاحًا.
 import { mountSurface } from '../../../core/ui-host/surface';
 import type { ExtensionModule, ModuleContext } from '../../../core';
+import { PR_STATUS_MODULE_ID } from './ids';
 import { PR_STATUS_SELECTORS, parseStatusDetails, readPrSummary } from './extract';
 import type { FetchedChecks } from './extract';
 import { D_CARD_CSS } from './style';
 import { PrStatusCard } from './view';
 
-export const PR_STATUS_MODULE_ID = 'd.pr-status';
+export { PR_STATUS_MODULE_ID };
 
 export type FetchDetails = (url: string, signal: AbortSignal) => Promise<string>;
 

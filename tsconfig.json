@@ -17,6 +17,7 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "allowJs": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "noEmit": true
   },

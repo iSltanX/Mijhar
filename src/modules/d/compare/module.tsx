@@ -4,11 +4,12 @@
 import { mountSurface } from '../../../core/ui-host/surface';
 import type { UiSurface } from '../../../core/ui-host/surface';
 import type { ExtensionModule, ModuleContext } from '../../../core';
+import { COMPARE_MODULE_ID } from '../pr-status/ids';
 import { D_CARD_CSS } from '../pr-status/style';
 import { COMPARE_SELECTORS, readCompare } from './extract';
 import { CompareFacts, CompareImpact } from './view';
 
-export const COMPARE_MODULE_ID = 'd.compare';
+export { COMPARE_MODULE_ID };
 
 export interface CompareOptions {
   /** مهلة تجميع التعديلات قبل إعادة القراءة. الافتراضي 400ms. */

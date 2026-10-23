@@ -138,12 +138,14 @@ export function PrStatusCard({ summary, loading = false }: { summary: PrSummary;
         <div data-field="branches">
           <dt>الفرع المصدر ← الهدف</dt>
           <dd>
-            <Val value={summary.head}>{(head) => <Branch branch={head} />}</Val>
-            <span class="d-arrow" aria-hidden="true">
-              ←
+            <Val value={summary.head}>{(head) => <Branch branch={head} />}</Val>{' '}
+            <span class="d-to">
+              <span class="d-arrow" aria-hidden="true">
+                ←
+              </span>
+              <span class="sr-only">إلى</span>
+              <Val value={summary.base}>{(base) => <Branch branch={base} />}</Val>
             </span>
-            <span class="sr-only">إلى</span>
-            <Val value={summary.base}>{(base) => <Branch branch={base} />}</Val>
           </dd>
         </div>
         <div data-field="behind">
@@ -173,7 +175,13 @@ export function PrStatusCard({ summary, loading = false }: { summary: PrSummary;
         <div data-field="reviews">
           <dt>المراجعات</dt>
           <dd>
-            <Val value={summary.reviews}>{(review) => REVIEW_LABELS[review.state]}</Val>
+            <Val value={summary.reviews}>
+              {(review) => (
+                <span title={review.evidence} data-review-source={review.source}>
+                  {REVIEW_LABELS[review.state]}
+                </span>
+              )}
+            </Val>
           </dd>
         </div>
         <div data-field="conflicts">

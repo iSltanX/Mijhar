@@ -1,0 +1,69 @@
+<!doctype html>
+<!--
+  عينة واجهة GitHub لـT-3.2 (TEST-GLOSS-01): صفحة مستودع (octo/demo) بعناصر الواجهة الإنجليزية التي تحملها توقيعات القاموس، بالبنية
+  التي تثبتها fixtures/spikes (gh-repo-arabic-stop-words.html) من حيث الأدوار والتسميات: أزرار وروابط وتبويبات وقائمة منسدلة وحقل بحث.
+  ومعها «شراك» يجب ألا يُلصق بها شرح: عنصر بلا دور، ورابط بنمط href مخالف، وزر لصفحة أخرى، وتسمية لا يعرفها القاموس، وعنصر مخفي.
+  مكتوبة لهذه المرحلة؛ ليست لقطة حية.
+-->
+<html lang="en" data-color-mode="auto">
+<head>
+  <meta charset="utf-8">
+  <title>octo/demo: A demo repository</title>
+  <style>svg { width: 16px; height: 16px; vertical-align: text-bottom; } img { width: 20px; height: 20px; } body { font: 14px/1.5 system-ui, sans-serif; } nav a, .pagehead-actions li, .file-navigation > * { margin-inline-end: 8px; } .pagehead-actions { display: flex; list-style: none; padding: 0; } .Counter { background: #eaeef2; border-radius: 10px; padding: 0 6px; }</style>
+</head>
+<body class="logged-in env-production">
+  <header role="banner" class="AppHeader">
+    <a href="/" class="AppHeader-logo" aria-label="Homepage">GitHub</a>
+    <input type="search" id="nav-search" aria-label="Search or jump to..." placeholder="Search or jump to...">
+    <button type="button" id="nav-create" aria-label="Create new..."><svg aria-hidden="true"></svg></button>
+    <a href="/notifications" id="nav-notifications" aria-label="Notifications"><svg aria-hidden="true"></svg></a>
+    <button type="button" id="nav-profile" aria-label="Open user navigation menu"><img alt="@octo-dev" src="/octo-dev.png"></button>
+  </header>
+  <div id="js-repo-pjax-container">
+    <div id="repository-container-header">
+      <strong><a href="/octo/demo">demo</a></strong>
+      <ul class="pagehead-actions">
+        <li><a href="/login?return_to=%2Focto%2Fdemo" id="watch-link" class="btn">Watch</a><button type="button" id="watch-btn" class="btn" aria-label="Watch">Watch <span class="Counter">45</span></button></li>
+        <li><a href="/octo/demo/fork" id="fork-link" class="btn">Fork <span class="Counter">120</span></a></li>
+        <li><button type="button" id="star-btn" class="btn"><svg aria-hidden="true"></svg><span>Star</span> <span class="Counter">1.2k</span></button></li>
+      </ul>
+      <nav aria-label="Repository">
+        <a href="/octo/demo" id="tab-code" role="tab" aria-selected="true">Code</a>
+        <a href="/octo/demo/issues" id="tab-issues" role="tab">Issues <span class="Counter">12</span></a>
+        <a href="/octo/demo/pulls" id="tab-pulls" role="tab">Pull requests <span class="Counter">3</span></a>
+        <a href="/octo/demo/actions" id="tab-actions" role="tab">Actions</a>
+        <a href="/octo/demo/settings" id="tab-settings" role="tab">Settings</a>
+      </nav>
+    </div>
+    <main id="repo-content-pjax-container">
+      <div class="file-navigation">
+        <button type="button" id="branch-select" aria-haspopup="true"><span>Branches</span></button>
+        <button type="button" id="add-file">Add file</button>
+        <ul role="menu" id="add-file-menu">
+          <li><a href="/octo/demo/new/main" role="menuitem" id="create-new-file">Create new file</a></li>
+          <li><a href="/octo/demo/upload/main" role="menuitem" id="upload-files">Upload files</a></li>
+        </ul>
+        <div class="clone">
+          <button type="button" role="tab" id="clone-https">HTTPS</button>
+          <button type="button" role="tab" id="clone-ssh">SSH</button>
+          <a href="/octo/demo/archive/refs/heads/main.zip" role="menuitem" id="download-zip">Download ZIP</a>
+        </div>
+      </div>
+
+      <!-- الشراك: لا يجوز أن يُلصق بها شرح -->
+      <section id="decoys">
+        <div id="decoy-star">Star</div>
+        <a href="/octo/demo/stargazers" id="decoy-fork-href">Fork</a>
+        <button type="button" id="decoy-delete">Delete this repository</button>
+        <span role="button" id="decoy-unknown-label">Fork now</span>
+        <button type="button" id="decoy-hidden-watch" hidden>Watch</button>
+        <button type="button" aria-hidden="true" id="decoy-aria-hidden">Star</button>
+        <button type="button" id="decoy-unknown">Frobnicate</button>
+        <h2 id="decoy-heading-star">Star</h2>
+      </section>
+
+      <article id="readme"><h2>README</h2><p>Hello</p></article>
+    </main>
+  </div>
+</body>
+</html>

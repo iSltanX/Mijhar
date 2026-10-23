@@ -17,18 +17,23 @@ export interface BranchRef {
   readonly repo: string | null;
 }
 
-export type ReviewState = 'approved' | 'changes-requested' | 'review-required';
+/** approved وchanges-requested وreview-required من صندوق الدمج (للمسجَّل)؛ وcommented وawaiting وnone من قائمة المراجعين في الشريط الجانبي (لكل زائر). */
+export type ReviewState = 'approved' | 'changes-requested' | 'review-required' | 'commented' | 'awaiting' | 'none';
 
 export const REVIEW_LABELS: Readonly<Record<ReviewState, string>> = {
   approved: 'معتمد',
   'changes-requested': 'طُلبت تغييرات',
   'review-required': 'مطلوب مراجعة',
+  commented: 'تعليقات مراجعة بلا قرار',
+  awaiting: 'بانتظار مراجعة مطلوبة',
+  none: 'لا مراجعات',
 };
 
 export interface ReviewInfo {
   readonly state: ReviewState;
   /** العبارة التي قُرئت من الصفحة. */
   readonly evidence: string;
+  readonly source: 'mergebox' | 'sidebar';
 }
 
 export type CheckSource = 'mergebox' | 'status-details' | 'checks-tab';

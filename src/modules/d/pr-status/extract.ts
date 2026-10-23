@@ -47,6 +47,11 @@ export const PR_STATUS_SELECTORS: readonly SelectorEntry[] = [
     candidates: ['[data-component="CounterLabel"]', '.Counter'],
   },
   {
+    key: 'd.pr.reviewers',
+    description: 'قائمة المراجعين في الشريط الجانبي (تظهر لكل زائر) بحالة كل مراجع في تلميحه',
+    candidates: ['form[aria-label="Select reviewers"]', '#partial-discussion-sidebar .sidebar-assignee form', '.sidebar-reviewers'],
+  },
+  {
     key: 'd.pr.rollup',
     description: 'رمز الحالة المجمَّع لالتزام في المحادثة (details.commit-build-statuses)',
     candidates: ['details.commit-build-statuses'],
@@ -190,10 +195,9 @@ function readLines(doc: Document, selectors: SelectorsRegistry): { additions: Va
 
 const text = (el: Element | null | undefined): string => squash(el?.textContent);
 
-function readReviews(box: Element | null): Value<ReviewInfo> {
-  if (!box) return missing(NEEDS_SIGN_IN);
+function readMergeboxReviews(box: Element): Value<ReviewInfo> {
   const t = text(box);
-  const pick = (state: ReviewState, evidence: string | undefined): Value<ReviewInfo> => (evidence ? have({ state, evidence }) : missing(NOT_ON_PAGE));
+  const pick = (state: ReviewState, evidence: string | undefined): Value<ReviewInfo> => (evidence ? have({ state, evidence, source: 'mergebox' }) : missing(NOT_ON_PAGE));
   const changes = /Changes requested/i.exec(t)?.[0];
   if (changes) return pick('changes-requested', changes);
   const required = /Review required|At least \d+ approving reviews? (?:is|are) required[^.]*/i.exec(t)?.[0];
@@ -201,6 +205,41 @@ function readReviews(box: Element | null): Value<ReviewInfo> {
   const approved = /Changes approved|\d+ approving reviews?(?! (?:is|are) required)/i.exec(t)?.[0];
   if (approved) return pick('approved', approved);
   return missing('صندوق الدمج لا يذكر حالة المراجعات');
+}
+
+/**
+ * قائمة المراجعين في الشريط الجانبي (صفحة PR حقيقية محفوظة لغير مسجَّل): لكل مراجع رابط #review-status-<login> وتلميح بحالته
+ * («X requested changes» و«X left review comments» رُصدتا حرفيًا، و«approved» من واجهة GitHub المعروفة، ولم تُرصد «Awaiting requested review»).
+ * طلب التغييرات يغلب الاعتماد، والاعتماد يغلب التعليقات، ولا مراجعين يعني «لا مراجعات» إن ذكرت الصفحة «No reviews» صراحةً.
+ */
+function readSidebarReviews(form: Element, doc: Document): Value<ReviewInfo> {
+  const tips: string[] = [];
+  for (const anchor of form.querySelectorAll('a[id^="review-status-"]')) {
+    const tip = squash(doc.getElementById(anchor.getAttribute('aria-labelledby') ?? '')?.textContent);
+    if (tip) tips.push(tip);
+  }
+  const first = (re: RegExp): string | undefined => tips.find((tip) => re.test(tip));
+  const changes = first(/requested changes/i);
+  if (changes) return have({ state: 'changes-requested', evidence: changes, source: 'sidebar' });
+  const approved = first(/\bapproved\b/i);
+  if (approved) return have({ state: 'approved', evidence: approved, source: 'sidebar' });
+  const commented = first(/left review comments|\bcommented\b/i);
+  if (commented) return have({ state: 'commented', evidence: commented, source: 'sidebar' });
+  const awaiting = first(/awaiting|requested (?:a )?review|review requested/i);
+  if (awaiting) return have({ state: 'awaiting', evidence: awaiting, source: 'sidebar' });
+  if (!tips.length && /No reviews/i.test(text(form))) return have({ state: 'none', evidence: 'No reviews', source: 'sidebar' });
+  return missing('قائمة المراجعين لا تذكر حالة قابلة للقراءة');
+}
+
+function readReviews(box: Element | null, doc: Document, selectors: SelectorsRegistry): Value<ReviewInfo> {
+  // صندوق الدمج هو المرجع للمسجَّل، وإلا فالشريط الجانبي الذي يظهر لكل زائر.
+  if (box) {
+    const fromBox = readMergeboxReviews(box);
+    if (fromBox.available) return fromBox;
+  }
+  const sidebar = selectors.resolve(doc, 'd.pr.reviewers')?.element;
+  if (sidebar) return readSidebarReviews(sidebar, doc);
+  return box ? missing('صندوق الدمج لا يذكر حالة المراجعات ولا قائمة مراجعين في الصفحة') : missing(NEEDS_SIGN_IN);
 }
 
 function readConflicts(box: Element | null): Value<boolean> {
@@ -354,7 +393,7 @@ export function readPrSummary(doc: Document, selectors: SelectorsRegistry, optio
     files: counterOf(doc, selectors, 'd.pr.tab-files'),
     additions: lines.additions,
     deletions: lines.deletions,
-    reviews: readReviews(box),
+    reviews: readReviews(box, doc, selectors),
     conflicts: readConflicts(box),
     checks: readChecks(doc, selectors, embedded?.headSha ?? null, options.fetched),
     headSha: embedded?.headSha ?? null,

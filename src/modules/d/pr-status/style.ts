@@ -19,6 +19,7 @@ export const D_CARD_CSS = `
 .d-na { font-weight: 400; color: var(--mijhar-text-tertiary); border-bottom: 1px dotted var(--mijhar-border-strong); cursor: help; }
 .d-branch { direction: ltr; unicode-bidi: isolate; display: inline-block; font-family: var(--mijhar-font-mono); font-size: 12px; padding: 0 var(--mijhar-space-6); background: var(--mijhar-bg-muted); border-radius: var(--mijhar-radius-6); }
 .d-arrow { color: var(--mijhar-text-secondary); padding: 0 var(--mijhar-space-4); }
+.d-to { white-space: nowrap; }
 .d-add { color: var(--mijhar-text-success); direction: ltr; unicode-bidi: isolate; display: inline-block; }
 .d-del { color: var(--mijhar-text-danger); direction: ltr; unicode-bidi: isolate; display: inline-block; }
 .d-chips { display: flex; flex-wrap: wrap; gap: var(--mijhar-space-6); margin: 0; padding: 0; list-style: none; }
@@ -33,7 +34,7 @@ export const D_CARD_CSS = `
 .d-chip[data-category="running"] { background: var(--mijhar-bg-info-subtle); color: var(--mijhar-text-info); }
 .d-chip[data-category="not-run"] { background: var(--mijhar-bg-warning-subtle); color: var(--mijhar-text-warning); }
 .d-chip[data-category="unknown"] { border-style: dashed; }
-.d-chip[data-category="cancelled"] { text-decoration: line-through; text-decoration-thickness: 1px; }
+.d-chip[data-category="cancelled"][data-zero="false"] { text-decoration: line-through; text-decoration-thickness: 1px; }
 .d-chip .n { font-variant-numeric: tabular-nums; }
 .d-group { display: flex; flex-direction: column; gap: var(--mijhar-space-6); padding: var(--mijhar-space-8) var(--mijhar-space-12); border: 1px solid var(--mijhar-border-muted); border-radius: var(--mijhar-radius-6); background: var(--mijhar-bg-subtle); }
 .d-list { margin: 0; padding-inline-start: var(--mijhar-space-16); }
