@@ -20,6 +20,17 @@
             "D_textMulti": 185,
             "D_textGone": 304
           },
+          "check": {
+            "A_ok": 15987,
+            "A_bad": 3,
+            "B_ok": 25588,
+            "B_wrongLine": 1,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 197,
+            "C_noTrue": 0,
+            "D_lineSurvived": 573,
+            "D_lineChanged": 357
+          },
           "byKind": {
             "normal": {
               "A": 12923,
@@ -47,6 +58,17 @@
             "D_textMulti": 777,
             "D_textGone": 1321
           },
+          "check": {
+            "A_ok": 1771,
+            "A_bad": 0,
+            "B_ok": 31635,
+            "B_wrongLine": 5,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 242,
+            "C_noTrue": 0,
+            "D_lineSurvived": 2261,
+            "D_lineChanged": 1556
+          },
           "byKind": {
             "normal": {
               "A": 1609,
@@ -73,6 +95,17 @@
             "D_textUnique": 5108,
             "D_textMulti": 2615,
             "D_textGone": 4967
+          },
+          "check": {
+            "A_ok": 746,
+            "A_bad": 0,
+            "B_ok": 28935,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 335,
+            "C_noTrue": 0,
+            "D_lineSurvived": 6854,
+            "D_lineChanged": 5836
           },
           "byKind": {
             "normal": {
@@ -109,6 +142,17 @@
             "D_textMulti": 216,
             "D_textGone": 279
           },
+          "check": {
+            "A_ok": 23630,
+            "A_bad": 9,
+            "B_ok": 51142,
+            "B_wrongLine": 8,
+            "B_noDiffMatch": 3,
+            "C_containsTrue": 1182,
+            "C_noTrue": 20,
+            "D_lineSurvived": 462,
+            "D_lineChanged": 307
+          },
           "byKind": {
             "normal": {
               "A": 19173,
@@ -136,6 +180,17 @@
             "D_textMulti": 900,
             "D_textGone": 1307
           },
+          "check": {
+            "A_ok": 7620,
+            "A_bad": 2,
+            "B_ok": 54911,
+            "B_wrongLine": 27,
+            "B_noDiffMatch": 5,
+            "C_containsTrue": 1494,
+            "C_noTrue": 52,
+            "D_lineSurvived": 2033,
+            "D_lineChanged": 1427
+          },
           "byKind": {
             "normal": {
               "A": 5854,
@@ -162,6 +217,17 @@
             "D_textUnique": 4164,
             "D_textMulti": 3104,
             "D_textGone": 4909
+          },
+          "check": {
+            "A_ok": 2745,
+            "A_bad": 0,
+            "B_ok": 58826,
+            "B_wrongLine": 68,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 2787,
+            "C_noTrue": 160,
+            "D_lineSurvived": 6884,
+            "D_lineChanged": 5293
           },
           "byKind": {
             "normal": {

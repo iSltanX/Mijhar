@@ -20,6 +20,17 @@
             "D_textMulti": 280,
             "D_textGone": 368
           },
+          "check": {
+            "A_ok": 16432,
+            "A_bad": 0,
+            "B_ok": 18412,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 117,
+            "C_containsTrue": 1016,
+            "C_noTrue": 3,
+            "D_lineSurvived": 479,
+            "D_lineChanged": 503
+          },
           "byKind": {
             "short": {
               "A": 3905,
@@ -47,6 +58,17 @@
             "D_textMulti": 541,
             "D_textGone": 749
           },
+          "check": {
+            "A_ok": 3019,
+            "A_bad": 3,
+            "B_ok": 26423,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 195,
+            "C_containsTrue": 1681,
+            "C_noTrue": 5,
+            "D_lineSurvived": 1018,
+            "D_lineChanged": 992
+          },
           "byKind": {
             "short": {
               "A": 724,
@@ -73,6 +95,17 @@
             "D_textUnique": 2352,
             "D_textMulti": 1993,
             "D_textGone": 2693
+          },
+          "check": {
+            "A_ok": 2694,
+            "A_bad": 5,
+            "B_ok": 25734,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 629,
+            "C_containsTrue": 845,
+            "C_noTrue": 17,
+            "D_lineSurvived": 3477,
+            "D_lineChanged": 3561
           },
           "byKind": {
             "short": {
@@ -109,6 +142,17 @@
             "D_textMulti": 476,
             "D_textGone": 911
           },
+          "check": {
+            "A_ok": 8193,
+            "A_bad": 2,
+            "B_ok": 9733,
+            "B_wrongLine": 8,
+            "B_noDiffMatch": 3,
+            "C_containsTrue": 336,
+            "C_noTrue": 7,
+            "D_lineSurvived": 838,
+            "D_lineChanged": 1111
+          },
           "byKind": {
             "short": {
               "A": 2176,
@@ -136,6 +180,17 @@
             "D_textMulti": 889,
             "D_textGone": 1435
           },
+          "check": {
+            "A_ok": 1751,
+            "A_bad": 3,
+            "B_ok": 12460,
+            "B_wrongLine": 8,
+            "B_noDiffMatch": 8,
+            "C_containsTrue": 409,
+            "C_noTrue": 6,
+            "D_lineSurvived": 1778,
+            "D_lineChanged": 1688
+          },
           "byKind": {
             "short": {
               "A": 474,
@@ -162,6 +217,17 @@
             "D_textUnique": 2140,
             "D_textMulti": 2002,
             "D_textGone": 3224
+          },
+          "check": {
+            "A_ok": 2585,
+            "A_bad": 5,
+            "B_ok": 9904,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 19,
+            "C_containsTrue": 348,
+            "C_noTrue": 4,
+            "D_lineSurvived": 3704,
+            "D_lineChanged": 3662
           },
           "byKind": {
             "short": {
@@ -198,6 +264,17 @@
             "D_textMulti": 36,
             "D_textGone": 123
           },
+          "check": {
+            "A_ok": 4660,
+            "A_bad": 0,
+            "B_ok": 1793,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 12,
+            "C_noTrue": 0,
+            "D_lineSurvived": 233,
+            "D_lineChanged": 132
+          },
           "byKind": {
             "normal": {
               "A": 4310,
@@ -225,6 +302,17 @@
             "D_textMulti": 153,
             "D_textGone": 538
           },
+          "check": {
+            "A_ok": 1161,
+            "A_bad": 0,
+            "B_ok": 3434,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 39,
+            "C_noTrue": 0,
+            "D_lineSurvived": 794,
+            "D_lineChanged": 578
+          },
           "byKind": {
             "normal": {
               "A": 1080,
@@ -251,6 +339,17 @@
             "D_textUnique": 1083,
             "D_textMulti": 309,
             "D_textGone": 1368
+          },
+          "check": {
+            "A_ok": 400,
+            "A_bad": 0,
+            "B_ok": 3607,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 63,
+            "C_noTrue": 0,
+            "D_lineSurvived": 1373,
+            "D_lineChanged": 1387
           },
           "byKind": {
             "normal": {
