@@ -1,5 +1,6 @@
 // الوحدة (ح) في الصفحة: شريط README العربي في صفحة المستودع، وبطاقة «محتوى عربي / بيانات يعلنها صاحب الحساب» في صفحة الملف
 // الشخصي. كلاهما يقرأ ما تعرضه الصفحة محليًا ولا يصدر طلبًا؛ وصفحة تُرسم متأخرة تُعاد قراءتها بمراقبة التعديلات حتى تستقر.
+// وإن أعادت الصفحة رسم جزء منها فأزالت المضيف دون تنقل، يُعاد المضيف نفسه إلى موضع صالح جديد بالمراقبة نفسها (VR-09).
 import type { ComponentChildren } from 'preact';
 import type { ExtensionModule, ModuleContext } from '../../core/registry';
 import { mountSurface } from '../../core/ui-host/surface';
@@ -42,6 +43,8 @@ abstract class PageRuntime<T> {
 
   /** يقرأ الصفحة؛ null: لم تكتمل بعد (يُعاد لاحقًا). */
   protected abstract read(): T | null;
+  /** موضع صالح للمضيف الآن بجوار ما يُثبَّت إليه، أو null إن لم يُرسم بعد. */
+  protected abstract spot(): { parent: Node; before: Node | null } | null;
   protected abstract place(): void;
   protected abstract render(value: T): void;
 
@@ -88,6 +91,14 @@ abstract class PageRuntime<T> {
       if (!this.surface) {
         if (!this.settled(value) && !this.giveUp) return;
         this.place();
+      } else if (!this.surface.host.isConnected) {
+        // كما في PrStatusController.draw: يُعاد المضيف نفسه بـmutations.insert فيزيله الإيقاف، ويُرسم من جديد؛ وبلا موضع صالح ينتظر
+        // التعديل التالي.
+        const at = this.spot();
+        if (!at) return;
+        this.surface.host.remove();
+        this.ctx.mutations.insert(at.parent, this.surface.host, at.before);
+        this.last = '';
       }
       if (value === null) return;
       const signature = JSON.stringify(value);
@@ -121,11 +132,16 @@ class ReadmeRuntime extends PageRuntime<ReadmeDetection> {
     return value !== null && value.state !== 'unreadable';
   }
 
+  protected spot(): { parent: Node; before: Node | null } | null {
+    const readme = this.ctx.selectors.resolve(this.ctx.document, 'h.readme.container')?.element ?? null;
+    return readme?.parentElement ? { parent: readme.parentElement, before: readme } : null;
+  }
+
   protected place(): void {
     const { ctx } = this;
-    const readme = ctx.selectors.resolve(ctx.document, 'h.readme.container')?.element ?? null;
-    const parent = readme?.parentElement ?? ctx.page.contentRoot ?? ctx.document.body;
-    this.surface = mountSurface(ctx, { parent, before: readme ?? parent.firstChild, label: 'README العربي' });
+    const parent = ctx.page.contentRoot ?? ctx.document.body;
+    const at = this.spot() ?? { parent, before: parent.firstChild };
+    this.surface = mountSurface(ctx, { parent: at.parent, before: at.before, label: 'README العربي' });
   }
 
   protected render(detection: ReadmeDetection): void {
@@ -152,12 +168,16 @@ class ProfileRuntime extends PageRuntime<ReturnType<typeof buildAccountView>> {
     return value !== null;
   }
 
+  protected spot(): { parent: Node; before: Node | null } | null {
+    const anchor = this.ctx.selectors.resolve(this.ctx.document, 'h.profile.card-parent')?.element ?? null;
+    return anchor?.parentElement ? { parent: anchor.parentElement, before: anchor.nextSibling } : null;
+  }
+
   protected place(): void {
-    const { ctx } = this;
-    const anchor = ctx.selectors.resolve(ctx.document, 'h.profile.card-parent')?.element ?? null;
     // بعد بطاقة الملف الشخصي مباشرة؛ ولا بطاقة إن لم تُعرف حاويتها (لا يُحقن في موضع مخمَّن).
-    if (!anchor?.parentElement) return;
-    this.surface = mountSurface(ctx, { parent: anchor.parentElement, before: anchor.nextSibling, label: 'محتوى عربي وبيانات معلنة' });
+    const at = this.spot();
+    if (!at) return;
+    this.surface = mountSurface(this.ctx, { parent: at.parent, before: at.before, label: 'محتوى عربي وبيانات معلنة' });
   }
 
   protected render(view: ReturnType<typeof buildAccountView>): void {

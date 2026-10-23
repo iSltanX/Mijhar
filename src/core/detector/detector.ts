@@ -7,11 +7,18 @@
 //  - عنصر <title> يُستبدل بعنصر جديد، فمراقبته مباشرة لا تلتقط شيئًا.
 // لذلك لا يُحكم على DOM لحظة تغيّر المسار، بل بعد «هدوء»: كل مصدر تنقل أو تعديل في شجرة الصفحة يعيد ضبط مؤقت settleMs،
 // ويُفحص بعد انقضائه دون تعديلات جديدة (وبحد أقصى settleMaxMs إن لم تهدأ الصفحة).
+// وتغيّر المسار وحده لا يُعلن حتى يصل DOM الجديد (VR-08): إعلان واحد لكل تنقل بعد DOM الجديد. «التعديل المؤهل» childList داخل
+// حاوية المحتوى (content-root) ليس كله من صنع الإضافة (mijhar-host و[data-mijhar-injected])؛ وما في body خارجها (بطاقة تحويم
+// أو نافذة منبثقة أو إشعار) لا يؤهل. عند تغيّر المسار:
+//  - DOM أولًا: تعديل مؤهل بعد آخر إعلان تنقل وقبل تغيّر المسار بما لا يزيد على settleMaxMs ⇐ يُعلن بعد الهدوء كما كان.
+//  - المسار أولًا: يُنتظر أول تعديل مؤهل بعده ثم الهدوء، وبحد أقصى settleMaxMs من تغيّر المسار (فيُعلن تنقل بلا DOM جديد عنده).
+// وتعديلات الإضافة وحدها لا تحرّك الهدوء فلا تؤخر إعلانًا ولا تعيده. خطر باقٍ مقبول: تعديل مؤهل لا علاقة له بالتنقل داخل الحاوية
+// قبيل تنقل من النوع نفسه يأخذ مسار «DOM أولًا».
 //
 // المصادر:
 //  - فورية: turbo:render وturbo:load (إن أطلقهما Turbo بعد استبدال DOM).
 //  - تنتظر الهدوء: popstate وpageshow وأحداث Navigation API (navigatesuccess وcurrententrychange، وهي متاحة في Chrome
-//    وEdge وBrave وFirefox 158 حيث فُحصت) وتعديلات شجرة body (childList) واستبدال body/head.
+//    وEdge وBrave وFirefox 158 حيث فُحصت) وتعديلات شجرة body (childList) غير الصادرة عن الإضافة واستبدال body/head.
 // يُعلَن التغيّر فقط حين تتغير «بصمة» الصفحة (المسار والنوع والثقة وهوية body والحاوية الرئيسية)، فيُطلَق turbo:render
 // ثم turbo:load للتنقل الواحد حدثًا واحدًا لا اثنين، ويمرّ تعديل الوحدات لشجرة الصفحة دون إعلان ما دامت البصمة ثابتة.
 import { EXTERNAL_ROUTE, GITHUB_ORIGIN, classifyPath } from './page-types';
@@ -36,6 +43,16 @@ export interface PageDetectorOptions {
 const DEFAULT_SETTLE_MS = 100;
 const DEFAULT_SETTLE_MAX_MS = 1000;
 
+/** ما تحقنه الإضافة في الصفحة: المضيفات وعناصر الوحدات المعلَّمة، والعقد التي نُقلت إلى داخلها (تغليف نص). */
+const OWN = 'mijhar-host, [data-mijhar-injected]';
+const isOwn = (node: Node): boolean => Boolean((node.nodeType === 1 ? (node as Element) : node.parentElement)?.closest(OWN));
+
+/** المسار بلا الهاش: ما يميز تنقلًا عن آخر. */
+const urlKey = (href: string): string => {
+  const url = new URL(href);
+  return url.origin + url.pathname + url.search;
+};
+
 export class PageDetector {
   readonly selectors: SelectorsRegistry;
   private readonly doc: Document;
@@ -54,6 +71,13 @@ export class PageDetector {
   private started = false;
   private last: PageState | null = null;
   private lastSignature: string | null = null;
+  // VR-08: ترتيب التعديلات المؤهلة والإعلانات بعدّاد (لا بالوقت وحده: قد يتساويان في المللي ثانية نفسها).
+  private seq = 0;
+  private qualifyingSeq = 0;
+  private qualifyingAt: number | null = null;
+  private navigationSeq = 0;
+  private urlChangedAt: number | null = null;
+  private capTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(options: PageDetectorOptions = {}) {
     this.doc = options.document ?? document;
@@ -94,8 +118,9 @@ export class PageDetector {
     this.started = true;
     const view = this.doc.defaultView;
 
-    this.listen(this.doc, 'turbo:render', () => this.check());
-    this.listen(this.doc, 'turbo:load', () => this.check());
+    // Turbo يطلقهما بعد استبدال DOM نفسه: الصفحة الجديدة حاضرة فلا انتظار.
+    this.listen(this.doc, 'turbo:render', () => this.check(true));
+    this.listen(this.doc, 'turbo:load', () => this.check(true));
     if (view) {
       this.listen(view, 'popstate', () => this.settle());
       this.listen(view, 'pageshow', () => this.settle());
@@ -105,7 +130,7 @@ export class PageDetector {
         this.listen(navigation, 'currententrychange', () => this.settle());
       }
       if (this.observeDom && 'MutationObserver' in view) {
-        this.observer = new view.MutationObserver(() => this.settle());
+        this.observer = new view.MutationObserver((records) => this.mutated(records));
         this.cleanups.push(() => {
           this.observer?.disconnect();
           this.observer = null;
@@ -124,19 +149,36 @@ export class PageDetector {
     if (this.settleTimer !== null) clearTimeout(this.settleTimer);
     this.settleTimer = null;
     this.settleStartedAt = null;
+    this.clearCap();
+    this.urlChangedAt = null;
     for (const cleanup of this.cleanups.splice(0).reverse()) cleanup();
     this.listeners.clear();
     this.last = null;
     this.lastSignature = null;
   }
 
-  /** يفحص الآن ويُعلن إن تغيرت البصمة. يعيد true إن أُعلن تغيّر. */
-  check(): boolean {
+  /**
+   * يفحص الآن ويُعلن إن تغيرت البصمة. يعيد true إن أُعلن تغيّر. تغيّر المسار لا يُعلن قبل DOM الجديد (VR-08) إلا بـdomReady
+   * (أحداث Turbo بعد الاستبدال) أو عند بلوغ الحد الأقصى.
+   */
+  check(domReady = false): boolean {
     if (!this.started) return false;
     this.observeTree();
     const page = this.detect();
     const signature = this.signature(page);
-    if (signature === this.lastSignature) return false;
+    if (signature === this.lastSignature) {
+      this.urlChangedAt = null;
+      this.clearCap();
+      return false;
+    }
+    const navigated = this.last === null || urlKey(page.href) !== urlKey(this.last.href);
+    if (navigated && this.last !== null && !domReady && !this.domArrived()) {
+      this.awaitDom();
+      return false;
+    }
+    this.clearCap();
+    this.urlChangedAt = null;
+    if (navigated) this.navigationSeq = ++this.seq;
     const previous = this.last;
     this.last = page;
     this.lastSignature = signature;
@@ -150,8 +192,65 @@ export class PageDetector {
     return true;
   }
 
+  /** هل وصل DOM التنقل الجاري: تعديل مؤهل بعد آخر إعلان تنقل، لا يسبق تغيّر المسار بأكثر من settleMaxMs؛ أو بلغ الانتظار حده. */
+  private domArrived(): boolean {
+    const since = this.urlChangedAt ?? Date.now();
+    if (this.qualifyingAt !== null && this.qualifyingSeq > this.navigationSeq && since - this.qualifyingAt <= this.settleMaxMs) return true;
+    return Date.now() - since >= this.settleMaxMs;
+  }
+
+  // المسار تغيّر ولم يصل DOM: فحص عند الحد الأقصى من تغيّره إن لم يحرّكه تعديل مؤهل قبله.
+  private awaitDom(): void {
+    this.urlChangedAt ??= Date.now();
+    if (this.capTimer !== null) return;
+    this.capTimer = setTimeout(() => {
+      this.capTimer = null;
+      this.check();
+    }, Math.max(0, this.urlChangedAt + this.settleMaxMs - Date.now()));
+  }
+
+  private clearCap(): void {
+    if (this.capTimer !== null) clearTimeout(this.capTimer);
+    this.capTimer = null;
+  }
+
+  // أول لحظة يُرى فيها المسار مختلفًا عن آخر إعلان (من حدث تنقل أو تعديل).
+  private noteUrl(): void {
+    if (this.urlChangedAt !== null || !this.last) return;
+    const view = this.doc.defaultView;
+    if (urlKey(view?.location.href ?? this.doc.URL) !== urlKey(this.last.href)) this.urlChangedAt = Date.now();
+  }
+
+  // تعديلات الإضافة وحدها لا تحرّك شيئًا؛ وما عداها يحرّك الهدوء، والمؤهل منه (داخل الحاوية) يُسجَّل بوقته وترتيبه.
+  private mutated(records: readonly MutationRecord[]): void {
+    let foreign = false;
+    let qualifying = false;
+    const roots = this.roots();
+    for (const record of records) {
+      if (record.type !== 'childList') continue;
+      const nodes = [...record.addedNodes, ...record.removedNodes];
+      if (nodes.every(isOwn)) continue;
+      foreign = true;
+      if (!roots.length || roots.some((root) => root.contains(record.target) || nodes.some((node) => node === root || node.contains(root)))) qualifying = true;
+    }
+    if (qualifying) {
+      this.qualifyingAt = Date.now();
+      this.qualifyingSeq = ++this.seq;
+    }
+    if (foreign) this.settle();
+  }
+
+  // حاوية المحتوى المعلنة، والحالية إن فُصلت تلك (استبدال الحاوية نفسها).
+  private roots(): Element[] {
+    const announced = this.last?.contentRoot ?? null;
+    if (announced?.isConnected) return [announced];
+    const current = this.selectors.resolve(this.doc, 'content-root')?.element ?? null;
+    return [announced, current].filter((root): root is Element => root !== null);
+  }
+
   // يعيد ضبط مؤقت الهدوء؛ يُفحص بعد settleMs دون جديد، أو عند بلوغ settleMaxMs منذ أول استدعاء في الدفعة.
   private settle(): void {
+    this.noteUrl();
     const now = Date.now();
     this.settleStartedAt ??= now;
     if (this.settleTimer !== null) clearTimeout(this.settleTimer);

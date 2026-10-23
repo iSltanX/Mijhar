@@ -66,22 +66,34 @@ export function createReadingFeature(options: ReadingFeatureOptions = {}): Modul
       api.runtime.onMessage.addListener(respond);
       ctx.onTeardown(() => api.runtime.onMessage.removeListener(respond));
 
-      const first = snapshotContainers(doc, containerSelector).find((el) => (el.textContent ?? '').trim());
-      if (!first?.parentNode) return;
-      const { host, root } = createShadowHost(doc, { name: READING_HOST_NAME, styles: ENTRY_CSS, label: 'وضع القراءة' });
-      const bar = doc.createElement('div');
-      bar.className = 'entry';
-      const button = doc.createElement('button');
-      button.type = 'button';
-      button.className = 'btn';
-      button.textContent = 'وضع القراءة';
-      button.title = 'يفتح محتوى الصفحة في عارض قراءة مستقل، مع خيار إخفاء التشكيل في العرض فقط';
-      button.addEventListener('click', () => {
-        if (!ctx.signal.aborted) void api.runtime.sendMessage({ type: READING_OPEN_MESSAGE }).catch(() => undefined);
+      // الزر قبل أول حاوية فيها نص؛ يعيد true إن وُضع.
+      const place = (): boolean => {
+        const first = snapshotContainers(doc, containerSelector).find((el) => (el.textContent ?? '').trim());
+        if (!first?.parentNode) return false;
+        const { host, root } = createShadowHost(doc, { name: READING_HOST_NAME, styles: ENTRY_CSS, label: 'وضع القراءة' });
+        const bar = doc.createElement('div');
+        bar.className = 'entry';
+        const button = doc.createElement('button');
+        button.type = 'button';
+        button.className = 'btn';
+        button.textContent = 'وضع القراءة';
+        button.title = 'يفتح محتوى الصفحة في عارض قراءة مستقل، مع خيار إخفاء التشكيل في العرض فقط';
+        button.addEventListener('click', () => {
+          if (!ctx.signal.aborted) void api.runtime.sendMessage({ type: READING_OPEN_MESSAGE }).catch(() => undefined);
+        });
+        bar.append(button);
+        root.append(bar);
+        ctx.mutations.insert(first.parentNode, host, first);
+        return true;
+      };
+      if (place()) return;
+      // حاوية تُرسم بعد التركيب (VR-17): مراقبة body حتى يوضع الزر مرة واحدة ثم تُفصل؛ فلا زر مكرر.
+      let placed = false;
+      const observer = ctx.observe(doc.body, { childList: true, subtree: true }, () => {
+        if (placed || ctx.signal.aborted) return;
+        placed = place();
+        if (placed) observer.disconnect();
       });
-      bar.append(button);
-      root.append(bar);
-      ctx.mutations.insert(first.parentNode, host, first);
     },
   };
 }

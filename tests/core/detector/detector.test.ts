@@ -111,18 +111,30 @@ describe('start/subscribe/stop', () => {
     expect(seen).toHaveLength(2);
   });
 
-  it('popstate يُعلن بعد هدوء settleMs لا فورًا', () => {
+  // VR-08: كان يُعلن المسار وحده بعد settleMs على DOM الصفحة السابقة؛ صار يُعلن بعد هدوء DOM الجديد، وبلا DOM عند الحد الأقصى.
+  it('popstate يُعلن بعد هدوء DOM الجديد (settleMs) لا فورًا، وبلا DOM جديد عند الحد الأقصى', async () => {
     vi.useFakeTimers();
     const { dom, detector, seen } = setup();
     detector.start();
     dom.window.history.pushState({}, '', '/octo/demo/issues');
     dom.window.dispatchEvent(new dom.window.PopStateEvent('popstate'));
     expect(seen).toHaveLength(1);
+    vi.advanceTimersByTime(40);
+    expect(seen).toHaveLength(1);
+    dom.window.document.querySelector('#js-repo-pjax-container')!.append(dom.window.document.createElement('div'));
+    await Promise.resolve();
     vi.advanceTimersByTime(19);
     expect(seen).toHaveLength(1);
     vi.advanceTimersByTime(2);
     expect(seen).toHaveLength(2);
     expect(seen[1]?.[0].type).toBe('issue-list');
+
+    dom.window.history.pushState({}, '', '/octo/demo/pulls');
+    dom.window.dispatchEvent(new dom.window.PopStateEvent('popstate'));
+    vi.advanceTimersByTime(999);
+    expect(seen).toHaveLength(2);
+    vi.advanceTimersByTime(1);
+    expect(seen.at(-1)?.[0].type).toBe('pr-list');
   });
 
   it('خطأ مشترك لا يمنع بقية المشتركين ويصل إلى onError', () => {
@@ -198,12 +210,14 @@ describe('تنقل بلا أحداث Turbo', () => {
     return { dom, detector, seen, nav, swapContent, observers, navigation };
   };
 
-  it('تعديل شجرة body يُحرّك الفحص بعد الهدوء، والدفعات المتتالية تؤجله', async () => {
+  // VR-08: التعديل الذي يحرّك إعلان التنقل داخل حاوية المحتوى؛ وما في body خارجها (بطاقة تحويم) لا يُعدّ DOM الصفحة الجديدة.
+  it('تعديل شجرة الحاوية يُحرّك الفحص بعد الهدوء، والدفعات المتتالية تؤجله', async () => {
     const { dom, detector, seen } = setup();
+    const root = dom.window.document.querySelector('#js-repo-pjax-container')!;
     dom.window.history.pushState({}, '', '/octo/demo/issues/7');
-    dom.window.document.body.appendChild(dom.window.document.createElement('div'));
+    root.appendChild(dom.window.document.createElement('div'));
     await tick(60);
-    dom.window.document.body.appendChild(dom.window.document.createElement('div'));
+    root.appendChild(dom.window.document.createElement('div'));
     await tick(60);
     expect(seen).toHaveLength(1);
     await tick(60);
@@ -238,11 +252,14 @@ describe('تنقل بلا أحداث Turbo', () => {
     expect(seen.at(-1)).toMatchObject({ type: 'pr-commits', number: 42 });
   });
 
-  it.each(['navigatesuccess', 'currententrychange'] as const)('حدث Navigation API «%s» وحده يحرّك الفحص', async (type) => {
+  // VR-08: الحدث وحده بلا DOM جديد يُعلن عند الحد الأقصى (settleMaxMs) لا بعد settleMs.
+  it.each(['navigatesuccess', 'currententrychange'] as const)('حدث Navigation API «%s» وحده يحرّك الفحص، ويُعلن عند الحد الأقصى إن لم يصل DOM', async (type) => {
     const { dom, seen, nav } = setup();
     dom.window.history.pushState({}, '', '/octo/demo/pulls');
     nav(type);
     await tick(SETTLE + 10);
+    expect(seen.at(-1)?.type).toBe('repo');
+    await tick(1000);
     expect(seen.at(-1)?.type).toBe('pr-list');
   });
 
@@ -255,9 +272,9 @@ describe('تنقل بلا أحداث Turbo', () => {
     await tick(SETTLE + 10);
     expect(seen).toHaveLength(2);
 
-    // تعديل لاحق داخل body الجديد وحده يلتقطه المراقب الجديد.
+    // تعديل لاحق داخل حاوية body الجديد وحده يلتقطه المراقب الجديد.
     dom.window.history.pushState({}, '', '/octo/demo/issues');
-    doc.body.appendChild(doc.createElement('div'));
+    doc.querySelector('#js-repo-pjax-container')!.appendChild(doc.createElement('div'));
     await tick(SETTLE + 10);
     expect(detector.current()?.type).toBe('issue-list');
   });
@@ -303,5 +320,150 @@ describe('تنقل بلا أحداث Turbo', () => {
     expect(observers.live()).toBe(0);
     turboNavigate(dom, 'issue', 'https://github.com/octo/demo/issues/7');
     expect(detector.current()?.type).toBe('issue');
+  });
+});
+
+// VR-08 (أجزاء 1–4 من MJ-AUDIT-003): إعلان واحد لكل تنقل بعد وصول DOM الجديد، بترتيبي evidence/T-1.2 المقيسين: المسار أولًا ثم DOM
+// (قوائم المشكلات ← طلبات الدمج: المسار ~13ms وDOM ~236ms)، وDOM أولًا ثم المسار (تبويبات PR: DOM ~111–152ms والمسار ~508ms).
+// التعديل «المؤهل» childList داخل حاوية المحتوى لا من صنع الإضافة؛ وما في body خارجها (بطاقة تحويم أو إشعار) لا يؤهل.
+describe('توقيت الإعلان بعد DOM الجديد (VR-08)', () => {
+  type Seen = { at: number; href: string; marker: string };
+  const harness = () => {
+    vi.useFakeTimers();
+    const dom = loadPage('blob', 'https://github.com/octo/demo/blob/main/a.ts');
+    const doc = dom.window.document;
+    const detector = new PageDetector({ document: doc });
+    const seen: Seen[] = [];
+    let now = 0;
+    detector.subscribe((page) => seen.push({ at: now, href: page.href, marker: doc.querySelector('[data-marker]')?.getAttribute('data-marker') ?? 'old' }));
+    detector.start();
+    const root = doc.querySelector('#js-repo-pjax-container')!;
+    const step = async (ms: number) => {
+      for (let i = 0; i < ms; i += 1) {
+        vi.advanceTimersByTime(1);
+        now += 1;
+        await Promise.resolve();
+        await Promise.resolve();
+      }
+    };
+    const go = (path: string) => {
+      dom.window.history.pushState({}, '', path);
+      dom.window.dispatchEvent(new dom.window.PopStateEvent('popstate'));
+    };
+    const render = (marker: string) => {
+      const fresh = doc.createElement('div');
+      fresh.setAttribute('data-marker', marker);
+      fresh.innerHTML = '<div id="repos-sticky-header"></div>';
+      root.replaceChildren(fresh);
+    };
+    const host = () => {
+      const el = doc.createElement('mijhar-host');
+      root.prepend(el);
+      const wrap = doc.createElement('span');
+      wrap.setAttribute('data-mijhar-injected', '');
+      root.append(wrap);
+    };
+    return { dom, doc, detector, seen, step, go, render, host, now: () => now };
+  };
+
+  it('1. DOM بعد المسار بـ240ms: إعلان واحد بعد DOM الجديد (F-003 late)', async () => {
+    const h = harness();
+    await h.step(13);
+    h.go('/octo/demo/blob/main/b.ts');
+    await h.step(227);
+    h.render('new-b.ts');
+    await h.step(1200);
+    expect(h.seen).toHaveLength(2);
+    expect(h.seen[1]).toMatchObject({ href: 'https://github.com/octo/demo/blob/main/b.ts', marker: 'new-b.ts' });
+    expect(h.seen[1]!.at).toBeGreaterThanOrEqual(240);
+    h.detector.stop();
+  });
+
+  it('2. تعديل غريب في body خارج الحاوية قبل المسار بـ200ms لا يُعدّ DOM جديدًا: إعلان واحد بعد DOM', async () => {
+    const h = harness();
+    await h.step(100);
+    h.doc.body.append(Object.assign(h.doc.createElement('div'), { className: 'Popover hovercard' }));
+    await h.step(200);
+    h.go('/octo/demo/blob/main/b.ts');
+    await h.step(240);
+    h.render('new-b.ts');
+    await h.step(1200);
+    expect(h.seen).toHaveLength(2);
+    expect(h.seen[1]).toMatchObject({ marker: 'new-b.ts' });
+    h.detector.stop();
+  });
+
+  it('3. DOM أولًا داخل الحاوية (120ms) ثم المسار (500ms): إعلان واحد بالـDOM الجديد بعد هدوء المسار', async () => {
+    const h = harness();
+    await h.step(120);
+    h.render('new-b.ts');
+    await h.step(380);
+    h.go('/octo/demo/blob/main/b.ts');
+    await h.step(1200);
+    expect(h.seen).toHaveLength(2);
+    expect(h.seen[1]).toMatchObject({ href: 'https://github.com/octo/demo/blob/main/b.ts', marker: 'new-b.ts' });
+    const latency = h.seen[1]!.at - 500;
+    console.log('VR-08 DOM-first latency after URL change (ms):', latency);
+    expect(latency).toBeLessThanOrEqual(110);
+    h.detector.stop();
+  });
+
+  it('4. تغيّر الهاش وحده لا يُعلن', async () => {
+    const h = harness();
+    await h.step(10);
+    h.dom.window.history.pushState({}, '', '#L5');
+    h.dom.window.dispatchEvent(new h.dom.window.HashChangeEvent('hashchange'));
+    h.dom.window.dispatchEvent(new h.dom.window.PopStateEvent('popstate'));
+    await h.step(1500);
+    expect(h.seen).toHaveLength(1);
+    h.detector.stop();
+  });
+
+  it('5. إدراج مضيفات الوحدات لا يعلن ولا يدور ولا يؤخر إعلانًا قائمًا', async () => {
+    const h = harness();
+    await h.step(13);
+    h.go('/octo/demo/blob/main/b.ts');
+    await h.step(227);
+    h.render('new-b.ts');
+    await h.step(60);
+    h.host();
+    await h.step(30);
+    h.host();
+    await h.step(1200);
+    expect(h.seen).toHaveLength(2);
+    expect(h.seen[1]!.at).toBeLessThanOrEqual(341);
+    for (let i = 0; i < 5; i += 1) {
+      h.host();
+      await h.step(150);
+    }
+    expect(h.seen).toHaveLength(2);
+    expect(vi.getTimerCount()).toBe(0);
+    h.detector.stop();
+  });
+
+  it('6. تغيّر المسار بلا أي تغيّر في DOM يُعلن عند الحد الأقصى', async () => {
+    const h = harness();
+    await h.step(13);
+    h.go('/octo/demo/blob/main/b.ts');
+    await h.step(999);
+    expect(h.seen).toHaveLength(1);
+    await h.step(10);
+    expect(h.seen).toHaveLength(2);
+    // عند الحد الأقصى من تغيّر المسار (13 + 1000)؛ والعدّاد يسجّل الإعلان قبل تقدّمه بنبضة.
+    expect(h.seen[1]).toMatchObject({ href: 'https://github.com/octo/demo/blob/main/b.ts', marker: 'old' });
+    expect(h.seen[1]!.at).toBeGreaterThanOrEqual(1012);
+    h.detector.stop();
+  });
+
+  it('7. ضابط: DOM بعد المسار بـ60ms: إعلان واحد بالـDOM الجديد (F-003 control)', async () => {
+    const h = harness();
+    await h.step(13);
+    h.go('/octo/demo/blob/main/b.ts');
+    await h.step(47);
+    h.render('new-b.ts');
+    await h.step(1200);
+    expect(h.seen).toHaveLength(2);
+    expect(h.seen[1]).toMatchObject({ marker: 'new-b.ts' });
+    h.detector.stop();
   });
 });

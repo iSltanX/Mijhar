@@ -157,6 +157,36 @@ describe('الميزة في صفحة GitHub', () => {
     expect(listeners.size).toBe(0);
   });
 
+  // VR-17 (الجزء (أ) من MJ-AUDIT-007): حاوية Markdown تُرسم بعد التركيب (تحميل كسول أو React) كان لا يظهر لها زر أبدًا.
+  it('حاوية تُرسم بعد التركيب: يظهر زر واحد فقط بعد وصولها ولا يتكرر، والإيقاف يزيله', async () => {
+    const dom = new JSDOM('<!doctype html><html><body><main id="m"><p>لا محتوى بعد</p></main></body></html>', { url: 'https://github.com/octo/demo/issues/1', pretendToBeVisual: true });
+    const doc = dom.window.document;
+    const fake = fakeApi();
+    const module = createModuleA({ features: [createReadingFeature({ api: () => fake.api })] });
+    const manager = new LifecycleManager({ registry: new ModuleRegistry([module]), detector: new PageDetector({ document: doc, settleMs: 5 }), document: doc, isEnabled: () => true });
+    manager.start();
+    const wait = () => new Promise((resolve) => setTimeout(resolve, 20));
+    const hosts = () => doc.querySelectorAll(`[${HOST_ATTR}="${READING_HOST_NAME}"]`);
+    await wait();
+    expect(hosts()).toHaveLength(0);
+    const late = doc.createElement('div');
+    late.className = 'markdown-body';
+    late.id = 'late';
+    late.innerHTML = '<p dir="auto">نصٌّ وصل متأخرًا</p>';
+    doc.getElementById('m')!.append(late);
+    await wait();
+    expect(hosts()).toHaveLength(1);
+    expect(hosts()[0]?.nextElementSibling?.id).toBe('late');
+    const another = late.cloneNode(true) as HTMLElement;
+    another.id = 'another';
+    doc.getElementById('m')!.append(another);
+    await wait();
+    expect(hosts()).toHaveLength(1);
+    manager.stop();
+    expect(hosts()).toHaveLength(0);
+    expect(fake.listeners.size).toBe(0);
+  });
+
   it('البندان ٤ و٥: نص DOM الذي يقرؤه اقتباس الرد بتشكيله، ولا تُمس الحقول ولا شيء في الصفحة غير الزر', async () => {
     const dom = new JSDOM(LIVE, { url: 'https://github.com/octo/demo/issues/1', pretendToBeVisual: true });
     const doc = dom.window.document;

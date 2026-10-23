@@ -14,11 +14,12 @@ export const SCOPE_STATEMENT =
 
 export const UNREADABLE_STATEMENT = 'تعذّرت قراءة قائمة الملفات في هذه الصفحة (قد يكون تخطيط GitHub تغيّر أو لم يكتمل عرض الصفحة)، فلم يُفحص شيء ولا حكم على وجود README عربي.';
 
-function MatchLinks({ matches }: { matches: readonly ArabicReadmeMatch[] }) {
+// في اللوحة تُفتح الروابط في تبويب جديد كبقية روابط اللوحة (VR-18)؛ وفي شريط الصفحة كما هي.
+function MatchLinks({ matches, newTab = false }: { matches: readonly ArabicReadmeMatch[]; newTab?: boolean }) {
   return (
     <>
       {matches.map((match) => (
-        <a key={match.href} class="btn" href={match.href} data-readme-match={match.name}>
+        <a key={match.href} class="btn" href={match.href} data-readme-match={match.name} {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
           فتح <span class="ltr-inline mono">{match.name}</span>
         </a>
       ))}
@@ -30,10 +31,12 @@ export interface DocsScanControlProps {
   readonly owner: string;
   readonly repo: string;
   readonly access?: GithubApiAccess;
+  /** روابط النتيجة في تبويب جديد (اللوحة). */
+  readonly newTab?: boolean;
 }
 
 /** زر الفحص ونتيجته. لا طلب قبل النقر، وأول ما في معالج النقر طلب الصلاحية (بلا await قبله). */
-export function DocsScanControl({ owner, repo, access = UNAVAILABLE_ACCESS }: DocsScanControlProps) {
+export function DocsScanControl({ owner, repo, access = UNAVAILABLE_ACCESS, newTab = false }: DocsScanControlProps) {
   const [state, setState] = useState<{ status: 'idle' } | { status: 'scanning' } | { status: 'done'; result: DocsScanResult }>({ status: 'idle' });
   const run = (): void => {
     setState({ status: 'scanning' });
@@ -61,7 +64,7 @@ export function DocsScanControl({ owner, repo, access = UNAVAILABLE_ACCESS }: Do
             <>
               <p>عُثر في docs/ على:</p>
               <div class="row">
-                <MatchLinks matches={state.result.matches} />
+                <MatchLinks matches={state.result.matches} newTab={newTab} />
               </div>
             </>
           ) : (
