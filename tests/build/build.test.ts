@@ -33,10 +33,10 @@ describe.each(['chromium', 'firefox'])('حزمة %s', (target) => {
     for (const file of referenced) expect(fs.existsSync(path.join(outRoot, target, file)), file).toBe(true);
   });
 
-  it('مانيفست V3 باسم محايد ونسخة package.json', () => {
+  it('مانيفست V3 بالاسم المعتمد في DEC-06 ونسخة package.json', () => {
     const manifest = readManifest(target);
     expect(manifest.manifest_version).toBe(3);
-    expect(manifest.name).toBe('placeholder');
+    expect(manifest.name).toBe('مِجهَر');
     expect(manifest.version).toBe(pkg.version);
   });
 
@@ -60,11 +60,18 @@ describe('مفاتيح كل هدف', () => {
     expect(manifest.browser_specific_settings).toBeUndefined();
   });
 
+  // AD-15: لا تجمع الإضافة بيانات ولا ترسلها إلى المطوّر أو طرف ثالث؛ كل وحدة تغيّر ذلك تراجع هذا الإعلان.
+  it('Firefox: يعلن عدم جمع بيانات ويشترط 140 فأعلى لدعم هذا الإعلان', () => {
+    const { gecko } = readManifest('firefox').browser_specific_settings;
+    expect(gecko.data_collection_permissions).toEqual({ required: ['none'] });
+    expect(Number.parseInt(gecko.strict_min_version, 10)).toBeGreaterThanOrEqual(140);
+  });
+
   it('Firefox: background.scripts وsidebar_action ومعرّف gecko دون مفاتيح Chromium', () => {
     const manifest = readManifest('firefox');
     expect(manifest.background).toEqual({ scripts: ['background.js'] });
     expect(manifest.sidebar_action.default_panel).toBeDefined();
-    expect(manifest.browser_specific_settings.gecko.id).toBeTruthy();
+    expect(manifest.browser_specific_settings.gecko.id).toBe('mijhar@mijhar.invalid');
     expect(manifest.side_panel).toBeUndefined();
     expect(manifest.permissions ?? []).not.toContain('sidePanel');
   });

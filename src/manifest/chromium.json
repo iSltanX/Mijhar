@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "placeholder",
+  "name": "مِجهَر",
   "minimum_chrome_version": "114",
   "permissions": ["sidePanel"],
   "host_permissions": ["https://github.com/*"],
