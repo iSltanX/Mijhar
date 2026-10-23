@@ -39,7 +39,7 @@ function fakePort(result: unknown = { ok: true, status: 200, data: {}, fromCache
   } as never;
 }
 
-async function mount(options: { disk?: boolean; target?: 'chromium' | 'firefox'; port?: PublicApiPort } = {}) {
+async function mount(options: { disk?: boolean; target?: 'chromium' | 'firefox'; port?: ReturnType<typeof fakePort> } = {}) {
   const session = memoryArea();
   const disk = memoryArea();
   const store = new TokenStore({ session, disk: options.disk === false ? null : disk, now: () => Date.UTC(2026, 9, 24, 9) });

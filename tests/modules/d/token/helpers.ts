@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { vi } from 'vitest';
+import type { Mock } from 'vitest';
 import { startBackground } from '../../../../src/background/main';
 import { MemoryStorageArea, runtimePort } from '../../../../src/core';
 import type { ExtensionApi } from '../../../../src/core';
@@ -21,17 +22,20 @@ export function fakeToken(tag = 'A'): string {
 /** نمط أي رمز دقيق الحبيبات (للبحث عن تسرّب في السجلات والرسائل والنصوص). */
 export const TOKEN_PATTERN = /github_pat_[A-Za-z0-9_]{20,}/;
 
+type Stored = { token: string; savedAt: number };
+
 export interface MemorySecretArea extends SecretArea {
-  value: { token: string; savedAt: number } | null;
-  readonly set: ReturnType<typeof vi.fn>;
-  readonly remove: ReturnType<typeof vi.fn>;
+  value: Stored | null;
+  readonly get: Mock<() => Promise<Stored | null>>;
+  readonly set: Mock<(value: Stored) => Promise<void>>;
+  readonly remove: Mock<() => Promise<void>>;
 }
 
 export function memoryArea(): MemorySecretArea {
-  const area = {
-    value: null as { token: string; savedAt: number } | null,
+  const area: MemorySecretArea = {
+    value: null,
     get: vi.fn(async () => area.value),
-    set: vi.fn(async (v: { token: string; savedAt: number }) => {
+    set: vi.fn(async (v: Stored) => {
       area.value = v;
     }),
     remove: vi.fn(async () => {

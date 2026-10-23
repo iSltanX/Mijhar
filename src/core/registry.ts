@@ -12,6 +12,7 @@ import { TRANSLATE_MODULE } from '../modules/c/ui/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
 import { LOG_MODULE } from '../modules/d/log-parser/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
+import { CONTEXT_BUILDER_MODULE } from '../modules/e/builder/module';
 import { COMPOSER_MODULE } from '../modules/f/composer/module';
 import { BOOKMARKS_MODULE } from '../modules/g/bookmarks/module';
 import { MODULE_G } from '../modules/g/notes/module';
@@ -104,6 +105,7 @@ export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   MODULE_G, // MJ9 (T-8.1): الوحدة (ز) الملاحظات الخاصة
   MODULE_H, // MJ9 (T-9.1، T-9.4): الوحدة (ح) شريط README العربي وبطاقة الملف الشخصي
   BOOKMARKS_MODULE, // MJ12 (T-8.2): الوحدة (ز) زر «أكمل لاحقًا»
+  CONTEXT_BUILDER_MODULE, // MJ15 (T-6.1): الوحدة (هـ): منشئ حزمة السياق
 ];
 
 export function createModuleRegistry(modules: readonly ExtensionModule[] = BUILTIN_MODULES): ModuleRegistry {
