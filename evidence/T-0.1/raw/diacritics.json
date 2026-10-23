@@ -1,0 +1,571 @@
+{
+  "measuredAt": "2026-10-23T06:21:35.954Z",
+  "fixture": "fixtures/spikes/fixture-diacritics-live.html",
+  "proto": "scripts/spikes/proto/mijhar-proto.js",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "copy": {
+        "05A/shortcut": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<span style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">المُطَوِّرُ الشِّ</span>",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/shortcut": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\nعنصر أول في القائمة\nعنصر ثان مع src/app/main.ts\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": false,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\" style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p><ul style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tra",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        },
+        "05A/menu-command": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<span style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">المُطَوِّرُ الشِّ</span>",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/menu-command": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\nعنصر أول في القائمة\nعنصر ثان مع src/app/main.ts\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": false,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\" style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p><ul style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tra",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        }
+      },
+      "drag": {
+        "syntheticPlain": "المُطَوِّرُ الشِّ",
+        "diacritics": 7,
+        "htmlHasDiacritics": true,
+        "native": "لم يُجرَ: السحب الأصلي لتحديد نصي لا يبدأ بأحداث الفأرة المصطنعة (Playwright وMarionette)"
+      },
+      "find": {
+        "off:كتب": {
+          "windowFind": true
+        },
+        "off:كَتَبَ": {
+          "windowFind": true
+        },
+        "off:المطور": {
+          "windowFind": true
+        },
+        "off:المُطَوِّرُ": {
+          "windowFind": true
+        },
+        "on:كتب": {
+          "windowFind": true
+        },
+        "on:كَتَبَ": {
+          "windowFind": true
+        },
+        "on:المطور": {
+          "windowFind": true
+        },
+        "on:المُطَوِّرُ": {
+          "windowFind": true
+        }
+      },
+      "live": {
+        "05D": {
+          "final": "النَّصُّ الجَدِيدُ المُحَدَّثُ",
+          "pass": true
+        },
+        "05F": {
+          "shownWhileOn": true,
+          "final": "تعليق مشكول سيحرره صاحبه.",
+          "pass": true
+        },
+        "05G": {
+          "orders": 24,
+          "pass": 24,
+          "failures": []
+        },
+        "replace": {
+          "final": "عقدة جديدة استبدلها GitHub",
+          "pass": true,
+          "exceptionsAdded": 1
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "copy": {
+        "05A/shortcut": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<span style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">المُطَوِّرُ الشِّ</span>",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/shortcut": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\nعنصر أول في القائمة\nعنصر ثان مع src/app/main.ts\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": false,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\" style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p><ul style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tra",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        },
+        "05A/menu-command": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<span style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">المُطَوِّرُ الشِّ</span>",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/menu-command": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\nعنصر أول في القائمة\nعنصر ثان مع src/app/main.ts\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": false,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\" style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p><ul style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tra",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        }
+      },
+      "drag": {
+        "syntheticPlain": "المُطَوِّرُ الشِّ",
+        "diacritics": 7,
+        "htmlHasDiacritics": true,
+        "native": "لم يُجرَ: السحب الأصلي لتحديد نصي لا يبدأ بأحداث الفأرة المصطنعة (Playwright وMarionette)"
+      },
+      "find": {
+        "off:كتب": {
+          "windowFind": true
+        },
+        "off:كَتَبَ": {
+          "windowFind": true
+        },
+        "off:المطور": {
+          "windowFind": true
+        },
+        "off:المُطَوِّرُ": {
+          "windowFind": true
+        },
+        "on:كتب": {
+          "windowFind": true
+        },
+        "on:كَتَبَ": {
+          "windowFind": true
+        },
+        "on:المطور": {
+          "windowFind": true
+        },
+        "on:المُطَوِّرُ": {
+          "windowFind": true
+        }
+      },
+      "live": {
+        "05D": {
+          "final": "النَّصُّ الجَدِيدُ المُحَدَّثُ",
+          "pass": true
+        },
+        "05F": {
+          "shownWhileOn": true,
+          "final": "تعليق مشكول سيحرره صاحبه.",
+          "pass": true
+        },
+        "05G": {
+          "orders": 24,
+          "pass": 24,
+          "failures": []
+        },
+        "replace": {
+          "final": "عقدة جديدة استبدلها GitHub",
+          "pass": true,
+          "exceptionsAdded": 1
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "copy": {
+        "05A/shortcut": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<span style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">المُطَوِّرُ الشِّ</span>",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/shortcut": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\nعنصر أول في القائمة\nعنصر ثان مع src/app/main.ts\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": false,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\" style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p><ul style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tra",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        },
+        "05A/menu-command": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<span style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">المُطَوِّرُ الشِّ</span>",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/menu-command": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\nعنصر أول في القائمة\nعنصر ثان مع src/app/main.ts\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\nعُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\nعُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": false,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\" style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p><ul style=\"color: rgb(0, 0, 0); font-family: system-ui, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tra",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        }
+      },
+      "drag": {
+        "syntheticPlain": "المُطَوِّرُ الشِّ",
+        "diacritics": 7,
+        "htmlHasDiacritics": true,
+        "native": "لم يُجرَ: السحب الأصلي لتحديد نصي لا يبدأ بأحداث الفأرة المصطنعة (Playwright وMarionette)"
+      },
+      "find": {
+        "off:كتب": {
+          "windowFind": true
+        },
+        "off:كَتَبَ": {
+          "windowFind": true
+        },
+        "off:المطور": {
+          "windowFind": true
+        },
+        "off:المُطَوِّرُ": {
+          "windowFind": true
+        },
+        "on:كتب": {
+          "windowFind": true
+        },
+        "on:كَتَبَ": {
+          "windowFind": true
+        },
+        "on:المطور": {
+          "windowFind": true
+        },
+        "on:المُطَوِّرُ": {
+          "windowFind": true
+        }
+      },
+      "live": {
+        "05D": {
+          "final": "النَّصُّ الجَدِيدُ المُحَدَّثُ",
+          "pass": true
+        },
+        "05F": {
+          "shownWhileOn": true,
+          "final": "تعليق مشكول سيحرره صاحبه.",
+          "pass": true
+        },
+        "05G": {
+          "orders": 24,
+          "pass": 24,
+          "failures": []
+        },
+        "replace": {
+          "final": "عقدة جديدة استبدلها GitHub",
+          "pass": true,
+          "exceptionsAdded": 1
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "copy": {
+        "05A/shortcut": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "المُطَوِّرُ الشِّ",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/shortcut": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\n    عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\n    عُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\n\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\n    عنصر أول في القائمة\n    عنصر ثان مع src/app/main.ts\n\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\n    عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\n    عُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\n\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\n    عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\n    عُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\n\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        },
+        "05A/menu-command": {
+          "selectedOff": "المُطَوِّرُ الشِّ",
+          "selectedOn": "المطور الش",
+          "plainOff": "المُطَوِّرُ الشِّ",
+          "plainOn": "المُطَوِّرُ الشِّ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "المُطَوِّرُ الشِّ",
+          "htmlOn": "المُطَوِّرُ الشِّ",
+          "htmlTagsOff": [],
+          "htmlTagsOn": [],
+          "diacriticsInPlainOn": 7
+        },
+        "05B/menu-command": {
+          "selectedOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\n    عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\n    عُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\n\nفِقْرَةٌ ",
+          "selectedOn": "أنا التجربة بتشغيل npm install ثم زرنا الدليل الرسمي للمزيد.\n\n    عنصر أول في القائمة\n    عنصر ثان مع src/app/main.ts\n\nفقرة ",
+          "plainOff": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\n    عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\n    عُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\n\nفِقْرَةٌ ",
+          "plainOn": "أْنَا التَّجْرِبَةَ بِتَشْغِيلِ npm install ثُمَّ زُرْنَا الدَّلِيلَ الرَّسْمِيَّ لِلْمَزِيدِ.\n\n    عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ\n    عُنْصُرٌ ثَانٍ مَعَ src/app/main.ts\n\nفِقْرَةٌ ",
+          "plainEqual": true,
+          "handlerRan": true,
+          "htmlTextEqual": true,
+          "htmlArabicEqual": true,
+          "htmlOff": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlOn": "<p dir=\"auto\">أْنَا <strong>التَّجْرِبَةَ</strong> بِتَشْغِيلِ <code>npm install</code> ثُمَّ زُرْنَا <a href=\"https://example.com/doc\">الدَّلِيلَ الرَّسْمِيَّ</a> لِلْمَزِيدِ.</p>\n  <ul>\n    <li>عُنْصُرٌ أَوَّلُ فِي القَائِمَةِ</li>\n    <li>عُنْصُرٌ ثَانٍ مَعَ <code>src/app/main.ts</code></li>\n  </ul>\n  <p dir=\"auto\">فِقْرَةٌ </p>",
+          "htmlTagsOff": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "htmlTagsOn": [
+            "strong",
+            "code",
+            "a",
+            "li"
+          ],
+          "diacriticsInPlainOn": 59
+        }
+      },
+      "drag": {
+        "syntheticPlain": "المُطَوِّرُ الشِّ",
+        "diacritics": 7,
+        "htmlHasDiacritics": true,
+        "native": "لم يُجرَ: السحب الأصلي لتحديد نصي لا يبدأ بأحداث الفأرة المصطنعة (Playwright وMarionette)"
+      },
+      "find": {
+        "off:كتب": {
+          "default": true,
+          "matchDiacritics": false
+        },
+        "off:كَتَبَ": {
+          "default": true,
+          "matchDiacritics": true
+        },
+        "off:المطور": {
+          "default": true,
+          "matchDiacritics": false
+        },
+        "off:المُطَوِّرُ": {
+          "default": true,
+          "matchDiacritics": true
+        },
+        "on:كتب": {
+          "default": true,
+          "matchDiacritics": true
+        },
+        "on:كَتَبَ": {
+          "default": true,
+          "matchDiacritics": false
+        },
+        "on:المطور": {
+          "default": true,
+          "matchDiacritics": true
+        },
+        "on:المُطَوِّرُ": {
+          "default": true,
+          "matchDiacritics": false
+        }
+      },
+      "live": {
+        "05D": {
+          "final": "النَّصُّ الجَدِيدُ المُحَدَّثُ",
+          "pass": true
+        },
+        "05F": {
+          "shownWhileOn": true,
+          "final": "تعليق مشكول سيحرره صاحبه.",
+          "pass": true
+        },
+        "05G": {
+          "orders": 24,
+          "pass": 24,
+          "failures": []
+        },
+        "replace": {
+          "final": "عقدة جديدة استبدلها GitHub",
+          "pass": true,
+          "exceptionsAdded": 1
+        }
+      }
+    }
+  ]
+}

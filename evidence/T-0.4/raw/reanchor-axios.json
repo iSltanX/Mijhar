@@ -1,0 +1,250 @@
+{
+  "method": "نص السطر بعد حذف المسافات الختامية + سياق ±2 (أربعة أسطر)؛ الأسطر الفارغة مستبعدة من المراسي",
+  "maxRevisionsPerFile": 40,
+  "results": [
+    {
+      "repo": "axios",
+      "path": "lib/adapters/http.js",
+      "revisions": 46,
+      "head": "ac90a5f24d",
+      "gaps": {
+        "1": {
+          "label": "التالية",
+          "pairs": 39,
+          "counts": {
+            "A": 15990,
+            "B": 25589,
+            "C": 197,
+            "D": 930,
+            "D_textUnique": 441,
+            "D_textMulti": 185,
+            "D_textGone": 304
+          },
+          "check": {
+            "A_ok": 15987,
+            "A_bad": 3,
+            "B_ok": 25588,
+            "B_wrongLine": 1,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 197,
+            "C_noTrue": 0,
+            "D_lineSurvived": 573,
+            "D_lineChanged": 357
+          },
+          "byKind": {
+            "normal": {
+              "A": 12923,
+              "B": 20176,
+              "C": 59,
+              "D": 759
+            },
+            "short": {
+              "A": 3067,
+              "B": 5413,
+              "C": 138,
+              "D": 171
+            }
+          }
+        },
+        "5": {
+          "label": "الخامسة بعدها",
+          "pairs": 35,
+          "counts": {
+            "A": 1771,
+            "B": 31640,
+            "C": 242,
+            "D": 3817,
+            "D_textUnique": 1719,
+            "D_textMulti": 777,
+            "D_textGone": 1321
+          },
+          "check": {
+            "A_ok": 1771,
+            "A_bad": 0,
+            "B_ok": 31635,
+            "B_wrongLine": 5,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 242,
+            "C_noTrue": 0,
+            "D_lineSurvived": 2261,
+            "D_lineChanged": 1556
+          },
+          "byKind": {
+            "normal": {
+              "A": 1609,
+              "B": 24950,
+              "C": 70,
+              "D": 3105
+            },
+            "short": {
+              "A": 162,
+              "B": 6690,
+              "C": 172,
+              "D": 712
+            }
+          }
+        },
+        "head": {
+          "label": "رأس الفرع",
+          "pairs": 39,
+          "counts": {
+            "A": 746,
+            "B": 28935,
+            "C": 335,
+            "D": 12690,
+            "D_textUnique": 5108,
+            "D_textMulti": 2615,
+            "D_textGone": 4967
+          },
+          "check": {
+            "A_ok": 746,
+            "A_bad": 0,
+            "B_ok": 28935,
+            "B_wrongLine": 0,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 335,
+            "C_noTrue": 0,
+            "D_lineSurvived": 6854,
+            "D_lineChanged": 5836
+          },
+          "byKind": {
+            "normal": {
+              "A": 715,
+              "B": 22723,
+              "C": 78,
+              "D": 10401
+            },
+            "short": {
+              "A": 31,
+              "B": 6212,
+              "C": 257,
+              "D": 2289
+            }
+          }
+        }
+      }
+    },
+    {
+      "repo": "axios",
+      "path": "README.md",
+      "revisions": 46,
+      "head": "f694ecd6ac",
+      "gaps": {
+        "1": {
+          "label": "التالية",
+          "pairs": 39,
+          "counts": {
+            "A": 23639,
+            "B": 51153,
+            "C": 1202,
+            "D": 769,
+            "D_textUnique": 274,
+            "D_textMulti": 216,
+            "D_textGone": 279
+          },
+          "check": {
+            "A_ok": 23630,
+            "A_bad": 9,
+            "B_ok": 51142,
+            "B_wrongLine": 8,
+            "B_noDiffMatch": 3,
+            "C_containsTrue": 1182,
+            "C_noTrue": 20,
+            "D_lineSurvived": 462,
+            "D_lineChanged": 307
+          },
+          "byKind": {
+            "normal": {
+              "A": 19173,
+              "B": 42443,
+              "C": 926,
+              "D": 665
+            },
+            "short": {
+              "A": 4466,
+              "B": 8710,
+              "C": 276,
+              "D": 104
+            }
+          }
+        },
+        "5": {
+          "label": "الخامسة بعدها",
+          "pairs": 35,
+          "counts": {
+            "A": 7622,
+            "B": 54943,
+            "C": 1546,
+            "D": 3460,
+            "D_textUnique": 1253,
+            "D_textMulti": 900,
+            "D_textGone": 1307
+          },
+          "check": {
+            "A_ok": 7620,
+            "A_bad": 2,
+            "B_ok": 54911,
+            "B_wrongLine": 27,
+            "B_noDiffMatch": 5,
+            "C_containsTrue": 1494,
+            "C_noTrue": 52,
+            "D_lineSurvived": 2033,
+            "D_lineChanged": 1427
+          },
+          "byKind": {
+            "normal": {
+              "A": 5854,
+              "B": 45691,
+              "C": 1146,
+              "D": 3008
+            },
+            "short": {
+              "A": 1768,
+              "B": 9252,
+              "C": 400,
+              "D": 452
+            }
+          }
+        },
+        "head": {
+          "label": "رأس الفرع",
+          "pairs": 39,
+          "counts": {
+            "A": 2745,
+            "B": 58894,
+            "C": 2947,
+            "D": 12177,
+            "D_textUnique": 4164,
+            "D_textMulti": 3104,
+            "D_textGone": 4909
+          },
+          "check": {
+            "A_ok": 2745,
+            "A_bad": 0,
+            "B_ok": 58826,
+            "B_wrongLine": 68,
+            "B_noDiffMatch": 0,
+            "C_containsTrue": 2787,
+            "C_noTrue": 160,
+            "D_lineSurvived": 6884,
+            "D_lineChanged": 5293
+          },
+          "byKind": {
+            "normal": {
+              "A": 2212,
+              "B": 48383,
+              "C": 2009,
+              "D": 10603
+            },
+            "short": {
+              "A": 533,
+              "B": 10511,
+              "C": 938,
+              "D": 1574
+            }
+          }
+        }
+      }
+    }
+  ]
+}

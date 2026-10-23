@@ -1,0 +1,5877 @@
+{
+  "tokensTotal": 29,
+  "sentences": 20,
+  "engines": [
+    {
+      "engine": "Translator API",
+      "browser": "chrome",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 0,
+            "rate": 0
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 20,
+            "rate": 1
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "قم بتشغيل code_0 قبل فتح term_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": "يوجد ملف التكوين في ⟦PATH_0 ويتم تحميله عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "⟦PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": "الترقية إلى ver_0 لإصلاح تسرب الذاكرة المبلغ عنه في REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "ver_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": "استخدم علامة Flag_0 لمعاينة التغييرات دون كتابة الملفات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "Flag_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "شكرا user_0 لمراجعة التصحيح بهذه السرعة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦USER_0⟧",
+              "form": "user_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": "راجع URL_0 للحصول على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "تقوم الدالة code_0 بإرجاع وعد يتم حله مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "الاختبارات تفشل في term_1 22 لأن code_0 مفقود في الوهمية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": "تحرير term_1 لتوثيق الخيار code_0 الجديد وقيمته الافتراضية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "term_1 caches node_modules بين عمليات التشغيل باستخدام path_0",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "path_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "إذا تم تعيين code_0 ، يتخطى البرنامج النصي الموجه التفاعلي.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "أعد تسمية PATH_0 إلى PATH_1 وقم بتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            },
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "الإصدار ⟦ver_0⟧ يسقط دعم term_1⟧ 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "⟦ver_0⟧"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1⟧"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "يرجى إعادة تأسيس فرعك على Main وحل الصراع في term_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦TERM_0⟧",
+              "form": "term_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": "استدعاء code_0 بعد تسجيل جميع المسارات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "تتم كتابة السجلات إلى path_1 عندما يكون المستوى code_0 أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            },
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "path_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "يغلق هذا التغيير REF_0 ويتناول جزئيًا REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": "اضبط code_0 على 5 في .env.example لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": "قم بتشغيل code_0 للعثور على الالتزام الذي أدخل الانحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": "يرفض وضع code_0 مفاتيح غير معروفة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "code_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (>>ara<<)",
+      "browser": "chrome",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 12,
+            "rate": 0.6
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "<>ara<<Rain.CDE_0. قبل فتح a.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": ">>ara<<يعيش ملف الملف في.PATH_0. ويتم تحميله عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": ">aar<>الارتقاء إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": ">>ar<<<استخدم العلم.FLAG_0. لمعاينة التغييرات بدون ملفات الكتابة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "<>ara><شكرا.USER_0. لمراجعة الرقعة بسرعة كبيرة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦USER_0⟧",
+              "form": "USER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": ">>ar<<انظر.URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة الدالة CODE_ 0. ترجع وعداً يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "<ara><الاختبارات تفشل على.Therm_1.22 لأن.CDE_0. مفقود في السخر.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": ">ara<> حرّر. orther_1. to document the new.CDE_0. this folder domination.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "<>ara<<. ortherm_1. resents node_modules بين عمليات استخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "<ara><إذا كان <.CDE_0. هو set، فإن النص سيتخطى الواجهة التفاعلية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "<>ar<<<إعادة تسمية.PATH_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            },
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "<>ara><الإطلاق.VER_0. قطرة الدعم ل.Trame_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "<>ar>> من فضلك أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": ">>ara<<اتصلي بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "<ara><لوغاريتمات مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "<>ar><هذا التغيير يغلق <.REF_0. وجزئياً العنوان reF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "reF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": ">>ara<<عِدّ.CDE_0. إلى 5 في.nv.expartal لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": ">>ara<>اركض.CDE_0. للعثور على من الذي ارتكب هذا الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": ">>ar<<>الأسلوب.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (بلا رمز اللغة)",
+      "browser": "chrome",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 15,
+            "rate": 0.75
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "تشغيل.CDE_0. قبل فتح a. term_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": "ملف التهيئة حي في.PATH_ 0. و هو مُحمّل عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "شكراً لك على مراجعة الرقعة بسرعة",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [
+            "⟦USER_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "Term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": "تحرير إلى توثيق جديد خيار و افتراضي قيمة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "orth_1. مخبأات نـد_مودول بين التشغيلات باستخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "إعادة تسمية. pathh_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦PATH_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "الإطلاق ver_0. miner production for. term_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "ver_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "وهذا التغيير يغلق REF_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [
+            "⟦REF_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": "state. CODE_0. to 5 in. env. exaple لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": "تشغيل CODE_0. إلى إيجاد أيّ إرتكب إقتحاماً أدخل الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": "نمط.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (>>ara<<)",
+      "browser": "edge",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 12,
+            "rate": 0.6
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "<>ara<<Rain.CDE_0. قبل فتح a.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": ">>ara<<يعيش ملف الملف في.PATH_0. ويتم تحميله عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": ">aar<>الارتقاء إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": ">>ar<<<استخدم العلم.FLAG_0. لمعاينة التغييرات بدون ملفات الكتابة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "<>ara><شكرا.USER_0. لمراجعة الرقعة بسرعة كبيرة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦USER_0⟧",
+              "form": "USER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": ">>ar<<انظر.URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة الدالة CODE_ 0. ترجع وعداً يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "<ara><الاختبارات تفشل على.Therm_1.22 لأن.CDE_0. مفقود في السخر.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": ">ara<> حرّر. orther_1. to document the new.CDE_0. this folder domination.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "<>ara<<. ortherm_1. resents node_modules بين عمليات استخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "<ara><إذا كان <.CDE_0. هو set، فإن النص سيتخطى الواجهة التفاعلية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "<>ar<<<إعادة تسمية.PATH_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            },
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "<>ara><الإطلاق.VER_0. قطرة الدعم ل.Trame_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "<>ar>> من فضلك أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": ">>ara<<اتصلي بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "<ara><لوغاريتمات مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "<>ar><هذا التغيير يغلق <.REF_0. وجزئياً العنوان reF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "reF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": ">>ara<<عِدّ.CDE_0. إلى 5 في.nv.expartal لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": ">>ara<>اركض.CDE_0. للعثور على من الذي ارتكب هذا الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": ">>ar<<>الأسلوب.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (بلا رمز اللغة)",
+      "browser": "edge",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 15,
+            "rate": 0.75
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "تشغيل.CDE_0. قبل فتح a. term_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": "ملف التهيئة حي في.PATH_ 0. و هو مُحمّل عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "شكراً لك على مراجعة الرقعة بسرعة",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [
+            "⟦USER_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "Term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": "تحرير إلى توثيق جديد خيار و افتراضي قيمة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "orth_1. مخبأات نـد_مودول بين التشغيلات باستخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "إعادة تسمية. pathh_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦PATH_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "الإطلاق ver_0. miner production for. term_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "ver_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "وهذا التغيير يغلق REF_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [
+            "⟦REF_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": "state. CODE_0. to 5 in. env. exaple لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": "تشغيل CODE_0. إلى إيجاد أيّ إرتكب إقتحاماً أدخل الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": "نمط.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (>>ara<<)",
+      "browser": "brave",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 12,
+            "rate": 0.6
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "<>ara<<Rain.CDE_0. قبل فتح a.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": ">>ara<<يعيش ملف الملف في.PATH_0. ويتم تحميله عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": ">aar<>الارتقاء إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": ">>ar<<<استخدم العلم.FLAG_0. لمعاينة التغييرات بدون ملفات الكتابة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "<>ara><شكرا.USER_0. لمراجعة الرقعة بسرعة كبيرة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦USER_0⟧",
+              "form": "USER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": ">>ar<<انظر.URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة الدالة CODE_ 0. ترجع وعداً يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "<ara><الاختبارات تفشل على.Therm_1.22 لأن.CDE_0. مفقود في السخر.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": ">ara<> حرّر. orther_1. to document the new.CDE_0. this folder domination.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "<>ara<<. ortherm_1. resents node_modules بين عمليات استخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "<ara><إذا كان <.CDE_0. هو set، فإن النص سيتخطى الواجهة التفاعلية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "<>ar<<<إعادة تسمية.PATH_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            },
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "<>ara><الإطلاق.VER_0. قطرة الدعم ل.Trame_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "<>ar>> من فضلك أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": ">>ara<<اتصلي بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "<ara><لوغاريتمات مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "<>ar><هذا التغيير يغلق <.REF_0. وجزئياً العنوان reF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "reF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": ">>ara<<عِدّ.CDE_0. إلى 5 في.nv.expartal لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": ">>ara<>اركض.CDE_0. للعثور على من الذي ارتكب هذا الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": ">>ar<<>الأسلوب.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (بلا رمز اللغة)",
+      "browser": "brave",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 15,
+            "rate": 0.75
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "تشغيل.CDE_0. قبل فتح a. term_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": "ملف التهيئة حي في.PATH_ 0. و هو مُحمّل عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "شكراً لك على مراجعة الرقعة بسرعة",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [
+            "⟦USER_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "Term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": "تحرير إلى توثيق جديد خيار و افتراضي قيمة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "orth_1. مخبأات نـد_مودول بين التشغيلات باستخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "إعادة تسمية. pathh_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦PATH_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "الإطلاق ver_0. miner production for. term_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "ver_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "وهذا التغيير يغلق REF_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [
+            "⟦REF_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": "state. CODE_0. to 5 in. env. exaple لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": "تشغيل CODE_0. إلى إيجاد أيّ إرتكب إقتحاماً أدخل الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": "نمط.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (>>ara<<)",
+      "browser": "firefox",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 12,
+            "rate": 0.6
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "<>ara<<Rain.CDE_0. قبل فتح a.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": ">>ara<<يعيش ملف الملف في.PATH_0. ويتم تحميله عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": ">aar<>الارتقاء إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": ">>ar<<<استخدم العلم.FLAG_0. لمعاينة التغييرات بدون ملفات الكتابة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "<>ara><شكرا.USER_0. لمراجعة الرقعة بسرعة كبيرة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦USER_0⟧",
+              "form": "USER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": ">>ar<<انظر.URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة الدالة CODE_ 0. ترجع وعداً يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "<ara><الاختبارات تفشل على.Therm_1.22 لأن.CDE_0. مفقود في السخر.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": ">ara<> حرّر. orther_1. to document the new.CDE_0. this folder domination.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "<>ara<<. ortherm_1. resents node_modules بين عمليات استخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "<ara><إذا كان <.CDE_0. هو set، فإن النص سيتخطى الواجهة التفاعلية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "<>ar<<<إعادة تسمية.PATH_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            },
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "<>ara><الإطلاق.VER_0. قطرة الدعم ل.Trame_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "<>ar>> من فضلك أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": ">>ara<<اتصلي بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "<ara><لوغاريتمات مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "<>ar><هذا التغيير يغلق <.REF_0. وجزئياً العنوان reF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "reF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": ">>ara<<عِدّ.CDE_0. إلى 5 في.nv.expartal لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": ">>ara<>اركض.CDE_0. للعثور على من الذي ارتكب هذا الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": ">>ar<<>الأسلوب.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "ONNX opus-mt-en-ar (بلا رمز اللغة)",
+      "browser": "firefox",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 15,
+            "rate": 0.75
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "تشغيل.CDE_0. قبل فتح a. term_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": "ملف التهيئة حي في.PATH_ 0. و هو مُحمّل عند بدء التشغيل.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "شكراً لك على مراجعة الرقعة بسرعة",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [
+            "⟦USER_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "Term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": "تحرير إلى توثيق جديد خيار و افتراضي قيمة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "orth_1. مخبأات نـد_مودول بين التشغيلات باستخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "إعادة تسمية. pathh_0. إلى.PATH_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦PATH_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "الإطلاق ver_0. miner production for. term_1. 4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "ver_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "وهذا التغيير يغلق REF_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [
+            "⟦REF_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": "state. CODE_0. to 5 in. env. exaple لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": "تشغيل CODE_0. إلى إيجاد أيّ إرتكب إقتحاماً أدخل الإنحدار.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": "نمط.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    },
+    {
+      "engine": "Firefox trial.ml",
+      "browser": "firefox",
+      "summary": {
+        "total": 20,
+        "pass": 0,
+        "failRate": 1,
+        "byType": {
+          "فقد": {
+            "count": 11,
+            "rate": 0.55
+          },
+          "تكرار": {
+            "count": 0,
+            "rate": 0
+          },
+          "تحريف": {
+            "count": 14,
+            "rate": 0.7
+          },
+          "اختلاق": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "input": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+          "output": "تشغيل. DED_0. قبل فتح a. term_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 1,
+          "input": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+          "output": "ملف الـ ملفّ بوصة و هو مُحمّل عند بدء.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦PATH_0⟧"
+          ],
+          "lost": [
+            "⟦PATH_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 2,
+          "input": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+          "output": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "VER_0"
+            },
+            {
+              "token": "⟦REF_1⟧",
+              "form": "REF_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 3,
+          "input": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+          "output": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦FLAG_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦FLAG_0⟧",
+              "form": "FLAG_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 4,
+          "input": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+          "output": "شكراً لك على مراجعة الرقعة بسرعة",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦USER_0⟧"
+          ],
+          "lost": [
+            "⟦USER_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 5,
+          "input": "See ⟦URL_0⟧ for the full list of events.",
+          "output": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦URL_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦URL_0⟧",
+              "form": "URL_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 6,
+          "input": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+          "output": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 7,
+          "input": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+          "output": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "Term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 8,
+          "input": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+          "output": "تحرير إلى توثيق جديد خيار و افتراضي قيمة.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 9,
+          "input": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+          "output": "orterm_1. المخابئ نـد_مودول بين التشغيلات باستخدام.PATH_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦PATH_0⟧",
+              "form": "PATH_0"
+            },
+            {
+              "token": "⟦TERM_1⟧",
+              "form": "term_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 10,
+          "input": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+          "output": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_ 0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 11,
+          "input": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+          "output": "إعادة تسمية pathh_0. إلى pathh_1. وتحديث جميع الواردات.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦PATH_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 12,
+          "input": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+          "output": "الإصدار. فير_0. قطرة دعم ل.Therm_1.4.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦VER_0⟧",
+            "⟦TERM_1⟧"
+          ],
+          "lost": [
+            "⟦TERM_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦VER_0⟧",
+              "form": "فير_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 13,
+          "input": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+          "output": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد"
+          ],
+          "missing": [
+            "⟦TERM_0⟧"
+          ],
+          "lost": [
+            "⟦TERM_0⟧"
+          ],
+          "distorted": [],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 14,
+          "input": "Call ⟦CODE_0⟧ after registering all routes.",
+          "output": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 15,
+          "input": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+          "output": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧",
+            "⟦PATH_1⟧"
+          ],
+          "lost": [
+            "⟦CODE_0⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦PATH_1⟧",
+              "form": "PATH_1"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 16,
+          "input": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+          "output": "وهذا التغيير يغلق العنوان REF_0.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "فقد",
+            "تحريف"
+          ],
+          "missing": [
+            "⟦REF_0⟧",
+            "⟦REF_1⟧"
+          ],
+          "lost": [
+            "⟦REF_1⟧"
+          ],
+          "distorted": [
+            {
+              "token": "⟦REF_0⟧",
+              "form": "REF_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 17,
+          "input": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+          "output": "state. CODE_0. to 5 في. env. exaple لمطابقة الإنتاج.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 18,
+          "input": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+          "output": "تشغيل CODE_0. لمعرفة من الذي ارتكب الفعل الذي أدخل التراجع.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        },
+        {
+          "i": 19,
+          "input": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+          "output": "نمط CODE_0 رفض مفاتيح مجهولة في مخطط YAML.",
+          "pass": false,
+          "checks": {
+            "count": false,
+            "identity": false,
+            "noDuplication": true,
+            "noFabrication": true
+          },
+          "failures": [
+            "تحريف"
+          ],
+          "missing": [
+            "⟦CODE_0⟧"
+          ],
+          "lost": [],
+          "distorted": [
+            {
+              "token": "⟦CODE_0⟧",
+              "form": "CODE_0"
+            }
+          ],
+          "duplicated": [],
+          "fabricated": []
+        }
+      ]
+    }
+  ]
+}

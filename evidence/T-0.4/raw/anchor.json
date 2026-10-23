@@ -1,0 +1,870 @@
+{
+  "browser": "156.0.8078.47",
+  "measuredAt": "2026-10-23T05:50:28.580Z",
+  "results": [
+    {
+      "type": "blob",
+      "note": "فرع افتراضي، نطاق أسطر",
+      "url": "https://github.com/expressjs/express/blob/master/lib/response.js#L100-L110",
+      "extracted": {
+        "nwo": {
+          "value": "expressjs/express",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "blob#show",
+        "branch": {
+          "value": "master",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.name",
+          "refType": null
+        },
+        "commit": {
+          "value": "0dee2c52c7c873498f8ed7d8ee4ddd0a04d3ada8",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.currentOid"
+        },
+        "path": {
+          "value": "lib/response.js",
+          "source": "embeddedData codeViewLayoutRoute.path"
+        },
+        "lines": {
+          "value": [
+            100,
+            110
+          ],
+          "source": "location.hash #L<n>-L<m>"
+        },
+        "lineDom": {
+          "lc": true,
+          "dataLineNumber": true
+        },
+        "isBinaryOrRendered": {
+          "lcCount": 1050,
+          "markdownBody": false,
+          "img": false
+        },
+        "permalink": "https://github.com/expressjs/express/blob/0dee2c52c7c873498f8ed7d8ee4ddd0a04d3ada8/lib/response.js#L100-L110"
+      },
+      "yUrl": "https://github.com/expressjs/express/blob/0dee2c52c7c873498f8ed7d8ee4ddd0a04d3ada8/lib/response.js#L100-L110",
+      "permalinkMatchesY": true
+    },
+    {
+      "type": "blob",
+      "note": "فرع باسم فيه شرطة مائلة",
+      "url": "https://github.com/axios/axios/blob/chore/v2-pnpm-monorepo/README.md?plain=1#L5",
+      "extracted": {
+        "nwo": {
+          "value": "axios/axios",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "blob#show",
+        "branch": {
+          "value": "chore/v2-pnpm-monorepo",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.name",
+          "refType": null
+        },
+        "commit": {
+          "value": "33d415f785b1c8a8bd66703b8549bb1f8b05c803",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.currentOid"
+        },
+        "path": {
+          "value": "README.md",
+          "source": "embeddedData codeViewLayoutRoute.path"
+        },
+        "lines": {
+          "value": [
+            5,
+            5
+          ],
+          "source": "location.hash #L<n>-L<m>"
+        },
+        "lineDom": {
+          "lc": true,
+          "dataLineNumber": true
+        },
+        "isBinaryOrRendered": {
+          "lcCount": 31,
+          "markdownBody": false,
+          "img": false
+        },
+        "permalink": "https://github.com/axios/axios/blob/33d415f785b1c8a8bd66703b8549bb1f8b05c803/README.md#L5"
+      },
+      "yUrl": "https://github.com/axios/axios/blob/33d415f785b1c8a8bd66703b8549bb1f8b05c803/README.md#L5",
+      "permalinkMatchesY": true
+    },
+    {
+      "type": "blob",
+      "note": "وسم (tag)",
+      "url": "https://github.com/expressjs/express/blob/v5.3.0/lib/application.js#L42",
+      "extracted": {
+        "nwo": {
+          "value": "expressjs/express",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "blob#show",
+        "branch": {
+          "value": "v5.3.0",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.name",
+          "refType": null
+        },
+        "commit": {
+          "value": "cf6722bf89a86905281d9160b6482e08166b5ef0",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.currentOid"
+        },
+        "path": {
+          "value": "lib/application.js",
+          "source": "embeddedData codeViewLayoutRoute.path"
+        },
+        "lines": {
+          "value": [
+            42,
+            42
+          ],
+          "source": "location.hash #L<n>-L<m>"
+        },
+        "lineDom": {
+          "lc": true,
+          "dataLineNumber": true
+        },
+        "isBinaryOrRendered": {
+          "lcCount": 631,
+          "markdownBody": false,
+          "img": false
+        },
+        "permalink": "https://github.com/expressjs/express/blob/cf6722bf89a86905281d9160b6482e08166b5ef0/lib/application.js#L42"
+      },
+      "yUrl": "https://github.com/expressjs/express/blob/cf6722bf89a86905281d9160b6482e08166b5ef0/lib/application.js#L42",
+      "permalinkMatchesY": true
+    },
+    {
+      "type": "blob",
+      "note": "رابط ثابت على التزام",
+      "url": "https://github.com/nodejs/node/blob/04e330617369cb79fef577da236c52f04380023c/lib/fs.js#L20-L25",
+      "extracted": {
+        "nwo": {
+          "value": "nodejs/node",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "blob#show",
+        "branch": {
+          "value": "04e330617369cb79fef577da236c52f04380023c",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.name",
+          "refType": null
+        },
+        "commit": {
+          "value": "04e330617369cb79fef577da236c52f04380023c",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.currentOid"
+        },
+        "path": {
+          "value": "lib/fs.js",
+          "source": "embeddedData codeViewLayoutRoute.path"
+        },
+        "lines": {
+          "value": [
+            20,
+            25
+          ],
+          "source": "location.hash #L<n>-L<m>"
+        },
+        "lineDom": {
+          "lc": true,
+          "dataLineNumber": true
+        },
+        "isBinaryOrRendered": {
+          "lcCount": 238,
+          "markdownBody": false,
+          "img": false
+        },
+        "permalink": "https://github.com/nodejs/node/blob/04e330617369cb79fef577da236c52f04380023c/lib/fs.js#L20-L25"
+      },
+      "yUrl": "https://github.com/nodejs/node/blob/04e330617369cb79fef577da236c52f04380023c/lib/fs.js#L20-L25",
+      "permalinkMatchesY": true
+    },
+    {
+      "type": "blob",
+      "note": "Markdown معروض بلا plain",
+      "url": "https://github.com/pallets/flask/blob/main/README.md#L3",
+      "extracted": {
+        "nwo": {
+          "value": "pallets/flask",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "blob#show",
+        "branch": {
+          "value": "main",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.name",
+          "refType": null
+        },
+        "commit": {
+          "value": "d086db856be187255b8ec61ef409357393020f32",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.currentOid"
+        },
+        "path": {
+          "value": "README.md",
+          "source": "embeddedData codeViewLayoutRoute.path"
+        },
+        "lines": {
+          "value": [
+            3,
+            3
+          ],
+          "source": "location.hash #L<n>-L<m>"
+        },
+        "lineDom": {
+          "lc": false,
+          "dataLineNumber": false
+        },
+        "isBinaryOrRendered": {
+          "lcCount": 0,
+          "markdownBody": true,
+          "img": true
+        },
+        "permalink": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/README.md#L3"
+      },
+      "yUrl": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/README.md#L3",
+      "permalinkMatchesY": true
+    },
+    {
+      "type": "blob",
+      "note": "ملف ثنائي (صورة)",
+      "url": "https://github.com/axios/axios/blob/v1.x/logo.svg",
+      "extracted": {
+        "nwo": {
+          "value": "axios/axios",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "blob#show",
+        "branch": {
+          "value": "v1.x",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.name",
+          "refType": null
+        },
+        "commit": {
+          "value": "e6b79d9cef796ca3a903bb83e51d4752b019fd67",
+          "source": "embeddedData codeViewLayoutRoute.refInfo.currentOid"
+        },
+        "path": {
+          "value": "logo.svg",
+          "source": "embeddedData codeViewLayoutRoute.path"
+        },
+        "lines": {
+          "value": null,
+          "source": "location.hash #L<n>-L<m>"
+        },
+        "lineDom": null,
+        "isBinaryOrRendered": {
+          "lcCount": 0,
+          "markdownBody": false,
+          "img": false
+        },
+        "permalink": "https://github.com/axios/axios/blob/e6b79d9cef796ca3a903bb83e51d4752b019fd67/logo.svg"
+      },
+      "yUrl": "https://github.com/axios/axios/blob/e6b79d9cef796ca3a903bb83e51d4752b019fd67/logo.svg",
+      "permalinkMatchesY": true
+    },
+    {
+      "type": "commit",
+      "note": "صفحة التزام",
+      "url": "https://github.com/expressjs/express/commit/cf6722bf89a86905281d9160b6482e08166b5ef0",
+      "extracted": {
+        "nwo": {
+          "value": "expressjs/express",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "commit#show",
+        "commit": {
+          "value": "cf6722bf89a86905281d9160b6482e08166b5ef0",
+          "source": "embeddedData commitRoute.commit.oid"
+        },
+        "branch": {
+          "value": null,
+          "source": "الالتزام لا ينتمي إلى فرع واحد في الصفحة (قائمة الفروع تُحمَّل لاحقًا)"
+        },
+        "paths": {
+          "value": [
+            "History.md",
+            "package.json"
+          ],
+          "source": "embeddedData commitRoute.diffEntryData[].path"
+        },
+        "domPaths": [
+          "History.md",
+          "package.json"
+        ],
+        "diffAnchors": [
+          "diff-abfa5988643af1b8b2600aac13b273922dbb3372e021bf1d7caadfe7473c9561",
+          "diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519"
+        ],
+        "lineAnchors": [
+          "diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R1",
+          "diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R2",
+          "diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R3",
+          "diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519L4",
+          "diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R4",
+          "diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R5"
+        ]
+      }
+    },
+    {
+      "type": "pull-files",
+      "note": "ملفات PR",
+      "url": "https://github.com/nodejs/node/pull/66911/files",
+      "extracted": {
+        "nwo": {
+          "value": "nodejs/node",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "pull_requests#files",
+        "paths": {
+          "value": [
+            "doc/api/cli.md",
+            "doc/api/test.md",
+            "lib/internal/main/test_runner.js",
+            "lib/internal/test_runner/runner.js",
+            "test/parallel/test-runner-cli-argv.js"
+          ],
+          "source": "[data-tagsearch-path] / [data-path]"
+        },
+        "anchors": [
+          {
+            "path": "doc/api/cli.md",
+            "anchor": "diff-7349c17bce4d97526eefcb6f8291d617e7edb92ed9927fd3b9264e8014fc4e7c"
+          },
+          {
+            "path": "doc/api/cli.md",
+            "anchor": "diff-7349c17bce4d97526eefcb6f8291d617e7edb92ed9927fd3b9264e8014fc4e7c"
+          },
+          {
+            "path": "doc/api/test.md",
+            "anchor": "diff-7ef19622f4f1c831ca0e6ed0edc03cb517f16969f1f1b0972a117bd3fa65c44a"
+          },
+          {
+            "path": "doc/api/test.md",
+            "anchor": "diff-7ef19622f4f1c831ca0e6ed0edc03cb517f16969f1f1b0972a117bd3fa65c44a"
+          },
+          {
+            "path": "lib/internal/main/test_runner.js",
+            "anchor": "diff-1a8f92c415a79f46491ffbb54474b19b628bf4e4754187ada3dfd4cf48b973ef"
+          },
+          {
+            "path": "lib/internal/main/test_runner.js",
+            "anchor": "diff-1a8f92c415a79f46491ffbb54474b19b628bf4e4754187ada3dfd4cf48b973ef"
+          },
+          {
+            "path": "lib/internal/test_runner/runner.js",
+            "anchor": "diff-840cee72cdda14be90e6c5607ffa844eaf73be966607ddc834cc667bd142fb21"
+          },
+          {
+            "path": "lib/internal/test_runner/runner.js",
+            "anchor": "diff-840cee72cdda14be90e6c5607ffa844eaf73be966607ddc834cc667bd142fb21"
+          },
+          {
+            "path": "test/parallel/test-runner-cli-argv.js",
+            "anchor": "diff-3c5d4769001c3072c6e649cb72563ee570a84420ac46573ae1e5145446547212"
+          },
+          {
+            "path": "test/parallel/test-runner-cli-argv.js",
+            "anchor": "diff-3c5d4769001c3072c6e649cb72563ee570a84420ac46573ae1e5145446547212"
+          }
+        ],
+        "commit": {
+          "value": [
+            "04e330617369cb79fef577da236c52f04380023c"
+          ],
+          "source": "روابط «View file» (/blob/<sha>/)"
+        },
+        "lineCells": {
+          "count": 116,
+          "sampleId": "diff-7349c17bce4d97526eefcb6f8291d617e7edb92ed9927fd3b9264e8014fc4e7cL3147",
+          "sampleClass": "blob-num blob-num-context js-linkable-line-number"
+        },
+        "branch": {
+          "value": [
+            "nodejs:main",
+            "mcollina:test-runner-forward-argv"
+          ],
+          "source": ".head-ref/.base-ref/.commit-ref"
+        }
+      },
+      "anchorCheck": [
+        {
+          "path": "doc/api/cli.md",
+          "ok": true
+        },
+        {
+          "path": "doc/api/cli.md",
+          "ok": true
+        },
+        {
+          "path": "doc/api/test.md",
+          "ok": true
+        },
+        {
+          "path": "doc/api/test.md",
+          "ok": true
+        },
+        {
+          "path": "lib/internal/main/test_runner.js",
+          "ok": true
+        },
+        {
+          "path": "lib/internal/main/test_runner.js",
+          "ok": true
+        },
+        {
+          "path": "lib/internal/test_runner/runner.js",
+          "ok": true
+        },
+        {
+          "path": "lib/internal/test_runner/runner.js",
+          "ok": true
+        },
+        {
+          "path": "test/parallel/test-runner-cli-argv.js",
+          "ok": true
+        },
+        {
+          "path": "test/parallel/test-runner-cli-argv.js",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "type": "compare",
+      "note": "مقارنة وسمين",
+      "url": "https://github.com/expressjs/express/compare/v5.2.1...v5.3.0",
+      "extracted": {
+        "nwo": {
+          "value": "expressjs/express",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "compare#show",
+        "paths": {
+          "value": [
+            ".github/dependabot.yml",
+            ".github/workflows/ci.yml",
+            ".github/workflows/codeql.yml",
+            ".github/workflows/legacy.yml",
+            ".github/workflows/npm-publish.yml",
+            ".github/workflows/scorecard.yml",
+            ".npmrc",
+            "History.md",
+            "Readme.md",
+            "SECURITY.md",
+            "benchmarks/Makefile",
+            "benchmarks/README.md",
+            "benchmarks/middleware.js",
+            "benchmarks/run",
+            "examples/auth/index.js",
+            "examples/ejs/index.js",
+            "examples/mvc/controllers/user/index.js",
+            "examples/route-middleware/index.js",
+            "examples/search/index.js",
+            "lib/application.js",
+            "lib/request.js",
+            "lib/response.js",
+            "package.json",
+            "test/acceptance/downloads.js",
+            "test/app.render.js",
+            "test/app.router.js",
+            "test/req.acceptsCharsets.js",
+            "test/req.fresh.js",
+            "test/res.attachment.js",
+            "test/res.download.js",
+            "test/res.jsonp.js",
+            "test/res.location.js",
+            "test/res.redirect.js",
+            "test/res.send.js",
+            "test/res.type.js",
+            "test/utils.js"
+          ],
+          "source": "[data-tagsearch-path] / [data-path]"
+        },
+        "anchors": [
+          {
+            "path": ".github/dependabot.yml",
+            "anchor": "diff-dd4fbda47e51f1e35defb9275a9cd9c212ecde0b870cba89ddaaae65c5f3cd28"
+          },
+          {
+            "path": ".github/dependabot.yml",
+            "anchor": "diff-dd4fbda47e51f1e35defb9275a9cd9c212ecde0b870cba89ddaaae65c5f3cd28"
+          },
+          {
+            "path": ".github/workflows/ci.yml",
+            "anchor": "diff-b803fcb7f17ed9235f1e5cb1fcd2f5d3b2838429d4368ae4c57ce4436577f03f"
+          },
+          {
+            "path": ".github/workflows/ci.yml",
+            "anchor": "diff-b803fcb7f17ed9235f1e5cb1fcd2f5d3b2838429d4368ae4c57ce4436577f03f"
+          },
+          {
+            "path": ".github/workflows/codeql.yml",
+            "anchor": "diff-12783128521e452af0cfac94b99b8d250413c516ec71fe6d97dbea666ff7ba27"
+          },
+          {
+            "path": ".github/workflows/codeql.yml",
+            "anchor": "diff-12783128521e452af0cfac94b99b8d250413c516ec71fe6d97dbea666ff7ba27"
+          },
+          {
+            "path": ".github/workflows/legacy.yml",
+            "anchor": "diff-93839e628ad7aa79fc7bc3643bc1bab34ccc11c677e6fdac65d2a05ce4c77495"
+          },
+          {
+            "path": ".github/workflows/legacy.yml",
+            "anchor": "diff-93839e628ad7aa79fc7bc3643bc1bab34ccc11c677e6fdac65d2a05ce4c77495"
+          },
+          {
+            "path": ".github/workflows/npm-publish.yml",
+            "anchor": "diff-8a5ce8b612395836520d0655143f732d08e747af57f3cfe76b5e283600106240"
+          },
+          {
+            "path": ".github/workflows/npm-publish.yml",
+            "anchor": "diff-8a5ce8b612395836520d0655143f732d08e747af57f3cfe76b5e283600106240"
+          },
+          {
+            "path": ".github/workflows/scorecard.yml",
+            "anchor": "diff-2e3112f4e81a9c47df8000638ce3b1b9ca15edcc82b228c207a7a4ff3bc7133f"
+          },
+          {
+            "path": ".github/workflows/scorecard.yml",
+            "anchor": "diff-2e3112f4e81a9c47df8000638ce3b1b9ca15edcc82b228c207a7a4ff3bc7133f"
+          },
+          {
+            "path": ".npmrc",
+            "anchor": "diff-e813096d69c49812e40e00be9ac8fa14d77f0ec1f97ab4c45cb096b3bedd35de"
+          },
+          {
+            "path": ".npmrc",
+            "anchor": "diff-e813096d69c49812e40e00be9ac8fa14d77f0ec1f97ab4c45cb096b3bedd35de"
+          },
+          {
+            "path": "History.md",
+            "anchor": "diff-abfa5988643af1b8b2600aac13b273922dbb3372e021bf1d7caadfe7473c9561"
+          },
+          {
+            "path": "History.md",
+            "anchor": "diff-abfa5988643af1b8b2600aac13b273922dbb3372e021bf1d7caadfe7473c9561"
+          },
+          {
+            "path": "Readme.md",
+            "anchor": "diff-1550ec65ac92f65817fc28928dfef526912b5f52356ff43651369bae92f56031"
+          },
+          {
+            "path": "Readme.md",
+            "anchor": "diff-1550ec65ac92f65817fc28928dfef526912b5f52356ff43651369bae92f56031"
+          },
+          {
+            "path": "SECURITY.md",
+            "anchor": "diff-f6ed156e4bf5c791680662464b94ea5d753f219ee816b385f67870e2c0d7d4c7"
+          },
+          {
+            "path": "SECURITY.md",
+            "anchor": "diff-f6ed156e4bf5c791680662464b94ea5d753f219ee816b385f67870e2c0d7d4c7"
+          },
+          {
+            "path": "benchmarks/Makefile",
+            "anchor": "diff-1f1c22a880844378b3b6c86e5b5c65b5d5a54fd8589d706dc37ba0d6e8111bce"
+          },
+          {
+            "path": "benchmarks/Makefile",
+            "anchor": "diff-1f1c22a880844378b3b6c86e5b5c65b5d5a54fd8589d706dc37ba0d6e8111bce"
+          },
+          {
+            "path": "benchmarks/README.md",
+            "anchor": "diff-576c27794bae284efc278336a16d0649aaf599973a64d4b65dc67bc99bb7f000"
+          },
+          {
+            "path": "benchmarks/README.md",
+            "anchor": "diff-576c27794bae284efc278336a16d0649aaf599973a64d4b65dc67bc99bb7f000"
+          },
+          {
+            "path": "benchmarks/middleware.js",
+            "anchor": "diff-a788d6092f1294ebd65718889737d55d80c5715df9a64cdfc2d217a8186393b4"
+          },
+          {
+            "path": "benchmarks/middleware.js",
+            "anchor": "diff-a788d6092f1294ebd65718889737d55d80c5715df9a64cdfc2d217a8186393b4"
+          },
+          {
+            "path": "benchmarks/run",
+            "anchor": "diff-0a5a815665f2c31975681b43bc29b95beb63be80499dc9475de5fe8fb5519783"
+          },
+          {
+            "path": "benchmarks/run",
+            "anchor": "diff-0a5a815665f2c31975681b43bc29b95beb63be80499dc9475de5fe8fb5519783"
+          },
+          {
+            "path": "examples/auth/index.js",
+            "anchor": "diff-7c376d97e1d986651d072a4c3df437de182dfbf4687b56ff79ae0ff9993b6c52"
+          },
+          {
+            "path": "examples/auth/index.js",
+            "anchor": "diff-7c376d97e1d986651d072a4c3df437de182dfbf4687b56ff79ae0ff9993b6c52"
+          },
+          {
+            "path": "examples/ejs/index.js",
+            "anchor": "diff-cca7c350b8fb056e9490106568c3ffc0552a3307553d8593a8c7a67021995c64"
+          },
+          {
+            "path": "examples/ejs/index.js",
+            "anchor": "diff-cca7c350b8fb056e9490106568c3ffc0552a3307553d8593a8c7a67021995c64"
+          },
+          {
+            "path": "examples/mvc/controllers/user/index.js",
+            "anchor": "diff-1fbf7cdb3e1c159dbf1edbbd9f49893050b95910bcfd7436aa014943bd763fea"
+          },
+          {
+            "path": "examples/mvc/controllers/user/index.js",
+            "anchor": "diff-1fbf7cdb3e1c159dbf1edbbd9f49893050b95910bcfd7436aa014943bd763fea"
+          },
+          {
+            "path": "examples/route-middleware/index.js",
+            "anchor": "diff-5480ed23e3b2983b46c61a3a95a49ded40b4f83b92801928d1d86d21e4f4533e"
+          },
+          {
+            "path": "examples/route-middleware/index.js",
+            "anchor": "diff-5480ed23e3b2983b46c61a3a95a49ded40b4f83b92801928d1d86d21e4f4533e"
+          },
+          {
+            "path": "examples/search/index.js",
+            "anchor": "diff-beaf1b23f4e430db4db9d3531511b4499714f1bedb9786468faa39f87113e9f3"
+          },
+          {
+            "path": "examples/search/index.js",
+            "anchor": "diff-beaf1b23f4e430db4db9d3531511b4499714f1bedb9786468faa39f87113e9f3"
+          },
+          {
+            "path": "lib/application.js",
+            "anchor": "diff-17c1ca7f930cd47c534a89fbdfe848b46c6fe27f464f13afd5af6236b3d1dd25"
+          },
+          {
+            "path": "lib/application.js",
+            "anchor": "diff-17c1ca7f930cd47c534a89fbdfe848b46c6fe27f464f13afd5af6236b3d1dd25"
+          }
+        ],
+        "commit": {
+          "value": [
+            "cf6722bf89a86905281d9160b6482e08166b5ef0",
+            "dbac741a49a5a64336b70c06e85c2e2706e36336"
+          ],
+          "source": "روابط «View file» (/blob/<sha>/)"
+        },
+        "lineCells": {
+          "count": 1915,
+          "sampleId": "diff-dd4fbda47e51f1e35defb9275a9cd9c212ecde0b870cba89ddaaae65c5f3cd28L4",
+          "sampleClass": "blob-num blob-num-context js-linkable-line-number"
+        },
+        "branch": {
+          "value": [],
+          "source": ".head-ref/.base-ref/.commit-ref"
+        }
+      },
+      "anchorCheck": [
+        {
+          "path": ".github/dependabot.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/dependabot.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/codeql.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/codeql.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/legacy.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/legacy.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/npm-publish.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/npm-publish.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/scorecard.yml",
+          "ok": true
+        },
+        {
+          "path": ".github/workflows/scorecard.yml",
+          "ok": true
+        },
+        {
+          "path": ".npmrc",
+          "ok": true
+        },
+        {
+          "path": ".npmrc",
+          "ok": true
+        },
+        {
+          "path": "History.md",
+          "ok": true
+        },
+        {
+          "path": "History.md",
+          "ok": true
+        },
+        {
+          "path": "Readme.md",
+          "ok": true
+        },
+        {
+          "path": "Readme.md",
+          "ok": true
+        },
+        {
+          "path": "SECURITY.md",
+          "ok": true
+        },
+        {
+          "path": "SECURITY.md",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/Makefile",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/Makefile",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/README.md",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/README.md",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/middleware.js",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/middleware.js",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/run",
+          "ok": true
+        },
+        {
+          "path": "benchmarks/run",
+          "ok": true
+        },
+        {
+          "path": "examples/auth/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/auth/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/ejs/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/ejs/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/mvc/controllers/user/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/mvc/controllers/user/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/route-middleware/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/route-middleware/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/search/index.js",
+          "ok": true
+        },
+        {
+          "path": "examples/search/index.js",
+          "ok": true
+        },
+        {
+          "path": "lib/application.js",
+          "ok": true
+        },
+        {
+          "path": "lib/application.js",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "type": "pull",
+      "note": "محادثة PR",
+      "url": "https://github.com/nodejs/node/pull/66911",
+      "extracted": {
+        "nwo": {
+          "value": "nodejs/node",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "voltron_pull_requests_fragments#pull_request_layout",
+        "pull": {
+          "number": 66911,
+          "state": "OPEN",
+          "headBranch": "test-runner-forward-argv",
+          "headOwner": "mcollina",
+          "headSha": "04e330617369cb79fef577da236c52f04380023c",
+          "baseBranch": "main",
+          "baseSha": "14ed05f86bd6c2309f07a29edaa64c3a0ce01728",
+          "mergeCommitSha": null
+        },
+        "source": "embeddedData pullRequestsLayoutRoute.pullRequest"
+      }
+    },
+    {
+      "type": "pull",
+      "note": "محادثة PR مدموج",
+      "url": "https://github.com/nodejs/node/pull/66900",
+      "extracted": {
+        "nwo": {
+          "value": "nodejs/node",
+          "source": "meta octolytics-dimension-repository_nwo"
+        },
+        "route": "voltron_pull_requests_fragments#pull_request_layout",
+        "pull": {
+          "number": 66900,
+          "state": "MERGED",
+          "headBranch": "fix-boringssl-warnings",
+          "headOwner": "panva",
+          "headSha": "1b70acb81b8af1a5b4ffc5341a39fbcebf50ab4c",
+          "baseBranch": "main",
+          "baseSha": "39e03b4673b8d53c107536a39eecf4ec8f648584",
+          "mergeCommitSha": "14ed05f86bd6c2309f07a29edaa64c3a0ce01728"
+        },
+        "source": "embeddedData pullRequestsLayoutRoute.pullRequest"
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "note": "تبديل dir في محررات GitHub الحية، جلسة المالك في متصفح Claude المدمج (Chromium)، مستودعه الخاص iSltanX/Mijhar، بلا إرسال ولا حفظ: مُسحت الحقول وغودرت صفحة التحرير دون التزام.",
+  "measuredAt": "2026-10-23",
+  "editors": {
+    "issue-new-body (React, Primer Textarea, aria-label=\"Markdown value\", markdown-toolbar موجود)": {
+      "content": "40 سطرًا مختلطًا (1730 حرفًا) أُدرجت بـexecCommand('insertText')",
+      "toggles20_noRestore": {
+        "failures": 0,
+        "selection": "120,160,backward ثابت",
+        "scrollTop": "80 ثابت",
+        "valueSame": true,
+        "sameElement": true,
+        "dirAttrPersisted": true,
+        "dirAutoComputed": "ltr (أول حرف قوي L في السطر الأول)"
+      },
+      "toggles20_withRestore": {
+        "failures": 0
+      },
+      "undoRedo": {
+        "typedViaRealKeys": " undo-test كلمة",
+        "afterTyping_20toggles_valueUnchanged": true,
+        "cmdZ_fromTool": "لم يُطلق تراجعًا (حدث مفتاح مصطنع من أداة المتصفح لا يمر بأمر التحرير الأصلي)",
+        "execCommand_undo": "خطوة واحدة أعادت النص كما قبل الكتابة",
+        "execCommand_redo": "خطوة واحدة أعادت المكتوب",
+        "dirUnaffectedByUndo": true
+      },
+      "autocomplete_rtl": {
+        "mention": "@iSl → قائمة role=listbox فيها iSltanX؛ Enter أدرج @iSltanX ",
+        "popupLeftVsCaretX": "551 = 551 (المؤشر محسوب بمرآة تحترم direction)",
+        "popupOverflow": "في عرض نافذة 742px امتدت القائمة 74px خارج الحقل يمينًا عند سطر قريب من الحافة",
+        "escape": "أغلقها"
+      },
+      "previewWriteSwitch": {
+        "sameElement": true,
+        "dirKept": true,
+        "valueKept": true,
+        "note": "الحقل يُخفى ولا يُعاد تركيبه"
+      }
+    },
+    "issue-new-title (React input)": {
+      "toggles20": {
+        "failures": 0,
+        "selection": "5,15,forward ثابت"
+      }
+    },
+    "file-editor (CodeMirror 6, .cm-content contenteditable)": {
+      "observation": "كل .cm-line يحمل dir=\"auto\" من GitHub (اتجاه لكل سطر)",
+      "toggles20_on_cm_content": {
+        "failures": 0,
+        "selectionAndScrollKept": true,
+        "attrPersisted": true,
+        "effect": "لا أثر على اتجاه الأسطر: dir=auto على كل سطر يغلب سمة الحاوية (rr في كل التبديلات)"
+      },
+      "undo": {
+        "typedViaRealKeys": " تجربة",
+        "cmdZ": "CodeMirror يعالج keydown بنفسه: أعاد النص الأصلي بعد 20 تبديلًا"
+      }
+    },
+    "notTested": {
+      "classic textarea (PR conversation #new_comment_field, text-expander)": "لم يُجرَ: يتطلب الكتابة في PR عام أو PR في مستودع المالك (لا يوجد)",
+      "inline review comment (diff)": "لم يُجرَ للسبب نفسه",
+      "Chrome/Edge/Brave/Firefox (المحرر الحي)": "لم يُجرَ: لا جلسة مسجّلة فيها؛ قيس سلوك textarea الأصلي فيها على عينة محلية (editor-local.json)"
+    }
+  }
+}

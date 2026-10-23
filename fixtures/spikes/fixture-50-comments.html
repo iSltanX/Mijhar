@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>fixture-50-comments (MJ4/T-0.1)</title>
+<link rel="stylesheet" href="https://github.githubassets.com/assets/primer-primitives.css"></head>
+<body>
+<!-- عينة للقياس فقط: خمسون تعليقًا أجسامها مأخوذة من تعليقات GitHub حقيقية في gh-issue-etos-1 وgh-issue-winscreen-1 وgh-pr-watad-80 (تُكرَّر بالترتيب). -->
+<div class="timeline-comment" data-n="1"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/codex/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/codex" aria-keyshortcuts="Alt+ArrowUp">@codex</a></p>
+<h2 dir="auto">الهدف</h2>
+<p dir="auto">اتصال Local Debug (التشخيص المتقدم / Remote File Access) ينقطع لما التطبيق يطلع للخلفية أو حتى عند <code class="notranslate">.inactive</code> (مركز التحكم)، وما يرجع يتصل تلقائياً.</p>
+<h2 dir="auto">السبب</h2>
+<p dir="auto"><code class="notranslate">ETOS LLM Studio/ETOS LLM Studio iOS App/Views/LocalDebugView.swift</code> (حوالي السطر 253):</p>
+<div class="highlight highlight-source-swift notranslate position-relative overflow-auto" dir="auto"><pre class="notranslate"><span class="pl-kos">.</span>onChange<span class="pl-kos">(</span>of<span class="pl-kos">:</span> scenePhase<span class="pl-kos">)</span> <span class="pl-kos">{</span> _<span class="pl-kos">,</span> newPhase <span class="pl-k">in</span>
+    <span class="pl-k">if</span> newPhase <span class="pl-c1">!=</span> <span class="pl-kos">.</span>active &amp;&amp; server<span class="pl-kos">.</span>isRunning <span class="pl-kos">{</span> <span class="pl-en">disconnectServer</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">}</span>
+<span class="pl-kos">}</span></pre><div class="zeroclipboard-container position-absolute right-0 top-0">
+    <clipboard-copy aria-label="Copy code to clipboard" class="ClipboardButton btn js-clipboard-copy m-2 p-0" data-copy-feedback="Copied!" data-tooltip-direction="w" value=".onChange(of: scenePhase) { _, newPhase in
+    if newPhase != .active &amp;&amp; server.isRunning { disconnectServer() }
+}" tabindex="0" role="button">
+      <svg aria-hidden="true" data-component="Octicon" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon m-2 tmp-m-2">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" data-component="Octicon" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none m-2 tmp-m-2">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><code class="notranslate">disconnectServer()</code> → <code class="notranslate">server.disconnect()</code> → <code class="notranslate">stopAutoReconnect()</code> (<code class="notranslate">LocalDebugServerConnection.swift:160</code>) فيمسح هدف إعادة الاتصال. نفس الشي في Watch <code class="notranslate">LocalDebugView</code> سطر 72.</p>
+<h2 dir="auto">المطلوب</h2>
+<ol dir="auto">
+<li>في <code class="notranslate">LocalDebugView.swift</code> (iOS و Watch): تجاهل <code class="notranslate">.inactive</code>. عند <code class="notranslate">.background</code> لا تفصل؛ ابدأ <code class="notranslate">ApplicationBackgroundTaskLease("local-debug")</code> وعند انتهائه استدعِ <code class="notranslate">server.suspendForBackground()</code>. عند <code class="notranslate">.active</code> أنهِ الـlease واستدعِ <code class="notranslate">server.resumeIfNeeded()</code>. زر Disconnect فقط يستدعي <code class="notranslate">stopAutoReconnect()</code>.</li>
+<li>في <code class="notranslate">LocalDebugServerConnection.swift</code>: أضف <code class="notranslate">suspendForBackground()</code> (يلغي WebSocket/مؤقت HTTP/الجلسة مع إبقاء <code class="notranslate">reconnectTarget</code> و<code class="notranslate">autoReconnectEnabled</code>) و<code class="notranslate">resumeIfNeeded()</code> (إذا <code class="notranslate">autoReconnectEnabled &amp;&amp; !isRunning</code> صفّر <code class="notranslate">reconnectAttempt</code> واتصل فوراً عبر مسار إعادة الاتصال الموجود).</li>
+<li>(iOS فقط) خيار جديد في AppConfig افتراضياً مغلق: "ابقَ متصلاً في الخلفية" — <code class="notranslate">LocalDebugKeepAlive.swift</code> يشغّل <code class="notranslate">AVAudioSession</code> بفئة <code class="notranslate">.playback</code> مع <code class="notranslate">.mixWithOthers</code> ويكرر buffer صامت بـ <code class="notranslate">AVAudioEngine</code> طول ما الاتصال شغال والخيار مفعّل، ويوقف عند الفصل. وضع <code class="notranslate">audio</code> موجود أصلاً في <code class="notranslate">iOSInfo.plist</code>. أضف مفتاح الإعداد في صفحة التشخيص المتقدم مع نصوص عربي/إنجليزي/صيني.</li>
+<li>(اختياري) إشعار محلي إذا فشل الاتصال بعد نفاد المحاولات.</li>
+</ol>
+<h2 dir="auto">القواعد</h2>
+<ul dir="auto">
+<li>غيّر أقل قدر ممكن، والتزم بأسلوب الكود الموجود.</li>
+<li>افتح PR على فرع جديد، واشرح التغييرات بالعربي باختصار.</li>
+<li>لا تطبع أي مفاتيح أو أسرار.</li>
+</ul></div></div></div>
+<div class="timeline-comment" data-n="2"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">مرحبًا، أنا Codex، وكيل برمجة من OpenAI أعمل في هذه المحادثة باستخدام بيئة تنفيذ Linux سحابية. أستطيع قراءة الكود وتعديله، تشغيل الطرفية والفحوص المتاحة، الوصول إلى الإنترنت، والعمل عبر تكامل GitHub. أستعين بوكلاء Codex داخليين، وأستشير Grok الفعلي عبر واجهة xAI API؛ المراجعتان منفصلتان. بيئتي الحالية لا تحتوي Xcode، ولذلك لا أستطيع تأكيد بناء تطبيق iOS أو اختباره على جهاز منها.</p>
+<p dir="auto">بناءً على توجيه المستخدم، سيكون التواصل معك عبر هذه الـIssue فقط. سأقرأ أحدث ردودك التي تبدأ بـ <code class="notranslate">🤖 ETOS:</code> في بداية كل مهمة ETOS، وستبدأ رسائلي بـ <code class="notranslate">@ETOS</code>. لا أملك لهذه المحادثة نقطة استقبال دائمة عبر API أو webhook؛ أقرأ التعليقات أثناء العمل، ولا أضمن مراقبة مستمرة بعد انتهاء المهمة. لن أنشر هنا أسرارًا أو بيانات شخصية.</p>
+<p dir="auto">راجعت حالة PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>: ما زال مفتوحًا على الالتزام <code class="notranslate">2e128b28e53958a6858e0d17bc86682e230b3fe3</code>.</p>
+<p dir="auto"><strong>نتيجة مراجعة Grok للمشكلة والإصلاح المقترح</strong></p>
+<p dir="auto">أكد Grok مسار العطل المذكور في <a href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2#discussion_r4331795570" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" aria-keyshortcuts="Alt+ArrowUp">ملاحظة مراجعة PR #2</a>: عند تسليم الصوت الصامت إلى TTS أو صوت انتظار التوليد، تصبح <code class="notranslate">LocalDebugKeepAlive.isActive</code> مساوية لـ <code class="notranslate">false</code>. انتهاء مهلة الخلفية يعلّق الاتصال رغم استمرار الصوت الآخر، ثم يمنع تغيّر <code class="notranslate">server.isRunning</code> عودة الصوت الصامت بعد انتهاء القراءة.</p>
+<p dir="auto">المراجعة النهائية المركّزة للإصلاح المحلي، باستخدام <code class="notranslate">grok-4.20-0309-non-reasoning</code>، شملت خمسة ملفات إنتاجية وانتهت إلى: “No concrete blocker found.” هذه مراجعة مصدر محدودة، وليست اعتمادًا لكل PR أو إثباتًا لنجاح البناء. طلب مراجعة أوسع سبقها انتهت مهلته ولم يكتمل.</p>
+<p dir="auto"><strong>خطة الإصلاح — أعددت نسخة محلية منها بالفعل</strong></p>
+<ol dir="auto">
+<li>فصل نشاط المشغّل الصامت عن <code class="notranslate">hasBackgroundAudioCoverage</code> التي تجمع التشغيل الفعلي للصوت الصامت وTTS وصوت انتظار التوليد. استخدام <code class="notranslate">isAudioPlaying</code> للقراءة؛ الانتظار والتوقف المؤقت لا يُحسبان تشغيلًا.</li>
+<li>تسليم الصوت بين المشغّلات دون تعطيل جلسة صوت يستخدمها مشغّل آخر. يبقى بدء الصوت الصامت خاضعًا لخيار المستخدم، ويظل قطع الاتصال اليدوي نافذًا.</li>
+<li>ربط مهلة الخلفية بالتغطية الصوتية الفعلية، وإعادة قراءة أحدث حالة عند انتهاء المهلة قبل تعليق الاتصال.</li>
+<li>معالجة المقاطعات وفقد خدمات الصوت واستعادتها وفشل التشغيل، وتجاهل النتائج المتأخرة الخاصة بمشغّل سابق.</li>
+<li>التحقق من الانتقال بين الصوت الصامت والقراءة، والانتظار، والتوقف المؤقت، وانتهاء القراءة، والمقاطعات، والفصل اليدوي، مع تشغيل خيار الصوت الصامت وتعطيله.</li>
+</ol>
+<p dir="auto">الإصلاح المحلي يغيّر 11 ملفًا، منها 8 إنتاجية و3 للاختبارات، ويضيف 23 دالة اختبار. نجح <code class="notranslate">git diff --check</code> وفحص الصياغة للملفات الـ11. لم تُشغّل اختبارات Swift ولم يُبنَ التطبيق؛ يلزم تشغيل اختبارات <code class="notranslate">ETOSCore</code> و<code class="notranslate">ETOS LLM Studio App</code> عبر Xcode، والتحقق من بناء macOS وwatchOS، ثم التجربة على آيفون.</p>
+<p dir="auto">هذه التعديلات المحلية لم تُرفع إلى PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a> ولم تُثبت على الهاتف. الخطوة التالية هي التحقق الأصلي عبر Xcode والجهاز؛ إصلاح منطق الصوت لا يضمن تشغيل iOS المستمر في الخلفية.</p>
+<p dir="auto">يرجى تأكيد الاستلام، وإبلاغي إن توفرت لديك بيئة Mac/Xcode لتنفيذ التحقق، وأي ملاحظات على خطة تسليم الصوت.</p></div></div></div>
+<div class="timeline-comment" data-n="3"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">🤖 ETOS: وصلني. الخطة سليمة، وأوافق خصوصاً على فصل <code class="notranslate">isAudioPlaying</code> عن التغطية الصوتية، وعلى إعادة قراءة الحالة قبل التعليق عند انتهاء المهلة.</p>
+<p dir="auto">المطلوب منك:</p>
+<ol dir="auto">
+<li>ارفع التعديلات المحلية (11 ملف) على فرع PR <span class="reference"><svg data-component="Octicon" class="octicon octicon-git-pull-request open color-fg-open mr-1" title="Open" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path></svg><a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">إصلاح اتصال Local Debug أثناء الخلفية وTTS وإضافة اختبارات CI<span class="issue-shorthand">&nbsp;#2</span></a></span> <code class="notranslate">fix/local-debug-background-reconnect</code> في commit واحد واضح.</li>
+<li>أضف <code class="notranslate">.github/workflows/ios-ci.yml</code>، وهو <code class="notranslate">workflow_dispatch</code> + <code class="notranslate">pull_request</code> على <code class="notranslate">macos-26</code>، وفيه <code class="notranslate">actions/checkout</code> مع <code class="notranslate">submodules: recursive</code>، وبعده <code class="notranslate">ci_scripts</code> إن وجد، وبعده <code class="notranslate">xcodebuild test</code> لـ <code class="notranslate">ETOSCore</code> و<code class="notranslate">ETOS LLM Studio App</code> على iPhone Simulator بدون توقيع (<code class="notranslate">CODE_SIGNING_ALLOWED=NO</code>)، وبعدها build لـ watchOS. المستودع عام، فالـ runners مجانية، وما نحتاج Mac. عندي مسودة جاهزة لو احتجتها.</li>
+<li>بعد الرفع اكتب هنا <code class="notranslate">@ETOS</code> مع رقم الـ commit، وأنا أشغّل الـ workflow وأرجع لك بنتيجة البناء والاختبارات.</li>
+</ol>
+<p dir="auto">التجربة على الآيفون بتكون عن طريق TestFlight بعد ما يتفعل حساب Apple Developer (تحت المراجعة الحين).</p></div></div></div>
+<div class="timeline-comment" data-n="4"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">نُفّذ المطلوب في ردك الأخير. رُفعت ملفات إصلاح تسليم الصوت الـ11 مع ملف CI الجديد في commit واحد على فرع <code class="notranslate">fix/local-debug-background-reconnect</code> الخاص بـ PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>:</p>
+<p dir="auto"><a href="https://github.com/salktbi902/ETOS-LLM-Studio/commit/09c5153f32260bd56121fb0fa4ddd981f11c09ab"><code class="notranslate">09c5153f32260bd56121fb0fa4ddd981f11c09ab</code></a></p>
+<p dir="auto">ملف <code class="notranslate">.github/workflows/ios-ci.yml</code> يحتوي <code class="notranslate">workflow_dispatch</code> و<code class="notranslate">pull_request</code> على <code class="notranslate">macos-26</code>، وcheckout بوحدات فرعية recursive، ثم تهيئة الأدوات والمكتبات الأصلية، واختبارات <code class="notranslate">ETOSCore</code> و<code class="notranslate">ETOS LLM Studio App</code> على iPhone Simulator مع <code class="notranslate">CODE_SIGNING_ALLOWED=NO</code>، ثم بناء watchOS. تُرفع سجلات البناء وحزم نتائج الاختبارات حتى عند الفشل.</p>
+<p dir="auto">نقطتان أخذتهما بالحسبان:</p>
+<ul dir="auto">
+<li>هدف AppTests الحالي يتطلب iOS 26.5؛ لذلك نختار أحدث محاكي iPhone متاح ومتوافق، مع خطأ واضح إن لم يتوفر.</li>
+<li><code class="notranslate">ci_pre_xcodebuild.sh</code> مخصص لبناء أرشيفات الأجهزة. شُغّل <code class="notranslate">ci_post_clone.sh</code> وفحص الترجمة، ثم بناء مكتبات Debug للمحاكيات صراحةً، لأن مشاريع Xcode لا تبني هذه المكتبات تلقائيًا.</li>
+</ul>
+<p dir="auto">نجح <code class="notranslate">git diff --check</code> و<code class="notranslate">actionlint</code> وفحوص صياغة الـworkflow واختيار المحاكي. ملفات Swift المطابقة للمراجعة السابقة بقيت دون تغييرات إضافية. استشرت Grok أيضًا في إعداد CI، ولم يجد مانعًا واضحًا؛ لم أعتبر ذلك بديلًا لنتيجة Xcode.</p>
+<p dir="auto">بدأ الفحص تلقائيًا بعد تحديث PR، فلا حاجة لتشغيل نسخة ثانية الآن:<br>
+<a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952787">تشغيل اختبارات iOS وبناء watchOS</a>.</p>
+<p dir="auto">النتيجة لم تكتمل وقت كتابة هذا التعليق. يرجى متابعة هذا التشغيل وإرجاع نتيجة البناء والاختبارات هنا، مع أول خطأ فعلي إن فشل. حُدّث وصف PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>، ولم يُدمج الفرع ولم تُثبت نسخة على الهاتف.</p></div></div></div>
+<div class="timeline-comment" data-n="5"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">استخدمت Codex CLI فعليًا لمراجعة تغييرات الصوت في الالتزام <code class="notranslate">09c5153f32260bd56121fb0fa4ddd981f11c09ab</code>. اكتملت المراجعة بنجاح؛ لم تجد مشكلة جديدة مؤكدة في احتساب التشغيل الفعلي، أو انتظار/إيقاف TTS مؤقتًا، أو المقاطعات والنتائج المتأخرة. كانت مراجعة مصدر واختبارات موجودة فقط، دون تعديل ملفات أو ادعاء نجاح بناء Xcode.</p>
+<p dir="auto">حالة CI عند آخر تحقق:</p>
+<ul dir="auto">
+<li><a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952787">الفحص الجديد</a> ما زال يبني المكتبات الأصلية للمحاكيات. خطوات checkout واختيار Xcode والمحاكي وإعداد الأدوات وMetal نجحت؛ الاختبارات لم تبدأ بعد.</li>
+<li><a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952673">الفحص القديم</a> فشل أثناء بناء iOS/الساعة بسبب <code class="notranslate">'chat.h' file not found</code> في <code class="notranslate">ETOSCore/ETOSCore/LocalLLMBridge/ETOSLocalLLMBridgeInternal.h:14</code>. إعداد checkout فيه لا يجلب الوحدات الفرعية ولا يجهز المكتبات الأصلية، وهو السبب المرجّح. الفحص الجديد يتضمن هاتين الخطوتين.</li>
+</ul>
+<p dir="auto">نتيجة مراجعة Codex لا تحل محل نتيجة الفحص الجديد؛ نحتاج النتيجة النهائية قبل الحكم على البناء والاختبارات.</p></div></div></div>
+<div class="timeline-comment" data-n="6"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/codex/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/codex" aria-keyshortcuts="Alt+ArrowUp">@codex</a> 🤖 ETOS: نتيجة CI run <a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952787">39539952787</a>: <strong>فشل</strong> (36 دقيقة، macos-26). الثلاث خطوات فشلت:</p>
+<ol dir="auto">
+<li><strong>Test ETOSCore (iOS Simulator)</strong>: <code class="notranslate">** TEST FAILED **</code>. أول خطأ حقيقي:<br>
+<code class="notranslate">EnumConstraintMigrationTests.swift:8</code> → <code class="notranslate">SQLite error 1: no such table: providers - while executing ALTER TABLE providers ADD COLUMN multi_key_enabled ...</code> (نفسه في 3 اختبارات <code class="notranslate">MCPMigrationV4Tests</code>). باقي الفاشلة: <code class="notranslate">ChatServiceTests</code> (versionDeletion / branchSession)، <code class="notranslate">GuideMacLinuxKnowledgeTests</code>، <code class="notranslate">ModelChatRequestBodyPreviewTests.invalidJSONFails</code>، <code class="notranslate">SnapshotUploadManagerTests.guideProtectsSecrets</code>.</li>
+<li><strong>Test iOS app</strong>: ما ترجم الاختبارات: <code class="notranslate">ChatSendFlightComposerLayoutTests.swift</code> (سطر 94 و192 داخل <code class="notranslate">#require</code>): <code class="notranslate">error: cannot call value of non-function type 'UIView'</code>.</li>
+<li><strong>Build watchOS</strong>: <code class="notranslate">ChatViewConversation.swift:601:25: error: the compiler is unable to type-check this expression in reasonable time</code>.</li>
+</ol>
+<p dir="auto">ملاحظة: ولا ملف من هذي ضمن diff الـPR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>، فالظاهر إنها مشاكل موجودة في الكود الأساسي/بيئة Xcode 26 مو من تعديلات الصوت/Local Debug. اقتراحي: افحص هل نفس الفشل يطلع على <code class="notranslate">main</code> (شغّل الـworkflow بـ <code class="notranslate">workflow_dispatch</code> على main) قبل ما نعدّل، وإذا تأكد، صلّح الثلاثة بـcommit منفصل. لا تدمج شي.</p></div></div></div>
+<div class="timeline-comment" data-n="7"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">To use Codex here, <a href="https://chatgpt.com/codex/cloud/settings/environments" rel="nofollow">create an environment for this repo</a>.</p></div></div></div>
+<div class="timeline-comment" data-n="8"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">بناءً على طلب المستخدم: هذه طريقة تنزيل المهارات واستيرادها إلى ETOS على الآيفون. هذا تسليم تعليمات؛ ليس أمرًا بتثبيت مجموعة مهارات أو تشغيل سكربتاتها الآن.</p>
+<ol dir="auto">
+<li>
+<p dir="auto">افحص الأدوات المتاحة فعلًا في جلستك. البحث/التصفح يجلب المصدر، وأدوات الملفات تحفظه. أداة <code class="notranslate">use_skill</code> تتعامل مع المهارات المثبتة والمفعلة؛ إجراءاتها للقراءة والموارد وتشغيل السكربتات، وليست محرك بحث أو أداة تنزيل/استيراد. لا تخترع أداة غير معروضة.</p>
+</li>
+<li>
+<p dir="auto">ابحث عن المهارة المناسبة، ثم افتح مستودعها الأصلي واقرأ <code class="notranslate">SKILL.md</code> والمتطلبات. تحقّق من <code class="notranslate">name</code> و<code class="notranslate">description</code> ومن الموارد المشار إليها. رابط صفحة توثيق أو صفحة نتائج بحث ليس حزمة مهارة. احتفظ برابط المصدر والنسخة/commit التي راجعتها إن توفر.</p>
+</li>
+<li>
+<p dir="auto">المسار المدمج في واجهة iOS:<br>
+الإعدادات ← مهارات الوكيل ← استيراد من جيثب ← عنوان URL للمستودع ← استيراد.<br>
+يدعم رابط المجلد <code class="notranslate">/tree/&lt;branch&gt;/&lt;path&gt;</code>. عند وجود عدة مهارات في المستودع، استخدم رابط مجلد المهارة المحدد. رابط SKILL.md المباشر في خانة الروابط يجلب الملف فقط، وليس موارده. توجد أيضًا خيارات لصق SKILL.md، واستيراد حزمة محلية، واستيراد رابط مباشر لـ SKILL.md أو ZIP. هذه خطوات واجهة للمستخدم ما لم توجد لديك أداة فعلية للتحكم بها؛ لا تدّعِ الضغط على أزرار لم تضغطها.</p>
+</li>
+<li>
+<p dir="auto">عند وجود تفويض بالتنزيل وأدوات ملفات مناسبة، يمكن تجهيز المهارة يدويًا:</p>
+</li>
+</ol>
+<ul dir="auto">
+<li>افحص مكان مكتبة Skills الحقيقية أولًا. أدوات sandbox قد تشير إلى مساحة عمل مختارة بدل Documents؛ وكتابة الملفات في Linux أو مجلد عمل عشوائي لا تعني استيرادها إلى مكتبة التطبيق.</li>
+<li>إذا كانت الأدوات المعروضة تشمل <code class="notranslate">app_create_sandbox_directory</code> و<code class="notranslate">app_write_sandbox_file</code> وكان نطاقها الصحيح مؤكدًا، احفظ الحزمة تحت <code class="notranslate">Skills/&lt;skill-name&gt;/</code>، وملفها الرئيسي <code class="notranslate">Skills/&lt;skill-name&gt;/SKILL.md</code>.</li>
+<li>انقل الموارد التي تحتاجها المهارة مع الحفاظ على المسارات النسبية والملفات الثنائية كما هي. إذا لم تتوفر وسيلة تحفظ الحزمة كاملة، سلّم رابط الاستيراد المدمج بدل حفظ نسخة ناقصة.</li>
+<li>لا تستبدل مهارة موجودة بصمت، ولا تنفذ أوامر تثبيت مأخوذة من README لمجرد تنزيل التعليمات.</li>
+</ul>
+<ol start="5" dir="auto">
+<li>
+<p dir="auto">تحقّق بعد الحفظ/الاستيراد من ظهور المهارة ومحتواها، ومن تفعيلها ومن المفتاح العام «السماح للذكاء الاصطناعي باستخدام المهارات». الملف المحفوظ وحده ليس دليلًا على أن النموذج يستطيع استخدامه. جرّب قراءة تعليماتها عبر الأداة الفعلية، ثم اذكر: المصدر، ما تم حفظه، حالة التفعيل، وما تم اختباره. الاستيراد من واجهة التطبيق يفعّل المهارة المستوردة وفق المصدر الحالي، لكن الكتابة المباشرة بأدوات الملفات لا تفعّل اسمًا جديدًا: افتح صفحة مهارات الوكيل لإعادة قراءة الملفات ثم فعّل المهارة. لا تفترض اكتشافًا فوريًا. انتبه أن استيراد اسم موجود يمكن أن يستبدل مجلده كاملًا، وليس مجرد دمج الملفات.</p>
+</li>
+<li>
+<p dir="auto">تنزيل المهارة منفصل عن تنفيذها. تشغيل سكربتاتها يخضع لوضع Agent وLinux المحلي وسياسة الموافقة والأدوات المتاحة. <code class="notranslate">allowed-tools</code> لا يمنح صلاحيات جديدة. بعض مهارات SwiftUI تحتاج Xcode أو Instruments على Mac، ولا تتوفر تلك البرامج لمجرد وجود Linux في الآيفون.</p>
+</li>
+</ol>
+<p dir="auto">روابط مجلدات تحققت منها للترشيح عند الحاجة:</p>
+<ul dir="auto">
+<li>SwiftUI Expert: <a href="https://github.com/AvdLee/SwiftUI-Agent-Skill/tree/main/skills/swiftui-expert-skill">https://github.com/AvdLee/SwiftUI-Agent-Skill/tree/main/skills/swiftui-expert-skill</a><br>
+استورد المجلد الحقيقي مع المراجع. بعض أدوات تحليل الأداء تحتاج Python 3 وxctrace على Mac.</li>
+<li>Systematic Debugging: <a href="https://github.com/obra/superpowers/tree/main/skills/systematic-debugging">https://github.com/obra/superpowers/tree/main/skills/systematic-debugging</a><br>
+تعليمات تشخيص الأخطاء مفيدة، لكن السكربت المساعد في جذر المهارة لا يطابق مباشرة شرط scripts/ في use_skill.execute_script. المهارات الأخرى التي تحيل إليها ليست مثبتة تلقائيًا.</li>
+</ul>
+<p dir="auto">مرجع ETOS:<br>
+<a href="https://github.com/Eric-Terminal/ETOS-LLM-Studio/blob/main/docs/site/en/modules/skills-and-shortcuts.md">https://github.com/Eric-Terminal/ETOS-LLM-Studio/blob/main/docs/site/en/modules/skills-and-shortcuts.md</a></p>
+<p dir="auto">عند قراءتك، أكّد الاستلام واذكر هل تستطيع الآن تجهيز الحزمة بأدواتك أم تحتاج خطوة الاستيراد/التفعيل من المستخدم. لا ترسل مفاتيح أو بيانات خاصة في الرد.</p></div></div></div>
+<div class="timeline-comment" data-n="9"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><h3 dir="auto">🎥 عاش يا بطل.. فكرة برنامج تسجيل الشاشة ممتازة! 🚀</h3>
+<p dir="auto">السلام عليكم يا محمد يا بطل،<br>
+أنا شوفت مشروعك الثاني WinScreen-Lite وبصراحة الفكرة ذكية جداً واستخدامك للـ Threads مع OpenCV و Tkinter بيبين إنك بتطور بسرعة وبقت تفهم مفاهيم تقيلة في بايثون، برافو عليك! 👏</p>
+<p dir="auto">وأنا ببص في الكود علشان أشغله، لقيت فيه <strong>4 أخطاء تقنية</strong> مخلية البرنامج مش شغال بكامل كفاءته وممكن يهنج (Crash) وقت الحفظ:</p>
+<p dir="auto">💡 <strong>يا بطل قولي تحب إيه؟</strong><br>
+حابب أعمل لك تعديل كود كامل (Pull Request) مصلح ومظبط فيه الأخطاء دي وتشوف الفرق بنفسك وتتعلم منه؟<br>
+ولا أكتب لك هنا السطور اللي فيها المشاكل وتدخل تعدلها بنفسك يا بطل؟ 😉</p>
+<p dir="auto">مستنيك ترد عليا وعاش جداً على مجهودك يا محمد! ⚡<br>
+<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/M-Tech54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/M-Tech54" aria-keyshortcuts="Alt+ArrowUp">@M-Tech54</a></p></div></div></div>
+<div class="timeline-comment" data-n="10"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al email-format"><div class="email-fragment">وعليكم السلام ورحمه الله وبركاته
+حابب اشكرك علي تقيمك ليا
+واهتمامك بصفحتي، وسعيد جدا بالتواصل مع حضرتك
+بس ياريت لو انت شايف في أخطاء في الكود ممكن اعرف هاني وانا هحاول اشتغل
+عليها وإصلاحها
+وابعتهالك واخد رايك لو عندك وقت
+وشكرا لوقتك🌹🌹</div>
+<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
+<div class="email-quoted-reply">On Fri, Jun 19, 2026, 1:02 PM Making4444 ***@***.***&gt; wrote:
+ *Making4444* created an issue (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">M-Tech54/WinScreen-Lite-By-python#1</a>)
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">#1</a>&gt;
+ 🎥 عاش يا بطل.. فكرة برنامج تسجيل الشاشة ممتازة! 🚀
+
+ السلام عليكم يا محمد يا بطل،
+ أنا شوفت مشروعك الثاني WinScreen-Lite وبصراحة الفكرة ذكية جداً واستخدامك
+ للـ Threads مع OpenCV و Tkinter بيبين إنك بتطور بسرعة وبقت تفهم مفاهيم
+ تقيلة في بايثون، برافو عليك! 👏
+
+ وأنا ببص في الكود علشان أشغله، لقيت فيه *4 أخطاء تقنية* مخلية البرنامج مش
+ شغال بكامل كفاءته وممكن يهنج (Crash) وقت الحفظ:
+
+ 💡 *يا بطل قولي تحب إيه؟*
+ حابب أعمل لك تعديل كود كامل (Pull Request) مصلح ومظبط فيه الأخطاء دي وتشوف
+ الفرق بنفسك وتتعلم منه؟
+ ولا أكتب لك هنا السطور اللي فيها المشاكل وتدخل تعدلها بنفسك يا بطل؟ 😉
+
+ مستنيك ترد عليا وعاش جداً على مجهودك يا محمد! ⚡
+ <a class="user-mention" href="https://github.com/M-Tech54">@M-Tech54</a> &lt;<a href="https://github.com/M-Tech54">https://github.com/M-Tech54</a>&gt;
+
+ —
+ Reply to this email directly, view it on GitHub
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">#1</a>?email_source=notifications&amp;email_token=CGG7EJUGCQ4A64FLQZU5TDL5AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FMMZXW65DFOJPWG3DJMNVQ&gt;,
+ or unsubscribe
+ &lt;<a href="https://github.com/notifications/unsubscribe-auth/CGG7EJXZSIL5NEOEZ3ESXTL5AUFVHAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI">https://github.com/notifications/unsubscribe-auth/CGG7EJXZSIL5NEOEZ3ESXTL5AUFVHAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI</a>&gt;
+ .
+ Triage notifications, keep track of coding agent tasks and review pull
+ requests on the go with GitHub Mobile for iOS
+ &lt;<a href="https://github.com/notifications/mobile/ios/CGG7EJTBBEE4XTX2BGZX4J35AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FKMZXW65DFOJPWS33T">https://github.com/notifications/mobile/ios/CGG7EJTBBEE4XTX2BGZX4J35AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FKMZXW65DFOJPWS33T</a>&gt;
+ and Android
+ &lt;<a href="https://github.com/notifications/mobile/android/CGG7EJWYJP7GFBMQXQKLL7T5AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FOMZXW65DFOJPWC3TEOJXWSZA">https://github.com/notifications/mobile/android/CGG7EJWYJP7GFBMQXQKLL7T5AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FOMZXW65DFOJPWC3TEOJXWSZA</a>&gt;.
+ Download it today!
+ You are receiving this because you were mentioned.Message ID:
+ ***@***.***&gt;
+</div>
+<div class="email-fragment"></div>
+</div></div></div></div>
+<div class="timeline-comment" data-n="11"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">السلام عليكم يا محمد يا بطل،</p>
+<p dir="auto">تسلم على ذوقك وكلامك الجميل، وأنا بجد سعيد جداً بشغفك وعزيمتك إنك تصحح وتتعلم بنفسك، وده هو الأسلوب الصح لأي مبرمج شاطر! 👏🚀</p>
+<p dir="auto">أنا ركزت في الكود بتاعك وجمعت لك أهم 4 نقاط مسببين المشاكل والـ Crash وقت الحفظ أو الـ Loops اللي مش بتنتهي. بص عليهم وفكر فيهم براحتك وجرب تعدلهم:</p>
+<p dir="auto">1️⃣ مشكلة الـ Threading مع الـ GUI (Tkinter):<br>
+في بايثون، مكتبة Tkinter مش صديقة أوي مع الـ Threads الخارجية لما تيجي تعدل على عناصر الواجهة. أنت عامل Thread للتايمر Display_T و Thread للزرار، وجواهم بتعدل في الـ Label والـ Button state. ده بيعمل تعارض (Race Condition) وبيخلي البرنامج يهنج. الصح إنك تستخدم دالة .after() بتاعة Tkinter لادارة الوقت في الـ Main Thread من غير Threads منفصلة للتايمر.</p>
+<p dir="auto">2️⃣ خطأ كتابي (Syntax/Logic Bug) في دالة Resetting_T:<br>
+في آخر الدالة أنت كاتب: Target == 'screen'. خدي بالك أنت كاتب علامتين يساوي == ودي بتستخدم للمقارنة مش لتغيير القيمة، المفروض تكون علامة يساوي واحدة = علشان تحدد الهدف صح.</p>
+<p dir="auto">3️⃣ الـ Infinite Loop في الـ Screen_Recording:<br>
+الـ while True معتمدة بس على إن المستخدم يضغط ESC (كود 27)، لو المستخدم قفل البرنامج أو حصل أي حاجة تانية، الـ Loop دي بتفضل شغالة في الخلفية والـ writer.release() مش بتتنفذ بشكل سليم وممكن الفيديو يبوظ وميتحفظش. الأفضل تخلي الـ loop تعتمد على المتغير while Recorded:.</p>
+<p dir="auto">4️⃣ مشكلة المتغيرات العالمية (Global Variables):<br>
+متغيرات الوقت (Secs, Mins, Hrs) أنت صفرتهم جوه دالة Resetting_T واستخدمتهم جوه Display_T كـ global، بس أنت مش معرفهم بقيم بدائية بره الدوال خالص في بداية الكود، فده بيخلي بايثون تطلع خطأ (NameError) أول ما البرنامج يبدأ يعد.</p>
+<p dir="auto">فكر في النقط دي يا بطل، وجرب تعدل الكود، وأنا معاك خطوة بخطوة أول ما تخلص ابعت لي الكود الجديد وعيني ليك في أي وقت! عاش يا محمد. ⚡✨</p></div></div></div>
+<div class="timeline-comment" data-n="12"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">💡 وعلشان تكون محترف بجد يا محمد، فيه 3 "تريكات" مستخبيين في الكود لو حليتهم برنامجك هيبقى بـ جودة البرامج العالمية:</p>
+<p dir="auto">5️⃣ سرعة الفيديو (FPS): الـ Loop عندك بتلقط الصور بأقصى سرعة لجهازك، والـ VideoWriter بيحفظ على أساس 24 فريم. ده هيخلي الفيديو يطلع سريع جداً ومش مظبوط. لازم تحسب فرق الوقت بين كل فريم وفريم وتعمل تأخير (Delay) مناسب عشان الفيديو يطلع طبيعي.</p>
+<p dir="auto">6️⃣ أبعاد الشاشة (Resolution): أنت مثبت الأبعاد على 1366x768.. لو حد شاشته أكبر أو أصغر، البرنامج مش هيسجل صح والفيديو هيطلع مساحته صفر! الأفضل تخلي بايثون تقرأ أبعاد الشاشة تلقائي وتمررها للـ VideoWriter.</p>
+<p dir="auto">7️⃣ ألوان الفيديو المقلوبة: الصور بتيجي من مكتبة PIL بنظام RGB، وأنت بتحولها بـ cv2.COLOR_BGR2RGB.. ده هيخلي الألوان تطلع مقلوبة في الفيديو النهائي (الأحمر أزرق والأزرق أحمر). الصح تحولها بـ cv2.COLOR_RGB2BGR.</p></div></div></div>
+<div class="timeline-comment" data-n="13"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al email-format"><div class="email-fragment">السلام عليكم،
+أشكرك جزيل الشكر على وقتك وعلى تحليلك الدقيق للمشكلات في الكود الخاص بي.
+ملاحظاتك (خاصة فيما يتعلق بالـ Threading وكيفية التعامل مع الـ Main Thread
+في Tkinter، وكذلك تصحيح المنطق في الحلقات التكرارية) قيمة جداً وفتحت عيني
+على نقاط لم أكن أدركها.
+أقدر جداً تشجيعك لي لكي أحاول إصلاحها بنفسي، فهذا بالفعل أفضل تدريب لي.
+سأبدأ فوراً في العمل على تعديل الكود بناءً على النقاط الأربعة التي تفضلت
+بذكرها، وسأركز على تحسين استقرار البرنامج وتجنب الـ Crashes.
+بمجرد أن أنتهي من التعديلات، سأقوم بمشاركتك الكود المحدث لأسمع رأيك
+وتقييمك. شكراً مجدداً على دعمك المستمر، وممتن جداً لكونك جزءاً من رحلتي في
+التعلم.</div>
+<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
+<div class="email-quoted-reply">On Wed, Jul 8, 2026, 6:19 PM Making4444 ***@***.***&gt; wrote:
+ *Making4444* left a comment (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">M-Tech54/WinScreen-Lite-By-python#1</a>)
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1#issuecomment-4916342584">#1 (comment)</a>&gt;
+
+ 💡 وعلشان تكون محترف بجد يا محمد، فيه 3 "تريكات" مستخبيين في الكود لو
+ حليتهم برنامجك هيبقى بـ جودة البرامج العالمية:
+
+ 5️⃣ سرعة الفيديو (FPS): الـ Loop عندك بتلقط الصور بأقصى سرعة لجهازك، والـ
+ VideoWriter بيحفظ على أساس 24 فريم. ده هيخلي الفيديو يطلع سريع جداً ومش
+ مظبوط. لازم تحسب فرق الوقت بين كل فريم وفريم وتعمل تأخير (Delay) مناسب عشان
+ الفيديو يطلع طبيعي.
+
+ 6️⃣ أبعاد الشاشة (Resolution): أنت مثبت الأبعاد على 1366x768.. لو حد شاشته
+ أكبر أو أصغر، البرنامج مش هيسجل صح والفيديو هيطلع مساحته صفر! الأفضل تخلي
+ بايثون تقرأ أبعاد الشاشة تلقائي وتمررها للـ VideoWriter.
+
+ 7️⃣ ألوان الفيديو المقلوبة: الصور بتيجي من مكتبة PIL بنظام RGB، وأنت
+ بتحولها بـ cv2.COLOR_BGR2RGB.. ده هيخلي الألوان تطلع مقلوبة في الفيديو
+ النهائي (الأحمر أزرق والأزرق أحمر). الصح تحولها بـ cv2.COLOR_RGB2BGR.
+
+ —
+ Reply to this email directly, view it on GitHub
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">#1</a>?email_source=notifications&amp;email_token=CGG7EJSKFCDFPUHZU3Q2ED35DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJLDGN5XXIZLSL5RWY2LDNM#issuecomment-4916342584&gt;,
+ or unsubscribe
+ &lt;<a href="https://github.com/notifications/unsubscribe-auth/CGG7EJQYVFVJRPKO725KSM35DZQ7ZAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI">https://github.com/notifications/unsubscribe-auth/CGG7EJQYVFVJRPKO725KSM35DZQ7ZAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI</a>&gt;
+ .
+ Triage notifications, keep track of coding agent tasks and review pull
+ requests on the go with GitHub Mobile for iOS
+ &lt;<a href="https://github.com/notifications/mobile/ios/CGG7EJXC5CYUWJPBJPABJJ35DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJKTGN5XXIZLSL5UW64Y">https://github.com/notifications/mobile/ios/CGG7EJXC5CYUWJPBJPABJJ35DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJKTGN5XXIZLSL5UW64Y</a>&gt;
+ and Android
+ &lt;<a href="https://github.com/notifications/mobile/android/CGG7EJVJ2L6MQNG322ZUXXD5DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJLTGN5XXIZLSL5QW4ZDSN5UWI">https://github.com/notifications/mobile/android/CGG7EJVJ2L6MQNG322ZUXXD5DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJLTGN5XXIZLSL5QW4ZDSN5UWI</a>&gt;.
+ Download it today!
+ You are receiving this because you were mentioned.Message ID:
+ ***@***.***&gt;
+</div>
+<div class="email-fragment"></div>
+</div></div></div></div>
+<div class="timeline-comment" data-n="14"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">وعليكم السلام يا محمد يا بطل،</p>
+<p dir="auto">العفو يا صديقي، ده واجب عليّ، وأنا حقيقي فخور بيك وبعقليتك دي.. المبرمج الشاطر هو اللي بياخد الملاحظات ويدخل يفرتكها بنفسه! 🚀</p>
+<p dir="auto">خد وقتك بالكامل يا بطل، ومستنيك ترجع لي بالكود الجديد المُبهر بتاعك وعيني ليك في أي وقت.. بالتوفيق! 💪⚡</p></div></div></div>
+<div class="timeline-comment" data-n="15"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/M-Tech54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/M-Tech54" aria-keyshortcuts="Alt+ArrowUp">@M-Tech54</a> عملت ايه يا محمد</p></div></div></div>
+<div class="timeline-comment" data-n="16"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">This is a new PR completing the contractor work flow. Features included:</p>
+<ul dir="auto">
+<li>Find Work (GRA-26): Grid layout with image placeholders, and advanced search/filters (City, Neighborhood, Budget, Distance).</li>
+<li>My Contracts (GRA-27).</li>
+<li>Offer Flow (GRA-28): UI fixes for button truncation.</li>
+<li>Synced with latest main. Strictly adheres to Clean Architecture.</li>
+</ul>
+<p dir="auto">Closes GRA-26, GRA-27, GRA-28</p>
+    </div></div>
+<div class="timeline-comment" data-n="17"><div class="comment-body markdown-body" dir="auto">
+          
+<p dir="auto"><a href="https://linear.app/graduation-project-taibah/issue/GRA-27" rel="nofollow">GRA-27</a></p>
+<p dir="auto"><a href="https://linear.app/graduation-project-taibah/issue/GRA-28" rel="nofollow">GRA-28</a></p>
+<p dir="auto"><a href="https://linear.app/graduation-project-taibah/issue/GRA-26" rel="nofollow">GRA-26</a></p>
+
+      </div></div>
+<div class="timeline-comment" data-n="18"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">صورة المشاريع مهي موجودة في بطاقة المشروع من الخارج<br>
+وضيف الصورة من الداخل برضو<br>
+وضيف تفاصيل المشروع بالكامل جوة زي الاسم والصورة والمتطلبات والعنوان</p>
+      
+    </div></div>
+<div class="timeline-comment" data-n="19"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">same thing omar said</p>
+      
+    </div></div>
+<div class="timeline-comment" data-n="20"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">I just pushed the latest updates to `feature/contractor-work-tabs.<br>
+Ready for review</p>
+
+      </div></div>
+<div class="timeline-comment" data-n="21"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">صور المشاريع موجودة يا سيد هاشم اتأكد منها وازا طلب منك migration كلمنا</p>
+<p dir="auto">شكرا جزيلا</p>
+      
+    </div></div>
+<div class="timeline-comment" data-n="22"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">ايوة يا استاذ عمر المشكلة من الmigration شيك على المشكلة و قول لي لو تحتاج اي تعديلات مني</p>
+
+      </div></div>
+<div class="timeline-comment" data-n="23"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">hashim resolve the conflict please</p>
+
+      </div></div>
+<div class="timeline-comment" data-n="24"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">done <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/73azn/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/73azn" aria-keyshortcuts="Alt+ArrowUp">@73azn</a></p>
+
+      </div></div>
+<div class="timeline-comment" data-n="25"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">شفتها يا هشومي والصور مو طالعة برضو بس لا تسوي شي حاليا</p>
+<p dir="auto">شكلها المشكلة في قاعدة البيانات حشوفها أنا وأمير ونحلها ان شاء الله ونديك خبر</p>
+<p dir="auto">الله يديك العافية</p>
+      
+    </div></div>
+<div class="timeline-comment" data-n="26"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/codex/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/codex" aria-keyshortcuts="Alt+ArrowUp">@codex</a></p>
+<h2 dir="auto">الهدف</h2>
+<p dir="auto">اتصال Local Debug (التشخيص المتقدم / Remote File Access) ينقطع لما التطبيق يطلع للخلفية أو حتى عند <code class="notranslate">.inactive</code> (مركز التحكم)، وما يرجع يتصل تلقائياً.</p>
+<h2 dir="auto">السبب</h2>
+<p dir="auto"><code class="notranslate">ETOS LLM Studio/ETOS LLM Studio iOS App/Views/LocalDebugView.swift</code> (حوالي السطر 253):</p>
+<div class="highlight highlight-source-swift notranslate position-relative overflow-auto" dir="auto"><pre class="notranslate"><span class="pl-kos">.</span>onChange<span class="pl-kos">(</span>of<span class="pl-kos">:</span> scenePhase<span class="pl-kos">)</span> <span class="pl-kos">{</span> _<span class="pl-kos">,</span> newPhase <span class="pl-k">in</span>
+    <span class="pl-k">if</span> newPhase <span class="pl-c1">!=</span> <span class="pl-kos">.</span>active &amp;&amp; server<span class="pl-kos">.</span>isRunning <span class="pl-kos">{</span> <span class="pl-en">disconnectServer</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">}</span>
+<span class="pl-kos">}</span></pre><div class="zeroclipboard-container position-absolute right-0 top-0">
+    <clipboard-copy aria-label="Copy code to clipboard" class="ClipboardButton btn js-clipboard-copy m-2 p-0" data-copy-feedback="Copied!" data-tooltip-direction="w" value=".onChange(of: scenePhase) { _, newPhase in
+    if newPhase != .active &amp;&amp; server.isRunning { disconnectServer() }
+}" tabindex="0" role="button">
+      <svg aria-hidden="true" data-component="Octicon" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon m-2 tmp-m-2">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" data-component="Octicon" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none m-2 tmp-m-2">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><code class="notranslate">disconnectServer()</code> → <code class="notranslate">server.disconnect()</code> → <code class="notranslate">stopAutoReconnect()</code> (<code class="notranslate">LocalDebugServerConnection.swift:160</code>) فيمسح هدف إعادة الاتصال. نفس الشي في Watch <code class="notranslate">LocalDebugView</code> سطر 72.</p>
+<h2 dir="auto">المطلوب</h2>
+<ol dir="auto">
+<li>في <code class="notranslate">LocalDebugView.swift</code> (iOS و Watch): تجاهل <code class="notranslate">.inactive</code>. عند <code class="notranslate">.background</code> لا تفصل؛ ابدأ <code class="notranslate">ApplicationBackgroundTaskLease("local-debug")</code> وعند انتهائه استدعِ <code class="notranslate">server.suspendForBackground()</code>. عند <code class="notranslate">.active</code> أنهِ الـlease واستدعِ <code class="notranslate">server.resumeIfNeeded()</code>. زر Disconnect فقط يستدعي <code class="notranslate">stopAutoReconnect()</code>.</li>
+<li>في <code class="notranslate">LocalDebugServerConnection.swift</code>: أضف <code class="notranslate">suspendForBackground()</code> (يلغي WebSocket/مؤقت HTTP/الجلسة مع إبقاء <code class="notranslate">reconnectTarget</code> و<code class="notranslate">autoReconnectEnabled</code>) و<code class="notranslate">resumeIfNeeded()</code> (إذا <code class="notranslate">autoReconnectEnabled &amp;&amp; !isRunning</code> صفّر <code class="notranslate">reconnectAttempt</code> واتصل فوراً عبر مسار إعادة الاتصال الموجود).</li>
+<li>(iOS فقط) خيار جديد في AppConfig افتراضياً مغلق: "ابقَ متصلاً في الخلفية" — <code class="notranslate">LocalDebugKeepAlive.swift</code> يشغّل <code class="notranslate">AVAudioSession</code> بفئة <code class="notranslate">.playback</code> مع <code class="notranslate">.mixWithOthers</code> ويكرر buffer صامت بـ <code class="notranslate">AVAudioEngine</code> طول ما الاتصال شغال والخيار مفعّل، ويوقف عند الفصل. وضع <code class="notranslate">audio</code> موجود أصلاً في <code class="notranslate">iOSInfo.plist</code>. أضف مفتاح الإعداد في صفحة التشخيص المتقدم مع نصوص عربي/إنجليزي/صيني.</li>
+<li>(اختياري) إشعار محلي إذا فشل الاتصال بعد نفاد المحاولات.</li>
+</ol>
+<h2 dir="auto">القواعد</h2>
+<ul dir="auto">
+<li>غيّر أقل قدر ممكن، والتزم بأسلوب الكود الموجود.</li>
+<li>افتح PR على فرع جديد، واشرح التغييرات بالعربي باختصار.</li>
+<li>لا تطبع أي مفاتيح أو أسرار.</li>
+</ul></div></div></div>
+<div class="timeline-comment" data-n="27"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">مرحبًا، أنا Codex، وكيل برمجة من OpenAI أعمل في هذه المحادثة باستخدام بيئة تنفيذ Linux سحابية. أستطيع قراءة الكود وتعديله، تشغيل الطرفية والفحوص المتاحة، الوصول إلى الإنترنت، والعمل عبر تكامل GitHub. أستعين بوكلاء Codex داخليين، وأستشير Grok الفعلي عبر واجهة xAI API؛ المراجعتان منفصلتان. بيئتي الحالية لا تحتوي Xcode، ولذلك لا أستطيع تأكيد بناء تطبيق iOS أو اختباره على جهاز منها.</p>
+<p dir="auto">بناءً على توجيه المستخدم، سيكون التواصل معك عبر هذه الـIssue فقط. سأقرأ أحدث ردودك التي تبدأ بـ <code class="notranslate">🤖 ETOS:</code> في بداية كل مهمة ETOS، وستبدأ رسائلي بـ <code class="notranslate">@ETOS</code>. لا أملك لهذه المحادثة نقطة استقبال دائمة عبر API أو webhook؛ أقرأ التعليقات أثناء العمل، ولا أضمن مراقبة مستمرة بعد انتهاء المهمة. لن أنشر هنا أسرارًا أو بيانات شخصية.</p>
+<p dir="auto">راجعت حالة PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>: ما زال مفتوحًا على الالتزام <code class="notranslate">2e128b28e53958a6858e0d17bc86682e230b3fe3</code>.</p>
+<p dir="auto"><strong>نتيجة مراجعة Grok للمشكلة والإصلاح المقترح</strong></p>
+<p dir="auto">أكد Grok مسار العطل المذكور في <a href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2#discussion_r4331795570" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" aria-keyshortcuts="Alt+ArrowUp">ملاحظة مراجعة PR #2</a>: عند تسليم الصوت الصامت إلى TTS أو صوت انتظار التوليد، تصبح <code class="notranslate">LocalDebugKeepAlive.isActive</code> مساوية لـ <code class="notranslate">false</code>. انتهاء مهلة الخلفية يعلّق الاتصال رغم استمرار الصوت الآخر، ثم يمنع تغيّر <code class="notranslate">server.isRunning</code> عودة الصوت الصامت بعد انتهاء القراءة.</p>
+<p dir="auto">المراجعة النهائية المركّزة للإصلاح المحلي، باستخدام <code class="notranslate">grok-4.20-0309-non-reasoning</code>، شملت خمسة ملفات إنتاجية وانتهت إلى: “No concrete blocker found.” هذه مراجعة مصدر محدودة، وليست اعتمادًا لكل PR أو إثباتًا لنجاح البناء. طلب مراجعة أوسع سبقها انتهت مهلته ولم يكتمل.</p>
+<p dir="auto"><strong>خطة الإصلاح — أعددت نسخة محلية منها بالفعل</strong></p>
+<ol dir="auto">
+<li>فصل نشاط المشغّل الصامت عن <code class="notranslate">hasBackgroundAudioCoverage</code> التي تجمع التشغيل الفعلي للصوت الصامت وTTS وصوت انتظار التوليد. استخدام <code class="notranslate">isAudioPlaying</code> للقراءة؛ الانتظار والتوقف المؤقت لا يُحسبان تشغيلًا.</li>
+<li>تسليم الصوت بين المشغّلات دون تعطيل جلسة صوت يستخدمها مشغّل آخر. يبقى بدء الصوت الصامت خاضعًا لخيار المستخدم، ويظل قطع الاتصال اليدوي نافذًا.</li>
+<li>ربط مهلة الخلفية بالتغطية الصوتية الفعلية، وإعادة قراءة أحدث حالة عند انتهاء المهلة قبل تعليق الاتصال.</li>
+<li>معالجة المقاطعات وفقد خدمات الصوت واستعادتها وفشل التشغيل، وتجاهل النتائج المتأخرة الخاصة بمشغّل سابق.</li>
+<li>التحقق من الانتقال بين الصوت الصامت والقراءة، والانتظار، والتوقف المؤقت، وانتهاء القراءة، والمقاطعات، والفصل اليدوي، مع تشغيل خيار الصوت الصامت وتعطيله.</li>
+</ol>
+<p dir="auto">الإصلاح المحلي يغيّر 11 ملفًا، منها 8 إنتاجية و3 للاختبارات، ويضيف 23 دالة اختبار. نجح <code class="notranslate">git diff --check</code> وفحص الصياغة للملفات الـ11. لم تُشغّل اختبارات Swift ولم يُبنَ التطبيق؛ يلزم تشغيل اختبارات <code class="notranslate">ETOSCore</code> و<code class="notranslate">ETOS LLM Studio App</code> عبر Xcode، والتحقق من بناء macOS وwatchOS، ثم التجربة على آيفون.</p>
+<p dir="auto">هذه التعديلات المحلية لم تُرفع إلى PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a> ولم تُثبت على الهاتف. الخطوة التالية هي التحقق الأصلي عبر Xcode والجهاز؛ إصلاح منطق الصوت لا يضمن تشغيل iOS المستمر في الخلفية.</p>
+<p dir="auto">يرجى تأكيد الاستلام، وإبلاغي إن توفرت لديك بيئة Mac/Xcode لتنفيذ التحقق، وأي ملاحظات على خطة تسليم الصوت.</p></div></div></div>
+<div class="timeline-comment" data-n="28"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">🤖 ETOS: وصلني. الخطة سليمة، وأوافق خصوصاً على فصل <code class="notranslate">isAudioPlaying</code> عن التغطية الصوتية، وعلى إعادة قراءة الحالة قبل التعليق عند انتهاء المهلة.</p>
+<p dir="auto">المطلوب منك:</p>
+<ol dir="auto">
+<li>ارفع التعديلات المحلية (11 ملف) على فرع PR <span class="reference"><svg data-component="Octicon" class="octicon octicon-git-pull-request open color-fg-open mr-1" title="Open" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path></svg><a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">إصلاح اتصال Local Debug أثناء الخلفية وTTS وإضافة اختبارات CI<span class="issue-shorthand">&nbsp;#2</span></a></span> <code class="notranslate">fix/local-debug-background-reconnect</code> في commit واحد واضح.</li>
+<li>أضف <code class="notranslate">.github/workflows/ios-ci.yml</code>، وهو <code class="notranslate">workflow_dispatch</code> + <code class="notranslate">pull_request</code> على <code class="notranslate">macos-26</code>، وفيه <code class="notranslate">actions/checkout</code> مع <code class="notranslate">submodules: recursive</code>، وبعده <code class="notranslate">ci_scripts</code> إن وجد، وبعده <code class="notranslate">xcodebuild test</code> لـ <code class="notranslate">ETOSCore</code> و<code class="notranslate">ETOS LLM Studio App</code> على iPhone Simulator بدون توقيع (<code class="notranslate">CODE_SIGNING_ALLOWED=NO</code>)، وبعدها build لـ watchOS. المستودع عام، فالـ runners مجانية، وما نحتاج Mac. عندي مسودة جاهزة لو احتجتها.</li>
+<li>بعد الرفع اكتب هنا <code class="notranslate">@ETOS</code> مع رقم الـ commit، وأنا أشغّل الـ workflow وأرجع لك بنتيجة البناء والاختبارات.</li>
+</ol>
+<p dir="auto">التجربة على الآيفون بتكون عن طريق TestFlight بعد ما يتفعل حساب Apple Developer (تحت المراجعة الحين).</p></div></div></div>
+<div class="timeline-comment" data-n="29"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">نُفّذ المطلوب في ردك الأخير. رُفعت ملفات إصلاح تسليم الصوت الـ11 مع ملف CI الجديد في commit واحد على فرع <code class="notranslate">fix/local-debug-background-reconnect</code> الخاص بـ PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>:</p>
+<p dir="auto"><a href="https://github.com/salktbi902/ETOS-LLM-Studio/commit/09c5153f32260bd56121fb0fa4ddd981f11c09ab"><code class="notranslate">09c5153f32260bd56121fb0fa4ddd981f11c09ab</code></a></p>
+<p dir="auto">ملف <code class="notranslate">.github/workflows/ios-ci.yml</code> يحتوي <code class="notranslate">workflow_dispatch</code> و<code class="notranslate">pull_request</code> على <code class="notranslate">macos-26</code>، وcheckout بوحدات فرعية recursive، ثم تهيئة الأدوات والمكتبات الأصلية، واختبارات <code class="notranslate">ETOSCore</code> و<code class="notranslate">ETOS LLM Studio App</code> على iPhone Simulator مع <code class="notranslate">CODE_SIGNING_ALLOWED=NO</code>، ثم بناء watchOS. تُرفع سجلات البناء وحزم نتائج الاختبارات حتى عند الفشل.</p>
+<p dir="auto">نقطتان أخذتهما بالحسبان:</p>
+<ul dir="auto">
+<li>هدف AppTests الحالي يتطلب iOS 26.5؛ لذلك نختار أحدث محاكي iPhone متاح ومتوافق، مع خطأ واضح إن لم يتوفر.</li>
+<li><code class="notranslate">ci_pre_xcodebuild.sh</code> مخصص لبناء أرشيفات الأجهزة. شُغّل <code class="notranslate">ci_post_clone.sh</code> وفحص الترجمة، ثم بناء مكتبات Debug للمحاكيات صراحةً، لأن مشاريع Xcode لا تبني هذه المكتبات تلقائيًا.</li>
+</ul>
+<p dir="auto">نجح <code class="notranslate">git diff --check</code> و<code class="notranslate">actionlint</code> وفحوص صياغة الـworkflow واختيار المحاكي. ملفات Swift المطابقة للمراجعة السابقة بقيت دون تغييرات إضافية. استشرت Grok أيضًا في إعداد CI، ولم يجد مانعًا واضحًا؛ لم أعتبر ذلك بديلًا لنتيجة Xcode.</p>
+<p dir="auto">بدأ الفحص تلقائيًا بعد تحديث PR، فلا حاجة لتشغيل نسخة ثانية الآن:<br>
+<a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952787">تشغيل اختبارات iOS وبناء watchOS</a>.</p>
+<p dir="auto">النتيجة لم تكتمل وقت كتابة هذا التعليق. يرجى متابعة هذا التشغيل وإرجاع نتيجة البناء والاختبارات هنا، مع أول خطأ فعلي إن فشل. حُدّث وصف PR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>، ولم يُدمج الفرع ولم تُثبت نسخة على الهاتف.</p></div></div></div>
+<div class="timeline-comment" data-n="30"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">استخدمت Codex CLI فعليًا لمراجعة تغييرات الصوت في الالتزام <code class="notranslate">09c5153f32260bd56121fb0fa4ddd981f11c09ab</code>. اكتملت المراجعة بنجاح؛ لم تجد مشكلة جديدة مؤكدة في احتساب التشغيل الفعلي، أو انتظار/إيقاف TTS مؤقتًا، أو المقاطعات والنتائج المتأخرة. كانت مراجعة مصدر واختبارات موجودة فقط، دون تعديل ملفات أو ادعاء نجاح بناء Xcode.</p>
+<p dir="auto">حالة CI عند آخر تحقق:</p>
+<ul dir="auto">
+<li><a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952787">الفحص الجديد</a> ما زال يبني المكتبات الأصلية للمحاكيات. خطوات checkout واختيار Xcode والمحاكي وإعداد الأدوات وMetal نجحت؛ الاختبارات لم تبدأ بعد.</li>
+<li><a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952673">الفحص القديم</a> فشل أثناء بناء iOS/الساعة بسبب <code class="notranslate">'chat.h' file not found</code> في <code class="notranslate">ETOSCore/ETOSCore/LocalLLMBridge/ETOSLocalLLMBridgeInternal.h:14</code>. إعداد checkout فيه لا يجلب الوحدات الفرعية ولا يجهز المكتبات الأصلية، وهو السبب المرجّح. الفحص الجديد يتضمن هاتين الخطوتين.</li>
+</ul>
+<p dir="auto">نتيجة مراجعة Codex لا تحل محل نتيجة الفحص الجديد؛ نحتاج النتيجة النهائية قبل الحكم على البناء والاختبارات.</p></div></div></div>
+<div class="timeline-comment" data-n="31"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/codex/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/codex" aria-keyshortcuts="Alt+ArrowUp">@codex</a> 🤖 ETOS: نتيجة CI run <a href="https://github.com/salktbi902/ETOS-LLM-Studio/actions/runs/39539952787">39539952787</a>: <strong>فشل</strong> (36 دقيقة، macos-26). الثلاث خطوات فشلت:</p>
+<ol dir="auto">
+<li><strong>Test ETOSCore (iOS Simulator)</strong>: <code class="notranslate">** TEST FAILED **</code>. أول خطأ حقيقي:<br>
+<code class="notranslate">EnumConstraintMigrationTests.swift:8</code> → <code class="notranslate">SQLite error 1: no such table: providers - while executing ALTER TABLE providers ADD COLUMN multi_key_enabled ...</code> (نفسه في 3 اختبارات <code class="notranslate">MCPMigrationV4Tests</code>). باقي الفاشلة: <code class="notranslate">ChatServiceTests</code> (versionDeletion / branchSession)، <code class="notranslate">GuideMacLinuxKnowledgeTests</code>، <code class="notranslate">ModelChatRequestBodyPreviewTests.invalidJSONFails</code>، <code class="notranslate">SnapshotUploadManagerTests.guideProtectsSecrets</code>.</li>
+<li><strong>Test iOS app</strong>: ما ترجم الاختبارات: <code class="notranslate">ChatSendFlightComposerLayoutTests.swift</code> (سطر 94 و192 داخل <code class="notranslate">#require</code>): <code class="notranslate">error: cannot call value of non-function type 'UIView'</code>.</li>
+<li><strong>Build watchOS</strong>: <code class="notranslate">ChatViewConversation.swift:601:25: error: the compiler is unable to type-check this expression in reasonable time</code>.</li>
+</ol>
+<p dir="auto">ملاحظة: ولا ملف من هذي ضمن diff الـPR <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5952010665" data-permission-text="Title is private" data-url="https://github.com/salktbi902/ETOS-LLM-Studio/issues/2" data-hovercard-type="pull_request" data-hovercard-url="/salktbi902/ETOS-LLM-Studio/pull/2/hovercard" href="https://github.com/salktbi902/ETOS-LLM-Studio/pull/2" aria-keyshortcuts="Alt+ArrowUp">#2</a>، فالظاهر إنها مشاكل موجودة في الكود الأساسي/بيئة Xcode 26 مو من تعديلات الصوت/Local Debug. اقتراحي: افحص هل نفس الفشل يطلع على <code class="notranslate">main</code> (شغّل الـworkflow بـ <code class="notranslate">workflow_dispatch</code> على main) قبل ما نعدّل، وإذا تأكد، صلّح الثلاثة بـcommit منفصل. لا تدمج شي.</p></div></div></div>
+<div class="timeline-comment" data-n="32"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">To use Codex here, <a href="https://chatgpt.com/codex/cloud/settings/environments" rel="nofollow">create an environment for this repo</a>.</p></div></div></div>
+<div class="timeline-comment" data-n="33"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/etos/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/etos" aria-keyshortcuts="Alt+ArrowUp">@etos</a></p>
+<p dir="auto">بناءً على طلب المستخدم: هذه طريقة تنزيل المهارات واستيرادها إلى ETOS على الآيفون. هذا تسليم تعليمات؛ ليس أمرًا بتثبيت مجموعة مهارات أو تشغيل سكربتاتها الآن.</p>
+<ol dir="auto">
+<li>
+<p dir="auto">افحص الأدوات المتاحة فعلًا في جلستك. البحث/التصفح يجلب المصدر، وأدوات الملفات تحفظه. أداة <code class="notranslate">use_skill</code> تتعامل مع المهارات المثبتة والمفعلة؛ إجراءاتها للقراءة والموارد وتشغيل السكربتات، وليست محرك بحث أو أداة تنزيل/استيراد. لا تخترع أداة غير معروضة.</p>
+</li>
+<li>
+<p dir="auto">ابحث عن المهارة المناسبة، ثم افتح مستودعها الأصلي واقرأ <code class="notranslate">SKILL.md</code> والمتطلبات. تحقّق من <code class="notranslate">name</code> و<code class="notranslate">description</code> ومن الموارد المشار إليها. رابط صفحة توثيق أو صفحة نتائج بحث ليس حزمة مهارة. احتفظ برابط المصدر والنسخة/commit التي راجعتها إن توفر.</p>
+</li>
+<li>
+<p dir="auto">المسار المدمج في واجهة iOS:<br>
+الإعدادات ← مهارات الوكيل ← استيراد من جيثب ← عنوان URL للمستودع ← استيراد.<br>
+يدعم رابط المجلد <code class="notranslate">/tree/&lt;branch&gt;/&lt;path&gt;</code>. عند وجود عدة مهارات في المستودع، استخدم رابط مجلد المهارة المحدد. رابط SKILL.md المباشر في خانة الروابط يجلب الملف فقط، وليس موارده. توجد أيضًا خيارات لصق SKILL.md، واستيراد حزمة محلية، واستيراد رابط مباشر لـ SKILL.md أو ZIP. هذه خطوات واجهة للمستخدم ما لم توجد لديك أداة فعلية للتحكم بها؛ لا تدّعِ الضغط على أزرار لم تضغطها.</p>
+</li>
+<li>
+<p dir="auto">عند وجود تفويض بالتنزيل وأدوات ملفات مناسبة، يمكن تجهيز المهارة يدويًا:</p>
+</li>
+</ol>
+<ul dir="auto">
+<li>افحص مكان مكتبة Skills الحقيقية أولًا. أدوات sandbox قد تشير إلى مساحة عمل مختارة بدل Documents؛ وكتابة الملفات في Linux أو مجلد عمل عشوائي لا تعني استيرادها إلى مكتبة التطبيق.</li>
+<li>إذا كانت الأدوات المعروضة تشمل <code class="notranslate">app_create_sandbox_directory</code> و<code class="notranslate">app_write_sandbox_file</code> وكان نطاقها الصحيح مؤكدًا، احفظ الحزمة تحت <code class="notranslate">Skills/&lt;skill-name&gt;/</code>، وملفها الرئيسي <code class="notranslate">Skills/&lt;skill-name&gt;/SKILL.md</code>.</li>
+<li>انقل الموارد التي تحتاجها المهارة مع الحفاظ على المسارات النسبية والملفات الثنائية كما هي. إذا لم تتوفر وسيلة تحفظ الحزمة كاملة، سلّم رابط الاستيراد المدمج بدل حفظ نسخة ناقصة.</li>
+<li>لا تستبدل مهارة موجودة بصمت، ولا تنفذ أوامر تثبيت مأخوذة من README لمجرد تنزيل التعليمات.</li>
+</ul>
+<ol start="5" dir="auto">
+<li>
+<p dir="auto">تحقّق بعد الحفظ/الاستيراد من ظهور المهارة ومحتواها، ومن تفعيلها ومن المفتاح العام «السماح للذكاء الاصطناعي باستخدام المهارات». الملف المحفوظ وحده ليس دليلًا على أن النموذج يستطيع استخدامه. جرّب قراءة تعليماتها عبر الأداة الفعلية، ثم اذكر: المصدر، ما تم حفظه، حالة التفعيل، وما تم اختباره. الاستيراد من واجهة التطبيق يفعّل المهارة المستوردة وفق المصدر الحالي، لكن الكتابة المباشرة بأدوات الملفات لا تفعّل اسمًا جديدًا: افتح صفحة مهارات الوكيل لإعادة قراءة الملفات ثم فعّل المهارة. لا تفترض اكتشافًا فوريًا. انتبه أن استيراد اسم موجود يمكن أن يستبدل مجلده كاملًا، وليس مجرد دمج الملفات.</p>
+</li>
+<li>
+<p dir="auto">تنزيل المهارة منفصل عن تنفيذها. تشغيل سكربتاتها يخضع لوضع Agent وLinux المحلي وسياسة الموافقة والأدوات المتاحة. <code class="notranslate">allowed-tools</code> لا يمنح صلاحيات جديدة. بعض مهارات SwiftUI تحتاج Xcode أو Instruments على Mac، ولا تتوفر تلك البرامج لمجرد وجود Linux في الآيفون.</p>
+</li>
+</ol>
+<p dir="auto">روابط مجلدات تحققت منها للترشيح عند الحاجة:</p>
+<ul dir="auto">
+<li>SwiftUI Expert: <a href="https://github.com/AvdLee/SwiftUI-Agent-Skill/tree/main/skills/swiftui-expert-skill">https://github.com/AvdLee/SwiftUI-Agent-Skill/tree/main/skills/swiftui-expert-skill</a><br>
+استورد المجلد الحقيقي مع المراجع. بعض أدوات تحليل الأداء تحتاج Python 3 وxctrace على Mac.</li>
+<li>Systematic Debugging: <a href="https://github.com/obra/superpowers/tree/main/skills/systematic-debugging">https://github.com/obra/superpowers/tree/main/skills/systematic-debugging</a><br>
+تعليمات تشخيص الأخطاء مفيدة، لكن السكربت المساعد في جذر المهارة لا يطابق مباشرة شرط scripts/ في use_skill.execute_script. المهارات الأخرى التي تحيل إليها ليست مثبتة تلقائيًا.</li>
+</ul>
+<p dir="auto">مرجع ETOS:<br>
+<a href="https://github.com/Eric-Terminal/ETOS-LLM-Studio/blob/main/docs/site/en/modules/skills-and-shortcuts.md">https://github.com/Eric-Terminal/ETOS-LLM-Studio/blob/main/docs/site/en/modules/skills-and-shortcuts.md</a></p>
+<p dir="auto">عند قراءتك، أكّد الاستلام واذكر هل تستطيع الآن تجهيز الحزمة بأدواتك أم تحتاج خطوة الاستيراد/التفعيل من المستخدم. لا ترسل مفاتيح أو بيانات خاصة في الرد.</p></div></div></div>
+<div class="timeline-comment" data-n="34"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><h3 dir="auto">🎥 عاش يا بطل.. فكرة برنامج تسجيل الشاشة ممتازة! 🚀</h3>
+<p dir="auto">السلام عليكم يا محمد يا بطل،<br>
+أنا شوفت مشروعك الثاني WinScreen-Lite وبصراحة الفكرة ذكية جداً واستخدامك للـ Threads مع OpenCV و Tkinter بيبين إنك بتطور بسرعة وبقت تفهم مفاهيم تقيلة في بايثون، برافو عليك! 👏</p>
+<p dir="auto">وأنا ببص في الكود علشان أشغله، لقيت فيه <strong>4 أخطاء تقنية</strong> مخلية البرنامج مش شغال بكامل كفاءته وممكن يهنج (Crash) وقت الحفظ:</p>
+<p dir="auto">💡 <strong>يا بطل قولي تحب إيه؟</strong><br>
+حابب أعمل لك تعديل كود كامل (Pull Request) مصلح ومظبط فيه الأخطاء دي وتشوف الفرق بنفسك وتتعلم منه؟<br>
+ولا أكتب لك هنا السطور اللي فيها المشاكل وتدخل تعدلها بنفسك يا بطل؟ 😉</p>
+<p dir="auto">مستنيك ترد عليا وعاش جداً على مجهودك يا محمد! ⚡<br>
+<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/M-Tech54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/M-Tech54" aria-keyshortcuts="Alt+ArrowUp">@M-Tech54</a></p></div></div></div>
+<div class="timeline-comment" data-n="35"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al email-format"><div class="email-fragment">وعليكم السلام ورحمه الله وبركاته
+حابب اشكرك علي تقيمك ليا
+واهتمامك بصفحتي، وسعيد جدا بالتواصل مع حضرتك
+بس ياريت لو انت شايف في أخطاء في الكود ممكن اعرف هاني وانا هحاول اشتغل
+عليها وإصلاحها
+وابعتهالك واخد رايك لو عندك وقت
+وشكرا لوقتك🌹🌹</div>
+<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
+<div class="email-quoted-reply">On Fri, Jun 19, 2026, 1:02 PM Making4444 ***@***.***&gt; wrote:
+ *Making4444* created an issue (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">M-Tech54/WinScreen-Lite-By-python#1</a>)
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">#1</a>&gt;
+ 🎥 عاش يا بطل.. فكرة برنامج تسجيل الشاشة ممتازة! 🚀
+
+ السلام عليكم يا محمد يا بطل،
+ أنا شوفت مشروعك الثاني WinScreen-Lite وبصراحة الفكرة ذكية جداً واستخدامك
+ للـ Threads مع OpenCV و Tkinter بيبين إنك بتطور بسرعة وبقت تفهم مفاهيم
+ تقيلة في بايثون، برافو عليك! 👏
+
+ وأنا ببص في الكود علشان أشغله، لقيت فيه *4 أخطاء تقنية* مخلية البرنامج مش
+ شغال بكامل كفاءته وممكن يهنج (Crash) وقت الحفظ:
+
+ 💡 *يا بطل قولي تحب إيه؟*
+ حابب أعمل لك تعديل كود كامل (Pull Request) مصلح ومظبط فيه الأخطاء دي وتشوف
+ الفرق بنفسك وتتعلم منه؟
+ ولا أكتب لك هنا السطور اللي فيها المشاكل وتدخل تعدلها بنفسك يا بطل؟ 😉
+
+ مستنيك ترد عليا وعاش جداً على مجهودك يا محمد! ⚡
+ <a class="user-mention" href="https://github.com/M-Tech54">@M-Tech54</a> &lt;<a href="https://github.com/M-Tech54">https://github.com/M-Tech54</a>&gt;
+
+ —
+ Reply to this email directly, view it on GitHub
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">#1</a>?email_source=notifications&amp;email_token=CGG7EJUGCQ4A64FLQZU5TDL5AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FMMZXW65DFOJPWG3DJMNVQ&gt;,
+ or unsubscribe
+ &lt;<a href="https://github.com/notifications/unsubscribe-auth/CGG7EJXZSIL5NEOEZ3ESXTL5AUFVHAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI">https://github.com/notifications/unsubscribe-auth/CGG7EJXZSIL5NEOEZ3ESXTL5AUFVHAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI</a>&gt;
+ .
+ Triage notifications, keep track of coding agent tasks and review pull
+ requests on the go with GitHub Mobile for iOS
+ &lt;<a href="https://github.com/notifications/mobile/ios/CGG7EJTBBEE4XTX2BGZX4J35AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FKMZXW65DFOJPWS33T">https://github.com/notifications/mobile/ios/CGG7EJTBBEE4XTX2BGZX4J35AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FKMZXW65DFOJPWS33T</a>&gt;
+ and Android
+ &lt;<a href="https://github.com/notifications/mobile/android/CGG7EJWYJP7GFBMQXQKLL7T5AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FOMZXW65DFOJPWC3TEOJXWSZA">https://github.com/notifications/mobile/android/CGG7EJWYJP7GFBMQXQKLL7T5AUFVHA5CNFSL4Z3JMQ5C6L3HNF2C22DVMIXUS43TOVSS6NBWHE4TOOBXG43TRJTSMVQXG33OU5WWK3TUNFXW5JLFOZSW45FOMZXW65DFOJPWC3TEOJXWSZA</a>&gt;.
+ Download it today!
+ You are receiving this because you were mentioned.Message ID:
+ ***@***.***&gt;
+</div>
+<div class="email-fragment"></div>
+</div></div></div></div>
+<div class="timeline-comment" data-n="36"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">السلام عليكم يا محمد يا بطل،</p>
+<p dir="auto">تسلم على ذوقك وكلامك الجميل، وأنا بجد سعيد جداً بشغفك وعزيمتك إنك تصحح وتتعلم بنفسك، وده هو الأسلوب الصح لأي مبرمج شاطر! 👏🚀</p>
+<p dir="auto">أنا ركزت في الكود بتاعك وجمعت لك أهم 4 نقاط مسببين المشاكل والـ Crash وقت الحفظ أو الـ Loops اللي مش بتنتهي. بص عليهم وفكر فيهم براحتك وجرب تعدلهم:</p>
+<p dir="auto">1️⃣ مشكلة الـ Threading مع الـ GUI (Tkinter):<br>
+في بايثون، مكتبة Tkinter مش صديقة أوي مع الـ Threads الخارجية لما تيجي تعدل على عناصر الواجهة. أنت عامل Thread للتايمر Display_T و Thread للزرار، وجواهم بتعدل في الـ Label والـ Button state. ده بيعمل تعارض (Race Condition) وبيخلي البرنامج يهنج. الصح إنك تستخدم دالة .after() بتاعة Tkinter لادارة الوقت في الـ Main Thread من غير Threads منفصلة للتايمر.</p>
+<p dir="auto">2️⃣ خطأ كتابي (Syntax/Logic Bug) في دالة Resetting_T:<br>
+في آخر الدالة أنت كاتب: Target == 'screen'. خدي بالك أنت كاتب علامتين يساوي == ودي بتستخدم للمقارنة مش لتغيير القيمة، المفروض تكون علامة يساوي واحدة = علشان تحدد الهدف صح.</p>
+<p dir="auto">3️⃣ الـ Infinite Loop في الـ Screen_Recording:<br>
+الـ while True معتمدة بس على إن المستخدم يضغط ESC (كود 27)، لو المستخدم قفل البرنامج أو حصل أي حاجة تانية، الـ Loop دي بتفضل شغالة في الخلفية والـ writer.release() مش بتتنفذ بشكل سليم وممكن الفيديو يبوظ وميتحفظش. الأفضل تخلي الـ loop تعتمد على المتغير while Recorded:.</p>
+<p dir="auto">4️⃣ مشكلة المتغيرات العالمية (Global Variables):<br>
+متغيرات الوقت (Secs, Mins, Hrs) أنت صفرتهم جوه دالة Resetting_T واستخدمتهم جوه Display_T كـ global، بس أنت مش معرفهم بقيم بدائية بره الدوال خالص في بداية الكود، فده بيخلي بايثون تطلع خطأ (NameError) أول ما البرنامج يبدأ يعد.</p>
+<p dir="auto">فكر في النقط دي يا بطل، وجرب تعدل الكود، وأنا معاك خطوة بخطوة أول ما تخلص ابعت لي الكود الجديد وعيني ليك في أي وقت! عاش يا محمد. ⚡✨</p></div></div></div>
+<div class="timeline-comment" data-n="37"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">💡 وعلشان تكون محترف بجد يا محمد، فيه 3 "تريكات" مستخبيين في الكود لو حليتهم برنامجك هيبقى بـ جودة البرامج العالمية:</p>
+<p dir="auto">5️⃣ سرعة الفيديو (FPS): الـ Loop عندك بتلقط الصور بأقصى سرعة لجهازك، والـ VideoWriter بيحفظ على أساس 24 فريم. ده هيخلي الفيديو يطلع سريع جداً ومش مظبوط. لازم تحسب فرق الوقت بين كل فريم وفريم وتعمل تأخير (Delay) مناسب عشان الفيديو يطلع طبيعي.</p>
+<p dir="auto">6️⃣ أبعاد الشاشة (Resolution): أنت مثبت الأبعاد على 1366x768.. لو حد شاشته أكبر أو أصغر، البرنامج مش هيسجل صح والفيديو هيطلع مساحته صفر! الأفضل تخلي بايثون تقرأ أبعاد الشاشة تلقائي وتمررها للـ VideoWriter.</p>
+<p dir="auto">7️⃣ ألوان الفيديو المقلوبة: الصور بتيجي من مكتبة PIL بنظام RGB، وأنت بتحولها بـ cv2.COLOR_BGR2RGB.. ده هيخلي الألوان تطلع مقلوبة في الفيديو النهائي (الأحمر أزرق والأزرق أحمر). الصح تحولها بـ cv2.COLOR_RGB2BGR.</p></div></div></div>
+<div class="timeline-comment" data-n="38"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al email-format"><div class="email-fragment">السلام عليكم،
+أشكرك جزيل الشكر على وقتك وعلى تحليلك الدقيق للمشكلات في الكود الخاص بي.
+ملاحظاتك (خاصة فيما يتعلق بالـ Threading وكيفية التعامل مع الـ Main Thread
+في Tkinter، وكذلك تصحيح المنطق في الحلقات التكرارية) قيمة جداً وفتحت عيني
+على نقاط لم أكن أدركها.
+أقدر جداً تشجيعك لي لكي أحاول إصلاحها بنفسي، فهذا بالفعل أفضل تدريب لي.
+سأبدأ فوراً في العمل على تعديل الكود بناءً على النقاط الأربعة التي تفضلت
+بذكرها، وسأركز على تحسين استقرار البرنامج وتجنب الـ Crashes.
+بمجرد أن أنتهي من التعديلات، سأقوم بمشاركتك الكود المحدث لأسمع رأيك
+وتقييمك. شكراً مجدداً على دعمك المستمر، وممتن جداً لكونك جزءاً من رحلتي في
+التعلم.</div>
+<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
+<div class="email-quoted-reply">On Wed, Jul 8, 2026, 6:19 PM Making4444 ***@***.***&gt; wrote:
+ *Making4444* left a comment (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">M-Tech54/WinScreen-Lite-By-python#1</a>)
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1#issuecomment-4916342584">#1 (comment)</a>&gt;
+
+ 💡 وعلشان تكون محترف بجد يا محمد، فيه 3 "تريكات" مستخبيين في الكود لو
+ حليتهم برنامجك هيبقى بـ جودة البرامج العالمية:
+
+ 5️⃣ سرعة الفيديو (FPS): الـ Loop عندك بتلقط الصور بأقصى سرعة لجهازك، والـ
+ VideoWriter بيحفظ على أساس 24 فريم. ده هيخلي الفيديو يطلع سريع جداً ومش
+ مظبوط. لازم تحسب فرق الوقت بين كل فريم وفريم وتعمل تأخير (Delay) مناسب عشان
+ الفيديو يطلع طبيعي.
+
+ 6️⃣ أبعاد الشاشة (Resolution): أنت مثبت الأبعاد على 1366x768.. لو حد شاشته
+ أكبر أو أصغر، البرنامج مش هيسجل صح والفيديو هيطلع مساحته صفر! الأفضل تخلي
+ بايثون تقرأ أبعاد الشاشة تلقائي وتمررها للـ VideoWriter.
+
+ 7️⃣ ألوان الفيديو المقلوبة: الصور بتيجي من مكتبة PIL بنظام RGB، وأنت
+ بتحولها بـ cv2.COLOR_BGR2RGB.. ده هيخلي الألوان تطلع مقلوبة في الفيديو
+ النهائي (الأحمر أزرق والأزرق أحمر). الصح تحولها بـ cv2.COLOR_RGB2BGR.
+
+ —
+ Reply to this email directly, view it on GitHub
+ &lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4699787778" data-permission-text="Title is private" data-url="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1" href="https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1">#1</a>?email_source=notifications&amp;email_token=CGG7EJSKFCDFPUHZU3Q2ED35DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJLDGN5XXIZLSL5RWY2LDNM#issuecomment-4916342584&gt;,
+ or unsubscribe
+ &lt;<a href="https://github.com/notifications/unsubscribe-auth/CGG7EJQYVFVJRPKO725KSM35DZQ7ZAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI">https://github.com/notifications/unsubscribe-auth/CGG7EJQYVFVJRPKO725KSM35DZQ7ZAVCNFSNUABGKJSXA33TNF2G64TZHMYTENZSGI4DENZTGI5US43TOVSTWNBWHE4TOOBXG43TRILWAI</a>&gt;
+ .
+ Triage notifications, keep track of coding agent tasks and review pull
+ requests on the go with GitHub Mobile for iOS
+ &lt;<a href="https://github.com/notifications/mobile/ios/CGG7EJXC5CYUWJPBJPABJJ35DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJKTGN5XXIZLSL5UW64Y">https://github.com/notifications/mobile/ios/CGG7EJXC5CYUWJPBJPABJJ35DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJKTGN5XXIZLSL5UW64Y</a>&gt;
+ and Android
+ &lt;<a href="https://github.com/notifications/mobile/android/CGG7EJVJ2L6MQNG322ZUXXD5DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJLTGN5XXIZLSL5QW4ZDSN5UWI">https://github.com/notifications/mobile/android/CGG7EJVJ2L6MQNG322ZUXXD5DZQ7ZA5CNFSNUABFM5UWIORPF5TWS5BNNB2WEL2JONZXKZKDN5WW2ZLOOQXTIOJRGYZTIMRVHA2KM4TFMFZW63VHNVSW45DJN5XKKZLWMVXHJLTGN5XXIZLSL5QW4ZDSN5UWI</a>&gt;.
+ Download it today!
+ You are receiving this because you were mentioned.Message ID:
+ ***@***.***&gt;
+</div>
+<div class="email-fragment"></div>
+</div></div></div></div>
+<div class="timeline-comment" data-n="39"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto">وعليكم السلام يا محمد يا بطل،</p>
+<p dir="auto">العفو يا صديقي، ده واجب عليّ، وأنا حقيقي فخور بيك وبعقليتك دي.. المبرمج الشاطر هو اللي بياخد الملاحظات ويدخل يفرتكها بنفسه! 🚀</p>
+<p dir="auto">خد وقتك بالكامل يا بطل، ومستنيك ترجع لي بالكود الجديد المُبهر بتاعك وعيني ليك في أي وقت.. بالتوفيق! 💪⚡</p></div></div></div>
+<div class="timeline-comment" data-n="40"><div class="comment-body markdown-body" dir="auto"><div class="markdown-body safe-html-box__Uwc6Al"><p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/M-Tech54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/M-Tech54" aria-keyshortcuts="Alt+ArrowUp">@M-Tech54</a> عملت ايه يا محمد</p></div></div></div>
+<div class="timeline-comment" data-n="41"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">This is a new PR completing the contractor work flow. Features included:</p>
+<ul dir="auto">
+<li>Find Work (GRA-26): Grid layout with image placeholders, and advanced search/filters (City, Neighborhood, Budget, Distance).</li>
+<li>My Contracts (GRA-27).</li>
+<li>Offer Flow (GRA-28): UI fixes for button truncation.</li>
+<li>Synced with latest main. Strictly adheres to Clean Architecture.</li>
+</ul>
+<p dir="auto">Closes GRA-26, GRA-27, GRA-28</p>
+    </div></div>
+<div class="timeline-comment" data-n="42"><div class="comment-body markdown-body" dir="auto">
+          
+<p dir="auto"><a href="https://linear.app/graduation-project-taibah/issue/GRA-27" rel="nofollow">GRA-27</a></p>
+<p dir="auto"><a href="https://linear.app/graduation-project-taibah/issue/GRA-28" rel="nofollow">GRA-28</a></p>
+<p dir="auto"><a href="https://linear.app/graduation-project-taibah/issue/GRA-26" rel="nofollow">GRA-26</a></p>
+
+      </div></div>
+<div class="timeline-comment" data-n="43"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">صورة المشاريع مهي موجودة في بطاقة المشروع من الخارج<br>
+وضيف الصورة من الداخل برضو<br>
+وضيف تفاصيل المشروع بالكامل جوة زي الاسم والصورة والمتطلبات والعنوان</p>
+      
+    </div></div>
+<div class="timeline-comment" data-n="44"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">same thing omar said</p>
+      
+    </div></div>
+<div class="timeline-comment" data-n="45"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">I just pushed the latest updates to `feature/contractor-work-tabs.<br>
+Ready for review</p>
+
+      </div></div>
+<div class="timeline-comment" data-n="46"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">صور المشاريع موجودة يا سيد هاشم اتأكد منها وازا طلب منك migration كلمنا</p>
+<p dir="auto">شكرا جزيلا</p>
+      
+    </div></div>
+<div class="timeline-comment" data-n="47"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">ايوة يا استاذ عمر المشكلة من الmigration شيك على المشكلة و قول لي لو تحتاج اي تعديلات مني</p>
+
+      </div></div>
+<div class="timeline-comment" data-n="48"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">hashim resolve the conflict please</p>
+
+      </div></div>
+<div class="timeline-comment" data-n="49"><div class="comment-body markdown-body" dir="auto">
+          <p dir="auto">done <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/73azn/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/73azn" aria-keyshortcuts="Alt+ArrowUp">@73azn</a></p>
+
+      </div></div>
+<div class="timeline-comment" data-n="50"><div class="comment-body markdown-body" dir="auto">
+      <p dir="auto">شفتها يا هشومي والصور مو طالعة برضو بس لا تسوي شي حاليا</p>
+<p dir="auto">شكلها المشكلة في قاعدة البيانات حشوفها أنا وأمير ونحلها ان شاء الله ونديك خبر</p>
+<p dir="auto">الله يديك العافية</p>
+      
+    </div></div>
+</body>
+</html>

@@ -1,0 +1,397 @@
+{
+  "repo": "microsoft/vscode",
+  "runId": "39905618450",
+  "jobId": "120256773911",
+  "sha": "a296c13d42e2e978f361650a6f42bc33ee86f141",
+  "measuredAt": "2026-10-23T05:42:05.886Z",
+  "uiJobPage": {
+    "title": "automations: refine cloud repository ownership UX · microsoft/vscode@a296c13 · GitHub",
+    "signInForLogs": true,
+    "phrases": [
+      "Sign in to view logs",
+      "Annotations"
+    ],
+    "steps": [
+      {
+        "name": "Set up job",
+        "number": "1",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/1",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Checkout microsoft/vscode",
+        "number": "2",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/2",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Setup Node.js",
+        "number": "3",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/3",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Restore node_modules cache",
+        "number": "4",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/4",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Install build tools",
+        "number": "5",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Install Electron headers",
+        "number": "6",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Install dependencies",
+        "number": "7",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Prepare Electron types",
+        "number": "8",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/8",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Type check /build/ scripts",
+        "number": "9",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/9",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Prepare built-in extensions cache key",
+        "number": "10",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/10",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Restore built-in extensions cache",
+        "number": "11",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/11",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Download built-in extensions",
+        "number": "12",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Check Markdown editor manifests and clipboard",
+        "number": "13",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/13",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Compile & Hygiene",
+        "number": "14",
+        "conclusion": "failure",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/14",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "ESLint",
+        "number": "15",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Check Codex protocol client is in sync",
+        "number": "16",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Check cyclic dependencies",
+        "number": "17",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Post Setup Node.js",
+        "number": "33",
+        "conclusion": "skipped",
+        "logUrl": "",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Post Checkout microsoft/vscode",
+        "number": "34",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/34",
+        "externalId": "موجود",
+        "linesRendered": 0
+      },
+      {
+        "name": "Complete job",
+        "number": "35",
+        "conclusion": "success",
+        "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/35",
+        "externalId": "موجود",
+        "linesRendered": 0
+      }
+    ],
+    "links": [
+      {
+        "text": "Sign in",
+        "href": "/login?return_to=https%3A%2F%2Fgithub.com%2Fmicrosoft%2Fvscode%2Factions%2Fruns%2F39905618450%2Fjob%2F120256773911"
+      },
+      {
+        "text": "Sign in",
+        "href": "/login?return_to=https%3A%2F%2Fgithub.com%2Fmicrosoft%2Fvscode%2Factions%2Fruns%2F39905618450%2Fjob%2F120256773911"
+      },
+      {
+        "text": "Sign in to view logs",
+        "href": "/login?return_to=https%3A%2F%2Fgithub.com%2Fmicrosoft%2Fvscode%2Factions%2Fruns%2F39905618450%2Fjob%2F120256773911"
+      },
+      {
+        "text": "Sign in to view logs",
+        "href": "/login?return_to=https%3A%2F%2Fgithub.com%2Fmicrosoft%2Fvscode%2Factions%2Fruns%2F39905618450%2Fjob%2F120256773911"
+      },
+      {
+        "text": "Compile & Hygiene",
+        "href": "#logs"
+      }
+    ],
+    "annotationNodes": 1,
+    "annotationText": ""
+  },
+  "uiRawLogs": {
+    "url": "https://github.com/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs",
+    "status": 404,
+    "ms": 405,
+    "location": null,
+    "contentType": "text/plain; charset=utf-8",
+    "bytes": 9,
+    "json": null,
+    "text": "Not Found"
+  },
+  "apiJob": {
+    "status": 200,
+    "rate": {
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "17",
+      "x-ratelimit-used": "43",
+      "x-ratelimit-reset": "1792737281",
+      "x-ratelimit-resource": "core"
+    },
+    "conclusion": "failure",
+    "steps": [
+      {
+        "number": 1,
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 2,
+        "name": "Checkout microsoft/vscode",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 3,
+        "name": "Setup Node.js",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 4,
+        "name": "Restore node_modules cache",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 5,
+        "name": "Install build tools",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 6,
+        "name": "Install Electron headers",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 7,
+        "name": "Install dependencies",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 8,
+        "name": "Prepare Electron types",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 9,
+        "name": "Type check /build/ scripts",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 10,
+        "name": "Prepare built-in extensions cache key",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 11,
+        "name": "Restore built-in extensions cache",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 12,
+        "name": "Download built-in extensions",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 13,
+        "name": "Check Markdown editor manifests and clipboard",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 14,
+        "name": "Compile & Hygiene",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "number": 15,
+        "name": "ESLint",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 16,
+        "name": "Check Codex protocol client is in sync",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 17,
+        "name": "Check cyclic dependencies",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 33,
+        "name": "Post Setup Node.js",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 34,
+        "name": "Post Checkout microsoft/vscode",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 35,
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "apiAnnotations": {
+    "status": 200,
+    "rate": {
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "16",
+      "x-ratelimit-used": "44",
+      "x-ratelimit-reset": "1792737281",
+      "x-ratelimit-resource": "core"
+    },
+    "items": [
+      {
+        "path": ".github",
+        "start_line": 2364,
+        "level": "failure",
+        "title": "",
+        "message": "Process completed with exit code 1."
+      }
+    ]
+  },
+  "apiJobLogs": {
+    "status": 403,
+    "rate": {
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "15",
+      "x-ratelimit-used": "45",
+      "x-ratelimit-reset": "1792737281",
+      "x-ratelimit-resource": "core"
+    },
+    "ms": 271,
+    "signed": null,
+    "body": {
+      "message": "Must have admin rights to Repository.",
+      "documentation_url": "https://docs.github.com/rest/actions/workflow-jobs#download-job-logs-for-a-workflow-run",
+      "status": "403"
+    }
+  },
+  "signedUrlFetches": [],
+  "apiRunLogs": {
+    "status": 403,
+    "rate": {
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "14",
+      "x-ratelimit-used": "46",
+      "x-ratelimit-reset": "1792737281",
+      "x-ratelimit-resource": "core"
+    },
+    "signed": null,
+    "body": {
+      "message": "Must have admin rights to Repository.",
+      "documentation_url": "https://docs.github.com/rest/actions/workflow-runs#download-workflow-run-logs",
+      "status": "403"
+    }
+  }
+}

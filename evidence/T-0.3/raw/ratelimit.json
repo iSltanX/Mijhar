@@ -1,0 +1,154 @@
+{
+  "before": {
+    "limit": 60,
+    "remaining": 8,
+    "reset": 1792737281,
+    "used": 52
+  },
+  "steps": [
+    {
+      "step": "طلب عادي",
+      "path": "/repos/nodejs/node",
+      "status": 200,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "7",
+        "x-ratelimit-used": "53",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": "W/\"7def0472e869b670cb9f88751a3e6d28afba5caf6564743f2feb5faca930911b\""
+      },
+      "message": null,
+      "at": "2026-10-23T05:56:21.638Z"
+    },
+    {
+      "step": "طلب شرطي If-None-Match بالـETag نفسه",
+      "path": "/repos/nodejs/node",
+      "status": 304,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "6",
+        "x-ratelimit-used": "54",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": "W/\"7def0472e869b670cb9f88751a3e6d28afba5caf6564743f2feb5faca930911b\""
+      },
+      "message": null,
+      "at": "2026-10-23T05:56:21.692Z"
+    },
+    {
+      "step": "مورد غير موجود",
+      "path": "/repos/nodejs/node/pulls/999999999",
+      "status": 404,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "5",
+        "x-ratelimit-used": "55",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": null
+      },
+      "message": "Not Found",
+      "at": "2026-10-23T05:56:22.030Z"
+    },
+    {
+      "step": "مستودع غير موجود",
+      "path": "/repos/nodejs/this-repo-does-not-exist-mijhar",
+      "status": 404,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "4",
+        "x-ratelimit-used": "56",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": null
+      },
+      "message": "Not Found",
+      "at": "2026-10-23T05:56:22.314Z"
+    },
+    {
+      "step": "استهلاك (3)",
+      "path": "/repos/nodejs/node",
+      "status": 200,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "1",
+        "x-ratelimit-used": "59",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": "W/\"7def0472e869b670cb9f88751a3e6d28afba5caf6564743f2feb5faca930911b\""
+      },
+      "message": null,
+      "at": "2026-10-23T05:56:22.524Z"
+    },
+    {
+      "step": "استهلاك (4)",
+      "path": "/repos/nodejs/node",
+      "status": 200,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "0",
+        "x-ratelimit-used": "60",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": "W/\"7def0472e869b670cb9f88751a3e6d28afba5caf6564743f2feb5faca930911b\""
+      },
+      "message": null,
+      "at": "2026-10-23T05:56:22.576Z"
+    },
+    {
+      "step": "طلب بعد النفاد",
+      "path": "/repos/nodejs/node",
+      "status": 403,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "0",
+        "x-ratelimit-used": "60",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": null
+      },
+      "message": "API rate limit exceeded for <IP محجوب>. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "at": "2026-10-23T05:56:22.626Z"
+    },
+    {
+      "step": "طلب شرطي بعد النفاد",
+      "path": "/repos/nodejs/node",
+      "status": 403,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "0",
+        "x-ratelimit-used": "60",
+        "x-ratelimit-reset": "1792737281",
+        "x-ratelimit-resource": "core",
+        "retry-after": null,
+        "etag": null
+      },
+      "message": "API rate limit exceeded for <IP محجوب>. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "at": "2026-10-23T05:56:22.676Z"
+    }
+  ],
+  "afterConditional": {
+    "limit": 60,
+    "remaining": 6,
+    "reset": 1792737281,
+    "used": 54
+  },
+  "after": {
+    "limit": 60,
+    "remaining": 0,
+    "reset": 1792737281,
+    "used": 60
+  },
+  "domAfterExhaustion": {
+    "status": 200,
+    "bytes": 458437
+  }
+}

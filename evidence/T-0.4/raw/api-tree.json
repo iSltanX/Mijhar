@@ -1,0 +1,39 @@
+{
+  "kubernetes/kubernetes": {
+    "status": 200,
+    "rate": {
+      "x-ratelimit-remaining": "10",
+      "x-ratelimit-used": "50"
+    },
+    "truncated": false,
+    "entries": 37610,
+    "blobs": 31500
+  },
+  "expressjs/express": {
+    "status": 200,
+    "rate": {
+      "x-ratelimit-remaining": "9",
+      "x-ratelimit-used": "51"
+    },
+    "truncated": false,
+    "entries": 282,
+    "blobs": 214
+  },
+  "nodejs/node community/profile": {
+    "status": 200,
+    "rate": {
+      "x-ratelimit-remaining": "8",
+      "x-ratelimit-used": "52"
+    },
+    "files": {
+      "code_of_conduct": "https://github.com/nodejs/node/blob/main/CODE_OF_CONDUCT.md",
+      "code_of_conduct_file": "https://github.com/nodejs/node/blob/main/CODE_OF_CONDUCT.md",
+      "contributing": "https://github.com/nodejs/node/blob/main/CONTRIBUTING.md",
+      "issue_template": null,
+      "pull_request_template": "https://github.com/nodejs/node/blob/main/.github/PULL_REQUEST_TEMPLATE.md",
+      "license": "https://github.com/nodejs/node/blob/main/LICENSE",
+      "readme": "https://github.com/nodejs/node/blob/main/README.md"
+    },
+    "health": 100
+  }
+}

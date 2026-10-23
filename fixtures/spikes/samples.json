@@ -1,0 +1,70 @@
+{
+  "browser": "156.0.8078.47",
+  "samples": [
+    {
+      "name": "readme-shakkala",
+      "kind": "README عربي مشكول مع جداول وكود",
+      "url": "https://github.com/Barqawiz/Shakkala",
+      "file": "fixtures/spikes/gh-readme-shakkala.html",
+      "bytes": 272596,
+      "capturedAt": "2026-10-23T06:06:08.780Z"
+    },
+    {
+      "name": "readme-js-algorithms-ar",
+      "kind": "README عربي مختلط بقوائم وروابط وكود",
+      "url": "https://github.com/trekhleb/javascript-algorithms/blob/master/README.ar-AR.md",
+      "file": "fixtures/spikes/gh-readme-js-algorithms-ar.html",
+      "bytes": 297167,
+      "capturedAt": "2026-10-23T06:06:18.978Z"
+    },
+    {
+      "name": "repo-arabic-stop-words",
+      "kind": "صفحة مستودع بوصف وREADME",
+      "url": "https://github.com/mohataher/arabic-stop-words",
+      "file": "fixtures/spikes/gh-repo-arabic-stop-words.html",
+      "bytes": 212252,
+      "capturedAt": "2026-10-23T06:06:29.295Z"
+    },
+    {
+      "name": "issue-etos-1",
+      "kind": "محادثة Issue عربية مختلطة",
+      "url": "https://github.com/salktbi902/ETOS-LLM-Studio/issues/1",
+      "file": "fixtures/spikes/gh-issue-etos-1.html",
+      "bytes": 246636,
+      "capturedAt": "2026-10-23T06:06:39.907Z"
+    },
+    {
+      "name": "issue-winscreen-1",
+      "kind": "محادثة Issue عربية",
+      "url": "https://github.com/M-Tech54/WinScreen-Lite-By-python/issues/1",
+      "file": "fixtures/spikes/gh-issue-winscreen-1.html",
+      "bytes": 216022,
+      "capturedAt": "2026-10-23T06:06:50.170Z"
+    },
+    {
+      "name": "pr-watad-80",
+      "kind": "محادثة PR عربية مختلطة",
+      "url": "https://github.com/Watad-Project/Watad/pull/80",
+      "file": "fixtures/spikes/gh-pr-watad-80.html",
+      "bytes": 348306,
+      "capturedAt": "2026-10-23T06:07:00.968Z"
+    },
+    {
+      "name": "commits-bms",
+      "kind": "قائمة التزامات برسائل عربية",
+      "url": "https://github.com/ahrrfy/business_management_system/commits",
+      "file": "fixtures/spikes/gh-commits-bms.html",
+      "bytes": 443131,
+      "capturedAt": "2026-10-23T06:07:11.294Z"
+    },
+    {
+      "name": "commit-bms-1",
+      "kind": "صفحة التزام برسالة عربية (بلا جداول الفروق لحجمها)",
+      "url": "https://github.com/ahrrfy/business_management_system/commit/86a863aa86c3becf15dba6b1aeb481c195566147",
+      "stripDiff": true,
+      "file": "fixtures/spikes/gh-commit-bms-1.html",
+      "bytes": 435408,
+      "capturedAt": "2026-10-23T06:07:27.816Z"
+    }
+  ]
+}
