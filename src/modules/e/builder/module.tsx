@@ -30,6 +30,13 @@ const ANCHOR = {
   candidates: ['[data-component="PageHeader"]', '[data-testid="issue-header"]', '#partial-discussion-header', '.gh-header'],
 };
 
+// في صفحة المهمة يُدرج الشريط قبل قسم التنبيهات، لا قبل #logs: بطاقة شرح السجل (d.log) ملاصقة لـ#logs ولا يُفصل بينهما.
+const JOB_ANCHOR = {
+  key: 'e.job.anchor',
+  description: 'قسم تنبيهات المهمة فوق السجلات في صفحة مهمة Actions؛ يُدرج شريط حزمة السياق قبله',
+  candidates: ['job-annotations', '.js-job-annotations'],
+};
+
 /** الحافظة في فعل المستخدم، والبديل: تحديد حقل المعاينة داخل جذر الظل وexecCommand('copy'). */
 export async function copyWithFallback(text: string, preview: HTMLTextAreaElement | null): Promise<CopyResult> {
   const nav = preview?.ownerDocument.defaultView?.navigator ?? (typeof navigator === 'undefined' ? undefined : navigator);
@@ -59,7 +66,7 @@ export function createContextBuilderModule(options: BuilderOptions = {}): Extens
     title: 'منشئ حزمة السياق',
     pages: ['pr', 'issue', 'actions-run'],
     shouldMount: (page) => page.type !== 'actions-run' || isJobPath(page.href),
-    selectors: [...PR_STATUS_SELECTORS, ...JOB_PAGE_SELECTORS, ...BUILDER_SELECTORS, ANCHOR],
+    selectors: [...PR_STATUS_SELECTORS, ...JOB_PAGE_SELECTORS, ...BUILDER_SELECTORS, ANCHOR, JOB_ANCHOR],
     mount(ctx) {
       new BuilderController(ctx, options).start();
     },
@@ -96,8 +103,10 @@ class BuilderController {
   private place(): { parent: Node; before: Node | null } {
     const { ctx } = this;
     if (this.kind === 'job') {
+      const annotations = ctx.selectors.resolve(ctx.document, 'e.job.anchor')?.element;
+      if (annotations?.parentNode) return { parent: annotations.parentNode, before: annotations };
       const logs = ctx.selectors.resolve(ctx.document, 'd.job.logs')?.element;
-      if (logs?.parentNode) return { parent: logs.parentNode, before: logs };
+      if (logs?.parentNode) return { parent: logs.parentNode, before: logs.parentNode.firstChild };
     }
     const header = ctx.selectors.resolve(ctx.document, 'e.anchor')?.element;
     if (header?.parentNode) return { parent: header.parentNode, before: header.nextSibling };

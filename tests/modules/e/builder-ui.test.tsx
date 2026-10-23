@@ -97,7 +97,7 @@ describe('TEST-CTX-02: قائمة الاختيار تحكم ما يدخل الح
     const listed = [...ui.root().querySelectorAll('[data-gaps] li')].map((li) => [li.getAttribute('data-gap-kind'), li.textContent ?? '']);
     const kinds = listed.map(([k]) => k);
     expect(kinds).toEqual(expect.arrayContaining(['collapsed', 'not-loaded', 'truncated']));
-    const text = (kind: string, needle: string) => listed.find(([k, t]) => k === kind && t.includes(needle));
+    const text = (kind: string, needle: string) => listed.find(([k, t]) => k === kind && (t ?? '').includes(needle));
     expect(text('collapsed', 'spam-bot')).toBeTruthy();
     expect(text('not-loaded', '12 عنصرًا')).toBeTruthy();
     expect(text('collapsed', 'قُرئ 9 من 12')).toBeTruthy();
@@ -192,5 +192,22 @@ describe('مقتطفات الأدلة والنسخ', () => {
     expect(ui.preview()).not.toMatch(TOKEN_PATTERN);
     expect(ui.root().innerHTML).not.toMatch(TOKEN_PATTERN);
     ui.manager.stop();
+  });
+});
+
+describe('الموضع في الصفحة', () => {
+  it('صفحة المهمة: الشريط قبل قسم التنبيهات، فلا يفصل بطاقة شرح السجل عن #logs', async () => {
+    const { createLogModule } = await import('../../../src/modules/d/log-parser/module');
+    const path = await import('node:path');
+    const { ROOT } = await import('./helpers');
+    window.history.replaceState(null, '', '/microsoft/vscode/actions/runs/39905618450/job/120256773911');
+    loadFile(path.join(ROOT, 'fixtures/logs/gh-job-failed.html'));
+    const { manager } = await mountModules([createLogModule(), createContextBuilderModule()]);
+    const logs = document.getElementById('logs');
+    expect(logs?.previousElementSibling?.getAttribute('data-mijhar-host')).toBe('d.log');
+    const bar = hostsOf('e.builder')[0];
+    expect(bar?.nextElementSibling?.tagName.toLowerCase()).toBe('job-annotations');
+    manager.stop();
+    window.history.replaceState(null, '', '/octo/demo/pull/4242');
   });
 });
