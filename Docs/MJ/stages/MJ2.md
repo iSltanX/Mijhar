@@ -1,7 +1,7 @@
 ---
 id: MJ2
 title: اكتشاف الصفحة ودورة الحياة والتخزين
-status: planned
+status: active
 delivery: none
 wave: B
 order: 1
@@ -15,7 +15,7 @@ branch: mj/2-detector-lifecycle-storage
 base: mj-B/base
 commit: —
 updated: 2026-10-23
-resume: لم تبدأ. تبدأ من الخطوة 1 في «المهام» بعد التحقق من الفرع والأساس.
+resume: بدأت الجلسة على الفرع mj/2-detector-lifecycle-storage (2026-10-23)؛ التحقق اجتاز وnpm ci تم. تبدأ T-1.2 ثم T-1.3 من «المهام».
 ---
 
 # MJ2 — اكتشاف الصفحة ودورة الحياة والتخزين
