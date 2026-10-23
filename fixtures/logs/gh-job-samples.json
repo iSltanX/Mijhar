@@ -1,0 +1,141 @@
+{
+  "browser": "156.0.8078.47",
+  "samples": [
+    {
+      "name": "job-failed",
+      "url": "https://github.com/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+      "file": "fixtures/logs/gh-job-failed.html",
+      "bytes": 392471,
+      "capturedAt": "2026-10-23T13:22:52.363Z",
+      "probe": {
+        "title": "automations: refine cloud repository ownership UX · microsoft/vscode@a296c13 · GitHub",
+        "steps": [
+          {
+            "name": "Set up job",
+            "number": "1",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/1"
+          },
+          {
+            "name": "Checkout microsoft/vscode",
+            "number": "2",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/2"
+          },
+          {
+            "name": "Setup Node.js",
+            "number": "3",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/3"
+          },
+          {
+            "name": "Restore node_modules cache",
+            "number": "4",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/4"
+          },
+          {
+            "name": "Install build tools",
+            "number": "5",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Install Electron headers",
+            "number": "6",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Install dependencies",
+            "number": "7",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Prepare Electron types",
+            "number": "8",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/8"
+          },
+          {
+            "name": "Type check /build/ scripts",
+            "number": "9",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/9"
+          },
+          {
+            "name": "Prepare built-in extensions cache key",
+            "number": "10",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/10"
+          },
+          {
+            "name": "Restore built-in extensions cache",
+            "number": "11",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/11"
+          },
+          {
+            "name": "Download built-in extensions",
+            "number": "12",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Check Markdown editor manifests and clipboard",
+            "number": "13",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/13"
+          },
+          {
+            "name": "Compile & Hygiene",
+            "number": "14",
+            "conclusion": "failure",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/14"
+          },
+          {
+            "name": "ESLint",
+            "number": "15",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Check Codex protocol client is in sync",
+            "number": "16",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Check cyclic dependencies",
+            "number": "17",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Post Setup Node.js",
+            "number": "33",
+            "conclusion": "skipped",
+            "logUrl": ""
+          },
+          {
+            "name": "Post Checkout microsoft/vscode",
+            "number": "34",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/34"
+          },
+          {
+            "name": "Complete job",
+            "number": "35",
+            "conclusion": "success",
+            "logUrl": "/microsoft/vscode/commit/a296c13d42e2e978f361650a6f42bc33ee86f141/checks/120256773911/logs/35"
+          }
+        ],
+        "annotations": [
+          "Compile & Hygiene Process completed with exit code 1. Show more Show less"
+        ],
+        "signIn": true
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import type { MutationRecorder } from './lifecycle/mutation-registry';
 import { MODULE_A } from '../modules/a/scope/module';
 import { CARD_MODULE } from '../modules/b/card/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
+import { LOG_MODULE } from '../modules/d/log-parser/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
 import { MODULE_G } from '../modules/g/notes/module';
 import { MODULE_H } from '../modules/h/module';
@@ -92,6 +93,7 @@ export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   CARD_MODULE, // MJ8 (T-3.2): الوحدة (ب): بطاقة الشرح
   PR_STATUS_MODULE, // MJ8 (T-5.1): الوحدة (د): ملخص حالة طلب الدمج
   COMPARE_MODULE, // MJ8 (T-5.4): الوحدة (د): ملخص المقارنة
+  LOG_MODULE, // MJ11 (T-5.3): الوحدة (د): شرح سجل الفحص
   MODULE_G, // MJ9 (T-8.1): الوحدة (ز) الملاحظات الخاصة
   MODULE_H, // MJ9 (T-9.1، T-9.4): الوحدة (ح) شريط README العربي وبطاقة الملف الشخصي
 ];
