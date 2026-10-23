@@ -1,0 +1,49 @@
+/* أنماط معادية لـTEST-CORE-05: تحاول أن تبلغ واجهات مِجهَر المحقونة وتغيّرها. انظر README.md. */
+:root, html {
+  --mijhar-bg-surface: #ff00ff;
+  --mijhar-text-primary: #00ff00;
+  --mijhar-font-text: "Comic Sans MS", cursive;
+  --mijhar-border-default: #ff0000;
+  --mijhar-radius-6: 40px;
+  font-size: 7px !important;
+  direction: ltr !important;
+}
+html { transform: translateX(37px) scale(0.93); filter: hue-rotate(120deg) invert(0.15); overflow: hidden !important; }
+body {
+  font: italic 900 31px/3 "Comic Sans MS", cursive !important;
+  color: #f0f !important;
+  letter-spacing: 6px !important;
+  word-spacing: 9px !important;
+  text-transform: uppercase !important;
+  text-shadow: 2px 2px red !important;
+  text-align: right !important;
+  cursor: crosshair !important;
+}
+*, *::before, *::after { box-sizing: content-box !important; transition: all 3s !important; outline: 3px dashed orange !important; color: #f60 !important; font-size: 19px !important; }
+div, span, button, aside, section, header, h1, h2, p, label, input, kbd {
+  all: unset;
+  display: inline !important;
+  color: red !important;
+  background: yellow !important;
+  padding: 13px !important;
+  margin: 7px !important;
+  border: 5px solid lime !important;
+  font-size: 23px !important;
+}
+button, .btn, .btn-primary, .tab, [role="tab"] { background: #000 !important; color: #ff0 !important; border-radius: 0 !important; height: 60px !important; }
+mijhar-host, [data-mijhar-host], [popover], [popover]:popover-open, [data-open] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  position: static !important;
+  inset: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  transform: scale(0) !important;
+  filter: blur(9px) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  clip-path: inset(50%) !important;
+}
+.mj-root, .drawer, .drawer-header, .tablist, .tabpanel, .section, .toggle-switch, .toggle-slider, .fake { all: unset !important; display: none !important; }
+.overlay { position: fixed; inset: 0; z-index: 2147483647 !important; background: rgba(255, 0, 0, 0.05) !important; display: block !important; }

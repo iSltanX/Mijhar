@@ -11,7 +11,7 @@ import { TARGETS, generateManifest } from '../src/manifest/generate.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-const ENTRIES = [
+export const ENTRIES = [
   { name: 'background', source: 'src/background/index.ts', global: 'MijharBackground' },
   { name: 'content', source: 'src/content/index.ts', global: 'MijharContent' },
   { name: 'sidepanel', source: 'src/sidepanel/main.tsx', global: 'MijharSidepanel' },
@@ -19,7 +19,7 @@ const ENTRIES = [
 ];
 
 // صفحات الإضافة: كل صفحة تحمّل حزمة مدخلها بالاسم نفسه.
-const PAGES = [
+export const PAGES = [
   { source: 'src/sidepanel/index.html', file: 'sidepanel.html' },
   { source: 'src/options/index.html', file: 'options.html' },
 ];

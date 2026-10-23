@@ -1,5 +1,8 @@
 // فتح المخزن والإعدادات في سياق فعلي. سياقات الإضافة (الخلفية واللوحة والإعدادات) ترحّل؛ وسكربت المحتوى لا يرحّل،
 // فإن وجد بيانات لم تُرحَّل بعد أو عملية جارية أعاد المحاولة ريثما تُتمّها الخلفية (تفتح المخزن عند بدئها).
+// وسكربت المحتوى بلا قفل (locks: null): navigator.locks فيه قفل أصل github.com لا أصل الإضافة فلا يسلسل شيئًا مع
+// سياقاتها، وفي Firefox يملكه عالم الصفحة فلا يستطيع انتظار وعد من العالم المعزول ("Permission denied to access
+// property then"، evidence/T-1.4).
 import { SettingsStore } from '../settings';
 import type { SettingsRegistry } from '../settings';
 import { Store, StorageBusyError, StorageNotMigratedError, extensionStorage } from '../storage';
@@ -29,7 +32,7 @@ export async function openSettings(options: OpenSettingsOptions = {}): Promise<O
   const delay = options.delayMs ?? ((attempt: number) => 150 * attempt);
   for (let attempt = 1; ; attempt += 1) {
     try {
-      const store = await Store.open({ area: binding.area, changes: binding.changes, migrate });
+      const store = await Store.open({ area: binding.area, changes: binding.changes, migrate, ...(migrate ? {} : { locks: null }) });
       const settings = await SettingsStore.open(store, options.registry ?? createSettingsRegistry());
       return { store, settings };
     } catch (error) {
