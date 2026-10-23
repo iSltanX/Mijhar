@@ -11,6 +11,7 @@ import { SEARCH_MODULE } from '../modules/b/search/module';
 import { TRANSLATE_MODULE } from '../modules/c/ui/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
+import { COMPOSER_MODULE } from '../modules/f/composer/module';
 import { MODULE_G } from '../modules/g/notes/module';
 import { MODULE_H } from '../modules/h/module';
 
@@ -96,6 +97,7 @@ export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   TRANSLATE_MODULE, // MJ10 (T-4.1): الوحدة (ج): واجهة الترجمة عند الطلب
   PR_STATUS_MODULE, // MJ8 (T-5.1): الوحدة (د): ملخص حالة طلب الدمج
   COMPARE_MODULE, // MJ8 (T-5.4): الوحدة (د): ملخص المقارنة
+  COMPOSER_MODULE, // MJ10 (T-7.1): الوحدة (و): مساعد تنظيم Issue/PR
   MODULE_G, // MJ9 (T-8.1): الوحدة (ز) الملاحظات الخاصة
   MODULE_H, // MJ9 (T-9.1، T-9.4): الوحدة (ح) شريط README العربي وبطاقة الملف الشخصي
 ];

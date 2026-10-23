@@ -58,6 +58,8 @@ const wdKey = (name) => WD[name] ?? (/^Key([A-Z])$/.test(name) ? name.slice(3).t
 
 /** ضغطة مفتاح حقيقية بمعدّلات اختيارية: 'Tab' و'Shift+Tab' و'Alt+KeyH' و'Enter' و'Space' و'Escape' و'g'. */
 export async function press(b, combo) {
+  // ControlOrMeta: اختصار المنصة (⌘ في macOS وCtrl غيره).
+  combo = combo.replace('ControlOrMeta', process.platform === 'darwin' ? 'Meta' : 'Control');
   if (b.page) {
     await b.page.keyboard.press(combo);
     return;
