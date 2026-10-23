@@ -1,10 +1,14 @@
 // مصدر الصفحة المفتوحة لواجهات الوحدات: يعيد وصفها (PageInfo) ويُعلم بتغيّرها.
 //  - documentPageSource: الدرج وسكربت المحتوى؛ يرى DOM الصفحة فيُغني الوصف منه، ويتتبع التنقل والهاش.
 //  - tabsPageSource: اللوحة الجانبية الأصلية (صفحة إضافة)؛ لا ترى DOM فتقرأ رابط التبويب النشط، وتجدّد عند تبديل التبويب أو تنقله.
-//    رابط التبويب متاح لأن صلاحية المضيف https://github.com/* ممنوحة (بلا صلاحية tabs).
+//    رابط التبويب متاح لأن صلاحية المضيف https://github.com/* ممنوحة (بلا صلاحية tabs). وفي صفحة الملف يطلب المرجع والمسار من
+//    سكربت المحتوى في التبويب (جسر tabs.sendMessage، VR-10): الرابط وحده لا يفصل فرعًا في اسمه «/» عن المسار.
 import { useEffect, useState } from 'preact/hooks';
 import { enrichFromDocument, pageInfoFromUrl } from './page-info';
 import type { PageInfo } from './page-info';
+
+/** طلب اللوحة وصف الصفحة من سكربت المحتوى في التبويب النشط. */
+export const PAGE_INFO_MESSAGE = 'mijhar/page-info';
 
 export interface PageSource {
   /** الوصف الحالي، أو null إن لم تتوفر صفحة (لا تبويب نشط). */
@@ -43,9 +47,38 @@ interface TabsEvent {
 
 /** الجزء الذي نستعمله من tabs؛ الأحداث اختيارية لأن ExtensionApi في النواة لا يعلنها. */
 export interface ActiveTabsApi {
-  query(query: { active?: boolean; currentWindow?: boolean }): Promise<Array<{ url?: string; title?: string }>>;
+  query(query: { active?: boolean; currentWindow?: boolean }): Promise<Array<{ id?: number; url?: string; title?: string }>>;
+  /** جسر وصف الصفحة إلى سكربت المحتوى (VR-10). */
+  sendMessage?(tabId: number, message: unknown): Promise<unknown>;
   onActivated?: TabsEvent;
   onUpdated?: TabsEvent;
+}
+
+const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value);
+const lower = (value: unknown): unknown => (typeof value === 'string' ? value.toLowerCase() : value);
+
+/** ردّ سكربت المحتوى عن الملف نفسه: المستودع ومقطع الرابط بعد blob/ كما في رابط التبويب، والمرجع مقروء من الصفحة لا من الرابط. */
+function blobAnswer(reply: unknown, info: PageInfo): { ref: string; refKind: 'ref' | 'sha'; path: string } | null {
+  if (!isRecord(reply) || reply.type !== 'blob' || lower(reply.owner) !== lower(info.owner) || lower(reply.repo) !== lower(info.repo)) return null;
+  const { ref, path, refKind } = reply;
+  if (typeof ref !== 'string' || !ref || typeof path !== 'string' || !path || (refKind !== 'ref' && refKind !== 'sha')) return null;
+  return `${ref}/${path}` === info.blobRest ? { ref, refKind, path } : null;
+}
+
+/**
+ * المرجع والمسار لصفحة ملف في التبويب من سكربت المحتوى فيه. إن تعذّر الجسر (لا سكربت محتوى بعد، أو صفحة لم تُرسم) أو أجاب عن
+ * ملف آخر أُسقط المرجع والمسار: لا يُحفظ هدف من تقسيم الرابط. ويبقى blobRest لمطابقة الملاحظات المحفوظة (relationTo).
+ */
+async function blobFromTab(tabs: ActiveTabsApi, tabId: number | undefined, info: PageInfo): Promise<PageInfo> {
+  if (tabs.sendMessage && tabId !== undefined) {
+    try {
+      const answer = blobAnswer(await tabs.sendMessage(tabId, { type: PAGE_INFO_MESSAGE }), info);
+      if (answer) return { ...info, ...answer };
+    } catch {
+      // لا مستمع في التبويب: يُعامل كتعذّر الجسر.
+    }
+  }
+  return { ...info, ref: null, refKind: 'unknown', path: null };
 }
 
 export function tabsPageSource(tabs: ActiveTabsApi | undefined): PageSource | null {
@@ -53,7 +86,9 @@ export function tabsPageSource(tabs: ActiveTabsApi | undefined): PageSource | nu
   return {
     async read() {
       const [tab] = await tabs.query({ active: true, currentWindow: true });
-      return tab?.url ? pageInfoFromUrl(tab.url, tab.title ?? null) : null;
+      if (!tab?.url) return null;
+      const info = pageInfoFromUrl(tab.url, tab.title ?? null);
+      return info.type === 'blob' && info.blobRest !== null ? blobFromTab(tabs, tab.id, info) : info;
     },
     subscribe(notify) {
       const events = [tabs.onActivated, tabs.onUpdated].filter((e): e is TabsEvent => Boolean(e));
@@ -70,6 +105,25 @@ export function tabsPageSource(tabs: ActiveTabsApi | undefined): PageSource | nu
       };
     },
   };
+}
+
+interface MessageEvents {
+  readonly onMessage: {
+    addListener(listener: (message: unknown, sender: unknown, sendResponse: (response?: unknown) => void) => unknown): void;
+    removeListener(listener: (message: unknown, sender: unknown, sendResponse: (response?: unknown) => void) => unknown): void;
+  };
+}
+
+/** مستجيب سكربت المحتوى لجسر وصف الصفحة: يعيد وصفها من DOM (documentPageSource). يعيد دالة الإلغاء. */
+export function respondPageInfo(runtime: MessageEvents, doc: Document = document): () => void {
+  const source = documentPageSource(doc);
+  const listener = (message: unknown, _sender: unknown, sendResponse: (response?: unknown) => void): true | undefined => {
+    if (!isRecord(message) || message.type !== PAGE_INFO_MESSAGE) return undefined;
+    source.read().then(sendResponse, () => sendResponse(null));
+    return true;
+  };
+  runtime.onMessage.addListener(listener);
+  return () => runtime.onMessage.removeListener(listener);
 }
 
 /** تبويبات الإضافة الفعلية (browser ثم chrome)، أو undefined خارج سياق إضافة. */

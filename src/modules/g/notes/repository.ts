@@ -1,8 +1,12 @@
 // مستودع الملاحظات فوق Store: ذاكرة مؤقتة متزامنة تتبع أحداث التغيّر من كل السياقات (علامة في الصفحة ولوحة وتبويب آخر)،
 // وكتابة سجل لكل ملاحظة. سجل غير صالح في التخزين يُهمل في العرض ويبقى كما هو (قد يكون من نسخة أحدث).
+// الكتابة بين السياقات تمر بالخلفية (VR-01): السياق الذي يُعطى writer يرسل إليها حقول التعديل، والخلفية وحدها تكتب بالمسار
+// المباشر (بلا writer) في طابور واحد. والمسار المباشر لا يضمن شيئًا بين مخزنين في سياقين؛ هو للخلفية ولاختبارات الوحدة.
 import type { Store } from '../../../core/storage';
+import { anchorRecordName } from '../anchor/types';
 import { MAX_NOTE_LENGTH, NOTE_PREFIX, NOTE_SCHEMA_VERSION, isNote, noteRecordName } from './types';
 import type { AnchorStatus, LineTarget, Note, NoteDraft, NotePatch, NoteTarget } from './types';
+import type { NotesWriter } from './writer';
 
 export class NoteTextError extends Error {
   constructor(message: string) {
@@ -21,6 +25,8 @@ export class NoteNotFoundError extends Error {
 export interface NotesRepositoryOptions {
   readonly now?: () => Date;
   readonly newId?: () => string;
+  /** كاتب الخلفية (runtimeNotesWriter): الإنشاء والتعديل والحذف رسائل إليها. بلا writer يكتب المستودع في مخزنه مباشرة. */
+  readonly writer?: NotesWriter;
 }
 
 const same = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.stringify(b);
@@ -56,6 +62,7 @@ export class NotesRepository {
   private unsubscribe: (() => void) | null = null;
   private readonly now: () => Date;
   private readonly newId: () => string;
+  private readonly writer: NotesWriter | null;
 
   private constructor(
     private readonly store: Store,
@@ -63,6 +70,7 @@ export class NotesRepository {
   ) {
     this.now = options.now ?? (() => new Date());
     this.newId = options.newId ?? randomId;
+    this.writer = options.writer ?? null;
   }
 
   static async open(store: Store, options: NotesRepositoryOptions = {}): Promise<NotesRepository> {
@@ -87,6 +95,7 @@ export class NotesRepository {
 
   async create(draft: NoteDraft): Promise<Note> {
     const text = checkNoteText(draft.text);
+    if (this.writer) return this.accepted(await this.writer.createNote(draft));
     const stamp = this.now().toISOString();
     const note: Note = {
       id: this.newId(),
@@ -108,6 +117,7 @@ export class NotesRepository {
   /** يعدّل النص وحالة المرساة وموضع السطر كلًّا على حدة: تعديل أحدها لا يمس غيره. */
   async update(id: string, patch: NotePatch): Promise<Note> {
     const text = patch.text === undefined ? undefined : checkNoteText(patch.text);
+    if (this.writer) return this.accepted(await this.writer.updateNote(id, patch));
     const next = await this.store.update<Note | null>(noteRecordName(id), null, (current) => {
       if (!current) throw new NoteNotFoundError(id);
       if (patch.target !== undefined && !sameLineHome(current.target, patch.target)) throw new Error('نقل الملاحظة يغيّر أسطرها وحدها في ملفها نفسه');
@@ -126,8 +136,10 @@ export class NotesRepository {
     return next;
   }
 
+  /** يحذف الملاحظة ومرساتها (anchors.<id>) معًا في كتابة واحدة، فلا تبقى بصمة سطر بعد حذف صاحبها أيًّا كانت الواجهة (VR-04). */
   async remove(id: string): Promise<void> {
-    await this.store.remove(noteRecordName(id));
+    if (this.writer) await this.writer.removeNote(id);
+    else await this.store.removeMany([noteRecordName(id), anchorRecordName(id)]);
     this.apply(id, undefined);
   }
 
@@ -142,6 +154,13 @@ export class NotesRepository {
     this.unsubscribe?.();
     this.unsubscribe = null;
     this.listeners.clear();
+  }
+
+  // ما أعادته الخلفية يُطبَّق على الذاكرة المؤقتة فورًا (وحدث التغيّر يصل بعده بالقيمة نفسها).
+  private accepted(note: Note): Note {
+    if (!isNote(note)) throw new Error('ردّ غير صالح من خلفية الإضافة');
+    this.apply(note.id, note);
+    return note;
   }
 
   private accept(name: string, value: unknown): void {

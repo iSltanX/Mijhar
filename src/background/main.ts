@@ -2,6 +2,7 @@
 //  - المستمعات تُسجَّل متزامنةً عند البدء (MV3: يوقظ الحدثُ الخلفيةَ ثم يُسلَّم لمستمع سُجّل في التقييم الأول).
 //  - تملك الترحيل: تفتح المخزن مرحِّلةً، فيجد سكربت المحتوى (لا يرحّل) بياناته جاهزة.
 //  - تطبّق تفضيل مكان اللوحة حيث يُقرأ متزامنًا وقت الأمر (commands.ts).
+//  - الكاتب الوحيد لسجلات الملاحظات والمراسي (VR-01): تنفّذ رسائل الكتابة من كل السياقات في طابور واحد على مخزنها.
 // الاستيراد من الملفات مباشرة لا من ../core: الخلفية لا ترسم واجهة، فلا تحمل Preact.
 import { extensionApi } from '../core/ui-host/browser-api';
 import type { ExtensionApi } from '../core/ui-host/browser-api';
@@ -18,6 +19,8 @@ import { GLOSSARY_COMMAND, GLOSSARY_TAB } from '../modules/b/search/ids';
 import { PublicApiClient } from '../core/api/client';
 import { directPort, handlePublicApiRequest, isPublicApiRequest } from '../core/api/port';
 import type { PublicApiPort } from '../core/api/port';
+import { NotesBroker, openParts } from '../modules/g/notes/broker';
+import { isNotesWriteRequest } from '../modules/g/notes/writer';
 
 export interface BackgroundOptions {
   readonly api?: ExtensionApi;
@@ -58,7 +61,14 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     return publicApi;
   };
 
+  // VR-01: الوسيط ينتظر فتح المخزن (ومعه الترحيل) قبل أول كتابة.
+  const notesBroker = new NotesBroker(() => ready.then(({ store }) => openParts(store)));
+
   api.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (isNotesWriteRequest(message)) {
+      void notesBroker.handle(message).then(sendResponse);
+      return true;
+    }
     if (isPublicApiRequest(message)) {
       const port = apiPort();
       if (!port) return undefined;
@@ -85,6 +95,8 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
       settings.subscribe((change) => {
         if (change.key === SURFACE_KEY) apply(change.value as Surface);
       });
+      // VR-04: استرداد مرة بعد فتح التخزين لمراسٍ بقيت بعد حذف ملاحظاتها (من نسخة سابقة أو انقطاع).
+      notesBroker.pruneOrphans().catch((error: unknown) => console.error('[mijhar] تعذّر تنظيف المراسي اليتيمة', error));
     },
     (error: unknown) => console.error('[mijhar] تعذّر فتح التخزين في الخلفية', error),
   );

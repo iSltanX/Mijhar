@@ -53,6 +53,22 @@ export interface AnchorControllerDeps {
 
 const isBlobLine = (note: Note): note is Note & { target: BlobLineTarget } => note.target.level === 'line' && note.target.view === 'blob';
 
+/** تجزئة FNV-1a (32 بت) لأرقام الأسطر ونصوصها بترتيبها: رخيصة، وتكفي مفتاحًا للذاكرة لا للأمان. */
+function contentHash(page: PageLines): string {
+  let hash = 0x811c9dc5;
+  const mix = (code: number): void => {
+    hash ^= code;
+    hash = Math.imul(hash, 0x01000193);
+  };
+  for (const [line, text] of [...page.lines].sort(([a], [b]) => a - b)) {
+    for (const ch of String(line)) mix(ch.charCodeAt(0));
+    mix(0x0a);
+    for (let i = 0; i < text.length; i += 1) mix(text.charCodeAt(i));
+    mix(0x0a);
+  }
+  return (hash >>> 0).toString(16);
+}
+
 export const anchorLinks = (anchor: LineAnchor): { readonly branch: string; readonly permalink: string | null } => ({ branch: branchUrl(anchor), permalink: permalinkUrl(anchor) });
 
 export class AnchorController {
@@ -199,11 +215,12 @@ export class AnchorController {
     }
   }
 
-  // أسطر الصفحة بصيغة المقارنة، مذاكَرة ما دامت الأسطر نفسها: التجزئة للخاص تجري مرة لكل حالة صفحة.
+  // أسطر الصفحة بصيغة المقارنة، مذاكَرة ما دامت الأسطر نفسها: التجزئة للخاص تجري مرة لكل حالة صفحة. المفتاح يشمل تجزئة FNV-1a
+  // لكل الأسطر بترتيبها (VR-05): تغيّر سطر داخلي بالطول نفسه يغيّره فلا تُعاد أسطر قديمة.
   private async comparableFor(page: PageLines, mode: 'text' | 'hash', salt?: string): Promise<PageLines> {
     let size = 0;
     for (const text of page.lines.values()) size += text.length;
-    const key = `${mode}:${salt ? salt.slice(0, 8) : ''}:${page.max}:${page.lines.size}:${size}:${page.lines.get(1) ?? ''}:${page.lines.get(page.max) ?? ''}`;
+    const key = `${mode}:${salt ? salt.slice(0, 8) : ''}:${page.max}:${page.lines.size}:${size}:${contentHash(page)}`;
     if (this.comparable?.key === key) return this.comparable.lines;
     const lines = await comparableLines(page, mode, salt);
     this.comparable = { key, lines };

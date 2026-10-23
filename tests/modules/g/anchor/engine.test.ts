@@ -3,9 +3,10 @@
 // المحرك وحده (TEST-NOTE-03A–03F، وحدة): البصمة بصيغتي DEC-05، وإعادة التثبيت بالنتائج الأربع على أسطر الصفحة، وقراءة الصفحة
 // لحالات E وF، والملح المحلي. لا شبكة: الدوال تعمل على DOM وأسطر في الذاكرة.
 import { describe, expect, it } from 'vitest';
-import { MemoryStorageArea, SelectorsRegistry, Store } from '../../../../src/core';
+import { DEFAULT_SELECTORS, MemoryStorageArea, SelectorsRegistry, Store } from '../../../../src/core';
 import {
   ANCHOR_SELECTORS,
+  AnchorController,
   AnchorStore,
   comparableLines,
   isLineAnchor,
@@ -18,7 +19,9 @@ import {
   visibilityOf,
 } from '../../../../src/modules/g/anchor';
 import type { Fingerprint, PageLines } from '../../../../src/modules/g/anchor';
-import { LINE, LOGIN_HTML, MISSING_IN_REPO_HTML, NOT_FOUND_HTML, V1, V2_SHIFTED, V3_DUPLICATE, V4_CHANGED, V5_DELETED, V6_CONTEXT, codeViewHtml } from './drift';
+import { NotesRepository } from '../../../../src/modules/g/notes';
+import { enrichFromDocument, pageInfoFromUrl } from '../../../../src/shared/page';
+import { BLOB_URL, LINE, LOGIN_HTML, MISSING_IN_REPO_HTML, NOT_FOUND_HTML, PATH, V1, V2_SHIFTED, V3_DUPLICATE, V4_CHANGED, V5_DELETED, V6_CONTEXT, codeViewHtml } from './drift';
 
 const SALT = 'a'.repeat(64);
 
@@ -153,4 +156,37 @@ describe('مخزن المراسي والملح', () => {
     expect(await anchors.pruneOrphans()).toBe(1);
     expect(anchors.get('n1')).toBeUndefined();
   });
+});
+
+describe('ذاكرة أسطر المقارنة في المتحكم (VR-05)', () => {
+  for (const visibility of ['public', 'private'] as const) {
+    it(`تغيّر سطر داخلي بالطول نفسه يُعاد حسابه في المتحكم نفسه كما في متحكم جديد (${visibility === 'public' ? 'نص' : 'بصمة مملّحة'})`, async () => {
+      const area = new MemoryStorageArea();
+      const store = await Store.open({ area, changes: area, locks: null });
+      const notes = await NotesRepository.open(store);
+      const anchors = await AnchorStore.open(store);
+      const doc = new DOMParser().parseFromString(codeViewHtml(V1, { visibility }), 'text/html');
+      const note = await notes.create({ target: { level: 'line', view: 'blob', owner: 'octo', repo: 'shop', ref: 'main', refKind: 'ref', path: PATH, start: LINE, end: LINE }, text: 'ملاحظة', url: BLOB_URL });
+      const deps = { doc, selectors: new SelectorsRegistry([...DEFAULT_SELECTORS, ...ANCHOR_SELECTORS]), notes, anchors, page: () => enrichFromDocument(pageInfoFromUrl(BLOB_URL), doc), onChange: () => {} };
+      const controller = new AnchorController(deps);
+      await controller.capture(note);
+      expect(controller.view(note.id)?.kind).toBe('matched');
+      const line = doc.getElementById(`LC${LINE}`)!;
+      const before = line.textContent!;
+      line.textContent = before.replace('Total', 'Totul');
+      expect(line.textContent).not.toBe(before);
+      expect(line.textContent!.length).toBe(before.length);
+      await controller.refresh();
+      const fresh = new AnchorController(deps);
+      await fresh.refresh();
+      expect(fresh.view(note.id)?.kind).toBe('changed');
+      expect(controller.view(note.id)?.kind).toBe('changed');
+      // والعودة إلى الأصل تعيد المطابقة في المتحكم نفسه.
+      line.textContent = before;
+      await controller.refresh();
+      expect(controller.view(note.id)?.kind).toBe('matched');
+      controller.dispose();
+      fresh.dispose();
+    });
+  }
 });
