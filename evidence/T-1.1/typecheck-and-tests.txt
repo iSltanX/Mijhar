@@ -1,0 +1,14 @@
+$ npx tsc --noEmit
+exit=0
+
+$ npx vitest run
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj1-91cdba
+
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  07:14:03
+   Duration  209ms (import 56%, tests 38%, transform 4%, worker 2%)
+
+exit=0
