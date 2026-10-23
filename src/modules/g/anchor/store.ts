@@ -1,0 +1,85 @@
+// تخزين المراسي والملح المحلي فوق Store. المرساة سجل لكل ملاحظة (anchors.<noteId>)، والملح سجل واحد (anchor-salt) يُنشأ عند أول
+// بصمة لمستودع خاص ولا يغادر الجهاز إلا بتصدير يختاره المستخدم (T-8.4). مرساة ملاحظة حُذفت تُزال عند التنظيف (prune).
+import type { Store } from '../../../core/storage';
+import { newSalt } from './fingerprint';
+import { ANCHOR_PREFIX, SALT_RECORD, anchorRecordName, isLineAnchor } from './types';
+import type { LineAnchor } from './types';
+
+interface SaltRecord {
+  readonly salt: string;
+  readonly createdAt: string;
+}
+
+const isSaltRecord = (value: unknown): value is SaltRecord =>
+  typeof value === 'object' && value !== null && typeof (value as SaltRecord).salt === 'string' && /^[0-9a-f]{64}$/.test((value as SaltRecord).salt);
+
+export class AnchorStore {
+  private readonly anchors = new Map<string, LineAnchor>();
+  private readonly listeners = new Set<() => void>();
+  private unsubscribe: (() => void) | null = null;
+
+  private constructor(private readonly store: Store) {}
+
+  static async open(store: Store): Promise<AnchorStore> {
+    const anchors = new AnchorStore(store);
+    for (const [name, value] of Object.entries(await store.readPrefix(ANCHOR_PREFIX))) {
+      if (isLineAnchor(value) && anchorRecordName(value.noteId) === name) anchors.anchors.set(value.noteId, value);
+    }
+    anchors.unsubscribe = store.subscribePrefix(ANCHOR_PREFIX, (name, value) => {
+      const id = name.slice(ANCHOR_PREFIX.length);
+      if (isLineAnchor(value) && value.noteId === id) anchors.anchors.set(id, value);
+      else anchors.anchors.delete(id);
+      for (const listener of [...anchors.listeners]) listener();
+    });
+    return anchors;
+  }
+
+  get(noteId: string): LineAnchor | undefined {
+    return this.anchors.get(noteId);
+  }
+
+  async save(anchor: LineAnchor): Promise<void> {
+    if (!isLineAnchor(anchor)) throw new Error('مرساة غير صالحة');
+    await this.store.write(anchorRecordName(anchor.noteId), anchor);
+    this.anchors.set(anchor.noteId, anchor);
+  }
+
+  async remove(noteId: string): Promise<void> {
+    if (!this.anchors.has(noteId)) return;
+    await this.store.remove(anchorRecordName(noteId));
+    this.anchors.delete(noteId);
+  }
+
+  /** يزيل مراسي الملاحظات غير الموجودة. */
+  async prune(existing: ReadonlySet<string>): Promise<number> {
+    const stale = [...this.anchors.keys()].filter((id) => !existing.has(id));
+    for (const id of stale) await this.remove(id);
+    return stale.length;
+  }
+
+  /** الملح المحلي، أو null إن لم يُنشأ بعد. */
+  async salt(): Promise<string | null> {
+    const record = await this.store.read<unknown>(SALT_RECORD, null);
+    return isSaltRecord(record) ? record.salt : null;
+  }
+
+  /** الملح المحلي، يُنشأ عند أول حاجة. */
+  async ensureSalt(now: () => Date = () => new Date()): Promise<string> {
+    const record = await this.store.update<unknown>(SALT_RECORD, null, (current) => (isSaltRecord(current) ? current : { salt: newSalt(), createdAt: now().toISOString() }));
+    if (!isSaltRecord(record)) throw new Error('تعذّر إنشاء الملح المحلي');
+    return record.salt;
+  }
+
+  subscribe(listener: () => void): () => void {
+    this.listeners.add(listener);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  }
+
+  dispose(): void {
+    this.unsubscribe?.();
+    this.unsubscribe = null;
+    this.listeners.clear();
+  }
+}

@@ -62,7 +62,8 @@ describe('السجل', () => {
 
   it('كل واجهة فيها حقول كتابة مقصورة على اللوحة الأصلية، ولها بديل في الدرج', () => {
     const native = PANEL_VIEWS.filter((v) => v.surfaces?.length === 1 && v.surfaces[0] === 'native').map((v) => v.id);
-    expect(native.sort()).toEqual(['g-notes', 'h-discovery', 'h-resources']);
+    // السجل مشترك: تُقاس واجهات (ز) و(ح) المعروفة هنا، والقاعدة (بديل في الدرج) على كل واجهة مقصورة على اللوحة الأصلية.
+    expect(native).toEqual(expect.arrayContaining(['g-notes', 'h-discovery', 'h-resources']));
     for (const id of native) expect(PANEL_VIEWS.some((v) => v.id.startsWith(id) && v.surfaces?.[0] === 'drawer')).toBe(true);
   });
 });

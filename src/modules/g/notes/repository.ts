@@ -2,7 +2,7 @@
 // وكتابة سجل لكل ملاحظة. سجل غير صالح في التخزين يُهمل في العرض ويبقى كما هو (قد يكون من نسخة أحدث).
 import type { Store } from '../../../core/storage';
 import { MAX_NOTE_LENGTH, NOTE_PREFIX, NOTE_SCHEMA_VERSION, isNote, noteRecordName } from './types';
-import type { AnchorStatus, Note, NoteDraft, NotePatch } from './types';
+import type { AnchorStatus, LineTarget, Note, NoteDraft, NotePatch, NoteTarget } from './types';
 
 export class NoteTextError extends Error {
   constructor(message: string) {
@@ -36,6 +36,14 @@ export function checkNoteText(text: string): string {
   if (!trimmed) throw new NoteTextError('اكتب نص الملاحظة أولًا');
   if (trimmed.length > MAX_NOTE_LENGTH) throw new NoteTextError(`الملاحظة أطول من الحد (${MAX_NOTE_LENGTH} حرف)`);
   return trimmed;
+}
+
+/** الهدف الجديد سطر في الموضع نفسه (المستودع والمسار والمرجع أو سياق الفروق)، ولا يختلف إلا في الأسطر. */
+function sameLineHome(current: NoteTarget, next: LineTarget): boolean {
+  if (current.level !== 'line' || next.level !== 'line' || current.owner !== next.owner || current.repo !== next.repo || current.path !== next.path) return false;
+  if (current.view === 'blob') return next.view === 'blob' && current.ref === next.ref && current.refKind === next.refKind;
+  if (next.view !== 'diff' || current.side !== next.side || current.context.kind !== next.context.kind) return false;
+  return current.context.kind === 'pr' ? next.context.kind === 'pr' && current.context.number === next.context.number : next.context.kind === 'commit' && current.context.sha === next.context.sha;
 }
 
 export function defaultAnchorStatus(draft: Pick<NoteDraft, 'target'>): AnchorStatus {
@@ -97,15 +105,17 @@ export class NotesRepository {
     return note;
   }
 
-  /** يعدّل النص وحالة المرساة كلًّا على حدة: تعديل أحدهما لا يمس الآخر. */
+  /** يعدّل النص وحالة المرساة وموضع السطر كلًّا على حدة: تعديل أحدها لا يمس غيره. */
   async update(id: string, patch: NotePatch): Promise<Note> {
     const text = patch.text === undefined ? undefined : checkNoteText(patch.text);
     const next = await this.store.update<Note | null>(noteRecordName(id), null, (current) => {
       if (!current) throw new NoteNotFoundError(id);
+      if (patch.target !== undefined && !sameLineHome(current.target, patch.target)) throw new Error('نقل الملاحظة يغيّر أسطرها وحدها في ملفها نفسه');
       const merged: Note = {
         ...current,
         ...(text === undefined ? {} : { text }),
         ...(patch.anchorStatus === undefined ? {} : { anchorStatus: patch.anchorStatus }),
+        ...(patch.target === undefined ? {} : { target: patch.target }),
         updatedAt: this.now().toISOString(),
       };
       if (!isNote(merged)) throw new Error('تعديل غير صالح للملاحظة');

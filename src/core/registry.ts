@@ -9,6 +9,7 @@ import { MODULE_A } from '../modules/a/scope/module';
 import { CARD_MODULE } from '../modules/b/card/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
+import { BOOKMARKS_MODULE } from '../modules/g/bookmarks/module';
 import { MODULE_G } from '../modules/g/notes/module';
 import { MODULE_H } from '../modules/h/module';
 
@@ -94,6 +95,7 @@ export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   COMPARE_MODULE, // MJ8 (T-5.4): الوحدة (د): ملخص المقارنة
   MODULE_G, // MJ9 (T-8.1): الوحدة (ز) الملاحظات الخاصة
   MODULE_H, // MJ9 (T-9.1، T-9.4): الوحدة (ح) شريط README العربي وبطاقة الملف الشخصي
+  BOOKMARKS_MODULE, // MJ12 (T-8.2): الوحدة (ز) زر «أكمل لاحقًا»
 ];
 
 export function createModuleRegistry(modules: readonly ExtensionModule[] = BUILTIN_MODULES): ModuleRegistry {

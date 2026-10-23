@@ -4,6 +4,7 @@ import type { FunctionComponent } from 'preact';
 import type { SettingsStore } from '../core/settings';
 import type { UnitId } from '../core/ui-host/units';
 import { ExplainToggleView } from '../modules/b/card/panel-view';
+import { LATER_PANEL_VIEWS } from '../modules/g/bookmarks/view';
 import { NOTES_DRAWER_VIEW, NOTES_PANEL_VIEW } from '../modules/g/notes/view';
 import { COMMUNITY_PANEL_VIEWS } from '../modules/h/views';
 
@@ -32,4 +33,5 @@ export const PANEL_VIEWS: readonly PanelView[] = [
   NOTES_PANEL_VIEW, // MJ9 (T-8.1): ملاحظاتي (اللوحة الأصلية)
   NOTES_DRAWER_VIEW, // MJ9 (T-8.1): رسالة بديلة في الدرج (بلا حقول كتابة)
   ...COMMUNITY_PANEL_VIEWS, // MJ9 (T-9.1، T-9.3، T-9.4، T-9.5): المجتمع وأول مساهمة
+  ...LATER_PANEL_VIEWS, // MJ12 (T-8.2): ملاحظاتي وأكمل لاحقًا (البحث والتصفية والفرز)
 ];
