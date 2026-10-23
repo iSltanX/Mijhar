@@ -38,6 +38,12 @@ async function main(): Promise<void> {
     detector: new PageDetector({ document }),
     isEnabled: (id) => settings.isModuleEnabled(id),
     onError: (event) => document.documentElement.setAttribute('data-mj-error', `${event.moduleId}:${event.phase}`),
+    // ما يراه سكربت المحتوى يُنشر في DOM ليقرأه Playwright (العالم المعزول لا يُرى من الصفحة).
+    onReconcile: (result) => {
+      document.documentElement.setAttribute('data-mj-page', `${result.page.type}:${result.page.confidence}`);
+      const count = Number(document.documentElement.getAttribute('data-mj-reconciles') ?? '0') + 1;
+      document.documentElement.setAttribute('data-mj-reconciles', String(count));
+    },
   });
   manager.start();
   bindModuleToggles(settings, manager);

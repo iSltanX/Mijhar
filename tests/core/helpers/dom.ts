@@ -76,3 +76,22 @@ export class ListenerLedger {
     return total;
   }
 }
+
+/** يعدّ المراقبات «العاملة» (التي استُدعي observe عليها ولم يُستدعَ disconnect بعدها). يُستدعى قبل إنشاء أي مراقب. */
+export function trackObservers(dom: JSDOM): { live: () => number } {
+  const live = new Set<unknown>();
+  const Original = dom.window.MutationObserver;
+  class Tracked extends Original {
+    override observe(target: Node, options?: MutationObserverInit): void {
+      live.add(this);
+      super.observe(target, options);
+    }
+
+    override disconnect(): void {
+      live.delete(this);
+      super.disconnect();
+    }
+  }
+  dom.window.MutationObserver = Tracked as typeof dom.window.MutationObserver;
+  return { live: () => live.size };
+}

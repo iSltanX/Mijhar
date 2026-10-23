@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PageDetector, SelectorsRegistry, DEFAULT_SELECTORS } from '../../../src/core';
 import type { PageState } from '../../../src/core';
-import { ListenerLedger, loadPage, turboNavigate } from '../helpers/dom';
+import { ListenerLedger, fixtureHtml, loadPage, trackObservers, turboNavigate } from '../helpers/dom';
 
 afterEach(() => {
   vi.useRealTimers();
@@ -125,17 +125,6 @@ describe('start/subscribe/stop', () => {
     expect(seen[1]?.[0].type).toBe('issue-list');
   });
 
-  it('تغيّر <title> يُحرّك الفحص المؤجَّل', async () => {
-    vi.useFakeTimers();
-    const { dom, detector, seen } = setup();
-    detector.start();
-    dom.window.history.pushState({}, '', '/octo/demo/pulls');
-    dom.window.document.title = 'تغيّر العنوان';
-    await Promise.resolve();
-    vi.advanceTimersByTime(30);
-    expect(seen.at(-1)?.[0].type).toBe('pr-list');
-  });
-
   it('خطأ مشترك لا يمنع بقية المشتركين ويصل إلى onError', () => {
     const dom = loadPage('repo', 'https://github.com/octo/demo');
     const onError = vi.fn();
@@ -178,5 +167,141 @@ describe('start/subscribe/stop', () => {
     detector.start();
     turboNavigate(dom, 'pr', 'https://github.com/octo/demo/pull/42');
     expect(listener).not.toHaveBeenCalled();
+  });
+});
+
+// تنقل github.com الحي بلا أحداث Turbo (evidence/T-1.2/live-selector-check.md): صفحات React يتغير مسارها قبل DOM،
+// وتبويبات طلب الدمج يصل DOM فيها قبل المسار. لا يُحكم على DOM لحظة تغيّر المسار بل بعد هدوئه.
+describe('تنقل بلا أحداث Turbo', () => {
+  const SETTLE = 100;
+  const tick = async (ms: number): Promise<void> => {
+    await Promise.resolve();
+    await Promise.resolve();
+    vi.advanceTimersByTime(ms);
+  };
+
+  const setup = (fixture = 'repo', url = 'https://github.com/octo/demo', extra: { settleMaxMs?: number } = {}) => {
+    vi.useFakeTimers();
+    const dom = loadPage(fixture, url);
+    const navigation = new dom.window.EventTarget();
+    (dom.window as unknown as { navigation: EventTarget }).navigation = navigation;
+    const observers = trackObservers(dom);
+    const detector = new PageDetector({ document: dom.window.document, settleMs: SETTLE, ...extra });
+    const seen: PageState[] = [];
+    detector.subscribe((page) => seen.push(page));
+    detector.start();
+    const nav = (type: 'navigatesuccess' | 'currententrychange' = 'navigatesuccess') => navigation.dispatchEvent(new dom.window.Event(type));
+    const swapContent = (fixtureName: string): void => {
+      const body = new dom.window.DOMParser().parseFromString(fixtureHtml(fixtureName), 'text/html').body;
+      dom.window.document.body.innerHTML = body.innerHTML;
+    };
+    return { dom, detector, seen, nav, swapContent, observers, navigation };
+  };
+
+  it('تعديل شجرة body يُحرّك الفحص بعد الهدوء، والدفعات المتتالية تؤجله', async () => {
+    const { dom, detector, seen } = setup();
+    dom.window.history.pushState({}, '', '/octo/demo/issues/7');
+    dom.window.document.body.appendChild(dom.window.document.createElement('div'));
+    await tick(60);
+    dom.window.document.body.appendChild(dom.window.document.createElement('div'));
+    await tick(60);
+    expect(seen).toHaveLength(1);
+    await tick(60);
+    expect(seen).toHaveLength(2);
+    expect(detector.current()?.type).toBe('issue');
+  });
+
+  it('نمط React: يتغير المسار أولًا ثم يصل DOM: إعلان واحد بثقة high لا حالة low وسيطة', async () => {
+    const { dom, seen, nav, swapContent } = setup();
+    dom.window.history.pushState({}, '', '/octo/demo/issues/7');
+    nav();
+    await tick(60);
+    expect(seen).toHaveLength(1);
+    swapContent('issue');
+    await tick(60);
+    expect(seen).toHaveLength(1);
+    await tick(50);
+    expect(seen).toHaveLength(2);
+    expect(seen[1]).toMatchObject({ type: 'issue', confidence: 'high', number: 7 });
+  });
+
+  it('نمط تبويبات طلب الدمج: يصل DOM أولًا ثم يتغير المسار في آخر التنقل', async () => {
+    const { dom, seen, nav, swapContent } = setup('pr', 'https://github.com/octo/demo/pull/42');
+    swapContent('issue');
+    await tick(SETTLE + 10);
+    const afterDom = seen.length;
+    expect(afterDom).toBe(2);
+    dom.window.history.pushState({}, '', '/octo/demo/pull/42/commits');
+    nav();
+    await tick(SETTLE + 10);
+    expect(seen).toHaveLength(afterDom + 1);
+    expect(seen.at(-1)).toMatchObject({ type: 'pr-commits', number: 42 });
+  });
+
+  it.each(['navigatesuccess', 'currententrychange'] as const)('حدث Navigation API «%s» وحده يحرّك الفحص', async (type) => {
+    const { dom, seen, nav } = setup();
+    dom.window.history.pushState({}, '', '/octo/demo/pulls');
+    nav(type);
+    await tick(SETTLE + 10);
+    expect(seen.at(-1)?.type).toBe('pr-list');
+  });
+
+  it('استبدال body كاملًا بلا أحداث يُلتقط، ويُعاد ربط المراقب بالجديد', async () => {
+    const { dom, detector, seen } = setup();
+    const doc = dom.window.document;
+    const next = new dom.window.DOMParser().parseFromString(fixtureHtml('issue'), 'text/html');
+    dom.window.history.pushState({}, '', '/octo/demo/issues/7');
+    doc.documentElement.replaceChild(doc.adoptNode(next.body), doc.body);
+    await tick(SETTLE + 10);
+    expect(seen).toHaveLength(2);
+
+    // تعديل لاحق داخل body الجديد وحده يلتقطه المراقب الجديد.
+    dom.window.history.pushState({}, '', '/octo/demo/issues');
+    doc.body.appendChild(doc.createElement('div'));
+    await tick(SETTLE + 10);
+    expect(detector.current()?.type).toBe('issue-list');
+  });
+
+  it('استمرار التعديلات لا يؤخر الفحص أكثر من settleMaxMs', async () => {
+    const { dom, detector } = setup('repo', 'https://github.com/octo/demo', { settleMaxMs: 300 });
+    dom.window.history.pushState({}, '', '/octo/demo/issues/7');
+    for (let t = 0; t < 400; t += 50) {
+      dom.window.document.body.appendChild(dom.window.document.createElement('i'));
+      await tick(50);
+    }
+    expect(detector.current()?.type).toBe('issue');
+  });
+
+  it('تعديلات الوحدات (حقن عناصر) بلا تغيّر في الصفحة لا تُعلن تغيّرًا', async () => {
+    const { dom, seen } = setup();
+    for (let i = 0; i < 5; i += 1) {
+      dom.window.document.body.appendChild(dom.window.document.createElement('div'));
+      await tick(SETTLE + 10);
+    }
+    expect(seen).toHaveLength(1);
+  });
+
+  it('stop يفصل المراقب ومستمعات Navigation API فلا يُعلن شيء بعده', async () => {
+    const { dom, detector, seen, nav, observers, navigation } = setup();
+    expect(observers.live()).toBe(1);
+    detector.stop();
+    expect(observers.live()).toBe(0);
+    dom.window.history.pushState({}, '', '/octo/demo/issues/7');
+    nav();
+    navigation.dispatchEvent(new dom.window.Event('currententrychange'));
+    dom.window.document.body.appendChild(dom.window.document.createElement('div'));
+    await tick(SETTLE * 3);
+    expect(seen).toHaveLength(1);
+  });
+
+  it('observeDom=false: لا مراقب إطلاقًا، ويبقى Navigation API وTurbo', async () => {
+    vi.useFakeTimers();
+    const dom = loadPage('repo', 'https://github.com/octo/demo');
+    const observers = trackObservers(dom);
+    const detector = new PageDetector({ document: dom.window.document, observeDom: false, settleMs: SETTLE });
+    detector.start();
+    expect(observers.live()).toBe(0);
+    turboNavigate(dom, 'issue', 'https://github.com/octo/demo/issues/7');
+    expect(detector.current()?.type).toBe('issue');
   });
 });

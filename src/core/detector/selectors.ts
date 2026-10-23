@@ -126,24 +126,26 @@ export class SelectorsRegistry {
   }
 }
 
-// قيم البذرة: مبنية على معرفة سابقة ببنية صفحات GitHub لا على قياس في هذه المرحلة. تُراجع بنتائج
-// T-0.1 وT-0.4 على الصفحات الحية، وأي تعديل يتم هنا وحده. المفاتيح confirm.<نوع الصفحة> يستعملها
+// قيم البذرة، مراجَعة على صفحات github.com الحية في 2026-10-23 (قراءة فقط لصفحات مستودع عام؛ evidence/T-1.2/live-selector-check.md): ما طابق منها
+// هناك رُتّب أولًا. صفحات GitHub تتغير بين تخطيط Rails القديم وتخطيط React الجديد وبأسماء فئات مجزّأة (CSS modules) لا يُعتمد عليها،
+// فالمعتمَد معرّفات data-testid وid الثابتة. لم تُقَس على صفحات حية: confirm.actions-run وconfirm.discussion (وتبقى بذرة)،
+// وصفحة تتطلب صلاحية خاصة (لوحة المستخدم والمستودعات الخاصة). تُراجع بنتائج T-0.1 وT-0.4، وأي تعديل يتم هنا وحده. المفاتيح confirm.<نوع الصفحة> يستعملها
 // PageDetector لرفع الثقة من low إلى high.
 export const DEFAULT_SELECTORS: readonly SelectorEntry[] = [
   {
     key: 'content-root',
-    description: 'حاوية المحتوى الرئيسية التي يستبدلها التنقل الديناميكي',
-    candidates: ['#js-repo-pjax-container', '#repo-content-pjax-container', 'main', '[role="main"]'],
+    description: 'حاوية المحتوى الرئيسية (تتغير هويتها عند استبدال المحتوى؛ في صفحات React تبقى ويتغير ما بداخلها)',
+    candidates: ['#js-repo-pjax-container', '#repo-content-turbo-frame', '#repo-content-pjax-container', 'main', '[role="main"]'],
   },
   {
     key: 'confirm.repo',
-    description: 'ما يؤكد أن الصفحة صفحة مستودع (ترويسة المستودع)',
-    candidates: ['#repository-container-header', '#repo-title-component', 'meta[name="octolytics-dimension-repository_nwo"]'],
+    description: 'ما يؤكد أن الصفحة صفحة مستودع (ترويسته)',
+    candidates: ['#repo-title-component', '#repository-container-header'],
   },
   {
     key: 'confirm.tree',
     description: 'ما يؤكد صفحة شجرة ملفات',
-    candidates: ['#repository-container-header', '[aria-labelledby="folders-and-files"]', 'table[aria-labelledby="folders-and-files"]'],
+    candidates: ['[aria-labelledby="folders-and-files"]', 'table[aria-labelledby="folders-and-files"]', '#repository-container-header'],
   },
   {
     key: 'confirm.blob',
@@ -153,41 +155,52 @@ export const DEFAULT_SELECTORS: readonly SelectorEntry[] = [
   {
     key: 'confirm.issue',
     description: 'ما يؤكد صفحة مشكلة',
-    candidates: ['#partial-discussion-header', '[data-testid="issue-viewer-container"]', '.js-discussion'],
+    candidates: [
+      '[data-testid="issue-viewer-issue-container"]',
+      '[data-testid="issue-header"]',
+      '[data-testid="issue-title"]',
+      '#partial-discussion-header',
+      '.js-discussion',
+    ],
   },
   {
     key: 'confirm.pr',
     description: 'ما يؤكد صفحة طلب دمج',
-    candidates: ['#discussion_bucket', '.pull-discussion-timeline', '.js-discussion', '#partial-discussion-header'],
+    candidates: ['.pull-discussion-timeline', '#discussion_bucket', '.js-discussion', '#partial-discussion-header'],
   },
   {
     key: 'confirm.pr-files',
     description: 'ما يؤكد صفحة الملفات المتغيرة في طلب دمج',
-    candidates: ['#files', '.js-diff-progressive-container', '[data-testid="diff-view"]', '#diff-comparison-viewer-container'],
+    candidates: ['#diff-comparison-viewer-container', '#files', '.js-diff-progressive-container', '[data-testid="diff-view"]'],
+  },
+  {
+    key: 'confirm.pr-commits',
+    description: 'ما يؤكد صفحة التزامات طلب دمج',
+    candidates: ['.pull-discussion-timeline', '#commits_bucket', '.js-navigation-container', '#js-repo-pjax-container'],
   },
   {
     key: 'confirm.issue-list',
     description: 'ما يؤكد صفحة قائمة المشكلات',
-    candidates: ['[data-testid="issue-list"]', '.js-navigation-container', '#js-issues-toolbar'],
+    candidates: ['[data-testid="issues-list-surface"]', '[data-testid="issue-listitem-title-link"]', '#js-issues-toolbar', '.js-navigation-container'],
   },
   {
     key: 'confirm.pr-list',
     description: 'ما يؤكد صفحة قائمة طلبات الدمج',
-    candidates: ['#js-issues-toolbar', '.js-navigation-container', '[data-testid="issue-list"]'],
+    candidates: ['[data-testid="listitem-title-link"]', '#repo-pulls-dashboard-filter', '#js-issues-toolbar', '.js-navigation-container'],
   },
   {
     key: 'confirm.commit',
     description: 'ما يؤكد صفحة التزام',
-    candidates: ['.commit', '#diff-comparison-viewer-container', '.js-diff-progressive-container', '#files'],
+    candidates: ['#diff-content-parent', '#diff_file_tree', '.diff-line-row', '.commit'],
   },
   {
     key: 'confirm.actions-run',
-    description: 'ما يؤكد صفحة تشغيل Actions',
+    description: 'ما يؤكد صفحة تشغيل Actions (بذرة لم تُقَس حيًّا)',
     candidates: ['#workflow-run-summary', '.workflow-run-header', '[data-test-selector="workflow-run-header"]'],
   },
   {
     key: 'confirm.discussion',
-    description: 'ما يؤكد صفحة نقاش',
+    description: 'ما يؤكد صفحة نقاش (بذرة لم تُقَس حيًّا)',
     candidates: ['.discussion-timeline', '#discussion_bucket', '.js-discussion'],
   },
   {
@@ -197,7 +210,7 @@ export const DEFAULT_SELECTORS: readonly SelectorEntry[] = [
   },
   {
     key: 'confirm.home',
-    description: 'ما يؤكد لوحة المستخدم الرئيسية',
+    description: 'ما يؤكد لوحة المستخدم الرئيسية (بذرة لم تُقَس حيًّا: تتطلب تسجيل دخول)',
     candidates: ['#dashboard', '.feed-content', '[data-target="feed-container.content"]', 'main'],
   },
 ];

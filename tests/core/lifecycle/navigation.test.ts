@@ -3,8 +3,9 @@
 // الذاكرة دون مقارنة (تُقارَن في T-10.1 وحده). قياس PB-07 هنا تمهيدي على وحدات وهمية ولا يُعدّ قبولًا.
 import { describe, expect, it, vi } from 'vitest';
 import type { JSDOM } from 'jsdom';
+import { LifecycleManager, ModuleRegistry, PageDetector } from '../../../src/core';
 import type { ExtensionModule, PageType } from '../../../src/core';
-import { ListenerLedger, fixtureHtml, loadPage, turboNavigate } from '../helpers/dom';
+import { ListenerLedger, fixtureHtml, loadPage, trackObservers, turboNavigate } from '../helpers/dom';
 import { markerModule } from '../helpers/modules';
 import { createHarness } from '../helpers/runtime';
 import { recordMeasurement, round, slope, summarize } from '../helpers/stats';
@@ -18,24 +19,6 @@ const CYCLE: ReadonlyArray<{ fixture: string; url: string; type: PageType; expec
   { fixture: 'issue', url: 'https://github.com/octo/demo/issues/7', type: 'issue', expected: ['a', 'b'] },
   { fixture: 'blob', url: 'https://github.com/octo/demo/blob/main/README.md', type: 'blob', expected: ['a'] },
 ];
-
-/** يعدّ المراقبات الحية: كل مراقب ينشئه مدير الوحدات يمر من نافذة jsdom. */
-function trackObservers(dom: JSDOM): { live: () => number } {
-  const live = new Set<unknown>();
-  const Original = dom.window.MutationObserver;
-  class Tracked extends Original {
-    constructor(callback: MutationCallback) {
-      super(callback);
-      live.add(this);
-    }
-    override disconnect(): void {
-      live.delete(this);
-      super.disconnect();
-    }
-  }
-  dom.window.MutationObserver = Tracked as typeof dom.window.MutationObserver;
-  return { live: () => live.size };
-}
 
 function setup(): { dom: JSDOM; h: ReturnType<typeof createHarness>; ledger: ListenerLedger; observers: ReturnType<typeof trackObservers>; stats: Record<string, { mounts: number; unmounts: number }> } {
   const dom = loadPage('repo', CYCLE[0]?.url as string);
@@ -155,32 +138,52 @@ describe('ثلاثون تنقلًا متتاليًا على الأقل', () => {
 });
 
 describe('قياس تمهيدي: PB-07 وميل نمو الذاكرة (يُسجَّل ولا يُقارَن؛ المقارنة في T-10.1)', () => {
-  it('ثلاثون تنقلًا بعد ثلاثة تسخين', () => {
-    const { dom, h } = setup();
-    h.manager.start();
-    const forced = typeof globalThis.gc === 'function';
-    const heap: number[] = [];
+  // لا يحتفظ القياس بنتائج التوفيق ولا بتقارير الاستعادة (تمسك عقد jsdom) كي لا يُقاس احتباس الاختبار نفسه.
+  // يُقاس ميل المكدس مع الوحدات ومعه شاهد بلا وحدات (يبقى فيه جزء jsdom: تحليل عينة جديدة في كل تنقل).
+  function measure(withModules: boolean): { durations: number[]; heap: number[] } {
+    const dom = loadPage('repo', CYCLE[0]?.url as string);
     const durations: number[] = [];
-    const initial = h.reconciles.length;
+    const modules = withModules ? [markerModule({ id: 'a', pages: '*' }).module, markerModule({ id: 'b', pages: ['pr', 'issue'] }).module, markerModule({ id: 'c', pages: ['repo'] }).module] : [];
+    const detector = new PageDetector({ document: dom.window.document });
+    const manager = new LifecycleManager({
+      registry: new ModuleRegistry(modules),
+      detector,
+      document: dom.window.document,
+      isEnabled: () => true,
+      onReconcile: (result) => void durations.push(result.durationMs),
+    });
+    manager.start();
+    const heap: number[] = [];
     for (let i = 1; i <= WARMUP + 30; i += 1) {
       const step = CYCLE[i % CYCLE.length] as (typeof CYCLE)[number];
       turboNavigate(dom, step.fixture, step.url);
       if (i > WARMUP) {
-        durations.push((h.reconciles[initial + i - 1] as { durationMs: number }).durationMs);
         globalThis.gc?.();
         heap.push(process.memoryUsage().heapUsed);
       }
     }
-    const summary = summarize(durations);
-    const heapSlope = slope(heap);
+    manager.stop();
+    return { durations: durations.slice(1 + WARMUP), heap };
+  }
+
+  it('ثلاثون تنقلًا بعد ثلاثة تسخين، بوحدات وهمية ومعها شاهد بلا وحدات', () => {
+    const forced = typeof globalThis.gc === 'function';
+    const control = measure(false);
+    const real = measure(true);
+    const summary = summarize(real.durations);
+    expect(summary.n).toBe(30);
     expect(Number.isFinite(summary.median)).toBe(true);
-    expect(Number.isFinite(heapSlope)).toBe(true);
+    expect(Number.isFinite(slope(real.heap))).toBe(true);
     recordMeasurement('T-1.2', 'PB-07-and-heap-slope', {
-      note: 'jsdom على Node، وحدات وهمية؛ تمهيدي لا قبول. ميل الذاكرة يُسجَّل دون مقارنة بخط أساس (T-0.1) وفق TEST-NAV-01',
+      note: 'jsdom على Node، وحدات وهمية؛ تمهيدي لا قبول. ميل الذاكرة يُسجَّل دون مقارنة بخط أساس (T-0.1) وفق TEST-NAV-01. الشاهد بلا وحدات يفصل نمو jsdom نفسه (تحليل عينة جديدة في كل تنقل) عن أثر الطبقة والوحدات',
       warmup: WARMUP,
       navigations: 30,
       pb07Ms: { ...summary, median: round(summary.median), p95: round(summary.p95), min: round(summary.min), max: round(summary.max) },
-      heap: { gcForced: forced, slopeBytesPerNavigation: round(heapSlope, 1), firstBytes: heap[0], lastBytes: heap.at(-1) },
+      heap: {
+        gcForced: forced,
+        withModules: { slopeBytesPerNavigation: round(slope(real.heap), 1), firstBytes: real.heap[0], lastBytes: real.heap.at(-1) },
+        controlNoModules: { slopeBytesPerNavigation: round(slope(control.heap), 1), firstBytes: control.heap[0], lastBytes: control.heap.at(-1) },
+      },
     });
   });
 });

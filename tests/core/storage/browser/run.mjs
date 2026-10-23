@@ -143,6 +143,33 @@ async function core04({ context, id }) {
   result.page1ReceivedRemoteOn = Boolean(await remoteEvent(p1, 'modules.a.enabled', true));
   result.contentScriptRemounted = Boolean(await waitUntil(async () => (await injected()) === 1, 5000, 25));
 
+  // 2ب) تنقل SPA حقيقي بلا أحداث Turbo في سكربت المحتوى (العالم المعزول): النوع الجديد بثقة high بعد استقرار DOM، وحقن واحد.
+  const body = (name) => fixtureHtml(name).replace(/^[\s\S]*<body[^>]*>/i, '').replace(/<\/body>[\s\S]*$/i, '');
+  const page = () => gh.evaluate(() => document.documentElement.getAttribute('data-mj-page'));
+  await gh.evaluate(() => document.documentElement.setAttribute('data-mj-reconciles', '0'));
+  // نمط React: المسار أولًا ثم DOM بعد 150 مللي ثانية.
+  await gh.evaluate((html) => {
+    history.pushState({}, '', '/octo/demo/issues/7');
+    setTimeout(() => {
+      document.body.innerHTML = html;
+    }, 150);
+  }, body('issue'));
+  result.spaReactOrder = await waitUntil(async () => ((await page()) === 'issue:high' ? 'issue:high' : null), 5000, 25);
+  await sleep(400);
+  result.spaReactFinal = await page();
+  result.spaReactInjected = await injected();
+  result.spaReactReconciles = Number(await gh.evaluate(() => document.documentElement.getAttribute('data-mj-reconciles')));
+  // نمط تبويبات طلب الدمج: DOM أولًا ثم المسار بعد 150 مللي ثانية.
+  await gh.evaluate((html) => {
+    document.body.innerHTML = html;
+    setTimeout(() => history.pushState({}, '', '/octo/demo/pull/42/commits'), 150);
+  }, body('pr'));
+  result.spaTabsOrder = await waitUntil(async () => ((await page()) === 'pr-commits:high' ? 'pr-commits:high' : null), 5000, 25);
+  await sleep(400);
+  result.spaTabsFinal = await page();
+  result.spaTabsInjected = await injected();
+  result.navigationApi = await gh.evaluate(() => typeof window.navigation);
+
   // 3) عشر تبديلات متناوبة من الصفحتين: تتقارب كل السياقات إلى القيمة الأخيرة. تُقاس زمن وصول الحدث.
   const latencies = { page: [], dom: [] };
   let expected = true;
@@ -170,7 +197,7 @@ async function core04({ context, id }) {
   result.persistsAfterReload = Boolean(result.afterReload) && (await gh.locator('html[data-mj-content="ready"]').count()) === 1;
   result.contentErrors = await gh.evaluate(() => document.documentElement.getAttribute('data-mj-error'));
   result.pass = Boolean(
-    result.contentScriptReady && result.page2ReceivedRemoteOff && result.contentScriptUnmounted && result.domClean && result.page1ReceivedRemoteOn && result.contentScriptRemounted && result.consistentAfterToggles && result.persistsAfterReload && !result.contentErrors,
+    result.spaReactOrder === 'issue:high' && result.spaReactInjected === 1 && result.spaTabsOrder === 'pr-commits:high' && result.spaTabsInjected === 1 && result.contentScriptReady && result.page2ReceivedRemoteOff && result.contentScriptUnmounted && result.domClean && result.page1ReceivedRemoteOn && result.contentScriptRemounted && result.consistentAfterToggles && result.persistsAfterReload && !result.contentErrors,
   );
   result.notRun = ['لوحة جانبية (sidePanel): لا تُفتح دون فعل مستخدم فعلي؛ تُغطيها T-1.4 (TEST-CORE-05 وTEST-CORE-06)', 'نافذة ثانية منفصلة: التبويبات تشترك في ملف التعريف نفسه ومسار البث نفسه'];
   return result;
@@ -372,6 +399,11 @@ function renderReport(all) {
       continue;
     }
     lines.push(`| ${r.label} | ${cell(r.browserVersion)} | ${c.pass ? '**اجتاز**' : '**فشل**'} | ${yes(c.page2ReceivedRemoteOff)} | ${yes(c.contentScriptUnmounted && c.domClean)} | ${yes(c.page1ReceivedRemoteOn)} | ${yes(c.contentScriptRemounted)} | ${yes(c.consistentAfterToggles)} | ${yes(c.persistsAfterReload)} | ${cell(c.latencyMs?.pageToPageMedian)} | ${cell(c.latencyMs?.pageToContentDomMedian)} |`);
+  }
+  lines.push('', '### اكتشاف تنقل SPA بلا أحداث Turbo في سكربت محتوى فعلي', '', 'يُحاكى في صفحة github.com المعترَضة ما قيس حيًّا: **نمط React** (المسار يتغير أولًا ثم يصل DOM بعد 150 مللي ثانية) و**نمط تبويبات طلب الدمج** (DOM أولًا ثم المسار بعد 150 مللي ثانية). المطلوب: يُعلَن النوع الجديد بثقة high بعد استقرار DOM، وحقن واحد للوحدة.', '', '| المتصفح | Navigation API | نمط React: الحالة النهائية | عدد الحقن | عدد مرات التوفيق | نمط التبويبات: الحالة النهائية | عدد الحقن |', '| :--- | :---: | :--- | :---: | :---: | :--- | :---: |');
+  for (const key of order) {
+    const c = all[key].variants?.baseline?.core04;
+    if (c) lines.push(`| ${all[key].label} | ${cell(c.navigationApi)} | ${cell(c.spaReactFinal)} | ${cell(c.spaReactInjected)} | ${cell(c.spaReactReconciles)} | ${cell(c.spaTabsFinal)} | ${cell(c.spaTabsInjected)} |`);
   }
   lines.push('', 'لم يُجرَ: اللوحة الجانبية (`sidePanel`) لأنها لا تُفتح دون فعل مستخدم فعلي (تغطيها `T-1.4` في `TEST-CORE-05` و`TEST-CORE-06`)؛ ونافذة ثانية منفصلة (تشترك التبويبات في ملف التعريف ومسار البث نفسه).', '');
 

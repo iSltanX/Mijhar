@@ -1,11 +1,19 @@
-// PageDetector: يحدد نوع الصفحة الحالية ويُعلن تغيّرها، ويتابع التنقل الديناميكي (Turbo/SPA).
+// PageDetector: يحدد نوع الصفحة الحالية ويُعلن تغيّرها، ويتابع التنقل الديناميكي.
 //
-// مصادر التنقل:
-//  - فورية: turbo:render وturbo:load (يُطلقهما Turbo بعد استبدال DOM)، فلا يُفحص DOM قبل اكتمال الاستبدال.
-//  - مؤجَّلة حتى تهدأ (settleMs): popstate وpageshow وNavigation API وتغيّر <title> أو عنصر الجذر؛ هذه تسبق
-//    غالبًا رسم المحتوى الجديد، فيُنتظر استقراره بدل الحكم على DOM قديم.
-// يُعلَن التغيّر فقط حين تتغير «بصمة» الصفحة (المسار والنوع والثقة وهوية body والحاوية الرئيسية)، فيُطلَق
-// turbo:render ثم turbo:load للتنقل الواحد حدثًا واحدًا لا اثنين.
+// ما قيس على github.com الحي (evidence/T-1.2/live-selector-check.md، 2026-10-23، صفحات مستودع عام، قراءة فقط):
+//  - التنقل بين صفحات React (قائمة المشكلات ← قائمة طلبات الدمج) ودخول تبويبات طلب الدمج (المحادثة ← الالتزامات) لا يطلق
+//    أحداث Turbo مطلقًا؛ تبقى هوية body وعنصر الحاوية والعنوان كما هي. والترتيب مختلف: في الأولى يتغير المسار أولًا
+//    (بعد نحو 13 مللي ثانية) ثم يصل DOM بعد نحو 240 مللي ثانية؛ وفي الثانية يصل DOM أولًا ثم يتغير المسار في آخر التنقل.
+//  - عنصر <title> يُستبدل بعنصر جديد، فمراقبته مباشرة لا تلتقط شيئًا.
+// لذلك لا يُحكم على DOM لحظة تغيّر المسار، بل بعد «هدوء»: كل مصدر تنقل أو تعديل في شجرة الصفحة يعيد ضبط مؤقت settleMs،
+// ويُفحص بعد انقضائه دون تعديلات جديدة (وبحد أقصى settleMaxMs إن لم تهدأ الصفحة).
+//
+// المصادر:
+//  - فورية: turbo:render وturbo:load (إن أطلقهما Turbo بعد استبدال DOM).
+//  - تنتظر الهدوء: popstate وpageshow وأحداث Navigation API (navigatesuccess وcurrententrychange، وهي متاحة في Chrome
+//    وEdge وBrave وFirefox 158 حيث فُحصت) وتعديلات شجرة body (childList) واستبدال body/head.
+// يُعلَن التغيّر فقط حين تتغير «بصمة» الصفحة (المسار والنوع والثقة وهوية body والحاوية الرئيسية)، فيُطلَق turbo:render
+// ثم turbo:load للتنقل الواحد حدثًا واحدًا لا اثنين، ويمرّ تعديل الوحدات لشجرة الصفحة دون إعلان ما دامت البصمة ثابتة.
 import { EXTERNAL_ROUTE, GITHUB_ORIGIN, classifyPath } from './page-types';
 import type { Confidence, PageState } from './page-types';
 import { DEFAULT_SELECTORS, SelectorsRegistry } from './selectors';
@@ -15,27 +23,34 @@ export type PageListener = (page: PageState, previous: PageState | null) => void
 export interface PageDetectorOptions {
   document?: Document;
   selectors?: SelectorsRegistry;
-  /** مراقبة <title> وعنصر الجذر احتياطًا لتنقل لا يطلق أحداث Turbo. افتراضيًا true. */
+  /** مراقبة شجرة الصفحة لالتقاط تنقل بلا أحداث (React). افتراضيًا true. */
   observeDom?: boolean;
-  /** مهلة الهدوء للمصادر المؤجَّلة بالميلي ثانية. افتراضيًا 100. */
+  /** مهلة الهدوء بالميلي ثانية قبل الفحص بعد آخر تنقل أو تعديل. افتراضيًا 100. */
   settleMs?: number;
+  /** أقصى انتظار للهدوء إن استمرت التعديلات. افتراضيًا 1000. */
+  settleMaxMs?: number;
   /** يستقبل أخطاء المشتركين؛ الافتراضي console.error. */
   onError?: (error: unknown) => void;
 }
 
 const DEFAULT_SETTLE_MS = 100;
+const DEFAULT_SETTLE_MAX_MS = 1000;
 
 export class PageDetector {
   readonly selectors: SelectorsRegistry;
   private readonly doc: Document;
   private readonly observeDom: boolean;
   private readonly settleMs: number;
+  private readonly settleMaxMs: number;
   private readonly onError: (error: unknown) => void;
   private readonly listeners = new Set<PageListener>();
   private readonly identities = new WeakMap<Node, number>();
   private nextIdentity = 1;
   private cleanups: Array<() => void> = [];
   private settleTimer: ReturnType<typeof setTimeout> | null = null;
+  private settleStartedAt: number | null = null;
+  private observer: MutationObserver | null = null;
+  private observedBody: HTMLElement | null = null;
   private started = false;
   private last: PageState | null = null;
   private lastSignature: string | null = null;
@@ -45,6 +60,7 @@ export class PageDetector {
     this.selectors = options.selectors ?? new SelectorsRegistry(DEFAULT_SELECTORS);
     this.observeDom = options.observeDom ?? true;
     this.settleMs = options.settleMs ?? DEFAULT_SETTLE_MS;
+    this.settleMaxMs = options.settleMaxMs ?? DEFAULT_SETTLE_MAX_MS;
     this.onError = options.onError ?? ((error) => console.error('[mijhar] خطأ في مشترك PageDetector', error));
   }
 
@@ -84,14 +100,19 @@ export class PageDetector {
       this.listen(view, 'popstate', () => this.settle());
       this.listen(view, 'pageshow', () => this.settle());
       const navigation = (view as { navigation?: EventTarget }).navigation;
-      if (navigation) this.listen(navigation, 'navigatesuccess', () => this.settle());
-    }
-    if (this.observeDom && view && 'MutationObserver' in view) {
-      const observer = new view.MutationObserver(() => this.settle());
-      const title = this.doc.querySelector('title');
-      if (title) observer.observe(title, { childList: true, characterData: true, subtree: true });
-      observer.observe(this.doc.documentElement, { childList: true });
-      this.cleanups.push(() => observer.disconnect());
+      if (navigation) {
+        this.listen(navigation, 'navigatesuccess', () => this.settle());
+        this.listen(navigation, 'currententrychange', () => this.settle());
+      }
+      if (this.observeDom && 'MutationObserver' in view) {
+        this.observer = new view.MutationObserver(() => this.settle());
+        this.cleanups.push(() => {
+          this.observer?.disconnect();
+          this.observer = null;
+          this.observedBody = null;
+        });
+        this.observeTree();
+      }
     }
     this.check();
   }
@@ -102,6 +123,7 @@ export class PageDetector {
     this.started = false;
     if (this.settleTimer !== null) clearTimeout(this.settleTimer);
     this.settleTimer = null;
+    this.settleStartedAt = null;
     for (const cleanup of this.cleanups.splice(0).reverse()) cleanup();
     this.listeners.clear();
     this.last = null;
@@ -111,6 +133,7 @@ export class PageDetector {
   /** يفحص الآن ويُعلن إن تغيرت البصمة. يعيد true إن أُعلن تغيّر. */
   check(): boolean {
     if (!this.started) return false;
+    this.observeTree();
     const page = this.detect();
     const signature = this.signature(page);
     if (signature === this.lastSignature) return false;
@@ -127,12 +150,28 @@ export class PageDetector {
     return true;
   }
 
+  // يعيد ضبط مؤقت الهدوء؛ يُفحص بعد settleMs دون جديد، أو عند بلوغ settleMaxMs منذ أول استدعاء في الدفعة.
   private settle(): void {
+    const now = Date.now();
+    this.settleStartedAt ??= now;
     if (this.settleTimer !== null) clearTimeout(this.settleTimer);
+    const remaining = Math.max(0, this.settleMaxMs - (now - this.settleStartedAt));
     this.settleTimer = setTimeout(() => {
       this.settleTimer = null;
+      this.settleStartedAt = null;
       this.check();
-    }, this.settleMs);
+    }, Math.min(this.settleMs, remaining));
+  }
+
+  // يراقب html (استبدال head/body) وbody (childList). عند استبدال body يُعاد الربط بالجديد ليبقى المراقب حيًا.
+  private observeTree(): void {
+    const observer = this.observer;
+    const body = this.doc.body;
+    if (!observer || !body || body === this.observedBody) return;
+    observer.disconnect();
+    observer.observe(this.doc.documentElement, { childList: true });
+    observer.observe(body, { childList: true, subtree: true });
+    this.observedBody = body;
   }
 
   private listen(target: EventTarget, type: string, handler: () => void): void {
