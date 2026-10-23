@@ -20,6 +20,7 @@ export const LOG_CSS = `${D_CARD_CSS}
 .d-log { margin: var(--mijhar-space-4) 0 0; padding: var(--mijhar-space-6) var(--mijhar-space-8); overflow-x: auto; direction: ltr; text-align: left; unicode-bidi: isolate; font-family: var(--mijhar-font-mono); font-size: 12px; line-height: 18px; background: var(--mijhar-bg-muted); border-radius: var(--mijhar-radius-6); white-space: pre; }
 .d-log-line[data-focus="true"] { font-weight: 700; color: var(--mijhar-text-danger); }
 .d-ln { display: inline-block; min-width: 4ch; margin-inline-end: 1ch; color: var(--mijhar-text-tertiary); text-align: right; user-select: none; }
+.d-detail { font-family: var(--mijhar-font-mono); font-size: 12px; font-weight: 400; direction: ltr; unicode-bidi: isolate; overflow-wrap: anywhere; }
 .d-evidence { font-size: 12px; color: var(--mijhar-text-secondary); overflow-wrap: anywhere; }
 .d-evidence code { direction: ltr; unicode-bidi: isolate; font-family: var(--mijhar-font-mono); }
 .d-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mijhar-space-8); }

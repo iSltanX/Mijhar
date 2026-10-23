@@ -34,36 +34,67 @@ function Availability({ analysis }: { analysis: LogAnalysis }) {
   );
 }
 
-function Message({ message }: { message: LiteralMessage }) {
+/** كتلة عرض: رسائل متجاورة في السجل تتداخل أسطرها المحيطة تُعرض في كتلة واحدة بأسطر بؤرة متعددة، فلا يتكرر السياق. */
+export interface MessageBlock {
+  readonly messages: readonly LiteralMessage[];
+  readonly lines: readonly { readonly number: number; readonly text: string; readonly focus: boolean }[];
+}
+
+interface Building {
+  readonly messages: LiteralMessage[];
+  readonly lines: Map<number, { number: number; text: string; focus: boolean }>;
+}
+
+export function groupMessages(messages: readonly LiteralMessage[]): MessageBlock[] {
+  const blocks: Building[] = [];
+  for (const message of messages) {
+    const last = blocks[blocks.length - 1];
+    const first = message.context[0]?.number;
+    const lastLine = last?.lines.size ? Math.max(...last.lines.keys()) : -Infinity;
+    const joinable = Boolean(last) && first !== undefined && first <= lastLine + 1 && last?.messages[last.messages.length - 1]?.step === message.step;
+    const target: Building = joinable && last ? last : { messages: [], lines: new Map() };
+    if (target !== last) blocks.push(target);
+    target.messages.push(message);
+    for (const line of message.context) {
+      const prev = target.lines.get(line.number);
+      target.lines.set(line.number, { ...line, focus: line.focus || Boolean(prev?.focus) });
+    }
+  }
+  return blocks.map((b) => ({ messages: b.messages, lines: [...b.lines.values()].sort((x, y) => x.number - y.number) }));
+}
+
+function Block({ block }: { block: MessageBlock }) {
+  const head = block.messages[0] as LiteralMessage;
+  const numbers = block.messages.map((m) => m.line).filter((n): n is number => n !== null);
+  const origins = [...new Set(block.messages.map((m) => ORIGIN_LABELS[m.origin]))];
   return (
-    <li data-origin={message.origin}>
+    <li data-origin={head.origin} data-messages={block.messages.length}>
       <div class="d-loc">
-        {message.step ? (
+        {head.step ? (
           <>
-            الخطوة: <bdi dir="ltr">{message.step}</bdi>
+            الخطوة: <bdi dir="ltr">{head.step}</bdi>
           </>
         ) : (
           'الخطوة: غير معروفة'
         )}
-        {message.line !== null && <> · السطر {message.line}</>} · {ORIGIN_LABELS[message.origin]}
+        {numbers.length > 0 && <> · {numbers.length > 1 ? 'الأسطر' : 'السطر'} <bdi dir="ltr">{numbers.join('، ')}</bdi></>} · {origins.join('، ')}
       </div>
-      {message.context.length ? (
-        <pre class="d-log" dir="ltr">
-          {message.context.map((line) => (
-            <span class="d-log-line" data-focus={line.focus ? 'true' : 'false'} key={line.number}>
-              <span class="d-ln">{line.number}</span>
-              {line.text}
-              {'\n'}
-            </span>
-          ))}
-        </pre>
-      ) : (
-        <pre class="d-log" dir="ltr">
-          <span class="d-log-line" data-focus="true">
-            {message.text}
-          </span>
-        </pre>
-      )}
+      <pre class="d-log" dir="ltr">
+        {block.lines.length
+          ? block.lines.map((line) => (
+              <span class="d-log-line" data-focus={line.focus ? 'true' : 'false'} key={line.number}>
+                <span class="d-ln">{line.number}</span>
+                {line.text}
+                {'\n'}
+              </span>
+            ))
+          : block.messages.map((m, i) => (
+              <span class="d-log-line" data-focus="true" key={i}>
+                {m.text}
+                {'\n'}
+              </span>
+            ))}
+      </pre>
     </li>
   );
 }
@@ -96,8 +127,8 @@ export function LogAnalysisView({ analysis, children }: { analysis: LogAnalysis;
         </h3>
         {analysis.messages.length ? (
           <ol class="d-messages">
-            {analysis.messages.map((message, i) => (
-              <Message key={`${message.line ?? 'a'}-${i}`} message={message} />
+            {groupMessages(analysis.messages).map((block, i) => (
+              <Block key={`${block.messages[0]?.line ?? 'a'}-${i}`} block={block} />
             ))}
             {analysis.moreMessages > 0 && <li class="d-note">…و{analysis.moreMessages} رسالة أخرى في السجل.</li>}
           </ol>
@@ -117,6 +148,11 @@ export function LogAnalysisView({ analysis, children }: { analysis: LogAnalysis;
             {analysis.rootCauses.map((cause) => (
               <li key={`${cause.patternId}-${cause.evidence.line ?? ''}-${cause.cause}`} data-pattern={cause.patternId}>
                 <strong>{cause.cause}</strong>
+                {cause.detail && (
+                  <>
+                    : <bdi dir="ltr" class="d-detail">{cause.detail}</bdi>
+                  </>
+                )}
                 <div class="d-evidence">
                   النمط: {cause.patternTitle} · الدليل{cause.evidence.origin === 'annotation' ? ' (من تنبيه ظاهر)' : ''}
                   {cause.evidence.line !== null ? ` — السطر ${cause.evidence.line}` : ''}:{' '}
@@ -144,7 +180,13 @@ export function LogAnalysisView({ analysis, children }: { analysis: LogAnalysis;
                 </span>{' '}
                 {p.text}
                 <div class="d-evidence">
-                  بُني على: <bdi dir="ltr">{p.basis}</bdi>
+                  بُني على: {p.basis}
+                  {p.quote && (
+                    <>
+                      {' '}
+                      — السطر {p.quote.line}: <code dir="ltr">{p.quote.text}</code>
+                    </>
+                  )}
                 </div>
               </li>
             ))}

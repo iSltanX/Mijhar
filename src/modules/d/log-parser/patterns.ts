@@ -8,6 +8,8 @@ export interface PatternHit {
   readonly key: string;
   /** السبب بالعربية، مشتقًا من نص السطر وحده. */
   readonly cause: string;
+  /** جزء منقول من السطر يكمّل السبب (رسالة المترجم مثلًا)، يُعرض LTR معزولًا عن الجملة العربية. */
+  readonly detail?: string;
 }
 
 export interface LogPattern {
@@ -40,16 +42,18 @@ export const LOG_PATTERNS: readonly LogPattern[] = [
     (m) => {
       const g = m.groups ?? {};
       const where = at(g.file, g.line ?? g.line2);
-      return { key: `${g.code}@${where}`, cause: `فشلت ترجمة TypeScript بالخطأ ${g.code}${where ? ` في ${where}` : ''}: ${g.msg?.trim()}` };
+      return { key: `${g.code}@${where}`, cause: `فشلت ترجمة TypeScript بالخطأ ${g.code}${where ? ` في ${where}` : ''}`, detail: g.msg?.trim() ?? '' };
     },
   ),
   pattern('rust-error', 'خطأ مترجم Rust', 'rustc', /^error\[(?<code>E\d{4})\]:\s*(?<msg>.+)$/, (m) => ({
     key: `${m.groups?.code}:${m.groups?.msg}`,
-    cause: `فشلت ترجمة Rust بالخطأ ${m.groups?.code}: ${m.groups?.msg}`,
+    cause: `فشلت ترجمة Rust بالخطأ ${m.groups?.code}`,
+    detail: m.groups?.msg ?? '',
   })),
   pattern('python-syntax', 'خطأ صياغة Python', 'python', /^\s*(?<kind>SyntaxError|IndentationError|TabError):\s*(?<msg>.+)$/, (m) => ({
     key: `${m.groups?.kind}:${m.groups?.msg}`,
-    cause: `توقف Python بخطأ صياغة (${m.groups?.kind}): ${m.groups?.msg}`,
+    cause: `توقف Python بخطأ صياغة (${m.groups?.kind})`,
+    detail: m.groups?.msg ?? '',
   })),
   pattern('node-module-not-found', 'وحدة Node.js غير موجودة', 'node', /(?:Error: )?Cannot find (?:module|package) '(?<name>[^']+)'/, (m) => ({
     key: m.groups?.name ?? '',

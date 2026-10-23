@@ -22,6 +22,8 @@ export interface Evidence {
   readonly where: string;
   /** النص المنقول كما هو، أو «الحقل = القيمة». */
   readonly text: string;
+  /** ما يضيفه مِجهَر بالعربية بجوار النص المنقول (تصنيف الفحص مثلًا)، منفصلًا عنه. */
+  readonly note?: string;
 }
 
 export interface Blocker {
@@ -174,7 +176,7 @@ export function explainBlockers(summary: PrSummary, dom: DomEvidence, api: ApiPr
   const requiredBad = items.filter((i) => i.required === true && (i.classification.category === 'failure' || i.classification.category === 'cancelled'));
   const requiredPending = items.filter((i) => i.required === true && (i.classification.category === 'running' || i.classification.category === 'not-run'));
   const requiredUnknown = items.filter((i) => i.required === true && i.classification.category === 'unknown');
-  const evidenceOf = (list: readonly CheckItem[]): Evidence[] => list.map((i) => ({ source: i.source === 'api' ? 'api' : 'dom', where: whereOf(i, api), text: `${rowText(i)} — ${CATEGORY_LABELS[i.classification.category]}` }));
+  const evidenceOf = (list: readonly CheckItem[]): Evidence[] => list.map((i) => ({ source: i.source === 'api' ? 'api' : 'dom', where: whereOf(i, api), text: rowText(i), note: `التصنيف: ${CATEGORY_LABELS[i.classification.category]}` }));
   add(blocker('required-failed', 'فحص إلزامي لم ينجح', 'blocks', evidenceOf(requiredBad)));
   add(blocker('required-pending', 'فحص إلزامي لم يكتمل بعد', 'blocks', evidenceOf(requiredPending)));
   add(blocker('required-unknown', 'فحص إلزامي حالته غير معروفة', 'may-block', evidenceOf(requiredUnknown)));

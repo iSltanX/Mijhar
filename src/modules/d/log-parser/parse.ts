@@ -61,14 +61,18 @@ export interface RootCause {
   readonly patternId: string;
   readonly patternTitle: string;
   readonly cause: string;
+  /** ما يكمّل السبب منقولًا من السطر (رسالة المترجم)، أو null. */
+  readonly detail: string | null;
   /** السطر الذي طابق النمط، بنصه، دليلًا. */
   readonly evidence: { readonly line: number | null; readonly text: string; readonly origin: 'log' | 'annotation' };
 }
 
 export interface Possibility {
   readonly text: string;
-  /** ما بُني عليه الاحتمال من السجل. */
+  /** ما بُني عليه الاحتمال، بالعربية. */
   readonly basis: string;
+  /** السطر الذي بُني عليه منقولًا، إن وُجد. */
+  readonly quote: { readonly line: number; readonly text: string } | null;
   readonly tag: typeof POSSIBILITY_TAG;
 }
 
@@ -167,11 +171,11 @@ export function analyzeLog(input: LogInput, patterns: readonly LogPattern[] = LO
   let lines: Line[] = [];
   const pageStep = input.step ?? null;
 
-  const addCause = (pattern: LogPattern, hit: { key: string; cause: string }, evidence: RootCause['evidence']): void => {
+  const addCause = (pattern: LogPattern, hit: { key: string; cause: string; detail?: string }, evidence: RootCause['evidence']): void => {
     const id = `${pattern.id}|${hit.key}`;
     if (seen.has(id)) return;
     seen.add(id);
-    causes.push({ patternId: pattern.id, patternTitle: pattern.title, cause: hit.cause, evidence });
+    causes.push({ patternId: pattern.id, patternTitle: pattern.title, cause: hit.cause, detail: hit.detail || null, evidence });
   };
 
   if (input.text === null) {
@@ -244,7 +248,7 @@ const NETWORK = /\b(?:ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|EAI_AGAIN)\b|s
 const WARNING = /^##\[warning\](.+)$/;
 const ERRORISH = /\b(?:error|failed|failure|exception|fatal)\b/i;
 
-const possibility = (text: string, basis: string): Possibility => ({ text, basis, tag: POSSIBILITY_TAG });
+const possibility = (text: string, basis: string, line?: Line): Possibility => ({ text, basis, quote: line ? { line: line.number, text: display(line.text) } : null, tag: POSSIBILITY_TAG });
 
 function suggestPossibilities(lines: readonly Line[], facts: { exitCode: number | null; rootCauses: readonly RootCause[]; available: boolean }): Possibility[] {
   const out: Possibility[] = [];
@@ -255,7 +259,7 @@ function suggestPossibilities(lines: readonly Line[], facts: { exitCode: number 
     out.push(possibility('قد يكون أمرٌ في الخطوة غير مثبت أو غير موجود في المسار.', 'كود الخروج 127 يعيده الطرفيّ عادةً لأمر غير موجود'));
   }
   const network = lines.find((l) => NETWORK.test(l.text));
-  if (network) out.push(possibility('قد يكون الفشل عطلًا شبكيًا عابرًا؛ إعادة تشغيل المهمة تكشف ذلك.', `السطر ${network.number}: ${display(network.text)}`));
+  if (network) out.push(possibility('قد يكون الفشل عطلًا شبكيًا عابرًا؛ إعادة تشغيل المهمة تكشف ذلك.', 'سطر يذكر عطلًا شبكيًا', network));
   if (facts.rootCauses.some((c) => c.patternId === 'typescript-error')) {
     out.push(possibility('قد يكون الخطأ من تغيير في هذا الالتزام، أو من اختلاف إصدار TypeScript أو الاعتماديات بين CI والجهاز المحلي.', 'خطأ مترجم TypeScript في الطبقة الثانية'));
   }
@@ -265,10 +269,10 @@ function suggestPossibilities(lines: readonly Line[], facts: { exitCode: number 
   const exitAt = lines.findIndex((l) => EXIT.test(l.text));
   const before = (exitAt === -1 ? lines : lines.slice(0, exitAt)).slice(-60);
   const warning = [...before].reverse().find((l) => WARNING.test(l.text));
-  if (warning) out.push(possibility('تحذير سبق الفشل قد يكون ذا صلة به.', `السطر ${warning.number}: ${display(warning.text)}`));
+  if (warning) out.push(possibility('تحذير سبق الفشل قد يكون ذا صلة به.', 'تحذير ##[warning] قبل الفشل', warning));
   if (!facts.rootCauses.length && facts.available) {
     const hints = [...before].reverse().filter((l) => ERRORISH.test(l.text) && !ERROR_MARKER.test(l.text) && !EXIT.test(l.text)).slice(0, 3);
-    for (const hint of hints.reverse()) out.push(possibility('قد يحمل هذا السطر سبب الفشل؛ لم يطابق نمطًا معرّفًا.', `السطر ${hint.number}: ${display(hint.text)}`));
+    for (const hint of hints.reverse()) out.push(possibility('قد يحمل هذا السطر سبب الفشل؛ لم يطابق نمطًا معرّفًا.', 'سطر يذكر الفشل قبل الخروج', hint));
   }
   if (!facts.available) out.push(possibility('قد يكون السبب في نص السجل الذي لم يُقرأ؛ التنبيهات الظاهرة لا تغني عنه.', 'نص السجل غير متاح'));
   return out;

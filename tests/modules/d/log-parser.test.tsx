@@ -69,6 +69,7 @@ describe('السجل المرجعي (500 سطر: خطأ بناء TypeScript و##
     ]);
     expect(analysis.rootCauses[0]?.cause).toContain('TS2322');
     expect(analysis.rootCauses[0]?.cause).toContain('src/settings/panel.ts:42');
+    expect(analysis.rootCauses[0]?.detail).toBe("Type 'string' is not assignable to type 'number'.");
     expect(analysis.rootCauses[2]?.cause).toContain('TS2307');
     for (const c of analysis.rootCauses) expect(referenceLines).toContain(c.evidence.text);
   });
@@ -81,7 +82,7 @@ describe('السجل المرجعي (500 سطر: خطأ بناء TypeScript و##
       expect(analysis.rootCauses.some((c) => c.cause === p.text)).toBe(false);
     }
     // التحذير الذي سبق الفشل احتمال لا سبب.
-    expect(analysis.possibilities.some((p) => p.basis.includes('set-output'))).toBe(true);
+    expect(analysis.possibilities.find((p) => p.quote?.text.includes('set-output'))?.quote?.line).toBe(480);
   });
 
   it('سطر الرمز المختلَق ليس خطأً ولا سببًا (لا يُستنتج منه شيء)', () => {
@@ -99,6 +100,12 @@ describe('السجل المرجعي (500 سطر: خطأ بناء TypeScript و##
     expect(text(l1)).toContain('Process completed with exit code 2.');
     expect(text(l2)).toContain('السبب الجذري المثبت');
     expect(l2?.querySelectorAll('[data-pattern="typescript-error"]')).toHaveLength(3);
+    // الرسائل المتجاورة في كتلة واحدة: أسطر المترجم 481–483 و##[error] في 490 سياقاتها متداخلة فلا يتكرر سطر.
+    const numbers = [...(l1?.querySelectorAll('.d-ln') ?? [])].map((n) => Number(n.textContent));
+    expect(new Set(numbers).size).toBe(numbers.length);
+    expect(l1?.querySelectorAll('[data-messages]')).toHaveLength(1);
+    expect(l1?.querySelector('[data-messages]')?.getAttribute('data-messages')).toBe('4');
+    expect([...(l1?.querySelectorAll('[data-focus="true"] .d-ln') ?? [])].map((n) => n.textContent)).toEqual(['481', '482', '483', '490']);
     expect(text(l2)).not.toContain(NO_ROOT_CAUSE_TEXT);
     expect(l3?.querySelectorAll('li')).toHaveLength(analysis.possibilities.length);
     for (const li of l3?.querySelectorAll('li') ?? []) expect(text(li)).toContain(POSSIBILITY_TAG);
@@ -163,8 +170,8 @@ describe('فشل بلا نمط معرّف', () => {
   });
 
   it('الأسطر التي تذكر الفشل قبل الخروج تُقترح في الطبقة الثالثة لا الثانية', () => {
-    const bases = analysis.possibilities.map((p) => p.basis);
-    expect(bases.some((b) => b.includes('Verification failed: 2 of 12 endpoints'))).toBe(true);
+    const quotes = analysis.possibilities.map((p) => p.quote?.text ?? '');
+    expect(quotes).toContain('Verification failed: 2 of 12 endpoints returned unexpected payloads');
     expect(analysis.possibilities.every((p) => p.tag === POSSIBILITY_TAG)).toBe(true);
   });
 });
@@ -216,7 +223,8 @@ describe('قائمة الأنماط الحتمية', () => {
   it('كود الخروج 137 وعطل الشبكة احتمالان موسومان لا سببان', () => {
     const analysis = analyzeLog({ text: 'curl: (6) Could not resolve host: registry.example.invalid\n##[error]Process completed with exit code 137.\n', source: 'step-log' });
     expect(analysis.rootCauses).toEqual([]);
-    expect(analysis.possibilities.map((p) => p.basis)).toEqual(expect.arrayContaining(['كود الخروج 137 = 128 + 9', expect.stringContaining('Could not resolve host')]));
+    expect(analysis.possibilities.map((p) => p.basis)).toContain('كود الخروج 137 = 128 + 9');
+    expect(analysis.possibilities.map((p) => p.quote?.text)).toContain('curl: (6) Could not resolve host: registry.example.invalid');
   });
 });
 

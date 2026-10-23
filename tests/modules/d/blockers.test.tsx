@@ -84,10 +84,10 @@ describe('TEST-PR-03: الموانع بأدلتها', () => {
     expect(byId.conflicts?.evidence).toEqual([{ source: 'dom', where: 'صندوق الدمج', text: 'This branch has conflicts that must be resolved' }]);
     expect(byId['review-required']?.evidence[0]?.text).toBe('Review required');
     expect(byId.behind?.evidence[0]?.text).toBe('This branch is out-of-date with the base branch');
-    expect(byId['required-failed']?.evidence.map((e) => e.text)).toEqual(['ci / lint (pull_request) — Failing after 4m (Required) — فاشل']);
-    expect(byId['required-pending']?.evidence.map((e) => e.text)).toEqual([
-      'ci / build (pull_request) — In progress — This check has started... (Required) — قيد التشغيل',
-      'Linux / Browser — Expected — Waiting for status to be reported (Required) — لم يُشغَّل',
+    expect(byId['required-failed']?.evidence.map((e) => [e.text, e.note])).toEqual([['ci / lint (pull_request) — Failing after 4m (Required)', 'التصنيف: فاشل']]);
+    expect(byId['required-pending']?.evidence.map((e) => [e.text, e.note])).toEqual([
+      ['ci / build (pull_request) — In progress — This check has started... (Required)', 'التصنيف: قيد التشغيل'],
+      ['Linux / Browser — Expected — Waiting for status to be reported (Required)', 'التصنيف: لم يُشغَّل'],
     ]);
     // الفاشل غير الإلزامي ملاحظة لا مانع.
     expect(r.notes.join(' ')).toContain('preview-deploy');
@@ -211,11 +211,11 @@ describe('TEST-PR-04: المصدر والوقت والتنبيهات (وحدة)'
   it('القائمة المطوية: صفوف أقل مما يعلنه الرمز المجمَّع (9 من 12 في العينة المعقدة)، أو check-runs جزئية من API', async () => {
     loadHtml('fixture-pr-complex.html');
     const summary = readPrSummary(document, selectors(), { pageNumber: 4242 });
-    expect(collapsedInfo(summary, null)).toEqual({ read: 9, expected: 12, basis: 'الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»' });
+    expect(collapsedInfo(summary, null)).toEqual({ read: 9, expected: 12, basis: 'rollup', label: '6 / 12 checks OK' });
     const api = await apiData(ROUTES_COMPLEX);
     expect(collapsedInfo(mergeApi(summary, api), api)).toBeNull();
     const partial = { ...api, checks: api.checks.available ? { available: true as const, value: { ...api.checks.value, partial: true, checkRunsTotal: 340 } } : api.checks };
-    expect(collapsedInfo(summary, partial)).toMatchObject({ expected: 340 });
+    expect(collapsedInfo(summary, partial)).toMatchObject({ expected: 340, basis: 'api-pages' });
   });
 
   it('التحديث الحي = قيمة مقروءة تغيّرت؛ لا ظهور قيمة كانت غير متاحة', () => {

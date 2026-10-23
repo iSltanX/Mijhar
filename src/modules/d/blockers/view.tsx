@@ -33,7 +33,8 @@ function BlockerItem({ item }: { item: Blocker }) {
       <ul class="d-evidence-list">
         {item.evidence.map((e) => (
           <li key={`${e.source}-${e.text}`} data-evidence-source={e.source}>
-            <span class="d-src">{SOURCE_TEXT[e.source]}</span> {e.where}: <q dir="auto">{e.text}</q>
+            <span class="d-src">{SOURCE_TEXT[e.source]}</span> <span class="d-where">{e.where}</span>: «<bdi class="d-quote" dir="auto">{e.text}</bdi>»
+            {e.note ? <> — {e.note}</> : null}
           </li>
         ))}
       </ul>
@@ -83,7 +84,15 @@ function AlertLine({ alert, onRefresh, onApiRefresh }: { alert: FreshnessAlert; 
     case 'collapsed':
       return (
         <li data-alert="collapsed">
-          قائمة الفحوص مطوية أو ناقصة: قُرئ {alert.info.read} من {alert.info.expected} ({alert.info.basis}). ما لم يُقرأ لا يُعدّ ناجحًا.
+          قائمة الفحوص مطوية أو ناقصة: قُرئ {alert.info.read} من {alert.info.expected}{' '}
+          {alert.info.basis === 'rollup' ? (
+            <>
+              (الرمز المجمَّع لالتزام الرأس يعلن «<bdi dir="ltr">{alert.info.label}</bdi>»)
+            </>
+          ) : (
+            '(check-runs في API أكثر من حد الصفحات المقروءة)'
+          )}
+          . ما لم يُقرأ لا يُعدّ ناجحًا.
         </li>
       );
     case 'stale':

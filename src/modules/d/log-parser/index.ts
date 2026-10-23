@@ -7,4 +7,5 @@ export type { JobPage, JobStep } from './job-page';
 export { LOG_MODULE, LOG_MODULE_ID, LogHttpError, createLogModule, fetchStepLog } from './module';
 export type { FetchLog, FetchedLog, LogModuleOptions } from './module';
 export { LOG_CSS } from './style';
-export { LogAnalysisView } from './view';
+export { LogAnalysisView, groupMessages } from './view';
+export type { MessageBlock } from './view';

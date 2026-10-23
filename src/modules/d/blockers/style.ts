@@ -12,7 +12,7 @@ export const BLOCKERS_CSS = `
 .d-blocker-list[data-certainty="may-block"] > li { border-style: dashed; border-inline-start: 3px dashed var(--mijhar-text-warning); }
 .d-blockers h4 { font-size: 13px; color: var(--mijhar-text-secondary); margin-top: var(--mijhar-space-6); }
 .d-evidence-list { margin: var(--mijhar-space-4) 0 0; padding-inline-start: var(--mijhar-space-16); font-size: 12px; color: var(--mijhar-text-secondary); overflow-wrap: anywhere; }
-.d-evidence-list q { color: var(--mijhar-text-primary); unicode-bidi: isolate; }
+.d-quote { color: var(--mijhar-text-primary); unicode-bidi: isolate; }
 .d-src { display: inline-block; padding: 0 var(--mijhar-space-6); border-radius: var(--mijhar-radius-full); background: var(--mijhar-bg-muted); font-weight: 700; }
 .d-method { padding: var(--mijhar-space-6) var(--mijhar-space-8); border-radius: var(--mijhar-radius-6); background: var(--mijhar-bg-info-subtle); color: var(--mijhar-text-primary); font-size: 12px; line-height: 18px; }
 .d-api .d-note { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mijhar-space-6); }

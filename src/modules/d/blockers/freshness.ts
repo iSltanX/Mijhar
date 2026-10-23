@@ -9,7 +9,9 @@ import type { ApiPrData } from './api-read';
 export interface CollapsedInfo {
   readonly read: number;
   readonly expected: number;
-  readonly basis: string;
+  /** rollup: الرمز المجمَّع لالتزام الرأس يعلن العدد (label نصه)؛ api-pages: check-runs أكثر من حد الصفحات المقروءة. */
+  readonly basis: 'rollup' | 'api-pages';
+  readonly label: string | null;
 }
 
 export type FreshnessAlert =
@@ -30,7 +32,7 @@ export interface FreshnessState {
 export function collapsedInfo(summary: PrSummary, api: ApiPrData | null): CollapsedInfo | null {
   if (api?.checks.available && api.checks.value.partial) {
     const total = api.checks.value.checkRunsTotal;
-    return { read: api.checks.value.items.length, expected: total ?? api.checks.value.items.length, basis: 'check-runs في API أكثر من حد الصفحات المقروءة' };
+    return { read: api.checks.value.items.length, expected: total ?? api.checks.value.items.length, basis: 'api-pages', label: null };
   }
   // قائمة API كاملة: لا تُقارن صفوف DOM بالرمز المجمَّع (أعداد المصدرين لا تُجمع، T-0.3).
   if (api?.checks.available) return null;
@@ -38,7 +40,7 @@ export function collapsedInfo(summary: PrSummary, api: ApiPrData | null): Collap
   if (!checks.rollup.available || checks.rollup.value.total === null || !checks.items.length) return null;
   const total = checks.rollup.value.total;
   if (checks.items.length >= total) return null;
-  return { read: checks.items.length, expected: total, basis: `الرمز المجمَّع لالتزام الرأس يعلن «${checks.rollup.value.label}»` };
+  return { read: checks.items.length, expected: total, basis: 'rollup', label: checks.rollup.value.label };
 }
 
 export function freshnessAlerts(state: FreshnessState, collapsed: CollapsedInfo | null): FreshnessAlert[] {
