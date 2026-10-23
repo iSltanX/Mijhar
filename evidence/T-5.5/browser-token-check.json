@@ -72,7 +72,6 @@
   },
   "chrome": {
     "label": "Chrome",
-    "browserVersion": "156.0.8078.47",
     "checks": [
       {
         "name": "قسم الرمز في صفحة الإعدادات بقائمة Read-only الست ولا صلاحية كتابة",
@@ -183,6 +182,7 @@
         "ok": true
       }
     ],
+    "browserVersion": "156.0.8078.47",
     "extensionErrors": {
       "runtime": [],
       "manifest": []
@@ -193,74 +193,63 @@
           "method": "GET",
           "path": "/rate_limit",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/branches/main",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/rate_limit",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
-          "authorization": false,
-          "bearer": false
+          "auth": null
         }
       ],
       "blockedExternalHosts": []
     },
-    "consoleHasToken": false,
-    "consoleLines": 0
+    "consoleHasToken": false
   },
   "edge": {
     "label": "Edge",
-    "browserVersion": "155.0.4283.60",
     "checks": [
       {
         "name": "قسم الرمز في صفحة الإعدادات بقائمة Read-only الست ولا صلاحية كتابة",
@@ -371,6 +360,7 @@
         "ok": true
       }
     ],
+    "browserVersion": "155.0.4283.60",
     "extensionErrors": {
       "runtime": [],
       "manifest": []
@@ -381,74 +371,63 @@
           "method": "GET",
           "path": "/rate_limit",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/branches/main",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/rate_limit",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
-          "authorization": false,
-          "bearer": false
+          "auth": null
         }
       ],
       "blockedExternalHosts": []
     },
-    "consoleHasToken": false,
-    "consoleLines": 0
+    "consoleHasToken": false
   },
   "brave": {
     "label": "Brave",
-    "browserVersion": "156.0.8078.48",
     "checks": [
       {
         "name": "قسم الرمز في صفحة الإعدادات بقائمة Read-only الست ولا صلاحية كتابة",
@@ -559,6 +538,7 @@
         "ok": true
       }
     ],
+    "browserVersion": "156.0.8078.48",
     "extensionErrors": {
       "runtime": [],
       "manifest": []
@@ -569,70 +549,60 @@
           "method": "GET",
           "path": "/rate_limit",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/branches/main",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/rate_limit",
           "from": "background",
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
-          "authorization": false,
-          "bearer": false
+          "auth": null
         }
       ],
       "blockedExternalHosts": []
     },
-    "consoleHasToken": false,
-    "consoleLines": 0
+    "consoleHasToken": false
   },
   "firefox": {
     "label": "Firefox",
@@ -735,6 +705,7 @@
       }
     ],
     "browserVersion": "158.0.1",
+    "extensionErrors": null,
     "network": {
       "api": [
         {
@@ -742,64 +713,56 @@
           "path": "/rate_limit",
           "from": "background",
           "origin": null,
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
           "origin": null,
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
           "from": "background",
           "origin": null,
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
           "from": "background",
           "origin": null,
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/branches/main",
           "from": "background",
           "origin": null,
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
           "from": "background",
           "origin": null,
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
           "from": "background",
           "origin": null,
-          "authorization": true,
-          "bearer": true
+          "auth": "saved"
         },
         {
           "method": "GET",
           "path": "/repos/octo-owner/private-demo/pulls/7",
           "from": "background",
           "origin": null,
-          "authorization": false,
-          "bearer": false
+          "auth": null
         }
       ],
       "blockedExternalHosts": [
