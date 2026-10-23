@@ -1,0 +1,771 @@
+{
+  "measuredAt": "2026-10-23T06:48:17.200Z",
+  "masked": [
+    {
+      "masked": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`npm install`"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "pull request"
+        }
+      ]
+    },
+    {
+      "masked": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+      "tokens": [
+        {
+          "token": "⟦PATH_0⟧",
+          "value": "src/config/settings.json"
+        }
+      ]
+    },
+    {
+      "masked": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+      "tokens": [
+        {
+          "token": "⟦VER_0⟧",
+          "value": "v2.4.1"
+        },
+        {
+          "token": "⟦REF_1⟧",
+          "value": "#1532"
+        }
+      ]
+    },
+    {
+      "masked": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+      "tokens": [
+        {
+          "token": "⟦FLAG_0⟧",
+          "value": "--dry-run"
+        }
+      ]
+    },
+    {
+      "masked": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+      "tokens": [
+        {
+          "token": "⟦USER_0⟧",
+          "value": "@octocat"
+        }
+      ]
+    },
+    {
+      "masked": "See ⟦URL_0⟧ for the full list of events.",
+      "tokens": [
+        {
+          "token": "⟦URL_0⟧",
+          "value": "https://docs.github.com/actions"
+        }
+      ]
+    },
+    {
+      "masked": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`fetchUser()`"
+        }
+      ]
+    },
+    {
+      "masked": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`structuredClone`"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "Node.js"
+        }
+      ]
+    },
+    {
+      "masked": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`--output`"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "README"
+        }
+      ]
+    },
+    {
+      "masked": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+      "tokens": [
+        {
+          "token": "⟦PATH_0⟧",
+          "value": "actions/cache@v4."
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "GitHub Actions"
+        }
+      ]
+    },
+    {
+      "masked": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`process.env.CI`"
+        }
+      ]
+    },
+    {
+      "masked": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+      "tokens": [
+        {
+          "token": "⟦PATH_0⟧",
+          "value": "lib/utils/date.ts"
+        },
+        {
+          "token": "⟦PATH_1⟧",
+          "value": "lib/utils/time.ts"
+        }
+      ]
+    },
+    {
+      "masked": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+      "tokens": [
+        {
+          "token": "⟦VER_0⟧",
+          "value": "v3.0.0-beta.2"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "TypeScript"
+        }
+      ]
+    },
+    {
+      "masked": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+      "tokens": [
+        {
+          "token": "⟦TERM_0⟧",
+          "value": "package.json"
+        }
+      ]
+    },
+    {
+      "masked": "Call ⟦CODE_0⟧ after registering all routes.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`app.listen(3000)`"
+        }
+      ]
+    },
+    {
+      "masked": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`warn`"
+        },
+        {
+          "token": "⟦PATH_1⟧",
+          "value": "/var/log/app/error.log"
+        }
+      ]
+    },
+    {
+      "masked": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+      "tokens": [
+        {
+          "token": "⟦REF_0⟧",
+          "value": "#88"
+        },
+        {
+          "token": "⟦REF_1⟧",
+          "value": "#91"
+        }
+      ]
+    },
+    {
+      "masked": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`MAX_RETRIES`"
+        }
+      ]
+    },
+    {
+      "masked": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`git bisect`"
+        }
+      ]
+    },
+    {
+      "masked": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`--strict`"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "browser": "brave",
+      "version": "156.0.8078.48",
+      "background": {
+        "Translator": "function",
+        "availability": "downloadable"
+      },
+      "offscreenBefore": {
+        "create": {
+          "created": true
+        },
+        "result": {
+          "Translator": "function",
+          "availability": "downloadable",
+          "context": "offscreen",
+          "create": "failed",
+          "createError": "NotAllowedError: Requires a user gesture when availability is \"downloading\" or \"downloadable\".",
+          "createMs": 0,
+          "progressEvents": 0,
+          "userActivation": {
+            "hasBeenActive": false,
+            "isActive": false
+          }
+        }
+      },
+      "extensionPage": {
+        "noActivationBefore": {
+          "context": "extension-page",
+          "Translator": "function",
+          "userActivation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "availability": "downloadable",
+          "createMs": 12024,
+          "create": "ok",
+          "progressEvents": 52,
+          "progressLast": 1,
+          "availabilityAfter": "available",
+          "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+          "sampleMs": 14
+        },
+        "noActivation": {
+          "context": "extension-page",
+          "Translator": "function",
+          "userActivation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "availability": "available",
+          "createMs": 96,
+          "create": "ok",
+          "progressEvents": 2,
+          "progressLast": 1,
+          "availabilityAfter": "available",
+          "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+          "sampleMs": 13
+        },
+        "withActivation": {
+          "context": "extension-page",
+          "Translator": "function",
+          "userActivation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "availability": "available",
+          "createMs": 61,
+          "create": "ok",
+          "progressEvents": 2,
+          "progressLast": 1,
+          "availabilityAfter": "available",
+          "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+          "sampleMs": 13,
+          "outputs": [
+            {
+              "text": "قم بتشغيل code_0 قبل فتح term_1.",
+              "ms": 5
+            },
+            {
+              "text": "يوجد ملف التكوين في ⟦PATH_0 ويتم تحميله عند بدء التشغيل.",
+              "ms": 6
+            },
+            {
+              "text": "الترقية إلى ver_0 لإصلاح تسرب الذاكرة المبلغ عنه في REF_1.",
+              "ms": 6
+            },
+            {
+              "text": "استخدم علامة Flag_0 لمعاينة التغييرات دون كتابة الملفات.",
+              "ms": 5
+            },
+            {
+              "text": "شكرا user_0 لمراجعة التصحيح بهذه السرعة.",
+              "ms": 4
+            },
+            {
+              "text": "راجع URL_0 للحصول على القائمة الكاملة للأحداث.",
+              "ms": 4
+            },
+            {
+              "text": "تقوم الدالة code_0 بإرجاع وعد يتم حله مع كائن المستخدم.",
+              "ms": 5
+            },
+            {
+              "text": "الاختبارات تفشل في term_1 22 لأن code_0 مفقود في الوهمية.",
+              "ms": 8
+            },
+            {
+              "text": "تحرير term_1 لتوثيق الخيار code_0 الجديد وقيمته الافتراضية.",
+              "ms": 6
+            },
+            {
+              "text": "term_1 caches node_modules بين عمليات التشغيل باستخدام path_0",
+              "ms": 7
+            },
+            {
+              "text": "إذا تم تعيين code_0 ، يتخطى البرنامج النصي الموجه التفاعلي.",
+              "ms": 5
+            },
+            {
+              "text": "أعد تسمية PATH_0 إلى PATH_1 وقم بتحديث جميع الواردات.",
+              "ms": 6
+            },
+            {
+              "text": "الإصدار ⟦ver_0⟧ يسقط دعم term_1⟧ 4.",
+              "ms": 6
+            },
+            {
+              "text": "يرجى إعادة تأسيس فرعك على Main وحل الصراع في term_0.",
+              "ms": 5
+            },
+            {
+              "text": "استدعاء code_0 بعد تسجيل جميع المسارات.",
+              "ms": 4
+            },
+            {
+              "text": "تتم كتابة السجلات إلى path_1 عندما يكون المستوى code_0 أو أعلى.",
+              "ms": 6
+            },
+            {
+              "text": "يغلق هذا التغيير REF_0 ويتناول جزئيًا REF_1.",
+              "ms": 5
+            },
+            {
+              "text": "اضبط code_0 على 5 في .env.example لمطابقة الإنتاج.",
+              "ms": 6
+            },
+            {
+              "text": "قم بتشغيل code_0 للعثور على الالتزام الذي أدخل الانحدار.",
+              "ms": 5
+            },
+            {
+              "text": "يرفض وضع code_0 مفاتيح غير معروفة في مخطط YAML.",
+              "ms": 5
+            }
+          ]
+        }
+      },
+      "contentScript": {
+        "init": {
+          "context": "content-script",
+          "Translator": "function",
+          "userActivation": {
+            "isActive": false,
+            "hasBeenActive": false
+          },
+          "availability": "available",
+          "trialMl": "undefined"
+        },
+        "noActivation": {
+          "context": "content-script",
+          "Translator": "function",
+          "userActivation": {
+            "isActive": false,
+            "hasBeenActive": false
+          },
+          "availability": "available",
+          "createMs": 64,
+          "create": "ok",
+          "progressEvents": 2,
+          "progressLast": 1,
+          "availabilityAfter": "available",
+          "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+          "sampleMs": 13
+        },
+        "withActivation": {
+          "context": "content-script",
+          "Translator": "function",
+          "userActivation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "availability": "available",
+          "createMs": 72,
+          "create": "ok",
+          "progressEvents": 2,
+          "progressLast": 1,
+          "availabilityAfter": "available",
+          "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+          "sampleMs": 13
+        },
+        "activationAtClick": "true"
+      },
+      "offscreen": {
+        "create": {
+          "created": true
+        },
+        "result": {
+          "Translator": "function",
+          "availability": "available",
+          "availabilityAfter": "available",
+          "context": "offscreen",
+          "create": "ok",
+          "createMs": 63,
+          "progressEvents": 2,
+          "progressLast": 1,
+          "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+          "sampleMs": 13,
+          "userActivation": {
+            "hasBeenActive": false,
+            "isActive": false
+          }
+        }
+      },
+      "permissions": {
+        "origins": [
+          "http://127.0.0.1/*"
+        ],
+        "permissions": [
+          "storage",
+          "offscreen"
+        ]
+      },
+      "hfFetchNoPermission": {
+        "config": {
+          "status": 200,
+          "finalHost": "huggingface.co",
+          "redirected": true,
+          "bytes": 1389,
+          "ms": 469
+        },
+        "onnxRange": {
+          "status": 206,
+          "finalHost": "us.aws.cdn.hf.co",
+          "redirected": true,
+          "bytes": 1024,
+          "ms": 985
+        }
+      },
+      "onnx": {
+        "csp": null,
+        "importMs": 19,
+        "crossOriginIsolated": false,
+        "numThreads": null,
+        "loadMs": 776,
+        "paragraphs": [
+          {
+            "chars": 186,
+            "ms": 495,
+            "text": "<>ara><هذا المشروع هو إطار شبكة دنيا لبناء APIS. يوفر طبقة رقيقة من خصائص التطبيق الأساسي على الشبكة، دون حجب الميزات التي يعرفها ويحبها المطورون."
+          },
+          {
+            "chars": 176,
+            "ms": 417,
+            "text": ">>ara<<قبل تقديم طلب سحب، تأكد من أن تمر الاختبارات محلياً وأن التغييرات التي تطرأ عليها مغطاة باختبارات جديدة أو مستكملة. أبق كل طلب سحب مركزاً على تغيير واحد."
+          },
+          {
+            "chars": 177,
+            "ms": 406,
+            "text": "<>ar><تدعم المكتبة كلا من بيئات المتصفح والخادوم. في المتصفح تستخدم تنفيذ الجلب الأصلي ، بينما على الخادم فإنه يسقط مرة أخرى إلى وحدة HTTP المضمنة."
+          },
+          {
+            "chars": 169,
+            "ms": 341,
+            "text": "<>ara><إذا وجدت ضعفا أمنيا، يرجى عدم فتح قضية عامة. بدلا من ذلك، أبلغها على انفراد إلى المشرفين بحيث يمكن إعداد حل قبل الكشف."
+          },
+          {
+            "chars": 167,
+            "ms": 337,
+            "text": "<>ara>>الترتيب هو قراءة من متغيرات البيئة أولاً، ثم من ملف تشكيل محلي، وأخيراً من افتراضيات. مصادر لاحقة لا تتجاوز سابقاً."
+          }
+        ],
+        "sentences": [
+          {
+            "chars": 39,
+            "ms": 185,
+            "text": "<>ara<<Rain.CDE_0. قبل فتح a."
+          },
+          {
+            "chars": 59,
+            "ms": 245,
+            "text": ">>ara<<يعيش ملف الملف في.PATH_0. ويتم تحميله عند بدء التشغيل."
+          },
+          {
+            "chars": 62,
+            "ms": 261,
+            "text": ">aar<>الارتقاء إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1."
+          },
+          {
+            "chars": 63,
+            "ms": 226,
+            "text": ">>ar<<<استخدم العلم.FLAG_0. لمعاينة التغييرات بدون ملفات الكتابة."
+          },
+          {
+            "chars": 51,
+            "ms": 191,
+            "text": "<>ara><شكرا.USER_0. لمراجعة الرقعة بسرعة كبيرة."
+          },
+          {
+            "chars": 40,
+            "ms": 182,
+            "text": ">>ar<<انظر.URL_0. للاطلاع على القائمة الكاملة للأحداث."
+          },
+          {
+            "chars": 75,
+            "ms": 172,
+            "text": "الدالة الدالة CODE_ 0. ترجع وعداً يحل مع كائن المستخدم."
+          },
+          {
+            "chars": 73,
+            "ms": 301,
+            "text": "<ara><الاختبارات تفشل على.Therm_1.22 لأن.CDE_0. مفقود في السخر."
+          },
+          {
+            "chars": 72,
+            "ms": 376,
+            "text": ">ara<> حرّر. orther_1. to document the new.CDE_0. this folder domination."
+          },
+          {
+            "chars": 56,
+            "ms": 349,
+            "text": "<>ara<<. ortherm_1. resents node_modules بين عمليات استخدام.PATH_0."
+          },
+          {
+            "chars": 60,
+            "ms": 266,
+            "text": "<ara><إذا كان <.CDE_0. هو set، فإن النص سيتخطى الواجهة التفاعلية."
+          },
+          {
+            "chars": 51,
+            "ms": 278,
+            "text": "<>ar<<<إعادة تسمية.PATH_0. إلى.PATH_1. وتحديث جميع الواردات."
+          },
+          {
+            "chars": 49,
+            "ms": 255,
+            "text": "<>ara><الإطلاق.VER_0. قطرة الدعم ل.Trame_1. 4."
+          },
+          {
+            "chars": 71,
+            "ms": 179,
+            "text": "<>ar>> من فضلك أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في."
+          },
+          {
+            "chars": 43,
+            "ms": 206,
+            "text": ">>ara<<اتصلي بـ.CODE_0. بعد تسجيل جميع الطرق."
+          },
+          {
+            "chars": 66,
+            "ms": 302,
+            "text": "<ara><لوغاريتمات مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى."
+          },
+          {
+            "chars": 59,
+            "ms": 260,
+            "text": "<>ar><هذا التغيير يغلق <.REF_0. وجزئياً العنوان reF_1."
+          },
+          {
+            "chars": 54,
+            "ms": 295,
+            "text": ">>ara<<عِدّ.CDE_0. إلى 5 في.nv.expartal لمطابقة الإنتاج."
+          },
+          {
+            "chars": 60,
+            "ms": 226,
+            "text": ">>ara<>اركض.CDE_0. للعثور على من الذي ارتكب هذا الإنحدار."
+          },
+          {
+            "chars": 58,
+            "ms": 230,
+            "text": ">>ar<<>الأسلوب.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML."
+          }
+        ],
+        "sentencesNoPrefix": [
+          {
+            "chars": 39,
+            "ms": 167,
+            "text": "تشغيل.CDE_0. قبل فتح a. term_1."
+          },
+          {
+            "chars": 59,
+            "ms": 227,
+            "text": "ملف التهيئة حي في.PATH_ 0. و هو مُحمّل عند بدء التشغيل."
+          },
+          {
+            "chars": 62,
+            "ms": 186,
+            "text": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1."
+          },
+          {
+            "chars": 63,
+            "ms": 173,
+            "text": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات."
+          },
+          {
+            "chars": 51,
+            "ms": 89,
+            "text": "شكراً لك على مراجعة الرقعة بسرعة"
+          },
+          {
+            "chars": 40,
+            "ms": 137,
+            "text": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث."
+          },
+          {
+            "chars": 75,
+            "ms": 150,
+            "text": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم."
+          },
+          {
+            "chars": 73,
+            "ms": 223,
+            "text": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة."
+          },
+          {
+            "chars": 72,
+            "ms": 113,
+            "text": "تحرير إلى توثيق جديد خيار و افتراضي قيمة."
+          },
+          {
+            "chars": 56,
+            "ms": 259,
+            "text": "orth_1. مخبأات نـد_مودول بين التشغيلات باستخدام.PATH_0."
+          },
+          {
+            "chars": 60,
+            "ms": 248,
+            "text": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية."
+          },
+          {
+            "chars": 51,
+            "ms": 217,
+            "text": "إعادة تسمية. pathh_0. إلى.PATH_1. وتحديث جميع الواردات."
+          },
+          {
+            "chars": 49,
+            "ms": 222,
+            "text": "الإطلاق ver_0. miner production for. term_1. 4."
+          },
+          {
+            "chars": 71,
+            "ms": 132,
+            "text": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في."
+          },
+          {
+            "chars": 43,
+            "ms": 145,
+            "text": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق."
+          },
+          {
+            "chars": 66,
+            "ms": 238,
+            "text": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى."
+          },
+          {
+            "chars": 59,
+            "ms": 110,
+            "text": "وهذا التغيير يغلق REF_0."
+          },
+          {
+            "chars": 54,
+            "ms": 251,
+            "text": "state. CODE_0. to 5 in. env. exaple لمطابقة الإنتاج."
+          },
+          {
+            "chars": 60,
+            "ms": 212,
+            "text": "تشغيل CODE_0. إلى إيجاد أيّ إرتكب إقتحاماً أدخل الإنحدار."
+          },
+          {
+            "chars": 58,
+            "ms": 166,
+            "text": "نمط.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML."
+          }
+        ],
+        "rss": {
+          "beforeTotalMB": 1149.53125,
+          "beforeMaxMB": 268.5,
+          "samples": 22,
+          "peakMaxProcessMB": 1189.359375,
+          "peakTotalMB": 2135.4375
+        },
+        "requests": [
+          {
+            "path": "config.json",
+            "status": 200,
+            "bytes": 1389,
+            "fromCache": true
+          },
+          {
+            "path": "tokenizer_config.json",
+            "status": 200,
+            "bytes": 282,
+            "fromCache": true
+          },
+          {
+            "path": "config.json",
+            "status": 200,
+            "bytes": 1389,
+            "fromCache": true
+          },
+          {
+            "path": "tokenizer.json",
+            "status": 200,
+            "bytes": 6748848,
+            "fromCache": true
+          },
+          {
+            "path": "tokenizer_config.json",
+            "status": 200,
+            "bytes": 282,
+            "fromCache": true
+          },
+          {
+            "path": "onnx/encoder_model_quantized.onnx",
+            "status": 200,
+            "bytes": 51773854,
+            "fromCache": true
+          },
+          {
+            "path": "onnx/decoder_model_merged_quantized.onnx",
+            "status": 200,
+            "bytes": 59078120,
+            "fromCache": true
+          },
+          {
+            "path": "generation_config.json",
+            "status": 200,
+            "bytes": 293,
+            "fromCache": true
+          }
+        ]
+      },
+      "onnxDefaultCsp": {
+        "loadError": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: WebAssembly.instantiate(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".). Build with -sASSERTIONS for more info.\nErr",
+        "loaded": false
+      }
+    }
+  ]
+}

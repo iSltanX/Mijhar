@@ -1,0 +1,36 @@
+{
+  "Xenova/opus-mt-en-ar": {
+    "license_tags": [],
+    "cardData_license": null,
+    "lastModified": "2025-07-14T18:43:10.000Z",
+    "sha": "034a684356c19021a187cda4d7f823298b913921",
+    "gated": false,
+    "siblings": 43,
+    "readme_head": "---\nbase_model: Helsinki-NLP/opus-mt-en-ar\nlibrary_name: transformers.js\npipeline_tag: translation\n---\n\nhttps://huggingface.co/Helsinki-NLP/opus-mt-en-ar with ONNX weights to be compatible with Transformers.js.\n\nNote: Having a separate repo for ONNX weights is intended to be a temporary solution until WebML gains more traction. If you would like to make your models web-ready, we recommend converting to ONNX using [🤗 Optimum](https://huggingface.co/docs/optimum/index) and structuring your repo like this one (with ONNX weights located in a subfolder named `onnx`).",
+    "readme_mentions_license": []
+  },
+  "Helsinki-NLP/opus-mt-en-ar": {
+    "license_tags": [
+      "license:apache-2.0"
+    ],
+    "cardData_license": "apache-2.0",
+    "lastModified": "2023-08-16T11:28:58.000Z",
+    "sha": "03087980e8ce753d64b3248ed0a912444545b840",
+    "gated": false,
+    "siblings": 12,
+    "readme_head": "---\nlanguage: \n- en\n- ar\n\ntags:\n- translation\n\nlicense: apache-2.0\n---\n\n### eng-ara\n\n* source group: English \n* target group: Arabic \n*  OPUS readme: [eng-ara](https://github.com/Helsinki-NLP/Tatoeba-Challenge/tree/master/models/eng-ara/README.md)\n\n*  model: transformer\n* source language(s): eng\n* target language(s): acm afb apc apc_Latn ara ara_Latn arq arq_Latn ary arz\n* model: transformer\n* pre-processing: normalization + SentencePiece (spm32k,spm32k)\n* a sentence initial language token is required in the form of `>>id<<` (id = valid target language ID)\n* download original weights: [opus-20",
+    "readme_mentions_license": [
+      "license: apache-2.0"
+    ]
+  },
+  "@huggingface/transformers@4.3.1": {
+    "license": "Apache-2.0",
+    "files_LICENSE": [
+      "LICENSE"
+    ]
+  },
+  "onnxruntime-web@1.31.0-dev.20260914-8d85527a0": {
+    "license": "MIT",
+    "files_LICENSE": []
+  }
+}

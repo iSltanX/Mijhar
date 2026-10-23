@@ -1,0 +1,792 @@
+{
+  "measuredAt": "2026-10-23T06:40:39.225Z",
+  "masked": [
+    {
+      "masked": "Run ⟦CODE_0⟧ before opening a ⟦TERM_1⟧.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`npm install`"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "pull request"
+        }
+      ]
+    },
+    {
+      "masked": "The config file lives in ⟦PATH_0⟧ and is loaded at startup.",
+      "tokens": [
+        {
+          "token": "⟦PATH_0⟧",
+          "value": "src/config/settings.json"
+        }
+      ]
+    },
+    {
+      "masked": "Upgrade to ⟦VER_0⟧ to fix the memory leak reported in ⟦REF_1⟧.",
+      "tokens": [
+        {
+          "token": "⟦VER_0⟧",
+          "value": "v2.4.1"
+        },
+        {
+          "token": "⟦REF_1⟧",
+          "value": "#1532"
+        }
+      ]
+    },
+    {
+      "masked": "Use the ⟦FLAG_0⟧ flag to preview changes without writing files.",
+      "tokens": [
+        {
+          "token": "⟦FLAG_0⟧",
+          "value": "--dry-run"
+        }
+      ]
+    },
+    {
+      "masked": "Thanks ⟦USER_0⟧ for reviewing the patch so quickly.",
+      "tokens": [
+        {
+          "token": "⟦USER_0⟧",
+          "value": "@octocat"
+        }
+      ]
+    },
+    {
+      "masked": "See ⟦URL_0⟧ for the full list of events.",
+      "tokens": [
+        {
+          "token": "⟦URL_0⟧",
+          "value": "https://docs.github.com/actions"
+        }
+      ]
+    },
+    {
+      "masked": "The ⟦CODE_0⟧ function returns a promise that resolves with the user object.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`fetchUser()`"
+        }
+      ]
+    },
+    {
+      "masked": "Tests are failing on ⟦TERM_1⟧ 22 because ⟦CODE_0⟧ is missing in the mock.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`structuredClone`"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "Node.js"
+        }
+      ]
+    },
+    {
+      "masked": "Edit ⟦TERM_1⟧ to document the new ⟦CODE_0⟧ option and its default value.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`--output`"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "README"
+        }
+      ]
+    },
+    {
+      "masked": "⟦TERM_1⟧ caches node_modules between runs using ⟦PATH_0⟧",
+      "tokens": [
+        {
+          "token": "⟦PATH_0⟧",
+          "value": "actions/cache@v4."
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "GitHub Actions"
+        }
+      ]
+    },
+    {
+      "masked": "If ⟦CODE_0⟧ is set, the script skips the interactive prompt.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`process.env.CI`"
+        }
+      ]
+    },
+    {
+      "masked": "Rename ⟦PATH_0⟧ to ⟦PATH_1⟧ and update all imports.",
+      "tokens": [
+        {
+          "token": "⟦PATH_0⟧",
+          "value": "lib/utils/date.ts"
+        },
+        {
+          "token": "⟦PATH_1⟧",
+          "value": "lib/utils/time.ts"
+        }
+      ]
+    },
+    {
+      "masked": "The release ⟦VER_0⟧ drops support for ⟦TERM_1⟧ 4.",
+      "tokens": [
+        {
+          "token": "⟦VER_0⟧",
+          "value": "v3.0.0-beta.2"
+        },
+        {
+          "token": "⟦TERM_1⟧",
+          "value": "TypeScript"
+        }
+      ]
+    },
+    {
+      "masked": "Please rebase your branch on main and resolve the conflict in ⟦TERM_0⟧.",
+      "tokens": [
+        {
+          "token": "⟦TERM_0⟧",
+          "value": "package.json"
+        }
+      ]
+    },
+    {
+      "masked": "Call ⟦CODE_0⟧ after registering all routes.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`app.listen(3000)`"
+        }
+      ]
+    },
+    {
+      "masked": "Logs are written to ⟦PATH_1⟧ when the level is ⟦CODE_0⟧ or higher.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`warn`"
+        },
+        {
+          "token": "⟦PATH_1⟧",
+          "value": "/var/log/app/error.log"
+        }
+      ]
+    },
+    {
+      "masked": "This change closes ⟦REF_0⟧ and partially addresses ⟦REF_1⟧.",
+      "tokens": [
+        {
+          "token": "⟦REF_0⟧",
+          "value": "#88"
+        },
+        {
+          "token": "⟦REF_1⟧",
+          "value": "#91"
+        }
+      ]
+    },
+    {
+      "masked": "Set ⟦CODE_0⟧ to 5 in .env.example to match production.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`MAX_RETRIES`"
+        }
+      ]
+    },
+    {
+      "masked": "Run ⟦CODE_0⟧ to find which commit introduced the regression.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`git bisect`"
+        }
+      ]
+    },
+    {
+      "masked": "The ⟦CODE_0⟧ mode rejects unknown keys in the YAML schema.",
+      "tokens": [
+        {
+          "token": "⟦CODE_0⟧",
+          "value": "`--strict`"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "browser": "firefox",
+      "version": "158.0.1",
+      "onnxDefaultCsp": {
+        "loadError": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: call to WebAssembly.instantiate() blocked by CSP). Build with -sASSERTIONS for more info.\nDa@moz-extension://66543bdf-868f-451d-b022-7afc0aeb1a44/lib/transformers.js:8583:19\n",
+        "loaded": false
+      },
+      "grantLocal": true,
+      "contentScript": {
+        "init": {
+          "context": "content-script",
+          "Translator": "undefined",
+          "userActivation": {
+            "isActive": false,
+            "hasBeenActive": false
+          }
+        },
+        "noActivation": {
+          "context": "content-script",
+          "Translator": "undefined",
+          "userActivation": {
+            "isActive": false,
+            "hasBeenActive": false
+          }
+        }
+      },
+      "extensionPage": {
+        "noActivation": {
+          "context": "extension-page",
+          "Translator": "undefined",
+          "userActivation": {
+            "isActive": false,
+            "hasBeenActive": false
+          }
+        }
+      },
+      "permissions": {
+        "origins": [
+          "http://127.0.0.1/*"
+        ],
+        "data_collection": [],
+        "permissions": [
+          "storage"
+        ]
+      },
+      "hfFetchNoPermission": {
+        "config": {
+          "status": 200,
+          "finalHost": "huggingface.co",
+          "redirected": true,
+          "bytes": 1389,
+          "ms": 830
+        },
+        "onnxRange": {
+          "status": 206,
+          "finalHost": "us.aws.cdn.hf.co",
+          "redirected": true,
+          "bytes": 1024,
+          "ms": 929
+        }
+      },
+      "grantOrigins": true,
+      "hfFetchGranted": {
+        "config": {
+          "status": 200,
+          "finalHost": "huggingface.co",
+          "redirected": true,
+          "bytes": 1389,
+          "ms": 300
+        },
+        "onnxRange": {
+          "status": 206,
+          "finalHost": "us.aws.cdn.hf.co",
+          "redirected": true,
+          "bytes": 1024,
+          "ms": 753
+        }
+      },
+      "onnx": {
+        "csp": null,
+        "importMs": 58,
+        "crossOriginIsolated": false,
+        "numThreads": null,
+        "loadMs": 722,
+        "paragraphs": [
+          {
+            "chars": 186,
+            "ms": 902,
+            "text": "<>ara><هذا المشروع هو إطار شبكة دنيا لبناء APIS. يوفر طبقة رقيقة من خصائص التطبيق الأساسي على الشبكة، دون حجب الميزات التي يعرفها ويحبها المطورون."
+          },
+          {
+            "chars": 176,
+            "ms": 859,
+            "text": ">>ara<<قبل تقديم طلب سحب، تأكد من أن تمر الاختبارات محلياً وأن التغييرات التي تطرأ عليها مغطاة باختبارات جديدة أو مستكملة. أبق كل طلب سحب مركزاً على تغيير واحد."
+          },
+          {
+            "chars": 177,
+            "ms": 875,
+            "text": "<>ar><تدعم المكتبة كلا من بيئات المتصفح والخادوم. في المتصفح تستخدم تنفيذ الجلب الأصلي ، بينما على الخادم فإنه يسقط مرة أخرى إلى وحدة HTTP المضمنة."
+          },
+          {
+            "chars": 169,
+            "ms": 724,
+            "text": "<>ara><إذا وجدت ضعفا أمنيا، يرجى عدم فتح قضية عامة. بدلا من ذلك، أبلغها على انفراد إلى المشرفين بحيث يمكن إعداد حل قبل الكشف."
+          },
+          {
+            "chars": 167,
+            "ms": 720,
+            "text": "<>ara>>الترتيب هو قراءة من متغيرات البيئة أولاً، ثم من ملف تشكيل محلي، وأخيراً من افتراضيات. مصادر لاحقة لا تتجاوز سابقاً."
+          }
+        ],
+        "sentences": [
+          {
+            "chars": 39,
+            "ms": 393,
+            "text": "<>ara<<Rain.CDE_0. قبل فتح a."
+          },
+          {
+            "chars": 59,
+            "ms": 526,
+            "text": ">>ara<<يعيش ملف الملف في.PATH_0. ويتم تحميله عند بدء التشغيل."
+          },
+          {
+            "chars": 62,
+            "ms": 545,
+            "text": ">aar<>الارتقاء إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1."
+          },
+          {
+            "chars": 63,
+            "ms": 486,
+            "text": ">>ar<<<استخدم العلم.FLAG_0. لمعاينة التغييرات بدون ملفات الكتابة."
+          },
+          {
+            "chars": 51,
+            "ms": 411,
+            "text": "<>ara><شكرا.USER_0. لمراجعة الرقعة بسرعة كبيرة."
+          },
+          {
+            "chars": 40,
+            "ms": 374,
+            "text": ">>ar<<انظر.URL_0. للاطلاع على القائمة الكاملة للأحداث."
+          },
+          {
+            "chars": 75,
+            "ms": 357,
+            "text": "الدالة الدالة CODE_ 0. ترجع وعداً يحل مع كائن المستخدم."
+          },
+          {
+            "chars": 73,
+            "ms": 644,
+            "text": "<ara><الاختبارات تفشل على.Therm_1.22 لأن.CDE_0. مفقود في السخر."
+          },
+          {
+            "chars": 72,
+            "ms": 833,
+            "text": ">ara<> حرّر. orther_1. to document the new.CDE_0. this folder domination."
+          },
+          {
+            "chars": 56,
+            "ms": 756,
+            "text": "<>ara<<. ortherm_1. resents node_modules بين عمليات استخدام.PATH_0."
+          },
+          {
+            "chars": 60,
+            "ms": 563,
+            "text": "<ara><إذا كان <.CDE_0. هو set، فإن النص سيتخطى الواجهة التفاعلية."
+          },
+          {
+            "chars": 51,
+            "ms": 591,
+            "text": "<>ar<<<إعادة تسمية.PATH_0. إلى.PATH_1. وتحديث جميع الواردات."
+          },
+          {
+            "chars": 49,
+            "ms": 546,
+            "text": "<>ara><الإطلاق.VER_0. قطرة الدعم ل.Trame_1. 4."
+          },
+          {
+            "chars": 71,
+            "ms": 376,
+            "text": "<>ar>> من فضلك أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في."
+          },
+          {
+            "chars": 43,
+            "ms": 446,
+            "text": ">>ara<<اتصلي بـ.CODE_0. بعد تسجيل جميع الطرق."
+          },
+          {
+            "chars": 66,
+            "ms": 642,
+            "text": "<ara><لوغاريتمات مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى."
+          },
+          {
+            "chars": 59,
+            "ms": 546,
+            "text": "<>ar><هذا التغيير يغلق <.REF_0. وجزئياً العنوان reF_1."
+          },
+          {
+            "chars": 54,
+            "ms": 638,
+            "text": ">>ara<<عِدّ.CDE_0. إلى 5 في.nv.expartal لمطابقة الإنتاج."
+          },
+          {
+            "chars": 60,
+            "ms": 485,
+            "text": ">>ara<>اركض.CDE_0. للعثور على من الذي ارتكب هذا الإنحدار."
+          },
+          {
+            "chars": 58,
+            "ms": 488,
+            "text": ">>ar<<>الأسلوب.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML."
+          }
+        ],
+        "sentencesNoPrefix": [
+          {
+            "chars": 39,
+            "ms": 356,
+            "text": "تشغيل.CDE_0. قبل فتح a. term_1."
+          },
+          {
+            "chars": 59,
+            "ms": 495,
+            "text": "ملف التهيئة حي في.PATH_ 0. و هو مُحمّل عند بدء التشغيل."
+          },
+          {
+            "chars": 62,
+            "ms": 393,
+            "text": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1."
+          },
+          {
+            "chars": 63,
+            "ms": 369,
+            "text": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات."
+          },
+          {
+            "chars": 51,
+            "ms": 183,
+            "text": "شكراً لك على مراجعة الرقعة بسرعة"
+          },
+          {
+            "chars": 40,
+            "ms": 294,
+            "text": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث."
+          },
+          {
+            "chars": 75,
+            "ms": 316,
+            "text": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم."
+          },
+          {
+            "chars": 73,
+            "ms": 470,
+            "text": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة."
+          },
+          {
+            "chars": 72,
+            "ms": 227,
+            "text": "تحرير إلى توثيق جديد خيار و افتراضي قيمة."
+          },
+          {
+            "chars": 56,
+            "ms": 562,
+            "text": "orth_1. مخبأات نـد_مودول بين التشغيلات باستخدام.PATH_0."
+          },
+          {
+            "chars": 60,
+            "ms": 537,
+            "text": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية."
+          },
+          {
+            "chars": 51,
+            "ms": 467,
+            "text": "إعادة تسمية. pathh_0. إلى.PATH_1. وتحديث جميع الواردات."
+          },
+          {
+            "chars": 49,
+            "ms": 482,
+            "text": "الإطلاق ver_0. miner production for. term_1. 4."
+          },
+          {
+            "chars": 71,
+            "ms": 285,
+            "text": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في."
+          },
+          {
+            "chars": 43,
+            "ms": 311,
+            "text": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق."
+          },
+          {
+            "chars": 66,
+            "ms": 513,
+            "text": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى."
+          },
+          {
+            "chars": 59,
+            "ms": 226,
+            "text": "وهذا التغيير يغلق REF_0."
+          },
+          {
+            "chars": 54,
+            "ms": 561,
+            "text": "state. CODE_0. to 5 in. env. exaple لمطابقة الإنتاج."
+          },
+          {
+            "chars": 60,
+            "ms": 462,
+            "text": "تشغيل CODE_0. إلى إيجاد أيّ إرتكب إقتحاماً أدخل الإنحدار."
+          },
+          {
+            "chars": 58,
+            "ms": 359,
+            "text": "نمط.CDE_0. ترفض مفاتيح مجهولة في مخطط YAML."
+          }
+        ],
+        "rss": {
+          "samples": 46,
+          "peakMaxProcessMB": 1259.578125,
+          "peakTotalMB": 3077.4375
+        },
+        "requests": [
+          {
+            "path": "config.json",
+            "status": 200,
+            "bytes": 1389,
+            "fromCache": true
+          },
+          {
+            "path": "tokenizer_config.json",
+            "status": 200,
+            "bytes": 282,
+            "fromCache": true
+          },
+          {
+            "path": "config.json",
+            "status": 200,
+            "bytes": 1389,
+            "fromCache": true
+          },
+          {
+            "path": "tokenizer.json",
+            "status": 200,
+            "bytes": 6748848,
+            "fromCache": true
+          },
+          {
+            "path": "tokenizer_config.json",
+            "status": 200,
+            "bytes": 282,
+            "fromCache": true
+          },
+          {
+            "path": "onnx/encoder_model_quantized.onnx",
+            "status": 200,
+            "bytes": 51773854,
+            "fromCache": true
+          },
+          {
+            "path": "onnx/decoder_model_merged_quantized.onnx",
+            "status": 200,
+            "bytes": 59078120,
+            "fromCache": true
+          },
+          {
+            "path": "generation_config.json",
+            "status": 200,
+            "bytes": 293,
+            "fromCache": true
+          }
+        ]
+      },
+      "ml": {
+        "prefsDefault": {
+          "browser.ml.chat.enabled": true,
+          "browser.ml.chat.hideLocalhost": true,
+          "browser.ml.chat.maxLength": 7000,
+          "browser.ml.chat.menu": true,
+          "browser.ml.chat.page": true,
+          "browser.ml.chat.page.footerBadge": true,
+          "browser.ml.chat.page.menuBadge": true,
+          "browser.ml.chat.prompt.prefix": "{\"l10nId\":\"genai-prompt-prefix-selection\"}",
+          "browser.ml.chat.prompts.0": "{\"id\":\"summarize\",\"l10nId\":\"genai-prompts-summarize\"}",
+          "browser.ml.chat.prompts.1": "{\"id\":\"explain\",\"l10nId\":\"genai-prompts-explain\",\"targeting\":\"contentType != 'page'\"}",
+          "browser.ml.chat.prompts.3": "{\"id\":\"quiz\",\"l10nId\":\"genai-prompts-quiz\",\"targeting\":\"(!provider|regExpMatch('gemini') || region == 'US') && contentType != 'page'\"}",
+          "browser.ml.chat.prompts.4": "{\"id\":\"proofread\", \"l10nId\":\"genai-prompts-proofread\",\"targeting\":\"contentType != 'page'\"}",
+          "browser.ml.chat.provider": "",
+          "browser.ml.chat.shortcut.onboardingMouseoverCount": 0,
+          "browser.ml.chat.shortcuts": true,
+          "browser.ml.chat.shortcuts.custom": true,
+          "browser.ml.chat.shortcuts.debounce": 200,
+          "browser.ml.chat.shortcuts.longPress": 60000,
+          "browser.ml.chat.shortcuts.smartwindow": true,
+          "browser.ml.chat.sidebar": true,
+          "browser.ml.checkForMemory": true,
+          "browser.ml.embedGen.textEmbeddingFeatureModel": "",
+          "browser.ml.embedGen.textEmbeddingSize": 384,
+          "browser.ml.enable": false,
+          "browser.ml.hwinference.max_restarts": 3,
+          "browser.ml.linkPreview.allowedLanguages": "en",
+          "browser.ml.linkPreview.blockListEnabled": true,
+          "browser.ml.linkPreview.collapsed": false,
+          "browser.ml.linkPreview.enabled": true,
+          "browser.ml.linkPreview.ignoreMs": 2000,
+          "browser.ml.linkPreview.longPress": true,
+          "browser.ml.linkPreview.longPressMs": 1000,
+          "browser.ml.linkPreview.noKeyPointsRegions": "",
+          "browser.ml.linkPreview.optin": false,
+          "browser.ml.linkPreview.outputSentences": 3,
+          "browser.ml.linkPreview.recentTypingMs": 1000,
+          "browser.ml.linkPreview.shift": false,
+          "browser.ml.linkPreview.shiftAlt": false,
+          "browser.ml.linkPreview.smokeTest.lastBuildID": "",
+          "browser.ml.linkPreview.supportedLocales": "en",
+          "browser.ml.logLevel": "Error",
+          "browser.ml.minimumPhysicalMemory": 3,
+          "browser.ml.modelCacheMaxSize": 4,
+          "browser.ml.modelCacheTimeout": 120000,
+          "browser.ml.modelHub.testing": false,
+          "browser.ml.modelHubRootUrl": "https://model-hub.mozilla.org/",
+          "browser.ml.modelHubUrlTemplate": "{model}/{revision}",
+          "browser.ml.overridePipelineOptions": "{}",
+          "browser.ml.pageAssist.enabled": false,
+          "browser.ml.pageExtractor.headlessTimeoutMs": 15000,
+          "extensions.ml.enabled": true
+        },
+        "probeBeforeGrant": {
+          "trial": "undefined",
+          "ml": "undefined",
+          "methods": []
+        },
+        "grant": true,
+        "probeAfterGrant": {
+          "trial": "object",
+          "ml": "object",
+          "methods": [
+            "onProgress",
+            "createEngine",
+            "runEngine",
+            "deleteCachedModels",
+            "CreateEngineRequest",
+            "RunEngineRequest"
+          ]
+        },
+        "runDefaultPrefs": {
+          "progress": [],
+          "error": "Error: Trial ML API is disabled. This API is only available when \"extensions.ml.enabled\" and browser.ml.enable\" preferences are set to true.",
+          "elapsedMs": 5
+        },
+        "setPrefs": {
+          "browser.ml.enable": true,
+          "extensions.ml.enabled": true
+        },
+        "probeAfterPrefs": {
+          "trial": "object",
+          "ml": "object",
+          "methods": [
+            "onProgress",
+            "createEngine",
+            "runEngine",
+            "deleteCachedModels",
+            "CreateEngineRequest",
+            "RunEngineRequest"
+          ]
+        },
+        "runEnabled": {
+          "progress": [
+            {
+              "type": "downloading",
+              "statusText": "in_progress",
+              "progress": 99.87803775746418,
+              "ok": true
+            },
+            {
+              "type": "downloading",
+              "statusText": "in_progress",
+              "progress": 99.93347283224314,
+              "ok": true
+            },
+            {
+              "type": "downloading",
+              "statusText": "in_progress",
+              "progress": 99.9889079070221,
+              "ok": true
+            },
+            {
+              "type": "downloading",
+              "statusText": "in_progress",
+              "progress": 100,
+              "ok": true
+            },
+            {
+              "type": "downloading",
+              "statusText": "done",
+              "progress": null,
+              "ok": true
+            }
+          ],
+          "createMs": 11528,
+          "result": [
+            {
+              "translation_text": "تشغيل. DED_0. قبل فتح a. term_1."
+            }
+          ],
+          "runMs": 218,
+          "rss": {
+            "samples": 23,
+            "peakMaxProcessMB": 1222.84375,
+            "peakTotalMB": 3032.625
+          }
+        },
+        "prefsAfter": {
+          "browser.ml.chat.enabled": true,
+          "browser.ml.chat.hideLocalhost": true,
+          "browser.ml.chat.maxLength": 7000,
+          "browser.ml.chat.menu": true,
+          "browser.ml.chat.page": true,
+          "browser.ml.chat.page.footerBadge": true,
+          "browser.ml.chat.page.menuBadge": true,
+          "browser.ml.chat.prompt.prefix": "{\"l10nId\":\"genai-prompt-prefix-selection\"}",
+          "browser.ml.chat.prompts.0": "{\"id\":\"summarize\",\"l10nId\":\"genai-prompts-summarize\"}",
+          "browser.ml.chat.prompts.1": "{\"id\":\"explain\",\"l10nId\":\"genai-prompts-explain\",\"targeting\":\"contentType != 'page'\"}",
+          "browser.ml.chat.prompts.3": "{\"id\":\"quiz\",\"l10nId\":\"genai-prompts-quiz\",\"targeting\":\"(!provider|regExpMatch('gemini') || region == 'US') && contentType != 'page'\"}",
+          "browser.ml.chat.prompts.4": "{\"id\":\"proofread\", \"l10nId\":\"genai-prompts-proofread\",\"targeting\":\"contentType != 'page'\"}",
+          "browser.ml.chat.provider": "",
+          "browser.ml.chat.shortcut.onboardingMouseoverCount": 0,
+          "browser.ml.chat.shortcuts": true,
+          "browser.ml.chat.shortcuts.custom": true,
+          "browser.ml.chat.shortcuts.debounce": 200,
+          "browser.ml.chat.shortcuts.longPress": 60000,
+          "browser.ml.chat.shortcuts.smartwindow": true,
+          "browser.ml.chat.sidebar": true,
+          "browser.ml.checkForMemory": true,
+          "browser.ml.embedGen.textEmbeddingFeatureModel": "",
+          "browser.ml.embedGen.textEmbeddingSize": 384,
+          "browser.ml.enable": true,
+          "browser.ml.hwinference.max_restarts": 3,
+          "browser.ml.linkPreview.allowedLanguages": "en",
+          "browser.ml.linkPreview.blockListEnabled": true,
+          "browser.ml.linkPreview.collapsed": false,
+          "browser.ml.linkPreview.enabled": true,
+          "browser.ml.linkPreview.ignoreMs": 2000,
+          "browser.ml.linkPreview.longPress": true,
+          "browser.ml.linkPreview.longPressMs": 1000,
+          "browser.ml.linkPreview.noKeyPointsRegions": "",
+          "browser.ml.linkPreview.optin": false,
+          "browser.ml.linkPreview.outputSentences": 3,
+          "browser.ml.linkPreview.recentTypingMs": 1000,
+          "browser.ml.linkPreview.shift": false,
+          "browser.ml.linkPreview.shiftAlt": false,
+          "browser.ml.linkPreview.smokeTest.lastBuildID": "",
+          "browser.ml.linkPreview.supportedLocales": "en",
+          "browser.ml.logLevel": "Error",
+          "browser.ml.minimumPhysicalMemory": 3,
+          "browser.ml.modelCacheMaxSize": 4,
+          "browser.ml.modelCacheTimeout": 120000,
+          "browser.ml.modelHub.testing": false,
+          "browser.ml.modelHubRootUrl": "https://model-hub.mozilla.org/",
+          "browser.ml.modelHubUrlTemplate": "{model}/{revision}",
+          "browser.ml.overridePipelineOptions": "{}",
+          "browser.ml.pageAssist.enabled": false,
+          "browser.ml.pageExtractor.headlessTimeoutMs": 15000,
+          "extensions.ml.enabled": true
+        },
+        "sentencesNote": "استدعاء createEngine لكل جملة رُفض: «Error: Engine already created» (20/20)؛ أُعيد القياس بمحرك واحد وrunEngine لكل جملة في firefox-ml.json",
+        "sentencesErrors": [
+          "Error: Engine already created"
+        ]
+      }
+    }
+  ]
+}

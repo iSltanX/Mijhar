@@ -1,0 +1,66 @@
+{
+  "measuredAt": "2026-10-23T06:47:57.267Z",
+  "context": "صفحة ويب عادية (العالم الرئيسي)، نقرة Playwright حقيقية، ملف تعريف مؤقت جديد",
+  "results": [
+    {
+      "browser": "chrome",
+      "version": "156.0.8078.47",
+      "headless": true,
+      "before": "downloadable",
+      "createMs": 8749,
+      "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+      "progressEvents": 33,
+      "after": "available"
+    },
+    {
+      "browser": "chrome",
+      "version": "156.0.8078.47",
+      "headless": false,
+      "before": "downloadable",
+      "createMs": 7939,
+      "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+      "progressEvents": 30,
+      "after": "available"
+    },
+    {
+      "browser": "edge",
+      "version": "155.0.4283.60",
+      "headless": true,
+      "before": "unavailable",
+      "error": "NotSupportedError: Unable to create translator for the given source and target language.",
+      "ms": 2,
+      "progressEvents": 0,
+      "after": "unavailable"
+    },
+    {
+      "browser": "edge",
+      "version": "155.0.4283.60",
+      "headless": false,
+      "before": "unavailable",
+      "error": "NotSupportedError: Unable to create translator for the given source and target language.",
+      "ms": 1,
+      "progressEvents": 0,
+      "after": "unavailable"
+    },
+    {
+      "browser": "brave",
+      "version": "156.0.8078.48",
+      "headless": true,
+      "before": "downloadable",
+      "createMs": 9716,
+      "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+      "progressEvents": 49,
+      "after": "available"
+    },
+    {
+      "browser": "brave",
+      "version": "156.0.8078.48",
+      "headless": false,
+      "before": "downloadable",
+      "createMs": 9244,
+      "sample": "قم بإجراء الاختبارات قبل فتح طلب السحب.",
+      "progressEvents": 45,
+      "after": "available"
+    }
+  ]
+}

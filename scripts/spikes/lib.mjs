@@ -2,7 +2,7 @@
 // تشغيل المتصفحات المثبتة بملف تعريف مؤقت جديد يُحذف عند الإغلاق، فلا يُمس ملف تعريف المستخدم:
 //  - عائلة Chromium عبر playwright-core (CDP).
 //  - Firefox عبر Marionette (كما في scripts/load-check.mjs).
-import { spawn } from 'node:child_process';
+import { execSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import net from 'node:net';
 import os from 'node:os';
@@ -52,6 +52,7 @@ export async function launchChromium(key, { headless = true, args = [], extensio
   return {
     context,
     extensionId,
+    profileDir,
     version: context.browser()?.version(),
     async close() {
       await context.close().catch(() => {});
@@ -226,5 +227,37 @@ export async function openBrowser(key, options = {}) {
     evaluate: (fn, arg) => page.evaluate(fn, arg ?? null),
     evaluateAsync: (fn, arg) => page.evaluate(fn, arg ?? null),
     close: () => b.close(),
+  };
+}
+
+// ذاكرة العمليات المقيمة (RSS) لشجرة عمليات متصفح يُعرف بملف تعريفه، بأداة ps (ميغابايت).
+export function processTreeRss(profileDir) {
+  const out = execSync('ps -A -o pid=,ppid=,rss=,command=', { encoding: 'utf8', maxBuffer: 64 * 2 ** 20 });
+  const rows = out.trim().split('\n').map((l) => {
+    const m = /^\s*(\d+)\s+(\d+)\s+(\d+)\s+(.*)$/.exec(l);
+    return m && { pid: Number(m[1]), ppid: Number(m[2]), rss: Number(m[3]) / 1024, command: m[4] };
+  }).filter(Boolean);
+  const roots = rows.filter((r) => r.command.includes(profileDir)).map((r) => r.pid);
+  const tree = new Set(roots);
+  let grew = true;
+  while (grew) {
+    grew = false;
+    for (const r of rows) if (tree.has(r.ppid) && !tree.has(r.pid)) { tree.add(r.pid); grew = true; }
+  }
+  const members = rows.filter((r) => tree.has(r.pid));
+  return { total: members.reduce((a, r) => a + r.rss, 0), max: Math.max(0, ...members.map((r) => r.rss)), processes: members.length };
+}
+
+// يأخذ عيّنات RSS كل intervalMs حتى stop(): القمة لأكبر عملية وللمجموع.
+export function sampleRss(profileDir, intervalMs = 500) {
+  const samples = [];
+  const timer = setInterval(() => {
+    try { samples.push(processTreeRss(profileDir)); } catch {}
+  }, intervalMs);
+  return {
+    stop() {
+      clearInterval(timer);
+      return { samples: samples.length, peakMaxProcessMB: Math.max(0, ...samples.map((s) => s.max)), peakTotalMB: Math.max(0, ...samples.map((s) => s.total)) };
+    },
   };
 }

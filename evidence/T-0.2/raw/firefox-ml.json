@@ -1,0 +1,245 @@
+{
+  "masked": null,
+  "results": [
+    {
+      "browser": "firefox",
+      "version": "158.0.1",
+      "ml": {
+        "contexts": {
+          "contentScript": {
+            "context": "content-script",
+            "Translator": "undefined",
+            "userActivation": {
+              "isActive": false,
+              "hasBeenActive": false
+            },
+            "trialMl": "object"
+          },
+          "extensionPage": {
+            "trial": "object",
+            "ml": "object",
+            "methods": [
+              "onProgress",
+              "createEngine",
+              "runEngine",
+              "deleteCachedModels",
+              "CreateEngineRequest",
+              "RunEngineRequest"
+            ]
+          },
+          "background": {
+            "trial": "object",
+            "ml": "object"
+          }
+        },
+        "lowMemory": {
+          "pref": "browser.ml.minimumPhysicalMemory=1024 (فوق ذاكرة الجهاز)",
+          "run": {
+            "progress": [],
+            "error": "Error: Not enough physical memory available",
+            "elapsedMs": 6
+          }
+        },
+        "engine": {
+          "createMs": 10644,
+          "error": null,
+          "progressLast": {
+            "type": "downloading",
+            "statusText": "done",
+            "progress": null,
+            "ok": true
+          }
+        },
+        "sentences": [
+          {
+            "result": [
+              {
+                "translation_text": "تشغيل. DED_0. قبل فتح a. term_1."
+              }
+            ],
+            "ms": 211
+          },
+          {
+            "result": [
+              {
+                "translation_text": "ملف الـ ملفّ بوصة و هو مُحمّل عند بدء."
+              }
+            ],
+            "ms": 164
+          },
+          {
+            "result": [
+              {
+                "translation_text": "إلى.VER_0. لإصلاح تسرب الذاكرة المبلغ عنه في.REF_1."
+              }
+            ],
+            "ms": 191
+          },
+          {
+            "result": [
+              {
+                "translation_text": "استخدم العلم.FLAG_ 0. إلى معاينة التغييرات بدون كتابة الملفات."
+              }
+            ],
+            "ms": 178
+          },
+          {
+            "result": [
+              {
+                "translation_text": "شكراً لك على مراجعة الرقعة بسرعة"
+              }
+            ],
+            "ms": 88
+          },
+          {
+            "result": [
+              {
+                "translation_text": "انظر: URL_0. للاطلاع على القائمة الكاملة للأحداث."
+              }
+            ],
+            "ms": 146
+          },
+          {
+            "result": [
+              {
+                "translation_text": "الدالة.CDE_ 0. ترجع وعدا يحل مع كائن المستخدم."
+              }
+            ],
+            "ms": 150
+          },
+          {
+            "result": [
+              {
+                "translation_text": "الاختبارات تفشل على. Term_1. 22 لأن.CDE_0. مفقود في المحاكاة."
+              }
+            ],
+            "ms": 224
+          },
+          {
+            "result": [
+              {
+                "translation_text": "تحرير إلى توثيق جديد خيار و افتراضي قيمة."
+              }
+            ],
+            "ms": 113
+          },
+          {
+            "result": [
+              {
+                "translation_text": "orterm_1. المخابئ نـد_مودول بين التشغيلات باستخدام.PATH_0."
+              }
+            ],
+            "ms": 312
+          },
+          {
+            "result": [
+              {
+                "translation_text": "إذا كان CODE_ 0. هو set، فإنّ النظام البرمجي يتخطى الواجهة الحثارية."
+              }
+            ],
+            "ms": 263
+          },
+          {
+            "result": [
+              {
+                "translation_text": "إعادة تسمية pathh_0. إلى pathh_1. وتحديث جميع الواردات."
+              }
+            ],
+            "ms": 201
+          },
+          {
+            "result": [
+              {
+                "translation_text": "الإصدار. فير_0. قطرة دعم ل.Therm_1.4."
+              }
+            ],
+            "ms": 199
+          },
+          {
+            "result": [
+              {
+                "translation_text": "رجاءً أعد تأسيس فرعك على الموقع الرئيسي وحل النزاع في."
+              }
+            ],
+            "ms": 131
+          },
+          {
+            "result": [
+              {
+                "translation_text": "اتصل بـ.CODE_0. بعد تسجيل جميع الطرق."
+              }
+            ],
+            "ms": 149
+          },
+          {
+            "result": [
+              {
+                "translation_text": "الأوصاف مكتوبة إلى.PATH_1. عندما يكون المستوى هو.CDE_0. أو أعلى."
+              }
+            ],
+            "ms": 243
+          },
+          {
+            "result": [
+              {
+                "translation_text": "وهذا التغيير يغلق العنوان REF_0."
+              }
+            ],
+            "ms": 115
+          },
+          {
+            "result": [
+              {
+                "translation_text": "state. CODE_0. to 5 في. env. exaple لمطابقة الإنتاج."
+              }
+            ],
+            "ms": 255
+          },
+          {
+            "result": [
+              {
+                "translation_text": "تشغيل CODE_0. لمعرفة من الذي ارتكب الفعل الذي أدخل التراجع."
+              }
+            ],
+            "ms": 161
+          },
+          {
+            "result": [
+              {
+                "translation_text": "نمط CODE_0 رفض مفاتيح مجهولة في مخطط YAML."
+              }
+            ],
+            "ms": 183
+          }
+        ],
+        "paragraphs": [
+          {
+            "ms": 361,
+            "text": "هذا المشروع هو إطار شبكي أدنى لبناء مؤشرات القدرة على الوصول إلى الإنترنت، وهو يوفر طبقة رقيقة من خصائص التطبيقات الشبكية الأساسية، دون إخفاء السمات التي يعرفها المطورون ويحبونها."
+          },
+          {
+            "ms": 344,
+            "text": "قبل تقديم طلب سحب ، تأكد ان الاختبارات تمر محليا وأن تغييراتك مغطاة باختبارات جديدة او محدثة. أبقِ كل طلب سحب مركَّزا على تغيير واحد."
+          },
+          {
+            "ms": 309,
+            "text": "تدعم المكتبة كلا من بيئات المتصفح والخادم. في المتصفح تستخدم تنفيذ الجلب المحلي، بينما على الخادم ترجع إلى وحدة HTTP."
+          },
+          {
+            "ms": 309,
+            "text": "إذا وجدت حالة ضعف أمني، من فضلك لا تفتح قضية عامة، بل أبلغها من القطاع الخاص إلى المشرفين على الصيانة بحيث يمكن إعداد حل قبل الكشف."
+          },
+          {
+            "ms": 266,
+            "text": "إعدادات هو قراءة من بيئة المتغيرات أولاً، ثم من محلي تشكيل ملفّ و من إلى إلى آخر مصادر لا تخطى سابق."
+          }
+        ],
+        "rss": {
+          "samples": 31,
+          "peakMaxProcessMB": 982.84375,
+          "peakTotalMB": 2939.328125
+        }
+      }
+    }
+  ]
+}
