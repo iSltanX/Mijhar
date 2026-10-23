@@ -47,10 +47,8 @@ const ARABIC = /[؀-ۿݐ-ݿࢠ-ࣿ]/g;
 const normalizeSpace = (text: string): string => text.replace(WS, ' ');
 
 function classifyLink(a: Element, text: string): TokenType {
-  const href = a.getAttribute('href') ?? '';
   if (a.matches('.user-mention, [data-hovercard-type="user"], [data-hovercard-type="organization"]') || /^@[\w-]+(\/[\w.-]+)?$/.test(text)) return 'USER';
   if (a.matches('.issue-link, .js-issue-link, [data-hovercard-type="issue"], [data-hovercard-type="pull_request"]') || /^#\d+$/.test(text) || /^[\w.-]+\/[\w.-]+#\d+$/.test(text)) return 'REF';
-  void href;
   return 'LINK';
 }
 

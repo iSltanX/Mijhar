@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { machineInfo, openBrowser, serveDir, stats, writeJson } from '../../../../../scripts/spikes/lib.mjs';
+import { machineInfo, openBrowser, serveDir, writeJson } from '../../../../../scripts/spikes/lib.mjs';
 import { blockExternalScripts, bundleEntry, call, click, drag, inject, press, recorder, settle } from '../../../browser/e2e.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -88,9 +88,6 @@ async function fixtureFlows(b) {
   check(label, 'README', 'ترجمة العنوان بعد غلافه .markdown-heading', h1.host.rect.y >= h1.original.rect.y + h1.original.rect.h - 2, h1);
   const arabic = await call(b, 'paragraph', '[data-case="p-arabic"]');
   check(label, 'README', 'الفقرة العربية والشيفرة بلا ترجمة', arabic.host === null && (await call(b, 'paragraph', '[data-case="pre"] pre')).host === null, arabic.host);
-  if (screensDir && b.page) {
-    // لقطة بعد فحص DOM الحرفي في آخر التدفق (انظر screenshots).
-  }
 
   // ——— الأنماط ———
   await barClick(b, { body: README, mode: 'translation' });
@@ -299,7 +296,6 @@ try {
   await server.close();
 }
 output.checks = checks;
-void stats;
 const failed = checks.filter((c) => !c.ok);
 console.error(`المجموع: ${checks.length - failed.length}/${checks.length} فحصًا اجتاز`);
 if (outDir) writeJson(path.join(outDir, 'T-4.1/browser-results.json'), output);

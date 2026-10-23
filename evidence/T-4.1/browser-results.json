@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-10-23T14:16:04.149Z",
+  "measuredAt": "2026-10-23T14:46:28.131Z",
   "machine": {
     "cpu": "Apple M4",
     "cores": 8,
@@ -14,7 +14,7 @@
       "version": "156.0.8078.47",
       "fixture": {
         "requests": [
-          "http://127.0.0.1:63638/favicon.ico"
+          "http://127.0.0.1:65132/favicon.ico"
         ]
       },
       "real": {
@@ -22,14 +22,14 @@
           "phase": "done",
           "translations": 61,
           "warnings": 0,
-          "ms": 281,
+          "ms": 282,
           "note": "تُرجمت 61 من 61 فقرة."
         },
         "real-pr": {
           "phase": "done",
           "translations": 6,
           "warnings": 0,
-          "ms": 262,
+          "ms": 265,
           "note": "تُرجمت 6 من 6 فقرة."
         }
       }
@@ -39,7 +39,7 @@
       "version": "155.0.4283.60",
       "fixture": {
         "requests": [
-          "http://127.0.0.1:63638/favicon.ico"
+          "http://127.0.0.1:65132/favicon.ico"
         ]
       },
       "real": {
@@ -47,14 +47,14 @@
           "phase": "done",
           "translations": 61,
           "warnings": 0,
-          "ms": 291,
+          "ms": 279,
           "note": "تُرجمت 61 من 61 فقرة."
         },
         "real-pr": {
           "phase": "done",
           "translations": 6,
           "warnings": 0,
-          "ms": 262,
+          "ms": 280,
           "note": "تُرجمت 6 من 6 فقرة."
         }
       }
@@ -64,7 +64,7 @@
       "version": "156.0.8078.48",
       "fixture": {
         "requests": [
-          "http://127.0.0.1:63638/favicon.ico"
+          "http://127.0.0.1:65132/favicon.ico"
         ]
       },
       "real": {
@@ -72,14 +72,14 @@
           "phase": "done",
           "translations": 61,
           "warnings": 0,
-          "ms": 277,
+          "ms": 303,
           "note": "تُرجمت 61 من 61 فقرة."
         },
         "real-pr": {
           "phase": "done",
           "translations": 6,
           "warnings": 0,
-          "ms": 266,
+          "ms": 271,
           "note": "تُرجمت 6 من 6 فقرة."
         }
       }
@@ -89,7 +89,7 @@
       "version": "158.0.1",
       "fixture": {
         "requests": [
-          "http://127.0.0.1:63638/favicon.ico"
+          "http://127.0.0.1:65132/favicon.ico"
         ]
       },
       "real": {
@@ -97,14 +97,14 @@
           "phase": "done",
           "translations": 61,
           "warnings": 0,
-          "ms": 297,
+          "ms": 295,
           "note": "تُرجمت 61 من 61 فقرة."
         },
         "real-pr": {
           "phase": "done",
           "translations": 6,
           "warnings": 0,
-          "ms": 287,
+          "ms": 286,
           "note": "تُرجمت 6 من 6 فقرة."
         }
       }
@@ -655,7 +655,7 @@
       "detail": {
         "isBar": true,
         "phase": "working",
-        "note": "جارٍ الترجمة… 4 من 17",
+        "note": "جارٍ الترجمة… 3 من 17",
         "pressed": [],
         "actions": [
           "cancel"
@@ -1532,7 +1532,7 @@
       "detail": {
         "isBar": true,
         "phase": "working",
-        "note": "جارٍ الترجمة… 4 من 17",
+        "note": "جارٍ الترجمة… 3 من 17",
         "pressed": [],
         "actions": [
           "cancel"

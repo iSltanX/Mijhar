@@ -12,4 +12,4 @@ export { normalizeText, queryWords, tokens } from './normalize';
 export { PAGE_KIND_PATHS, whereIs } from './paths';
 export { SEARCH_SECTION, useCommandShortcut } from './section';
 export { EXTRA_SYNONYMS, synonymsFor } from './synonyms';
-export { GlossarySearchView, LocateNote, PAGE_SIZE, countLabel } from './view';
+export { GlossarySearchDrawerNotice, GlossarySearchView, LocateNote, PAGE_SIZE, countLabel } from './view';

@@ -95,6 +95,18 @@ describe('PanelApp وطلب التبويب', () => {
     expect(selected()).toBe('settings');
   });
 
+  it('الدرج المحقون بلا حقول إدخال (DEC-04): تبويب القاموس فيه بيان يدل على اللوحة الأصلية بدل خانة البحث، وفيه زر وضع الشرح', async () => {
+    const settings = await open();
+    await requestPanelTab(settings, 'glossary');
+    await mount(settings, 'drawer');
+    expect(selected()).toBe('glossary');
+    expect(container.querySelector('[data-native-only="البحث في القاموس"]')).not.toBeNull();
+    expect(container.querySelector('[data-view="glossary-search"]')).toBeNull();
+    expect([...container.querySelectorAll('input, textarea, select, [contenteditable]')].filter((el) => !['checkbox', 'radio'].includes((el as HTMLInputElement).type))).toEqual([]);
+    expect(container.querySelector('[data-view="explain-toggle"]')).not.toBeNull();
+    expect(container.textContent).toContain('Alt+K');
+  });
+
   it('الدرج داخل الصفحة يتبع الطلب نفسه (الإعدادات مشتركة بين السياقات)', async () => {
     const settings = await open();
     await mount(settings, 'drawer');

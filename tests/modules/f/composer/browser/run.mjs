@@ -92,9 +92,6 @@ async function flows(b) {
   p = await S(b);
   check(label, 'AC-F1', 'الحقول الخمسة بما كُتب بالكيبورد حرفيًا (بما فيها الأسطر المتعددة)', JSON.stringify(p.fields) === JSON.stringify(FIELDS) || Object.entries(FIELDS).every(([k, v]) => p.fields[k] === v), p.fields);
   check(label, 'AC-F1', 'المعاينة الكاملة تطابق النص الذي سيُدرج بالضبط (عناوين وقوائم مرقّمة ونقطية)', p.preview === `${BLOCK}\n` && !p.previewEmpty && !p.buttons['insert-cursor'].disabled, p.preview);
-  if (screensDir && b.page) {
-    // لقطة اللوحة بعد الكتابة تُؤخذ في آخر التدفق (بعد فحص DOM الحرفي).
-  }
   await call(b, 'takeLog');
   await clickPanel(b, 'insert-cursor');
   let f = await call(b, 'fieldState', 'new_comment_field');

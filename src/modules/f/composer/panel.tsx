@@ -76,79 +76,79 @@ export function ComposerPanel({ state, onState, draftLength, canUndo, status, on
       </header>
       <div class="static-section" data-section="static">
         <div class="panel-scroll">
-        <p class="note">قسم محلي ثابت: ينظّم ما تكتبه بعناوين، ولا يغيّر كلماتك ولا يتصل بشبكة ولا بنموذج.</p>
-        <fieldset class="kinds">
-          <legend>النوع</legend>
-          {(['issue', 'pr'] as const).map((kind) => (
-            <label class="choice" key={kind}>
-              <input type="radio" name="mj-composer-kind" value={kind} checked={state.kind === kind} onChange={() => onState({ ...state, kind })} />
-              <span>{KIND_LABELS[kind]}</span>
-            </label>
-          ))}
-        </fieldset>
-        {FIELD_IDS.map((id, i) => (
-          <div class="field" key={id} data-field={id}>
-            <label for={`mj-composer-${id}`}>{guide[id].label}</label>
-            <textarea
-              id={`mj-composer-${id}`}
-              ref={i === 0 ? first : undefined}
-              rows={id === 'steps' || id === 'evidence' ? 3 : 2}
-              dir="auto"
-              spellcheck={false}
-              aria-describedby={`mj-composer-${id}-hint`}
-              value={state.fields[id]}
-              onInput={(event) => set(id, (event.currentTarget as HTMLTextAreaElement).value)}
-            />
-            <span class="hint" id={`mj-composer-${id}-hint`}>
-              {guide[id].hint}
-            </span>
-          </div>
-        ))}
-        <div class="field">
-          <label for="mj-composer-language">لغة العناوين</label>
-          <select id="mj-composer-language" value={state.language} onChange={(event) => onState({ ...state, language: (event.currentTarget as HTMLSelectElement).value as LanguageChoice })}>
-            {LANGUAGES.map((l) => (
-              <option value={l.id} key={l.id}>
-                {l.label}
-                {l.id === 'auto' ? ` (الآن: ${preview.language === 'ar' ? 'عربية' : 'English'})` : ''}
-              </option>
+          <p class="note">قسم محلي ثابت: ينظّم ما تكتبه بعناوين، ولا يغيّر كلماتك ولا يتصل بشبكة ولا بنموذج.</p>
+          <fieldset class="kinds">
+            <legend>النوع</legend>
+            {(['issue', 'pr'] as const).map((kind) => (
+              <label class="choice" key={kind}>
+                <input type="radio" name="mj-composer-kind" value={kind} checked={state.kind === kind} onChange={() => onState({ ...state, kind })} />
+                <span>{KIND_LABELS[kind]}</span>
+              </label>
             ))}
-          </select>
-        </div>
+          </fieldset>
+          {FIELD_IDS.map((id, i) => (
+            <div class="field" key={id} data-field={id}>
+              <label for={`mj-composer-${id}`}>{guide[id].label}</label>
+              <textarea
+                id={`mj-composer-${id}`}
+                ref={i === 0 ? first : undefined}
+                rows={id === 'steps' || id === 'evidence' ? 3 : 2}
+                dir="auto"
+                spellcheck={false}
+                aria-describedby={`mj-composer-${id}-hint`}
+                value={state.fields[id]}
+                onInput={(event) => set(id, (event.currentTarget as HTMLTextAreaElement).value)}
+              />
+              <span class="hint" id={`mj-composer-${id}-hint`}>
+                {guide[id].hint}
+              </span>
+            </div>
+          ))}
+          <div class="field">
+            <label for="mj-composer-language">لغة العناوين</label>
+            <select id="mj-composer-language" value={state.language} onChange={(event) => onState({ ...state, language: (event.currentTarget as HTMLSelectElement).value as LanguageChoice })}>
+              {LANGUAGES.map((l) => (
+                <option value={l.id} key={l.id}>
+                  {l.label}
+                  {l.id === 'auto' ? ` (الآن: ${preview.language === 'ar' ? 'عربية' : 'English'})` : ''}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div class="panel-foot">
-        <div class="preview-box" data-section="preview">
-          <h3 id="mj-composer-preview-title">المعاينة قبل الإدراج</h3>
-          <pre class="preview" tabIndex={0} aria-labelledby="mj-composer-preview-title" data-empty={empty ? 'true' : 'false'} data-preview>
-            {empty ? 'اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.' : preview.text}
-          </pre>
-          {!empty && preview.omitted.length > 0 && <span class="note">أقسام فارغة لن تُدرج: {preview.omitted.map((id) => guide[id].label).join('، ')}.</span>}
-        </div>
-        <p class="note" data-draft>
-          مسودتك الحالية في حقل الكتابة: {arabicCount(draftLength)}. الإدراج لا يمسح منها شيئًا، ولا يُنشر ولا يُرسل شيء: أنت من يضغط زر الإرسال.
-        </p>
-        <div class="actions">
-          <button type="button" class="btn btn-primary" data-action="insert-cursor" disabled={empty} onClick={() => onInsert('cursor')}>
-            أدرج عند المؤشر
-          </button>
-          <button type="button" class="btn" data-action="insert-append" disabled={empty} onClick={() => onInsert('append')}>
-            ألحق في نهاية المسودة
-          </button>
-          <button type="button" class="btn" data-action="undo" disabled={!canUndo} onClick={onUndo}>
-            التراجع عن آخر إدراج
-          </button>
-        </div>
-        <span class="status" role="status" aria-live="polite" data-status={status ? 'on' : 'off'} data-tone={status?.tone ?? 'ok'} hidden={!status}>
-          {status?.text}
-          {status?.copyPrevious && (
-            <>
-              {' '}
-              <button type="button" class="btn" data-action="copy-previous" onClick={onCopyPrevious}>
-                نسخ المسودة السابقة
-              </button>
-            </>
-          )}
-        </span>
+          <div class="preview-box" data-section="preview">
+            <h3 id="mj-composer-preview-title">المعاينة قبل الإدراج</h3>
+            <pre class="preview" tabIndex={0} aria-labelledby="mj-composer-preview-title" data-empty={empty ? 'true' : 'false'} data-preview>
+              {empty ? 'اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.' : preview.text}
+            </pre>
+            {!empty && preview.omitted.length > 0 && <span class="note">أقسام فارغة لن تُدرج: {preview.omitted.map((id) => guide[id].label).join('، ')}.</span>}
+          </div>
+          <p class="note" data-draft>
+            مسودتك الحالية في حقل الكتابة: {arabicCount(draftLength)}. الإدراج لا يمسح منها شيئًا، ولا يُنشر ولا يُرسل شيء: أنت من يضغط زر الإرسال.
+          </p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" data-action="insert-cursor" disabled={empty} onClick={() => onInsert('cursor')}>
+              أدرج عند المؤشر
+            </button>
+            <button type="button" class="btn" data-action="insert-append" disabled={empty} onClick={() => onInsert('append')}>
+              ألحق في نهاية المسودة
+            </button>
+            <button type="button" class="btn" data-action="undo" disabled={!canUndo} onClick={onUndo}>
+              التراجع عن آخر إدراج
+            </button>
+          </div>
+          <span class="status" role="status" aria-live="polite" data-status={status ? 'on' : 'off'} data-tone={status?.tone ?? 'ok'} hidden={!status}>
+            {status?.text}
+            {status?.copyPrevious && (
+              <>
+                {' '}
+                <button type="button" class="btn" data-action="copy-previous" onClick={onCopyPrevious}>
+                  نسخ المسودة السابقة
+                </button>
+              </>
+            )}
+          </span>
         </div>
       </div>
     </section>

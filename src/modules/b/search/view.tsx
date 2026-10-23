@@ -10,6 +10,7 @@ import type { PanelRequest } from '../../../core/ui-host/units';
 import type { Category, GlossaryEntry } from '../../../data/glossary/types';
 import type { PanelViewProps } from '../../../sidepanel/views';
 import { useSetting } from '../../../shared/ui/useSetting';
+import { NativeOnlyNotice } from '../../../shared/ui/NativeOnlyNotice';
 import { useStyles } from '../../../shared/ui/useStyles';
 import { En, ExplainCard, MixedText, TermTitle } from '../card/card';
 import { docsLink } from '../card/display';
@@ -297,4 +298,12 @@ export function GlossarySearchView({ settings, bridge, entries = GLOSSARY_ENTRIE
       </div>
     </section>
   );
+}
+
+/**
+ * بديل الواجهة في الدرج المحقون: الدرج لا يعرض حقول إدخال أصلًا (DEC-04 واختبار الدرج في MJ5 وMJ9)، فيُعرض مكانها بيان يدل على اللوحة الأصلية. أمر Alt+K يفتح
+ * اللوحة الأصلية في Chromium وFirefox؛ فيصل المستخدم إلى الخانة، ويبقى الدرج للشرح السياقي وزر وضع الشرح.
+ */
+export function GlossarySearchDrawerNotice() {
+  return <NativeOnlyNotice feature="البحث في القاموس" extra={`يفتح أمر «ابحث في قاموس مِجهَر» (${GLOSSARY_SHORTCUT}) اللوحة الأصلية على هذا البحث.`} />;
 }
