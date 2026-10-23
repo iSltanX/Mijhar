@@ -44,7 +44,7 @@ export function render({ plan, status, naming }, D) {
   const relFrom = (fromDir) => (p) => (fromDir ? path.posix.relative(fromDir, p) || path.posix.basename(p) : p);
   const tLink = (tid, fromDir = '') => `[${c(tid)}](${relFrom(fromDir)(phaseOf(tid).file)}#${tid})`;
   const pLink = (pid, fromDir = '', label) => `[${label || `المرحلة ${ix.phases[pid].num}`}](${relFrom(fromDir)(ix.phases[pid].file)})`;
-  const decState = (d) => (d.status === 'approved' ? `معتمد: ${d.chosen}${d.chosenLabel ? ` — ${d.chosenLabel}` : ''}${d.decidedOn ? ` (${d.decidedOn})` : ''}` : 'معلق');
+  const decState = (d) => (d.status === 'approved' ? `معتمد: ${d.chosen}${d.chosenLabel ? ` — ${d.chosenLabel}` : ''}${d.decidedOn ? ` (${d.decidedOn}${d.decidedBy ? `، ${d.decidedBy}` : ''})` : ''}${d.reason ? `؛ السبب: ${d.reason}` : ''}` : 'معلق');
   const tState = (t) => D.taskState(plan, status, t);
   const xState = (x) => D.testState(plan, status, x);
   const modName = (code) => (code === 'CORE' ? 'البنية والتكامل' : `(${ix.modules[code].letter}) ${ix.modules[code].title}`);
@@ -235,7 +235,11 @@ export function render({ plan, status, naming }, D) {
     L.push('**كيف تعتمد قرارًا:** أخبرني بالخيار في المحادثة. يُسجَّل في `data/plan.json` (الحالة والخيار وتاريخ الاعتماد) ثم يُعاد التوليد، فتتحدث الحالات المشتقة وانطباق الاختبارات تلقائيًا. التوصية رأي هندسي غير ملزم، ولا يُنفَّذ أي خيار قبل اختيارك.', '');
     L.push('## ملخص القرارات المعلّقة', '');
     L.push(table(['القرار', 'الموضوع', 'الحالة', 'يلزم حسمه', 'نوع الإيقاف', 'توصيتي (غير ملزمة)'], plan.decisions.map((d) => [`[${c(d.id)}](#${d.id})`, d.topic, decState(d), `${d.neededBy.point}${d.neededBy.phase ? ` — ${pLink(d.neededBy.phase)}` : ''}`, D.GATE_LABELS[d.gate], d.recommendation ? d.recommendation.option : '—'])), '');
-    L.push('**ترتيب الحاجة إليها:** `DEC-04` أولًا إن أردت تجنّب طلب رمز تجريبي في `T-0.3` (المرحلة 0)، ثم `DEC-01` قبل `T-1.4` (المرحلة 1)، ثم `DEC-02` بعد وثيقة `T-0.1`، و`DEC-03` بعد وثيقة `T-0.2`، و`DEC-05` بعد وثيقة `T-0.4`، ثم `DEC-08` قبل إغلاق التغليف. `DEC-07` بلا موعد ملزم. و`DEC-06` حُسم باسم «مِجهَر» (Mijhar).', '');
+    {
+      const pend = plan.decisions.filter((d) => d.status !== 'approved');
+      const appr = plan.decisions.filter((d) => d.status === 'approved');
+      L.push(`**ترتيب الحاجة إليها:** ${pend.map((d) => `${c(d.id)} ${d.neededBy.point}${d.informedBy.length ? ` (بعد وثيقة ${d.informedBy.map(c).join(' و')})` : ''}`).join('، ثم ')}. **محسومة:** ${appr.map((d) => `${c(d.id)} (${d.chosen}${d.decidedBy ? '، ' + d.decidedBy : ''})`).join('، ')}. القرارات المفوَّضة بـ\`AD-14\` تُحسم عند بدء مرحلتها بناءً على وثيقتها وتُسجَّل بسببها؛ وما يمس صلاحيات حساسة (\`DEC-04\`) أو النطاق (\`DEC-07\`) يبقى للمالك.`, '');
+    }
 
     L.push('## القرارات المعتمدة', '');
     L.push(table(['المعرّف', 'القرار', 'النص', 'المصدر'], plan.approved.map((a) => [c(a.id), a.title, a.text, a.source])), '');
@@ -272,45 +276,49 @@ export function render({ plan, status, naming }, D) {
     status.policy.forEach((x) => L.push(`- ${x}`));
     L.push('');
     L.push('## الخلاصة', '');
-    const WV = D.waveView(plan, status);
+    const WV = D.programView(plan, status);
     const startedAny = ts.done + ts.in_progress + ts.implemented + ts.blocked > 0;
     L.push(`- **التنفيذ:** ${ts.done} من ${sum.tasks.total} مهمة مكتملة (${sum.pctTasks}%)${ts.implemented ? `، و${ts.implemented} منفّذة على فرع تنتظر الدمج` : ''}${ts.in_progress ? `، و${ts.in_progress} جارية` : ''}${ts.blocked ? `، و${ts.blocked} متوقفة` : ''}. ${startedAny ? 'التنفيذ يجري بنظام الموجة الأولى أدناه.' : 'لم تبدأ برمجة الإضافة؛ وتبدأ بأمر «' + (WV && WV.current ? WV.current.startCmd : 'ابدأ المرحلة 1') + '» من المالك.'}`);
     L.push(`- **الاختبارات:** ${sum.tests.total} اختبارًا معرَّفًا؛ نُفِّذ منها ${sum.tests.executed} (اجتاز ${xs.passed}، وفشل ${xs.failed}). ${xs.planned} مخطط، و${xs.conditional} مشروط بقرار، و${xs.not_applicable} لا ينطبق. **لا يُعدّ أي اختبار نتيجة نجاح.**`);
     L.push(`- **القرارات:** ${sum.decisions.approved} من ${sum.decisions.total} معتمدة.`);
     L.push(`- **فحص البيانات:** ${!validation.errors.length && !cross.length ? 'يجتاز `tools/check.mjs` بلا أخطاء' : `${validation.errors.length + cross.length} خطأ في \`tools/check.mjs\``}.`, '');
 
-    // ================= الموجة الأولى =================
+    // ================= الموجات والمراحل =================
     if (WV) {
-      const w = WV.wave;
+      const pr = WV.program;
       const wl = (id) => D.WAVE_TASK_LABELS[status.tasks[id].status];
-      L.push(`## ${w.title}: المراحل والتقدم الفعلي`, '');
-      L.push(`${w.scope} آخر تحديث لهذا القسم: \`${w.updatedAt}\`.`, '');
-      L.push(`- **المرحلة الحالية:** ${WV.current ? `المرحلة ${WV.current.stage.num} (${WV.current.stage.title}): ${WV.current.state.label}` : 'لا شيء؛ اكتملت الموجة'}.`);
+      const blk = (x) => (x.blockers.length ? x.blockers.map((b) => b.text).join('؛ ') : '—');
+      L.push('## الموجات والمراحل: التقدم الفعلي', '');
+      L.push(`${pr.scope} آخر تحديث لهذا القسم: \`${pr.updatedAt}\`.`, '');
+      L.push(`- **المرحلة الحالية:** ${WV.current ? `المرحلة ${WV.current.stage.num} (${WV.current.stage.title}) في الموجة ${WV.current.wave.num}: ${WV.current.state.label}` : 'لا شيء؛ اكتملت كل الموجات'}.`);
       L.push(`- **الخطوة التالية:** ${WV.next.text}`);
-      L.push(`- **المهام:** ${WV.counts.merged} من ${WV.counts.total} مدمجة ومتحقق منها${WV.counts.implemented ? `، و${WV.counts.implemented} منفّذة على فرع تنتظر الدمج` : ''}.`);
-      L.push(`- **المودلات:** الافتراضي ${w.models.default.name}؛ الإدارة والدمج ${w.models.orchestrator.name}؛ المراجعة ${w.models.review.name} (${w.models.review.why}). الاستثناءات: ${Object.entries(w.models.exceptions).map(([k, v]) => `${c(k)} ← ${v.name}`).join('، ')}. تحقق التوفر: ${c(w.models.verifiedBy)} (${w.models.verifiedOn}). ${w.models.rule}`, '');
-      L.push(table(['المرحلة', 'المهام', 'الحالة', 'الفرع', 'الدمج في main', 'أمر البدء', 'أمر الدمج'], WV.stages.map((x) => [
-        `${x.stage.num}. ${x.stage.title}`, x.stage.tasks.map((id) => tLink(id)).join('، '), x.state.label + (x.state.blockedReasons.length ? `: ${x.state.blockedReasons.join('؛ ')}` : ''), c(x.stage.branch), x.stage.mergeCommit ? `${c(x.stage.mergeCommit)} (${x.stage.mergedOn})` : 'لم يُدمج', `«${x.startCmd}»`, `«${x.mergeCmd}»`,
-      ])), '');
-      for (const x of WV.stages) {
-        const s = x.stage;
-        L.push(`### المرحلة ${s.num}: ${s.title} — ${x.state.label}`, '');
-        L.push(s.goal, '');
-        L.push(table(['المهمة', 'الحالة', 'المودل', 'ما أُنجز', 'المرجع'], s.tasks.map((id) => {
-          const e = status.tasks[id];
-          const m = D.taskModel(status, id);
-          const refs = [e.commit ? `التزام ${c(e.commit)}` : '', e.branch ? `فرع ${c(e.branch)}` : '', ...(e.evidence || []).map(c)].filter(Boolean);
-          return [tLink(id), wl(id) + (e.status === 'blocked' ? `: ${e.note}` : ''), `${m.name}${m.isException ? ' (استثناء)' : ''}`, e.summary || '—', refs.length ? refs.join('، ') : '—'];
-        })), '');
-        L.push('**الفحوص بحسب الأثر:**', '');
-        s.checks.forEach((k) => L.push(`- ${k}`));
-        L.push(`- **المراجعة:** ${s.review}`, '');
-        if (s.beforeStart.length) { L.push('**قبل البدء:**', ''); s.beforeStart.forEach((k) => L.push(`- ${k}`)); L.push(''); }
-        if (s.openItems.length) { L.push('**بنود مفتوحة:**', ''); s.openItems.forEach((k) => L.push(`- ${k}`)); L.push(''); }
-        if (s.summary) L.push(`**خلاصة المرحلة:** ${s.summary}`, '');
+      L.push(`- **المهام:** ${WV.counts.merged} من ${WV.counts.total} مدمجة ومتحقق منها${WV.counts.implemented ? `، و${WV.counts.implemented} منفّذة على فرع تنتظر الدمج` : ''}${WV.counts.active ? `، و${WV.counts.active} جارية أو متوقفة` : ''}.`);
+      L.push(`- **المودلات:** الافتراضي ${pr.models.default.name}؛ الإدارة والدمج ${pr.models.orchestrator.name}؛ المراجعة ${pr.models.review.name} (${pr.models.review.why}). الاستثناءات: ${Object.entries(pr.models.exceptions).map(([k, v]) => `${c(k)} ← ${v.name}`).join('، ')}. تحقق التوفر: ${c(pr.models.verifiedBy)} (${pr.models.verifiedOn}). ${pr.models.rule}`, '');
+      L.push(table(['الموجة', 'المراحل', 'المهام', 'الحالة'], WV.waves.map((w) => [`${w.wave.num}. ${w.wave.title}`, w.stages.map((x) => x.stage.num).join('، '), `${w.counts.merged} من ${w.counts.total} مدمجة${w.counts.implemented ? `، ${w.counts.implemented} على فرع` : ''}`, w.state.label])), '');
+      for (const w of WV.waves) {
+        L.push(`### الموجة ${w.wave.num}: ${w.wave.title} — ${w.state.label}`, '', w.wave.scope, '');
+        L.push(table(['المرحلة', 'المهام', 'الحالة', 'ما يمنع البدء', 'الفرع', 'الدمج في main', 'أمر البدء', 'أمر الدمج'], w.stages.map((x) => [
+          `${x.stage.num}. ${x.stage.title}`, x.stage.tasks.map((id) => tLink(id)).join('، '), x.state.label + (x.state.blockedReasons.length ? `: ${x.state.blockedReasons.join('؛ ')}` : ''), x.state.key === 'not_started' ? blk(x) : '—', c(x.stage.branch), x.stage.mergeCommit ? `${c(x.stage.mergeCommit)} (${x.stage.mergedOn})` : 'لم يُدمج', `«${x.startCmd}»`, `«${x.mergeCmd}»`,
+        ])), '');
+        for (const x of w.stages) {
+          const s = x.stage;
+          L.push(`#### المرحلة ${s.num}: ${s.title} — ${x.state.label}`, '', s.goal, '');
+          L.push(table(['المهمة', 'الحالة', 'المودل', 'ما أُنجز', 'المرجع'], s.tasks.map((id) => {
+            const e = status.tasks[id];
+            const m = D.taskModel(status, id);
+            const refs = [e.commit ? `التزام ${c(e.commit)}` : '', e.branch ? `فرع ${c(e.branch)}` : '', ...(e.evidence || []).map(c)].filter(Boolean);
+            return [tLink(id), wl(id) + (e.status === 'blocked' ? `: ${e.note}` : ''), `${m.name}${m.isException ? ' (استثناء)' : ''}`, e.summary || '—', refs.length ? refs.join('، ') : '—'];
+          })), '');
+          L.push('**الفحوص بحسب الأثر:**', '');
+          s.checks.forEach((k) => L.push(`- ${k}`));
+          L.push(`- **المراجعة:** ${s.review}`, '');
+          if (s.beforeStart.length) { L.push('**قبل البدء:**', ''); s.beforeStart.forEach((k) => L.push(`- ${k}`)); L.push(''); }
+          if (s.openItems.length) { L.push('**بنود مفتوحة:**', ''); s.openItems.forEach((k) => L.push(`- ${k}`)); L.push(''); }
+          if (s.summary) L.push(`**خلاصة المرحلة:** ${s.summary}`, '');
+        }
       }
       L.push('**طريقة العمل:**', '');
-      w.flow.forEach((k) => L.push(`- ${k}`));
+      pr.flow.forEach((k) => L.push(`- ${k}`));
       L.push('');
     }
 
@@ -358,8 +366,8 @@ export function render({ plan, status, naming }, D) {
 
     L.push('## الخطوة التالية', '');
     L.push(`1. ${WV ? WV.next.text : 'تجهيز نظام الموجة الأولى.'}`);
-    L.push('2. حسم `DEC-04` قبل المرحلة 3 (تجارب الجدوى): يحدد هل يلزم رمز تجريبي في `T-0.3`؛ معناه وأثره مكتوبان في بنود «قبل البدء» للمرحلة 3.');
-    L.push('3. حسم `DEC-01` قبل أن تُدمج المرحلة 2، حتى لا تنتظر `T-1.4` بعدها.');
+    L.push('2. حسم `DEC-04` قبل المرحلة 3 (تجارب الجدوى): يلزم فيه اختيار المالك لأنه يمس صلاحيات حساسة؛ معناه وأثره مكتوبان في بنود «قبل البدء» للمرحلة 3.');
+    L.push('3. القرارات المفوَّضة (`AD-14`): `DEC-02` عند بدء المرحلة 5، و`DEC-05` عند بدء المرحلة 6، و`DEC-03` عند بدء المرحلة 7؛ تُحسم بناءً على تقارير تجارب الجدوى وتُسجَّل بسببها.');
     L.push(`4. اعتماد الاختصارات (\`DEC-08\`) في أي وقت قبل إغلاق التغليف. الاسم محسوم: «${plan.meta.name.ar}» (${plan.meta.name.latin})، ويبقى له قبل النشر ما في \`NAMING.md\`.`, '');
     out['STATUS.md'] = L.join('\n');
   }

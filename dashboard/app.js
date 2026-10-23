@@ -427,60 +427,66 @@
     return { html: h, count: cands.length + ' من ' + naming.candidates.length + ' أسماء' };
   }
 
-  // ---------- الموجة الأولى ----------
+  // ---------- الموجات والمراحل ----------
   // تقرأ حالة الملف وحدها (projectStatus) لا التعديلات المحلية، فهي ما يحدّثه المنسّق بعد كل حدث.
   var GLYPH = { not_started: '○', in_progress: '◐', implemented: '◉', done: '✓', blocked: '✕', ready_to_merge: '◉', merged: '✓' };
   function statusText(key, label, tone) { return '<span class="status-text tone-' + tone + '"><span class="status-text__glyph" aria-hidden="true">' + (GLYPH[key] || '') + '</span>' + esc(label) + '</span>'; }
   function modelChip(m) { return m ? '<span class="model-chip' + (m.isException ? ' is-exception' : '') + '" title="' + esc(m.why) + '">' + esc(m.name) + (m.isException ? ' (استثناء)' : '') + '</span>' : ''; }
   function copyBtn(text, label) { return '<button type="button" class="btn btn--sm" data-copy="' + esc(text) + '">' + esc(label) + '</button>'; }
-  function renderWave() {
-    var W = D.waveView(plan, projectStatus);
-    if (!W) return { html: '<p class="empty">لا قسم للموجة في <code dir="ltr">data/status.json</code> بعد.</p>', count: null };
-    var w = W.wave;
-    var h = '<div class="section__head"><h1>' + esc(w.title) + '</h1><p>' + md(w.scope) + '</p></div>';
-    var cur = W.current;
-    h += '<section class="card hero"><div class="wave-hero__grid">' +
-      '<div><p class="wave-hero__label">المرحلة الحالية</p><p class="wave-hero__value">' + (cur ? 'المرحلة ' + cur.stage.num + ': ' + esc(cur.stage.title) : 'اكتملت الموجة') + '</p>' + (cur ? statusText(cur.state.key, cur.state.label, cur.state.tone) : statusText('merged', 'مدمجة ومتحقق منها', 'ok')) + '</div>' +
-      '<div><p class="wave-hero__label">الخطوة التالية</p><p class="wave-hero__next">' + md(W.next.text) + '</p>' + (W.next.cmd ? '<div class="task__line">' + copyBtn(W.next.cmd, 'نسخ الأمر: ' + W.next.cmd) + '<span class="copy-msg" aria-live="polite"></span></div>' : '') + '</div>' +
-      '<div><p class="wave-hero__label">التقدم</p><p class="wave-hero__value">' + W.counts.merged + ' من ' + W.counts.total + '</p><p class="muted" style="margin:0">مهام مدمجة ومتحقق منها في <bdi class="ltr">main</bdi>' + (W.counts.implemented ? '؛ و' + W.counts.implemented + ' منفّذة على فرع تنتظر الدمج' : '') + '.</p></div></div>' +
-      '<p class="wave-hero__foot"><span>آخر تحديث للحالة: <bdi class="ltr">' + esc(w.updatedAt) + '</bdi></span><span>المصدر: <bdi class="ltr">data/status.json</bdi> عبر <bdi class="ltr">tools/build.mjs</bdi>؛ يكفي تحديث الصفحة لرؤية آخر تقدم.</span>' + (countKeys(saved) ? '<span style="color:var(--warn)">هذا التبويب يعرض حالة الملف فقط ويتجاهل التعديلات المحلية.</span>' : '') + '</p></section>';
-    W.stages.forEach(function (x) {
-      var s = x.stage;
-      var isCur = cur && cur.stage.id === s.id;
-      h += '<section class="card stage' + (isCur ? ' is-current' : '') + '" aria-labelledby="stage-' + esc(s.id) + '">' +
-        '<div class="stage__head"><span class="stage__num" aria-hidden="true">' + s.num + '</span><div><h2 id="stage-' + esc(s.id) + '">المرحلة ' + s.num + ': ' + esc(s.title) + '</h2><p class="stage__goal">' + md(s.goal) + '</p></div>' +
-        '<div class="stage__state">' + statusText(x.state.key, x.state.label + (x.state.blockedReasons.length ? ': ' + x.state.blockedReasons.join('؛ ') : ''), x.state.tone) + (isCur ? chip('المرحلة الحالية', 'ready') : '') + '<span class="muted" style="font-size:.82rem">الفرع <bdi class="ltr">' + esc(s.branch) + '</bdi>' + (s.mergeCommit ? ' · دُمج ' + esc(s.mergedOn) + ' <bdi class="ltr">' + esc(s.mergeCommit) + '</bdi>' : '') + '</span></div></div>';
-      h += '<ul class="tasklist">';
-      s.tasks.forEach(function (id) {
-        var t = ix.tasks[id]; var e = projectStatus.tasks[id]; var m = D.taskModel(projectStatus, id);
-        var lbl = D.WAVE_TASK_LABELS[e.status] + (e.status === 'blocked' ? ': ' + (e.note || 'بلا سبب مسجَّل') : '');
-        var refs = [];
-        if (e.commit) refs.push('التزام <bdi class="ltr">' + esc(e.commit) + '</bdi>' + (e.branch ? ' على <bdi class="ltr">' + esc(e.branch) + '</bdi>' : ''));
-        (e.evidence || []).forEach(function (ev) { refs.push(/^https?:/.test(ev) ? '<a href="' + esc(ev) + '" target="_blank" rel="noopener noreferrer">' + esc(ev) + '</a>' : '<a href="../' + esc(ev) + '"><bdi class="ltr">' + esc(ev) + '</bdi></a>'); });
-        h += '<li><span class="item__id">' + idLink(id) + '</span><div class="task__line"><span class="task__title">' + md(t.title) + '</span>' + statusText(e.status, lbl, D.TASK_STATES[e.status === 'not_started' ? 'waiting' : e.status].tone) + modelChip(m) + '</div>' +
-          ((e.summary || refs.length) ? '<p class="task__done">' + (e.summary ? '<strong>ما أُنجز:</strong> ' + md(e.summary) : '') + (refs.length ? (e.summary ? ' · ' : '') + '<strong>المرجع:</strong> ' + refs.join('، ') : '') + '</p>' : '') + '</li>';
-      });
-      h += '</ul>';
-      h += '<div class="copybar">' + copyBtn(x.startCmd, 'نسخ أمر البدء') + copyBtn(x.mergeCmd, 'نسخ أمر الدمج') + '<span class="copy-msg" aria-live="polite"></span><span class="muted" style="font-size:.82rem">الزران للنسخ فقط؛ تلصق النص في المحادثة ولا ينفّذ شيئًا.</span></div>';
-      h += '<details class="stage__details"' + (isCur && s.beforeStart.length ? ' open' : '') + '><summary>التفاصيل: الفحوص والمراجعة' + (s.beforeStart.length ? ' وما قبل البدء' : '') + (s.openItems.length ? ' والبنود المفتوحة' : '') + '</summary><div>' +
-        (s.beforeStart.length ? '<h3>قبل البدء</h3><ul class="plain-list">' + s.beforeStart.map(function (k) { return '<li>' + md(k) + '</li>'; }).join('') + '</ul>' : '') +
-        (s.openItems.length ? '<h3>بنود مفتوحة</h3><ul class="plain-list">' + s.openItems.map(function (k) { return '<li>' + md(k) + '</li>'; }).join('') + '</ul>' : '') +
-        '<h3>الفحوص بحسب الأثر</h3><ul class="plain-list">' + s.checks.map(function (k) { return '<li>' + md(k) + '</li>'; }).join('') + '</ul>' +
-        '<h3>المراجعة</h3><p style="margin:0">' + md(s.review) + '</p>' +
-        (s.summary ? '<h3>خلاصة المرحلة</h3><p style="margin:0">' + md(s.summary) + '</p>' : '') +
-        '<h3>اختبارات مهام المرحلة</h3><ul class="plain-list">' + s.tasks.map(function (id) { return ix.tasks[id].tests.map(function (tid) { var ts = D.testState(plan, projectStatus, ix.tests[tid]); return '<li>' + idLink(tid) + ' ' + chip(ts.label, ts.tone) + ' <span class="muted">(' + esc(id) + ')</span></li>'; }).join(''); }).join('') + '</ul>' +
-        '</div></details></section>';
+  function list(items) { return '<ul class="plain-list">' + items.map(function (k) { return '<li>' + md(k) + '</li>'; }).join('') + '</ul>'; }
+  function stageCard(x, isCur) {
+    var s = x.stage;
+    var h = '<section class="card stage' + (isCur ? ' is-current' : '') + '" aria-labelledby="stage-' + esc(s.id) + '">' +
+      '<div class="stage__head"><span class="stage__num" aria-hidden="true">' + s.num + '</span><div><h2 id="stage-' + esc(s.id) + '">المرحلة ' + s.num + ': ' + esc(s.title) + '</h2><p class="stage__goal">' + md(s.goal) + '</p></div>' +
+      '<div class="stage__state">' + statusText(x.state.key, x.state.label + (x.state.blockedReasons.length ? ': ' + x.state.blockedReasons.join('؛ ') : ''), x.state.tone) + (isCur ? chip('المرحلة الحالية', 'ready') : '') + '<span class="muted" style="font-size:.82rem">الفرع <bdi class="ltr">' + esc(s.branch) + '</bdi>' + (s.mergeCommit ? ' · دُمج ' + esc(s.mergedOn) + ' <bdi class="ltr">' + esc(s.mergeCommit) + '</bdi>' : '') + '</span></div></div>';
+    if (x.state.key === 'not_started' && x.blockers.length) h += '<p class="stage__blockers"><strong>ما يمنع البدء:</strong> ' + x.blockers.map(function (b) { return md(b.text); }).join('؛ ') + '.</p>';
+    h += '<ul class="tasklist">';
+    s.tasks.forEach(function (id) {
+      var t = ix.tasks[id]; var e = projectStatus.tasks[id]; var m = D.taskModel(projectStatus, id);
+      var lbl = D.WAVE_TASK_LABELS[e.status] + (e.status === 'blocked' ? ': ' + (e.note || 'بلا سبب مسجَّل') : '');
+      var gates = t.decisions.filter(function (g) { return !D.decisionChosen(plan, g.id); }).map(function (g) { return chip(g.id + (g.gate === 'start' ? ' يوقف البدء' : ' يوقف الإغلاق'), 'warn'); }).join('');
+      var refs = [];
+      if (e.commit) refs.push('التزام <bdi class="ltr">' + esc(e.commit) + '</bdi>' + (e.branch ? ' على <bdi class="ltr">' + esc(e.branch) + '</bdi>' : ''));
+      (e.evidence || []).forEach(function (ev) { refs.push(/^https?:/.test(ev) ? '<a href="' + esc(ev) + '" target="_blank" rel="noopener noreferrer">' + esc(ev) + '</a>' : '<a href="../' + esc(ev) + '"><bdi class="ltr">' + esc(ev) + '</bdi></a>'); });
+      h += '<li><span class="item__id">' + idLink(id) + '</span><div class="task__line"><span class="task__title">' + md(t.title) + '</span>' + statusText(e.status, lbl, D.TASK_STATES[e.status === 'not_started' ? 'waiting' : e.status].tone) + gates + modelChip(m) + '</div>' +
+        ((e.summary || refs.length) ? '<p class="task__done">' + (e.summary ? '<strong>ما أُنجز:</strong> ' + md(e.summary) : '') + (refs.length ? (e.summary ? ' · ' : '') + '<strong>المرجع:</strong> ' + refs.join('، ') : '') + '</p>' : '') + '</li>';
     });
-    var mo = w.models;
+    h += '</ul>';
+    h += '<div class="copybar">' + copyBtn(x.startCmd, 'نسخ أمر البدء') + copyBtn(x.mergeCmd, 'نسخ أمر الدمج') + '<span class="copy-msg" aria-live="polite"></span><span class="muted" style="font-size:.82rem">الزران للنسخ فقط؛ تلصق النص في المحادثة ولا ينفّذ شيئًا.</span></div>';
+    h += '<details class="stage__details"' + (isCur && s.beforeStart.length ? ' open' : '') + '><summary>التفاصيل: الفحوص والمراجعة' + (s.beforeStart.length ? ' وما قبل البدء' : '') + (s.openItems.length ? ' والبنود المفتوحة' : '') + '</summary><div>' +
+      (s.beforeStart.length ? '<h3>قبل البدء</h3>' + list(s.beforeStart) : '') +
+      (s.openItems.length ? '<h3>بنود مفتوحة</h3>' + list(s.openItems) : '') +
+      '<h3>الفحوص بحسب الأثر</h3>' + list(s.checks) +
+      '<h3>المراجعة</h3><p style="margin:0">' + md(s.review) + '</p>' +
+      (s.summary ? '<h3>خلاصة المرحلة</h3><p style="margin:0">' + md(s.summary) + '</p>' : '') +
+      '<h3>اختبارات مهام المرحلة</h3><ul class="plain-list">' + s.tasks.map(function (id) { return ix.tasks[id].tests.map(function (tid) { var ts = D.testState(plan, projectStatus, ix.tests[tid]); return '<li>' + idLink(tid) + ' ' + chip(ts.label, ts.tone) + ' <span class="muted">(' + esc(id) + ')</span></li>'; }).join(''); }).join('') + '</ul>' +
+      '</div></details></section>';
+    return h;
+  }
+  function renderWave() {
+    var W = D.programView(plan, projectStatus);
+    if (!W) return { html: '<p class="empty">لا قسم للموجات في <code dir="ltr">data/status.json</code> بعد.</p>', count: null };
+    var pr = W.program; var cur = W.current;
+    var h = '<div class="section__head"><h1>الموجات والمراحل</h1><p>' + md(pr.scope) + '</p></div>';
+    h += '<section class="card hero"><div class="wave-hero__grid">' +
+      '<div><p class="wave-hero__label">المرحلة الحالية</p><p class="wave-hero__value">' + (cur ? 'المرحلة ' + cur.stage.num + ': ' + esc(cur.stage.title) : 'اكتملت كل الموجات') + '</p>' + (cur ? '<p class="muted" style="margin:0 0 6px">في الموجة ' + cur.wave.num + ': ' + esc(cur.wave.title) + '</p>' + statusText(cur.state.key, cur.state.label, cur.state.tone) : statusText('merged', 'مدمجة ومتحقق منها', 'ok')) + '</div>' +
+      '<div><p class="wave-hero__label">الخطوة التالية</p><p class="wave-hero__next">' + md(W.next.text) + '</p>' + (W.next.cmd ? '<div class="task__line">' + copyBtn(W.next.cmd, 'نسخ الأمر: ' + W.next.cmd) + '<span class="copy-msg" aria-live="polite"></span></div>' : '') + '</div>' +
+      '<div><p class="wave-hero__label">التقدم</p><p class="wave-hero__value">' + W.counts.merged + ' من ' + W.counts.total + '</p><p class="muted" style="margin:0">مهمة مدمجة ومتحقق منها في <bdi class="ltr">main</bdi>' + (W.counts.implemented ? '؛ و' + W.counts.implemented + ' منفّذة على فرع تنتظر الدمج' : '') + (W.counts.active ? '؛ و' + W.counts.active + ' جارية أو متوقفة' : '') + '. ' + W.waves.length + ' موجات و' + W.stages.length + ' مراحل.</p></div></div>' +
+      '<p class="wave-hero__foot"><span>آخر تحديث للحالة: <bdi class="ltr">' + esc(pr.updatedAt) + '</bdi></span><span>المصدر: <bdi class="ltr">data/status.json</bdi> عبر <bdi class="ltr">tools/build.mjs</bdi>؛ يكفي تحديث الصفحة لرؤية آخر تقدم.</span>' + (countKeys(saved) ? '<span style="color:var(--warn)">هذا التبويب يعرض حالة الملف فقط ويتجاهل التعديلات المحلية.</span>' : '') + '</p></section>';
+    W.waves.forEach(function (w) {
+      h += '<details class="wavebox' + (w.isCurrent ? ' is-current' : '') + '"' + (w.isCurrent ? ' open' : '') + '><summary class="wavebox__sum"><span class="wavebox__num" aria-hidden="true">' + w.wave.num + '</span><span class="wavebox__title">الموجة ' + w.wave.num + ': ' + esc(w.wave.title) + '</span><span class="wavebox__meta">' + statusText(w.state.key, w.state.label, w.state.tone) + plainChip(w.stages.length === 1 ? 'مرحلة واحدة' : w.stages.length + ' مراحل') + plainChip(w.counts.merged + ' من ' + w.counts.total + ' مهام مدمجة') + (w.isCurrent ? chip('الموجة الحالية', 'ready') : '') + '</span></summary>' +
+        '<div class="wavebox__body"><p class="muted">' + md(w.wave.scope) + '</p>' + w.stages.map(function (x) { return stageCard(x, !!(cur && cur.stage.id === x.stage.id)); }).join('') + '</div></details>';
+    });
+    var mo = pr.models;
     h += '<details class="card stage__details wave-models" style="margin-top:20px"><summary>المودلات وطريقة العمل</summary><div>' +
       '<h3>توزيع المودلات</h3><p class="muted" style="margin:0 0 6px">تحقق التوفر: ' + idLink(mo.verifiedBy) + ' بتاريخ ' + esc(mo.verifiedOn) + '. ' + md(mo.rule) + '</p>' +
       '<table class="tbl"><thead><tr><th>الدور</th><th>المودل</th><th>السبب</th></tr></thead><tbody>' +
-      '<tr><td data-label="الدور">افتراضي الموجة</td><td data-label="المودل">' + esc(mo.default.name) + '</td><td data-label="السبب">' + md(mo.default.why) + '</td></tr>' +
+      '<tr><td data-label="الدور">افتراضي كل الموجات</td><td data-label="المودل">' + esc(mo.default.name) + '</td><td data-label="السبب">' + md(mo.default.why) + '</td></tr>' +
       '<tr><td data-label="الدور">الإدارة والدمج والحالة</td><td data-label="المودل">' + esc(mo.orchestrator.name) + '</td><td data-label="السبب">' + md(mo.orchestrator.why) + '</td></tr>' +
       '<tr><td data-label="الدور">مراجعة المرحلة</td><td data-label="المودل">' + esc(mo.review.name) + '</td><td data-label="السبب">' + md(mo.review.why) + '</td></tr>' +
       Object.keys(mo.exceptions).map(function (id) { var m = mo.exceptions[id]; return '<tr><td data-label="الدور">استثناء: ' + idLink(id) + '</td><td data-label="المودل">' + esc(m.name) + '</td><td data-label="السبب">' + md(m.why) + '</td></tr>'; }).join('') + '</tbody></table>' +
-      '<h3>طريقة العمل</h3><ul class="plain-list">' + w.flow.map(function (k) { return '<li>' + md(k) + '</li>'; }).join('') + '</ul>' +
-      '<div class="files">' + fileLink('STATUS.md', 'STATUS.md') + fileLink('ROADMAP.md', 'ROADMAP.md') + '</div></div></details>';
+      '<h3>طريقة العمل</h3>' + list(pr.flow) +
+      '<div class="files">' + fileLink('STATUS.md', 'STATUS.md') + fileLink('ROADMAP.md', 'ROADMAP.md') + fileLink('DECISIONS.md', 'DECISIONS.md') + '</div></div></details>';
     return { html: h, count: null };
   }
   function copyText(text, msgEl) {
