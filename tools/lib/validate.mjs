@@ -121,64 +121,7 @@ export function validatePlan(plan, status, D) {
       if (!D.STORED_TASK.includes(s.status)) err(`status: حالة غير صالحة ${t.id}=${s.status}`);
       if (s.status === 'done' && !(s.evidence || []).length) err(`status: ${t.id} مكتملة بلا دليل`);
       if (s.status === 'blocked' && !s.note) err(`status: ${t.id} متوقفة بلا سبب`);
-      if (s.status === 'implemented' && !(s.commit && s.branch)) err(`status: ${t.id} منفّذة بلا مرجع التزام أو فرع`);
-    }
-    // الموجات والمراحل: الشمول والاعتماديات واتساق الحالات
-    const pr = status.program;
-    if (!pr) err('status: قسم program غائب');
-    else {
-      if (!pr.commands?.start?.includes('{n}') || !pr.commands?.merge?.includes('{n}')) err('program: أمرا البدء والدمج يجب أن يحويا {n}');
-      if (!pr.models?.default?.name || !pr.models?.orchestrator?.name || !pr.models?.review?.name) err('program: المودل الافتراضي ومودلا الإدارة والمراجعة مطلوبة');
-      for (const tid of Object.keys(pr.models?.exceptions || {})) if (!ix.tasks[tid]) err(`program: استثناء مودل لمهمة غير معرّفة ${tid}`);
-      const stageOfTask = {};
-      const allStages = [];
-      const nums = new Set(), wnums = new Set();
-      let lastNum = 0;
-      for (const w of pr.waves || []) {
-        if (wnums.has(w.num)) err(`program: رقم موجة مكرر ${w.num}`);
-        wnums.add(w.num);
-        if (!w.stages?.length) err(`program: الموجة ${w.id} بلا مراحل`);
-        for (const st of w.stages || []) {
-          allStages.push(st);
-          if (nums.has(st.num)) err(`program: رقم مرحلة مكرر ${st.num}`);
-          nums.add(st.num);
-          if (st.num <= lastNum) err(`program: ترقيم المراحل غير متسلسل عند ${st.id}`);
-          lastNum = st.num;
-          if (!st.branch) err(`program: ${st.id} بلا اسم فرع`);
-          if (!st.tasks?.length) err(`program: ${st.id} بلا مهام`);
-          for (const tid of st.tasks) {
-            if (!ix.tasks[tid]) { err(`program: ${st.id} تضم مهمة غير معرّفة ${tid}`); continue; }
-            if (stageOfTask[tid]) err(`program: المهمة ${tid} في أكثر من مرحلة`);
-            stageOfTask[tid] = st;
-          }
-        }
-      }
-      for (const t of plan.tasks) if (!stageOfTask[t.id]) err(`program: المهمة ${t.id} غير مشمولة في أي مرحلة`);
-      for (const st of allStages) {
-        for (const tid of st.tasks) {
-          const t = ix.tasks[tid];
-          if (!t) continue;
-          for (const d of t.deps) {
-            const ds = stageOfTask[d];
-            if (ds && ds.num > st.num) err(`program: ${tid} في المرحلة ${st.num} تعتمد على ${d} في مرحلة لاحقة ${ds.num}`);
-            if (!ds && status.tasks[d]?.status !== 'done') err(`program: ${tid} تعتمد على ${d} خارج الموجات وغير مكتملة`);
-          }
-          const e = status.tasks[tid];
-          if (e && ['in_progress', 'implemented', 'done'].includes(e.status)) {
-            for (const d of t.deps) {
-              const ds = status.tasks[d]?.status;
-              if (!(ds === 'done' || (ds === 'implemented' && stageOfTask[d]?.id === st.id))) err(`status: ${tid} بدأت واعتماديتها ${d} غير مستوفاة`);
-            }
-            for (const g of t.decisions) if (g.gate === 'start' && ix.decisions[g.id]?.status !== 'approved') err(`status: ${tid} بدأت وقرارها ${g.id} الموقِف للبدء معلّق`);
-          }
-        }
-        const entries = st.tasks.map((tid) => status.tasks[tid]);
-        if (st.mergeCommit && !entries.every((e) => e?.status === 'done')) err(`program: ${st.id} لها مرجع دمج ومهامها ليست كلها مكتملة`);
-        if (!st.mergeCommit && entries.some((e) => e?.status === 'done')) err(`program: ${st.id} فيها مهمة مكتملة دون مرجع دمج للمرحلة`);
-        if (!st.startedOn && entries.some((e) => e && e.status !== 'not_started')) err(`program: ${st.id} فيها مهمة بدأت دون تاريخ بدء للمرحلة`);
-        if (st.mergeCommit && !st.mergedOn) err(`program: ${st.id} لها مرجع دمج بلا تاريخ دمج`);
-        if (st.startedOn) for (const s2 of allStages) if (s2.num < st.num && !s2.mergeCommit) err(`program: المرحلة ${st.num} بدأت قبل دمج المرحلة ${s2.num}`);
-      }
+      if (s.status === 'implemented' && !s.branch) err(`status: ${t.id} منفّذة بلا فرع`);
     }
     for (const x of plan.tests) {
       const s = status.tests[x.id];

@@ -1,13 +1,15 @@
 #!/usr/bin/env node
-// يولّد ملفات التخطيط وبيانات لوحة المتابعة من data/plan.json وdata/status.json وdata/naming.json.
-// الاستعمال: node tools/build.mjs        (يكتب الملفات)
-//            node tools/build.mjs --dry  (يعيد المحتوى دون كتابة؛ يستعمله check.mjs لفحص التقادم)
+// يولّد ملفات التخطيط وبيانات لوحة المتابعة من data/plan.json وdata/status.json وdata/naming.json وملفات المراحل Docs/MJ/.
+// الاستعمال: node tools/build.mjs          (النسخة الرئيسية: يكتب الوثائق المتتبَّعة وdashboard/data.js)
+//            node tools/build.mjs --sync   (أي مجلد: يجمع أحدث نسخة من كل مرحلة عبر الفروع ويكتب dashboard/data.js هنا وفي النسخة الرئيسية فقط)
+//            node tools/build.mjs --dry    (يعيد المحتوى دون كتابة)
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { validatePlan, crossCheck } from './lib/validate.mjs';
+import { discoverStages, loadWaves, validateMJ, tasksFromStages, repoInfo } from './lib/mj.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -19,11 +21,24 @@ export function loadDerive() {
   return ctx.PlanDerive;
 }
 
-export function loadData() {
+export function loadData({ live = true } = {}) {
   const plan = JSON.parse(read('data/plan.json'));
-  const status = JSON.parse(read('data/status.json'));
+  const statusFile = JSON.parse(read('data/status.json'));
   const naming = fs.existsSync(path.join(ROOT, 'data/naming.json')) ? JSON.parse(read('data/naming.json')) : null;
-  return { plan, status, naming };
+  const waves = loadWaves(ROOT);
+  const mj = discoverStages({ cwd: ROOT, live });
+  // حالات المهام مشتقة من جداول «حالة المهام» في ملفات المراحل (أحدث نسخة عبر الفروع)؛ لا تُكتب في status.json.
+  const status = { ...statusFile, tasks: tasksFromStages(mj.stages) };
+  return { plan, status, naming, mj, waves };
+}
+
+// حمولة الموجات والمراحل للوحة ولمنطق الاشتقاق المشترك (derive.js).
+export function mjPayload(mj, waves) {
+  return {
+    waves,
+    stages: mj.stages.map((s) => ({ id: s.id, file: s.file, header: s.header, tasks: s.tasks, log: s.log, delivered: s.delivered, sections: s.sections, source: s.source, branchExists: s.branchExists })),
+    branches: mj.branches, tags: mj.tags, repo: { isMain: mj.repo.isMain, branch: mj.repo.branch, head: mj.repo.head, main: mj.repo.main }, generatedAt: mj.generatedAt,
+  };
 }
 
 // ---------- أدوات Markdown ----------
@@ -34,7 +49,9 @@ const joinAr = (xs) => (xs.length ? xs.join('، ') : none);
 const table = (head, rows) => [`| ${head.join(' | ')} |`, `| ${head.map(() => ':---').join(' | ')} |`, ...rows.map((r) => `| ${r.map(cell).join(' | ')} |`)].join('\n');
 const banner = (asOf) => `> **ملف مولَّد** من \`data/plan.json\` و\`data/status.json\` بالأمر \`node tools/build.mjs\`؛ لا تحرّره يدويًا، وعدّل البيانات ثم أعد التوليد. تاريخ البيانات: \`${asOf}\`. لا يحوي هذا الملف أي تقدير زمني.`;
 
-export function render({ plan, status, naming }, D) {
+export function render({ plan, status, naming, mj, waves: mjWaves }, D) {
+  const MJP = mjPayload(mj, mjWaves);
+  const MV = D.mjView(plan, status, MJP);
   const ix = D.index(plan);
   const lv = D.levels(plan);
   const pdeps = D.phaseDeps(plan);
@@ -59,6 +76,7 @@ export function render({ plan, status, naming }, D) {
   plan.phases.forEach((p) => plevel(p.id));
   const crit = D.criticalPath(plan);
   const validation = validatePlan(plan, status, D);
+  validation.errors.push(...validateMJ(plan, mj, mjWaves));
   const cross = crossCheck(plan, read('EXECUTION_PLAN.md'));
 
   const out = {};
@@ -276,54 +294,47 @@ export function render({ plan, status, naming }, D) {
     status.policy.forEach((x) => L.push(`- ${x}`));
     L.push('');
     L.push('## الخلاصة', '');
-    const WV = D.programView(plan, status);
     const startedAny = ts.done + ts.in_progress + ts.implemented + ts.blocked > 0;
-    L.push(`- **التنفيذ:** ${ts.done} من ${sum.tasks.total} مهمة مكتملة (${sum.pctTasks}%)${ts.implemented ? `، و${ts.implemented} منفّذة على فرع تنتظر الدمج` : ''}${ts.in_progress ? `، و${ts.in_progress} جارية` : ''}${ts.blocked ? `، و${ts.blocked} متوقفة` : ''}. ${startedAny ? 'التنفيذ يجري بنظام الموجة الأولى أدناه.' : 'لم تبدأ برمجة الإضافة؛ وتبدأ بأمر «' + (WV && WV.current ? WV.current.startCmd : 'ابدأ المرحلة 1') + '» من المالك.'}`);
+    L.push(`- **التنفيذ:** ${ts.done} من ${sum.tasks.total} مهمة مدمجة ومتحقق منها (${sum.pctTasks}%)${ts.implemented ? `، و${ts.implemented} منفّذة على فرع تنتظر الدمج` : ''}${ts.in_progress ? `، و${ts.in_progress} جارية` : ''}${ts.blocked ? `، و${ts.blocked} متوقفة` : ''}. ${startedAny ? 'التنفيذ يجري بنظام MJ أدناه.' : 'لم تبدأ برمجة الإضافة؛ وتبدأ بأمر «' + (MV && MV.current && MV.current.stages[0] ? MV.current.stages[0].startCmd : '/mj MJ1') + '» في جلسة مستقلة يفتحها المالك.'}`);
     L.push(`- **الاختبارات:** ${sum.tests.total} اختبارًا معرَّفًا؛ نُفِّذ منها ${sum.tests.executed} (اجتاز ${xs.passed}، وفشل ${xs.failed}). ${xs.planned} مخطط، و${xs.conditional} مشروط بقرار، و${xs.not_applicable} لا ينطبق. **لا يُعدّ أي اختبار نتيجة نجاح.**`);
     L.push(`- **القرارات:** ${sum.decisions.approved} من ${sum.decisions.total} معتمدة.`);
     L.push(`- **فحص البيانات:** ${!validation.errors.length && !cross.length ? 'يجتاز `tools/check.mjs` بلا أخطاء' : `${validation.errors.length + cross.length} خطأ في \`tools/check.mjs\``}.`, '');
 
-    // ================= الموجات والمراحل =================
-    if (WV) {
-      const pr = WV.program;
-      const wl = (id) => D.WAVE_TASK_LABELS[status.tasks[id].status];
-      const blk = (x) => (x.blockers.length ? x.blockers.map((b) => b.text).join('؛ ') : '—');
-      L.push('## الموجات والمراحل: التقدم الفعلي', '');
-      L.push(`${pr.scope} آخر تحديث لهذا القسم: \`${pr.updatedAt}\`.`, '');
-      L.push(`- **المرحلة الحالية:** ${WV.current ? `المرحلة ${WV.current.stage.num} (${WV.current.stage.title}) في الموجة ${WV.current.wave.num}: ${WV.current.state.label}` : 'لا شيء؛ اكتملت كل الموجات'}.`);
-      L.push(`- **الخطوة التالية:** ${WV.next.text}`);
-      L.push(`- **المهام:** ${WV.counts.merged} من ${WV.counts.total} مدمجة ومتحقق منها${WV.counts.implemented ? `، و${WV.counts.implemented} منفّذة على فرع تنتظر الدمج` : ''}${WV.counts.active ? `، و${WV.counts.active} جارية أو متوقفة` : ''}.`);
-      L.push(`- **المودلات:** الافتراضي ${pr.models.default.name}؛ الإدارة والدمج ${pr.models.orchestrator.name}؛ المراجعة ${pr.models.review.name} (${pr.models.review.why}). الاستثناءات: ${Object.entries(pr.models.exceptions).map(([k, v]) => `${c(k)} ← ${v.name}`).join('، ')}. تحقق التوفر: ${c(pr.models.verifiedBy)} (${pr.models.verifiedOn}). ${pr.models.rule}`, '');
-      L.push(table(['الموجة', 'المراحل', 'المهام', 'الحالة'], WV.waves.map((w) => [`${w.wave.num}. ${w.wave.title}`, w.stages.map((x) => x.stage.num).join('، '), `${w.counts.merged} من ${w.counts.total} مدمجة${w.counts.implemented ? `، ${w.counts.implemented} على فرع` : ''}`, w.state.label])), '');
-      for (const w of WV.waves) {
-        L.push(`### الموجة ${w.wave.num}: ${w.wave.title} — ${w.state.label}`, '', w.wave.scope, '');
-        L.push(table(['المرحلة', 'المهام', 'الحالة', 'ما يمنع البدء', 'الفرع', 'الدمج في main', 'أمر البدء', 'أمر الدمج'], w.stages.map((x) => [
-          `${x.stage.num}. ${x.stage.title}`, x.stage.tasks.map((id) => tLink(id)).join('، '), x.state.label + (x.state.blockedReasons.length ? `: ${x.state.blockedReasons.join('؛ ')}` : ''), x.state.key === 'not_started' ? blk(x) : '—', c(x.stage.branch), x.stage.mergeCommit ? `${c(x.stage.mergeCommit)} (${x.stage.mergedOn})` : 'لم يُدمج', `«${x.startCmd}»`, `«${x.mergeCmd}»`,
-        ])), '');
-        for (const x of w.stages) {
-          const s = x.stage;
-          L.push(`#### المرحلة ${s.num}: ${s.title} — ${x.state.label}`, '', s.goal, '');
-          L.push(table(['المهمة', 'الحالة', 'المودل', 'ما أُنجز', 'المرجع'], s.tasks.map((id) => {
-            const e = status.tasks[id];
-            const m = D.taskModel(status, id);
-            const refs = [e.commit ? `التزام ${c(e.commit)}` : '', e.branch ? `فرع ${c(e.branch)}` : '', ...(e.evidence || []).map(c)].filter(Boolean);
-            return [tLink(id), wl(id) + (e.status === 'blocked' ? `: ${e.note}` : ''), `${m.name}${m.isException ? ' (استثناء)' : ''}`, e.summary || '—', refs.length ? refs.join('، ') : '—'];
-          })), '');
-          L.push('**الفحوص بحسب الأثر:**', '');
-          s.checks.forEach((k) => L.push(`- ${k}`));
-          L.push(`- **المراجعة:** ${s.review}`, '');
-          if (s.beforeStart.length) { L.push('**قبل البدء:**', ''); s.beforeStart.forEach((k) => L.push(`- ${k}`)); L.push(''); }
-          if (s.openItems.length) { L.push('**بنود مفتوحة:**', ''); s.openItems.forEach((k) => L.push(`- ${k}`)); L.push(''); }
-          if (s.summary) L.push(`**خلاصة المرحلة:** ${s.summary}`, '');
+    // ================= نظام MJ: الموجات والمراحل =================
+    if (MV) {
+      const stView = {};
+      MV.waves.forEach((w) => w.stages.forEach((v) => { stView[v.stage.id] = v; }));
+      const B = [];
+      B.push(`- **المتبقي:** ${MV.stageCount - MV.waves.reduce((n, w) => n + w.stages.filter((v) => v.key === 'merged').length, 0)} من ${MV.stageCount} مرحلة · **الموجات:** ${MV.waves.length} · **أقصى توازٍ:** ${Math.max(...MV.waves.map((w) => w.stages.length))} · **المهام:** ${MV.counts.merged} من ${MV.counts.total} مدمجة${MV.counts.implemented ? `، و${MV.counts.implemented} منفّذة على فرع` : ''}${MV.counts.active ? `، و${MV.counts.active} جارية أو متوقفة` : ''}`);
+      B.push(`- **الموجة الحالية:** ${MV.current ? `${MV.current.wave.id} — ${MV.current.wave.title}: ${MV.current.label}${MV.current.open ? ` على \`mj-${MV.current.wave.id}/base\`` : ''}` : 'لا شيء؛ اكتملت كل الموجات'}`);
+      B.push(`- **الخطوة التالية:** ${MV.next.text}`, '');
+      B.push('### الموجات', '');
+      B.push(table(['الموجة', 'المراحل بترتيب الدمج', 'التوازي', 'الحالة', 'ما يمنع الدمج', 'مودل الدمج', 'أمر الدمج', 'لماذا معًا'], MV.waves.map((w) => [
+        w.wave.id, w.wave.order.map((id) => `[${id}](stages/${id}.md)`).join(' · '), w.stages.length === 1 ? 'منفردة' : `${w.stages.length} معًا`, w.label, w.mergeBlockers.length ? w.mergeBlockers.join('؛ ') : '—', w.wave.merge_model + (w.wave.why_merge_model ? ` (${w.wave.why_merge_model})` : ''), `\`${w.mergeCmd}\``, w.wave.why_together,
+      ])), '');
+      B.push('### المراحل', '');
+      B.push(table(['المرحلة', 'العنوان', 'الموجة', 'تعتمد على', 'المهام', 'المودل', 'الفرع', 'الحالة', 'ما يمنع البدء', 'الالتزام', 'أمر البدء'], MJP.stages.map((s) => {
+        const v = stView[s.id]; const h = s.header;
+        return [`[${s.id}](stages/${s.id}.md)`, h.title, h.wave, (h.depends || []).length ? h.depends.join(' · ') : '—', (h.tasks || []).map(c).join('، '), h.model + (h.model !== mjWaves.default_model ? ` (${h.why_model})` : ''), c(h.branch), v.label + (s.source.kind === 'branch' ? ' (من الفرع، لم يُدمج)' : ''), v.key === 'planned' || v.key === 'active' || v.key === 'blocked' ? (v.blockers.length ? v.blockers.map((b) => b.text).join('؛ ') : '—') : '—', h.commit ? c(h.commit) : '—', `\`${v.startCmd}\``];
+      })), '');
+      out['@mj-block'] = B.join('\n').replace(/\(stages\//g, '(stages/');
+      L.push('## الموجات والمراحل (نظام MJ): التقدم الفعلي', '');
+      L.push('المصدر: ترويسة كل ملف في `Docs/MJ/stages/` وجدول «حالة المهام» فيه، ومعها `Docs/MJ/waves.json`؛ والقواعد والأدوار والأوامر في [`Docs/MJ/README.md`](Docs/MJ/README.md). الصفحة `dashboard/index.html` تجمع تقدم الفروع قبل الدمج بـ`node tools/build.mjs --sync`.', '');
+      L.push(B.join('\n').replace(/\]\(stages\//g, '](Docs/MJ/stages/'), '');
+      const active = MJP.stages.filter((s) => s.header.status !== 'planned');
+      if (active.length) {
+        L.push('### المراحل التي بدأت: مهامها وما أُنجز', '');
+        for (const s of active) {
+          const v = stView[s.id];
+          L.push(`#### ${s.id} — ${s.header.title} — ${v.label}${s.header.commit ? ` · الالتزام ${c(s.header.commit)}` : ''}`, '');
+          L.push(table(['المهمة', 'الحالة', 'ما أُنجز', 'الدليل'], s.tasks.map((t) => [tLink(t.id), t.word + (t.note ? `: ${t.note}` : ''), t.summary || '—', t.evidence.length ? t.evidence.map(c).join('، ') : '—'])), '');
+          L.push(`**نقطة الاستئناف:** ${s.header.resume}`, '');
         }
       }
-      L.push('**طريقة العمل:**', '');
-      pr.flow.forEach((k) => L.push(`- ${k}`));
-      L.push('');
     }
 
     L.push('## ما أُنجز', '');
-    L.push(startedAny ? 'أعمال التخطيط، ودليلها وجود الملفات واجتياز الفحص الآلي؛ وما أُنجز من الموجة الأولى مفصَّل في قسمها أعلاه بمراجعه:' : 'أعمال التخطيط فقط، ودليلها وجود الملفات واجتياز الفحص الآلي:', '');
+    L.push(startedAny ? 'أعمال التخطيط، ودليلها وجود الملفات واجتياز الفحص الآلي؛ وما أُنجز من المراحل مفصَّل في قسم الموجات أعلاه وفي ملفات `Docs/MJ/stages/` بمراجعه:' : 'أعمال التخطيط فقط، ودليلها وجود الملفات واجتياز الفحص الآلي:', '');
     L.push(table(['المُخرَج', 'الدليل'], [
       ['`EXECUTION_PLAN.md` محدَّث (الإصلاحات 14 إلى 18 في القسم 0.1)', 'يطابق `data/plan.json` في فحص `tools/check.mjs`'],
       ['`data/plan.json` و`data/status.json` و`data/naming.json`: مصدر البيانات الموحد', 'تُولَّد منه الملفات أدناه ولوحة المتابعة'],
@@ -365,9 +376,9 @@ export function render({ plan, status, naming }, D) {
     L.push('**موانع مسماة نشطة:** لا يوجد؛ الموانع الـ16 في الخطة شروط تظهر أثناء التنفيذ ولم يظهر منها شيء لأن التنفيذ لم يبدأ.', '');
 
     L.push('## الخطوة التالية', '');
-    L.push(`1. ${WV ? WV.next.text : 'تجهيز نظام الموجة الأولى.'}`);
-    L.push('2. حسم `DEC-04` قبل المرحلة 3 (تجارب الجدوى): يلزم فيه اختيار المالك لأنه يمس صلاحيات حساسة؛ معناه وأثره مكتوبان في بنود «قبل البدء» للمرحلة 3.');
-    L.push('3. القرارات المفوَّضة (`AD-14`): `DEC-02` عند بدء المرحلة 5، و`DEC-05` عند بدء المرحلة 6، و`DEC-03` عند بدء المرحلة 7؛ تُحسم بناءً على تقارير تجارب الجدوى وتُسجَّل بسببها.');
+    L.push(`1. ${MV ? MV.next.text : 'تجهيز نظام MJ.'}`);
+    L.push('2. حسم `DEC-04` قبل `MJ4` (تجارب الجدوى) أو قبل `MJ15` على الأبعد: يلزم فيه اختيار المالك لأنه يمس صلاحيات حساسة؛ معناه وأثره في ملف `MJ4`.');
+    L.push('3. القرارات المفوَّضة (`AD-14`): `DEC-02` عند بدء `MJ7`، و`DEC-05` عند بدء `MJ12`، و`DEC-03` عند بدء `MJ14`؛ تُحسم بناءً على تقارير تجارب الجدوى وتُسجَّل بسببها.');
     L.push(`4. اعتماد الاختصارات (\`DEC-08\`) في أي وقت قبل إغلاق التغليف. الاسم محسوم: «${plan.meta.name.ar}» (${plan.meta.name.latin})، ويبقى له قبل النشر ما في \`NAMING.md\`.`, '');
     out['STATUS.md'] = L.join('\n');
   }
@@ -426,13 +437,22 @@ export function render({ plan, status, naming }, D) {
   }
 
   // ================= بيانات لوحة المتابعة =================
-  out['dashboard/data.js'] = `/* مولَّد من data/plan.json وdata/status.json وdata/naming.json بالأمر node tools/build.mjs — لا تحرّره يدويًا. */\nwindow.PLAN_DATA = ${JSON.stringify({ plan, status, naming })};\n`;
+  // ملف البيانات غير متتبَّع ويُكتب بـ--sync من أي مجلد؛ لذا لا يدخل في فحص التقادم.
+  out['@data.js'] = `/* مولَّد من data/plan.json وdata/status.json وdata/naming.json وDocs/MJ/ بالأمر node tools/build.mjs --sync — لا تحرّره يدويًا. */\nwindow.PLAN_DATA = ${JSON.stringify({ plan, status, naming, mj: MJP })};\n`;
+  // الكتلة المشتقة في Docs/MJ/README.md بين علامتيها.
+  {
+    const readme = read('Docs/MJ/README.md');
+    const a = '<!-- mj:begin -->', b = '<!-- mj:end -->';
+    const i = readme.indexOf(a), j = readme.indexOf(b);
+    if (i < 0 || j < 0) throw new Error('علامتا الكتلة المشتقة مفقودتان في Docs/MJ/README.md');
+    out['Docs/MJ/README.md'] = readme.slice(0, i + a.length) + '\n' + out['@mj-block'] + '\n' + readme.slice(j);
+  }
 
   for (const k of Object.keys(out)) if (!k.startsWith('@') && !k.endsWith('.js')) out[k] = out[k].replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
 
   // بصمة محتوى لكل ملف تحمّله الصفحة، حتى لا يعرض المتصفح نسخة قديمة من البيانات أو الأنماط.
-  const stamp = (name) => createHash('sha256').update(name === 'data.js' ? out['dashboard/data.js'] : read(`dashboard/${name}`)).digest('hex').slice(0, 10);
-  out['dashboard/index.html'] = read('dashboard/index.html').replace(/(href|src)="(styles\.css|app\.js|derive\.js|data\.js)(\?v=[0-9a-f]+)?"/g, (_, attr, name) => `${attr}="${name}?v=${stamp(name)}"`);
+  const stamp = (name) => createHash('sha256').update(read(`dashboard/${name}`)).digest('hex').slice(0, 10);
+  out['dashboard/index.html'] = read('dashboard/index.html').replace(/(href|src)="(styles\.css|app\.js|derive\.js)(\?v=[0-9a-f]+)?"/g, (_, attr, name) => `${attr}="${name}?v=${stamp(name)}"`);
   return { out, validation, cross };
 }
 
@@ -449,21 +469,43 @@ export function applyRegions(md, out) {
   return s;
 }
 
-const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-if (isMain) {
+const isCli = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isCli) {
+  const args = process.argv.slice(2);
+  const sync = args.includes('--sync');
+  const dry = args.includes('--dry');
   const D = loadDerive();
   const data = loadData();
   const { out, validation, cross } = render(data, D);
-  const plan = applyRegions(read('EXECUTION_PLAN.md'), out);
-  if (!process.argv.includes('--dry')) {
-    for (const [k, v] of Object.entries(out)) {
-      if (k.startsWith('@')) continue;
-      fs.mkdirSync(path.dirname(path.join(ROOT, k)), { recursive: true });
-      fs.writeFileSync(path.join(ROOT, k), v);
+  const info = repoInfo(ROOT);
+  const writeData = () => {
+    const targets = [path.join(ROOT, 'dashboard/data.js')];
+    if (!info.isMain && info.main && path.resolve(info.main) !== path.resolve(ROOT) && fs.existsSync(path.join(info.main, 'dashboard'))) targets.push(path.join(info.main, 'dashboard/data.js'));
+    for (const t of targets) fs.writeFileSync(t, out['@data.js']);
+    return targets;
+  };
+  if (sync) {
+    const targets = dry ? [] : writeData();
+    const v = D.mjView(data.plan, data.status, mjPayload(data.mj, data.waves));
+    console.log(`تمت المزامنة: ${data.mj.stages.length} مرحلة (${data.mj.stages.filter((s) => s.source.kind === 'branch').length} منها من فروع لم تُدمج)؛ كُتب ${targets.length ? targets.join(' و') : 'لا شيء (--dry)'}.`);
+    if (v && v.current) console.log(`الموجة الحالية ${v.current.wave.id}: ${v.current.label}. ${v.next.text}`);
+  } else {
+    if (!info.isMain && !args.includes('--force')) {
+      console.error('هذا المجلد worktree لا النسخة الرئيسية: الوثائق المتتبَّعة يولّدها منسّق الدمج في النسخة الرئيسية. استعمل --sync هنا، أو --force إن كنت تعرف ما تفعل.');
+      process.exit(2);
     }
-    fs.writeFileSync(path.join(ROOT, 'EXECUTION_PLAN.md'), plan);
+    const plan = applyRegions(read('EXECUTION_PLAN.md'), out);
+    if (!dry) {
+      for (const [k, v] of Object.entries(out)) {
+        if (k.startsWith('@')) continue;
+        fs.mkdirSync(path.dirname(path.join(ROOT, k)), { recursive: true });
+        fs.writeFileSync(path.join(ROOT, k), v);
+      }
+      fs.writeFileSync(path.join(ROOT, 'EXECUTION_PLAN.md'), plan);
+      writeData();
+    }
+    console.log(`وُلِّد ${Object.keys(out).filter((k) => !k.startsWith('@')).length} ملفًا ومنطقتان في EXECUTION_PLAN.md وdashboard/data.js.`);
   }
   const errs = [...validation.errors, ...cross];
-  console.log(`وُلِّد ${Object.keys(out).filter((k) => !k.startsWith('@')).length} ملفًا ومنطقتان في EXECUTION_PLAN.md.`);
-  if (errs.length) { console.error(`تحذير: ${errs.length} خطأ في البيانات؛ شغّل node tools/check.mjs للتفاصيل.`); process.exitCode = 1; }
+  if (errs.length) { console.error(`تحذير: ${errs.length} خطأ في البيانات؛ شغّل node tools/check.mjs${sync ? ' --data' : ''} للتفاصيل.`); process.exitCode = 1; }
 }

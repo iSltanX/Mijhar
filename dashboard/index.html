@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles.css?v=f4d0024f4d">
+  <link rel="stylesheet" href="styles.css?v=1053c754e1">
 </head>
 <body>
   <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
@@ -32,7 +32,6 @@
         </div>
       </div>
       <div class="topbar__actions">
-        <button type="button" class="btn btn--ghost" id="statusPanelBtn" aria-haspopup="dialog">الحالة: حفظ وتصدير</button>
         <button type="button" class="btn btn--ghost" id="themeBtn" aria-live="polite">الوضع: تلقائي</button>
       </div>
     </div>
@@ -51,7 +50,6 @@
   </header>
 
   <div class="wrap">
-    <div id="localBanner" class="banner" hidden></div>
     <noscript><p class="banner banner--warn">تحتاج هذه الصفحة إلى JavaScript لعرض البيانات.</p></noscript>
   </div>
 
@@ -78,42 +76,13 @@
 
   <main id="main" class="wrap main" tabindex="-1"></main>
 
-  <div class="savebar" id="savebar" hidden role="region" aria-label="تعديلات غير محفوظة">
-    <div class="wrap savebar__inner">
-      <p id="savebarText"></p>
-      <div class="savebar__actions">
-        <button type="button" class="btn btn--primary" id="saveDraft">حفظ في هذا المتصفح</button>
-        <button type="button" class="btn btn--ghost" id="discardDraft">تجاهل</button>
-      </div>
-    </div>
-  </div>
-
-  <dialog id="statusDialog" class="dialog" aria-labelledby="statusDialogTitle">
-    <form method="dialog" class="dialog__body">
-      <h2 id="statusDialogTitle">حفظ الحالات وتصديرها واستيرادها</h2>
-      <p>تعديل الحالات في هذه الصفحة <strong>يُحفظ في هذا المتصفح وحده</strong> ولا يغيّر أي ملف في المشروع. لتطبيقه على ملفات الخطة:</p>
-      <ol>
-        <li>صدّر الملف <bdi class="ltr">status.json</bdi> من هنا.</li>
-        <li>ضعه مكان <bdi class="ltr">data/status.json</bdi> في المشروع.</li>
-        <li>شغّل <code dir="ltr">node tools/build.mjs</code> ثم <code dir="ltr">node tools/check.mjs</code>، فتتحدث <bdi class="ltr">STATUS.md</bdi> وبقية الملفات وهذه الصفحة.</li>
-      </ol>
-      <p id="dialogState" class="muted"></p>
-      <div class="dialog__actions">
-        <button type="button" class="btn btn--primary" id="exportBtn">تصدير status.json</button>
-        <label class="btn btn--ghost file-btn">استيراد ملف حالة<input type="file" id="importInput" accept="application/json,.json"></label>
-        <button type="button" class="btn btn--danger" id="clearLocalBtn">حذف التعديلات المحلية</button>
-      </div>
-      <p id="importMsg" class="msg" role="status"></p>
-      <div class="dialog__close"><button class="btn btn--ghost" value="close">إغلاق</button></div>
-    </form>
-  </dialog>
 
   <footer class="wrap footer">
-    <p>البيانات من <bdi class="ltr">data/plan.json</bdi> و<bdi class="ltr">data/status.json</bdi> و<bdi class="ltr">data/naming.json</bdi> عبر <bdi class="ltr">dashboard/data.js</bdi> المولَّد. هذه الصفحة لا تُرسل شيئًا إلى أي خادم.</p>
+    <p>البيانات من <bdi class="ltr">data/plan.json</bdi> و<bdi class="ltr">data/status.json</bdi> وملفات المراحل <bdi class="ltr">Docs/MJ/stages/</bdi> عبر <bdi class="ltr">dashboard/data.js</bdi> الذي تجمعه <bdi class="ltr">node tools/build.mjs --sync</bdi> من الفروع المحلية. الحالة لا تُعدَّل من هذه الصفحة، وهي لا تُرسل شيئًا إلى أي خادم.</p>
   </footer>
 
-  <script src="data.js?v=f7ec1bad0a"></script>
-  <script src="derive.js?v=398a720b90"></script>
-  <script src="app.js?v=280e8b0056"></script>
+  <script>document.write('<script src="data.js?t=' + Date.now() + '"><\/script>');</script>
+  <script src="derive.js?v=5b59d187b6"></script>
+  <script src="app.js?v=4173ff2c82"></script>
 </body>
 </html>

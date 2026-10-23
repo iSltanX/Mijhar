@@ -1,0 +1,113 @@
+{
+  "default_model": "Sonnet 5.5",
+  "default_model_id": "claude-sonnet-5-5",
+  "default_merge_model": "Sonnet 5.5",
+  "model_rule": "Sonnet 5.5 افتراضيًا للمراحل والدمج؛ وأقوى بسبب مكتوب في why_model أو why_merge_model. إن لم يتوفر المودل المحدد وقت التنفيذ تُسجَّل المرحلة متوقفة بالسبب ويُسأل المالك، ولا يُبدَّل بصمت. تحقق التوفر: EV-07.",
+  "commands": {
+    "start": "/mj {id}",
+    "merge": "/mj-merge {wave}"
+  },
+  "waves": [
+    {
+      "id": "A",
+      "title": "الهيكل",
+      "why_together": "منفردة: هيكل البناء الذي تُبنى عليه كل شيفرة، ولا يجاوره شيء.",
+      "order": [
+        "MJ1"
+      ],
+      "merge_model": "Sonnet 5.5",
+      "gate": "بناء نظيف للحزمتين و`web-ext lint` وتحميل حزمة Chromium في المتصفحات المتاحة.",
+      "manual": "لا شيء."
+    },
+    {
+      "id": "B",
+      "title": "الطبقات المنطقية وتجارب الجدوى",
+      "why_together": "ثلاث مراحل مستقلة فوق الهيكل بملكيات لا تتقاطع: النواة المنطقية (core) · التقنيع وبيانات القاموس (modules/c/masking وdata) · تقارير القياس (evidence وfixtures). المشترك الوحيد package.json يُضم بترتيب الدمج.",
+      "order": [
+        "MJ2",
+        "MJ3",
+        "MJ4"
+      ],
+      "merge_model": "Sonnet 5.5",
+      "gate": "اختبارات `tests/core` و`tests/modules/c/masking` و`tests/data` مجتمعة بعد الدمج، وبناء نظيف. تقارير الجدوى تُراجع لاكتمال معايير القبول.",
+      "manual": "التحقق من أن تقارير `evidence/T-0.*` تغطي كل معيار قبول."
+    },
+    {
+      "id": "C",
+      "title": "المضيف وأساس الوحدة (أ)",
+      "why_together": "مرحلتان مستقلتان: مضيف الواجهات (core/ui-host وsidepanel وoptions) · الاتجاه والحارس (modules/a). المشترك registry.ts يُضم بترتيب الدمج.",
+      "order": [
+        "MJ5",
+        "MJ6"
+      ],
+      "merge_model": "Opus 5.5",
+      "why_merge_model": "المضيف وتدفق الصلاحية والحارس يمسّان الأمان وكل الوحدات؛ تعارضات registry تحتاج قراءة معمارية.",
+      "gate": "اختبارات core وmodules/a مجتمعة، وعزل الأنماط على الصفحات المعادية بعد الدمج، وتدقيق شبكة لغياب أي طلب قبل الصلاحية.",
+      "manual": "فتح اللوحة الجانبية والدرج في Chrome وEdge وBrave بعد الدمج."
+    },
+    {
+      "id": "D",
+      "title": "الطبقة الأولى لواجهات الوحدات",
+      "why_together": "ثلاث مراحل بملكيات منفصلة: modules/a · modules/b/card وmodules/d · modules/g/notes وmodules/h. المشترك registry.ts وoptions يُضمان بترتيب الدمج.",
+      "order": [
+        "MJ7",
+        "MJ8",
+        "MJ9"
+      ],
+      "merge_model": "Sonnet 5.5",
+      "gate": "اختبارات الوحدات المدمجة مجتمعة، وفحص عدم تراجع المضيف (`TEST-CORE-05`) مرة واحدة بعد الدمج.",
+      "manual": "جولة سريعة على صفحة README وصفحة PR عامة في Chrome."
+    },
+    {
+      "id": "E",
+      "title": "الطبقة الثانية للوحدات",
+      "why_together": "ثلاث مراحل بملكيات منفصلة: b/access وb/search وc/ui وf/composer · d/blockers وd/log-parser وcore/api · g/bookmarks وg/anchor وh/readme-wizard.",
+      "order": [
+        "MJ10",
+        "MJ11",
+        "MJ12"
+      ],
+      "merge_model": "Sonnet 5.5",
+      "gate": "اختبارات الوحدات المدمجة مجتمعة، وتدقيق شبكة لطبقة API العامة.",
+      "manual": "لا شيء."
+    },
+    {
+      "id": "F",
+      "title": "الطبقة الثالثة والمحرك",
+      "why_together": "ثلاث مراحل بملكيات منفصلة: b/tours وf وg/export · c/engines · d/token وe/builder. المشترك options يُضم بترتيب الدمج.",
+      "order": [
+        "MJ13",
+        "MJ14",
+        "MJ15"
+      ],
+      "merge_model": "Opus 5.5",
+      "why_merge_model": "المحرك ورمز الوصول والتصدير تمس الأمان والخصوصية.",
+      "gate": "اختبارات الوحدات المدمجة مجتمعة، وفحص ساكن للشيفرة المبنية بحسب `DEC-04`، وتجربة ترجمة حقيقية واحدة على Chrome.",
+      "manual": "لا شيء."
+    },
+    {
+      "id": "G",
+      "title": "إدارة النموذج وقوالب السياق",
+      "why_together": "مرحلتان بملكيتين منفصلتين: c/model-manager وc/network-audit · e/templates وe/privacy-check.",
+      "order": [
+        "MJ16",
+        "MJ17"
+      ],
+      "merge_model": "Sonnet 5.5",
+      "gate": "اختبارات modules/c وmodules/e مجتمعة، وتدقيق شبكة كامل لمسار الترجمة بعد الدمج.",
+      "manual": "لا شيء."
+    },
+    {
+      "id": "H",
+      "title": "التكامل والحزم",
+      "why_together": "منفردة: التحقق الشامل ثم التغليف على كل ما دُمج، ولا يجاورها شيء.",
+      "order": [
+        "MJ18"
+      ],
+      "merge_model": "Opus 5.5",
+      "why_merge_model": "المرحلة الأخيرة قبل أي نشر مستقبلي؛ حكم ختامي على التقرير والحزم.",
+      "gate": "طقم الاختبارات كاملًا مرة واحدة على الشجرة النظيفة، وبناء الحزم وفحصها بـ`web-ext lint` وتحميلها.",
+      "manual": "جولة يد في Chrome وEdge وBrave على الوحدات الثماني قبل الإغلاق."
+    }
+  ]
+}

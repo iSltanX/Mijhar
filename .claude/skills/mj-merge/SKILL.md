@@ -1,0 +1,41 @@
+---
+name: mj-merge
+description: منسّق إغلاق موجة MJ في مجهر — يكتشف فروع مراحلها من ترويساتها، ويدمجها بترتيب order على فرع تكامل، ويفحص الشجرة المجمّعة، ويثبّت الحالة، وينقل إلى main ويضع وسم الموجة التالية. يُستدعى يدويًا فقط بـ`/mj-merge X` في النسخة الرئيسية.
+argument-hint: <X>
+disable-model-invocation: true
+allowed-tools: Bash(pwd) Bash(true) Bash(git rev-parse *) Bash(git worktree list) Bash(git status *) Bash(git tag -l *) Bash(git branch --list *) Bash(git show *) Bash(git merge-base *) Bash(sed -n *) Bash(grep -n *) Bash(node tools/build.mjs *) Bash(node tools/check.mjs *)
+---
+
+# /mj-merge $0
+
+الموجة المطلوبة: **$0** (حرف واحد: `B`). الحاكم `CLAUDE.md`، ثم `Docs/MJ/README.md`. كل التواصل مع المالك بالعربية.
+
+## الحالة كما قيست الآن
+
+- المجلد: !`pwd`
+- مجلد git ومجلده المشترك (متطابقان في النسخة الرئيسية): !`git rev-parse --git-dir --git-common-dir`
+- الفرع الحالي: !`git rev-parse --abbrev-ref HEAD`
+- تغييرات غير ملتزمة: !`git status --porcelain`
+- وسوم أساس الموجات: !`git tag -l 'mj-*/base' --format='%(refname:short) %(objectname:short)'`
+- فروع المراحل: !`git branch --list 'mj/*' --format='%(refname:short) %(objectname:short)'`
+- الـworktrees: !`git worktree list`
+- صف الموجة في الكتلة المشتقة: !`grep -n "^| $0 " Docs/MJ/README.md || true`
+
+## ما تفعله
+
+1. **اقرأ** `CLAUDE.md` (محمَّل)، ثم من `Docs/MJ/README.md`: الكتلة المشتقة (صف الموجة $0 ومراحلها بترتيب الدمج)،
+   و«الملكية ومناطق التعارض»، و«دور: منسّق دمج الموجة»؛ ومن `Docs/MJ/waves.json` فحص الموجة (`gate`) وجولتها اليدوية
+   (`manual`) ومودل الدمج (`merge_model`).
+2. **الجلسة في النسخة الرئيسية** (المجلدان أعلاه متطابقان) وعلى `main` نظيف (`dashboard/data.js` غير متتبَّع فلا يُحسب).
+   وإلا توقف واطلب جلسة جديدة بلا worktree.
+3. **نفّذ «دور: منسّق دمج الموجة» خطوة خطوة.** `‹WAVE›` هو $0، و`‹NEXT›` الحرف التالي في `waves.json` (لا وسم بعد
+   الأخيرة). الفروع تُكتشف من ترويسات المراحل (`git show <branch>:Docs/MJ/stages/<ID>.md`) لا من أسماء يكتبها المالك،
+   ولا يُطلب منه أمر git ولا نقل تقرير.
+4. **كل شرط يُقاس بأمر** تشغّله أنت؛ ما طُبع أعلاه سياق لا دليل. مرحلة بلا `delivery: branch` أو بلا «تقرير التسليم»
+   توقف الدمج بطباعة ما ينقص؛ ولا تُدمج موجة قبل إغلاق التي قبلها.
+5. **الحكم محلي:** بوابة الموجة على الشجرة المجمّعة في فرع التكامل قبل النقل إلى `main`؛ لا وسم على التزام لم يجتزها.
+   خضرة الفروع منفردة ليست دليلًا.
+6. **بعد النقل إلى `main`:** الوسم `mj-‹NEXT›/base`، وصف سجل الموجات، و`node tools/build.mjs` ثم `node tools/check.mjs`
+   أخضر، والالتزام. لا push ولا نشر، ولا حذف لفرع غير مدمج أو worktree. لا تبدأ جلسات الموجة التالية.
+7. **البلاغ الأخير:** الموجة $0 انتهت، و`‹NEXT›` مفتوحة على وسمها، ولكل مرحلة فيها أمرها `/mj MJn` ومودلها ونوع جلستها
+   كما في اللوحة `dashboard/index.html`، وما ينتظر المالك (قرارات، Firefox، أرشفة جلسات المراحل المدمجة).

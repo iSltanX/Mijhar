@@ -14,36 +14,12 @@
   var projectStatus = DATA.status;
   var naming = DATA.naming;
   var ix = D.index(plan);
-  var LS_OVERRIDES = 'mijhar-plan:status-overrides:v1';
-  var LS_THEME = 'mijhar-plan:theme';
+    var LS_THEME = 'mijhar-plan:theme';
 
-  // ---------- التخزين المحلي (محمي من الأخطاء) ----------
+  // ---------- التخزين المحلي: الوضع الفاتح/الداكن فقط (الحالة لا تُعدَّل من الصفحة) ----------
   function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { window.localStorage.setItem(k, v); return true; } catch (e) { return false; } }
   function lsDel(k) { try { window.localStorage.removeItem(k); return true; } catch (e) { return false; } }
-  function emptyOverrides() { return { tasks: {}, tests: {} }; }
-  function loadOverrides() {
-    try {
-      var o = JSON.parse(lsGet(LS_OVERRIDES) || 'null');
-      if (o && o.tasks && o.tests) return o;
-    } catch (e) { /* ملف تالف: يُتجاهل */ }
-    return emptyOverrides();
-  }
-  var saved = loadOverrides();
-  var draft = emptyOverrides();
-  var storageOk = lsSet('mijhar-plan:probe', '1') && lsDel('mijhar-plan:probe');
-
-  function clone(x) { return JSON.parse(JSON.stringify(x)); }
-  function effectiveStatus() {
-    var s = clone(projectStatus);
-    [saved, draft].forEach(function (layer) {
-      ['tasks', 'tests'].forEach(function (kind) {
-        Object.keys(layer[kind]).forEach(function (id) { if (s[kind][id]) s[kind][id] = Object.assign({}, s[kind][id], layer[kind][id]); });
-      });
-    });
-    return s;
-  }
-  function countKeys(o) { return Object.keys(o.tasks).length + Object.keys(o.tests).length; }
 
   // ---------- أدوات ----------
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -161,26 +137,6 @@
     return '<div class="stack" aria-hidden="true">' + bar + '</div><ul class="legend">' + legend + '</ul>';
   }
 
-  function editBox(kind, id, st) {
-    var cur = st[kind][id];
-    var opts = kind === 'tasks' ? D.STORED_TASK : D.STORED_TEST;
-    var labels = kind === 'tasks'
-      ? { not_started: 'لم تبدأ', in_progress: 'قيد التنفيذ', implemented: 'منفّذة وتنتظر الدمج', done: 'مكتملة', blocked: 'متوقفة بمانع' }
-      : { planned: 'مخطط (لم يُنفَّذ)', passed: 'اجتاز', failed: 'فشل', blocked: 'متوقف' };
-    var needEv = kind === 'tasks' ? cur.status === 'done' : (cur.status === 'passed' || cur.status === 'failed');
-    var evEmpty = !(cur.evidence || []).length;
-    var needNote = kind === 'tasks' && cur.status === 'blocked' && !cur.note;
-    var err = needEv && evEmpty ? 'هذه الحالة تتطلب دليلًا: مسار تقرير في evidence/ أو رابط.' : (needNote ? '«متوقفة بمانع» تتطلب ذكر المانع في الملاحظة.' : '');
-    return '<div class="edit" data-kind="' + kind + '" data-id="' + esc(id) + '">' +
-      '<p class="edit__title">تسجيل الحالة (يُحفظ في هذا المتصفح فقط)</p>' +
-      '<label class="field"><span class="field__label">الحالة المسجلة</span><select data-edit="status">' +
-      opts.map(function (o) { return '<option value="' + o + '"' + (o === cur.status ? ' selected' : '') + '>' + labels[o] + '</option>'; }).join('') + '</select></label>' +
-      '<label class="field"><span class="field__label">الدليل (مسار أو رابط؛ افصل بفاصلة)</span><input type="text" dir="ltr" data-edit="evidence" value="' + esc((cur.evidence || []).join(', ')) + '" placeholder="evidence/' + esc(id) + '/report.md"></label>' +
-      '<label class="field"><span class="field__label">ملاحظة</span><input type="text" data-edit="note" value="' + esc(cur.note || '') + '"></label>' +
-      (err ? '<p class="edit__error" role="alert">' + esc(err) + '</p>' : '') +
-      '<p class="edit__hint">الحالة المشتقة (جاهزة، بانتظار قرار…) تُحسب تلقائيًا ولا تُكتب يدويًا.</p></div>';
-  }
-
   // ---------- الملخص ----------
   function decisionOrder() {
     return plan.decisions.map(function (d) {
@@ -284,8 +240,7 @@
       '<dt>معايير القبول</dt><dd><ul>' + acs + '</ul></dd>' +
       '<dt>الاختبارات</dt><dd><ul>' + tests + '</ul></dd>' +
       (t.blockers.length ? '<dt>الموانع المسماة</dt><dd><ul>' + t.blockers.map(function (b) { var B = plan.blockers.filter(function (x) { return x.id === b; })[0]; return '<li><code dir="ltr">' + esc(b) + '</code>: ' + md(B.text) + '</li>'; }).join('') + '</ul></dd>' : '') +
-      (t.note ? '<dt>ملاحظة</dt><dd>' + md(t.note) + '</dd>' : '') + '</dl>' +
-      editBox('tasks', t.id, st) +
+      (t.note ? '<dt>ملاحظة</dt><dd>' + md(t.note) + '</dd>' : '') + '</dl>' + +
       '<div class="files">' + fileLink(ix.phases[t.phase].file + '#' + t.id, 'في ملف المرحلة') + fileLink('TRACEABILITY.md', 'التتبع') + fileLink('STATUS.md', 'الحالة') + '</div>';
   }
   function renderTasks(st) {
@@ -392,7 +347,7 @@
           '<dt>الميزات</dt><dd>' + idLinks(x.features) + '</dd>' +
           (x.appliesIf ? '<dt>الانطباق</dt><dd>' + chip(x.appliesIf.label, 'warn') + ' بحسب ' + idLink(x.appliesIf.decision) + ' (' + esc(x.appliesIf.options.join('، ')) + ')</dd>' : '') +
           (x.fixtures.length ? '<dt>العينات</dt><dd>' + x.fixtures.map(function (f) { return '<code dir="ltr">' + esc(f) + '</code>'; }).join(' ') + '</dd>' : '') + '</dl>' +
-          (k.key === 'not_applicable' ? '<p class="muted" style="margin-top:12px">لا ينطبق بحسب القرار المعتمد، فلا تُسجَّل له نتيجة.</p>' : editBox('tests', x.id, st));
+          (k.key === 'not_applicable' ? '<p class="muted" style="margin-top:12px">لا ينطبق بحسب القرار المعتمد، فلا تُسجَّل له نتيجة.</p>' : '');
       });
     });
     h += '</div>';
@@ -427,66 +382,115 @@
     return { html: h, count: cands.length + ' من ' + naming.candidates.length + ' أسماء' };
   }
 
-  // ---------- الموجات والمراحل ----------
-  // تقرأ حالة الملف وحدها (projectStatus) لا التعديلات المحلية، فهي ما يحدّثه المنسّق بعد كل حدث.
-  var GLYPH = { not_started: '○', in_progress: '◐', implemented: '◉', done: '✓', blocked: '✕', ready_to_merge: '◉', merged: '✓' };
-  function statusText(key, label, tone) { return '<span class="status-text tone-' + tone + '"><span class="status-text__glyph" aria-hidden="true">' + (GLYPH[key] || '') + '</span>' + esc(label) + '</span>'; }
-  function modelChip(m) { return m ? '<span class="model-chip' + (m.isException ? ' is-exception' : '') + '" title="' + esc(m.why) + '">' + esc(m.name) + (m.isException ? ' (استثناء)' : '') + '</span>' : ''; }
-  function copyBtn(text, label) { return '<button type="button" class="btn btn--sm" data-copy="' + esc(text) + '">' + esc(label) + '</button>'; }
+  // ---------- نظام MJ: الموجات والمراحل (من حمولة mj التي تجمعها أداة المزامنة عبر الفروع) ----------
+  function statusText(key, label, tone, glyph) { return '<span class="status-text tone-' + tone + '"><span class="status-text__glyph" aria-hidden="true">' + (glyph || '') + '</span>' + esc(label) + '</span>'; }
+  var TASK_GLYPH = { not_started: '○', in_progress: '◐', blocked: '✕', implemented: '◉', done: '✓' };
+  function copyBtn(text, label, primary) { return '<button type="button" class="btn btn--sm' + (primary ? ' btn--primary' : '') + '" data-copy="' + esc(text) + '">' + esc(label) + '</button>'; }
   function list(items) { return '<ul class="plain-list">' + items.map(function (k) { return '<li>' + md(k) + '</li>'; }).join('') + '</ul>'; }
-  function stageCard(x, isCur) {
-    var s = x.stage;
-    var h = '<section class="card stage' + (isCur ? ' is-current' : '') + '" aria-labelledby="stage-' + esc(s.id) + '">' +
-      '<div class="stage__head"><span class="stage__num" aria-hidden="true">' + s.num + '</span><div><h2 id="stage-' + esc(s.id) + '">المرحلة ' + s.num + ': ' + esc(s.title) + '</h2><p class="stage__goal">' + md(s.goal) + '</p></div>' +
-      '<div class="stage__state">' + statusText(x.state.key, x.state.label + (x.state.blockedReasons.length ? ': ' + x.state.blockedReasons.join('؛ ') : ''), x.state.tone) + (isCur ? chip('المرحلة الحالية', 'ready') : '') + '<span class="muted" style="font-size:.82rem">الفرع <bdi class="ltr">' + esc(s.branch) + '</bdi>' + (s.mergeCommit ? ' · دُمج ' + esc(s.mergedOn) + ' <bdi class="ltr">' + esc(s.mergeCommit) + '</bdi>' : '') + '</span></div></div>';
-    if (x.state.key === 'not_started' && x.blockers.length) h += '<p class="stage__blockers"><strong>ما يمنع البدء:</strong> ' + x.blockers.map(function (b) { return md(b.text); }).join('؛ ') + '.</p>';
-    h += '<ul class="tasklist">';
-    s.tasks.forEach(function (id) {
-      var t = ix.tasks[id]; var e = projectStatus.tasks[id]; var m = D.taskModel(projectStatus, id);
-      var lbl = D.WAVE_TASK_LABELS[e.status] + (e.status === 'blocked' ? ': ' + (e.note || 'بلا سبب مسجَّل') : '');
-      var gates = t.decisions.filter(function (g) { return !D.decisionChosen(plan, g.id); }).map(function (g) { return chip(g.id + (g.gate === 'start' ? ' يوقف البدء' : ' يوقف الإغلاق'), 'warn'); }).join('');
-      var refs = [];
-      if (e.commit) refs.push('التزام <bdi class="ltr">' + esc(e.commit) + '</bdi>' + (e.branch ? ' على <bdi class="ltr">' + esc(e.branch) + '</bdi>' : ''));
-      (e.evidence || []).forEach(function (ev) { refs.push(/^https?:/.test(ev) ? '<a href="' + esc(ev) + '" target="_blank" rel="noopener noreferrer">' + esc(ev) + '</a>' : '<a href="../' + esc(ev) + '"><bdi class="ltr">' + esc(ev) + '</bdi></a>'); });
-      h += '<li><span class="item__id">' + idLink(id) + '</span><div class="task__line"><span class="task__title">' + md(t.title) + '</span>' + statusText(e.status, lbl, D.TASK_STATES[e.status === 'not_started' ? 'waiting' : e.status].tone) + gates + modelChip(m) + '</div>' +
-        ((e.summary || refs.length) ? '<p class="task__done">' + (e.summary ? '<strong>ما أُنجز:</strong> ' + md(e.summary) : '') + (refs.length ? (e.summary ? ' · ' : '') + '<strong>المرجع:</strong> ' + refs.join('، ') : '') + '</p>' : '') + '</li>';
+  function mdBlock(text) {
+    // تحويل مبسّط لأقسام ملف المرحلة: قوائم وفقرات وعناوين فرعية.
+    var out = [], inList = false;
+    String(text || '').split('\n').forEach(function (line) {
+      var li = line.match(/^\s*(?:[-*]|\d+\.)\s+(.*)$/);
+      if (li) { if (!inList) { out.push('<ul class="plain-list">'); inList = true; } out.push('<li>' + md(li[1]) + '</li>'); return; }
+      if (inList) { out.push('</ul>'); inList = false; }
+      if (!line.trim()) return;
+      var h = line.match(/^\*\*(.+)\*\*$/);
+      if (h) { out.push('<p class="muted" style="margin:10px 0 2px;font-weight:700">' + md(h[1]) + '</p>'); return; }
+      out.push('<p style="margin:0 0 6px">' + md(line) + '</p>');
     });
-    h += '</ul>';
-    h += '<div class="copybar">' + copyBtn(x.startCmd, 'نسخ أمر البدء') + copyBtn(x.mergeCmd, 'نسخ أمر الدمج') + '<span class="copy-msg" aria-live="polite"></span><span class="muted" style="font-size:.82rem">الزران للنسخ فقط؛ تلصق النص في المحادثة ولا ينفّذ شيئًا.</span></div>';
-    h += '<details class="stage__details"' + (isCur && s.beforeStart.length ? ' open' : '') + '><summary>التفاصيل: الفحوص والمراجعة' + (s.beforeStart.length ? ' وما قبل البدء' : '') + (s.openItems.length ? ' والبنود المفتوحة' : '') + '</summary><div>' +
-      (s.beforeStart.length ? '<h3>قبل البدء</h3>' + list(s.beforeStart) : '') +
-      (s.openItems.length ? '<h3>بنود مفتوحة</h3>' + list(s.openItems) : '') +
-      '<h3>الفحوص بحسب الأثر</h3>' + list(s.checks) +
-      '<h3>المراجعة</h3><p style="margin:0">' + md(s.review) + '</p>' +
-      (s.summary ? '<h3>خلاصة المرحلة</h3><p style="margin:0">' + md(s.summary) + '</p>' : '') +
-      '<h3>اختبارات مهام المرحلة</h3><ul class="plain-list">' + s.tasks.map(function (id) { return ix.tasks[id].tests.map(function (tid) { var ts = D.testState(plan, projectStatus, ix.tests[tid]); return '<li>' + idLink(tid) + ' ' + chip(ts.label, ts.tone) + ' <span class="muted">(' + esc(id) + ')</span></li>'; }).join(''); }).join('') + '</ul>' +
-      '</div></details></section>';
-    return h;
+    if (inList) out.push('</ul>');
+    return out.join('');
+  }
+  function stagePrompt(v, W) {
+    var s = v.stage, h = s.header, sec = s.sections || {};
+    var wave = W.waves.filter(function (w) { return w.id === h.wave; })[0] || { order: [] };
+    var parallel = wave.order.filter(function (x) { return x !== h.id; });
+    return [
+      'أنت في مستودع مجهر (Mijhar) المحلي، في جلسة مستقلة داخل worktree. الحاكم CLAUDE.md في الجذر، ثم Docs/MJ/README.md (القواعد ودور «جلسة مرحلة» وصيغة تقرير التسليم)، ثم ملف المرحلة Docs/MJ/stages/' + h.id + '.md. اقرأ الثلاثة قبل أي عمل، وكل التواصل مع المالك بالعربية.',
+      '',
+      'المرحلة: ' + h.id + ' — ' + h.title,
+      'الموجة: ' + h.wave + ' · الأساس: الوسم ' + h.base + ' · الفرع: ' + h.branch + ' · المودل: ' + h.model + ' (' + h.why_model + ') · الجلسة: worktree مستقل',
+      'المهام: ' + (h.tasks || []).join('، ') + ' · تعتمد على المراحل: ' + ((h.depends || []).length ? h.depends.join('، ') : 'لا شيء') + ' · تعمل بالتوازي مع: ' + (parallel.length ? parallel.join('، ') : 'لا شيء'),
+      'نقطة الاستئناف: ' + h.resume,
+      '',
+      'الهدف: ' + (sec['الهدف'] || ''),
+      '',
+      'النطاق:', sec['النطاق'] || '', '',
+      'المهام:', sec['المهام'] || '', '',
+      'معايير القبول:', sec['معايير القبول'] || '', '',
+      'الفحوص:', sec['الفحوص'] || '', '',
+      'المخاطر:', sec['المخاطر'] || '', '',
+      'نفّذ دور «جلسة مرحلة» حرفيًا: تحقق بالأوامر من worktree والفرع والأساس والاعتماديات، ثم نفّذ وافحص في هذه الجلسة بلا وكلاء تنفيذ داخليين، وحدّث ترويسة ملف المرحلة وجدول «حالة المهام» وresume عند كل انتقال ثم node tools/build.mjs --sync، وسلّم بتقرير التسليم بصيغته والتزام أخير، وتوقف. لا تدمج في main ولا تبدأ مرحلة أخرى ولا ترفع شيئًا.'
+    ].join('\n');
+  }
+  function mergePrompt(wv) {
+    var w = wv.wave;
+    return [
+      'أنت في مستودع مجهر (Mijhar) المحلي، في النسخة الرئيسية بلا worktree، على main. الحاكم CLAUDE.md ثم Docs/MJ/README.md (دور «منسّق دمج الموجة» والملكية ومناطق التعارض). كل التواصل مع المالك بالعربية.',
+      '',
+      'المهمة: إغلاق الموجة ' + w.id + ' (' + w.title + ') وفتح ' + (wv.nextWave || 'لا شيء؛ هذه الأخيرة') + '.',
+      'المراحل بترتيب الدمج: ' + wv.stages.map(function (v) { return v.stage.id + ' (' + v.stage.header.branch + ')'; }).join(' ثم '),
+      'الفحص (بوابة الموجة): ' + w.gate + ' · الجولة اليدوية: ' + (w.manual || 'لا شيء') + ' · المودل: ' + w.merge_model + (w.why_merge_model ? ' (' + w.why_merge_model + ')' : ''),
+      '',
+      'نفّذ الدور خطوة خطوة: اكتشف الفروع من ترويسات المراحل لا بأسماء يكتبها المالك، وتحقق من تسليم كل مرحلة، وادمج على فرع تكامل بالترتيب، وتأكد أن لا دمج أسقط غيره، وشغّل بوابة الموجة على الشجرة المجمّعة، ثم ثبّت الحالة وولّد الوثائق وانقل إلى main وضع وسم الموجة التالية وسجّل الصف في سجل الموجات، وتوقف. لا push ولا نشر، ولا تبدأ جلسات الموجة التالية.'
+    ].join('\n');
+  }
+  function stageCard(v, W, waveOpen) {
+    var s = v.stage, h = s.header;
+    var isCur = v.canStart || v.isResume;
+    var srcNote = s.source && s.source.kind === 'branch' ? '<span class="src-badge" title="أحدث نسخة من ملف المرحلة قُرئت من فرعها قبل الدمج">من الفرع ' + esc(s.source.ref) + (s.source.commit ? ' @' + esc(s.source.commit) : '') + '</span>' : (s.source && s.source.kind === 'cwd' ? '<span class="src-badge">من مجلد العمل الحالي</span>' : '');
+    var h2 = '<section class="card stage' + (isCur && waveOpen ? ' is-current' : '') + '" aria-labelledby="stage-' + esc(h.id) + '">' +
+      '<div class="stage__head"><span class="stage__num" aria-hidden="true">' + esc(String(h.id).replace('MJ', '')) + '</span><div><h2 id="stage-' + esc(h.id) + '"><bdi class="ltr">' + esc(h.id) + '</bdi> ' + esc(h.title) + '</h2><p class="stage__goal">' + md((s.sections && s.sections['الهدف']) || '') + '</p></div>' +
+      '<div class="stage__state">' + statusText(v.key, v.label, v.tone, v.glyph) + srcNote + '<span class="muted" style="font-size:.82rem">' + esc(h.model) + (h.model !== W.default_model ? ' <span class="model-chip is-exception" title="' + esc(h.why_model) + '">استثناء</span>' : '') + ' · جلسة worktree مستقلة</span><span class="muted" style="font-size:.82rem">الفرع <bdi class="ltr">' + esc(h.branch) + '</bdi> · الأساس <bdi class="ltr">' + esc(h.base) + '</bdi>' + (h.commit ? ' · الالتزام <bdi class="ltr">' + esc(h.commit) + '</bdi>' : '') + '</span></div></div>';
+    if (v.key !== 'merged' && v.key !== 'ready' && v.blockers.length) h2 += '<p class="stage__blockers"><strong>ما يمنع البدء:</strong> ' + v.blockers.map(function (b) { return md(b.text); }).join('؛ ') + '.</p>';
+    h2 += '<ul class="tasklist">';
+    (s.tasks || []).forEach(function (row) {
+      var t = ix.tasks[row.id]; if (!t) return;
+      var st = row.status || 'not_started';
+      var lbl = D.WAVE_TASK_LABELS[st] + (st === 'blocked' && row.note ? ': ' + row.note : '');
+      var gates = t.decisions.filter(function (g) { return !D.decisionChosen(plan, g.id); }).map(function (g) { return chip(g.id + (g.gate === 'start' ? ' يوقف البدء' : ' يوقف الإغلاق'), 'warn'); }).join('');
+      var refs = (row.evidence || []).map(function (ev) { return /^https?:/.test(ev) ? '<a href="' + esc(ev) + '" target="_blank" rel="noopener noreferrer">' + esc(ev) + '</a>' : '<a href="../' + esc(ev) + '"><bdi class="ltr">' + esc(ev) + '</bdi></a>'; });
+      h2 += '<li><span class="item__id">' + idLink(row.id) + '</span><div class="task__line"><span class="task__title">' + md(t.title) + '</span>' + statusText(st, lbl, D.TASK_STATES[st === 'not_started' ? 'waiting' : st].tone, TASK_GLYPH[st]) + gates + '</div>' +
+        ((row.summary || refs.length) ? '<p class="task__done">' + (row.summary ? '<strong>ما أُنجز:</strong> ' + md(row.summary) : '') + (refs.length ? (row.summary ? ' · ' : '') + '<strong>الدليل:</strong> ' + refs.join('، ') : '') + '</p>' : '') + '</li>';
+    });
+    h2 += '</ul>';
+    if (v.key !== 'merged') h2 += '<p class="stage__resume"><strong>نقطة الاستئناف:</strong> ' + md(h.resume) + '</p>';
+    h2 += '<div class="copybar">' + (v.key === 'merged' ? '<span class="muted">مدمجة؛ لا أمر لها.</span>' : copyBtn(v.startCmd, 'نسخ الأمر: ' + v.startCmd, v.canStart && waveOpen) + copyBtn(stagePrompt(v, W), 'نسخ البرومبت الكامل')) + '<span class="copy-msg" aria-live="polite"></span><span class="muted" style="font-size:.82rem">تلصقه في جلسة جديدة بخيار worktree وبالمودل ' + esc(h.model) + '؛ الأزرار للنسخ فقط.</span></div>';
+    h2 += '<details class="stage__details"><summary>التفاصيل: النطاق والمهام والفحوص والسجل</summary><div>' +
+      ['النطاق', 'المهام', 'الاعتماديات', 'معايير القبول', 'الفحوص', 'المخاطر'].map(function (k) { return s.sections && s.sections[k] ? '<h3>' + esc(k) + '</h3>' + mdBlock(s.sections[k]) : ''; }).join('') +
+      (s.log && s.log.length ? '<h3>سجل التنفيذ</h3><ul class="plain-list">' + s.log.map(function (l) { return '<li><span class="muted">' + esc(l.date) + '</span> ' + md(l.text) + (l.evidence && l.evidence !== '—' ? ' <span class="muted">(' + md(l.evidence) + ')</span>' : '') + '</li>'; }).join('') + '</ul>' : '') +
+      '<h3>اختبارات مهام المرحلة</h3><ul class="plain-list">' + (h.tasks || []).map(function (id) { return (ix.tasks[id] ? ix.tasks[id].tests : []).map(function (tid) { var ts = D.testState(plan, projectStatus, ix.tests[tid]); return '<li>' + idLink(tid) + ' ' + chip(ts.label, ts.tone) + ' <span class="muted">(' + esc(id) + ')</span></li>'; }).join(''); }).join('') + '</ul>' +
+      '<div class="files">' + fileLink('Docs/MJ/stages/' + h.id + '.md', 'ملف المرحلة') + '</div></div></details></section>';
+    return h2;
   }
   function renderWave() {
-    var W = D.programView(plan, projectStatus);
-    if (!W) return { html: '<p class="empty">لا قسم للموجات في <code dir="ltr">data/status.json</code> بعد.</p>', count: null };
-    var pr = W.program; var cur = W.current;
-    var h = '<div class="section__head"><h1>الموجات والمراحل</h1><p>' + md(pr.scope) + '</p></div>';
+    var MJ = DATA.mj;
+    var V = D.mjView(plan, projectStatus, MJ);
+    if (!V) return { html: '<p class="empty">لا بيانات موجات؛ شغّل <code dir="ltr">node tools/build.mjs --sync</code>.</p>', count: null };
+    var W = MJ.waves, cur = V.current;
+    var h = '<div class="section__head"><h1>الموجات والمراحل</h1><p>كل مرحلة جلسة مستقلة تفتحها أنت في worktree وتلصق أمرها؛ وكل موجة تُغلق بجلسة دمج في النسخة الرئيسية. ' + V.waves.length + ' موجات و' + V.stageCount + ' مرحلة و' + V.counts.total + ' مهمة.</p></div>';
     h += '<section class="card hero"><div class="wave-hero__grid">' +
-      '<div><p class="wave-hero__label">المرحلة الحالية</p><p class="wave-hero__value">' + (cur ? 'المرحلة ' + cur.stage.num + ': ' + esc(cur.stage.title) : 'اكتملت كل الموجات') + '</p>' + (cur ? '<p class="muted" style="margin:0 0 6px">في الموجة ' + cur.wave.num + ': ' + esc(cur.wave.title) + '</p>' + statusText(cur.state.key, cur.state.label, cur.state.tone) : statusText('merged', 'مدمجة ومتحقق منها', 'ok')) + '</div>' +
-      '<div><p class="wave-hero__label">الخطوة التالية</p><p class="wave-hero__next">' + md(W.next.text) + '</p>' + (W.next.cmd ? '<div class="task__line">' + copyBtn(W.next.cmd, 'نسخ الأمر: ' + W.next.cmd) + '<span class="copy-msg" aria-live="polite"></span></div>' : '') + '</div>' +
-      '<div><p class="wave-hero__label">التقدم</p><p class="wave-hero__value">' + W.counts.merged + ' من ' + W.counts.total + '</p><p class="muted" style="margin:0">مهمة مدمجة ومتحقق منها في <bdi class="ltr">main</bdi>' + (W.counts.implemented ? '؛ و' + W.counts.implemented + ' منفّذة على فرع تنتظر الدمج' : '') + (W.counts.active ? '؛ و' + W.counts.active + ' جارية أو متوقفة' : '') + '. ' + W.waves.length + ' موجات و' + W.stages.length + ' مراحل.</p></div></div>' +
-      '<p class="wave-hero__foot"><span>آخر تحديث للحالة: <bdi class="ltr">' + esc(pr.updatedAt) + '</bdi></span><span>المصدر: <bdi class="ltr">data/status.json</bdi> عبر <bdi class="ltr">tools/build.mjs</bdi>؛ يكفي تحديث الصفحة لرؤية آخر تقدم.</span>' + (countKeys(saved) ? '<span style="color:var(--warn)">هذا التبويب يعرض حالة الملف فقط ويتجاهل التعديلات المحلية.</span>' : '') + '</p></section>';
-    W.waves.forEach(function (w) {
-      h += '<details class="wavebox' + (w.isCurrent ? ' is-current' : '') + '"' + (w.isCurrent ? ' open' : '') + '><summary class="wavebox__sum"><span class="wavebox__num" aria-hidden="true">' + w.wave.num + '</span><span class="wavebox__title">الموجة ' + w.wave.num + ': ' + esc(w.wave.title) + '</span><span class="wavebox__meta">' + statusText(w.state.key, w.state.label, w.state.tone) + plainChip(w.stages.length === 1 ? 'مرحلة واحدة' : w.stages.length + ' مراحل') + plainChip(w.counts.merged + ' من ' + w.counts.total + ' مهام مدمجة') + (w.isCurrent ? chip('الموجة الحالية', 'ready') : '') + '</span></summary>' +
-        '<div class="wavebox__body"><p class="muted">' + md(w.wave.scope) + '</p>' + w.stages.map(function (x) { return stageCard(x, !!(cur && cur.stage.id === x.stage.id)); }).join('') + '</div></details>';
+      '<div><p class="wave-hero__label">الموجة الحالية</p><p class="wave-hero__value">' + (cur ? 'الموجة ' + esc(cur.wave.id) + ': ' + esc(cur.wave.title) : 'اكتملت كل الموجات') + '</p>' + (cur ? statusText(cur.key, cur.label, cur.tone, '') + (cur.open ? '<p class="muted" style="margin:6px 0 0">مفتوحة على الوسم <bdi class="ltr">mj-' + esc(cur.wave.id) + '/base</bdi>' + (cur.baseCommit ? ' @' + esc(cur.baseCommit) : '') + '</p>' : '') : statusText('merged', 'مدمجة ومتحقق منها', 'ok', '✓')) + '</div>' +
+      '<div><p class="wave-hero__label">الخطوة التالية</p><p class="wave-hero__next">' + md(V.next.text) + '</p>' + (V.next.cmd ? '<div class="task__line">' + copyBtn(V.next.cmd, 'نسخ الأمر: ' + V.next.cmd, true) + '<span class="copy-msg" aria-live="polite"></span></div>' : '') + '</div>' +
+      '<div><p class="wave-hero__label">التقدم</p><p class="wave-hero__value">' + V.counts.merged + ' من ' + V.counts.total + '</p><p class="muted" style="margin:0">مهمة مدمجة ومتحقق منها في <bdi class="ltr">main</bdi>' + (V.counts.implemented ? '؛ و' + V.counts.implemented + ' منفّذة على فرع تنتظر الدمج' : '') + (V.counts.active ? '؛ و' + V.counts.active + ' جارية أو متوقفة' : '') + '.</p></div></div>' +
+      '<p class="wave-hero__foot"><span>آخر مزامنة: <bdi class="ltr">' + esc(MJ.generatedAt) + '</bdi>' + (MJ.repo ? ' من ' + (MJ.repo.isMain ? 'النسخة الرئيسية' : 'worktree على <bdi class="ltr">' + esc(MJ.repo.branch) + '</bdi>') : '') + '</span><span>المصدر: ملفات <bdi class="ltr">Docs/MJ/stages/</bdi> عبر الفروع المحلية بـ<bdi class="ltr">node tools/build.mjs --sync</bdi>؛ يكفي تحديث الصفحة.</span></p></section>';
+    V.waves.forEach(function (wv) {
+      var w = wv.wave;
+      h += '<details class="wavebox' + (wv.isCurrent ? ' is-current' : '') + '"' + (wv.isCurrent ? ' open' : '') + '><summary class="wavebox__sum"><span class="wavebox__num" aria-hidden="true">' + esc(w.id) + '</span><span class="wavebox__title">الموجة ' + esc(w.id) + ': ' + esc(w.title) + '<span class="wavebox__sub">' + wv.stages.map(function (v) { return v.stage.id; }).join(' · ') + '</span></span><span class="wavebox__meta">' + statusText(wv.key, wv.label, wv.tone, '') + plainChip(wv.stages.length === 1 ? 'منفردة' : wv.stages.length + ' معًا') + plainChip(wv.counts.merged + ' من ' + wv.counts.total + ' مهام مدمجة') + (wv.isCurrent ? chip('الموجة الحالية', 'ready') : '') + '</span></summary>' +
+        '<div class="wavebox__body"><p class="muted">' + md(w.why_together) + '</p>' +
+        '<div class="copybar copybar--wave">' + (wv.key === 'merged' ? '<span class="muted">مدمجة ومتحقق منها.</span>' : copyBtn(wv.mergeCmd, 'نسخ أمر الدمج: ' + wv.mergeCmd, wv.key === 'ready') + copyBtn(mergePrompt(wv), 'نسخ برومبت الدمج الكامل')) + '<span class="copy-msg" aria-live="polite"></span>' +
+        '<span class="muted" style="font-size:.82rem">جلسة في النسخة الرئيسية بلا worktree بمودل ' + esc(w.merge_model) + '. الترتيب: ' + wv.stages.map(function (v) { return v.stage.id; }).join(' ثم ') + '.' + (wv.mergeBlockers.length ? ' <strong>ما يمنع الدمج:</strong> ' + wv.mergeBlockers.map(md).join('؛ ') + '.' : '') + '</span></div>' +
+        wv.stages.map(function (v) { return stageCard(v, W, wv.open); }).join('') + '</div></details>';
     });
-    var mo = pr.models;
     h += '<details class="card stage__details wave-models" style="margin-top:20px"><summary>المودلات وطريقة العمل</summary><div>' +
-      '<h3>توزيع المودلات</h3><p class="muted" style="margin:0 0 6px">تحقق التوفر: ' + idLink(mo.verifiedBy) + ' بتاريخ ' + esc(mo.verifiedOn) + '. ' + md(mo.rule) + '</p>' +
-      '<table class="tbl"><thead><tr><th>الدور</th><th>المودل</th><th>السبب</th></tr></thead><tbody>' +
-      '<tr><td data-label="الدور">افتراضي كل الموجات</td><td data-label="المودل">' + esc(mo.default.name) + '</td><td data-label="السبب">' + md(mo.default.why) + '</td></tr>' +
-      '<tr><td data-label="الدور">الإدارة والدمج والحالة</td><td data-label="المودل">' + esc(mo.orchestrator.name) + '</td><td data-label="السبب">' + md(mo.orchestrator.why) + '</td></tr>' +
-      '<tr><td data-label="الدور">مراجعة المرحلة</td><td data-label="المودل">' + esc(mo.review.name) + '</td><td data-label="السبب">' + md(mo.review.why) + '</td></tr>' +
-      Object.keys(mo.exceptions).map(function (id) { var m = mo.exceptions[id]; return '<tr><td data-label="الدور">استثناء: ' + idLink(id) + '</td><td data-label="المودل">' + esc(m.name) + '</td><td data-label="السبب">' + md(m.why) + '</td></tr>'; }).join('') + '</tbody></table>' +
-      '<h3>طريقة العمل</h3>' + list(pr.flow) +
-      '<div class="files">' + fileLink('STATUS.md', 'STATUS.md') + fileLink('ROADMAP.md', 'ROADMAP.md') + fileLink('DECISIONS.md', 'DECISIONS.md') + '</div></div></details>';
+      '<h3>المودلات</h3><p style="margin:0 0 6px">' + md(W.model_rule) + '</p>' +
+      '<table class="tbl"><thead><tr><th>المرحلة أو الموجة</th><th>المودل</th><th>السبب</th></tr></thead><tbody>' +
+      '<tr><td data-label="المرحلة أو الموجة">افتراضي المراحل والدمج</td><td data-label="المودل">' + esc(W.default_model) + '</td><td data-label="السبب">مهام محددة المواصفات بمعايير قبول واضحة.</td></tr>' +
+      MJ.stages.filter(function (s) { return s.header.model !== W.default_model; }).map(function (s) { return '<tr><td data-label="المرحلة أو الموجة"><bdi class="ltr">' + esc(s.header.id) + '</bdi> ' + esc(s.header.title) + '</td><td data-label="المودل">' + esc(s.header.model) + '</td><td data-label="السبب">' + md(s.header.why_model) + '</td></tr>'; }).join('') +
+      W.waves.filter(function (w) { return w.merge_model !== W.default_merge_model; }).map(function (w) { return '<tr><td data-label="المرحلة أو الموجة">دمج الموجة ' + esc(w.id) + '</td><td data-label="المودل">' + esc(w.merge_model) + '</td><td data-label="السبب">' + md(w.why_merge_model || '') + '</td></tr>'; }).join('') + '</tbody></table>' +
+      '<h3>طريقة العمل</h3>' + list(['تفتح جلسة مستقلة بخيار worktree لكل مرحلة قابلة للبدء، تختار مودلها، وتلصق أمرها القصير `/mj MJn` أو البرومبت الكامل. المراحل المستقلة في الموجة تعمل بالتوازي.', 'جلسة المرحلة تتحقق من الفرع والأساس والاعتماديات، وتنفّذ وتفحص بنفسها، وتحدّث ملف مرحلتها وتزامن اللوحة، وتسلّم «جاهزة للدمج» بمرجع الالتزام وتتوقف.', 'بعد اكتمال التسليمات تفتح جلسة في النسخة الرئيسية وتلصق `/mj-merge X`: تكتشف الفروع وتدمجها بالترتيب على فرع تكامل وتفحص الشجرة المجمّعة وتنقلها إلى main وتفتح الموجة التالية بوسمها.', 'لا تبدأ مرحلة ولا تُدمج موجة إلا بأمرك؛ ولا رفع ولا نشر. القواعد كاملة في `Docs/MJ/README.md`.']) +
+      '<div class="files">' + fileLink('Docs/MJ/README.md', 'Docs/MJ/README.md') + fileLink('STATUS.md', 'STATUS.md') + fileLink('DECISIONS.md', 'DECISIONS.md') + '</div></div></details>';
     return { html: h, count: null };
   }
   function copyText(text, msgEl) {
@@ -500,37 +504,10 @@
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fallback); else fallback();
   }
 
-  // ---------- اللافتات وشريط الحفظ ----------
-  function renderChrome() {
-    var n = countKeys(saved);
-    var banner = document.getElementById('localBanner');
-    if (n) {
-      banner.hidden = false;
-      banner.innerHTML = '<p><strong>تعرض الصفحة ' + n + ' تعديلًا محليًا</strong> محفوظًا في هذا المتصفح ويختلف عن <bdi class="ltr">data/status.json</bdi>. لا تتغير ملفات المشروع حتى تصدّر الملف وتستبدله وتشغّل أداة التوليد.</p>' +
-        '<button type="button" class="btn btn--sm btn--primary" data-act="export">تصدير status.json</button><button type="button" class="btn btn--sm btn--ghost" data-act="dialog">كيف أطبّقها؟</button>';
-    } else if (!storageOk) {
-      banner.hidden = false;
-      banner.className = 'banner banner--info';
-      banner.innerHTML = '<p>التخزين المحلي غير متاح في هذا المتصفح، فلن تبقى تعديلات الحالة بعد إغلاق الصفحة. يبقى التصدير متاحًا.</p>';
-    } else banner.hidden = true;
-    var d = countKeys(draft);
-    var bar = document.getElementById('savebar');
-    bar.hidden = !d;
-    var invalid = draftInvalid();
-    document.getElementById('savebarText').innerHTML = d ? '<strong>' + d + ' تعديل غير محفوظ.</strong> الحفظ يبقيه في هذا المتصفح فقط ولا يغيّر ملفات المشروع.' + (invalid ? ' <span style="color:var(--bad)">أكمل الدليل أو الملاحظة المطلوبة قبل الحفظ.</span>' : '') : '';
-    document.getElementById('saveDraft').disabled = invalid;
-    document.getElementById('dialogState').textContent = 'التعديلات المحلية المحفوظة الآن: ' + n + '.' + (storageOk ? '' : ' (التخزين المحلي غير متاح)');
-  }
-  function draftInvalid() {
-    var st = effectiveStatus();
-    return Object.keys(draft.tasks).some(function (id) { var s = st.tasks[id]; return (s.status === 'done' && !(s.evidence || []).length) || (s.status === 'blocked' && !s.note); }) ||
-      Object.keys(draft.tests).some(function (id) { var s = st.tests[id]; return (s.status === 'passed' || s.status === 'failed') && !(s.evidence || []).length; });
-  }
-
   // ---------- العرض والتوجيه ----------
   function render(keepScroll) {
     var y = window.scrollY;
-    var st = effectiveStatus();
+    var st = projectStatus;
     var filt = FILTERABLE[ui.view];
     document.getElementById('filters').hidden = !filt;
     ['phase', 'module', 'status'].forEach(function (k) { document.querySelector('[data-filter="' + k + '"]').hidden = filt !== true; });
@@ -538,7 +515,6 @@
     main.innerHTML = r.html;
     countEl.textContent = r.count ? 'النتائج: ' + r.count : '';
     document.querySelectorAll('#tabs a').forEach(function (a) { if (a.getAttribute('data-view') === ui.view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    renderChrome();
     if (keepScroll) window.scrollTo(0, y);
   }
 
@@ -584,39 +560,6 @@
     // يعيد رسم الصفحة مع الحفاظ على الموضع؛ أبسط من إعادة بناء جسم عنصر واحد بمعزل عن سياقه.
     render(true);
   }
-  main.addEventListener('change', onEdit);
-  main.addEventListener('input', function (e) { if (e.target.matches('input[data-edit]')) onEdit(e, true); });
-  function onEdit(e, typing) {
-    var el = e.target;
-    if (!el.matches('[data-edit]')) return;
-    var box = el.closest('.edit');
-    var kind = box.getAttribute('data-kind');
-    var id = box.getAttribute('data-id');
-    var base = clone(projectStatus[kind][id]);
-    if (saved[kind][id]) base = Object.assign(base, saved[kind][id]);
-    var cur = Object.assign({}, base, draft[kind][id] || {});
-    var field = el.getAttribute('data-edit');
-    if (field === 'status') cur.status = el.value;
-    if (field === 'evidence') cur.evidence = el.value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-    if (field === 'note') cur.note = el.value;
-    if (JSON.stringify(cur) === JSON.stringify(base)) delete draft[kind][id]; else draft[kind][id] = cur;
-    if (typing) { renderChrome(); return; }
-    render(true);
-  }
-  document.getElementById('saveDraft').addEventListener('click', function () {
-    if (draftInvalid()) return;
-    ['tasks', 'tests'].forEach(function (k) {
-      Object.keys(draft[k]).forEach(function (id) {
-        var merged = draft[k][id];
-        if (JSON.stringify(merged) === JSON.stringify(projectStatus[k][id])) delete saved[k][id]; else saved[k][id] = merged;
-      });
-    });
-    draft = emptyOverrides();
-    lsSet(LS_OVERRIDES, JSON.stringify(saved));
-    render(true);
-  });
-  document.getElementById('discardDraft').addEventListener('click', function () { draft = emptyOverrides(); render(true); });
-
   function setFilter() { ui.q = qEl.value.trim(); ui.phase = fPhase.value; ui.module = fModule.value; ui.status = fStatus.value; render(false); }
   var qTimer;
   qEl.addEventListener('input', function () { clearTimeout(qTimer); qTimer = setTimeout(setFilter, 120); });
@@ -635,76 +578,6 @@
   }
   themeBtn.addEventListener('click', function () { applyTheme({ auto: 'light', light: 'dark', dark: 'auto' }[currentTheme()]); });
   applyTheme(currentTheme());
-
-  // ---------- التصدير والاستيراد ----------
-  var dialog = document.getElementById('statusDialog');
-  var importMsg = document.getElementById('importMsg');
-  function openDialog() { importMsg.textContent = ''; importMsg.className = 'msg'; renderChrome(); if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', ''); }
-  document.getElementById('statusPanelBtn').addEventListener('click', openDialog);
-  document.getElementById('localBanner').addEventListener('click', function (e) {
-    var a = e.target.closest('[data-act]');
-    if (!a) return;
-    if (a.getAttribute('data-act') === 'export') exportStatus(); else openDialog();
-  });
-  function exportStatus() {
-    var s = clone(projectStatus);
-    ['tasks', 'tests'].forEach(function (k) { Object.keys(saved[k]).forEach(function (id) { s[k][id] = saved[k][id]; }); });
-    if (countKeys(saved)) s.asOf = today();
-    var blob = new Blob([JSON.stringify(s, null, 2) + '\n'], { type: 'application/json' });
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'status.json';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
-    importMsg.className = 'msg is-ok';
-    importMsg.textContent = 'صُدِّر status.json بتعديلاتك المحفوظة (' + countKeys(saved) + '). ضعه مكان data/status.json ثم شغّل أداة التوليد.';
-  }
-  document.getElementById('exportBtn').addEventListener('click', exportStatus);
-  document.getElementById('clearLocalBtn').addEventListener('click', function () {
-    if (!countKeys(saved) && !countKeys(draft)) { importMsg.className = 'msg'; importMsg.textContent = 'لا توجد تعديلات محلية.'; return; }
-    if (!window.confirm('حذف كل التعديلات المحلية والعودة إلى حالات data/status.json؟')) return;
-    saved = emptyOverrides(); draft = emptyOverrides(); lsDel(LS_OVERRIDES);
-    importMsg.className = 'msg is-ok'; importMsg.textContent = 'حُذفت التعديلات المحلية.';
-    render(true);
-  });
-  document.getElementById('importInput').addEventListener('change', function (e) {
-    var file = e.target.files && e.target.files[0];
-    if (!file) return;
-    var reader = new FileReader();
-    reader.onload = function () {
-      var errs = [];
-      var s;
-      try { s = JSON.parse(String(reader.result)); } catch (err) { errs.push('الملف ليس JSON صالحًا.'); }
-      if (s && (!s.tasks || !s.tests)) errs.push('الملف لا يحوي tasks وtests.');
-      var next = emptyOverrides();
-      if (!errs.length) {
-        [['tasks', D.STORED_TASK, ix.tasks], ['tests', D.STORED_TEST, ix.tests]].forEach(function (k) {
-          Object.keys(s[k[0]]).forEach(function (id) {
-            var v = s[k[0]][id];
-            if (!k[2][id]) { errs.push('معرّف غير معروف: ' + id); return; }
-            if (!v || k[1].indexOf(v.status) < 0) { errs.push('حالة غير صالحة لـ ' + id); return; }
-            if (!Array.isArray(v.evidence)) { errs.push('الدليل ليس قائمة في ' + id); return; }
-            if ((v.status === 'done' || v.status === 'passed' || v.status === 'failed') && !v.evidence.length) { errs.push(id + ': حالة بلا دليل'); return; }
-            var item = { status: v.status, evidence: v.evidence, note: v.note || '' };
-            ['branch', 'commit', 'summary'].forEach(function (f) { if (v[f]) item[f] = v[f]; });
-            if (JSON.stringify(item) !== JSON.stringify(projectStatus[k[0]][id])) next[k[0]][id] = item;
-          });
-        });
-      }
-      if (errs.length) {
-        importMsg.className = 'msg is-error';
-        importMsg.textContent = 'لم يُستورد شيء: ' + errs.slice(0, 5).join('؛ ') + (errs.length > 5 ? '…' : '');
-      } else {
-        saved = next; draft = emptyOverrides(); lsSet(LS_OVERRIDES, JSON.stringify(saved));
-        importMsg.className = 'msg is-ok';
-        importMsg.textContent = 'استُورد الملف: ' + countKeys(saved) + ' حالة تختلف عن data/status.json وصارت تعديلات محلية في هذا المتصفح.';
-        render(true);
-      }
-      e.target.value = '';
-    };
-    reader.readAsText(file);
-  });
 
   fillStatus();
   route();

@@ -10,3 +10,9 @@ coverage/
 # ملفات محلية
 .env
 .env.*
+
+# مولَّد بـ node tools/build.mjs --sync من أي مجلد؛ غير متتبَّع حتى تعرض الصفحة تقدم الفروع
+dashboard/data.js
+
+# worktrees الجلسات إن أُنشئت داخل المجلد
+.claude/worktrees/
