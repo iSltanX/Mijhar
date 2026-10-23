@@ -9,6 +9,7 @@ import { fetchLabelCounts } from '../../../src/modules/h/first-contribution';
 import { githubApiAccess } from '../../../src/modules/h';
 import { scanDocsFolder } from '../../../src/modules/h/readme-detector';
 import { fakePermissions } from '../../core/ui-host/helpers';
+import { TOKEN_PATTERN, fakeToken, tokenSystem } from '../d/token/helpers';
 
 const T0 = Date.UTC(2026, 9, 24, 9, 0, 0);
 
@@ -192,5 +193,28 @@ describe('لا رمز ولا ترويسة تعبر إلى الصفحة', () => {
     expect(Object.keys(headers).map((k) => k.toLowerCase())).not.toContain('authorization');
     expect(JSON.stringify(s.calls[0])).not.toContain('secret');
     expect(s.calls[0]?.init.credentials).toBe('omit');
+  });
+});
+
+// MJ15 (T-5.5، AD-24): رمز حقيقي الشكل محفوظ في الخلفية. الوحدة (ح) في اللوحة والوحدة (د) في الصفحة تقرآن بالطبقة نفسها، فتصل ترويسته
+// إلى api.github.com من الخلفية وحدها، ولا يظهر الرمز في أي رسالة أو ردّ أو سجل (وDOM الصفحة في tests/modules/d/token/background-token.test.tsx).
+describe('رمز في الخلفية: لا يظهر في رسالة ولا ردّ ولا سجل', () => {
+  it('اللوحة والصفحة تقرآن بالرمز عبر الخلفية، والرمز صفر ظهور خارجها', async () => {
+    const logs: string[] = [];
+    for (const level of ['log', 'info', 'warn', 'error', 'debug'] as const) vi.spyOn(console, level).mockImplementation((...args: unknown[]) => void logs.push(args.map(String).join(' ')));
+    const token = fakeToken('H');
+    const s = await tokenSystem((call) => (call.url.includes('/search/') ? { status: 200, body: { total_count: 3 }, headers: rate(29, 'search') } : { status: 200, body: DOCS, headers: { ...rate(4990), 'github-authentication-token-expiration': '2026-10-30 14:25:10 UTC' } }));
+    await s.store.save(token, 'session');
+    const panel = githubApiAccess({ runtime: s.runtime, permissions: s.permissions } as unknown as ExtensionApi);
+    expect(await scanDocsFolder(panel, 'octo', 'community')).toMatchObject({ state: 'found' });
+    expect((await fetchLabelCounts(panel, 'octo', 'community')).map((c) => c.count)).toEqual([3, 3, 3]);
+    await s.port.get('/repos/octo/community/pulls/4');
+    await s.port.status();
+    expect(s.calls.length).toBeGreaterThan(0);
+    for (const call of s.calls) expect(new Headers(call.init.headers).get('authorization')).toBe(`Bearer ${token}`);
+    const outside = JSON.stringify([s.sent, s.replies]) + logs.join('\n');
+    expect(outside).not.toMatch(TOKEN_PATTERN);
+    expect(outside.toLowerCase()).not.toContain('bearer');
+    vi.restoreAllMocks();
   });
 });
