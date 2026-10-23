@@ -13,8 +13,8 @@ export const COMPOSER_SELECTORS: readonly SelectorEntry[] = [
   },
   {
     key: COMPOSER_SELECTOR_KEYS.field,
-    description: 'حقل كتابة نصي بلا شريط أدوات (احتياطي إن تغيّر المحرر): textarea التعليق أو الوصف',
-    candidates: ['textarea[aria-label="Markdown value"]', 'textarea[name="issue[body]"]', 'textarea[name="pull_request[body]"]', 'textarea[name="comment[body]"]', 'textarea.js-comment-field'],
+    description: 'حقل كتابة نصي بلا شريط أدوات (احتياطي إن تغيّر المحرر): textarea التعليق أو الوصف، أو حقل في نموذج Issue Form (T-7.2)',
+    candidates: ['textarea[aria-label="Markdown value"]', 'textarea[name="issue[body]"]', 'textarea[name="pull_request[body]"]', 'textarea[name="comment[body]"]', 'textarea.js-comment-field', 'textarea[name^="issue_form["]'],
   },
 ];
 

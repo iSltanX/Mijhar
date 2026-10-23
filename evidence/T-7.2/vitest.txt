@@ -1,0 +1,109 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj13-509a66
+
+ ✓ tests/modules/f/composer/template.test.ts > compose: الأقسام الخمسة > كل حقل غير فارغ قسم بعنوان من المستوى الثاني بالترتيب الثابت، وفراغ واحد بين الأقسام، وسطر أخير 1ms
+ ✓ tests/modules/f/composer/template.test.ts > compose: الأقسام الخمسة > حقل فارغ أو مسافات فقط لا يُدرج قسمه، وكله فارغ يعطي نصًا فارغًا 0ms
+ ✓ tests/modules/f/composer/template.test.ts > compose: الأقسام الخمسة > لا تُغيَّر كلمات المستخدم: كل سطر كتبه يظهر في النتيجة حرفيًا (عدا علامة القائمة التي استُبدلت) 0ms
+ ✓ tests/modules/f/composer/template.test.ts > compose: الأقسام الخمسة > حتمي: المدخل نفسه يعطي المخرج نفسه، وإعادة التركيب من مخرج سابق لا تتكاثر عناوينه 0ms
+ ✓ tests/modules/f/composer/template.test.ts > compose: الأقسام الخمسة > نهايات الأسطر CRLF توحَّد، والفراغ الطرفي يُقص ولا يُمس الداخلي 0ms
+ ✓ tests/modules/f/composer/template.test.ts > اللغة والنوع > اللغة التلقائية: العربية إن غلبت حروفها وإلا الإنجليزية، ويمكن فرضها 0ms
+ ✓ tests/modules/f/composer/template.test.ts > اللغة والنوع > طلب الدمج بعناوينه (المتوقع بعد التغيير، وما كان يحدث قبله، وكيفية التحقق) بالعربية والإنجليزية 0ms
+ ✓ tests/modules/f/composer/template.test.ts > التنسيق الجزئي > numbered: خطوة في كل سطر مرقّمة من 1، وعلامات المستخدم (1. و2) و- و* و+ و•) تُستبدل لا تتكرر، وسطر المسافات يُسقط 0ms
+ ✓ tests/modules/f/composer/template.test.ts > التنسيق الجزئي > bulleted: بند في كل سطر، وروابط وصور Markdown كما هي 0ms
+ ✓ tests/modules/f/composer/template.test.ts > التنسيق الجزئي > paragraph: الأسطر الداخلية تبقى كما كتبها المستخدم 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > تحليل القالب > الترويسات وقوائم التحقق، مع تجاهل ما داخل أسوار الكود 1ms
+ ✓ tests/modules/f/template/markdown.test.ts > تحليل القالب > فهرس بدء محتوى كل ترويسة بعد سطرها (وبعد نهاية المسودة إن كانت آخر سطر) 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > تحليل القالب > القالب المعروف: ترويستان فأكثر أو ترويسة وقائمة تحقق؛ ترويسة واحدة كتبها المستخدم ليست قالبًا 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Steps to reproduce» ← steps 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «How to test» ← steps 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Expected behavior» ← expected 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Actual behavior» ← actual 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Describe the bug» ← actual 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Description» ← actual 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Environment» ← environment 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Version» ← environment 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Screenshots» ← evidence 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Additional context» ← evidence 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «خطوات إعادة الإنتاج» ← steps 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «السلوك المتوقع» ← expected 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «البيئة» ← environment 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «الأدلة» ← evidence 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «Checklist» ← null 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «License» ← null 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > «» ← null 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > ربط الحقول بالعناوين > عنوان واحد لحقل واحد ولا يُستعمل عنوان لحقلين 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > خطة الملء: القالب باقٍ كما هو > تُدرج الحقول تحت عناوينها وتبقى كل أسطر القالب وقوائمه وتعليقاته بترتيبها 1ms
+ ✓ tests/modules/f/template/markdown.test.ts > خطة الملء: القالب باقٍ كما هو > حقل بلا عنوان مقابل يُلحق في آخر المسودة بعنوانه من المساعد ولا يُسقط 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > خطة الملء: القالب باقٍ كما هو > لا حقول مكتوبة ← لا إدراجات والناتج هو القالب نفسه 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > خطة الملء: القالب باقٍ كما هو > عنوان في آخر المسودة بلا سطر جديد بعده، ومحتوى المستخدم تحت العنوان يبقى بعد إدراجنا 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > خطة الملء: القالب باقٍ كما هو > المحاكاة نفسها قاعدة الفواصل في الإدراج الآمن: فراغ سطر قبل الكتلة وبعدها 0ms
+ ✓ tests/modules/f/template/markdown.test.ts > خطة الملء: القالب باقٍ كما هو > خاصية: لأي قيم حقول ولأي قالب، القالب الأصلي تتابع جزئي حرفي من الناتج والتطبيق مرتبًا يعطي الناتج المخطَّط 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > plan: الفواصل والموضع > حقل فارغ: بلا فاصل قبل، وسطر جديد بعد 3ms
+ ✓ tests/modules/f/composer/insert.test.ts > plan: الفواصل والموضع > وسط سطر: سطر فارغ قبل الكتلة وبعدها 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > plan: الفواصل والموضع > أول سطر جديد: بلا فاصل قبل، وسطر فارغ بعد النص الذي يليها 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > plan: الفواصل والموضع > الإلحاق دائمًا في النهاية بغض النظر عن المؤشر 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > plan: الفواصل والموضع > موضع خارج المدى أو null يُقيَّد إلى طرف النص 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > insertBlock: عند المؤشر > وسط المسودة: النص قبل المؤشر وبعده كما هما حرفيًا، والكتلة بينهما 31ms
+ ✓ tests/modules/f/composer/insert.test.ts > insertBlock: عند المؤشر > تحديد نص: يُطوى إلى طرفه الأخير فلا يُستبدل المحدد، ويبقى كل حرف من المسودة بترتيبه 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > insertBlock: عند المؤشر > حقل فارغ: الكتلة وسطر جديد، والمؤشر بعدها 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > insertBlock: عند المؤشر > نص فارغ أو مسافات فقط: لا مساس بالحقل ولا لقطة 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > insertBlock: الإلحاق > في نهاية مسودة غير فارغة: بعدها بسطر فارغ، والمسودة سليمة في أولها 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > insertBlock: الإلحاق > الإلحاق مرتين: الكتلتان معًا والمسودة في أولها لم تُمس 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > الإدراج كما لو كتبه المستخدم > يطلق حدث input واحدًا بنوع insertText وفقاعة، فيراه GitHub (React) وإكمال الصفحة 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > الإدراج كما لو كتبه المستخدم > مسار execCommand (إن توفر): يُستعمل أمر التحرير insertText ولا يُدرج النص مرتين 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > الإدراج كما لو كتبه المستخدم > لا يلمس النموذج: لا submit ولا نقر على زر الإرسال ولا حدث change 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > لقطة قبل الإدراج: التراجع يعيد المسودة والتحديد حرفيًا (عند المؤشر) 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > بعد الإلحاق: تعود المسودة حرفيًا 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > تعديل لاحق خارج الكتلة: تُزال الكتلة وحدها وتبقى التعديلات (removed) 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > تعديل لاحق قبل الكتلة يزيح موضعها: تُوجد بنصها وتُزال 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > تغيّر نص الكتلة نفسه: تعذّر ولا تُمس المسودة، ويُعاد نص المسودة السابقة لتُنسخ 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > المستخدم تراجع عنه بنفسه (Ctrl/⌘+Z الأصلي) قبل ضغط زر التراجع: تُعدّ المسودة مستعادة بلا حذف ولا تحذير 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > الحقل أُزيل من الصفحة: تعذّر مع نص المسودة السابقة 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > كتلة مطابقة كانت في المسودة قبل الإدراج لا تُحذف إن عُدّل المُدرج نفسه (modified، والمسودة كما هي حرفيًا) 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > كتلة مطابقة سابقة وتعديل بعد المُدرج: يُزال المُدرج وحده وتبقى السابقة 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > كتلة مطابقة لاحقة وتعديل قبل المُدرج: يُزال المُدرج وحده من موضعه المزاح وتبقى اللاحقة 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > تعديل قبل الكتلة وبعدها معًا: modified بلا حذف (تغيّر سلوك مقصود: كان removed) 0ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > التراجع يطلق input واحدًا بنوع deleteContentBackward (فيراه GitHub) 0ms
+ ✓ tests/modules/f/composer/module.test.tsx > الأزرار في حقول الكتابة > زر لكل حقل مدعوم: في شريط أدواته، أو قبله مباشرة إن غاب الشريط؛ ولا زر لـCodeMirror 81ms
+ ✓ tests/modules/f/template/guard.test.tsx > Issue Forms ذات الحقول الإلزامية: دليل جانبي لا بديل عن النموذج > أزرار المساعد على منطقتي النص في النموذج، وفتحه من «خطوات إعادة الإنتاج» يعرض وضع النموذج لا حقوله الخمسة 99ms
+ ✓ tests/modules/f/composer/module.test.tsx > الأزرار في حقول الكتابة > الأزرار أزرار أصلية باسم وصول وحالة فتح، وبلا أثر قبل الضغط: لا لوحة، والمسودات كما هي 42ms
+ ✓ tests/modules/f/template/guard.test.tsx > Issue Forms ذات الحقول الإلزامية: دليل جانبي لا بديل عن النموذج > الإدراج في الحقل المفتوح وحده بصيغته (خطوات مرقّمة بلا ترويسات)، وكل الحقول الأخرى والنموذج كما هي 87ms
+ ✓ tests/modules/f/composer/module.test.tsx > الأزرار في حقول الكتابة > حقل للقراءة فقط أو معطّل أو داخل CodeMirror بلا زر، وحقل يُضاف لاحقًا يأخذ زرًا 84ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة وتنظيم المتوقع والفعلي والخطوات والبيئة والأدلة (AC-F1) > فتح اللوحة: حوار غير مشروط باسم، في نهاية body، والتركيز على أول حقل، وزر المساعد مضغوط 73ms
+ ✓ tests/modules/f/template/guard.test.tsx > Issue Forms ذات الحقول الإلزامية: دليل جانبي لا بديل عن النموذج > التراجع يعيد الحقل حرفيًا، والحقل الآخر دليله بصيغته (المتوقع فقرة) 135ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة وتنظيم المتوقع والفعلي والخطوات والبيئة والأدلة (AC-F1) > خمسة حقول بتسميات وتلميحات، والنوع الافتراضي من الصفحة (بلاغ جديد ← Issue) 55ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة وتنظيم المتوقع والفعلي والخطوات والبيئة والأدلة (AC-F1) > طلب دمج (صفحة PR): النوع الافتراضي PR وتسميات الحقول بصيغته 51ms
+ ✓ tests/modules/f/template/guard.test.tsx > Issue Forms ذات الحقول الإلزامية: دليل جانبي لا بديل عن النموذج > قائمة التسميات الجانبية (مربعات اختيار في قائمة) ليست من حقول النموذج 52ms
+ ✓ tests/modules/f/template/guard.test.tsx > Issue Forms ذات الحقول الإلزامية: دليل جانبي لا بديل عن النموذج > عبارة من بنك العبارات تُدرج في الحقل المفتوح عبر المعاينة فقط 85ms
+ ✓ tests/modules/f/template/guard.test.tsx > قوالب Markdown: الترويسات وقوائم التحقق كما هي > يتعرف على القالب ويبيّن العنوان المقابل لكل حقل 56ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة وتنظيم المتوقع والفعلي والخطوات والبيئة والأدلة (AC-F1) > المعاينة الكاملة تتبع الكتابة حرفيًا (ما سيُدرج بالضبط)، وقبل الكتابة نص مساعد وأزرار الإدراج معطّلة 127ms
+ ✓ tests/modules/f/template/guard.test.tsx > قوالب Markdown: الترويسات وقوائم التحقق كما هي > «أدرج تحت عناوين القالب» يملأ تحت العناوين ويحفظ القالب حرفيًا، والمعاينة تطابق ما في الحقل 81ms
+ ✓ tests/modules/f/template/guard.test.tsx > قوالب Markdown: الترويسات وقوائم التحقق كما هي > التراجع عن الإدراج المتعدد يعيد القالب حرفيًا، وبعد تعديل المستخدم تبقى تعديلاته 102ms
+ ✓ tests/modules/f/template/guard.test.tsx > قوالب Markdown: الترويسات وقوائم التحقق كما هي > عبارة مختارة تحل محل التنظيم في المعاينة وتُدرج كتلةً واحدة، والقالب سليم 83ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة وتنظيم المتوقع والفعلي والخطوات والبيئة والأدلة (AC-F1) > التنظيم على العينات المرجعية: بلاغ جديد وطلب دمج وتعليق، دون نشر أو إرسال 202ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > عند المؤشر في تعليق بمسودة: ما قبل المؤشر وما بعده كما هما، ويظهر النص المعاين بالضبط، ولا إرسال 99ms
+ ✓ tests/modules/f/template/guard.test.tsx > هيكل غير معروف: معاينة ونسخ يدوي دون لمس حقول الصفحة > لا أزرار إدراج ولا تراجع، وزر النسخ وحده، ولا يُلمس أي حقل في الصفحة 77ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > المؤشر حيث تركه المستخدم في الحقل (لا عند فتح اللوحة): الحقل لا يفقد تحديده بنقر زر المساعد 41ms
+ ✓ tests/modules/f/template/guard.test.tsx > هيكل غير معروف: معاينة ونسخ يدوي دون لمس حقول الصفحة > العبارة المختارة هنا أيضًا للنسخ اليدوي وحده 84ms
+ ✓ tests/modules/f/template/guard.test.tsx > هيكل غير معروف: معاينة ونسخ يدوي دون لمس حقول الصفحة > تعذّر الحافظة: رسالة بالنسخ اليدوي من المعاينة ولا مساس بالصفحة 68ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > بالإلحاق في طلب دمج بمسودة: المسودة سليمة في أول الحقل والنص في آخره 95ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > حقل فارغ: يُدرج النص وحده (بلا فواصل زائدة في أوله) 95ms
+ ✓ tests/modules/f/template/guard.test.tsx > بلا قالب: سلوك T-7.1 كما هو > بلاغ عادي (وقوائم جانبية بمربعات اختيار) ← لا وضع قالب، والإدراج المعتاد 67ms
+ ✓ tests/modules/f/template/guard.test.tsx > بلا قالب: سلوك T-7.1 كما هو > مسودة بترويسة واحدة ليست قالبًا: الإلحاق المعتاد 51ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > التراجع عن آخر إدراج يعيد المسودة والتحديد حرفيًا من لقطة ما قبل الإدراج 102ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > تعديل لاحق ثم تراجع: يُزال المُدرج وحده ويبقى تعديلك 102ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > تعذّر التراجع (المُدرج نفسه تغيّر): تحذير ولا مساس بالحقل، ونسخ المسودة السابقة إلى الحافظة 152ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > لا نشر تلقائي في أي خطوة: فتح وكتابة وإدراج وإلحاق وتراجع وإغلاق، على كل النماذج 378ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > الإدراج لا يتعدى الحقل المفتوح: الحقول الأخرى لم تُمس 97ms
+ ✓ tests/modules/f/composer/module.test.tsx > الإدراج وحماية المسودة (AC-F4) > الحقل أُزيل من الصفحة أثناء فتح اللوحة: تُغلق (أو يُعلَن عند الإدراج) ولا استثناء 99ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة: لوحة المفاتيح والجلسة > Escape يغلق اللوحة ويعيد التركيز إلى زر المساعد، وزر الإغلاق كذلك 79ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة: لوحة المفاتيح والجلسة > ضغطة الزر مرة ثانية تغلق اللوحة، وفتح حقل آخر يستبدلها (لوحة واحدة دائمًا) 78ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة: لوحة المفاتيح والجلسة > ما كُتب في اللوحة يبقى لكل حقل ما دامت الصفحة مفتوحة، ولا يختلط بين الحقول 99ms
+ ✓ tests/modules/f/composer/module.test.tsx > اللوحة: لوحة المفاتيح والجلسة > الكتابة في اللوحة لا تبلغ اختصارات GitHub: حرف أو Enter لا يبلغ المستند، وCtrl/⌘ يمر 54ms
+ ✓ tests/modules/f/composer/module.test.tsx > إيقاف الوحدة > وهي مفتوحة وبعد إدراج: الصفحة حرفيًا كما كانت (لا مضيف ولا سمة) والمسودة بما أدرجه المستخدم 98ms
+
+ Test Files  5 passed (5)
+      Tests  100 passed (100)
+   Start at  01:44:13
+   Duration  2.90s (tests 74%, environment 16%, transform 6%, import 5%)
+
