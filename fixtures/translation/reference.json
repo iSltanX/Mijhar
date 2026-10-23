@@ -1,0 +1,42 @@
+{
+  "note": "المجموعة المرجعية لطبقة محركات الترجمة (MJ14، T-4.3، TEST-TR-04): نص Markdown خام يمر بالتقنيع الحقيقي (maskText) ثم بالمحرك ثم بالفاحص الرباعي وقاعدة الفشل الآمن (translateProtected)، فتُسجَّل نتيجة كل عنصر ومعدلات فشل الفاحص. الجمل العشرون والفقرات الخمس العادية منقولة حرفيًا من fixtures/spikes/t02-reference.json لتُقارن بقياس T-0.2، والفقرات التقنية الثماني كتبها منفّذ المرحلة على أنماط README والتعليق ووصف المشكلة وطلب الدمج.",
+  "sentences": [
+    "Run `npm install` before opening a pull request.",
+    "The config file lives in src/config/settings.json and is loaded at startup.",
+    "Upgrade to v2.4.1 to fix the memory leak reported in #1532.",
+    "Use the --dry-run flag to preview changes without writing files.",
+    "Thanks @octocat for reviewing the patch so quickly.",
+    "See https://docs.github.com/actions for the full list of events.",
+    "The `fetchUser()` function returns a promise that resolves with the user object.",
+    "Tests are failing on Node.js 22 because `structuredClone` is missing in the mock.",
+    "Edit README to document the new `--output` option and its default value.",
+    "GitHub Actions caches node_modules between runs using actions/cache@v4.",
+    "If `process.env.CI` is set, the script skips the interactive prompt.",
+    "Rename lib/utils/date.ts to lib/utils/time.ts and update all imports.",
+    "The release v3.0.0-beta.2 drops support for TypeScript 4.",
+    "Please rebase your branch on main and resolve the conflict in package.json.",
+    "Call `app.listen(3000)` after registering all routes.",
+    "Logs are written to /var/log/app/error.log when the level is `warn` or higher.",
+    "This change closes #88 and partially addresses #91.",
+    "Set `MAX_RETRIES` to 5 in .env.example to match production.",
+    "Run `git bisect` to find which commit introduced the regression.",
+    "The `--strict` mode rejects unknown keys in the YAML schema."
+  ],
+  "paragraphs": [
+    "This project is a minimal web framework for building APIs. It provides a thin layer of fundamental web application features, without obscuring the features that developers know and love.",
+    "Before submitting a pull request, make sure the tests pass locally and that your changes are covered by new or updated tests. Keep each pull request focused on a single change.",
+    "The library supports both browser and server environments. In the browser it uses the native fetch implementation, while on the server it falls back to the built-in HTTP module.",
+    "If you find a security vulnerability, please do not open a public issue. Instead, report it privately to the maintainers so that a fix can be prepared before disclosure.",
+    "Configuration is read from environment variables first, then from a local configuration file, and finally from the defaults. Later sources never override earlier ones."
+  ],
+  "technical": [
+    { "case": "readme", "text": "This extension helps Arabic readers understand GitHub pages. Install it with `npm install mijhar` and open the settings page from the toolbar. The build output goes to dist/chromium and dist/firefox." },
+    { "case": "readme", "text": "To run the tests locally, use `npm test`. The suite takes about two minutes on a laptop. If a test fails, check tests/setup/paths.ts first and make sure Node.js 22 is installed." },
+    { "case": "readme", "text": "See https://docs.github.com/actions for the full list of events. Workflows live in .github/workflows and run on every push to main." },
+    { "case": "issue", "text": "The side panel does not open when I press the shortcut in Firefox 158. Steps to reproduce: install v2.0.1, open any repository, and press the shortcut. Expected: the panel opens. Actual: nothing happens." },
+    { "case": "comment", "text": "Thanks @octocat, I can reproduce this on macOS. It looks related to #42 and probably to the change in src/core/ui-host/shadow.ts." },
+    { "case": "comment", "text": "LGTM. One small thing: rename `MAX_RETRIES` to `RETRY_LIMIT` so it matches .env.example, then I will merge it." },
+    { "case": "pr", "text": "This pull request replaces the old parser with a streaming one. It closes #88 and updates docs/parser.md. Please review the changes in `parseLine()` carefully before merging." },
+    { "case": "selection", "text": "Set `TARGET` to chromium or firefox before you run the build." }
+  ]
+}

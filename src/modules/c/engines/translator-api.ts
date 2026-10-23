@@ -2,8 +2,9 @@
 // (create() تحتاج نقرة المستخدم ما دامت حزمة اللغة 'downloadable'، ثم تعمل بلا تفاعل). المتصفح ينزّل حزمته ويديرها بنفسه، فلا شبكة من الإضافة هنا.
 //  - availability() تسأل المتصفح عن الزوج en→ar ولا تنشئ مترجمًا ولا تنزّل شيئًا؛ 'downloadable' و'downloading' و'available' جاهزة (التنزيل عند أول ضغط)،
 //    و'unavailable' (Edge في T-0.2) سبب صريح، وأي قيمة أخرى غير معروفة لا تُعدّ جاهزة.
-//  - المترجم يُنشأ عند أول ترجمة (وهي من فعل صريح) ويُعاد استعماله. NotSupportedError في أول create() متقطع في ملف تعريف جديد (Brave وChrome في T-0.2):
-//    يُعاد مرة بعد مهلة قصيرة ضمن مدة نشاط النقرة، ثم يُرمى خطأ يطلب الإعادة، ولا يُحفظ غيابًا: الضغط التالي يحاول من جديد.
+//  - المترجم يُنشأ عند أول ترجمة (وهي من فعل صريح) ويُعاد استعماله. NotSupportedError في أول create() متقطع في ملف تعريف جديد (Brave وChrome في T-0.2،
+//    وBrave على github.com في evidence/T-4.3): يُعاد أولًا بعد مهلة قصيرة ضمن مدة نشاط النقرة، ثم بمهل أطول ما دامت الحزمة 'available' (لا يلزمها نشاط
+//    نقرة)، ثم يُرمى خطأ يطلب الإعادة، ولا يُحفظ غيابًا: الضغط التالي يحاول من جديد.
 //  - الرموز تعبر بصيغة يحفظها المحرك (wire.ts) وتعود ⟦TYPE_N⟧ قبل الفاحص؛ الفحص الرباعي والفشل الآمن خارج المحرك كما في عقد الخدمة.
 import type { Availability, TranslateContext, TranslationService } from '../ui/service';
 import { ENGINE_MESSAGES } from './messages';
@@ -29,7 +30,8 @@ export interface TranslatorFactory {
 
 export const LANGUAGES: TranslatorLanguages = { sourceLanguage: 'en', targetLanguage: 'ar' };
 const READY: ReadonlySet<string> = new Set<TranslatorAvailability>(['downloadable', 'downloading', 'available']);
-const RETRY_DELAY_MS = 1000;
+/** مهل إعادة create() بعد NotSupportedError؛ الأولى داخل مدة نشاط النقرة، والباقي والحزمة 'available' وحدها. */
+const RETRY_DELAYS_MS: readonly number[] = [1000, 3000, 6000];
 
 /** الصنف Translator في هذا السياق إن وُجد بطريقتيه، وإلا null. */
 export function translatorFactoryOf(scope: object = globalThis): TranslatorFactory | null {
@@ -73,7 +75,7 @@ function abortable<T>(promise: Promise<T>, signal?: AbortSignal): Promise<T> {
 }
 
 export interface TranslatorApiOptions {
-  readonly retryDelayMs?: number;
+  readonly retryDelaysMs?: readonly number[];
 }
 
 export class TranslatorApiEngine implements TranslationService {
@@ -126,12 +128,15 @@ export class TranslatorApiEngine implements TranslationService {
   }
 
   private async create(): Promise<TranslatorInstance> {
-    try {
-      return await this.factory.create(LANGUAGES);
-    } catch (error) {
-      if (nameOf(error) !== 'NotSupportedError') throw error;
-      await new Promise((resolve) => setTimeout(resolve, this.options.retryDelayMs ?? RETRY_DELAY_MS));
-      return this.factory.create(LANGUAGES);
+    const delays = this.options.retryDelaysMs ?? RETRY_DELAYS_MS;
+    for (let attempt = 0; ; attempt += 1) {
+      try {
+        return await this.factory.create(LANGUAGES);
+      } catch (error) {
+        if (nameOf(error) !== 'NotSupportedError' || attempt >= delays.length) throw error;
+        if (attempt > 0 && (await this.status().catch(() => '')) !== 'available') throw error;
+        await new Promise((resolve) => setTimeout(resolve, delays[attempt]));
+      }
     }
   }
 }

@@ -107,9 +107,9 @@ describe('AC-C1 على محرك DEC-03 (Translator API، الحزمة downloadab
     noNetwork();
   });
 
-  it('خطأ المحرك (NotSupportedError مرتين) يُعلَن في الشريط ويمكن إعادة الضغط فينجح', async () => {
-    const fake = new FakeTranslatorApi({ createFailures: ['NotSupportedError', 'NotSupportedError'] });
-    await mountWith(new TranslatorApiEngine(fake.asGlobal(), { retryDelayMs: 0 }));
+  it('خطأ المحرك (NotSupportedError في كل المحاولات) يُعلَن في الشريط ويمكن إعادة الضغط فينجح', async () => {
+    const fake = new FakeTranslatorApi({ createFailures: ['NotSupportedError', 'NotSupportedError', 'NotSupportedError', 'NotSupportedError'] });
+    await mountWith(new TranslatorApiEngine(fake.asGlobal(), { retryDelaysMs: [0, 0, 0] }));
     const bar = barBefore(COMMENT1);
     await press(bar, 'translate', 60);
     expect(phase(bar)).toBe('error');

@@ -5,7 +5,7 @@ import { ENGINE_MESSAGES, EngineError, TranslatorApiEngine } from '../../../../s
 import { translateProtected } from '../../../../src/modules/c/masking';
 import { FakeTranslatorApi } from './fake-translator';
 
-const engineOf = (fake: FakeTranslatorApi): TranslatorApiEngine => new TranslatorApiEngine(fake.asGlobal(), { retryDelayMs: 0 });
+const engineOf = (fake: FakeTranslatorApi): TranslatorApiEngine => new TranslatorApiEngine(fake.asGlobal(), { retryDelaysMs: [0, 0, 0] });
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -57,16 +57,29 @@ describe('translate()', () => {
     expect(fake.createCalls).toBe(2);
   });
 
-  it('NotSupportedError مرتين: خطأ يطلب الإعادة، ولا يُحفظ غيابًا (الضغط التالي ينجح)', async () => {
-    const fake = new FakeTranslatorApi({ createFailures: ['NotSupportedError', 'NotSupportedError'] });
+  it('ويُعاد بمهل أطول ما دامت الحزمة available (لا يلزمها نشاط نقرة)', async () => {
+    const fake = new FakeTranslatorApi({ createFailures: ['NotSupportedError', 'NotSupportedError', 'NotSupportedError'] });
+    expect(await engineOf(fake).translate('Hello.')).toBe('ترجمة: Hello.');
+    expect(fake.createCalls).toBe(4);
+  });
+
+  it('والحزمة ليست available بعد الإعادة الأولى: لا إعادة ثانية (نشاط النقرة انتهت مدته)', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable', createFailures: ['NotSupportedError', 'NotSupportedError'] });
+    await expect(engineOf(fake).translate('Hello.')).rejects.toMatchObject({ code: 'NotSupportedError', message: ENGINE_MESSAGES.notReady });
+    expect(fake.createCalls).toBe(2);
+  });
+
+  it('NotSupportedError في كل المحاولات: خطأ يطلب الإعادة، ولا يُحفظ غيابًا (الضغط التالي ينجح)', async () => {
+    const fake = new FakeTranslatorApi({ createFailures: ['NotSupportedError', 'NotSupportedError', 'NotSupportedError', 'NotSupportedError'] });
     const engine = engineOf(fake);
     const error = await engine.translate('Hello.').catch((e: unknown) => e);
     expect(error).toBeInstanceOf(EngineError);
     expect((error as EngineError).message).toBe(ENGINE_MESSAGES.notReady);
     expect((error as EngineError).code).toBe('NotSupportedError');
+    expect(fake.createCalls).toBe(4);
     expect(await engine.availability()).toEqual({ state: 'ready' });
     expect(await engine.translate('Hello.')).toBe('ترجمة: Hello.');
-    expect(fake.createCalls).toBe(3);
+    expect(fake.createCalls).toBe(5);
   });
 
   it('NotAllowedError (بلا نقرة والحزمة لم تُنزَّل): رسالة تطلب الضغط، بلا إعادة تلقائية، والضغط التالي يحاول', async () => {
