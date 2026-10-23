@@ -9,6 +9,7 @@ import type { UnitId } from '../core/ui-host/units';
 import { MODULE_A_SECTION } from '../modules/a/settings/section';
 import { CARD_SECTION } from '../modules/b/card/section';
 import { SEARCH_SECTION } from '../modules/b/search/section';
+import { TOURS_SECTION } from '../modules/b/tours/section';
 import { TRANSLATE_SECTION } from '../modules/c/ui/section';
 import { PR_STATUS_SECTION } from '../modules/d/pr-status/section';
 import { COMPOSER_SECTION } from '../modules/f/composer/section';
@@ -44,6 +45,7 @@ export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
   MODULE_A_SECTION, // MJ7: الوحدة (أ)
   CARD_SECTION, // MJ8 (T-3.2): الوحدة (ب)
   SEARCH_SECTION, // MJ10 (T-3.4): الوحدة (ب): البحث في القاموس
+  TOURS_SECTION, // MJ13 (T-3.5): الوحدة (ب): الجولات الإرشادية
   TRANSLATE_SECTION, // MJ10 (T-4.1): الوحدة (ج)
   PR_STATUS_SECTION, // MJ8 (T-5.1، T-5.4): الوحدة (د)
   COMPOSER_SECTION, // MJ10 (T-7.1): الوحدة (و)

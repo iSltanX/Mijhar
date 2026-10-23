@@ -1,0 +1,38 @@
+<!doctype html>
+<!--
+  عينة جولات T-3.5 (TEST-TOUR-01): صفحة مستودع (octo/demo) بعناصر جولات «فتح مستودع» و«Commit وBranch وTag وRelease» و«رفع ملف» و«طلبات السحب» و«Actions» والقائمة العلوية.
+  مكتوبة لهذه المرحلة؛ ليست لقطة حية. التبويبات والأزرار حقيقية ليُقاس أن الجولة لا تنقر عليها.
+-->
+<html lang="en" data-color-mode="auto">
+<head><meta charset="utf-8"><meta name="user-login" content="octo-dev"><title>octo/demo: A demo repository</title></head>
+<body class="logged-in env-production">
+  <header role="banner" class="AppHeader">
+    <a href="/" aria-label="Homepage">GitHub</a>
+    <input type="search" id="nav-search" aria-label="Search or jump to..." placeholder="Search or jump to...">
+    <button type="button" id="nav-create" aria-label="Create new..."><svg aria-hidden="true"></svg></button>
+    <a href="/notifications" id="nav-notifications" aria-label="Notifications"><svg aria-hidden="true"></svg></a>
+    <button type="button" id="nav-profile" aria-label="Open user navigation menu"><img alt="@octo-dev" src="/octo-dev.png"></button>
+  </header>
+  <div id="js-repo-pjax-container">
+    <nav aria-label="Repository">
+      <a href="/octo/demo" id="tab-code" role="tab" aria-selected="true">Code</a>
+      <a href="/octo/demo/issues" id="tab-issues" role="tab">Issues <span class="Counter">12</span></a>
+      <a href="/octo/demo/pulls" id="tab-pulls" role="tab">Pull requests <span class="Counter">3</span></a>
+      <a href="/octo/demo/actions" id="tab-actions" role="tab">Actions</a>
+      <a href="/octo/demo/settings" id="tab-settings" role="tab">Settings</a>
+    </nav>
+    <main id="repo-content-pjax-container">
+      <div class="file-navigation">
+        <button type="button" id="branch-select" aria-haspopup="true"><span>Branches</span></button>
+        <a href="/octo/demo/tags" id="tags-link">Tags</a>
+        <button type="button" id="add-file">Add file</button>
+        <ul role="menu" id="add-file-menu"><li><a href="/octo/demo/new/main" role="menuitem">Create new file</a></li><li><a href="/octo/demo/upload/main" role="menuitem">Upload files</a></li></ul>
+      </div>
+      <table aria-label="Files" id="file-tree"><tbody><tr><td><a href="/octo/demo/blob/main/README.md">README.md</a></td><td>Initial commit</td></tr></tbody></table>
+      <article id="readme"><h2>README</h2><p>Hello</p></article>
+      <aside><h2>About</h2><p>A demo repository</p></aside>
+      <form action="/octo/demo/hidden-form" method="post"><button type="submit" id="submit-trap">Save</button></form>
+    </main>
+  </div>
+</body>
+</html>
