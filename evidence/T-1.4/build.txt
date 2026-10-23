@@ -1,0 +1,34 @@
+$ node scripts/build.mjs
+chromium: dist/chromium
+firefox: dist/firefox
+
+$ ls -l dist/chromium dist/firefox
+ 
+ 
+39825 background.js
+136628 content.js
+842 manifest.json
+573 options.html
+89895 options.js
+310 sidepanel.html
+94789 sidepanel.js
+ 
+ 
+ 
+39824 background.js
+136628 content.js
+1164 manifest.json
+573 options.html
+89894 options.js
+310 sidepanel.html
+94788 sidepanel.js
+
+$ grep -c "innerHTML=" dist/*/*.js  (إسناد innerHTML بقيمة متغيرة)
+dist/chromium/background.js:0
+dist/chromium/sidepanel.js:0
+dist/chromium/content.js:0
+dist/firefox/background.js:0
+dist/chromium/options.js:0
+dist/firefox/sidepanel.js:0
+dist/firefox/content.js:0
+dist/firefox/options.js:0

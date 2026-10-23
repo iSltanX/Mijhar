@@ -1,0 +1,60 @@
+$ npx vitest run tests/core/ui-host --reporter=verbose
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj3-52830f
+ ✓ tests/core/ui-host/units.test.ts > سجل الإعدادات الأساسي > يعرّف مفاتيح الوحدات الثماني أ–ح مفعَّلة افتراضيًا ومكان اللوحة 2ms
+ ✓ tests/core/ui-host/units.test.ts > سجل الإعدادات الأساسي > extend يضيف إعدادات الأقسام فوق الأساسي 0ms
+ ✓ tests/core/ui-host/units.test.ts > unitOf وisModuleEnabled > حرف الوحدة من المعرّف وحده أو متبوعًا بنقطة أو شرطة 0ms
+ ✓ tests/core/ui-host/units.test.ts > unitOf وisModuleEnabled > مفتاح الوحدة يحكم كل وحداتها البرمجية، ومفتاح خاص يُضاف فوقه 1ms
+ ✓ tests/core/ui-host/units.test.ts > unitOf وisModuleEnabled > وحدة برمجية بمفتاح خاص: تُركَّب حين يكون مفتاحها ومفتاح وحدتها مفعَّلين 0ms
+ ✓ tests/core/ui-host/commands.test.ts > openPanel في عائلة Chromium > يستدعي sidePanel.open متزامنًا قبل أي انتظار، بنافذة التبويب 2ms
+ ✓ tests/core/ui-host/commands.test.ts > openPanel في عائلة Chromium > رفض open (تفضيل الدرج أو غياب فعل المستخدم) يبدّل الدرج في التبويب نفسه 2ms
+ ✓ tests/core/ui-host/commands.test.ts > openPanel في عائلة Chromium > بلا sidePanel أو بلا نافذة: الدرج مباشرة، وتبويب بلا سكربت محتوى يعطي unavailable 1ms
+ ✓ tests/core/ui-host/commands.test.ts > openPanel في عائلة Chromium > applySurface: التفضيل يُحفظ في المتصفح بـsetOptions({ enabled }) 0ms
+ ✓ tests/core/ui-host/commands.test.ts > openPanel في Firefox > الأصلية: sidebarAction.toggle متزامنًا 0ms
+ ✓ tests/core/ui-host/commands.test.ts > openPanel في Firefox > تفضيل الدرج يُقرأ متزامنًا من الانعكاس فلا يُمس الشريط الجانبي 1ms
+ ✓ tests/core/ui-host/commands.test.ts > openPanel في Firefox > فشل toggle يرجع إلى الدرج، وانعكاس تالف يُعامل غير معروف 3ms
+ ✓ tests/core/ui-host/commands.test.ts > toggleDrawer > بلا تبويب: يسأل عن التبويب النشط 1ms
+ ✓ tests/core/ui-host/commands.test.ts > startBackground > يسجّل المستمعات متزامنًا قبل فتح التخزين، ثم يطبّق مكان اللوحة ويتبع تغيّره 9ms
+ ✓ tests/core/ui-host/commands.test.ts > startBackground > رسالة فتح الإعدادات من الدرج تفتح صفحة الإعدادات 1ms
+ ✓ tests/core/ui-host/permissions.test.ts > ApiGithubPermission > يقرأ الحالة من المتصفح، ويطلب ويسحب api.github.com وحدها 4ms
+ ✓ tests/core/ui-host/permissions.test.ts > ApiGithubPermission > subscribe يتبع المنح والسحب من خارج الصفحة ويتجاهل غير api.github.com 0ms
+ ✓ tests/core/ui-host/permissions.test.ts > fetchApiGithub > بلا صلاحية: يرمي PermissionNotGrantedError ولا يرسل أي طلب 1ms
+ ✓ tests/core/ui-host/permissions.test.ts > fetchApiGithub > بعد المنح: يطلب العنوان المطلق على api.github.com 26ms
+ ✓ tests/core/ui-host/permissions.test.ts > fetchApiGithub > يرفض أي مضيف أو بروتوكول غير https://api.github.com ولو مُنحت الصلاحية 1ms
+ ✓ tests/core/ui-host/manifest.test.ts > مانيفست chromium > أمر toggle-panel باختصار افتراضي مؤقت Alt+G ووصف عربي 2ms
+ ✓ tests/core/ui-host/manifest.test.ts > مانيفست chromium > api.github.com اختيارية وحدها، وليست في الصلاحيات الأساسية 0ms
+ ✓ tests/core/ui-host/manifest.test.ts > مانيفست chromium > صفحة الإعدادات في تبويب، واللوحة صفحة الإضافة sidepanel.html 0ms
+ ✓ tests/core/ui-host/manifest.test.ts > مانيفست firefox > أمر toggle-panel باختصار افتراضي مؤقت Alt+G ووصف عربي 0ms
+ ✓ tests/core/ui-host/manifest.test.ts > مانيفست firefox > api.github.com اختيارية وحدها، وليست في الصلاحيات الأساسية 0ms
+ ✓ tests/core/ui-host/manifest.test.ts > مانيفست firefox > صفحة الإعدادات في تبويب، واللوحة صفحة الإضافة sidepanel.html 0ms
+ ✓ tests/core/ui-host/manifest.test.ts > ما يخص كل هدف > Firefox: الشريط الجانبي لا يُفتح وحده عند التثبيت 0ms
+ ✓ tests/core/ui-host/manifest.test.ts > ما يخص كل هدف > حارس المولّد يرفض مضيفًا اختياريًا خارج القائمة المسموحة 1ms
+ ✓ tests/core/ui-host/compat.test.tsx > Toggle المنقول عبر preact/compat > يُرسم بالبنية الأصلية وسماتها 9ms
+ ✓ tests/core/ui-host/compat.test.tsx > Toggle المنقول عبر preact/compat > onChange بسلوك React: النقر يمرّر القيمة الجديدة، والقيمة المتحكَّم بها تعود إن لم يتغير الأصل 2ms
+ ✓ tests/core/ui-host/compat.test.tsx > Toggle المنقول عبر preact/compat > disabled يمنع التغيير 1ms
+ ✓ tests/core/ui-host/compat.test.tsx > Toggle المنقول عبر preact/compat > Ltr المنقول يعزل الاتجاه بصنفه وينقل style بالأرقام كما في React 8ms
+ ✓ tests/core/ui-host/shadow.test.tsx > createShadowHost > مضيف بعنصر مخصص وجذر ظل مفتوح وحاوية .mj-root عربية RTL، وأنماط العزل على :host 11ms
+ ✓ tests/core/ui-host/shadow.test.tsx > createShadowHost > الوضع يتبع data-color-mode في صفحة GitHub حين يكون صريحًا 2ms
+ ✓ tests/core/ui-host/shadow.test.tsx > mountSurface عبر دورة الحياة > يُدرج السطح في الصفحة ويرسم فيه، والإيقاف يفك Preact ثم يزيل المضيف ويعيد DOM كما كان 49ms
+ ✓ tests/core/ui-host/shadow.test.tsx > mountSurface عبر دورة الحياة > render بعد الإيقاف لا يرسم شيئًا (استمرار غير متزامن بعد الإزالة) 5ms
+ ✓ tests/core/ui-host/shadow.test.tsx > mountSurface عبر دورة الحياة > سطحان من وحدتين منفصلان: إيقاف إحداهما لا يمس الأخرى 5ms
+ ✓ tests/core/ui-host/drawer.test.tsx > Drawer > لا يُنشئ شيئًا قبل أول فتح، ثم يلحق بـ<html> لا بـ<body> 58ms
+ ✓ tests/core/ui-host/drawer.test.tsx > Drawer > الفتح ينقل التركيز إلى عنوان الدرج، وEscape يغلقه ويعيد التركيز إلى ما كان عليه 10ms
+ ✓ tests/core/ui-host/drawer.test.tsx > Drawer > زر الإغلاق يغلقه، وtoggle يبدّل، وفتح المفتوح لا يكرر شيئًا 8ms
+ ✓ tests/core/ui-host/drawer.test.tsx > Drawer > يبقى بعد استبدال body (تنقل Turbo)، ويعود إن أُزيل من المستند 7ms
+ ✓ tests/core/ui-host/drawer.test.tsx > Drawer > dispose يزيله من المستند 4ms
+ ✓ tests/core/ui-host/drawer.test.tsx > محتوى الدرج الحقيقي (PanelApp في الدرج) > لا حقل نص ولا كلمة مرور في أي تبويب من الخمسة، ولا زر طلب صلاحية 12ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > مفاتيح الوحدات الثماني > ثمانية مفاتيح بأسماء الوحدات، كلها مفعَّلة افتراضيًا ومسمّاة لقارئ الشاشة 20ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > مفاتيح الوحدات الثماني > كل مفتاح من الثمانية: يُحفظ، ويُسترجع بعد إعادة الفتح، ويركّب ويزيل وحدته في الصفحة المفتوحة 139ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > مفاتيح الوحدات الثماني > فشل الحفظ يعرض رسالة ويعيد المفتاح إلى قيمته الفعلية 9ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > مفاتيح الوحدات الثماني > مكان اللوحة: اختيار الدرج يُحفظ 9ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > صلاحية api.github.com الاختيارية > تُعرض «غير ممنوحة» ولا تُطلب بالرسم ولا بتبديل المفاتيح؛ النقر يطلبها مرة متزامنًا داخل معالجه 22ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > صلاحية api.github.com الاختيارية > رفض المستخدم يبقيها «غير ممنوحة» برسالة، والسحب يعيدها، والسحب من إعدادات المتصفح يظهر هنا 22ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > صلاحية api.github.com الاختيارية > الدرج: لا زر طلب ولا سحب، بل زر يفتح صفحة الإعدادات 3ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > الاختصار وأقسام الوحدات > يعرض اختصار toggle-panel ويفتح إعدادات الاختصارات، ويعرض «لا اختصار» حين يُلغى 15ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > الاختصار وأقسام الوحدات > قسم وحدة لا يبلغ الدرج إلا إن طلب ذلك صراحةً 4ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > PanelApp > خمسة تبويبات، والأسهم تتنقل باتجاه RTL، وكل تبويب محتوى فارغ يقول ما سيظهر فيه 24ms
+ ✓ tests/core/ui-host/settings-tab.test.tsx > PanelApp > واجهة وحدة مسجّلة تظهر في تبويبها، وتُستبدل برسالة حين تُوقف وحدتها 2ms
+ Test Files  8 passed (8)
+      Tests  54 passed (54)
+   Start at  12:45:52
+   Duration  775ms (environment 53%, tests 22%, transform 15%, import 8%, worker 1%)

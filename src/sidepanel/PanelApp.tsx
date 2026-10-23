@@ -1,0 +1,90 @@
+// تطبيق اللوحة: التبويبات الخمسة من المستوى 3 (EXECUTION_PLAN.md ‏5). يُرسم كما هو في اللوحة الجانبية الأصلية وفي
+// الدرج داخل الصفحة؛ ويستقبل واجهات الوحدات من PANEL_VIEWS ولا يعرف أيًّا منها بعينه.
+import type { ComponentChildren } from 'preact';
+import { useState } from 'preact/hooks';
+import type { SettingsStore } from '../core/settings';
+import { moduleEnabledKey } from '../core/settings';
+import { UNITS } from '../core/ui-host/units';
+import type { UnitId } from '../core/ui-host/units';
+import { Tabs } from '../shared/ui';
+import type { TabItem } from '../shared/ui';
+import { useSetting } from '../shared/ui/useSetting';
+import { SettingsTab } from '../options/SettingsTab';
+import type { SettingsTabProps } from '../options/SettingsTab';
+import { PANEL_VIEWS } from './views';
+import type { PanelSurface, PanelTabId, PanelView } from './views';
+
+interface ContentTab extends TabItem {
+  readonly id: PanelTabId;
+  readonly units: readonly UnitId[];
+  /** ما يظهر هنا حين تُبنى وحداته. */
+  readonly empty: string;
+}
+
+export const CONTENT_TABS: readonly ContentTab[] = [
+  { id: 'context', title: 'السياق والفحوص', short: 'السياق', units: ['d', 'e'], empty: 'حالة طلب الدمج والفحوص وحزمة السياق للصفحة المفتوحة.' },
+  { id: 'glossary', title: 'القاموس والتعلّم', short: 'القاموس', units: ['b'], empty: 'شرح مصطلحات GitHub وأزراره، والجولات الإرشادية.' },
+  { id: 'notes', title: 'ملاحظاتي وأكمل لاحقًا', short: 'ملاحظاتي', units: ['g'], empty: 'ملاحظاتك الخاصة على المستودعات وقائمة «أكمل لاحقًا».' },
+  { id: 'community', title: 'المجتمع وأول مساهمة', short: 'المجتمع', units: ['h'], empty: 'README العربي ومرشد أول مساهمة والمحتوى العربي.' },
+];
+export const SETTINGS_TAB: TabItem = { id: 'settings', title: 'الإعدادات والخصوصية', short: 'الإعدادات' };
+
+export interface PanelAppProps extends Omit<SettingsTabProps, 'surface'> {
+  readonly surface: PanelSurface;
+  readonly views?: readonly PanelView[];
+  readonly initialTab?: PanelTabId | 'settings';
+}
+
+const letterOf = (unit: UnitId): string => UNITS.find((u) => u.id === unit)?.letter ?? unit;
+
+function UnitGate({ settings, unit, children }: { settings: SettingsStore; unit: UnitId; children: ComponentChildren }) {
+  const enabled = useSetting<boolean>(settings, moduleEnabledKey(unit));
+  if (!enabled) return <p class="empty">الوحدة ({letterOf(unit)}) موقوفة. شغّلها من «الإعدادات والخصوصية».</p>;
+  return <>{children}</>;
+}
+
+function ContentPanel({ tab, views, settings, surface }: { tab: ContentTab; views: readonly PanelView[]; settings: SettingsStore; surface: PanelSurface }) {
+  const own = views.filter((v) => v.tab === tab.id && (v.surfaces ?? ['native', 'drawer']).includes(surface));
+  if (!own.length) {
+    return (
+      <div class="empty" data-empty-tab={tab.id}>
+        <p>
+          <strong>لا شيء هنا بعد.</strong>
+        </p>
+        <p class="small">يظهر هنا: {tab.empty}</p>
+      </div>
+    );
+  }
+  return (
+    <>
+      {own.map((view) => {
+        const View = view.component;
+        return (
+          <UnitGate key={view.id} settings={settings} unit={view.unit}>
+            <View settings={settings} surface={surface} />
+          </UnitGate>
+        );
+      })}
+    </>
+  );
+}
+
+export function PanelApp(props: PanelAppProps) {
+  const { surface, settings, views = PANEL_VIEWS, initialTab = 'context', ...settingsProps } = props;
+  const [selected, setSelected] = useState<string>(initialTab);
+  const tabs: TabItem[] = [...CONTENT_TABS, SETTINGS_TAB];
+  const current = CONTENT_TABS.find((t) => t.id === selected);
+  const heading = tabs.find((t) => t.id === selected)?.title;
+  return (
+    <div class="panel-app" data-surface={surface}>
+      <Tabs idPrefix={`mj-${surface}`} label="أقسام مِجهَر" tabs={tabs} selected={selected} onSelect={setSelected}>
+        <h2 class="panel-title">{heading}</h2>
+        {current ? (
+          <ContentPanel tab={current} views={views} settings={settings} surface={surface} />
+        ) : (
+          <SettingsTab settings={settings} surface={surface} level={3} {...settingsProps} />
+        )}
+      </Tabs>
+    </div>
+  );
+}

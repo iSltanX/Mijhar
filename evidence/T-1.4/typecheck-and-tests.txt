@@ -1,0 +1,11 @@
+$ npx tsc --noEmit
+tsc: لا أخطاء (exit 0)
+
+$ npx vitest run
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj3-52830f
+ Test Files  25 passed (25)
+      Tests  405 passed | 1 skipped (406)
+   Start at  12:45:48
+   Duration  3.31s (tests 52%, import 26%, environment 13%, transform 9%, worker 1%)
+    Isolate  25 workers spawned · ~190ms startup each (spawn + environment, per file)
+             at least ~489ms faster with isolate: false — reuses workers across files instead of one per file

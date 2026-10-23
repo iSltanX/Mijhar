@@ -15,6 +15,7 @@
   },
   "permissions": ["storage"],
   "host_permissions": ["https://github.com/*"],
+  "optional_host_permissions": ["https://api.github.com/*"],
   "background": {
     "scripts": ["background.js"]
   },
@@ -26,6 +27,18 @@
     }
   ],
   "sidebar_action": {
-    "default_panel": "sidepanel.html"
+    "default_panel": "sidepanel.html",
+    "default_title": "مِجهَر",
+    "open_at_install": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "toggle-panel": {
+      "suggested_key": { "default": "Alt+G" },
+      "description": "افتح لوحة مِجهَر أو الدرج"
+    }
   }
 }

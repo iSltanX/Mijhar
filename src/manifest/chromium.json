@@ -4,6 +4,7 @@
   "minimum_chrome_version": "114",
   "permissions": ["sidePanel", "storage"],
   "host_permissions": ["https://github.com/*"],
+  "optional_host_permissions": ["https://api.github.com/*"],
   "background": {
     "service_worker": "background.js"
   },
@@ -16,5 +17,15 @@
   ],
   "side_panel": {
     "default_path": "sidepanel.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "toggle-panel": {
+      "suggested_key": { "default": "Alt+G" },
+      "description": "افتح لوحة مِجهَر أو الدرج"
+    }
   }
 }

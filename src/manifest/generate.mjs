@@ -8,6 +8,9 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 
 export const TARGETS = ['chromium', 'firefox'];
 export const BASE_HOST = 'https://github.com/*';
+// المضيفات الاختيارية المسموحة: تُطلب بنقر صريح ولا تُمنح عند التثبيت (AD-08). api.github.com يملك تدفقه T-1.4؛
+// وتضيف المرحلة التي تحتاج مضيفًا آخر (المزوّد أو النموذج) سطره هنا.
+export const OPTIONAL_HOSTS = ['https://api.github.com/*'];
 
 // أنماط المضيف الأساسية: ما يُمنح عند التثبيت. أما optional_host_permissions فتُطلب عند الحاجة ولا تُفحص هنا.
 export function primaryHostPatterns(manifest) {
@@ -24,6 +27,10 @@ export function assertManifest(target, manifest) {
   if (text.includes('<all_urls>') || text.includes('*://*/*')) problems.push('يوجد نمط يشمل كل المواقع');
   for (const pattern of primaryHostPatterns(manifest)) {
     if (pattern !== BASE_HOST) problems.push(`نمط مضيف أساسي خارج ${BASE_HOST}: ${pattern}`);
+  }
+
+  for (const pattern of manifest.optional_host_permissions ?? []) {
+    if (!OPTIONAL_HOSTS.includes(pattern)) problems.push(`مضيف اختياري غير مسموح: ${pattern}`);
   }
 
   const bg = manifest.background ?? {};
