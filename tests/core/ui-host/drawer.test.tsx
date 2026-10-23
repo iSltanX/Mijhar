@@ -87,7 +87,7 @@ describe('محتوى الدرج الحقيقي (PanelApp في الدرج)', () =
   it('لا حقل نص ولا كلمة مرور في أي تبويب من الخمسة، ولا زر طلب صلاحية', async () => {
     const { settings } = await memorySettings();
     const openOptions = vi.fn();
-    drawer = new Drawer({ document, content: () => <PanelApp surface="drawer" settings={settings} openOptions={openOptions} /> });
+    drawer = new Drawer({ document, content: () => <PanelApp surface="drawer" settings={settings} views={[]} openOptions={openOptions} /> });
     act(() => drawer!.open());
     const shadow = drawer.host!.shadowRoot!;
     const tabs = [...shadow.querySelectorAll<HTMLButtonElement>('[role="tab"]')];

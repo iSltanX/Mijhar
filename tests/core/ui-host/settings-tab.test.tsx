@@ -192,7 +192,7 @@ describe('الاختصار وأقسام الوحدات', () => {
 describe('PanelApp', () => {
   it('خمسة تبويبات، والأسهم تتنقل باتجاه RTL، وكل تبويب محتوى فارغ يقول ما سيظهر فيه', async () => {
     const { settings } = await memorySettings();
-    act(() => render(<PanelApp surface="native" settings={settings} />, container));
+    act(() => render(<PanelApp surface="native" settings={settings} views={[]} />, container));
     const tabs = () => [...container.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
     expect(tabs()).toHaveLength(5);
     expect(tabs()[0]!.getAttribute('aria-selected')).toBe('true');

@@ -1,0 +1,69 @@
+$ npx vitest run tests/modules/b --reporter=verbose
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj8-2440b2
+
+ ✓ tests/modules/b/card/match.test.ts > عينة واجهة المستودع مع القاموس الفعلي > يطابق العناصر المعروفة بالمدخل الصحيح، وتسميات العدّادات لا تمنع المطابقة 35ms
+ ✓ tests/modules/b/card/match.test.ts > عينة واجهة المستودع مع القاموس الفعلي > لا يُشرح أي «شرك»: عنصر بلا دور، رابط بنمط مخالف، زر لصفحة أخرى، تسمية مجهولة، مخفي 7ms
+ ✓ tests/modules/b/card/match.test.ts > عينة واجهة المستودع مع القاموس الفعلي > المطابقة لا تعدّل الصفحة 7ms
+ ✓ tests/modules/b/card/match.test.ts > عينة واجهة المستودع مع القاموس الفعلي > زر «Delete this repository» يُشرح في صفحة إعدادات المستودع لا في صفحة المستودع 7ms
+ ✓ tests/modules/b/card/match.test.ts > عينة واجهة المستودع مع القاموس الفعلي > أنواع الصفحات من الكاشف: المستودع والإعدادات والأمان والإشعارات 5ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > التسمية مطابقة كاملة لا جزئية: «Fork now» لا تطابق «Fork»، و«Forks» لا تطابقها 1ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > بلا حساسية لحالة الأحرف ولا مسافات زائدة ولا علامات اتجاه، والنقاط الثلاث تتوحّد مع «…» 1ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > aria-label يكفي، وaria-labelledby يُحل، والعدّاد الملصق يُحذف من الاسم 1ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > عدّادات GitHub الحقيقية (Counter وCounterLabel وsr-only «(N)») لا تمنع المطابقة 1ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > الدور شرط: رابط لا يطابق توقيع زر، والدور الصريح يغلب الضمني 1ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > الصفحة شرط: توقيع صفحة معينة لا يطابق في غيرها، و«any» يطابق دائمًا 1ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > نمط الرابط شرط للروابط: المطابق يمرّ والمخالف يُرفض، ولا أثر للنمط على الأزرار 0ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > الالتباس: مدخلان بالدرجة نفسها لا يُشرح العنصر بأي منهما 0ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > الأعلى درجة يفوز: نوع صفحة خاص يغلب «any»، ونمط رابط مطابق يرفع الدرجة 0ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > المصطلحات المجردة (بلا توقيع) لا تُربط بعنصر ولو طابقت تسميتها نصًّا 0ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > نص طويل لحاوية لا يُقرأ اسمًا، والمدخل الطويل لا يطابق 0ms
+ ✓ tests/modules/b/card/match.test.ts > قاموس الاختبار > الأدوار الضمنية: input وselect وtextarea وh2 وsummary 1ms
+ ✓ tests/modules/b/card/card-view.test.tsx > مستويات الشرح الثلاثة (AC-B2) > ثلاثة تبويبات بالأسماء المعتمدة، والافتراضي المتوسط، والتبديل يعرض نص المستوى المختار من المدخل 16ms
+ ✓ tests/modules/b/card/card-view.test.tsx > مستويات الشرح الثلاثة (AC-B2) > كل مدخل في القاموس الفعلي يعرض مستوياته الثلاثة غير فارغة وبنصها 71ms
+ ✓ tests/modules/b/card/card-view.test.tsx > مستويات الشرح الثلاثة (AC-B2) > مثال عملي لكل مدخل في «قائمة المصطلحات الأساسية» (وتشمل كل حساس أو خطر)، ويظهر في البطاقة 13ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > زر وضع الشرح (الدرج: الحالة المشتركة مباشرة) > يفعّل الوضع ويوقفه، ويتبع تغيّره من الاختصار 17ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > زر وضع الشرح (الدرج: الحالة المشتركة مباشرة) > بطاقة الشرح موقوفة: الزر معطّل وتنبيه يدلّ على المفتاح 3ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > زر وضع الشرح (اللوحة الأصلية: رسائل إلى التبويب النشط) > يقرأ الحالة ثم يبدّلها عبر الرسالة المعتمدة 5ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > زر وضع الشرح (اللوحة الأصلية: رسائل إلى التبويب النشط) > تبويب ليس صفحة GitHub (الرسالة ترفض) أو بلا تبويب نشط: تنبيه ولا حالة مخمّنة 4ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > اللوحة > الزر مسجَّل في تبويب القاموس للوحدة (ب) 0ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > اللوحة > PanelApp الحقيقي يعرضه في تبويب القاموس 2ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > أقسام الإعدادات > قسما (ب) و(د) مسجَّلان وبمفاتيح الوحدات البرمجية مفعَّلة افتراضيًا 0ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > أقسام الإعدادات > مفتاح الوحدة البرمجية وحده يوقفها دون الوحدة (د) كلها، ومفتاح الوحدة يوقف الاثنتين 0ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > أقسام الإعدادات > تظهر الأقسام بمفاتيحها في صفحة الإعدادات والدرج، والمفتاح يكتب في الإعدادات 17ms
+ ✓ tests/modules/b/card/panel-and-settings.test.tsx > أقسام الإعدادات > لا حقل نص ولا كلمة مرور في الأقسام ولا زر صلاحية، ولا خيار لإخفاء المصطلح الإنجليزي 6ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > وضع الشرح بالاختصار Alt+H > قبل التفعيل لا أثر في الصفحة: لا مضيف ولا تعديل 63ms
+ ✓ tests/modules/b/card/card-view.test.tsx > مستويات الشرح الثلاثة (AC-B2) > مدخل بلا مثال (غير أساسي) لا يعرض قسم مثال فارغًا 1ms
+ ✓ tests/modules/b/card/card-view.test.tsx > المصطلح الإنجليزي بجوار العربي (AC-B3) > العنوان «العربي (English)» والإنجليزي dir=ltr lang=en، وهو ظاهر في كل مستوى 2ms
+ ✓ tests/modules/b/card/card-view.test.tsx > المصطلح الإنجليزي بجوار العربي (AC-B3) > كل مصطلح إنجليزي بين قوسين داخل نص الشرح معزول dir=ltr في المستويات الثلاثة 2ms
+ ✓ tests/modules/b/card/card-view.test.tsx > المصطلح الإنجليزي بجوار العربي (AC-B3) > على المداخل كلها: الاسم الإنجليزي ظاهر في عنوان البطاقة معزولًا، ولا عنصر تحكم لإخفائه 29ms
+ ✓ tests/modules/b/card/card-view.test.tsx > بطاقة بيانات القرار (AC-B4) > الحقول الخمسة بترتيبها: متى تُستخدم، الأثر، الحساسية، الصلاحية، التراجع وحدوده 2ms
+ ✓ tests/modules/b/card/card-view.test.tsx > بطاقة بيانات القرار (AC-B4) > على كل مدخل: خمسة حقول بقيمة نصية غير فارغة، والحساسية والصلاحية والتراجع من المجموعات المضبوطة 6ms
+ ✓ tests/modules/b/card/card-view.test.tsx > بطاقة بيانات القرار (AC-B4) > قيمة ناقصة أو خارج المجموعة المعتمدة تُكتب «غير محدد في المصدر» لا تخمينًا ولا حقلًا فارغًا 2ms
+ ✓ tests/modules/b/card/card-view.test.tsx > بطاقة بيانات القرار (AC-B4) > جزء من التراجع معروف والباقي لا: كل جزء يظهر بقيمته أو «غير محدد في المصدر» 0ms
+ ✓ tests/modules/b/card/card-view.test.tsx > بطاقة بيانات القرار (AC-B4) > ما لم يُطابَق على الوثائق يحمل تنبيهًا، والمطابَق لا يحمله 1ms
+ ✓ tests/modules/b/card/card-view.test.tsx > بطاقة بيانات القرار (AC-B4) > رابط الوثيقة من docs.github.com وحده ويفتح بـnoopener 2ms
+ ✓ tests/modules/b/card/card-view.test.tsx > أمان العرض > نص القاموس يُرسم نصًا لا HTML: وسم داخل مدخل لا ينتج عنصرًا 1ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > وضع الشرح بالاختصار Alt+H > Alt+H يفعّل الوضع: شارة لكل عنصر مطابق (٢٠) ولا شارة لأي شرك 59ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > وضع الشرح بالاختصار Alt+H > الأب المباشر لكل عنصر أصلي لم يتغير، والصفحة كما هي عدا مضيف مِجهَر واحد في نهاية body 37ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > وضع الشرح بالاختصار Alt+H > Alt+H ثانيةً توقف الوضع وتُزيل الطبقة كلها فتعود الصفحة حرفيًا بلا أثر، وتعود الشارات عند التفعيل التالي 39ms
+ ✓ tests/modules/b/card/real-pages.test.ts > التغطية الفعلية على صفحات حقيقية > صفحة المستودع: التبويبات المعروفة وقسم «About» وحدها تُشرح، وروابط الدخول وزر الاستنساخ لا 1ms
+ ✓ tests/modules/b/card/real-pages.test.ts > التغطية الفعلية على صفحات حقيقية > لا شرح تخميني: كل عنصر مشروح تسميته مطابقة كاملة لتسمية توقيعه ودوره من أدواره 1ms
+ ✓ tests/modules/b/card/real-pages.test.ts > التغطية الفعلية على صفحات حقيقية > صفحة المشكلة وصفحة الطلب: ما لا يعرفه القاموس بثقة لا يُشرح (التغطية الجزئية معلنة) 0ms
+ ✓ tests/modules/b/card/real-pages.test.ts > التغطية الفعلية على صفحات حقيقية > تقرير التغطية 0ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > وضع الشرح بالاختصار Alt+H > مراقب الصفحة ومستمعا التمرير وتغيير الحجم لا يعملون إلا والوضع مفعَّل 31ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > وضع الشرح بالاختصار Alt+H > لا تلتقط ضغطة داخل حقل إدخال ولا اختصارًا مختلفًا 25ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > وضع الشرح بالاختصار Alt+H > شريط الوضع يعلن العدد ويتيح الإيقاف 31ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > بطاقة الشارة > النقر على الشارة يفتح البطاقة بصيغة «العربي (English)» والإنجليزي dir=ltr، وEscape يغلقها ويعيد التركيز 48ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > بطاقة الشارة > لا تعترض البطاقة نقرات الصفحة: النقر على العنصر الأصلي يصل إليه 33ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > الرسائل من اللوحة والدرج > toggle وstatus وon وoff تعيد الحالة، ورسالة غريبة تُتجاهل 33ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > الإيقاف والتنقل > إيقاف الوحدة وهي مفعَّلة يزيل المضيف ويعيد الصفحة حرفيًا 29ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > الإيقاف والتنقل > الوضع يبقى بعد إعادة تركيب الوحدة (تنقل Turbo) لأنه حالة مشتركة 51ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > الإيقاف والتنقل > عنصر جديد يظهر في الصفحة بعد التفعيل يُشرح بعد إعادة الفحص، وعنصر أُزيل تسقط شارته 113ms
+ ✓ tests/modules/b/card/explain-mode.test.tsx > الإيقاف والتنقل > الفتح قبل التحميل الكامل لا يكسر: وحدة بلا عناصر مطابقة لا تعرض شارات ولا تخطئ 33ms
+
+ Test Files  5 passed (5)
+      Tests  59 passed (59)
+   Start at  15:09:12
+   Duration  1.15s (environment 37%, tests 28%, import 23%, transform 11%)
+

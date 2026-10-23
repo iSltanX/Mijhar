@@ -1,0 +1,23 @@
+$ node scripts/build.mjs
+chromium: dist/chromium
+firefox: dist/firefox
+$ ls -l dist/chromium dist/firefox
+ 
+ 
+71331 background.js
+514778 content.js
+842 manifest.json
+573 options.html
+95129 options.js
+310 sidepanel.html
+105101 sidepanel.js
+ 
+ 
+ 
+71330 background.js
+514778 content.js
+1164 manifest.json
+573 options.html
+95128 options.js
+310 sidepanel.html
+105100 sidepanel.js

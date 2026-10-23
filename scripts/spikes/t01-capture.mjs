@@ -21,7 +21,7 @@ export const SAMPLES = [
   { name: 'commit-bms-1', kind: 'صفحة التزام برسالة عربية (بلا جداول الفروق لحجمها)', url: null, stripDiff: true },
 ];
 
-async function capture(page, sample) {
+export async function capture(page, sample) {
   await page.goto(sample.url, { waitUntil: 'domcontentloaded' });
   await sleep(7000);
   await page.mouse.wheel(0, 30000);
