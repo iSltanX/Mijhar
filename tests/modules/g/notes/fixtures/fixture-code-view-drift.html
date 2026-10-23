@@ -1,0 +1,156 @@
+<!doctype html>
+<!-- عينة اصطناعية لا لقطة حية: البنية المقيسة في evidence/T-0.4/report.md (AC-S4.1) — meta octolytics-dimension-repository_nwo، وبيانات react-app.embeddedData، وسمة data-line-number. -->
+<html lang="en" data-color-mode="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="octolytics-dimension-repository_nwo" content="octo/demo">
+  <title>response.js at main · octo/demo</title>
+  <script type="application/json" data-target="react-app.embeddedData">{"payload": {"codeViewLayoutRoute": {"refInfo": {"name": "main", "currentOid": "0dee2c52c7c873498f8ed7d8ee4ddd0a04d3ada8"}, "path": "lib/response.js"}}}</script>
+</head>
+<body class="logged-out env-production">
+  <header class="AppHeader" role="banner"><a href="/" class="AppHeader-logo">GitHub</a></header>
+  <div id="js-repo-pjax-container">
+    <div id="repository-container-header"><strong><a href="/octo/demo">demo</a></strong></div>
+    <main id="repo-content-pjax-container">
+      <div id="repos-sticky-header">lib/response.js</div>
+      <div data-testid="code-view" class="blob-wrapper">
+    <div class="react-code-lines">
+      <div class="react-code-line-container" id="LC1-container">
+        <div data-line-number="1" id="L1" class="react-line-number">1</div>
+        <div id="LC1" class="react-code-text">'use strict';</div>
+      </div>
+      <div class="react-code-line-container" id="LC2-container">
+        <div data-line-number="2" id="L2" class="react-line-number">2</div>
+        <div id="LC2" class="react-code-text"></div>
+      </div>
+      <div class="react-code-line-container" id="LC3-container">
+        <div data-line-number="3" id="L3" class="react-line-number">3</div>
+        <div id="LC3" class="react-code-text">const http = require('node:http');</div>
+      </div>
+      <div class="react-code-line-container" id="LC4-container">
+        <div data-line-number="4" id="L4" class="react-line-number">4</div>
+        <div id="LC4" class="react-code-text"></div>
+      </div>
+      <div class="react-code-line-container" id="LC5-container">
+        <div data-line-number="5" id="L5" class="react-line-number">5</div>
+        <div id="LC5" class="react-code-text">function send(res, body) {</div>
+      </div>
+      <div class="react-code-line-container" id="LC6-container">
+        <div data-line-number="6" id="L6" class="react-line-number">6</div>
+        <div id="LC6" class="react-code-text">  res.statusCode = 200;</div>
+      </div>
+      <div class="react-code-line-container" id="LC7-container">
+        <div data-line-number="7" id="L7" class="react-line-number">7</div>
+        <div id="LC7" class="react-code-text">  res.end(body);</div>
+      </div>
+      <div class="react-code-line-container" id="LC8-container">
+        <div data-line-number="8" id="L8" class="react-line-number">8</div>
+        <div id="LC8" class="react-code-text">}</div>
+      </div>
+      <div class="react-code-line-container" id="LC9-container">
+        <div data-line-number="9" id="L9" class="react-line-number">9</div>
+        <div id="LC9" class="react-code-text"></div>
+      </div>
+      <div class="react-code-line-container" id="LC10-container">
+        <div data-line-number="10" id="L10" class="react-line-number">10</div>
+        <div id="LC10" class="react-code-text">function json(res, value) {</div>
+      </div>
+      <div class="react-code-line-container" id="LC11-container">
+        <div data-line-number="11" id="L11" class="react-line-number">11</div>
+        <div id="LC11" class="react-code-text">  const body = JSON.stringify(value);</div>
+      </div>
+      <div class="react-code-line-container" id="LC12-container">
+        <div data-line-number="12" id="L12" class="react-line-number">12</div>
+        <div id="LC12" class="react-code-text">  res.setHeader('Content-Type', 'application/json');</div>
+      </div>
+      <div class="react-code-line-container" id="LC13-container">
+        <div data-line-number="13" id="L13" class="react-line-number">13</div>
+        <div id="LC13" class="react-code-text">  send(res, body);</div>
+      </div>
+      <div class="react-code-line-container" id="LC14-container">
+        <div data-line-number="14" id="L14" class="react-line-number">14</div>
+        <div id="LC14" class="react-code-text">}</div>
+      </div>
+      <div class="react-code-line-container" id="LC15-container">
+        <div data-line-number="15" id="L15" class="react-line-number">15</div>
+        <div id="LC15" class="react-code-text"></div>
+      </div>
+      <div class="react-code-line-container" id="LC16-container">
+        <div data-line-number="16" id="L16" class="react-line-number">16</div>
+        <div id="LC16" class="react-code-text">function redirect(res, url) {</div>
+      </div>
+      <div class="react-code-line-container" id="LC17-container">
+        <div data-line-number="17" id="L17" class="react-line-number">17</div>
+        <div id="LC17" class="react-code-text">  res.statusCode = 302;</div>
+      </div>
+      <div class="react-code-line-container" id="LC18-container">
+        <div data-line-number="18" id="L18" class="react-line-number">18</div>
+        <div id="LC18" class="react-code-text">  res.setHeader('Location', url);</div>
+      </div>
+      <div class="react-code-line-container" id="LC19-container">
+        <div data-line-number="19" id="L19" class="react-line-number">19</div>
+        <div id="LC19" class="react-code-text">  res.end();</div>
+      </div>
+      <div class="react-code-line-container" id="LC20-container">
+        <div data-line-number="20" id="L20" class="react-line-number">20</div>
+        <div id="LC20" class="react-code-text">}</div>
+      </div>
+      <div class="react-code-line-container" id="LC21-container">
+        <div data-line-number="21" id="L21" class="react-line-number">21</div>
+        <div id="LC21" class="react-code-text"></div>
+      </div>
+      <div class="react-code-line-container" id="LC22-container">
+        <div data-line-number="22" id="L22" class="react-line-number">22</div>
+        <div id="LC22" class="react-code-text">function notFound(res) {</div>
+      </div>
+      <div class="react-code-line-container" id="LC23-container">
+        <div data-line-number="23" id="L23" class="react-line-number">23</div>
+        <div id="LC23" class="react-code-text">  res.statusCode = 404;</div>
+      </div>
+      <div class="react-code-line-container" id="LC24-container">
+        <div data-line-number="24" id="L24" class="react-line-number">24</div>
+        <div id="LC24" class="react-code-text">  res.end('Not Found');</div>
+      </div>
+      <div class="react-code-line-container" id="LC25-container">
+        <div data-line-number="25" id="L25" class="react-line-number">25</div>
+        <div id="LC25" class="react-code-text">}</div>
+      </div>
+      <div class="react-code-line-container" id="LC26-container">
+        <div data-line-number="26" id="L26" class="react-line-number">26</div>
+        <div id="LC26" class="react-code-text"></div>
+      </div>
+      <div class="react-code-line-container" id="LC27-container">
+        <div data-line-number="27" id="L27" class="react-line-number">27</div>
+        <div id="LC27" class="react-code-text">module.exports = { send, json, redirect, notFound };</div>
+      </div>
+      <div class="react-code-line-container" id="LC28-container">
+        <div data-line-number="28" id="L28" class="react-line-number">28</div>
+        <div id="LC28" class="react-code-text"></div>
+      </div>
+      <div class="react-code-line-container" id="LC29-container">
+        <div data-line-number="29" id="L29" class="react-line-number">29</div>
+        <div id="LC29" class="react-code-text">// دالة مكررة عمدًا لاختبار التباس الأسطر (T-8.3)</div>
+      </div>
+      <div class="react-code-line-container" id="LC30-container">
+        <div data-line-number="30" id="L30" class="react-line-number">30</div>
+        <div id="LC30" class="react-code-text">function send(res, body) {</div>
+      </div>
+      <div class="react-code-line-container" id="LC31-container">
+        <div data-line-number="31" id="L31" class="react-line-number">31</div>
+        <div id="LC31" class="react-code-text">  res.statusCode = 200;</div>
+      </div>
+      <div class="react-code-line-container" id="LC32-container">
+        <div data-line-number="32" id="L32" class="react-line-number">32</div>
+        <div id="LC32" class="react-code-text">  res.end(body);</div>
+      </div>
+      <div class="react-code-line-container" id="LC33-container">
+        <div data-line-number="33" id="L33" class="react-line-number">33</div>
+        <div id="LC33" class="react-code-text">}</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    </main>
+  </div>
+</body>
+</html>
