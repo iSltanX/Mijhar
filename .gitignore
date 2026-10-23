@@ -16,3 +16,34 @@ dashboard/data.js
 
 # worktrees الجلسات إن أُنشئت داخل المجلد
 .claude/worktrees/
+
+# كاش الأدوات والملفات المؤقتة
+.cache/
+.vite/
+.vitest/
+.eslintcache
+*.tsbuildinfo
+tmp/
+temp/
+*.tmp
+*.swp
+
+# مخرجات الاختبارات واللقطات المحلية (قد تحمل معلومات شخصية)
+test-results/
+playwright-report/
+screenshots/
+*.screenshot.png
+
+# ملفات أسرار ومفاتيح وبيانات دخول وإعدادات محلية
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+.netrc
+.claude/settings.local.json
+CLAUDE.local.md
+
+# ملفات تعريف المتصفحات المؤقتة لفحوص التحميل
+*-profile/
+mijhar-load-check-*/

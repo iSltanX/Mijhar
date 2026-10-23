@@ -3,7 +3,7 @@ exit=0
 
 $ npx vitest run
 
- RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj1-91cdba
+ RUN  v5.0.5 <مجلد المشروع>
 
 
  Test Files  1 passed (1)
