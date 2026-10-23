@@ -1,0 +1,8 @@
+{
+  "mijhar:meta": { "schemaVersion": 1, "createdAt": "2026-10-01T08:00:00.000Z" },
+  "mijhar:data:settings": { "modules.a.enabled": false, "reading.fontScale": 1.25 },
+  "mijhar:data:notes": [
+    { "id": "n1", "text": "ملاحظة عن طلب الدمج ‏#42", "url": "https://github.com/octo/demo/pull/42", "createdAt": "2026-10-01T09:00:00.000Z" },
+    { "id": "n2", "text": "أكمل لاحقًا: مراجعة README", "url": "https://github.com/octo/demo", "createdAt": "2026-10-02T09:00:00.000Z" }
+  ]
+}
