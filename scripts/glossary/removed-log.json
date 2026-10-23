@@ -227,7 +227,7 @@
     "id": "pages_deploy",
     "field": "permission",
     "removed": "إدارة المستودع",
-    "replacement": "Admin",
+    "replacement": "Maintain",
     "kind": "schema",
     "reason": "نص الصلاحية الحر استُبدل بقيمة من المجموعة المضبوطة، وما فيه من تفصيل نُقل إلى permissionNote عند الحاجة"
   },

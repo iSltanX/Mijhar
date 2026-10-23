@@ -26,3 +26,10 @@
 - **التحقق من الوثائق** (`verification.status`): `verified` تعني أن الصلاحية وحدود التراجع في المدخل طُوبقت على نص صفحة `docsUrl` أو صفحة ذات صلة ذُكرت في الملاحظة؛ و`unverified` أنها لم تُطابَق على نص صريح بعد (الحكم من معرفة عامة أو لم تُقرأ العبارة). يعرض المستهلك التنبيه المناسب ولا يعامل `unverified` كمصدر نهائي.
 - **التوقيع الدلالي** (`signature`) فرضية لمطابقة عنصر الواجهة بنصوصه الظاهرة وأدواره وصفحته؛ لم يُختبر على صفحات GitHub الحية ولا على `fixture-github-ui-sample.html` بعد، ويُختبر في `T-3.2`. وعند ضعف الثقة لا يُلصق شرح تخميني.
 - **الأمثلة** بأسماء توضيحية (`octocat/hello-world`)، لا مستودعات حقيقية.
+
+## الصيانة
+
+- بعد النقل يبقى `entries.json` هو الأصل المعدَّل؛ عدّله مباشرة ثم شغّل `node scripts/glossary/validate.mjs`، وحدّث سطر «عدد المدخلات» أعلاه و`meta.count` حين يتغير العدد (المدقق يرفض عدم التطابق).
+- مدخل جديد: حقوله المطلوبة كلها، وصيغ عربية وفق `lexicon.json`، ومثال عملي إن كان حساسًا أو في `core-terms.json`، ورابط `docsUrl` يبدأ بـ`https://docs.github.com/en/`.
+- `node scripts/glossary/check-docs-links.mjs` يتحقق (بالشبكة) أن كل رابط وثائق صفحة موجودة؛ وليس ضمن الاختبارات الآلية.
+- سجل النقل: `scripts/glossary/{rewrites.json,overlay/,additions.json}` هي مدخلات `migrate.mjs` من `ghsim-source`، و`removed-log.json` سجل كل ما أُزيل أو صُحِّح بنصه وسببه. تُعاد بهما النتيجة حرفيًا: `GHSIM_SOURCE=<مجلد ghsim-source> node scripts/glossary/migrate.mjs --check`. لا تُحرَّر بعد الدمج إلا لإعادة تشغيل التدقيق.

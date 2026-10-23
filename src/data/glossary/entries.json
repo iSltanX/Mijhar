@@ -1172,12 +1172,12 @@
       "permission": "None",
       "permissionNote": "إجراء على حسابك وحدك.",
       "whenToUse": "عند رغبتك في حماية حسابك من الدخول بكلمة المرور وحدها، وهو مطلوب قبل بعض الإجراءات الحساسة.",
-      "reversalLimits": "يمكن تعطيلها أو تغيير وسيلتها من إعدادات الحساب. لكن فقدان وسيلة المصادقة ورموز الاسترداد معًا قد يعني فقدان الوصول إلى الحساب نهائيًا.",
-      "docsUrl": "https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication",
+      "reversalLimits": "يمكن تعطيلها من إعدادات الحساب، لكن تعطيلها قد يفقدك الوصول إلى منظمات تشترطها حتى تعيد تفعيلها، ولا تستطيع بعض الحسابات الملزَمة بها تعطيلها. ورمز الاسترداد يُستعمل مرة واحدة، وتوليد مجموعة جديدة يبطل القديمة.",
+      "docsUrl": "https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/disabling-two-factor-authentication-for-your-personal-account",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "وُجدت صفحات الوثائق (نظرة عامة، المصادقة الإلزامية، طرق الاسترداد)؛ ولم تُقرأ عبارات التعطيل والفقدان فيها."
+        "note": "طوبق على صفحتي تعطيل المصادقة الثنائية وطرق الاسترداد: فقدان الوصول إلى منظمات تشترطها عند التعطيل، وعدم إمكان التعطيل لبعض الحسابات الملزَمة، واستعمال رمز الاسترداد مرة واحدة وإبطال المجموعة القديمة بتوليد جديدة."
       },
       "signature": null
     },
@@ -1220,12 +1220,12 @@
       "permission": "None",
       "permissionNote": "إجراء على حسابك وحدك.",
       "whenToUse": "عند رغبتك في التعامل المتكرر مع المستودعات دون إدخال بيانات الدخول في كل مرة، أو في توقيع الالتزامات.",
-      "reversalLimits": "يُحذف المفتاح من إعدادات الحساب فتتوقف المصادقة به فورًا. المفتاح الخاص على جهازك يبقى ويجب حذفه أو حمايته، وما فُعل به قبل الحذف لا يُلغى.",
-      "docsUrl": "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh",
+      "reversalLimits": "يُحذف المفتاح من إعدادات الحساب فتنقطع عنه المصادقة به. المفتاح الخاص على جهازك يبقى ويجب حذفه أو حمايته، وما فُعل به قبل الحذف لا يُلغى.",
+      "docsUrl": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-ssh-keys",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "طوبق أن مفاتيح SSH تتيح الاتصال دون إدخال البيانات في كل زيارة ويمكن استعمالها لتوقيع الالتزامات؛ وعبارات الحذف لم تُطابَق."
+        "note": "طوبق على صفحة مراجعة مفاتيح SSH: حذف مفتاح غير مصرَّح أو مشتبه فيه يمنع المهاجم من الوصول إلى المستودعات؛ وبقاء المفتاح الخاص على الجهاز حكم عام."
       },
       "signature": null
     },
@@ -1303,12 +1303,12 @@
       "permission": "None",
       "permissionNote": "إجراء على حسابك وحدك.",
       "whenToUse": "عند استعمال Git أو الواجهة البرمجية من سكربت أو أداة وتحتاج هوية بديلة عن كلمة المرور؛ ويُفضَّل الرمز الدقيق إن أمكن.",
-      "reversalLimits": "يمكن حذف الرمز (إبطاله) فيتوقف عن العمل فورًا. لكن ما نفّذه به من استعملَه أثناء تسريبه لا يُلغى. اختر تاريخ انتهاء قصيرًا.",
-      "docsUrl": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens",
+      "reversalLimits": "يمكن حذف الرمز (إبطاله) أو ينتهي بانتهاء مدته فيتوقف عن العمل، ولا يمكن استعادة رمز منتهٍ أو مُبطَل بل يُنشأ غيره. وما نفّذه به من استعمله أثناء تسريبه لا يُلغى. اختر تاريخ انتهاء قصيرًا.",
+      "docsUrl": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "طوبق أن الرمز بديل عن كلمة المرور وأن الرمز الدقيق لا يغطي كل المهام؛ وعبارة الإبطال الفوري لم تُطابَق على نص صريح."
+        "note": "طوبق على صفحة انتهاء الرموز وإبطالها: الرمز المنتهي أو المُبطَل لا يُستعاد ولا يصلح للمصادقة؛ وعلى صفحة إدارة الرموز أنه بديل عن كلمة المرور."
       },
       "signature": null
     },
@@ -1327,7 +1327,7 @@
       "permission": "None",
       "permissionNote": "إجراء على حسابك وحدك، وقد تشترط المنظمة موافقتها على استعماله مع مستودعاتها.",
       "whenToUse": "عند حاجتك إلى رمز محصور بمستودعات محددة وصلاحيات ضيقة بدل صلاحية شاملة على الحساب.",
-      "reversalLimits": "يمكن حذف الرمز (إبطاله) فيتوقف فورًا. لا يغطي كل المهام بعد، ويُنصح بتاريخ انتهاء قصير؛ وقد تمنع المنظمة الرموز بلا انتهاء.",
+      "reversalLimits": "يمكن حذف الرمز (إبطاله) أو ينتهي بانتهاء مدته، ولا يمكن استعادة رمز منتهٍ أو مُبطَل بل يُنشأ غيره. لا يغطي كل المهام بعد، ويُنصح بتاريخ انتهاء قصير؛ وقد تمنع المنظمة الرموز بلا انتهاء.",
       "docsUrl": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens",
       "verification": {
         "status": "verified",
@@ -1375,12 +1375,12 @@
       "permission": "None",
       "permissionNote": "التثبيت على حسابك وحدك؛ وعلى المنظمة يحتاج صلاحية من مالكها.",
       "whenToUse": "عند تثبيت تكامل يحتاج صلاحيات محددة على مستودعات مختارة بهوية مستقلة عن حسابك.",
-      "reversalLimits": "يمكن إلغاء تثبيت التطبيق أو تقليص مستودعاته في أي وقت. ما نفّذه أثناء التثبيت لا يُلغى.",
-      "docsUrl": "https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/deciding-when-to-build-a-github-app",
+      "reversalLimits": "يلغي من فوّض التطبيق تفويضه من إعداداته في أي وقت، ويستطيع مالك المنظمة أو المؤسسة إلغاء تثبيته من حسابها دون إلغاء تفويضات أعضائها. وما نفّذه التطبيق أثناء تفويضه لا يُلغى.",
+      "docsUrl": "https://docs.github.com/en/apps/using-github-apps/reviewing-and-revoking-authorization-of-github-apps",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "صفحة الوثائق تقارن بين التطبيقات؛ عبارات الإلغاء لم تُطابَق على نص صريح."
+        "note": "طوبق على صفحة مراجعة تفويض تطبيقات GitHub وإلغائه: لا يلغي التفويض إلا من فوّض، ويمكن للمالكين إلغاء التثبيت فقط."
       },
       "signature": null
     },
@@ -1398,12 +1398,12 @@
       "reversible": "نعم",
       "permission": "Admin",
       "whenToUse": "عند رغبتك في إعلام خدمة خارجية آليًا بأحداث المستودع كفتح مشكلة أو دفع التزام.",
-      "reversalLimits": "يمكن تعطيل الخطاف أو حذفه في أي وقت فيتوقف إرسال الأحداث. الطلبات التي أُرسلت فعلًا إلى الرابط لا تُسترد، وللرابط الخارجي أن يحتفظ بما استلمه.",
-      "docsUrl": "https://docs.github.com/en/webhooks/about-webhooks",
+      "reversalLimits": "التعطيل (Deactivate) يوقف الإرسال ويمكن إعادة تفعيله لاحقًا، أما الحذف فلا يمكن استعادته. والطلبات التي أُرسلت فعلًا إلى الرابط لا تُسترد، وللرابط الخارجي أن يحتفظ بما استلمه.",
+      "docsUrl": "https://docs.github.com/en/webhooks/using-webhooks/disabling-webhooks",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "لم تُقرأ تفاصيل الصلاحية ولا العبارات الخاصة بالتعطيل من صفحة الوثائق."
+        "note": "طوبق على صفحة تعطيل الخطافات: التعطيل يوقف الإرسال ويقبل إعادة التفعيل، والحذف لا يُستعاد؛ وصلاحية Admin حكم عام لم يُطابَق."
       },
       "signature": null
     },
@@ -1421,7 +1421,7 @@
       "permission": "Admin",
       "whenToUse": "عند رغبتك في كشف أسرار (مفاتيح أو رموز) رُفعت بالخطأ إلى المستودع وتاريخه.",
       "reversalLimits": "يمكن تعطيل الفحص في أي وقت. لكن سرًّا تسرب يجب إبطاله لدى مزوّده، فحذفه من المستودع لا يمحوه من التاريخ ولا ممن نسخه.",
-      "docsUrl": "https://docs.github.com/en/code-security/concepts/secret-security/index",
+      "docsUrl": "https://docs.github.com/en/code-security/concepts/secret-security",
       "verification": {
         "status": "unverified",
         "checkedOn": "2026-10-23",
@@ -1668,14 +1668,15 @@
       "example": "تنشر توثيق مشروعك من مجلد docs كموقع على الرابط الذي تمنحه GitHub.",
       "safety": "حساس",
       "reversible": "نعم",
-      "permission": "Admin",
+      "permission": "Maintain",
+      "permissionNote": "مدير المستودع أو من يملك الصيانة.",
       "whenToUse": "عند رغبتك في نشر موقع ثابت (توثيق أو صفحة تعريف) مباشرة من مستودعك.",
-      "reversalLimits": "يمكن إيقاف النشر أو تعطيل الصفحات من الإعدادات فيُزال الموقع. وما دام منشورًا فهو عام حتى لو كان المستودع خاصًا (إلا في خطة تدعم تقييد الظهور)، وما نُسخ منه لا يُسحب.",
-      "docsUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages",
+      "reversalLimits": "يمكن إلغاء نشر الموقع فيُزال النشر الحالي ولا يتأثر المستودع ولا محتواه، والإلغاء ليس حذفًا للموقع. وما نُسخ من الموقع وهو منشور لا يُسحب.",
+      "docsUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/unpublishing-a-github-pages-site",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "لم تُقرأ عبارات الإيقاف ولا ظهور المواقع العامة من المستودعات الخاصة من صفحة الوثائق."
+        "note": "طوبق على صفحة إلغاء نشر موقع Pages: يلغيه من يملك Admin أو Maintain، ولا يتأثر المستودع ولا محتواه، وهو ليس حذفًا للموقع."
       },
       "signature": null
     },
@@ -2356,7 +2357,7 @@
       "permissionNote": "عرض التشغيلات يحتاج الوصول إلى المستودع؛ وإعادة التشغيل أو الإلغاء تحتاج الكتابة.",
       "whenToUse": "عند رغبتك في متابعة تشغيلات سير العمل ونتائجها وسجلاتها.",
       "reversalLimits": "العرض لا يغيّر شيئًا. أما إلغاء تشغيل أو حذفه أو تعطيل سير عمل فتفاصيلها في مدخلات سير العمل.",
-      "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/index",
+      "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs",
       "verification": {
         "status": "unverified",
         "checkedOn": "2026-10-23",
@@ -2825,7 +2826,7 @@
       "permissionNote": "إعادة التشغيل والإلغاء والحذف تحتاج الكتابة.",
       "whenToUse": "عند رغبتك في معرفة سبب نجاح تشغيل أو فشله من مهامه وخطواته وسجلاته.",
       "reversalLimits": "الفتح عرض فقط. وإلغاء التشغيل لا يعكس ما أنجزه قبل الإلغاء، وحذف التشغيل يزيل سجله.",
-      "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/index",
+      "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs",
       "verification": {
         "status": "unverified",
         "checkedOn": "2026-10-23",
@@ -2969,12 +2970,12 @@
       "permission": "None",
       "permissionNote": "على حسابك أنت فقط.",
       "whenToUse": "عند رغبتك في إضافة طبقة حماية بعد كلمة المرور عبر تطبيق مصادقة أو وسيلة أخرى.",
-      "reversalLimits": "يمكن تعطيلها أو تغيير وسيلتها. لكن فقدان وسيلة المصادقة ورموز الاسترداد معًا قد يعني فقدان الوصول إلى الحساب نهائيًا، فاحفظ الرموز منفصلةً عن جهاز المصادقة.",
+      "reversalLimits": "يمكن تعطيلها، لكن ذلك قد يفقدك الوصول إلى منظمات تشترطها. ورموز الاسترداد تُستعمل مرة واحدة، وتوليد مجموعة جديدة يبطل القديمة؛ فاحفظها منفصلةً عن جهاز المصادقة.",
       "docsUrl": "https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "وُجدت صفحات الإعداد والاسترداد؛ ولم تُقرأ عباراتها."
+        "note": "طوبق على صفحتي تعطيل المصادقة الثنائية وطرق الاسترداد: فقدان الوصول إلى منظمات تشترطها عند التعطيل، واستعمال رمز الاسترداد مرة واحدة وإبطال المجموعة القديمة بتوليد جديدة."
       },
       "signature": {
         "labels": [
@@ -3004,12 +3005,12 @@
       "permission": "None",
       "permissionNote": "على حسابك أنت فقط.",
       "whenToUse": "عند رغبتك في تسجيل المفتاح العام لجهازك ليصادق بدل كلمة المرور في كل عملية.",
-      "reversalLimits": "يُحذف المفتاح من إعدادات الحساب فتتوقف المصادقة به فورًا. المفتاح الخاص على جهازك يبقى ويجب حمايته أو حذفه.",
+      "reversalLimits": "يُحذف المفتاح من إعدادات الحساب فتنقطع عنه المصادقة به. المفتاح الخاص على جهازك يبقى ويجب حمايته أو حذفه.",
       "docsUrl": "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account",
       "verification": {
-        "status": "unverified",
+        "status": "verified",
         "checkedOn": "2026-10-23",
-        "note": "وُجدت صفحة إضافة المفتاح؛ ولم تُقرأ عبارات الحذف."
+        "note": "طوبق على صفحة مراجعة مفاتيح SSH أن حذف المفتاح يمنع الوصول به؛ ووجود صفحة إضافة المفتاح لا يغيّر الحكم."
       },
       "signature": {
         "labels": [

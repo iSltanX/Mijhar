@@ -5,8 +5,26 @@
     "whenToUse": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات.",
     "reversalLimits": "معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها.",
     "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories",
-    "verification": { "status": "unverified", "note": "لم يُطابَق ظهور التبويب لمن لا يملك Admin على نص صريح، ولا أي من أدوار الصيانة (Maintain)." },
-    "signature": { "labels": ["Settings"], "roles": ["tab", "link"], "pages": ["repo-home", "settings-repo"], "hrefPatterns": ["/settings$"] }
+    "verification": {
+      "status": "unverified",
+      "note": "لم يُطابَق ظهور التبويب لمن لا يملك Admin على نص صريح، ولا أي من أدوار الصيانة (Maintain)."
+    },
+    "signature": {
+      "labels": [
+        "Settings"
+      ],
+      "roles": [
+        "tab",
+        "link"
+      ],
+      "pages": [
+        "repo-home",
+        "settings-repo"
+      ],
+      "hrefPatterns": [
+        "/settings$"
+      ]
+    }
   },
   "file-tree": {
     "kind": "element",
@@ -14,8 +32,24 @@
     "whenToUse": "عند رغبتك في تصفح مجلدات المستودع وملفاته وقراءة محتوياتها وآخر التزام غيّرها.",
     "reversalLimits": "عرض فقط؛ لا إجراء فيه يُتراجع عنه.",
     "docsUrl": "https://docs.github.com/en/repositories/working-with-files/using-files/navigating-code-on-github",
-    "verification": { "status": "unverified", "note": "الحكم من طبيعة العرض؛ لم يُطابَق على نص صريح." },
-    "signature": { "labels": ["Files"], "roles": ["table", "list", "region"], "pages": ["repo-home", "repo-files"] }
+    "verification": {
+      "status": "unverified",
+      "note": "الحكم من طبيعة العرض؛ لم يُطابَق على نص صريح."
+    },
+    "signature": {
+      "labels": [
+        "Files"
+      ],
+      "roles": [
+        "table",
+        "list",
+        "region"
+      ],
+      "pages": [
+        "repo-home",
+        "repo-files"
+      ]
+    }
   },
   "readme-block": {
     "kind": "element",
@@ -24,8 +58,22 @@
     "whenToUse": "عند رغبتك في فهم مشروع قبل استخدامه من تعريفه الذي يعرضه GitHub أسفل الملفات.",
     "reversalLimits": "العرض تصيير لملف في المستودع؛ وتعديل الملف التزام يُتراجع عنه بالتزام جديد.",
     "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
-    "verification": { "status": "unverified", "note": "الحكم مبني على أن README ملف عادي في Git." },
-    "signature": { "labels": ["README"], "roles": ["region", "heading"], "pages": ["repo-home"] }
+    "verification": {
+      "status": "unverified",
+      "note": "الحكم مبني على أن README ملف عادي في Git."
+    },
+    "signature": {
+      "labels": [
+        "README"
+      ],
+      "roles": [
+        "region",
+        "heading"
+      ],
+      "pages": [
+        "repo-home"
+      ]
+    }
   },
   "about-panel": {
     "kind": "element",
@@ -34,8 +82,22 @@
     "whenToUse": "عند رغبتك في لمحة سريعة عن المستودع: وصفه ووسومه وترخيصه وعدد نجومه.",
     "reversalLimits": "التعديلات على الوصف والوسوم والموقع تُعاد في أي وقت بالأيقونة نفسها دون أثر على الشفرة.",
     "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics",
-    "verification": { "status": "verified", "note": "طوبقت صلاحية Admin لإضافة الوسوم وحدها؛ وبقية العناصر لم تُطابَق." },
-    "signature": { "labels": ["About"], "roles": ["region", "heading"], "pages": ["repo-home"] }
+    "verification": {
+      "status": "verified",
+      "note": "طوبقت صلاحية Admin لإضافة الوسوم وحدها؛ وبقية العناصر لم تُطابَق."
+    },
+    "signature": {
+      "labels": [
+        "About"
+      ],
+      "roles": [
+        "region",
+        "heading"
+      ],
+      "pages": [
+        "repo-home"
+      ]
+    }
   },
   "branch-select": {
     "kind": "element",
@@ -43,8 +105,24 @@
     "whenToUse": "عند رغبتك في عرض المستودع كما كان في فرع آخر أو عند وسم بعينه.",
     "reversalLimits": "التبديل عرض فقط ولا يغيّر شيئًا في المستودع.",
     "docsUrl": "https://docs.github.com/en/pull-requests/reference/branches",
-    "verification": { "status": "unverified", "note": "الحكم من طبيعة العرض؛ لم يُطابَق على نص صريح." },
-    "signature": { "labels": ["Branches", "Switch branches or tags"], "roles": ["button", "combobox"], "pages": ["repo-home", "repo-files"] }
+    "verification": {
+      "status": "unverified",
+      "note": "الحكم من طبيعة العرض؛ لم يُطابَق على نص صريح."
+    },
+    "signature": {
+      "labels": [
+        "Branches",
+        "Switch branches or tags"
+      ],
+      "roles": [
+        "button",
+        "combobox"
+      ],
+      "pages": [
+        "repo-home",
+        "repo-files"
+      ]
+    }
   },
   "tag-list": {
     "kind": "element",
@@ -53,8 +131,26 @@
     "whenToUse": "عند رغبتك في استعراض أرقام الإصدارات المسجَّلة والرجوع إلى حالة الملفات عندها.",
     "reversalLimits": "العرض لا يغيّر شيئًا. وحذف وسم أو إعادة توجيهه تفصيله في مدخل الوسم.",
     "docsUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/viewing-your-repositorys-releases-and-tags",
-    "verification": { "status": "unverified", "note": "الحكم من طبيعة العرض؛ لم يُطابَق على نص صريح." },
-    "signature": { "labels": ["Tags"], "roles": ["tab", "link"], "pages": ["repo-home", "releases"], "hrefPatterns": ["/tags$"] }
+    "verification": {
+      "status": "unverified",
+      "note": "الحكم من طبيعة العرض؛ لم يُطابَق على نص صريح."
+    },
+    "signature": {
+      "labels": [
+        "Tags"
+      ],
+      "roles": [
+        "tab",
+        "link"
+      ],
+      "pages": [
+        "repo-home",
+        "releases"
+      ],
+      "hrefPatterns": [
+        "/tags$"
+      ]
+    }
   },
   "add-file-menu": {
     "kind": "element",
@@ -62,8 +158,22 @@
     "whenToUse": "عند رغبتك في إضافة ملف إلى المستودع إما بكتابته في المتصفح أو برفعه من جهازك.",
     "reversalLimits": "ينتهي كل خيار بالتزام يُتراجع عنه بالتزام جديد أو بحذف الفرع إن كان جديدًا. حدود الرفع من المتصفح مذكورة في مدخل رفع الملفات.",
     "docsUrl": "https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository",
-    "verification": { "status": "verified", "note": "طوبقت حدود الرفع من المتصفح واشتراط الكتابة لإنشاء الملفات من صفحتي إضافة الملف وإنشاء ملفات جديدة." },
-    "signature": { "labels": ["Add file"], "roles": ["button"], "pages": ["repo-home", "repo-files"] }
+    "verification": {
+      "status": "verified",
+      "note": "طوبقت حدود الرفع من المتصفح واشتراط الكتابة لإنشاء الملفات من صفحتي إضافة الملف وإنشاء ملفات جديدة."
+    },
+    "signature": {
+      "labels": [
+        "Add file"
+      ],
+      "roles": [
+        "button"
+      ],
+      "pages": [
+        "repo-home",
+        "repo-files"
+      ]
+    }
   },
   "release-new-btn": {
     "kind": "element",
@@ -71,8 +181,23 @@
     "whenToUse": "عند رغبتك في نشر نسخة جديدة من المشروع مع ملاحظاتها وملفاتها.",
     "reversalLimits": "يمكن حفظ الإصدار مسودة قبل النشر، وتعديله أو حذفه بعد النشر. وإن فُعِّلت الإصدارات غير القابلة للتعديل فلا تُغيَّر ملفاته ووسمه بعد النشر.",
     "docsUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository",
-    "verification": { "status": "verified", "note": "طوبقت صلاحية الكتابة لإنشاء الإصدار وتعديله وحذفه، وقيود الإصدارات غير القابلة للتعديل." },
-    "signature": { "labels": ["Draft a new release", "Create a new release"], "roles": ["button", "link"], "pages": ["releases"] }
+    "verification": {
+      "status": "verified",
+      "note": "طوبقت صلاحية الكتابة لإنشاء الإصدار وتعديله وحذفه، وقيود الإصدارات غير القابلة للتعديل."
+    },
+    "signature": {
+      "labels": [
+        "Draft a new release",
+        "Create a new release"
+      ],
+      "roles": [
+        "button",
+        "link"
+      ],
+      "pages": [
+        "releases"
+      ]
+    }
   },
   "actions-run-row": {
     "kind": "element",
@@ -80,9 +205,27 @@
     "permissionNote": "إعادة التشغيل والإلغاء والحذف تحتاج الكتابة.",
     "whenToUse": "عند رغبتك في معرفة سبب نجاح تشغيل أو فشله من مهامه وخطواته وسجلاته.",
     "reversalLimits": "الفتح عرض فقط. وإلغاء التشغيل لا يعكس ما أنجزه قبل الإلغاء، وحذف التشغيل يزيل سجله.",
-    "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/index",
-    "verification": { "status": "unverified", "note": "وُجدت صفحات الإلغاء والحذف؛ ولم تُقرأ عباراتها." },
-    "signature": { "labels": ["Workflow runs"], "roles": ["list", "table", "link"], "pages": ["actions"], "hrefPatterns": ["/actions/runs/\\d+"] }
+    "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs",
+    "verification": {
+      "status": "unverified",
+      "note": "وُجدت صفحات الإلغاء والحذف؛ ولم تُقرأ عباراتها."
+    },
+    "signature": {
+      "labels": [
+        "Workflow runs"
+      ],
+      "roles": [
+        "list",
+        "table",
+        "link"
+      ],
+      "pages": [
+        "actions"
+      ],
+      "hrefPatterns": [
+        "/actions/runs/\\d+"
+      ]
+    }
   },
   "settings-visibility": {
     "kind": "element",
@@ -91,8 +234,22 @@
     "whenToUse": "عند رغبتك في تغيير من يرى المستودع بين عام وخاص.",
     "reversalLimits": "التغيير فوري بعد التأكيد ويمكن عكسه بتغيير جديد. لكن ما كُشف وهو عام قد نُسخ، وتحويله إلى خاص يعطّل قراءة Git المجهولة وبعض الميزات.",
     "docsUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility",
-    "verification": { "status": "verified", "note": "طوبق أن المنظمة قد تقصر تغيير الظهور على مالكيها وأن التحويل إلى خاص يوقف قراءة Git المجهولة." },
-    "signature": { "labels": ["Change visibility", "Change repository visibility"], "roles": ["button"], "pages": ["settings-repo"] }
+    "verification": {
+      "status": "verified",
+      "note": "طوبق أن المنظمة قد تقصر تغيير الظهور على مالكيها وأن التحويل إلى خاص يوقف قراءة Git المجهولة."
+    },
+    "signature": {
+      "labels": [
+        "Change visibility",
+        "Change repository visibility"
+      ],
+      "roles": [
+        "button"
+      ],
+      "pages": [
+        "settings-repo"
+      ]
+    }
   },
   "settings-privacy-toggle": {
     "kind": "element",
@@ -101,8 +258,23 @@
     "whenToUse": "عند رغبتك في إظهار عدد مساهماتك الخاصة في مخططك العلني دون كشف تفاصيلها.",
     "reversalLimits": "يمكن تبديل الخيار في أي وقت. وما رآه الآخرون من أرقام وقت إظهاره لا يُسحب منهم.",
     "docsUrl": "https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/manage-visibility-settings-for-private-contributions-and-achievements",
-    "verification": { "status": "unverified", "note": "وُجدت صفحة إدارة ظهور المساهمات الخاصة؛ ولم تُقرأ تفاصيلها." },
-    "signature": { "labels": ["Include private contributions on my profile", "Private contributions"], "roles": ["checkbox", "switch"], "pages": ["settings-account"] }
+    "verification": {
+      "status": "unverified",
+      "note": "وُجدت صفحة إدارة ظهور المساهمات الخاصة؛ ولم تُقرأ تفاصيلها."
+    },
+    "signature": {
+      "labels": [
+        "Include private contributions on my profile",
+        "Private contributions"
+      ],
+      "roles": [
+        "checkbox",
+        "switch"
+      ],
+      "pages": [
+        "settings-account"
+      ]
+    }
   },
   "settings-theme-toggle": {
     "kind": "element",
@@ -111,28 +283,71 @@
     "whenToUse": "عند رغبتك في تغيير مظهر GitHub إلى فاتح أو داكن أو تلقائي يتبع نظام جهازك.",
     "reversalLimits": "يُبدَّل في أي وقت دون أثر على بياناتك.",
     "docsUrl": "https://docs.github.com/en/get-started/accessibility/managing-your-theme-settings",
-    "verification": { "status": "unverified", "note": "وُجدت صفحة إعدادات المظهر؛ ولم تُقرأ عبارة حفظ التفضيل في الحساب." },
-    "signature": { "labels": ["Theme mode", "Appearance"], "roles": ["combobox", "button"], "pages": ["settings-account"] }
+    "verification": {
+      "status": "unverified",
+      "note": "وُجدت صفحة إعدادات المظهر؛ ولم تُقرأ عبارة حفظ التفضيل في الحساب."
+    },
+    "signature": {
+      "labels": [
+        "Theme mode",
+        "Appearance"
+      ],
+      "roles": [
+        "combobox",
+        "button"
+      ],
+      "pages": [
+        "settings-account"
+      ]
+    }
   },
   "settings-2fa-enable": {
     "kind": "element",
     "permission": "None",
     "permissionNote": "على حسابك أنت فقط.",
     "whenToUse": "عند رغبتك في إضافة طبقة حماية بعد كلمة المرور عبر تطبيق مصادقة أو وسيلة أخرى.",
-    "reversalLimits": "يمكن تعطيلها أو تغيير وسيلتها. لكن فقدان وسيلة المصادقة ورموز الاسترداد معًا قد يعني فقدان الوصول إلى الحساب نهائيًا، فاحفظ الرموز منفصلةً عن جهاز المصادقة.",
+    "reversalLimits": "يمكن تعطيلها، لكن ذلك قد يفقدك الوصول إلى منظمات تشترطها. ورموز الاسترداد تُستعمل مرة واحدة، وتوليد مجموعة جديدة يبطل القديمة؛ فاحفظها منفصلةً عن جهاز المصادقة.",
     "docsUrl": "https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication",
-    "verification": { "status": "unverified", "note": "وُجدت صفحات الإعداد والاسترداد؛ ولم تُقرأ عباراتها." },
-    "signature": { "labels": ["Enable two-factor authentication"], "roles": ["button", "link"], "pages": ["settings-account"] }
+    "verification": {
+      "status": "verified",
+      "note": "طوبق على صفحتي تعطيل المصادقة الثنائية وطرق الاسترداد: فقدان الوصول إلى منظمات تشترطها عند التعطيل، واستعمال رمز الاسترداد مرة واحدة وإبطال المجموعة القديمة بتوليد جديدة."
+    },
+    "signature": {
+      "labels": [
+        "Enable two-factor authentication"
+      ],
+      "roles": [
+        "button",
+        "link"
+      ],
+      "pages": [
+        "settings-account"
+      ]
+    }
   },
   "settings-ssh-add": {
     "kind": "element",
     "permission": "None",
     "permissionNote": "على حسابك أنت فقط.",
     "whenToUse": "عند رغبتك في تسجيل المفتاح العام لجهازك ليصادق بدل كلمة المرور في كل عملية.",
-    "reversalLimits": "يُحذف المفتاح من إعدادات الحساب فتتوقف المصادقة به فورًا. المفتاح الخاص على جهازك يبقى ويجب حمايته أو حذفه.",
+    "reversalLimits": "يُحذف المفتاح من إعدادات الحساب فتنقطع عنه المصادقة به. المفتاح الخاص على جهازك يبقى ويجب حمايته أو حذفه.",
     "docsUrl": "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account",
-    "verification": { "status": "unverified", "note": "وُجدت صفحة إضافة المفتاح؛ ولم تُقرأ عبارات الحذف." },
-    "signature": { "labels": ["New SSH key"], "roles": ["button", "link"], "pages": ["settings-account"] }
+    "verification": {
+      "status": "verified",
+      "note": "طوبق على صفحة مراجعة مفاتيح SSH أن حذف المفتاح يمنع الوصول به؛ ووجود صفحة إضافة المفتاح لا يغيّر الحكم."
+    },
+    "signature": {
+      "labels": [
+        "New SSH key"
+      ],
+      "roles": [
+        "button",
+        "link"
+      ],
+      "pages": [
+        "settings-account"
+      ]
+    }
   },
   "settings-branch-protect-add": {
     "kind": "element",
@@ -140,8 +355,23 @@
     "whenToUse": "عند رغبتك في فرض شروط على فرع مهم: طلب سحب وموافقات ونجاح فحوص ومنع الحذف والدفع القسري.",
     "reversalLimits": "تُعدَّل القاعدة أو تُحذف في أي وقت وتسري فورًا. ما حدث أثناء تعطيلها لا تعكسه إعادة تفعيلها.",
     "docsUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule",
-    "verification": { "status": "unverified", "note": "وُجدت صفحة إدارة القاعدة؛ ولم تُقرأ صلاحيتها." },
-    "signature": { "labels": ["Add branch protection rule", "Add classic branch protection rule"], "roles": ["button", "link"], "pages": ["settings-repo"] }
+    "verification": {
+      "status": "unverified",
+      "note": "وُجدت صفحة إدارة القاعدة؛ ولم تُقرأ صلاحيتها."
+    },
+    "signature": {
+      "labels": [
+        "Add branch protection rule",
+        "Add classic branch protection rule"
+      ],
+      "roles": [
+        "button",
+        "link"
+      ],
+      "pages": [
+        "settings-repo"
+      ]
+    }
   },
   "settings-danger-delete": {
     "kind": "element",
@@ -150,7 +380,21 @@
     "whenToUse": "عند الحاجة إلى إجراء جذري على المستودع: تغيير الظهور أو النقل أو الأرشفة أو الحذف.",
     "reversalLimits": "لكل إجراء حدوده: الأرشفة تُلغى، وتغيير الظهور يُعكس، أما الحذف فاستعادته محدودة بـ90 يومًا بشروط، والنقل يحتاج نقلًا جديدًا يقبله المالك الجديد.",
     "docsUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/deleting-a-repository",
-    "verification": { "status": "verified", "note": "طوبقت حدود الحذف (90 يومًا وشروطها) وإلغاء الأرشفة وقبول النقل بين حسابين شخصيين على صفحاتها." },
-    "signature": { "labels": ["Danger Zone"], "roles": ["heading", "region"], "pages": ["settings-repo"] }
+    "verification": {
+      "status": "verified",
+      "note": "طوبقت حدود الحذف (90 يومًا وشروطها) وإلغاء الأرشفة وقبول النقل بين حسابين شخصيين على صفحاتها."
+    },
+    "signature": {
+      "labels": [
+        "Danger Zone"
+      ],
+      "roles": [
+        "heading",
+        "region"
+      ],
+      "pages": [
+        "settings-repo"
+      ]
+    }
   }
 }

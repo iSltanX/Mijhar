@@ -124,7 +124,7 @@
     "permissionNote": "عرض التشغيلات يحتاج الوصول إلى المستودع؛ وإعادة التشغيل أو الإلغاء تحتاج الكتابة.",
     "whenToUse": "عند رغبتك في متابعة تشغيلات سير العمل ونتائجها وسجلاتها.",
     "reversalLimits": "العرض لا يغيّر شيئًا. أما إلغاء تشغيل أو حذفه أو تعطيل سير عمل فتفاصيلها في مدخلات سير العمل.",
-    "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/index",
+    "docsUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs",
     "verification": { "status": "unverified", "note": "وُجدت صفحات إدارة التشغيلات (إلغاء وحذف وتعطيل)؛ ولم تُقرأ صلاحياتها." },
     "signature": { "labels": ["Actions"], "roles": ["tab", "link"], "pages": ["repo-home", "actions"], "hrefPatterns": ["/actions$"] }
   },
