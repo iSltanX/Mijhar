@@ -177,3 +177,51 @@ export function writeJson(file, data) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
 }
+
+// خادم ملفات ثابت محلي لعينات fixtures (المنفذ عشوائي).
+export async function serveDir(dir) {
+  const http = await import('node:http');
+  const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css', '.json': 'application/json', '.wasm': 'application/wasm', '.onnx': 'application/octet-stream' };
+  const server = http.createServer((req, res) => {
+    const pathname = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+    const file = path.join(dir, pathname);
+    if (!file.startsWith(dir) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+      res.writeHead(404).end('not found');
+      return;
+    }
+    res.writeHead(200, { 'content-type': types[path.extname(file)] ?? 'application/octet-stream', 'cache-control': 'no-store' });
+    fs.createReadStream(file).pipe(res);
+  });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  return { url: `http://127.0.0.1:${server.address().port}`, close: () => new Promise((resolve) => server.close(resolve)) };
+}
+
+// متصفح موحّد للتجارب: open(url) ثم evaluate(fn, arg) في المتصفحات الأربعة.
+export async function openBrowser(key, options = {}) {
+  if (BROWSERS[key].family === 'firefox') {
+    const ff = await launchFirefox(options);
+    return {
+      key,
+      label: BROWSERS[key].label,
+      version: ff.version,
+      ff,
+      async open(url) { await ff.navigate(url); },
+      async evaluate(fn, arg) { return ff.exec(`return (${fn.toString()})(arguments[0]);`, [arg ?? null]); },
+      async evaluateAsync(fn, arg, timeout = 120000) { return ff.execAsync(`const done = arguments[arguments.length - 1]; Promise.resolve((${fn.toString()})(arguments[0])).then(done, (e) => done({ error: String(e) }));`, [arg ?? null], 'content', timeout); },
+      close: () => ff.close(),
+    };
+  }
+  const b = await launchChromium(key, options);
+  const page = await b.context.newPage();
+  return {
+    key,
+    label: BROWSERS[key].label,
+    version: b.version,
+    page,
+    context: b.context,
+    async open(url) { await page.goto(url, { waitUntil: 'load' }); },
+    evaluate: (fn, arg) => page.evaluate(fn, arg ?? null),
+    evaluateAsync: (fn, arg) => page.evaluate(fn, arg ?? null),
+    close: () => b.close(),
+  };
+}

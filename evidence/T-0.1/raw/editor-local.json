@@ -1,0 +1,130 @@
+{
+  "measuredAt": "2026-10-23T06:25:07.361Z",
+  "fixture": "fixtures/spikes/fixture-editor.html",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "noRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "withRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "typing": {
+        "typed": " تجربة",
+        "unchanged": true
+      },
+      "undoShortcut": {
+        "undoSteps": 5,
+        "undone": true,
+        "redoSteps": 5,
+        "redone": true,
+        "dirAfter": "ltr"
+      },
+      "undoCommand": {
+        "undoSteps": 5,
+        "undone": true,
+        "redoSteps": 5,
+        "redone": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "noRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "withRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "typing": {
+        "typed": " تجربة",
+        "unchanged": true
+      },
+      "undoShortcut": {
+        "undoSteps": 5,
+        "undone": true,
+        "redoSteps": 5,
+        "redone": true,
+        "dirAfter": "ltr"
+      },
+      "undoCommand": {
+        "undoSteps": 5,
+        "undone": true,
+        "redoSteps": 5,
+        "redone": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "noRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "withRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "typing": {
+        "typed": " تجربة",
+        "unchanged": true
+      },
+      "undoShortcut": {
+        "undoSteps": 5,
+        "undone": true,
+        "redoSteps": 5,
+        "redone": true,
+        "dirAfter": "ltr"
+      },
+      "undoCommand": {
+        "undoSteps": 5,
+        "undone": true,
+        "redoSteps": 5,
+        "redone": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "noRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "withRestore": {
+        "base": "120,160,backward,150",
+        "failures": 0,
+        "failed": []
+      },
+      "typing": {
+        "typed": " تجربة",
+        "unchanged": true
+      },
+      "undoShortcut": {
+        "undoSteps": 1,
+        "undone": true,
+        "redoSteps": 1,
+        "redone": true,
+        "dirAfter": "ltr"
+      },
+      "undoCommand": {
+        "undoSteps": 1,
+        "undone": true,
+        "redoSteps": 1,
+        "redone": true
+      }
+    }
+  ]
+}
