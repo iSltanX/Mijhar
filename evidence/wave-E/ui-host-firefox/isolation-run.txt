@@ -1,0 +1,20 @@
+$ FIX=0 node tunnel-isolation.mjs
+[0.32s] العميل يرسل بايتات متأخرة بعد إنهاء الخادم
+[0.47s] العميل يغلق جانبه
+[0.87s] قبل الإغلاق: proxy._connections=1
+[0.87s] site أُغلق
+Warning: Detected unsettled top-level await at file:///Volumes/iSltanXx/Projects/Brave/Mijhar/evidence/wave-E/ui-host-firefox/tunnel-isolation.mjs:42
+await new Promise((r) => proxy.close(r)); // ← هنا يتعلق بلا إصلاح
+^
+
+
+
+exit code: 13
+
+$ FIX=1 node tunnel-isolation.mjs
+[0.32s] العميل يرسل بايتات متأخرة بعد إنهاء الخادم
+[0.47s] العميل يغلق جانبه
+[0.87s] قبل الإغلاق: proxy._connections=0
+[0.87s] site أُغلق
+[0.87s] proxy أُغلق (الرد استُدعي)
+exit code: 0

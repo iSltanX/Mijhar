@@ -1,0 +1,6 @@
+Warning: Detected unsettled top-level await at file:///Volumes/iSltanXx/Projects/Brave/Mijhar/tests/core/ui-host/browser/run.mjs:316
+  results[key] = key === 'firefox' ? await firefoxRun({ outDir }) : await chromiumRun(key);
+                                     ^
+
+
+

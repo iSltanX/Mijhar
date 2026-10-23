@@ -1,0 +1,50 @@
+diff --git a/tests/core/ui-host/browser/firefox.mjs b/tests/core/ui-host/browser/firefox.mjs
+index 140beb1..d9fb5b8 100644
+--- a/tests/core/ui-host/browser/firefox.mjs
++++ b/tests/core/ui-host/browser/firefox.mjs
+@@ -92,11 +92,21 @@ async function startServers(workDir) {
+     res.writeHead(403);
+     res.end();
+   });
++  // أنفاق CONNECT الحيّة: تُتلف كلها عند الإغلاق. مقبس نصف مغلق متوقف القراءة (بايتات وصلت من المتصفح بعد أن أنهى الخادم
++  // المحلي جهته فارتدّ pipe) لا يُطلق end ولا يُبقي مقبضًا نشطًا، فيبقى _connections=1 فلا يُستدعى رد proxy.close() أبدًا
++  // وتخرج Node برمز 13 («unsettled top-level await»).
++  const tunnels = new Set();
++  const adopt = (socket) => {
++    tunnels.add(socket);
++    socket.once('close', () => tunnels.delete(socket));
++  };
+   proxy.on('connect', (req, client, head) => {
+     const host = req.url.split(':')[0];
++    adopt(client);
+     if (!SERVED.has(host)) {
+       log.refused.push(host);
+       client.end('HTTP/1.1 403 Forbidden\r\n\r\n');
++      client.resume(); // يُفرَّغ ما يصل بعد الرفض فيبلغ end ويُغلق المقبس
+       return;
+     }
+     const upstream = net.connect(sitePort, '127.0.0.1', () => {
+@@ -105,11 +115,22 @@ async function startServers(workDir) {
+       upstream.pipe(client);
+       client.pipe(upstream);
+     });
++    adopt(upstream);
+     upstream.on('error', () => client.destroy());
+     client.on('error', () => upstream.destroy());
++    upstream.on('close', () => client.destroy());
++    client.on('close', () => upstream.destroy());
+   });
+   await new Promise((resolve) => proxy.listen(0, '127.0.0.1', resolve));
+-  return { log, caDer, proxyPort: proxy.address().port, close: () => Promise.all([new Promise((r) => site.close(r)), new Promise((r) => proxy.close(r))]) };
++  return {
++    log,
++    caDer,
++    proxyPort: proxy.address().port,
++    close: () => {
++      for (const socket of tunnels) socket.destroy();
++      return Promise.all([new Promise((r) => site.close(r)), new Promise((r) => proxy.close(r))]);
++    },
++  };
+ }
+ 
+ const prefs = (proxyPort) =>
