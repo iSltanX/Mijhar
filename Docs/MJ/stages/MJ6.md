@@ -1,7 +1,7 @@
 ---
 id: MJ6
 title: اتجاه النص وحارس الاستعادة
-status: planned
+status: active
 delivery: none
 wave: C
 order: 2
@@ -15,7 +15,7 @@ branch: mj/6-direction-guard
 base: mj-C/base
 commit: —
 updated: 2026-10-23
-resume: لم تبدأ. تبدأ من الخطوة 1 في «المهام» بعد التحقق من الفرع والأساس.
+resume: بدأت 2026-10-23. التحقق اجتاز والفرع أُنشئ من main. التالي: T-2.7 (المحرك والحارس) ثم T-2.1 (الاتجاه) ثم النطاق والإلغاء.
 ---
 
 # MJ6 — اتجاه النص وحارس الاستعادة
