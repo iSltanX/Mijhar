@@ -2,6 +2,7 @@
 // الخلفية التي تملك PublicApiClient وتتحقق من الصلاحية قبل كل طلب (EXECUTION_PLAN.md: «من الخلفية»). وصفحات الإضافة تستعمل
 // المنفذ المباشر على العميل نفسه.
 //  - الرسائل من سياقات الإضافة وحدها (لا externally_connectable)، والمسارات تُفحص في العميل (isPublicPath).
+//  - الرمز (T-5.5، AD-24) لا يعبر هذا المنفذ أبدًا: الطلب مسار وحده، والرد بيانات وحالة («بالرمز» وموعد الانتهاء) بلا الرمز ولا ترويساته.
 import { API_GITHUB_PERMISSION } from '../ui-host/permissions';
 import type { ExtensionApi, PermissionsApi } from '../ui-host/browser-api';
 import type { PagedResult, PublicApiClient, PublicApiResult } from './client';
@@ -10,7 +11,7 @@ import type { RateLimit } from './rate-limit';
 export const PUBLIC_API_MESSAGE = 'mijhar/public-api';
 
 /** حقول القوائم المغلّفة التي يعرف المنفذ استخراجها (لا دوال تعبر الرسائل). */
-export type PagedKey = 'check_runs' | 'statuses' | null;
+export type PagedKey = 'check_runs' | 'statuses' | 'workflow_runs' | 'jobs' | null;
 
 export type PublicApiRequest =
   | { readonly type: typeof PUBLIC_API_MESSAGE; readonly op: 'status' }
@@ -21,6 +22,10 @@ export interface PublicApiStatus {
   /** هل صلاحية api.github.com الاختيارية ممنوحة الآن. */
   readonly granted: boolean;
   readonly rate: RateLimit | null;
+  /** حاضر حين يوجد رمز وصول محفوظ تُرسل به الطلبات (T-5.5). */
+  readonly authenticated?: true;
+  /** موعد انتهاء الرمز (ms) إن أعلنته آخر استجابة موثَّقة. */
+  readonly tokenExpiresAt?: number | null;
 }
 
 export interface PublicApiPort {
@@ -48,7 +53,11 @@ export function pickPage<T>(body: unknown, key: PagedKey): { items: readonly T[]
 /** المنفذ المباشر: في الخلفية وصفحات الإضافة حيث permissions متاحة. */
 export function directPort(client: PublicApiClient, permissions: PermissionsApi): PublicApiPort {
   return {
-    status: async () => ({ granted: await permissions.contains(API_GITHUB_PERMISSION), rate: client.rate() }),
+    status: async () => {
+      const granted = await permissions.contains(API_GITHUB_PERMISSION);
+      const auth = await client.auth();
+      return { granted, rate: client.rate(), ...(auth.authenticated ? { authenticated: true as const, tokenExpiresAt: auth.expiresAt } : {}) };
+    },
     get: (path) => client.get(path),
     getAll: (path, key, maxPages = 3) => client.getAll(path, (body) => pickPage(body, key), maxPages),
   };

@@ -1,0 +1,7 @@
+
+> mijhar@0.0.1 build
+> node scripts/build.mjs
+
+chromium: dist/chromium
+firefox: dist/firefox
+exit 0

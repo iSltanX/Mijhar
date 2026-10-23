@@ -1,0 +1,72 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj15-af5ce2
+
+ ✓ tests/modules/d/token/store.test.ts > مكان الحفظ يطابق الاختيار حرفيًا > الافتراضي في الواجهة الجلسة؛ الحفظ في الجلسة لا يكتب على القرص ويمحو نسخة القرص 3ms
+ ✓ tests/modules/d/token/store.test.ts > مكان الحفظ يطابق الاختيار حرفيًا > الحفظ على القرص لا يُبقي نسخة في الجلسة 1ms
+ ✓ tests/modules/d/token/store.test.ts > مكان الحفظ يطابق الاختيار حرفيًا > المسح يمحو الموضعين، ويكمل الثاني ولو فشل الأول ثم يعلن الفشل 2ms
+ ✓ tests/modules/d/token/store.test.ts > مكان الحفظ يطابق الاختيار حرفيًا > القرص غير المتاح (Firefox) يُرفض صراحةً ولا يُحفظ في الجلسة بدله 1ms
+ ✓ tests/modules/d/token/store.test.ts > منطقة الجلسة ومستوى الوصول > يُضبط TRUSTED_CONTEXTS قبل كتابة الرمز حيث يُتاح (عائلة Chromium) 1ms
+ ✓ tests/modules/d/token/store.test.ts > منطقة الجلسة ومستوى الوصول > فشل ضبط مستوى الوصول يمنع الكتابة 0ms
+ ✓ tests/modules/d/token/store.test.ts > منطقة الجلسة ومستوى الوصول > قيمة تالفة في المنطقة لا تُعدّ رمزًا 0ms
+ ✓ tests/modules/d/token/store.test.ts > منطقة الجلسة ومستوى الوصول > extensionTokenStore: القرص حيث يتيح المتصفح setAccessLevel وIndexedDB؛ وFirefox (بلا setAccessLevel) جلسة وحدها 0ms
+ ✓ tests/modules/d/token/store.test.ts > الصيغة المقبولة والصلاحيات الدنيا > يُقبل الرمز دقيق الحبيبات وحده، والمسافات حوله تُحذف 0ms
+ ✓ tests/modules/d/token/store.test.ts > الصيغة المقبولة والصلاحيات الدنيا > القائمة من T-0.5 كلها قراءة: ست صلاحيات Read-only بلا Checks ولا أي صلاحية كتابة 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > ترويسة Authorization من العميل وحده > بلا رمز: لا ترويسة ولا حقل authenticated، كما كانت الطبقة العامة 32ms
+ ✓ tests/modules/d/token/client-token.test.ts > ترويسة Authorization من العميل وحده > بالرمز: Bearer في الطلب وحده، GET وبلا ملفات تعريف؛ والنتيجة تعلن «بالرمز» ولا تحمله 1ms
+ ✓ tests/modules/d/token/client-token.test.ts > ترويسة Authorization من العميل وحده > المسار غير المقبول يُرفض بالرمز كما بدونه: لا يتسع الوصول الموثَّق لمسارات أخرى 1ms
+ ✓ tests/modules/d/token/client-token.test.ts > ترويسة Authorization من العميل وحده > بلا الصلاحية الاختيارية لا يخرج طلب ولو وُجد الرمز 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > إشارات الرمز (جدول T-0.5) > 401 فشل «unauthorized» معلن، ولا يُعاد الطلب بلا رمز 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > إشارات الرمز (جدول T-0.5) > 403 لنقص صلاحية نقطة بعينها يسمّي الصلاحية من x-accepted-github-permissions 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > إشارات الرمز (جدول T-0.5) > 404 بالرمز: «لا يشمله الرمز» لا «غير عام» 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > إشارات الرمز (جدول T-0.5) > موعد الانتهاء من github-authentication-token-expiration ويُعرض في auth() 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > إشارات الرمز (جدول T-0.5) > تعذّر قراءة الرمز المحفوظ: فشل «token» ولا طلب مجهول بدله 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > إشارات الرمز (جدول T-0.5) > لا رمز في رسالة خطأ ولو أعاده الخادم أو الشبكة في النص 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > حد الموثَّق وذاكرته منفصلان عن العام > نفاد الحد العام لا يمنع الطلب بالرمز، ونفاد الموثَّق لا يمنع العام بعد مسح الرمز 1ms
+ ✓ tests/modules/d/token/client-token.test.ts > حد الموثَّق وذاكرته منفصلان عن العام > 429 بـRetry-After للموثَّق يوقف الموثَّق وحده حتى موعده 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > حد الموثَّق وذاكرته منفصلان عن العام > ETag: نسخة جُلبت بالرمز لا تُخدم ولا يُرسل وسمها لقراءة بلا رمز، ومسح الرمز ثم إعادته يفرّغ ذاكرة الموثَّق 1ms
+ ✓ tests/modules/d/token/client-token.test.ts > حد الموثَّق وذاكرته منفصلان عن العام > تبديل الرمز بآخر يفرّغ ذاكرة الأول: لا يستلم الثاني بيانات الأول 0ms
+ ✓ tests/modules/d/token/client-token.test.ts > حد الموثَّق وذاكرته منفصلان عن العام > ردّ متأخر لرمز مُسح أثناء الطلب لا يدخل ذاكرة ولا يُخدم بعد المسح 0ms
+ ✓ tests/modules/d/token/token-section.test.tsx > القائمة الدنيا ظاهرة عند الإدخال، ولا صلاحية كتابة في الواجهة > ست صلاحيات Read-only بجوار الحقل، وما لا يتاح بالرمز معلن؛ ولا ذكر لكتابة 28ms
+ ✓ tests/modules/d/token/token-section.test.tsx > الحفظ: الجلسة افتراضًا، والقرص بنص صريح > الافتراضي ذاكرة الجلسة؛ الحفظ يكتب فيها وحدها ويفرّغ الحقل ولا يبقى الرمز في DOM، ثم يتحقق عبر الخلفية 12ms
+ ✓ tests/modules/d/token/token-section.test.tsx > الحفظ: الجلسة افتراضًا، والقرص بنص صريح > القرص بعد نص صريح «غير مشفَّر»، ويُحفظ هناك وحده 7ms
+ ✓ tests/modules/d/token/token-section.test.tsx > الحفظ: الجلسة افتراضًا، والقرص بنص صريح > Firefox: خيار القرص محجوب ويُعلن قيده (setAccessLevel)، والجلسة تعمل 7ms
+ ✓ tests/modules/d/token/token-section.test.tsx > الحفظ: الجلسة افتراضًا، والقرص بنص صريح > رمز كلاسيكي يُرفض قبل أي حفظ أو طلب، ورسالته لا تحمل ما أُدخل 5ms
+ ✓ tests/modules/d/token/token-section.test.tsx > التحقق والمسح > رفض GitHub (401) يُعلن خطرًا، ويبقى المسح متاحًا 7ms
+ ✓ tests/modules/d/token/token-section.test.tsx > التحقق والمسح > بلا صلاحية api.github.com: الرمز محفوظ ويُعلن أنه لن يُستعمل قبلها 3ms
+ ✓ tests/modules/d/token/token-section.test.tsx > التحقق والمسح > «امسح الرمز» يمحوه من الجلسة والقرص ويُبلغ الخلفية بقراءة الحالة 9ms
+ ✓ tests/modules/d/token/token-section.test.tsx > الإدخال في صفحة الإعدادات وحدها > SettingsTab يرسم قسم الأسرار في options وحده: لا في الدرج ولا في اللوحة الأصلية 27ms
+ ✓ tests/modules/d/token/token-section.test.tsx > الإدخال في صفحة الإعدادات وحدها > لا قسم من أقسام الوحدات المشتركة (SETTINGS_SECTIONS) يحمل حقل رمز 0ms
+ ✓ tests/modules/d/token/background-token.test.tsx > TEST-PR-05 (AC-D7): المستودع الخاص بالرمز ثم بدونه > بالرمز: الطلب وفحوص Actions وحالة الالتزام وحماية الفرع؛ والفحوص من Actions بمصدرها وما لا يتاح معلن 9ms
+ ✓ tests/modules/e/collect.test.ts > الجمع من صفحة الطلب المرجعية > المستودع والرابط والفرع والالتزام والعنوان والوصف من الصفحة 34ms
+ ✓ tests/modules/e/collect.test.ts > الجمع من صفحة الطلب المرجعية > التعليقات الظاهرة بأصحابها وأوقاتها؛ والمطوي لا يُجمع ويُعلن، والعناصر غير المحمّلة تُعلن بعددها 15ms
+ ✓ tests/modules/e/collect.test.ts > الجمع من صفحة الطلب المرجعية > نتائج الفحوص بتصنيفها والإلزامي، ومقتطف الخطأ من الفاشلة، والقائمة المطوية (9 من 12) معلنة 21ms
+ ✓ tests/modules/e/collect.test.ts > TEST-CTX-01: كل أقسام الحزمة بقيمها > الحزمة الكاملة على العينة المرجعية 14ms
+ ✓ tests/modules/e/collect.test.ts > TEST-CTX-01: كل أقسام الحزمة بقيمها > صفحة مشكلة حقيقية محفوظة (React): العنوان والوصف وسبعة تعليقات بأصحابها، بلا فرع ولا فحوص 94ms
+ ✓ tests/modules/e/builder-ui.test.tsx > النافذة في الصفحة > شريط بعد الترويسة، والنافذة تُفتح بنقر وتجمع عندها؛ ولا طلب شبكة 124ms
+ ✓ tests/modules/e/builder-ui.test.tsx > TEST-CTX-02: قائمة الاختيار تحكم ما يدخل الحزمة > الافتراضي كل المتاح؛ وإلغاء كل عنصر يُخرجه من المعاينة وإعادته تعيده 59ms
+ ✓ tests/modules/e/collect.test.ts > TEST-CTX-01: كل أقسام الحزمة بقيمها > صفحة مهمة Actions حقيقية محفوظة: الخطوات ونتائجها، ومقتطف الخطأ من التنبيهات، وسجل الخطوة الفاشلة غير محمّل معلن 85ms
+ ✓ tests/modules/e/collect.test.ts > الكتل والسياج والجمع بلا شبكة > blockText: أسطر للكتل وبنود وشيفرة كما هي، بلا عناصر مخفية 1ms
+ ✓ tests/modules/e/collect.test.ts > الكتل والسياج والجمع بلا شبكة > السياج أطول من أي ``` داخل النص 0ms
+ ✓ tests/modules/e/collect.test.ts > الكتل والسياج والجمع بلا شبكة > الجمع والبناء لا يطلبان شيئًا من الشبكة 10ms
+ ✓ tests/modules/e/collect.test.ts > الكتل والسياج والجمع بلا شبكة > معرّفات العناصر متاحة بحسب المجموع 11ms
+stdout | tests/modules/e/builder-ui.test.tsx > TEST-CTX-02: قائمة الاختيار تحكم ما يدخل الحزمة > PB-05: تحديث المعاينة عند تبديل خيار أقل من 20ms (الوسيط على 30 تبديلًا، كل العناصر مختارة)
+PB-05 (jsdom): median 0.36ms · p95 0.44ms · max 0.48ms (n=30)
+
+ ✓ tests/modules/d/token/background-token.test.tsx > TEST-PR-05 (AC-D7): المستودع الخاص بالرمز ثم بدونه > البطاقة في الصفحة تعرض المصدر «DOM + API (بالرمز)» وفحوص المستودع الخاص؛ وبعد المسح تعمل بلا رمز وتعلن ما لم يتوفر 313ms
+ ✓ tests/modules/d/token/background-token.test.tsx > TEST-SEC-01/02 (وحدة): لا رمز خارج الخلفية > كل رسالة من الصفحة وكل ردّ إليها وDOM الصفحة والسجل: صفر ظهور للرمز، في حالات النجاح والرفض 3ms
+ ✓ tests/modules/d/token/background-token.test.tsx > TEST-SEC-01/02 (وحدة): لا رمز خارج الخلفية > الحالة تعلن «بالرمز» وموعد الانتهاء بلا الرمز؛ ومسحه يعيد الحالة العامة ويُسقط الترويسة من الطلب التالي 0ms
+ ✓ tests/modules/d/token/background-token.test.tsx > TEST-SEC-01/02 (وحدة): لا رمز خارج الخلفية > رسالة مزوّرة تطلب الرمز أو تمرّر رمزًا آخر: تُهمل حقولها، ويُستعمل المحفوظ وحده، ولا يعود في الرد 1ms
+ ✓ tests/modules/d/token/background-token.test.tsx > TEST-SEC-01/02 (وحدة): لا رمز خارج الخلفية > Firefox: مخزن الخلفية بلا قرص، والجلسة تعمل بالرمز نفسه 1ms
+ ✓ tests/modules/e/builder-ui.test.tsx > TEST-CTX-02: قائمة الاختيار تحكم ما يدخل الحزمة > التعليقات واحدًا واحدًا، و«لا شيء» و«الكل» 45ms
+ ✓ tests/modules/e/builder-ui.test.tsx > TEST-CTX-02: قائمة الاختيار تحكم ما يدخل الحزمة > «ما تعذّر جمعه أو اقتُطع لطوله» في الواجهة وفي الحزمة: المطوي وغير المحمّل والقائمة المطوية والمقتطع بعدد أسطره 40ms
+ ✓ tests/modules/e/builder-ui.test.tsx > TEST-CTX-02: قائمة الاختيار تحكم ما يدخل الحزمة > PB-05: تحديث المعاينة عند تبديل خيار أقل من 20ms (الوسيط على 30 تبديلًا، كل العناصر مختارة) 53ms
+ ✓ tests/modules/e/builder-ui.test.tsx > مقتطفات الأدلة والنسخ > النص المحدد في تعليق يُضاف مقتطفًا بمصدره، ويدخل الحزمة ويُحذف 43ms
+ ✓ tests/modules/e/builder-ui.test.tsx > مقتطفات الأدلة والنسخ > «انسخ الحزمة» ينسخ نص المعاينة كما هو بنقر، ويعلن النجاح؛ ولا طلب شبكة 38ms
+ ✓ tests/modules/e/builder-ui.test.tsx > مقتطفات الأدلة والنسخ > TEST-SEC-02 (حزمة السياق): رمز محفوظ في الخلفية لا يظهر في الحزمة ولا في واجهتها 38ms
+ ✓ tests/modules/e/builder-ui.test.tsx > الموضع في الصفحة > صفحة المهمة: الشريط قبل قسم التنبيهات، فلا يفصل بطاقة شرح السجل عن #logs 103ms
+
+ Test Files  6 passed (6)
+      Tests  60 passed (60)
+   Start at  01:26:41
+   Duration  1.48s (environment 44%, tests 25%, transform 19%, import 12%)
+

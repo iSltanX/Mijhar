@@ -265,6 +265,7 @@ class PrStatusController {
         top={
           <FreshnessBadge
             sources={apiRead ? ['dom', 'api'] : ['dom']}
+            authenticated={Boolean(apiRead && api?.authenticated)}
             domReadAt={this.domReadAt}
             apiReadAt={apiRead ? (api?.readAt ?? null) : null}
             alerts={alerts}

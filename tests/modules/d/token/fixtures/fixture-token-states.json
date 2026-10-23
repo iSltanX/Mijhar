@@ -1,0 +1,290 @@
+{
+ "source": "حالات رمز GitHub دقيق الحبيبات كما قاسها جدول الإشارات في evidence/T-0.5/report.md (2026-10-23)، بأسماء ومعرّفات مختلَقة. لا رمز في هذا الملف: الاختبار يولّد رمزًا بصيغة حقيقية وقت التشغيل. «expired» غير مقيس فعلًا (الرمزان لم ينتهيا) ويتبع التوثيق: 401.",
+ "states": {
+  "valid": {
+   "status": 200,
+   "headers": {
+    "x-ratelimit-limit": "5000",
+    "x-ratelimit-remaining": "4999",
+    "x-ratelimit-used": "1",
+    "x-ratelimit-reset": "1792768532",
+    "x-ratelimit-resource": "core",
+    "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+    "x-accepted-github-permissions": "allows_permissionless_access=true"
+   },
+   "body": {
+    "resources": {
+     "core": {
+      "limit": 5000,
+      "remaining": 4999,
+      "reset": 1792768532,
+      "used": 1
+     },
+     "search": {
+      "limit": 30,
+      "remaining": 30,
+      "reset": 1792764992,
+      "used": 0
+     }
+    },
+    "rate": {
+     "limit": 5000,
+     "remaining": 4999,
+     "reset": 1792768532,
+     "used": 1
+    }
+   }
+  },
+  "invalid": {
+   "status": 401,
+   "headers": {},
+   "body": {
+    "message": "Bad credentials",
+    "documentation_url": "https://docs.github.com/rest",
+    "status": "401"
+   }
+  },
+  "expired": {
+   "status": 401,
+   "headers": {},
+   "body": {
+    "message": "Bad credentials",
+    "documentation_url": "https://docs.github.com/rest",
+    "status": "401"
+   }
+  },
+  "missing-permission": {
+   "status": 403,
+   "headers": {
+    "x-ratelimit-limit": "5000",
+    "x-ratelimit-remaining": "4990",
+    "x-ratelimit-used": "10",
+    "x-ratelimit-reset": "1792768532",
+    "x-ratelimit-resource": "core",
+    "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+    "x-accepted-github-permissions": "checks=read"
+   },
+   "body": {
+    "message": "Resource not accessible by personal access token",
+    "documentation_url": "https://docs.github.com/rest/checks/runs#list-check-runs-for-a-git-reference",
+    "status": "403"
+   }
+  },
+  "rate-limited": {
+   "status": 403,
+   "headers": {
+    "x-ratelimit-limit": "5000",
+    "x-ratelimit-remaining": "0",
+    "x-ratelimit-used": "5000",
+    "x-ratelimit-reset": "1792768532",
+    "x-ratelimit-resource": "core",
+    "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+   },
+   "body": {
+    "message": "API rate limit exceeded for user ID 1.",
+    "documentation_url": "https://docs.github.com/rest/overview/rate-limits-for-the-rest-api",
+    "status": "403"
+   }
+  },
+  "secondary-limit": {
+   "status": 429,
+   "headers": {
+    "x-ratelimit-limit": "5000",
+    "x-ratelimit-remaining": "4200",
+    "x-ratelimit-used": "800",
+    "x-ratelimit-reset": "1792768532",
+    "x-ratelimit-resource": "core",
+    "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+    "retry-after": "60"
+   },
+   "body": {
+    "message": "You have exceeded a secondary rate limit.",
+    "status": "429"
+   }
+  },
+  "not-found": {
+   "status": 404,
+   "headers": {
+    "x-ratelimit-limit": "5000",
+    "x-ratelimit-remaining": "4989",
+    "x-ratelimit-used": "11",
+    "x-ratelimit-reset": "1792768532",
+    "x-ratelimit-resource": "core",
+    "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+    "x-accepted-github-permissions": "metadata=read"
+   },
+   "body": {
+    "message": "Not Found",
+    "documentation_url": "https://docs.github.com/rest",
+    "status": "404"
+   }
+  }
+ },
+ "privateRepo": {
+  "owner": "octo-owner",
+  "repo": "private-demo",
+  "number": 7,
+  "headSha": "5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912",
+  "baseRef": "main",
+  "responses": {
+   "/repos/octo-owner/private-demo/pulls/7": {
+    "status": 200,
+    "headers": {
+     "x-ratelimit-limit": "5000",
+     "x-ratelimit-remaining": "4998",
+     "x-ratelimit-used": "2",
+     "x-ratelimit-reset": "1792768532",
+     "x-ratelimit-resource": "core",
+     "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+     "x-accepted-github-permissions": "pull_requests=read; contents=read"
+    },
+    "body": {
+     "number": 7,
+     "state": "open",
+     "draft": false,
+     "merged": false,
+     "mergeable": true,
+     "mergeable_state": "blocked",
+     "head": {
+      "sha": "5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912",
+      "ref": "feature/login"
+     },
+     "base": {
+      "ref": "main"
+     }
+    }
+   },
+   "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1": "missing-permission",
+   "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1": {
+    "status": 200,
+    "headers": {
+     "x-ratelimit-limit": "5000",
+     "x-ratelimit-remaining": "4996",
+     "x-ratelimit-used": "4",
+     "x-ratelimit-reset": "1792768532",
+     "x-ratelimit-resource": "core",
+     "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+     "x-accepted-github-permissions": "statuses=read"
+    },
+    "body": {
+     "state": "success",
+     "total_count": 1,
+     "statuses": [
+      {
+       "context": "deploy/preview",
+       "state": "success",
+       "description": "Preview ready"
+      }
+     ]
+    }
+   },
+   "/repos/octo-owner/private-demo/branches/main": {
+    "status": 200,
+    "headers": {
+     "x-ratelimit-limit": "5000",
+     "x-ratelimit-remaining": "4995",
+     "x-ratelimit-used": "5",
+     "x-ratelimit-reset": "1792768532",
+     "x-ratelimit-resource": "core",
+     "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+     "x-accepted-github-permissions": "contents=read"
+    },
+    "body": {
+     "name": "main",
+     "protected": true,
+     "protection": {
+      "required_status_checks": {
+       "contexts": [
+        "ci / lint"
+       ]
+      }
+     }
+    }
+   },
+   "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1": {
+    "status": 200,
+    "headers": {
+     "x-ratelimit-limit": "5000",
+     "x-ratelimit-remaining": "4994",
+     "x-ratelimit-used": "6",
+     "x-ratelimit-reset": "1792768532",
+     "x-ratelimit-resource": "core",
+     "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+     "x-accepted-github-permissions": "actions=read"
+    },
+    "body": {
+     "total_count": 1,
+     "workflow_runs": [
+      {
+       "id": 9100,
+       "name": "ci",
+       "status": "completed",
+       "conclusion": "failure",
+       "head_sha": "5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912"
+      }
+     ]
+    }
+   },
+   "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1": {
+    "status": 200,
+    "headers": {
+     "x-ratelimit-limit": "5000",
+     "x-ratelimit-remaining": "4993",
+     "x-ratelimit-used": "7",
+     "x-ratelimit-reset": "1792768532",
+     "x-ratelimit-resource": "core",
+     "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC",
+     "x-accepted-github-permissions": "actions=read"
+    },
+    "body": {
+     "total_count": 2,
+     "jobs": [
+      {
+       "id": 51001,
+       "run_id": 9100,
+       "name": "ci / lint",
+       "status": "completed",
+       "conclusion": "failure",
+       "steps": [
+        {
+         "name": "Set up job",
+         "number": 1,
+         "status": "completed",
+         "conclusion": "success"
+        },
+        {
+         "name": "Run npm run lint",
+         "number": 3,
+         "status": "completed",
+         "conclusion": "failure"
+        },
+        {
+         "name": "Post Run actions/checkout@v4",
+         "number": 5,
+         "status": "completed",
+         "conclusion": "success"
+        }
+       ]
+      },
+      {
+       "id": 51002,
+       "run_id": 9100,
+       "name": "ci / test",
+       "status": "completed",
+       "conclusion": "success",
+       "steps": [
+        {
+         "name": "Run npm test",
+         "number": 3,
+         "status": "completed",
+         "conclusion": "success"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "anonymous": "not-found"
+ }
+}
