@@ -1,7 +1,9 @@
-// طبقة طلبات GitHub REST العامة بلا مصادقة (T-5.2). تعمل في الخلفية وفي صفحات الإضافة، وكل طلب يمر بـfetchApiGithub (البوابة الوحيدة
-// إلى api.github.com، T-1.4) فلا يخرج طلب دون الصلاحية الاختيارية الممنوحة بنقر صريح.
-//  - GET وحده، ولمسارات /repos/… و/rate_limit وبحث المشكلات المحصور بمستودع واحد (/search/issues?q=repo:…) وحدها؛ ولا ترويسة Authorization
-//    أبدًا هنا (الطلبات الموثَّقة طبقة أخرى في T-5.5، وأي رمز يبقى في الخلفية فلا يعبر الرسائل إلى صفحة أو سكربت محتوى، AD-24).
+// طبقة طلبات GitHub REST (T-5.2) ومعها الطلبات الموثَّقة الاختيارية (T-5.5). تعمل في الخلفية وفي صفحات الإضافة، وكل طلب يمر بـfetchApiGithub
+// (البوابة الوحيدة إلى api.github.com، T-1.4) فلا يخرج طلب دون الصلاحية الاختيارية الممنوحة بنقر صريح.
+//  - GET وحده، ولمسارات /repos/… و/rate_limit وبحث المشكلات المحصور بمستودع واحد (/search/issues?q=repo:…) وحدها.
+//  - الرمز (T-5.5، AD-24): مصدره token في خيارات العميل، ولا يُمرَّر إلا لعميل الخلفية؛ ترويسة Authorization يضيفها العميل هنا وحده، ولا يعود
+//    الرمز في نتيجة ولا رسالة خطأ. وللموثَّق متعقّب حد وذاكرة ETag منفصلان عن العام، وتُفرَّغ ذاكرته بتغيّر الرمز أو مسحه (فلا تُخدم نسخة
+//    مستودع خاص لقراءة بلا رمز)؛ ورفض الرمز (401) فشل معلن لا رجوع صامت إلى الوصول المجهول (evidence/T-0.5).
 //  - ترويسات x-ratelimit-* تُقرأ من كل استجابة؛ وعند النفاد لا يُرسل شيء حتى reset (لا طلب يُهدر ولا يُفترض رقم)، وبعد رفض بموعد
 //    إعادة (retry-after) لا يُرسل شيء قبله من أي مستهلك للعميل (VR-07). والحد لكل مورد: core للمسارات، وsearch للبحث (حد مستقل).
 //  - طلبات شرطية بـETag (If-None-Match) تقلل النقل؛ وهي تُحتسب من الحد الأساسي للطلبات العامة (VER-12، ومقيس في T-0.3)، فلا يُدّعى
@@ -14,7 +16,8 @@ import type { RateLimit } from './rate-limit';
 
 export const API_VERSION = '2022-11-28';
 
-export type PublicApiFailure = 'permission' | 'rate-limit' | 'not-found' | 'forbidden' | 'http' | 'network' | 'invalid-path';
+/** unauthorized: رفض GitHub الرمز المحفوظ (401)؛ token: تعذّرت قراءة الرمز المحفوظ نفسه. */
+export type PublicApiFailure = 'permission' | 'rate-limit' | 'not-found' | 'forbidden' | 'unauthorized' | 'token' | 'http' | 'network' | 'invalid-path';
 
 export interface PublicApiSuccess<T> {
   readonly ok: true;
@@ -24,6 +27,8 @@ export interface PublicApiSuccess<T> {
   readonly fromCache: boolean;
   readonly readAt: number;
   readonly rate: RateLimit | null;
+  /** حاضر حين أُرسل الطلب بالرمز (لا يحمل الرمز نفسه). */
+  readonly authenticated?: true;
 }
 
 export interface PublicApiError {
@@ -35,6 +40,7 @@ export interface PublicApiError {
   readonly retryAt: number | null;
   readonly readAt: number;
   readonly rate: RateLimit | null;
+  readonly authenticated?: true;
 }
 
 export type PublicApiResult<T> = PublicApiSuccess<T> | PublicApiError;
@@ -48,8 +54,20 @@ export interface PagedResult<T> {
   readonly pages: number;
 }
 
+/** مصدر الرمز المحفوظ (T-5.5): في الخلفية وحدها. null = لا رمز؛ والرمي = تعذّرت قراءته (فشل معلن، لا وصول مجهول). */
+export type TokenSource = () => Promise<string | null>;
+
+/** حالة الوصول الموثَّق كما تُعرض خارج الخلفية: بلا الرمز نفسه. */
+export interface AuthState {
+  readonly authenticated: boolean;
+  /** موعد انتهاء الرمز (ms) من ترويسة github-authentication-token-expiration في آخر استجابة موثَّقة، إن عُلم. */
+  readonly expiresAt: number | null;
+}
+
 export interface PublicApiClientOptions {
   readonly permissions: PermissionsApi;
+  /** الرمز الاختياري. يُمرَّر لعميل الخلفية وحده. */
+  readonly token?: TokenSource;
   readonly fetch?: typeof fetch;
   readonly now?: () => number;
   /** عدد الموارد المحفوظة بـETag. الافتراضي 200. */
@@ -71,9 +89,28 @@ interface Cached {
   readonly data: unknown;
 }
 
+type Mode = 'public' | 'token';
+
+/** يحذف الرمز من نص (رسالة خطأ أو ردّ) إن ظهر فيه، احتياطًا: لا يُعرض الرمز في رسالة ولا سجل (AC-5.5 ‏(٣)). */
+export function redactToken(text: string, token: string | null): string {
+  return token && token.length >= 8 ? text.split(token).join('‹الرمز›') : text;
+}
+
+/** موعد انتهاء الرمز كما تعلنه الترويسة («2026-10-30 14:25:10 UTC»)، أو null. */
+export function readTokenExpiry(headers: Pick<Headers, 'get'>): number | null {
+  const raw = headers.get('github-authentication-token-expiration')?.trim();
+  if (!raw) return null;
+  const iso = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC$/.test(raw) ? `${raw.replace(' ', 'T').replace(' UTC', '')}Z` : raw;
+  const ms = Date.parse(iso);
+  return Number.isFinite(ms) ? ms : null;
+}
+
 export class PublicApiClient {
-  private readonly tracker = new RateLimitTracker();
-  private readonly cache = new Map<string, Cached>();
+  private readonly trackers: Record<Mode, RateLimitTracker> = { public: new RateLimitTracker(), token: new RateLimitTracker() };
+  private readonly caches: Record<Mode, Map<string, Cached>> = { public: new Map(), token: new Map() };
+  /** آخر رمز استُعمل (في ذاكرة الخلفية وحدها) ليُكشف تغيّره أو مسحه فتُفرَّغ حالة الموثَّق. */
+  private lastToken: string | null = null;
+  private expiresAt: number | null = null;
   private readonly fetchImpl: typeof fetch | undefined;
   private readonly now: () => number;
   private readonly cacheSize: number;
@@ -84,29 +121,66 @@ export class PublicApiClient {
     this.cacheSize = options.cacheSize ?? 200;
   }
 
-  /** آخر حدّ معلن للمورد core، أو null قبل أول استجابة. */
+  private get mode(): Mode {
+    return this.lastToken ? 'token' : 'public';
+  }
+
+  /** آخر حدّ معلن للمورد core في وضع الوصول الحالي (بالرمز أو بدونه)، أو null قبل أول استجابة. */
   rate(): RateLimit | null {
-    return this.tracker.snapshot('core');
+    return this.trackers[this.mode].snapshot('core');
+  }
+
+  /** هل يوجد رمز الآن وموعد انتهائه إن عُلم. لا يعيد الرمز. */
+  async auth(): Promise<AuthState> {
+    const token = await this.currentToken().catch(() => this.lastToken);
+    return { authenticated: Boolean(token), expiresAt: token ? this.expiresAt : null };
+  }
+
+  /** يقرأ الرمز من مصدره؛ وتغيّره أو مسحه يفرّغ ذاكرة الموثَّق ومتعقّبه وموعد انتهائه. */
+  private async currentToken(): Promise<string | null> {
+    const token = this.options.token ? ((await this.options.token()) || null) : null;
+    if (token !== this.lastToken) {
+      this.caches.token.clear();
+      this.trackers.token = new RateLimitTracker();
+      this.expiresAt = null;
+      this.lastToken = token;
+    }
+    return token;
   }
 
   async get<T>(path: string, signal?: AbortSignal): Promise<PublicApiResult<T>> {
-    const now = this.now();
+    let token: string | null;
+    let tokenError: string | null = null;
+    try {
+      token = await this.currentToken();
+    } catch (error) {
+      token = null;
+      tokenError = error instanceof Error ? error.name : 'Error';
+    }
+    const mode: Mode = token ? 'token' : 'public';
+    const tracker = this.trackers[mode];
+    const cache = this.caches[mode];
+    const auth = token ? ({ authenticated: true } as const) : {};
     const fail = (failure: PublicApiFailure, message: string, status: number | null = null, retryAt: number | null = null): PublicApiError => ({
       ok: false,
       failure,
       status,
-      message,
+      message: redactToken(message, token),
       retryAt,
       readAt: this.now(),
-      rate: this.rate(),
+      rate: tracker.snapshot('core'),
+      ...auth,
     });
+    // تعذّر قراءة الرمز المحفوظ لا يعني «لا رمز»: لا يُرسل طلب مجهول بدله.
+    if (tokenError !== null) return { ok: false, failure: 'token', status: null, message: `تعذّرت قراءة رمز الوصول المحفوظ (${tokenError})؛ لم يُرسل الطلب`, retryAt: null, readAt: this.now(), rate: null };
     if (!isPublicPath(path)) return fail('invalid-path', `مسار غير مقبول في الطبقة العامة: ${path}`);
     const resource = resourceOf(path);
-    const blocked = path === '/rate_limit' ? null : this.tracker.blockedUntil(resource, now);
-    if (blocked !== null) return fail('rate-limit', 'بلغ حد الطلبات العامة؛ لم يُرسل الطلب', 403, blocked);
+    const blocked = path === '/rate_limit' ? null : tracker.blockedUntil(resource, this.now());
+    if (blocked !== null) return fail('rate-limit', token ? 'بلغ حد الطلبات الموثَّقة؛ لم يُرسل الطلب' : 'بلغ حد الطلبات العامة؛ لم يُرسل الطلب', 403, blocked);
 
-    const cached = this.cache.get(path);
+    const cached = cache.get(path);
     const headers: Record<string, string> = { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': API_VERSION };
+    if (token) headers.Authorization = `Bearer ${token}`;
     if (cached) headers['If-None-Match'] = cached.etag;
     let response: Response;
     try {
@@ -115,23 +189,32 @@ export class PublicApiClient {
       if (error instanceof PermissionNotGrantedError) return fail('permission', error.message);
       return fail('network', error instanceof Error ? error.message : String(error));
     }
+    // ردّ متأخر لرمز تغيّر أثناء الطلب لا يدخل ذاكرة الرمز الجديد ولا متعقّبه.
+    const current = token === this.lastToken;
     const readAt = this.now();
     const rate = readRateLimit(response.headers, readAt);
-    this.tracker.update(rate);
+    if (current) tracker.update(rate);
     const { status } = response;
+    if (token && current) this.expiresAt = readTokenExpiry(response.headers) ?? this.expiresAt;
 
     if (status === 304 && cached) {
-      this.touch(path, cached);
-      return { ok: true, status, data: cached.data as T, fromCache: true, readAt, rate };
+      if (current) this.touch(cache, path, cached);
+      return { ok: true, status, data: cached.data as T, fromCache: true, readAt, rate, ...auth };
     }
-    if (status === 404) return fail('not-found', 'المورد غير موجود أو غير عام (404)', status);
+    if (status === 401 && token) return fail('unauthorized', 'رفض GitHub رمز الوصول المحفوظ (401): غير صالح أو منتهٍ أو ملغى. بدّله أو امسحه من الإعدادات؛ ولم يُعَد الطلب بلا رمز', status);
+    if (status === 404) return fail('not-found', token ? 'المورد غير موجود أو لا يشمله الرمز (404)' : 'المورد غير موجود أو غير عام (404)', status);
     if (status === 429 || (status === 403 && rate?.remaining === 0)) {
       const retryAfter = Number(response.headers.get('retry-after'));
       const retryAt = Number.isFinite(retryAfter) && retryAfter > 0 ? readAt + retryAfter * 1000 : rate?.reset ? rate.reset * 1000 : null;
-      if (retryAt !== null) this.tracker.cooldown(resource, retryAt);
+      if (retryAt !== null && current) tracker.cooldown(resource, retryAt);
       return fail('rate-limit', await messageOf(response, 'بلغ حد الطلبات'), status, retryAt);
     }
-    if (status === 403) return fail('forbidden', await messageOf(response, 'رفض GitHub الطلب (403)'), status);
+    if (status === 403) {
+      // نقص صلاحية لنقطة بعينها (evidence/T-0.5): الترويسة تسمّي الصلاحية المطلوبة.
+      const needed = token ? response.headers.get('x-accepted-github-permissions')?.trim() : null;
+      const message = await messageOf(response, 'رفض GitHub الطلب (403)');
+      return fail('forbidden', needed ? `${message} (الصلاحية المطلوبة: ${needed})` : message, status);
+    }
     if (!response.ok) return fail('http', await messageOf(response, `HTTP ${status}`), status);
     let data: T;
     try {
@@ -140,8 +223,8 @@ export class PublicApiClient {
       return fail('http', 'استجابة ليست JSON', status);
     }
     const etag = response.headers.get('etag');
-    if (etag) this.touch(path, { etag, data });
-    return { ok: true, status, data, fromCache: false, readAt, rate };
+    if (etag && current) this.touch(cache, path, { etag, data });
+    return { ok: true, status, data, fromCache: false, readAt, rate, ...auth };
   }
 
   /**
@@ -165,16 +248,17 @@ export class PublicApiClient {
     }
     const pages = Math.min(page, maxPages);
     const partial = total !== null ? items.length < total : page > maxPages;
-    return { ok: true, status: last?.status ?? 200, data: { items, total, partial, pages }, fromCache: false, readAt: last?.readAt ?? this.now(), rate: this.rate() };
+    const auth = last?.authenticated ? ({ authenticated: true } as const) : {};
+    return { ok: true, status: last?.status ?? 200, data: { items, total, partial, pages }, fromCache: false, readAt: last?.readAt ?? this.now(), rate: this.rate(), ...auth };
   }
 
-  private touch(path: string, entry: Cached): void {
-    this.cache.delete(path);
-    this.cache.set(path, entry);
-    while (this.cache.size > this.cacheSize) {
-      const oldest = this.cache.keys().next().value;
+  private touch(cache: Map<string, Cached>, path: string, entry: Cached): void {
+    cache.delete(path);
+    cache.set(path, entry);
+    while (cache.size > this.cacheSize) {
+      const oldest = cache.keys().next().value;
       if (oldest === undefined) break;
-      this.cache.delete(oldest);
+      cache.delete(oldest);
     }
   }
 }

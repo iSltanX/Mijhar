@@ -128,6 +128,8 @@ function AlertLine({ alert, onRefresh, onApiRefresh }: { alert: FreshnessAlert; 
 
 export interface FreshnessBadgeProps {
   readonly sources: readonly ('dom' | 'api')[];
+  /** MJ15 (T-5.5): قراءة API بالرمز المحفوظ في الخلفية. */
+  readonly authenticated?: boolean;
   readonly domReadAt: number;
   readonly apiReadAt: number | null;
   readonly alerts: readonly FreshnessAlert[];
@@ -135,8 +137,8 @@ export interface FreshnessBadgeProps {
   readonly onApiRefresh: (() => void) | null;
 }
 
-export function FreshnessBadge({ sources, domReadAt, apiReadAt, alerts, onRefresh, onApiRefresh }: FreshnessBadgeProps) {
-  const label = sources.includes('api') ? 'DOM + API' : 'DOM';
+export function FreshnessBadge({ sources, domReadAt, apiReadAt, alerts, onRefresh, onApiRefresh, authenticated = false }: FreshnessBadgeProps) {
+  const label = sources.includes('api') ? (authenticated ? 'DOM + API (بالرمز)' : 'DOM + API') : 'DOM';
   return (
     <div class="d-freshness" data-source={label}>
       <p class="d-badge">
@@ -190,7 +192,11 @@ export function ApiPanel({ status, loading, data, onRead, onOpenSettings, mismat
           <button type="button" class="d-button" data-action="api-read" disabled={loading} onClick={onRead}>
             {loading ? 'جارٍ القراءة من API…' : data ? 'حدّث من GitHub API العامة' : 'أكمل من GitHub API العامة'}
           </button>{' '}
-          أربعة طلبات عامة بلا رمز
+          {status.authenticated ? (
+            <span data-api-auth="token">طلبات قراءة فقط برمز الوصول المحفوظ في الإضافة</span>
+          ) : (
+            'أربعة طلبات عامة بلا رمز'
+          )}
           {rate && rate.remaining !== null && rate.limit !== null && (
             <>
               {' '}
@@ -207,6 +213,11 @@ export function ApiPanel({ status, loading, data, onRead, onOpenSettings, mismat
       )}
       {data && (data.pull.available ? null : <p class="d-note" data-api-error="pull">تعذّرت قراءة API: {data.pull.reason}</p>)}
       {data?.pull.available && !data.checks.available && <p class="d-note" data-api-error="checks">فحوص API غير متاحة: {data.checks.reason}</p>}
+      {data?.checks.available && data.checks.value.note && (
+        <p class="d-note" data-api-via={data.checks.value.via ?? ''}>
+          {data.checks.value.note}
+        </p>
+      )}
       {mismatch && data?.pull.available && (
         <p class="d-note" data-api-mismatch="">
           بيانات API المقروءة لالتزام آخر (<bdi dir="ltr">{mismatch.apiHead.slice(0, 7)}</bdi>)

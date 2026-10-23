@@ -3,6 +3,7 @@
 // كل جزء Value مستقل بسبب فشله، فلا يُسقط فشلُ جزء غيرَه ولا يُعرض نجاحًا.
 import type { PublicApiPort, PublicApiResult, RateLimit } from '../../../core/api';
 import { classifyCheckRun, classifyCommitStatus } from '../pr-status/categories';
+import { ACTIONS_ONLY_NOTE, readActionsChecks } from '../token/actions-checks';
 import type { CheckItem } from '../pr-status/summary';
 import { have, missing } from '../pr-status/value';
 import type { Value } from '../pr-status/value';
@@ -31,6 +32,9 @@ export interface ApiChecks {
   readonly partial: boolean;
   /** check-runs = 0 وcommit status = 0 معًا: لا فحوص مُبلَّغ عنها (لا «قيد التشغيل»). */
   readonly noneReported: boolean;
+  /** MJ15 (T-5.5): actions = check-runs رُفضت للرمز في مستودع خاص فقُرئت مهام Actions بدلها، ومعها ما لم يُتح. */
+  readonly via?: 'actions';
+  readonly note?: string;
 }
 
 export interface ApiPrData {
@@ -42,6 +46,8 @@ export interface ApiPrData {
   readonly rate: RateLimit | null;
   /** الطلبات التي أُجريت (للعرض وتدقيق الشبكة). */
   readonly requests: readonly string[];
+  /** MJ15 (T-5.5): قُرئت برمز الوصول المحفوظ في الخلفية (لا يحمل الرمز). */
+  readonly authenticated?: true;
 }
 
 interface RawPull {
@@ -80,7 +86,7 @@ const failureText = (result: PublicApiResult<unknown>): string => {
     case 'rate-limit':
       return `بلغ حد الطلبات العامة${when}`;
     case 'not-found':
-      return 'غير موجود أو غير عام (404)';
+      return result.authenticated ? 'غير موجود أو لا يشمله الرمز (404)' : 'غير موجود أو غير عام (404)';
     default:
       return result.message;
   }
@@ -94,16 +100,17 @@ export async function readPrApi(port: PublicApiPort, owner: string, repo: string
   const pullPath = `${base}/pulls/${number}`;
   requests.push(pullPath);
   const pullResult = await port.get<RawPull>(pullPath);
+  const auth = pullResult.authenticated ? ({ authenticated: true } as const) : {};
   if (!pullResult.ok) {
     const reason = failureText(pullResult);
-    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests };
+    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests, ...auth };
   }
   const raw = pullResult.data;
   const headSha = str(raw.head?.sha);
   const baseRef = str(raw.base?.ref);
   if (!headSha || !baseRef) {
     const reason = 'استجابة الطلب بلا head.sha أو base.ref';
-    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests };
+    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests, ...auth };
   }
   const pull: ApiPull = {
     number: typeof raw.number === 'number' ? raw.number : number,
@@ -136,8 +143,35 @@ export async function readPrApi(port: PublicApiPort, owner: string, repo: string
   }
   const requiredSet = new Set(required.available ? required.value : []);
 
+  // MJ15 (T-5.5): مستودع خاص بالرمز ترفض فيه check-runs (403، لا صلاحية Checks للرموز دقيقة الحبيبات): تُقرأ مهام Actions بدلها.
+  const actions = !runs.ok && runs.failure === 'forbidden' && runs.authenticated ? await readActionsChecks(port, base, headSha, requiredSet) : null;
+  if (actions) requests.push(...actions.requests);
+
   let checks: Value<ApiChecks>;
-  if (!runs.ok || !statuses.ok) {
+  if (actions && statuses.ok) {
+    if (!actions.ok) checks = missing(`check-runs: ${failureText(runs)}؛ ${actions.reason}`);
+    else {
+      const items: CheckItem[] = [...actions.value.items];
+      for (const status of statuses.data.items) {
+        const name = str(status.context);
+        if (!name) continue;
+        items.push({ name, id: null, classification: classifyCommitStatus(status.state), required: requiredSet.has(name) ? true : null, detail: str(status.description), source: 'api' });
+      }
+      const statusesTotal = statuses.data.total ?? statuses.data.items.length;
+      checks = have({
+        items,
+        checkRunsTotal: actions.value.jobsTotal,
+        statusesTotal,
+        checkRunsRead: actions.value.jobsRead,
+        statusesRead: statuses.data.items.length,
+        partial: actions.value.partial || statuses.data.partial,
+        // فحوص التطبيقات الأخرى لا تُقرأ بالرمز: لا يُدّعى «لا فحوص».
+        noneReported: false,
+        via: 'actions',
+        note: ACTIONS_ONLY_NOTE,
+      });
+    }
+  } else if (!runs.ok || !statuses.ok) {
     checks = missing(`check-runs: ${runs.ok ? 'قُرئت' : failureText(runs)}؛ commit status: ${statuses.ok ? 'قُرئت' : failureText(statuses)}`);
   } else {
     const items: CheckItem[] = [];
@@ -171,5 +205,5 @@ export async function readPrApi(port: PublicApiPort, owner: string, repo: string
     });
   }
   const rate = [runs, statuses, branch].reduce<RateLimit | null>((latest, r) => (r.rate && (!latest || r.rate.readAt >= latest.readAt) ? r.rate : latest), pullResult.rate);
-  return { readAt: now(), pull: have(pull), checks, required, rate, requests };
+  return { readAt: now(), pull: have(pull), checks, required, rate, requests, ...auth };
 }

@@ -78,6 +78,9 @@ const REASON: Readonly<Record<PublicApiFailure, ApiFailure>> = {
   'rate-limit': 'rate-limit',
   'not-found': 'not-found',
   forbidden: 'http',
+  // MJ15 (T-5.5): رفض الرمز المحفوظ أو تعذّر قراءته فشل معلن كغيره، لا رجوع إلى الوصول المجهول.
+  unauthorized: 'http',
+  token: 'http',
   http: 'http',
   network: 'network',
   'invalid-path': 'http',

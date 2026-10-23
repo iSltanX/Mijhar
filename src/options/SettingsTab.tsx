@@ -1,6 +1,7 @@
 // تبويب «الإعدادات والخصوصية»: يظهر في صفحة الإعدادات وفي اللوحة الجانبية الأصلية وفي الدرج.
 // صفحات الإضافة (options وnative) تملك تدفق صلاحية api.github.com والاختصار؛ والدرج المحقون في صفحة GitHub لا
 // يستطيع طلب صلاحية ولا يعرض حقل سرّ، فيعرض المفاتيح وزرًّا يفتح صفحة الإعدادات.
+// وأقسام الأسرار (رمز الوصول، T-5.5) تمرّرها صفحة الإعدادات وحدها في secretSections، فلا تصل شيفرتها إلى الدرج ولا اللوحة.
 import type { ComponentChildren } from 'preact';
 import { createContext } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
@@ -33,6 +34,8 @@ export interface SettingsTabProps {
   readonly sections?: readonly SettingsSection[];
   /** مستوى عناوين الأقسام: 2 في صفحة الإعدادات (تحت عنوانها)، و3 في اللوحة (تحت عنوان التبويب). */
   readonly level?: 2 | 3;
+  /** أقسام فيها حقل سرّ: صفحة الإعدادات وحدها تمرّرها (MJ15، T-5.5). */
+  readonly secretSections?: ComponentChildren;
 }
 
 const LevelContext = createContext<2 | 3>(2);
@@ -313,6 +316,7 @@ export function SettingsTab(props: SettingsTabProps) {
         <SurfaceSection settings={settings} />
         {props.sections && <ModuleSections settings={settings} surface={surface} sections={props.sections} />}
         <PermissionSection {...(props.permission ? { permission: props.permission } : {})} {...(props.openOptions ? { openOptions: props.openOptions } : {})} />
+        {surface === 'options' && props.secretSections}
         {props.shortcuts && <ShortcutSection shortcuts={props.shortcuts} />}
         <PrivacySection />
       </div>

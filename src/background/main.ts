@@ -3,6 +3,7 @@
 //  - تملك الترحيل: تفتح المخزن مرحِّلةً، فيجد سكربت المحتوى (لا يرحّل) بياناته جاهزة.
 //  - تطبّق تفضيل مكان اللوحة حيث يُقرأ متزامنًا وقت الأمر (commands.ts).
 //  - الكاتب الوحيد لسجلات الملاحظات والمراسي (VR-01): تنفّذ رسائل الكتابة من كل السياقات في طابور واحد على مخزنها.
+//  - تقرأ رمز الوصول الاختياري من مخزنه الموثوق لكل طلب (MJ15، T-5.5، AD-24)، ويضيف العميل ترويسته هنا وحده؛ فلا يعبر الرمز رسالة.
 // الاستيراد من الملفات مباشرة لا من ../core: الخلفية لا ترسم واجهة، فلا تحمل Preact.
 import { extensionApi } from '../core/ui-host/browser-api';
 import type { ExtensionApi } from '../core/ui-host/browser-api';
@@ -19,6 +20,8 @@ import { GLOSSARY_COMMAND, GLOSSARY_TAB } from '../modules/b/search/ids';
 import { PublicApiClient } from '../core/api/client';
 import { directPort, handlePublicApiRequest, isPublicApiRequest } from '../core/api/port';
 import type { PublicApiPort } from '../core/api/port';
+import { extensionTokenStore } from '../modules/d/token/store';
+import type { TokenStore } from '../modules/d/token/store';
 import { NotesBroker, openParts } from '../modules/g/notes/broker';
 import { isNotesWriteRequest } from '../modules/g/notes/writer';
 
@@ -29,6 +32,8 @@ export interface BackgroundOptions {
   readonly binding?: StorageBinding;
   /** fetch لطبقة API العامة (للاختبار). الافتراضي fetch العام. */
   readonly fetch?: typeof fetch;
+  /** مخزن رمز الوصول (للاختبار). الافتراضي storage.session وIndexedDB الإضافة؛ null بلا رمز. */
+  readonly tokens?: Pick<TokenStore, 'read'> | null;
   /** انعكاس التفضيل المتزامن في Firefox. الافتراضي localStorage صفحة الخلفية. */
   readonly mirror?: Pick<Storage, 'getItem' | 'setItem'>;
   readonly onOutcome?: (outcome: PanelOutcome, detail?: string) => void;
@@ -54,10 +59,13 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
   });
 
   // MJ11 (T-5.2): طبقة GitHub REST العامة لسكربت المحتوى. العميل يُنشأ عند أول طلب، وحالته (الحد وETag) في ذاكرة الخلفية وحدها.
+  // MJ15 (T-5.5): الرمز يُقرأ من مخزنه عند كل طلب، فيُكشف حفظه أو مسحه من صفحة الإعدادات دون رسالة تحمله.
   let publicApi: PublicApiPort | null = null;
   const apiPort = (): PublicApiPort | null => {
     if (!api.permissions) return null;
-    publicApi ??= directPort(new PublicApiClient({ permissions: api.permissions, ...(options.fetch ? { fetch: options.fetch } : {}) }), api.permissions);
+    const tokens = options.tokens === undefined ? extensionTokenStore() : options.tokens;
+    const token = tokens ? async () => (await tokens.read())?.token ?? null : undefined;
+    publicApi ??= directPort(new PublicApiClient({ permissions: api.permissions, ...(options.fetch ? { fetch: options.fetch } : {}), ...(token ? { token } : {}) }), api.permissions);
     return publicApi;
   };
 
