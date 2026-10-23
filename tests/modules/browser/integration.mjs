@@ -136,6 +136,8 @@ function htmlMatches(raw) {
   // ورقة أنماط الوحدة (أ) (#mijhar-reading-styles، MJ6) تُدرج في كل صفحة بإعدادات الاتجاه الافتراضية: ليست من هذه المرحلة فتُستثنى.
   const clone = document.documentElement.cloneNode(true);
   clone.querySelector('#mijhar-reading-styles')?.remove();
+  // مضيفا الوحدتين (ز) و(ح) (MJ9) يُدرجان في صفحة المستودع بإعدادهما الافتراضي: ليسا من هذه المرحلة فيُستثنيان كذلك.
+  for (const host of clone.querySelectorAll('mijhar-host[data-mijhar-host^="g"], mijhar-host[data-mijhar-host^="h"]')) host.remove();
   // لقطة Playwright (قبل هذا الفحص في السيناريو) تضيف style="" فارغة على حقول الإدخال: أثر الأداة لا الإضافة.
   for (const el of clone.querySelectorAll('[style=""]')) el.removeAttribute('style');
   const live = clone.outerHTML;
