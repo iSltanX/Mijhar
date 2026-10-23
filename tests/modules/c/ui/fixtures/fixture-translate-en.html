@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>octo/mijhar-demo (fixture-translate-en, MJ10/T-4.1)</title>
+</head>
+<body class="logged-in env-production page-responsive">
+<!--
+  عينة اختبار مكتوبة لـT-4.1 (القسم 7.1 في الخطة): نصوص إنجليزية بمواضع الترجمة الأربعة — README وتعليق ووصف مشكلة/PR ونص محدد — على بنية GitHub
+  الحقيقية (تخطيط React للمشكلات: data-testid="issue-body" وcomment-header وmarkdown-body، وتخطيط Rails القديم: .timeline-comment و.comment-body).
+  كل كتلة data-case يقابلها سلوك في tests/modules/c/ui. العناصر المحمية: code وkbd وروابط بنص واحد وعناوين مختلفة (هنا) وإشارة @ وإحالة # ومسار
+  وrelative-time؛ والمستثنى: pre.highlight. وفيها فقرات عربية تُترك.
+-->
+<div class="application-main">
+  <main id="js-repo-pjax-container">
+    <div id="repository-container-header"><strong itemprop="name"><a href="/octo/mijhar-demo">mijhar-demo</a></strong></div>
+    <div id="repo-content-turbo-frame">
+
+      <div id="readme" class="Box-body">
+        <article class="markdown-body entry-content container-lg" itemprop="text" data-case="readme">
+          <div class="markdown-heading"><h1 class="heading-element" dir="auto" data-case="h1">Mijhar Demo Project</h1><a class="anchor" href="#mijhar-demo-project"><svg class="octicon octicon-link" width="16" height="16" viewBox="0 0 16 16"></svg></a></div>
+          <p dir="auto" data-case="p-code-link">This extension helps Arabic readers understand repositories. Run <code>npm install</code> first, then see the <a href="https://github.com/octo/mijhar-demo/blob/main/INSTALL.md">installation guide</a> for details.</p>
+          <p dir="auto" data-case="p-mention-ref-path">Thanks <a class="user-mention notranslate" href="https://github.com/octocat">@octocat</a> for the review, see <a class="issue-link js-issue-link" href="/octo/mijhar-demo/issues/123">#123</a> and edit src/components/common/Explain.tsx before opening a pull request.</p>
+          <p dir="auto" data-case="p-arabic">هذه فقرة عربية كتبها المؤلف أصلًا فلا تُترجم إلى العربية.</p>
+          <p dir="auto" data-case="p-two-here">Read the docs <a href="https://a.example/one">here</a> or <a href="https://b.example/two">here</a> before you start.</p>
+          <p dir="auto" data-case="p-kbd">Press <kbd>Alt</kbd>+<kbd>H</kbd> to toggle explain mode in the page.</p>
+          <p dir="auto" data-case="p-time">Release v2.0.1-rc.3 shipped on <relative-time datetime="2026-10-22T10:00:00Z" class="no-wrap">Oct 22, 2026</relative-time> with several direction fixes.</p>
+          <p dir="auto" data-case="p-badge"><a target="_blank" rel="noopener noreferrer" href="https://example.invalid/build"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="build"></a> The build badge shows the current state of the main branch.</p>
+          <p dir="auto" data-case="p-sentences">The side panel opens from the toolbar. It never changes what GitHub shows. Everything runs locally in the browser.</p>
+          <div class="markdown-heading"><h2 class="heading-element" dir="auto" data-case="h2">Quick start</h2><a class="anchor" href="#quick-start"><svg class="octicon octicon-link" width="16" height="16" viewBox="0 0 16 16"></svg></a></div>
+          <ul dir="auto" data-case="ul">
+            <li data-case="li-simple">Install the dependencies with <code>pnpm install</code> before building.</li>
+            <li data-case="li-nested">Configure the build target
+              <ul>
+                <li data-case="li-inner">Set the <code>TARGET</code> variable to chromium or firefox.</li>
+              </ul>
+            </li>
+          </ul>
+          <ol dir="auto" data-case="ol">
+            <li data-case="li-loose"><p dir="auto" data-case="p-in-li">Open the settings page and enable the modules you need.</p></li>
+          </ol>
+          <table data-case="table">
+            <thead><tr><th data-case="th">Option</th><th>Description</th></tr></thead>
+            <tbody><tr><td data-case="td-code"><code>readerMode</code></td><td data-case="td-text">Enable the reader mode feature for long pages.</td></tr></tbody>
+          </table>
+          <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-case="pre"><pre class="notranslate">npm run build -- --mode firefox</pre></div>
+          <blockquote data-case="blockquote"><p dir="auto" data-case="p-in-quote">Note: this tool never sends page content to any server.</p></blockquote>
+        </article>
+      </div>
+
+      <div data-testid="issue-viewer-issue-container">
+        <div data-testid="issue-body" class="react-issue-body" data-case="issue-body">
+          <h2 class="sr-only">Description</h2>
+          <div class="headerRow"><div class="IssueBodyHeaderContainer"><a data-testid="issue-body-header-author" href="/octocat">octocat</a></div></div>
+          <div class="IssueBody" id="issue-body-viewer" data-testid="issue-body-viewer">
+            <div data-testid="markdown-body" class="markdown-body" data-case="issue-description">
+              <div class="markdown-body safe-html-box">
+                <p dir="auto" data-case="issue-p1">The side panel does not open when I press <kbd>Alt</kbd>+<kbd>G</kbd> in Firefox 158 on macOS.</p>
+                <p dir="auto" data-case="issue-p2">Steps to reproduce: open <a href="https://github.com/octo/mijhar-demo">this repository</a>, press the shortcut, and watch the sidebar stay closed.</p>
+                <div class="highlight notranslate" dir="auto"><pre class="notranslate">about:support → Extensions</pre></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-testid="issue-viewer-comments-container"><ol id="issue-timeline">
+        <li>
+          <div class="react-issue-comment">
+            <div data-testid="comment-viewer-outer-box-1" class="IssueCommentContent" data-case="comment-1">
+              <div id="issuecomment-1" data-testid="comment-header">
+                <div data-testid="comment-header-left-side-items"><a data-testid="avatar-link" href="/hashim">hashim</a></div>
+                <div data-testid="comment-header-right-side-items"><button type="button" aria-haspopup="true" data-testid="comment-header-hamburger">More actions</button></div>
+              </div>
+              <div class="IssueCommentBody">
+                <div data-testid="markdown-body" class="markdown-body" data-case="comment-body-1">
+                  <div class="markdown-body safe-html-box">
+                    <p dir="auto" data-case="c1-p1">I can reproduce this with <code>v2.0.1-rc.3</code> on macOS and the fix is not in that build yet.</p>
+                    <p dir="auto" data-case="c1-p2">See <a class="issue-link" href="/octo/mijhar-demo/issues/42">#42</a> for the earlier report.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="react-issue-comment">
+            <div data-testid="comment-viewer-outer-box-2" class="IssueCommentContent" data-case="comment-2">
+              <div id="issuecomment-2" data-testid="comment-header">
+                <div data-testid="comment-header-right-side-items"><button type="button">More actions</button></div>
+              </div>
+              <div class="IssueCommentBody">
+                <div data-testid="markdown-body" class="markdown-body" data-case="comment-body-2">
+                  <div class="markdown-body safe-html-box"><p dir="auto" data-case="c2-p1">شكرًا على البلاغ، سنراجعه قريبًا.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ol></div>
+
+      <div class="timeline-comment-group" id="legacy-comment">
+        <div class="timeline-comment" data-case="comment-legacy">
+          <div class="timeline-comment-header"><div class="timeline-comment-actions"><button type="button" class="timeline-comment-action">Edit</button></div></div>
+          <div class="comment-body markdown-body js-comment-body soft-wrap" data-case="comment-body-legacy"><p dir="auto" data-case="legacy-p1">Looks good to me, I will merge it after the checks pass on <code>main</code>.</p></div>
+        </div>
+      </div>
+
+      <form class="js-new-comment-form" data-case="editor">
+        <textarea name="comment[body]" aria-label="Markdown value">Draft: this text is being written by the user.</textarea>
+        <div class="js-preview-body comment-body markdown-body" data-case="editor-preview"><p>Preview of the draft that should not get a translate button.</p></div>
+      </form>
+
+    </div>
+  </main>
+</div>
+</body>
+</html>

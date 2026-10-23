@@ -128,6 +128,31 @@ export async function blockExternalScripts(b) {
   });
 }
 
+/** سحب فأرة حقيقي (لتحديد نص) من نقطة إلى أخرى. */
+export async function drag(b, x1, y1, x2, y2) {
+  if (b.page) {
+    await b.page.mouse.move(x1, y1);
+    await b.page.mouse.down();
+    await b.page.mouse.move((x1 + x2) / 2, (y1 + y2) / 2, { steps: 6 });
+    await b.page.mouse.move(x2, y2, { steps: 6 });
+    await b.page.mouse.up();
+    return;
+  }
+  await b.ff.actions([
+    {
+      type: 'pointer',
+      id: 'mouse',
+      parameters: { pointerType: 'mouse' },
+      actions: [
+        { type: 'pointerMove', duration: 0, x: Math.round(x1), y: Math.round(y1), origin: 'viewport' },
+        { type: 'pointerDown', button: 0 },
+        { type: 'pointerMove', duration: 120, x: Math.round(x2), y: Math.round(y2), origin: 'viewport' },
+        { type: 'pointerUp', button: 0 },
+      ],
+    },
+  ]);
+}
+
 export const settle = (ms = 120) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /** مسجّل فحوص: يطبع الفاشل فورًا ويحتفظ بالكل. */

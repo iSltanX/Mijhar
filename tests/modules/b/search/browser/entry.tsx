@@ -75,7 +75,7 @@ function rectOfAction(arg: { action: string; entry?: string; category?: string }
   else if (arg.action === 'input') el = root.querySelector('input[type="search"]');
   else el = root.querySelector(`.result[data-entry="${arg.entry}"] [data-action="${arg.action}"]`) ?? root.querySelector(`[data-action="${arg.action}"]`);
   if (!el) return null;
-  (el as HTMLElement).scrollIntoView({ block: 'center' });
+  (el as HTMLElement).scrollIntoView({ block: 'center', behavior: 'instant' });
   const r = el.getBoundingClientRect();
   return { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2), w: Math.round(r.width), h: Math.round(r.height) };
 }
