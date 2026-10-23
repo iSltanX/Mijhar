@@ -10,6 +10,7 @@
 //    نفسه بقي السجل فيُستأنف الإرجاع تلقائيًا عند الفتح التالي.
 import type { ChangeSource, StorageAreaLike, StorageChanges, StorageValues } from './area';
 import {
+  StorageBusyError,
   StorageImportError,
   StorageMigrationError,
   StorageNotMigratedError,
@@ -82,14 +83,28 @@ export interface ImportResult {
   backupId: string;
 }
 
+export interface LockManagerLike {
+  request<T>(name: string, callback: () => Promise<T>): Promise<T>;
+}
+
+const STORE_LOCK = 'mijhar-store';
+
 export interface StoreOptions {
   area: StorageAreaLike;
   changes?: ChangeSource;
   migrations?: readonly Migration[];
   /** إصدار المخطط الذي يُرحَّل إليه. الافتراضي CURRENT_SCHEMA_VERSION. */
   currentVersion?: number;
-  /** false في سياقات لا تملك الترحيل (سكربت المحتوى): تفشل بـStorageNotMigratedError بدل أن ترحّل. الافتراضي true. */
+  /**
+   * false في سياقات لا تملك الترحيل (سكربت المحتوى): تفشل بـStorageNotMigratedError بدل أن ترحّل، ولا تستردّ عملية منقطعة
+   * (تفشل بـStorageBusyError إن وجدت عملية لم تكتمل، فقد تكون جارية الآن في سياق آخر). الافتراضي true.
+   */
   migrate?: boolean;
+  /**
+   * قفل بين السياقات التي تتشارك أصل الإضافة (الخلفية وصفحات الإضافة) يسلسل الفتح والترحيل والاستيراد والإرجاع، فلا يرى
+   * سياق عملية سياق آخر جارية ويستردّها خطأً. الافتراضي navigator.locks إن وُجد؛ سكربت المحتوى بأصل github.com خارجه.
+   */
+  locks?: LockManagerLike | null;
   /** عدد النسخ الاحتياطية الأحدث المحتفَظ بها بعد نجاح عملية. الافتراضي 2. */
   keepBackups?: number;
   /** هل يُعرض طلب unlimitedStorage علاجًا لامتلاء الحصة. الافتراضي false: دُحضت HYP-06 في المتصفحات الأربعة (capabilities.ts). */
@@ -147,6 +162,7 @@ export class Store {
   private readonly keepBackups: number;
   private readonly remedies: readonly QuotaRemedy[];
   private readonly now: () => Date;
+  private readonly locks: LockManagerLike | null;
   private queue: Promise<unknown> = Promise.resolve();
   private version = -1;
   private readonly subscribers = new Map<string, Set<(value: unknown, oldValue: unknown) => void>>();
@@ -162,12 +178,13 @@ export class Store {
     this.keepBackups = options.keepBackups ?? 2;
     this.remedies = options.canRequestUnlimitedStorage ? ['export', 'request-unlimited-storage'] : ['export'];
     this.now = options.now ?? (() => new Date());
+    this.locks = options.locks === undefined ? ((globalThis as { navigator?: { locks?: LockManagerLike } }).navigator?.locks ?? null) : options.locks;
   }
 
   /** يفتح المخزن: يستردّ عملية منقطعة إن وُجدت، ثم يرحّل إن لزم، أو يختم مخزنًا جديدًا. */
   static async open(options: StoreOptions): Promise<Store> {
     const store = new Store(options);
-    await store.enqueue(() => store.initialize());
+    await store.exclusive(() => store.initialize());
     return store;
   }
 
@@ -207,7 +224,8 @@ export class Store {
     return this.enqueue(async () => {
       const got = await this.area.get(dataKey(name));
       const draft = dataKey(name) in got ? (got[dataKey(name)] as T) : clone(fallback);
-      const next = (fn(draft) ?? draft) as T;
+      const returned = fn(draft);
+      const next = (returned === undefined ? draft : returned) as T;
       assertJsonValue(name, next);
       await this.set({ [dataKey(name)]: next }, 'write', name);
       return next;
@@ -289,7 +307,7 @@ export class Store {
    * إن كان مخطط النسخة أقدم من الحالي رُحِّلت بياناتها فورًا بعد الإرجاع.
    */
   async restoreBackup(id: string): Promise<void> {
-    await this.enqueue(async () => {
+    await this.exclusive(async () => {
       const all = await this.area.get(null);
       const record = all[`${BACKUP_PREFIX}${id}`] as BackupRecord | undefined;
       if (!record) throw new StorageImportError(`النسخة الاحتياطية ${id} غير موجودة`);
@@ -334,7 +352,7 @@ export class Store {
       assertJsonValue(name, value);
     }
     const mode = options.mode ?? 'replace';
-    return this.enqueue(async () => {
+    return this.exclusive(async () => {
       const all = await this.area.get(null);
       const existing = this.recordsOf(all);
       const sets: StorageValues = {};
@@ -353,6 +371,11 @@ export class Store {
     const run = this.queue.then(task, task);
     this.queue = run.catch(() => undefined);
     return run;
+  }
+
+  // عملية تمس البنية (فتح أو ترحيل أو استيراد أو إرجاع): قفل بين السياقات ثم الطابور المحلي، بهذا الترتيب دائمًا.
+  private exclusive<T>(task: () => Promise<T>): Promise<T> {
+    return this.locks ? this.locks.request(STORE_LOCK, () => this.enqueue(task)) : this.enqueue(task);
   }
 
   private recordsOf(all: StorageValues): Record<string, unknown> {
@@ -374,9 +397,14 @@ export class Store {
 
   private async initialize(): Promise<void> {
     let all = await this.area.get(null);
-    if (all[JOURNAL_KEY]) {
-      await this.recover(all[JOURNAL_KEY] as Journal, all);
-      all = await this.area.get(null);
+    const journal = all[JOURNAL_KEY] as Journal | undefined;
+    if (journal) {
+      // سياق لا يرحّل لا يستردّ: قد تكون العملية جارية الآن في سياق آخر. المكتملة ذرّيًا لا تمنع القراءة (يُكمل تنظيفها غيره).
+      if (!this.allowMigrate && !journal.committed) throw new StorageBusyError();
+      if (this.allowMigrate) {
+        await this.recover(journal, all);
+        all = await this.area.get(null);
+      }
     }
     const meta = all[META_KEY] as Meta | undefined;
     const hasData = Object.keys(all).some((key) => key.startsWith(DATA_PREFIX));

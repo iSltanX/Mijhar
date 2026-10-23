@@ -191,13 +191,28 @@ async function core04({ context, id }) {
   result.consistentAfterToggles = finals[0] === expected && finals[1] === expected && result.finalInjected === (expected ? 1 : 0);
   result.latencyMs = { pageToPageMedian: median(latencies.page), pageToContentDomMedian: median(latencies.dom), samples: latencies };
 
-  // 4) إعادة التحميل: الحالة محفوظة.
+  // 3ب) فتح متزامن لبيانات إصدار قديم من سياقين فعليين (صفحتا إضافة تتشاركان قفل navigator.locks): ترحيل واحد ونسخة واحدة.
+  await p1.evaluate(() => globalThis.__mj.seedLegacy());
+  const versions = await Promise.all([p1.evaluate(() => globalThis.__mj.openStoreOnly()), p2.evaluate(() => globalThis.__mj.openStoreOnly())]);
+  const summary = await p1.evaluate(() => globalThis.__mj.storageSummary());
+  result.concurrentMigration = {
+    versions,
+    backups: summary.backups,
+    metaVersion: summary.meta?.schemaVersion,
+    journalLeft: summary.journal,
+    dataIntact: JSON.stringify(summary.settings) === JSON.stringify({ 'modules.a.enabled': false }) && summary.notes?.length === 1,
+    pass: versions.every((v) => v === 1) && summary.backups === 1 && summary.meta?.schemaVersion === 1 && !summary.journal,
+  };
+
+  // 4) إعادة التحميل: القيمة المكتوبة صراحةً (false) تبقى فتبدأ الصفحة بلا حقن. (التخزين أُعيد ضبطه في 3ب.)
+  await p1.evaluate(() => globalThis.__mj.init().then(() => globalThis.__mj.set('modules.a.enabled', false)));
   await gh.reload();
-  result.afterReload = await waitUntil(async () => (await injected()) === (expected ? 1 : 0), 8000, 50);
-  result.persistsAfterReload = Boolean(result.afterReload) && (await gh.locator('html[data-mj-content="ready"]').count()) === 1;
+  const ready = await waitUntil(() => gh.locator('html[data-mj-content="ready"]').count(), 10000);
+  await sleep(300);
+  result.persistsAfterReload = Boolean(ready) && (await injected()) === 0;
   result.contentErrors = await gh.evaluate(() => document.documentElement.getAttribute('data-mj-error'));
   result.pass = Boolean(
-    result.spaReactOrder === 'issue:high' && result.spaReactInjected === 1 && result.spaTabsOrder === 'pr-commits:high' && result.spaTabsInjected === 1 && result.contentScriptReady && result.page2ReceivedRemoteOff && result.contentScriptUnmounted && result.domClean && result.page1ReceivedRemoteOn && result.contentScriptRemounted && result.consistentAfterToggles && result.persistsAfterReload && !result.contentErrors,
+    result.concurrentMigration.pass && result.spaReactOrder === 'issue:high' && result.spaReactInjected === 1 && result.spaTabsOrder === 'pr-commits:high' && result.spaTabsInjected === 1 && result.contentScriptReady && result.page2ReceivedRemoteOff && result.contentScriptUnmounted && result.domClean && result.page1ReceivedRemoteOn && result.contentScriptRemounted && result.consistentAfterToggles && result.persistsAfterReload && !result.contentErrors,
   );
   result.notRun = ['لوحة جانبية (sidePanel): لا تُفتح دون فعل مستخدم فعلي؛ تُغطيها T-1.4 (TEST-CORE-05 وTEST-CORE-06)', 'نافذة ثانية منفصلة: التبويبات تشترك في ملف التعريف نفسه ومسار البث نفسه'];
   return result;
@@ -399,6 +414,11 @@ function renderReport(all) {
       continue;
     }
     lines.push(`| ${r.label} | ${cell(r.browserVersion)} | ${c.pass ? '**اجتاز**' : '**فشل**'} | ${yes(c.page2ReceivedRemoteOff)} | ${yes(c.contentScriptUnmounted && c.domClean)} | ${yes(c.page1ReceivedRemoteOn)} | ${yes(c.contentScriptRemounted)} | ${yes(c.consistentAfterToggles)} | ${yes(c.persistsAfterReload)} | ${cell(c.latencyMs?.pageToPageMedian)} | ${cell(c.latencyMs?.pageToContentDomMedian)} |`);
+  }
+  lines.push('', '### فتح متزامن لبيانات إصدار قديم من سياقين (قفل `navigator.locks`)', '', 'بيانات بلا ختم مخطط تُزرع في التخزين الحقيقي ثم تفتحها صفحتا إضافة معًا؛ المطلوب: ترحيل واحد ونسخة احتياطية واحدة وبيانات سليمة وبلا سجل عملية متبقٍّ.', '', '| المتصفح | إصدارا المخطط المرجعان | عدد النسخ الاحتياطية | إصدار المخطط المختوم | سجل عملية متبقٍّ | البيانات سليمة | النتيجة |', '| :--- | :---: | :---: | :---: | :---: | :---: | :---: |');
+  for (const key of order) {
+    const m = all[key].variants?.baseline?.core04?.concurrentMigration;
+    if (m) lines.push(`| ${all[key].label} | ${m.versions.join(' و')} | ${m.backups} | ${m.metaVersion} | ${yes(m.journalLeft)} | ${yes(m.dataIntact)} | ${m.pass ? '**اجتاز**' : '**فشل**'} |`);
   }
   lines.push('', '### اكتشاف تنقل SPA بلا أحداث Turbo في سكربت محتوى فعلي', '', 'يُحاكى في صفحة github.com المعترَضة ما قيس حيًّا: **نمط React** (المسار يتغير أولًا ثم يصل DOM بعد 150 مللي ثانية) و**نمط تبويبات طلب الدمج** (DOM أولًا ثم المسار بعد 150 مللي ثانية). المطلوب: يُعلَن النوع الجديد بثقة high بعد استقرار DOM، وحقن واحد للوحدة.', '', '| المتصفح | Navigation API | نمط React: الحالة النهائية | عدد الحقن | عدد مرات التوفيق | نمط التبويبات: الحالة النهائية | عدد الحقن |', '| :--- | :---: | :--- | :---: | :---: | :--- | :---: |');
   for (const key of order) {

@@ -83,6 +83,15 @@ export class StorageNotMigratedError extends Error {
   }
 }
 
+export class StorageBusyError extends Error {
+  readonly code = 'MIGRATION_IN_PROGRESS';
+
+  constructor() {
+    super('عملية ترحيل أو استيراد جارية في سياق آخر؛ أعد المحاولة بعد قليل. لم تُلمس البيانات.');
+    this.name = 'StorageBusyError';
+  }
+}
+
 export class StorageValueError extends Error {
   readonly code = 'INVALID_VALUE';
 

@@ -7,13 +7,14 @@ import {
   META_KEY,
   MemoryStorageArea,
   Store,
+  StorageBusyError,
   StorageMigrationError,
   StorageNotMigratedError,
   StorageSchemaTooNewError,
   measureEntry,
   migrationPath,
 } from '../../../src/core';
-import type { BackupRecord, Migration } from '../../../src/core';
+import type { BackupRecord, LockManagerLike, Migration } from '../../../src/core';
 import { areaFrom, backupKeys, userData } from './helpers';
 
 const open = (area: MemoryStorageArea, extra: Partial<Parameters<typeof Store.open>[0]> = {}) => Store.open({ area, changes: area, ...extra });
@@ -269,5 +270,71 @@ describe('النسخ الاحتياطية بعد ترحيلات متتالية',
     const keys = backupKeys(area.dump()).map((k) => (area.dump()[k] as BackupRecord).fromVersion).sort();
     expect(keys).toEqual([2, 3]);
     expect(BACKUP_PREFIX).toBe('mijhar:backup:');
+  });
+});
+
+// قفل متبادل بسيط بدل navigator.locks لتحديد السلوك في الاختبار.
+function mutex(): LockManagerLike {
+  let tail: Promise<unknown> = Promise.resolve();
+  return {
+    request<T>(_name: string, callback: () => Promise<T>): Promise<T> {
+      const run = tail.then(callback, callback);
+      tail = run.catch(() => undefined);
+      return run;
+    },
+  };
+}
+
+describe('تزامن السياقات', () => {
+  it('سياقان يفتحان بيانات قديمة معًا بالقفل: ترحيل واحد ونسخة احتياطية واحدة وبيانات سليمة', async () => {
+    const area = areaFrom('v1-stamped');
+    const original = userData(area.dump());
+    const locks = mutex();
+    const options = { currentVersion: 3, migrations: [rename, wrap], locks } as const;
+    const [one, two] = await Promise.all([open(area, options), open(area, options)]);
+    expect(one.schemaVersion).toBe(3);
+    expect(two.schemaVersion).toBe(3);
+    expect(backupKeys(area.dump())).toHaveLength(1);
+    expect(area.dump()[JOURNAL_KEY]).toBeUndefined();
+    expect((area.dump()['mijhar:data:notes'] as { items: unknown[] }).items).toEqual(original['mijhar:data:notes']);
+  });
+
+  it('فتح سياق أثناء استيراد في آخر لا يستردّ العملية الجارية', async () => {
+    const area = areaFrom('v1-stamped');
+    const locks = mutex();
+    const importer = await open(area, { locks });
+    const envelope = { format: 'mijhar-export', schemaVersion: 1, exportedAt: 'x', records: { settings: { 'modules.b.enabled': true } } };
+    const importing = importer.importData(envelope);
+    const opening = open(area, { locks });
+    await Promise.all([importing, opening]);
+    expect(area.dump()['mijhar:data:settings']).toEqual({ 'modules.b.enabled': true });
+    expect(area.dump()[JOURNAL_KEY]).toBeUndefined();
+  });
+
+  it('سياق migrate:false يرفض عملية لم تكتمل بدل أن يستردّها، ولا يمس شيئًا', async () => {
+    const area = areaFrom('v1-stamped');
+    await area.set({ [JOURNAL_KEY]: { kind: 'migration', backupKey: 'mijhar:backup:x', from: 1, to: 2, startedAt: 'x', removes: [] } });
+    const before = area.dump();
+    await expect(open(area, { migrate: false })).rejects.toBeInstanceOf(StorageBusyError);
+    expect(area.dump()).toEqual(before);
+  });
+
+  it('سياق migrate:false يقرأ بعد كتابة ذرّية مكتملة ولا يستردّ ولا يحذف سجل العملية', async () => {
+    const area = areaFrom('v1-stamped');
+    await area.set({ [JOURNAL_KEY]: { kind: 'migration', backupKey: 'mijhar:backup:x', from: 0, to: 1, startedAt: 'x', removes: ['mijhar:data:old'], committed: true } });
+    const before = area.dump();
+    const store = await open(area, { migrate: false });
+    expect(store.schemaVersion).toBe(1);
+    expect(area.dump()).toEqual(before);
+  });
+
+  it('سياق يرحّل يُكمل عملية مكتملة ذرّيًا ثم انقطعت: يحذف المتبقي ولا يُرجع', async () => {
+    const area = areaFrom('v1-stamped');
+    await area.set({ 'mijhar:data:old': { stale: true }, [JOURNAL_KEY]: { kind: 'migration', backupKey: 'mijhar:backup:x', from: 0, to: 1, startedAt: 'x', removes: ['mijhar:data:old'], committed: true } });
+    const store = await open(area);
+    expect(store.schemaVersion).toBe(1);
+    expect(area.dump()['mijhar:data:old']).toBeUndefined();
+    expect(area.dump()[JOURNAL_KEY]).toBeUndefined();
+    expect(area.dump()['mijhar:data:settings']).toBeDefined();
   });
 });

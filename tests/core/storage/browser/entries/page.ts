@@ -127,6 +127,29 @@ const mj = {
     await api.storage.local.clear();
     return out;
   },
+  /** بيانات إصدار قديم (بلا ختم مخطط) كما كتبتها أولى النسخ: لتجربة الترحيل المتزامن بين سياقين فعليين. */
+  async seedLegacy(): Promise<void> {
+    await api.storage.local.clear();
+    await api.storage.local.set({
+      'mijhar:data:settings': { 'modules.a.enabled': false },
+      'mijhar:data:notes': [{ id: 'n1', text: 'ملاحظة قديمة' }],
+    });
+  },
+  async openStoreOnly(): Promise<number> {
+    const { area, changes } = extensionStorage();
+    return (await Store.open({ area, changes })).schemaVersion;
+  },
+  async storageSummary(): Promise<unknown> {
+    const all = await api.storage.local.get(null);
+    return {
+      keys: Object.keys(all).sort(),
+      meta: all['mijhar:meta'],
+      backups: Object.keys(all).filter((key) => key.startsWith('mijhar:backup:')).length,
+      journal: 'mijhar:journal' in all,
+      settings: all['mijhar:data:settings'],
+      notes: all['mijhar:data:notes'],
+    };
+  },
   /** لمشغّلات لا تعيد وعودًا عبر حدود الأمان (Marionette): تكتب النتيجة JSON في سمة على الجذر. */
   async runToDom(name: 'probe' | 'quotaExperiment' | 'layerQuota', megabytes?: number): Promise<void> {
     document.documentElement.removeAttribute('data-mj-out');
