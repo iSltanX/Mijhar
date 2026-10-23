@@ -33,7 +33,7 @@
     { "case": "readme", "text": "This extension helps Arabic readers understand GitHub pages. Install it with `npm install mijhar` and open the settings page from the toolbar. The build output goes to dist/chromium and dist/firefox." },
     { "case": "readme", "text": "To run the tests locally, use `npm test`. The suite takes about two minutes on a laptop. If a test fails, check tests/setup/paths.ts first and make sure Node.js 22 is installed." },
     { "case": "readme", "text": "See https://docs.github.com/actions for the full list of events. Workflows live in .github/workflows and run on every push to main." },
-    { "case": "issue", "text": "The side panel does not open when I press the shortcut in Firefox 158. Steps to reproduce: install v2.0.1, open any repository, and press the shortcut. Expected: the panel opens. Actual: nothing happens." },
+    { "case": "issue", "text": "The side panel does not open when I press `Alt+G` in Firefox 158. Steps to reproduce: install the build from #12, open any repository, and press the shortcut. Expected: the panel opens. Actual: nothing happens." },
     { "case": "comment", "text": "Thanks @octocat, I can reproduce this on macOS. It looks related to #42 and probably to the change in src/core/ui-host/shadow.ts." },
     { "case": "comment", "text": "LGTM. One small thing: rename `MAX_RETRIES` to `RETRY_LIMIT` so it matches .env.example, then I will merge it." },
     { "case": "pr", "text": "This pull request replaces the old parser with a streaming one. It closes #88 and updates docs/parser.md. Please review the changes in `parseLine()` carefully before merging." },

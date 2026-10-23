@@ -1,0 +1,506 @@
+{
+  "measuredAt": "2026-10-23T22:18:10.715Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "pages": {
+    "readme": "https://github.com/octocat/Spoon-Knife",
+    "issue": "https://github.com/microsoft/TypeScript/issues/1"
+  },
+  "results": [
+    {
+      "key": "chrome",
+      "browser": "156.0.8078.47",
+      "permissionsPolicy": null,
+      "readmeBars": [
+        {
+          "index": 0,
+          "phase": "idle",
+          "note": "",
+          "actions": [
+            "translate"
+          ],
+          "body": "markdown-body entry-content container-lg",
+          "between": [
+            "h"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false,
+          "sample": []
+        }
+      ],
+      "ready": true,
+      "readme": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 9683,
+            "phase": "done",
+            "note": "تُرجمت 5 من 5 فقرة."
+          }
+        ],
+        "bar": {
+          "index": 0,
+          "phase": "done",
+          "note": "تُرجمت 5 من 5 فقرة.",
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "body": "markdown-body entry-content container-lg",
+          "between": [
+            "h"
+          ],
+          "translations": 5,
+          "warnings": 0,
+          "arabic": 5,
+          "tokenLeak": false,
+          "sample": [
+            "حسنا مرحبا هناك!",
+            "يهدف هذا المستودع إلى تقديم مثال لتفعيل مستودع على GitHub."
+          ]
+        }
+      },
+      "selection": {
+        "status": "translated",
+        "translation": "هذا المستودع مخصص للعلاقات العامة",
+        "arabic": true,
+        "notice": null,
+        "copyNote": null
+      },
+      "readmeRequestHosts": [
+        "https://collector.github.com/github/collect",
+        "https://api.github.com/_private/browser/stats"
+      ],
+      "issueBars": [
+        {
+          "index": 0,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 1,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 2,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 3,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 4,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 5,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 6,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 7,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 8,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 9,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 10,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 11,
+          "body": "markdown-body",
+          "phase": "idle"
+        }
+      ],
+      "issueDescription": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 1120,
+            "phase": "done",
+            "note": "تُرجمت 15 من 15 فقرة."
+          }
+        ],
+        "bar": {
+          "index": 0,
+          "phase": "done",
+          "note": "تُرجمت 15 من 15 فقرة.",
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "body": "markdown-body",
+          "between": [],
+          "translations": 15,
+          "warnings": 0,
+          "arabic": 15,
+          "tokenLeak": false,
+          "sample": [
+            "اقتراح عام",
+            "protected يعمل المعدل بنفس الطريقة private من حيث إنشاء الشفرة وإمكانية التخصيص، باستثناء أنه من الممكن الوصول إلى عضو protected في أي فئة فرعية من فئة تعلن الع"
+          ]
+        }
+      },
+      "comment": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 1123,
+            "phase": "done",
+            "note": "تُرجمت 5 من 5 فقرة."
+          }
+        ],
+        "bar": {
+          "index": 1,
+          "phase": "done",
+          "note": "تُرجمت 5 من 5 فقرة.",
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "body": "markdown-body",
+          "between": [],
+          "translations": 5,
+          "warnings": 0,
+          "arabic": 5,
+          "tokenLeak": false,
+          "sample": [
+            "آه ، حسنًا ... لذلك تعلمت بعض الأشياء اليوم:",
+            "لقد اخترنا محور التصميم الذي هبط بنا بإمكانيات مماثلة لـ C # ، والتي اعتادت عليها مجموعة من المستخدمين ولا شك أنها أنشأت بالفعل برامج في TypeScript مع افتراض أن"
+          ]
+        }
+      },
+      "issueRequestHosts": [
+        "https://github.com/scribe/artifacts",
+        "https://avatars.githubusercontent.com/u/176815",
+        "https://avatars.githubusercontent.com/u/229244",
+        "https://avatars.githubusercontent.com/u/309607",
+        "https://avatars.githubusercontent.com/u/547158",
+        "https://avatars.githubusercontent.com/u/765657"
+      ],
+      "nonGithubHosts": []
+    },
+    {
+      "key": "edge",
+      "browser": "155.0.4283.60",
+      "permissionsPolicy": null,
+      "readmeBars": [
+        {
+          "index": 0,
+          "phase": "idle",
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "body": "markdown-body entry-content container-lg",
+          "between": [
+            "h"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false,
+          "sample": []
+        }
+      ],
+      "ready": false,
+      "afterCopy": {
+        "index": 0,
+        "phase": "idle",
+        "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها. نُسخ النص المقنَّع (5 فقرة)، وفيه 4 عنصرًا محميًا مستبدلًا برموز ⟦…⟧ لا تُنسخ قيمها.",
+        "actions": [
+          "translate",
+          "copy-masked"
+        ],
+        "body": "markdown-body entry-content container-lg",
+        "between": [
+          "h"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false,
+        "sample": []
+      },
+      "clipboard": "Well hello there!\n\nThis repository is meant to provide an example for forking a repository on ⟦TERM_0⟧.\n\nCreating a fork is producing a personal copy of someone else's project. Forks act as a sort of bridge between the original repository and your personal copy. You can submit Pull Requests to help ",
+      "copyRequestHosts": [],
+      "nonGithubHosts": []
+    },
+    {
+      "key": "brave",
+      "browser": "156.0.8078.48",
+      "permissionsPolicy": null,
+      "readmeBars": [
+        {
+          "index": 0,
+          "phase": "idle",
+          "note": "",
+          "actions": [
+            "translate"
+          ],
+          "body": "markdown-body entry-content container-lg",
+          "between": [
+            "h"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false,
+          "sample": []
+        }
+      ],
+      "ready": true,
+      "readme": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 10887,
+            "phase": "done",
+            "note": "تُرجمت 5 من 5 فقرة."
+          }
+        ],
+        "bar": {
+          "index": 0,
+          "phase": "done",
+          "note": "تُرجمت 5 من 5 فقرة.",
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "body": "markdown-body entry-content container-lg",
+          "between": [
+            "h"
+          ],
+          "translations": 5,
+          "warnings": 0,
+          "arabic": 5,
+          "tokenLeak": false,
+          "sample": [
+            "حسنا مرحبا هناك!",
+            "يهدف هذا المستودع إلى تقديم مثال لتفعيل مستودع على GitHub."
+          ]
+        }
+      },
+      "selection": {
+        "status": "translated",
+        "translation": "هذا المستودع مخصص للعلاقات العامة",
+        "arabic": true,
+        "notice": null,
+        "copyNote": null
+      },
+      "readmeRequestHosts": [
+        "https://collector.github.com/github/collect",
+        "https://api.github.com/_private/browser/stats"
+      ],
+      "issueBars": [
+        {
+          "index": 0,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 1,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 2,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 3,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 4,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 5,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 6,
+          "body": "markdown-body",
+          "phase": "idle"
+        },
+        {
+          "index": 7,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 8,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 9,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 10,
+          "body": "markdown-body markdownBody__DhGcnT",
+          "phase": "idle"
+        },
+        {
+          "index": 11,
+          "body": "markdown-body",
+          "phase": "idle"
+        }
+      ],
+      "issueDescription": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 1140,
+            "phase": "done",
+            "note": "تُرجمت 15 من 15 فقرة."
+          }
+        ],
+        "bar": {
+          "index": 0,
+          "phase": "done",
+          "note": "تُرجمت 15 من 15 فقرة.",
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "body": "markdown-body",
+          "between": [],
+          "translations": 15,
+          "warnings": 0,
+          "arabic": 15,
+          "tokenLeak": false,
+          "sample": [
+            "اقتراح عام",
+            "protected يعمل المعدل بنفس الطريقة private من حيث إنشاء الشفرة وإمكانية التخصيص، باستثناء أنه من الممكن الوصول إلى عضو protected في أي فئة فرعية من فئة تعلن الع"
+          ]
+        }
+      },
+      "comment": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 1134,
+            "phase": "done",
+            "note": "تُرجمت 5 من 5 فقرة."
+          }
+        ],
+        "bar": {
+          "index": 1,
+          "phase": "done",
+          "note": "تُرجمت 5 من 5 فقرة.",
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "body": "markdown-body",
+          "between": [],
+          "translations": 5,
+          "warnings": 0,
+          "arabic": 5,
+          "tokenLeak": false,
+          "sample": [
+            "آه ، حسنًا ... لذلك تعلمت بعض الأشياء اليوم:",
+            "لقد اخترنا محور التصميم الذي هبط بنا بإمكانيات مماثلة لـ C # ، والتي اعتادت عليها مجموعة من المستخدمين ولا شك أنها أنشأت بالفعل برامج في TypeScript مع افتراض أن"
+          ]
+        }
+      },
+      "issueRequestHosts": [],
+      "nonGithubHosts": []
+    },
+    {
+      "key": "firefox",
+      "browser": "158.0.1",
+      "readmeBars": [
+        {
+          "index": 0,
+          "phase": "idle",
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "body": "markdown-body entry-content container-lg",
+          "between": [
+            "h"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false,
+          "sample": []
+        }
+      ],
+      "ready": false,
+      "afterCopy": {
+        "index": 0,
+        "phase": "idle",
+        "note": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها. نُسخ النص المقنَّع (5 فقرة)، وفيه 4 عنصرًا محميًا مستبدلًا برموز ⟦…⟧ لا تُنسخ قيمها.",
+        "actions": [
+          "translate",
+          "copy-masked"
+        ],
+        "body": "markdown-body entry-content container-lg",
+        "between": [
+          "h"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false,
+        "sample": []
+      },
+      "clipboard": "لم يُقرأ (Firefox: قراءة الحافظة من الصفحة محجوبة؛ يُكتفى بإعلان نجاح النسخ)",
+      "copyRequestHosts": [],
+      "nonGithubHosts": []
+    }
+  ]
+}

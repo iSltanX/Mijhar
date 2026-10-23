@@ -1,0 +1,2775 @@
+{
+  "measuredAt": "2026-10-23T22:17:14.092Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد لكل متصفح بلا واجهة (headless)؛ المحرك الحقيقي الذي يختاره selectLocalEngine في الصفحة (العالم الرئيسي، 127.0.0.1)؛ نقر وتحديد بالفأرة فعليان؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "detect": {
+        "translatorType": "function",
+        "engine": "translator-api",
+        "label": "مترجم المتصفح المدمج (Translator API)",
+        "availability": {
+          "state": "ready"
+        },
+        "status": "downloadable",
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+      },
+      "ui": {
+        "README": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ms": 11663,
+              "phase": "done",
+              "note": "تُرجمت 17 من 17 فقرة."
+            }
+          ],
+          "final": {
+            "attempt": 1,
+            "ms": 11663,
+            "phase": "done",
+            "note": "تُرجمت 17 من 17 فقرة."
+          },
+          "result": {
+            "translations": 17,
+            "warnings": 0,
+            "arabic": 17,
+            "protectedShown": 13,
+            "protectedAllFromOriginal": true,
+            "tokenLeak": false,
+            "sample": [
+              "مشروع مجاهر التجريبي",
+              "يساعد هذا الامتداد القراء العرب على فهم المستودعات. قم بتشغيل npm install أولاً، ثم راجع installation guide للحصول على التفاصيل.",
+              "شكرًا @octocat على المراجعة، راجع #123 وتحرير src/components/common/Explain.tsx قبل فتح طلب سحب."
+            ]
+          }
+        },
+        "تعليق": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ms": 389,
+              "phase": "done",
+              "note": "تُرجمت 2 من 2 فقرة."
+            }
+          ],
+          "final": {
+            "attempt": 1,
+            "ms": 389,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          },
+          "result": {
+            "translations": 2,
+            "warnings": 0,
+            "arabic": 2,
+            "protectedShown": 3,
+            "protectedAllFromOriginal": true,
+            "tokenLeak": false,
+            "sample": [
+              "يمكنني إعادة إنتاج هذا باستخدام v2.0.1-rc.3 في macOS والإصلاح ليس في هذا الإصدار بعد.",
+              "راجع #42 للحصول على التقرير السابق."
+            ]
+          }
+        },
+        "وصف مشكلة": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ms": 380,
+              "phase": "done",
+              "note": "تُرجمت 2 من 2 فقرة."
+            }
+          ],
+          "final": {
+            "attempt": 1,
+            "ms": 380,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          },
+          "result": {
+            "translations": 2,
+            "warnings": 0,
+            "arabic": 2,
+            "protectedShown": 4,
+            "protectedAllFromOriginal": true,
+            "tokenLeak": false,
+            "sample": [
+              "لا تفتح اللوحة الجانبية عند الضغط على Alt+G في Firefox 158 في macOS.",
+              "خطوات الإنشاء: افتح this repository، واضغط على الاختصار، وشاهد الشريط الجانبي يظل مغلقًا."
+            ]
+          }
+        },
+        "selection": {
+          "status": "translated",
+          "original": "The side panel opens from the toolbar.",
+          "translation": "تفتح اللوحة الجانبية من شريط الأدوات.",
+          "arabic": true,
+          "notice": null,
+          "copyNote": null
+        }
+      },
+      "externalRequests": [],
+      "corpus": {
+        "attempt": 1,
+        "engine": "translator-api",
+        "items": 33,
+        "withWireFormat": {
+          "ms": 309,
+          "rates": {
+            "all": {
+              "n": 33,
+              "firstAttemptPassed": 33,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 0,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 0,
+              "keptRate": 0
+            },
+            "withTokens": {
+              "n": 28,
+              "firstAttemptPassed": 28,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 0,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 0,
+              "keptRate": 0
+            }
+          },
+          "outcomes": [
+            {
+              "id": "s1",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 92,
+              "output": "قم بتشغيل `npm install` قبل فتح طلب سحب."
+            },
+            {
+              "id": "s2",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يوجد ملف التكوين في src/config/settings.json ويتم تحميله عند بدء التشغيل."
+            },
+            {
+              "id": "s3",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "الترقية إلى الإصدار 2.4.1 لإصلاح تسرب الذاكرة المبلغ عنه في #1532."
+            },
+            {
+              "id": "s4",
+              "kind": "sentence",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "استخدم علامة --dry-run لمعاينة التغييرات دون كتابة الملفات."
+            },
+            {
+              "id": "s5",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "شكرًا @octocat على مراجعة التصحيح بهذه السرعة."
+            },
+            {
+              "id": "s6",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "راجع https://docs.github.com/actions للحصول على القائمة الكاملة للأحداث."
+            },
+            {
+              "id": "s7",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "تعمل الدالة `fetchUser()` على إرجاع وعد يتم حله باستخدام كائن المستخدم."
+            },
+            {
+              "id": "s8",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "فشلت الاختبارات في Node.js 22 لأن `structuredClone` مفقود في المحاكاة."
+            },
+            {
+              "id": "s9",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "تحرير README لتوثيق الخيار `--output` الجديد وقيمته الافتراضية."
+            },
+            {
+              "id": "s10",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "GitHub Actions ذاكرات التخزين المؤقت Node_modules بين عمليات التشغيل باستخدام الإجراءات / cache @ v4."
+            },
+            {
+              "id": "s11",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "إذا تم تعيين `process.env.CI`، يتخطى البرنامج النصي الموجه التفاعلي."
+            },
+            {
+              "id": "s12",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "أعد تسمية lib/utils/date.ts إلى lib/utils/time.ts وتحديث جميع عمليات الاستيراد."
+            },
+            {
+              "id": "s13",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "يسقط الإصدار 3.0.0-beta.2 الدعم لـ TypeScript 4."
+            },
+            {
+              "id": "s14",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يُرجى إعادة تأسيس فرعك على Main وحل التعارض في package.json."
+            },
+            {
+              "id": "s15",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 3,
+              "output": "اتصل بـ `app.listen(3000)` بعد تسجيل جميع المسارات."
+            },
+            {
+              "id": "s16",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "تتم كتابة السجلات إلى /var/log/app/error.log عندما يكون المستوى `warn` أو أعلى."
+            },
+            {
+              "id": "s17",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يؤدي هذا التغيير إلى إغلاق #88 ويخاطب جزئيًا #91."
+            },
+            {
+              "id": "s18",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "اضبط `MAX_RETRIES` على 5 في .env.example لمطابقة الإنتاج."
+            },
+            {
+              "id": "s19",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "قم بتشغيل `git bisect` للعثور على الالتزام الذي قدم الانحدار."
+            },
+            {
+              "id": "s20",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يرفض وضع `--strict` المفاتيح غير المعروفة في المخطط YAML."
+            },
+            {
+              "id": "p1",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "هذا المشروع هو الحد الأدنى من إطار عمل الويب لبناء واجهات برمجة التطبيقات. يوفر طبقة رقيقة من ميزات تطبيق الويب الأساسية ، دون حجب الميزات التي يعرفها المطورون ويحبونها."
+            },
+            {
+              "id": "p2",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "قبل تقديم طلب السحب ، تأكد من مرور الاختبارات محليًا وأن تغييراتك مغطاة باختبارات جديدة أو محدثة. حافظ على كل طلب سحب مركزًا على تغيير واحد."
+            },
+            {
+              "id": "p3",
+              "kind": "paragraph",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "تدعم المكتبة بيئات المتصفح والخادم. في المتصفح ، يستخدم تطبيق Fetch الأصلي ، بينما على الخادم يعود إلى الوحدة النمطية المضمنة HTTP."
+            },
+            {
+              "id": "p4",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "إذا وجدت ثغرة أمنية ، فالرجاء عدم فتح مشكلة عامة. بدلاً من ذلك ، قم بالإبلاغ عن ذلك بشكل خاص إلى المشرفين بحيث يمكن إعداد الإصلاح قبل الكشف عنه."
+            },
+            {
+              "id": "p5",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 9,
+              "output": "تتم قراءة التكوين من متغيرات البيئة أولاً ، ثم من ملف التكوين المحلي ، وأخيراً من الإعدادات الافتراضية. المصادر اللاحقة لا تتجاوز المصادر السابقة أبدًا."
+            },
+            {
+              "id": "t1",
+              "kind": "readme",
+              "tokens": 4,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "يساعد هذا الامتداد القراء العرب على فهم GitHub صفحات. قم بتثبيته باستخدام `npm install mijhar` وافتح صفحة الإعدادات من شريط الأدوات. يذهب إخراج الإنشاء إلى dist/chromium و dist/firefox."
+            },
+            {
+              "id": "t2",
+              "kind": "readme",
+              "tokens": 3,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11,
+              "output": "لإجراء الاختبارات محليًا، استخدم `npm test`. يستغرق الجناح حوالي دقيقتين على جهاز كمبيوتر محمول. إذا فشل الاختبار، فتحقق من tests/setup/paths.ts أولاً وتأكد من تثبيت Node.js 22."
+            },
+            {
+              "id": "t3",
+              "kind": "readme",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 8,
+              "output": "راجع https://docs.github.com/actions للحصول على القائمة الكاملة للأحداث. تعمل مهام سير العمل في .github/workflows وتعمل على كل دفعة إلى Main."
+            },
+            {
+              "id": "t4",
+              "kind": "issue",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 15,
+              "output": "لا تفتح اللوحة الجانبية عند الضغط على `Alt+G` في Firefox 158. خطوات إعادة الإنتاج: تثبيت البنية من #12 ، وفتح أي مستودع ، واضغط على الاختصار. متوقع: تفتح اللوحة. الفعلي: لا شيء يحدث."
+            },
+            {
+              "id": "t5",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 7,
+              "output": "شكرًا @octocat، يمكنني إعادة إنتاج هذا في macOS. يبدو مرتبطًا بـ #42 وربما بالتغيير في src/core/ui-host/shadow.ts."
+            },
+            {
+              "id": "t6",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 9,
+              "output": "LGTM. شيء واحد صغير: أعد تسمية `MAX_RETRIES` إلى `RETRY_LIMIT` بحيث تتطابق مع .env.example ، ثم سأقوم بدمجها."
+            },
+            {
+              "id": "t7",
+              "kind": "pr",
+              "tokens": 3,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "يستبدل طلب السحب هذا المحلل القديم بآخر متدفق. يغلق #88 ويحدث docs/parser.md. يرجى مراجعة التغييرات في `parseLine()` بعناية قبل الدمج."
+            },
+            {
+              "id": "t8",
+              "kind": "selection",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "اضبط `TARGET` على Chromium أو Firefox قبل تشغيل الإنشاء."
+            }
+          ]
+        },
+        "planFormatBaseline": {
+          "rates": {
+            "all": {
+              "n": 33,
+              "firstAttemptPassed": 5,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 28,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 0.848,
+              "keptRate": 0.848
+            },
+            "withTokens": {
+              "n": 28,
+              "firstAttemptPassed": 0,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 28,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 1,
+              "keptRate": 1
+            }
+          },
+          "outcomes": [
+            {
+              "id": "s1",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 27,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s2",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity",
+                "hallucination"
+              ],
+              "lastChecks": [
+                "count",
+                "identity",
+                "hallucination"
+              ]
+            },
+            {
+              "id": "s3",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 13,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s4",
+              "kind": "sentence",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5
+            },
+            {
+              "id": "s5",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 9,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s6",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 8,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s7",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 12,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s8",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 16,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s9",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 13,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s10",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 14,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s11",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s12",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 12,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s13",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 13,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s14",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s15",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 8,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s16",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 12,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s17",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s18",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s19",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 9,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s20",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 12,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "p1",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11
+            },
+            {
+              "id": "p2",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11
+            },
+            {
+              "id": "p3",
+              "kind": "paragraph",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 3,
+              "ms": 24,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "p4",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10
+            },
+            {
+              "id": "p5",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 9
+            },
+            {
+              "id": "t1",
+              "kind": "readme",
+              "tokens": 4,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 19,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t2",
+              "kind": "readme",
+              "tokens": 3,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 20,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t3",
+              "kind": "readme",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 16,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t4",
+              "kind": "issue",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 24,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t5",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 17,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t6",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 14,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t7",
+              "kind": "pr",
+              "tokens": 3,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 3,
+              "ms": 23,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t8",
+              "kind": "selection",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "detect": {
+        "translatorType": "function",
+        "engine": "translator-api",
+        "label": "مترجم المتصفح المدمج (Translator API)",
+        "availability": {
+          "state": "unavailable",
+          "reason": "لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+        },
+        "status": "unavailable",
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0"
+      },
+      "ui": {
+        "bar": {
+          "phase": "idle",
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "actions": [
+            "translate",
+            "copy-masked"
+          ]
+        },
+        "copied": "Mijhar Demo Project\n\nThis extension helps Arabic readers understand repositories. Run ⟦CODE_0⟧ first, then see the ⟦LINK_1⟧ for details.\n\nThanks ⟦USER_2⟧ for the review, see ⟦REF_3⟧ and edit ⟦PATH_4⟧ before opening a pull request.\n\nRead the docs ⟦LINK_5⟧ or ⟦LINK_6⟧ before you start.\n\nPress ⟦CODE_7⟧+⟦CODE_8⟧ to toggle explain mode in the page.\n\nRelease v2.0.1-rc.3 shipped on ⟦TERM_9⟧ with several ",
+        "copyNote": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها. نُسخ النص المقنَّع (17 فقرة)، وفيه 13 عنصرًا محميًا مستبدلًا برموز ⟦…⟧ لا تُنسخ قيمها.",
+        "selectionCopied": "The side panel opens from the toolbar."
+      },
+      "externalRequests": []
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "detect": {
+        "translatorType": "function",
+        "engine": "translator-api",
+        "label": "مترجم المتصفح المدمج (Translator API)",
+        "availability": {
+          "state": "ready"
+        },
+        "status": "downloadable",
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+      },
+      "ui": {
+        "README": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ms": 12388,
+              "phase": "done",
+              "note": "تُرجمت 17 من 17 فقرة."
+            }
+          ],
+          "final": {
+            "attempt": 1,
+            "ms": 12388,
+            "phase": "done",
+            "note": "تُرجمت 17 من 17 فقرة."
+          },
+          "result": {
+            "translations": 17,
+            "warnings": 0,
+            "arabic": 17,
+            "protectedShown": 13,
+            "protectedAllFromOriginal": true,
+            "tokenLeak": false,
+            "sample": [
+              "مشروع مجاهر التجريبي",
+              "يساعد هذا الامتداد القراء العرب على فهم المستودعات. قم بتشغيل npm install أولاً، ثم راجع installation guide للحصول على التفاصيل.",
+              "شكرًا @octocat على المراجعة، راجع #123 وتحرير src/components/common/Explain.tsx قبل فتح طلب سحب."
+            ]
+          }
+        },
+        "تعليق": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ms": 390,
+              "phase": "done",
+              "note": "تُرجمت 2 من 2 فقرة."
+            }
+          ],
+          "final": {
+            "attempt": 1,
+            "ms": 390,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          },
+          "result": {
+            "translations": 2,
+            "warnings": 0,
+            "arabic": 2,
+            "protectedShown": 3,
+            "protectedAllFromOriginal": true,
+            "tokenLeak": false,
+            "sample": [
+              "يمكنني إعادة إنتاج هذا باستخدام v2.0.1-rc.3 في macOS والإصلاح ليس في هذا الإصدار بعد.",
+              "راجع #42 للحصول على التقرير السابق."
+            ]
+          }
+        },
+        "وصف مشكلة": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ms": 388,
+              "phase": "done",
+              "note": "تُرجمت 2 من 2 فقرة."
+            }
+          ],
+          "final": {
+            "attempt": 1,
+            "ms": 388,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          },
+          "result": {
+            "translations": 2,
+            "warnings": 0,
+            "arabic": 2,
+            "protectedShown": 4,
+            "protectedAllFromOriginal": true,
+            "tokenLeak": false,
+            "sample": [
+              "لا تفتح اللوحة الجانبية عند الضغط على Alt+G في Firefox 158 في macOS.",
+              "خطوات الإنشاء: افتح this repository، واضغط على الاختصار، وشاهد الشريط الجانبي يظل مغلقًا."
+            ]
+          }
+        },
+        "selection": {
+          "status": "translated",
+          "original": "The side panel opens from the toolbar.",
+          "translation": "تفتح اللوحة الجانبية من شريط الأدوات.",
+          "arabic": true,
+          "notice": null,
+          "copyNote": null
+        }
+      },
+      "externalRequests": [],
+      "corpus": {
+        "attempt": 1,
+        "engine": "translator-api",
+        "items": 33,
+        "withWireFormat": {
+          "ms": 294,
+          "rates": {
+            "all": {
+              "n": 33,
+              "firstAttemptPassed": 33,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 0,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 0,
+              "keptRate": 0
+            },
+            "withTokens": {
+              "n": 28,
+              "firstAttemptPassed": 28,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 0,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 0,
+              "keptRate": 0
+            }
+          },
+          "outcomes": [
+            {
+              "id": "s1",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 76,
+              "output": "قم بتشغيل `npm install` قبل فتح طلب سحب."
+            },
+            {
+              "id": "s2",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يوجد ملف التكوين في src/config/settings.json ويتم تحميله عند بدء التشغيل."
+            },
+            {
+              "id": "s3",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "الترقية إلى الإصدار 2.4.1 لإصلاح تسرب الذاكرة المبلغ عنه في #1532."
+            },
+            {
+              "id": "s4",
+              "kind": "sentence",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "استخدم علامة --dry-run لمعاينة التغييرات دون كتابة الملفات."
+            },
+            {
+              "id": "s5",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 3,
+              "output": "شكرًا @octocat على مراجعة التصحيح بهذه السرعة."
+            },
+            {
+              "id": "s6",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 3,
+              "output": "راجع https://docs.github.com/actions للحصول على القائمة الكاملة للأحداث."
+            },
+            {
+              "id": "s7",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "تعمل الدالة `fetchUser()` على إرجاع وعد يتم حله باستخدام كائن المستخدم."
+            },
+            {
+              "id": "s8",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "فشلت الاختبارات في Node.js 22 لأن `structuredClone` مفقود في المحاكاة."
+            },
+            {
+              "id": "s9",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "تحرير README لتوثيق الخيار `--output` الجديد وقيمته الافتراضية."
+            },
+            {
+              "id": "s10",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 7,
+              "output": "GitHub Actions ذاكرات التخزين المؤقت Node_modules بين عمليات التشغيل باستخدام الإجراءات / cache @ v4."
+            },
+            {
+              "id": "s11",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "إذا تم تعيين `process.env.CI`، يتخطى البرنامج النصي الموجه التفاعلي."
+            },
+            {
+              "id": "s12",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "أعد تسمية lib/utils/date.ts إلى lib/utils/time.ts وتحديث جميع عمليات الاستيراد."
+            },
+            {
+              "id": "s13",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "يسقط الإصدار 3.0.0-beta.2 الدعم لـ TypeScript 4."
+            },
+            {
+              "id": "s14",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يُرجى إعادة تأسيس فرعك على Main وحل التعارض في package.json."
+            },
+            {
+              "id": "s15",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "اتصل بـ `app.listen(3000)` بعد تسجيل جميع المسارات."
+            },
+            {
+              "id": "s16",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "تتم كتابة السجلات إلى /var/log/app/error.log عندما يكون المستوى `warn` أو أعلى."
+            },
+            {
+              "id": "s17",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يؤدي هذا التغيير إلى إغلاق #88 ويخاطب جزئيًا #91."
+            },
+            {
+              "id": "s18",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "اضبط `MAX_RETRIES` على 5 في .env.example لمطابقة الإنتاج."
+            },
+            {
+              "id": "s19",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 4,
+              "output": "قم بتشغيل `git bisect` للعثور على الالتزام الذي قدم الانحدار."
+            },
+            {
+              "id": "s20",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "يرفض وضع `--strict` المفاتيح غير المعروفة في المخطط YAML."
+            },
+            {
+              "id": "p1",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11,
+              "output": "هذا المشروع هو الحد الأدنى من إطار عمل الويب لبناء واجهات برمجة التطبيقات. يوفر طبقة رقيقة من ميزات تطبيق الويب الأساسية ، دون حجب الميزات التي يعرفها المطورون ويحبونها."
+            },
+            {
+              "id": "p2",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11,
+              "output": "قبل تقديم طلب السحب ، تأكد من مرور الاختبارات محليًا وأن تغييراتك مغطاة باختبارات جديدة أو محدثة. حافظ على كل طلب سحب مركزًا على تغيير واحد."
+            },
+            {
+              "id": "p3",
+              "kind": "paragraph",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11,
+              "output": "تدعم المكتبة بيئات المتصفح والخادم. في المتصفح ، يستخدم تطبيق Fetch الأصلي ، بينما على الخادم يعود إلى الوحدة النمطية المضمنة HTTP."
+            },
+            {
+              "id": "p4",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11,
+              "output": "إذا وجدت ثغرة أمنية ، فالرجاء عدم فتح مشكلة عامة. بدلاً من ذلك ، قم بالإبلاغ عن ذلك بشكل خاص إلى المشرفين بحيث يمكن إعداد الإصلاح قبل الكشف عنه."
+            },
+            {
+              "id": "p5",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 9,
+              "output": "تتم قراءة التكوين من متغيرات البيئة أولاً ، ثم من ملف التكوين المحلي ، وأخيراً من الإعدادات الافتراضية. المصادر اللاحقة لا تتجاوز المصادر السابقة أبدًا."
+            },
+            {
+              "id": "t1",
+              "kind": "readme",
+              "tokens": 4,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "يساعد هذا الامتداد القراء العرب على فهم GitHub صفحات. قم بتثبيته باستخدام `npm install mijhar` وافتح صفحة الإعدادات من شريط الأدوات. يذهب إخراج الإنشاء إلى dist/chromium و dist/firefox."
+            },
+            {
+              "id": "t2",
+              "kind": "readme",
+              "tokens": 3,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "لإجراء الاختبارات محليًا، استخدم `npm test`. يستغرق الجناح حوالي دقيقتين على جهاز كمبيوتر محمول. إذا فشل الاختبار، فتحقق من tests/setup/paths.ts أولاً وتأكد من تثبيت Node.js 22."
+            },
+            {
+              "id": "t3",
+              "kind": "readme",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 8,
+              "output": "راجع https://docs.github.com/actions للحصول على القائمة الكاملة للأحداث. تعمل مهام سير العمل في .github/workflows وتعمل على كل دفعة إلى Main."
+            },
+            {
+              "id": "t4",
+              "kind": "issue",
+              "tokens": 2,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 14,
+              "output": "لا تفتح اللوحة الجانبية عند الضغط على `Alt+G` في Firefox 158. خطوات إعادة الإنتاج: تثبيت البنية من #12 ، وفتح أي مستودع ، واضغط على الاختصار. متوقع: تفتح اللوحة. الفعلي: لا شيء يحدث."
+            },
+            {
+              "id": "t5",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 6,
+              "output": "شكرًا @octocat، يمكنني إعادة إنتاج هذا في macOS. يبدو مرتبطًا بـ #42 وربما بالتغيير في src/core/ui-host/shadow.ts."
+            },
+            {
+              "id": "t6",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 9,
+              "output": "LGTM. شيء واحد صغير: أعد تسمية `MAX_RETRIES` إلى `RETRY_LIMIT` بحيث تتطابق مع .env.example ، ثم سأقوم بدمجها."
+            },
+            {
+              "id": "t7",
+              "kind": "pr",
+              "tokens": 3,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10,
+              "output": "يستبدل طلب السحب هذا المحلل القديم بآخر متدفق. يغلق #88 ويحدث docs/parser.md. يرجى مراجعة التغييرات في `parseLine()` بعناية قبل الدمج."
+            },
+            {
+              "id": "t8",
+              "kind": "selection",
+              "tokens": 1,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5,
+              "output": "اضبط `TARGET` على Chromium أو Firefox قبل تشغيل الإنشاء."
+            }
+          ]
+        },
+        "planFormatBaseline": {
+          "rates": {
+            "all": {
+              "n": 33,
+              "firstAttemptPassed": 5,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 28,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 0.848,
+              "keptRate": 0.848
+            },
+            "withTokens": {
+              "n": 28,
+              "firstAttemptPassed": 0,
+              "passedAfterSentenceRetry": 0,
+              "originalKept": 28,
+              "errors": 0,
+              "validatorFailureRateFirstAttempt": 1,
+              "keptRate": 1
+            }
+          },
+          "outcomes": [
+            {
+              "id": "s1",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s2",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity",
+                "hallucination"
+              ],
+              "lastChecks": [
+                "count",
+                "identity",
+                "hallucination"
+              ]
+            },
+            {
+              "id": "s3",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 13,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s4",
+              "kind": "sentence",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 5
+            },
+            {
+              "id": "s5",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 8,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s6",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 9,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s7",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s8",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 14,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s9",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 13,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s10",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 14,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s11",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s12",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 12,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s13",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 13,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s14",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s15",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 8,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s16",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 13,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s17",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s18",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 11,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s19",
+              "kind": "sentence",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 9,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "s20",
+              "kind": "sentence",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 12,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "p1",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11
+            },
+            {
+              "id": "p2",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11
+            },
+            {
+              "id": "p3",
+              "kind": "paragraph",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 3,
+              "ms": 24,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "p4",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 11
+            },
+            {
+              "id": "p5",
+              "kind": "paragraph",
+              "tokens": 0,
+              "status": "translated",
+              "retryAttempts": 0,
+              "engineCalls": 1,
+              "ms": 10
+            },
+            {
+              "id": "t1",
+              "kind": "readme",
+              "tokens": 4,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 19,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t2",
+              "kind": "readme",
+              "tokens": 3,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 18,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t3",
+              "kind": "readme",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 14,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t4",
+              "kind": "issue",
+              "tokens": 2,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 23,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t5",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 15,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t6",
+              "kind": "comment",
+              "tokens": 4,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 14,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t7",
+              "kind": "pr",
+              "tokens": 3,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 3,
+              "ms": 23,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            },
+            {
+              "id": "t8",
+              "kind": "selection",
+              "tokens": 1,
+              "status": "original-kept",
+              "retryAttempts": 1,
+              "engineCalls": 2,
+              "ms": 12,
+              "firstChecks": [
+                "count",
+                "identity"
+              ],
+              "lastChecks": [
+                "count",
+                "identity"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "detect": {
+        "translatorType": "undefined",
+        "engine": "none",
+        "label": "لا مترجم محلي",
+        "availability": {
+          "state": "unavailable",
+          "reason": "لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+        },
+        "status": null,
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:158.0) Gecko/20100101 Firefox/158.0"
+      },
+      "ui": {
+        "bar": {
+          "phase": "idle",
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "actions": [
+            "translate",
+            "copy-masked"
+          ]
+        },
+        "copied": "Mijhar Demo Project\n\nThis extension helps Arabic readers understand repositories. Run ⟦CODE_0⟧ first, then see the ⟦LINK_1⟧ for details.\n\nThanks ⟦USER_2⟧ for the review, see ⟦REF_3⟧ and edit ⟦PATH_4⟧ before opening a pull request.\n\nRead the docs ⟦LINK_5⟧ or ⟦LINK_6⟧ before you start.\n\nPress ⟦CODE_7⟧+⟦CODE_8⟧ to toggle explain mode in the page.\n\nRelease v2.0.1-rc.3 shipped on ⟦TERM_9⟧ with several ",
+        "copyNote": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها. نُسخ النص المقنَّع (17 فقرة)، وفيه 13 عنصرًا محميًا مستبدلًا برموز ⟦…⟧ لا تُنسخ قيمها.",
+        "selectionCopied": "The side panel opens from the toolbar."
+      },
+      "externalRequests": []
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "الاختيار",
+      "name": "المحرك translator-api جاهز كما قاسته T-0.2، باكتشاف وقت التشغيل",
+      "ok": true,
+      "detail": {
+        "translatorType": "function",
+        "engine": "translator-api",
+        "label": "مترجم المتصفح المدمج (Translator API)",
+        "availability": {
+          "state": "ready"
+        },
+        "status": "downloadable",
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الواجهة",
+      "name": "خمسة أشرطة بمحرك Translator API",
+      "ok": true,
+      "detail": {
+        "bars": 5,
+        "engine": "translator-api"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "النقر يترجم بالمحرك الحقيقي: 17 فقرة بين مترجمة ومحفوظ أصلها، والمترجمة عربية",
+      "ok": true,
+      "detail": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 11663,
+            "phase": "done",
+            "note": "تُرجمت 17 من 17 فقرة."
+          }
+        ],
+        "final": {
+          "attempt": 1,
+          "ms": 11663,
+          "phase": "done",
+          "note": "تُرجمت 17 من 17 فقرة."
+        },
+        "result": {
+          "translations": 17,
+          "warnings": 0,
+          "arabic": 17,
+          "protectedShown": 13,
+          "protectedAllFromOriginal": true,
+          "tokenLeak": false,
+          "sample": [
+            "مشروع مجاهر التجريبي",
+            "يساعد هذا الامتداد القراء العرب على فهم المستودعات. قم بتشغيل npm install أولاً، ثم راجع installation guide للحصول على التفاصيل.",
+            "شكرًا @octocat على المراجعة، راجع #123 وتحرير src/components/common/Explain.tsx قبل فتح طلب سحب."
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "لا اسم رمز ولا صيغة سلك في المعروض، والعناصر المحمية المعروضة من الأصل حرفيًا",
+      "ok": true,
+      "detail": {
+        "translations": 17,
+        "warnings": 0,
+        "arabic": 17,
+        "protectedShown": 13,
+        "protectedAllFromOriginal": true,
+        "tokenLeak": false,
+        "sample": [
+          "مشروع مجاهر التجريبي",
+          "يساعد هذا الامتداد القراء العرب على فهم المستودعات. قم بتشغيل npm install أولاً، ثم راجع installation guide للحصول على التفاصيل.",
+          "شكرًا @octocat على المراجعة، راجع #123 وتحرير src/components/common/Explain.tsx قبل فتح طلب سحب."
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "تعليق",
+      "name": "النقر يترجم بالمحرك الحقيقي: 2 فقرة بين مترجمة ومحفوظ أصلها، والمترجمة عربية",
+      "ok": true,
+      "detail": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 389,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          }
+        ],
+        "final": {
+          "attempt": 1,
+          "ms": 389,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة."
+        },
+        "result": {
+          "translations": 2,
+          "warnings": 0,
+          "arabic": 2,
+          "protectedShown": 3,
+          "protectedAllFromOriginal": true,
+          "tokenLeak": false,
+          "sample": [
+            "يمكنني إعادة إنتاج هذا باستخدام v2.0.1-rc.3 في macOS والإصلاح ليس في هذا الإصدار بعد.",
+            "راجع #42 للحصول على التقرير السابق."
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "تعليق",
+      "name": "لا اسم رمز ولا صيغة سلك في المعروض، والعناصر المحمية المعروضة من الأصل حرفيًا",
+      "ok": true,
+      "detail": {
+        "translations": 2,
+        "warnings": 0,
+        "arabic": 2,
+        "protectedShown": 3,
+        "protectedAllFromOriginal": true,
+        "tokenLeak": false,
+        "sample": [
+          "يمكنني إعادة إنتاج هذا باستخدام v2.0.1-rc.3 في macOS والإصلاح ليس في هذا الإصدار بعد.",
+          "راجع #42 للحصول على التقرير السابق."
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "وصف مشكلة",
+      "name": "النقر يترجم بالمحرك الحقيقي: 2 فقرة بين مترجمة ومحفوظ أصلها، والمترجمة عربية",
+      "ok": true,
+      "detail": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 380,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          }
+        ],
+        "final": {
+          "attempt": 1,
+          "ms": 380,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة."
+        },
+        "result": {
+          "translations": 2,
+          "warnings": 0,
+          "arabic": 2,
+          "protectedShown": 4,
+          "protectedAllFromOriginal": true,
+          "tokenLeak": false,
+          "sample": [
+            "لا تفتح اللوحة الجانبية عند الضغط على Alt+G في Firefox 158 في macOS.",
+            "خطوات الإنشاء: افتح this repository، واضغط على الاختصار، وشاهد الشريط الجانبي يظل مغلقًا."
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "وصف مشكلة",
+      "name": "لا اسم رمز ولا صيغة سلك في المعروض، والعناصر المحمية المعروضة من الأصل حرفيًا",
+      "ok": true,
+      "detail": {
+        "translations": 2,
+        "warnings": 0,
+        "arabic": 2,
+        "protectedShown": 4,
+        "protectedAllFromOriginal": true,
+        "tokenLeak": false,
+        "sample": [
+          "لا تفتح اللوحة الجانبية عند الضغط على Alt+G في Firefox 158 في macOS.",
+          "خطوات الإنشاء: افتح this repository، واضغط على الاختصار، وشاهد الشريط الجانبي يظل مغلقًا."
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "نص محدد",
+      "name": "تحديد فعلي يُظهر «ترجمة المحدد»",
+      "ok": true,
+      "detail": {
+        "selected": "The side panel opens from the toolbar.",
+        "button": {
+          "x": 217,
+          "y": 481
+        },
+        "copyButton": null,
+        "card": null
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "نص محدد",
+      "name": "البطاقة تعرض ترجمة عربية للتحديد بالمحرك الحقيقي",
+      "ok": true,
+      "detail": {
+        "status": "translated",
+        "original": "The side panel opens from the toolbar.",
+        "translation": "تفتح اللوحة الجانبية من شريط الأدوات.",
+        "arabic": true,
+        "notice": null,
+        "copyNote": null
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة أو البديل",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "المجموعة المرجعية",
+      "name": "كل العناصر تمر بالمحرك بلا خطأ، ولا يُعرض نص لم يجتز الفاحص",
+      "ok": true,
+      "detail": {
+        "n": 33,
+        "firstAttemptPassed": 33,
+        "passedAfterSentenceRetry": 0,
+        "originalKept": 0,
+        "errors": 0,
+        "validatorFailureRateFirstAttempt": 0,
+        "keptRate": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الاختيار",
+      "name": "المحرك translator-api غير متاح كما قاسته T-0.2، باكتشاف وقت التشغيل",
+      "ok": true,
+      "detail": {
+        "translatorType": "function",
+        "engine": "translator-api",
+        "label": "مترجم المتصفح المدمج (Translator API)",
+        "availability": {
+          "state": "unavailable",
+          "reason": "لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+        },
+        "status": "unavailable",
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "غياب المحرك",
+      "name": "الأشرطة تظهر بالسبب الصريح وزر «نسخ النص المقنَّع»",
+      "ok": true,
+      "detail": {
+        "m": {
+          "bars": 5,
+          "engine": "translator-api"
+        },
+        "st": {
+          "phase": "idle",
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "actions": [
+            "translate",
+            "copy-masked"
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "غياب المحرك",
+      "name": "الضغط على «ترجمة» لا يترجم شيئًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "غياب المحرك",
+      "name": "النسخ يضع نص الفقرات السبع عشرة مقنَّعًا: رموز ⟦…⟧ بلا قيم العناصر المحمية، ويُعلَن",
+      "ok": true,
+      "detail": {
+        "leaks": [],
+        "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها. نُسخ النص المقنَّع (17 فقرة)، وفيه 13 عنصرًا محميًا مستبدلًا برموز ⟦…⟧ لا تُنسخ قيمها."
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "غياب المحرك",
+      "name": "بطاقة التحديد: السبب الصريح وزر النسخ",
+      "ok": true,
+      "detail": {
+        "status": "unavailable",
+        "original": "The side panel opens from the toolbar.",
+        "translation": null,
+        "arabic": false,
+        "notice": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+        "copyNote": null
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "غياب المحرك",
+      "name": "نسخ التحديد مقنَّعًا ويُعلَن",
+      "ok": true,
+      "detail": {
+        "texts": [
+          "Mijhar Demo Project\n\nThis extension helps Arabic readers understand repositories. Run ⟦CODE_0⟧ first, then see the ⟦LINK_1⟧ for details.\n\nThanks ⟦USER_2⟧ for the review, see ⟦REF_3⟧ and edit ⟦PATH_4⟧ before opening a pull request.\n\nRead the docs ⟦LINK_5⟧ or ⟦LINK_6⟧ before you start.\n\nPress ⟦CODE_7⟧+⟦CODE_8⟧ to toggle explain mode in the page.\n\nRelease v2.0.1-rc.3 shipped on ⟦TERM_9⟧ with several direction fixes.\n\nThe build badge shows the current state of the main branch.\n\nThe side panel opens from the toolbar. It never changes what ⟦TERM_10⟧ shows. Everything runs locally in the browser.\n\nQuick start\n\nInstall the dependencies with ⟦CODE_11⟧ before building.\n\nConfigure the build target\n\nSet the ⟦CODE_12⟧ variable to chromium or firefox.\n\nOpen the settings page and enable the modules you need.\n\nOption\n\nDescription\n\nEnable the reader mode feature for long pages.\n\nNote: this tool never sends page content to any server.",
+          "The side panel opens from the toolbar."
+        ],
+        "card": {
+          "status": "unavailable",
+          "original": "The side panel opens from the toolbar.",
+          "translation": null,
+          "arabic": false,
+          "notice": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "copyNote": "نُسخ النص (1 فقرة)، ولا عنصر محميًا فيه."
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة أو البديل",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "الاختيار",
+      "name": "المحرك translator-api جاهز كما قاسته T-0.2، باكتشاف وقت التشغيل",
+      "ok": true,
+      "detail": {
+        "translatorType": "function",
+        "engine": "translator-api",
+        "label": "مترجم المتصفح المدمج (Translator API)",
+        "availability": {
+          "state": "ready"
+        },
+        "status": "downloadable",
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الواجهة",
+      "name": "خمسة أشرطة بمحرك Translator API",
+      "ok": true,
+      "detail": {
+        "bars": 5,
+        "engine": "translator-api"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "النقر يترجم بالمحرك الحقيقي: 17 فقرة بين مترجمة ومحفوظ أصلها، والمترجمة عربية",
+      "ok": true,
+      "detail": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 12388,
+            "phase": "done",
+            "note": "تُرجمت 17 من 17 فقرة."
+          }
+        ],
+        "final": {
+          "attempt": 1,
+          "ms": 12388,
+          "phase": "done",
+          "note": "تُرجمت 17 من 17 فقرة."
+        },
+        "result": {
+          "translations": 17,
+          "warnings": 0,
+          "arabic": 17,
+          "protectedShown": 13,
+          "protectedAllFromOriginal": true,
+          "tokenLeak": false,
+          "sample": [
+            "مشروع مجاهر التجريبي",
+            "يساعد هذا الامتداد القراء العرب على فهم المستودعات. قم بتشغيل npm install أولاً، ثم راجع installation guide للحصول على التفاصيل.",
+            "شكرًا @octocat على المراجعة، راجع #123 وتحرير src/components/common/Explain.tsx قبل فتح طلب سحب."
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "لا اسم رمز ولا صيغة سلك في المعروض، والعناصر المحمية المعروضة من الأصل حرفيًا",
+      "ok": true,
+      "detail": {
+        "translations": 17,
+        "warnings": 0,
+        "arabic": 17,
+        "protectedShown": 13,
+        "protectedAllFromOriginal": true,
+        "tokenLeak": false,
+        "sample": [
+          "مشروع مجاهر التجريبي",
+          "يساعد هذا الامتداد القراء العرب على فهم المستودعات. قم بتشغيل npm install أولاً، ثم راجع installation guide للحصول على التفاصيل.",
+          "شكرًا @octocat على المراجعة، راجع #123 وتحرير src/components/common/Explain.tsx قبل فتح طلب سحب."
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "تعليق",
+      "name": "النقر يترجم بالمحرك الحقيقي: 2 فقرة بين مترجمة ومحفوظ أصلها، والمترجمة عربية",
+      "ok": true,
+      "detail": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 390,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          }
+        ],
+        "final": {
+          "attempt": 1,
+          "ms": 390,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة."
+        },
+        "result": {
+          "translations": 2,
+          "warnings": 0,
+          "arabic": 2,
+          "protectedShown": 3,
+          "protectedAllFromOriginal": true,
+          "tokenLeak": false,
+          "sample": [
+            "يمكنني إعادة إنتاج هذا باستخدام v2.0.1-rc.3 في macOS والإصلاح ليس في هذا الإصدار بعد.",
+            "راجع #42 للحصول على التقرير السابق."
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "تعليق",
+      "name": "لا اسم رمز ولا صيغة سلك في المعروض، والعناصر المحمية المعروضة من الأصل حرفيًا",
+      "ok": true,
+      "detail": {
+        "translations": 2,
+        "warnings": 0,
+        "arabic": 2,
+        "protectedShown": 3,
+        "protectedAllFromOriginal": true,
+        "tokenLeak": false,
+        "sample": [
+          "يمكنني إعادة إنتاج هذا باستخدام v2.0.1-rc.3 في macOS والإصلاح ليس في هذا الإصدار بعد.",
+          "راجع #42 للحصول على التقرير السابق."
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "وصف مشكلة",
+      "name": "النقر يترجم بالمحرك الحقيقي: 2 فقرة بين مترجمة ومحفوظ أصلها، والمترجمة عربية",
+      "ok": true,
+      "detail": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "ms": 388,
+            "phase": "done",
+            "note": "تُرجمت 2 من 2 فقرة."
+          }
+        ],
+        "final": {
+          "attempt": 1,
+          "ms": 388,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة."
+        },
+        "result": {
+          "translations": 2,
+          "warnings": 0,
+          "arabic": 2,
+          "protectedShown": 4,
+          "protectedAllFromOriginal": true,
+          "tokenLeak": false,
+          "sample": [
+            "لا تفتح اللوحة الجانبية عند الضغط على Alt+G في Firefox 158 في macOS.",
+            "خطوات الإنشاء: افتح this repository، واضغط على الاختصار، وشاهد الشريط الجانبي يظل مغلقًا."
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "وصف مشكلة",
+      "name": "لا اسم رمز ولا صيغة سلك في المعروض، والعناصر المحمية المعروضة من الأصل حرفيًا",
+      "ok": true,
+      "detail": {
+        "translations": 2,
+        "warnings": 0,
+        "arabic": 2,
+        "protectedShown": 4,
+        "protectedAllFromOriginal": true,
+        "tokenLeak": false,
+        "sample": [
+          "لا تفتح اللوحة الجانبية عند الضغط على Alt+G في Firefox 158 في macOS.",
+          "خطوات الإنشاء: افتح this repository، واضغط على الاختصار، وشاهد الشريط الجانبي يظل مغلقًا."
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "نص محدد",
+      "name": "تحديد فعلي يُظهر «ترجمة المحدد»",
+      "ok": true,
+      "detail": {
+        "selected": "The side panel opens from the toolbar.",
+        "button": {
+          "x": 221,
+          "y": 481
+        },
+        "copyButton": null,
+        "card": null
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "نص محدد",
+      "name": "البطاقة تعرض ترجمة عربية للتحديد بالمحرك الحقيقي",
+      "ok": true,
+      "detail": {
+        "status": "translated",
+        "original": "The side panel opens from the toolbar.",
+        "translation": "تفتح اللوحة الجانبية من شريط الأدوات.",
+        "arabic": true,
+        "notice": null,
+        "copyNote": null
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة أو البديل",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "المجموعة المرجعية",
+      "name": "كل العناصر تمر بالمحرك بلا خطأ، ولا يُعرض نص لم يجتز الفاحص",
+      "ok": true,
+      "detail": {
+        "n": 33,
+        "firstAttemptPassed": 33,
+        "passedAfterSentenceRetry": 0,
+        "originalKept": 0,
+        "errors": 0,
+        "validatorFailureRateFirstAttempt": 0,
+        "keptRate": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الاختيار",
+      "name": "المحرك none غير متاح كما قاسته T-0.2، باكتشاف وقت التشغيل",
+      "ok": true,
+      "detail": {
+        "translatorType": "undefined",
+        "engine": "none",
+        "label": "لا مترجم محلي",
+        "availability": {
+          "state": "unavailable",
+          "reason": "لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+        },
+        "status": null,
+        "trialMl": "undefined",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:158.0) Gecko/20100101 Firefox/158.0"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "غياب المحرك",
+      "name": "الأشرطة تظهر بالسبب الصريح وزر «نسخ النص المقنَّع»",
+      "ok": true,
+      "detail": {
+        "m": {
+          "bars": 5,
+          "engine": "none"
+        },
+        "st": {
+          "phase": "idle",
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "actions": [
+            "translate",
+            "copy-masked"
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "غياب المحرك",
+      "name": "الضغط على «ترجمة» لا يترجم شيئًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "غياب المحرك",
+      "name": "النسخ يضع نص الفقرات السبع عشرة مقنَّعًا: رموز ⟦…⟧ بلا قيم العناصر المحمية، ويُعلَن",
+      "ok": true,
+      "detail": {
+        "leaks": [],
+        "note": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها. نُسخ النص المقنَّع (17 فقرة)، وفيه 13 عنصرًا محميًا مستبدلًا برموز ⟦…⟧ لا تُنسخ قيمها."
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "غياب المحرك",
+      "name": "بطاقة التحديد: السبب الصريح وزر النسخ",
+      "ok": true,
+      "detail": {
+        "status": "unavailable",
+        "original": "The side panel opens from the toolbar.",
+        "translation": null,
+        "arabic": false,
+        "notice": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+        "copyNote": null
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "غياب المحرك",
+      "name": "نسخ التحديد مقنَّعًا ويُعلَن",
+      "ok": true,
+      "detail": {
+        "texts": [
+          "Mijhar Demo Project\n\nThis extension helps Arabic readers understand repositories. Run ⟦CODE_0⟧ first, then see the ⟦LINK_1⟧ for details.\n\nThanks ⟦USER_2⟧ for the review, see ⟦REF_3⟧ and edit ⟦PATH_4⟧ before opening a pull request.\n\nRead the docs ⟦LINK_5⟧ or ⟦LINK_6⟧ before you start.\n\nPress ⟦CODE_7⟧+⟦CODE_8⟧ to toggle explain mode in the page.\n\nRelease v2.0.1-rc.3 shipped on ⟦TERM_9⟧ with several direction fixes.\n\nThe build badge shows the current state of the main branch.\n\nThe side panel opens from the toolbar. It never changes what ⟦TERM_10⟧ shows. Everything runs locally in the browser.\n\nQuick start\n\nInstall the dependencies with ⟦CODE_11⟧ before building.\n\nConfigure the build target\n\nSet the ⟦CODE_12⟧ variable to chromium or firefox.\n\nOpen the settings page and enable the modules you need.\n\nOption\n\nDescription\n\nEnable the reader mode feature for long pages.\n\nNote: this tool never sends page content to any server.",
+          "The side panel opens from the toolbar."
+        ],
+        "card": {
+          "status": "unavailable",
+          "original": "The side panel opens from the toolbar.",
+          "translation": null,
+          "arabic": false,
+          "notice": "المحرك غير متاح: لا يوفر هذا المتصفح مترجمًا محليًا تستعمله الإضافة. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "copyNote": "نُسخ النص (1 فقرة)، ولا عنصر محميًا فيه."
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة أو البديل",
+      "ok": true,
+      "detail": []
+    }
+  ]
+}
