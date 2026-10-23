@@ -6,7 +6,7 @@
 // تحديث حي)؛ ويتجدد الوقت بعد التحديث. بساعة اختبار متحكَّم بها.
 import { describe, expect, it, vi } from 'vitest';
 import type { PagedResult, PublicApiPort, PublicApiResult, PublicApiStatus } from '../../../src/core';
-import { METHOD_NOTICE, blocker, clock, collapsedInfo, minutesText, explainBlockers, freshnessAlerts, isLiveChange, mergeApi, readDomEvidence, readFacts, readPrApi } from '../../../src/modules/d/blockers';
+import { METHOD_NOTICE, apiMatchesHead, blocker, clock, collapsedInfo, minutesText, explainBlockers, freshnessAlerts, isLiveChange, mergeApi, readDomEvidence, readFacts, readPrApi } from '../../../src/modules/d/blockers';
 import type { ApiPrData } from '../../../src/modules/d/blockers';
 import { PR_STATUS_SELECTORS, createPrStatusModule, readPrSummary } from '../../../src/modules/d/pr-status';
 import type { FetchDetails } from '../../../src/modules/d/pr-status';
@@ -215,7 +215,8 @@ describe('TEST-PR-04: المصدر والوقت والتنبيهات (وحدة)'
     const api = await apiData(ROUTES_COMPLEX);
     expect(collapsedInfo(mergeApi(summary, api), api)).toBeNull();
     const partial = { ...api, checks: api.checks.available ? { available: true as const, value: { ...api.checks.value, partial: true, checkRunsTotal: 340 } } : api.checks };
-    expect(collapsedInfo(summary, partial)).toMatchObject({ expected: 340, basis: 'api-pages' });
+    // VR-06: المتوقع إجمالي المصدرين كلٌّ بعدّه (340 check-run وcommit status واحد)، لا إجمالي check-runs أمام مقروء يشمل statuses.
+    expect(collapsedInfo(summary, partial)).toMatchObject({ read: 4, expected: 341, basis: 'api-pages' });
   });
 
   it('التحديث الحي = قيمة مقروءة تغيّرت؛ لا ظهور قيمة كانت غير متاحة', () => {
@@ -344,5 +345,140 @@ describe('TEST-PR-04: على البطاقة بساعة متحكَّم بها', (
     expect(card().querySelector('[data-api-error="pull"]')?.textContent).toContain('404');
     expect(card().querySelector('.d-freshness')?.getAttribute('data-source')).toBe('DOM');
     manager.stop();
+  });
+});
+
+describe('هوية التزام الرأس بين DOM وAPI (VR-03)', () => {
+  const A = HEAD;
+  const B = 'b'.repeat(40);
+  const LINT = 'ci / lint (pull_request)';
+  const routesFor = (head: string, lint: string) => ({
+    '/repos/octo/demo/pulls/4242': { number: 4242, state: 'open', draft: false, merged: false, mergeable: true, mergeable_state: 'blocked', head: { sha: head }, base: { ref: 'main' } },
+    [`/repos/octo/demo/commits/${head}/check-runs`]: { total_count: 1, check_runs: [{ id: 9001, name: LINT, status: 'completed', conclusion: lint }] },
+    [`/repos/octo/demo/commits/${head}/status`]: { total_count: 0, statuses: [] },
+    '/repos/octo/demo/branches/main': { name: 'main', protected: true, protection: { required_status_checks: { contexts: [LINT] } } },
+  });
+  const lintOf = (summary: { checks: { items: readonly { name: string; classification: { category: string } }[] } }) => summary.checks.items.find((i) => i.name === LINT)?.classification.category;
+
+  it('mergeApi يعيد ملخص DOM كما هو حين يختلف رأس API أو يُجهل أحدهما، ويدمج عند التطابق ولو مختصرًا (7 أحرف فأكثر)', async () => {
+    loadHtml('fixture-pr-complex.html');
+    const summary = readPrSummary(document, selectors(), { pageNumber: 4242 });
+    expect(summary.headSha).toBe(A);
+    const api = await apiData(routesFor(A, 'success'));
+    expect(apiMatchesHead(summary, api)).toBe(true);
+    expect(lintOf(mergeApi(summary, api))).toBe('success');
+    for (const head of [B, null, A.slice(0, 6)]) {
+      const other = { ...summary, headSha: head };
+      expect(apiMatchesHead(other, api)).toBe(false);
+      expect(mergeApi(other, api)).toBe(other);
+      expect(lintOf(mergeApi(other, api))).toBe('failure');
+    }
+    expect(lintOf(mergeApi({ ...summary, headSha: A.slice(0, 7) }, api))).toBe('success');
+  });
+
+  it('رد API متأخر للالتزام A بعد أن صار الرأس الظاهر B: فشل B يبقى في الملخص والموانع، ولا يظهر نجاح A، ويُنبَّه أنها لالتزام آخر', async () => {
+    const time = { now: Date.UTC(2026, 9, 23, 9, 0, 0) };
+    const api = fakeApi({ ...routesFor(A, 'success'), ...routesFor(B, 'failure') });
+    let release!: () => void;
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    const pulls = { [A]: true } as Record<string, boolean>;
+    const get = api.get;
+    let head = A;
+    // يعيد رأس الالتزام كما كان وقت إرسال الطلب (الرد الأول متأخر عند البوابة).
+    api.get = (async (path: string) => {
+      const sent = head;
+      if (path.endsWith('/pulls/4242') && pulls[sent]) {
+        await gate;
+        return { ...(await get(path)), data: routesFor(sent, 'success')['/repos/octo/demo/pulls/4242'] };
+      }
+      return get(path);
+    }) as PublicApiPort['get'];
+    loadHtml('fixture-pr-complex.html');
+    const { manager } = await mountModules([createPrStatusModule({ debounceMs: 5, tickMs: 10_000, fetchDetails: fragment, api, now: () => time.now, staleMs: () => 300_000 })]);
+    await flush(20);
+    const card = (): ShadowRoot => hostsOf('d.pr-status')[0]?.shadowRoot as ShadowRoot;
+    (card().querySelector('[data-action="api-read"]') as HTMLButtonElement).click();
+    await flush(10);
+    // يغيّر رأس الصفحة الظاهر بالنتائج نفسها فيها (lint فاشل): دفع التزام جديد أو الرجوع إلى سابق.
+    const push = async (from: string, to: string) => {
+      for (const el of document.querySelectorAll('*')) {
+        if (el.closest('mijhar-host')) continue;
+        for (const attr of [...el.attributes]) if (attr.value.includes(from)) el.setAttribute(attr.name, attr.value.replaceAll(from, to));
+        if (el.localName === 'script' && el.textContent?.includes(from)) el.textContent = el.textContent.replaceAll(from, to);
+      }
+      await flush(40);
+    };
+    head = B;
+    await push(A, B);
+    release();
+    await flush(60);
+    const shown = () => [...card().querySelectorAll('[data-category]')].filter((li) => li.textContent?.includes(LINT)).map((li) => li.getAttribute('data-category'));
+    expect(shown()).toEqual(['failure']);
+    expect(card().querySelector('[data-checks-source="api"]')).toBeNull();
+    expect(card().querySelector('.d-freshness')?.getAttribute('data-source')).toBe('DOM');
+    const lintEvidence = [...card().querySelectorAll('[data-evidence-source]')].filter((e) => e.textContent?.includes(LINT));
+    expect(lintEvidence.length).toBeGreaterThan(0);
+    expect(lintEvidence.every((e) => e.getAttribute('data-evidence-source') === 'dom')).toBe(true);
+    expect(card().querySelector('[data-api-mismatch]')?.textContent).toContain('التزام آخر');
+    expect(card().querySelector('[data-section="checks"]')?.textContent).toContain(`${LINT} — فاشل`);
+
+    // الرجوع إلى A (A ← B ← A) تطابق صحيح: تُدمج قراءة A المحفوظة؛ ثم B من جديد فلا تُدمج.
+    await push(B, A);
+    expect(card().querySelector('[data-api-mismatch]')).toBeNull();
+    expect(card().querySelector('[data-checks-source="api"]')).not.toBeNull();
+    await push(A, B);
+    expect(card().querySelector('[data-api-mismatch]')).not.toBeNull();
+    expect(shown()).toEqual(['failure']);
+
+    // قراءة تطابق B تُدمج كالمعتاد.
+    pulls[B] = false;
+    (card().querySelector('[data-action="api-read"]') as HTMLButtonElement).click();
+    await flush(60);
+    expect(card().querySelector('[data-api-mismatch]')).toBeNull();
+    expect(card().querySelector('[data-checks-source="api"]')).not.toBeNull();
+    expect(shown()).toEqual(['failure']);
+    manager.stop();
+  });
+});
+
+describe('نقص صفحات commit statuses (VR-06)', () => {
+  it('check-runs كاملة وstatuses ناقصة: partial، والعددان من المصدرين كلٌّ بإجماليه، وتنبيه الطي في البطاقة', async () => {
+    const statuses = Array.from({ length: 100 }, (_, i) => ({ context: `status-${i}`, state: 'success' }));
+    const port = fakeApi(ROUTES_COMPLEX);
+    const getAll = port.getAll;
+    port.getAll = (async (path: string, key: 'check_runs' | 'statuses' | null) =>
+      key === 'statuses' ? ok({ items: statuses, total: 101, partial: true, pages: 1 }) : getAll(path, key)) as PublicApiPort['getAll'];
+    const api = await readPrApi(port, 'octo', 'demo', 4242, () => 10_000);
+    expect(api.checks.available && api.checks.value).toMatchObject({ partial: true, checkRunsTotal: 3, statusesTotal: 101 });
+    loadHtml('fixture-pr-complex.html');
+    const summary = readPrSummary(document, selectors(), { pageNumber: 4242 });
+    expect(collapsedInfo(mergeApi(summary, api), api)).toEqual({ read: 103, expected: 104, basis: 'api-pages', label: null });
+
+    const time = { now: Date.UTC(2026, 9, 23, 9, 0, 0) };
+    const { manager } = await mountModules([createPrStatusModule({ debounceMs: 5, tickMs: 10_000, fetchDetails: fragment, api: port, now: () => time.now, staleMs: () => 300_000 })]);
+    await flush(20);
+    const card = hostsOf('d.pr-status')[0]?.shadowRoot as ShadowRoot;
+    (card.querySelector('[data-action="api-read"]') as HTMLButtonElement).click();
+    await flush(40);
+    expect(card.querySelector('[data-alert="collapsed"]')?.textContent).toContain('قُرئ 103 من 104');
+    manager.stop();
+  });
+});
+
+describe('مسار دليل commit status (VR-19)', () => {
+  it('فحص commit status إلزامي فاشل يُنسب إلى طلب /status لا check-runs', async () => {
+    loadHtml('fixture-pr-complex.html');
+    const summary = readPrSummary(document, selectors(), { pageNumber: 4242 });
+    const api = await apiData({
+      ...ROUTES_COMPLEX,
+      [`/repos/octo/demo/commits/${HEAD}/check-runs`]: { total_count: 0, check_runs: [] },
+      [`/repos/octo/demo/commits/${HEAD}/status`]: { total_count: 1, statuses: [{ context: 'legacy/ci', state: 'failure', description: 'broken' }] },
+      '/repos/octo/demo/branches/main': { name: 'main', protected: true, protection: { required_status_checks: { contexts: ['legacy/ci'] } } },
+    });
+    const r = explainBlockers(mergeApi(summary, api), readDomEvidence(document, selectors()), api);
+    const evidence = r.blockers.flatMap((b) => b.evidence).find((e) => e.text.startsWith('legacy/ci'));
+    expect(evidence?.where).toBe(`/repos/octo/demo/commits/${HEAD}/status`);
+    const run = r.blockers.flatMap((b) => b.evidence).find((e) => e.source === 'api' && e.text.startsWith('ci / lint'));
+    if (run) expect(run.where).toBe(`/repos/octo/demo/commits/${HEAD}/check-runs`);
   });
 });

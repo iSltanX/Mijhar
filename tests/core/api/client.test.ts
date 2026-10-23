@@ -110,6 +110,39 @@ describe('حدود الطلبات من x-ratelimit-*', () => {
     expect(await second.get('/repos/o/r')).toMatchObject({ ok: false, failure: 'rate-limit', status: 429, retryAt: 35_000 });
   });
 
+  // VR-07 (CODEX-MJ-008): Retry-After يحكم الطلبات التالية لا الرد وحده.
+  it('بعد 429 بـretry-after: لا طلب قبل الموعد (ولا من مستهلك آخر للعميل نفسه)، ويحمل الرفض retryAt؛ وبعده يُرسل', async () => {
+    let now = 1_000;
+    const net = fakeFetch((_, i) => (i === 0 ? { status: 429, body: { message: 'secondary rate limit' }, headers: { ...rateHeaders(50, 9_999), 'retry-after': '60' } } : { status: 200, body: { ok: 1 }, headers: rateHeaders(49) }));
+    const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn, now: () => now });
+    expect(await client.get('/repos/octo/shop')).toMatchObject({ ok: false, failure: 'rate-limit', status: 429, retryAt: 61_000 });
+    expect(await client.get('/repos/octo/shop')).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 61_000 });
+    const other = directPort(client, permissions(true));
+    now = 60_999;
+    expect(await other.get('/repos/octo/other/pulls/1')).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 61_000 });
+    expect(await other.getAll('/repos/octo/shop/commits/a/check-runs', 'check_runs')).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 61_000 });
+    expect(net.calls).toHaveLength(1);
+    // عند الموعد يُرسل.
+    now = 61_000;
+    expect((await client.get('/repos/octo/shop')).ok).toBe(true);
+    expect(net.calls).toHaveLength(2);
+  });
+
+  it('الموعد الأبعد يحكم: نفاد الحد حتى reset بعد مهلة retry-after أقصر', async () => {
+    let now = 1_000;
+    const net = fakeFetch((_, i) => (i === 0 ? { status: 429, body: {}, headers: { ...rateHeaders(10), 'retry-after': '5' } } : { status: 200, body: {}, headers: rateHeaders(0, 100) }));
+    const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn, now: () => now });
+    await client.get('/repos/o/r');
+    now = 6_000;
+    expect((await client.get('/repos/o/r')).ok).toBe(true);
+    now = 7_000;
+    expect(await client.get('/repos/o/r')).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 100_000 });
+    expect(net.calls).toHaveLength(2);
+    // /rate_limit مستثنى من المنع.
+    expect((await client.get('/rate_limit')).ok).toBe(true);
+    expect(net.calls).toHaveLength(3);
+  });
+
   it('404 وغير موجود، و403 بلا نفاد «forbidden» برسالتها (مثل حجب السجلات في T-0.3)', async () => {
     const net = fakeFetch((_, i) => (i === 0 ? { status: 404, body: { message: 'Not Found' }, headers: rateHeaders(5) } : { status: 403, body: { message: 'Must have admin rights to Repository.' }, headers: rateHeaders(4) }));
     const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn });

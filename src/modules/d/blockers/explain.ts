@@ -92,8 +92,9 @@ function quote(box: Element, re: RegExp): string | null {
 
 const rowText = (item: CheckItem): string => `${item.name}${item.detail ? ` — ${item.detail}` : ''}${item.required ? ' (Required)' : ''}`;
 
+// طلبات readPrApi بترتيبها: الطلب، ثم check-runs، ثم commit status (عنصره بلا معرّف)، ثم الفرع (VR-19).
 const whereOf = (item: CheckItem, api: ApiPrData | null): string => {
-  if (item.source === 'api') return api?.requests[1] ?? 'GitHub API';
+  if (item.source === 'api') return api?.requests[item.id === null ? 2 : 1] ?? 'GitHub API';
   return item.source === 'mergebox' ? MERGEBOX : 'جزء status-details لالتزام الرأس';
 };
 

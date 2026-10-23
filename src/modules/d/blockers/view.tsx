@@ -90,7 +90,7 @@ function AlertLine({ alert, onRefresh, onApiRefresh }: { alert: FreshnessAlert; 
               (الرمز المجمَّع لالتزام الرأس يعلن «<bdi dir="ltr">{alert.info.label}</bdi>»)
             </>
           ) : (
-            '(check-runs في API أكثر من حد الصفحات المقروءة)'
+            '(فحوص API ‏— check-runs أو commit statuses ‏— أكثر من حد الصفحات المقروءة)'
           )}
           . ما لم يُقرأ لا يُعدّ ناجحًا.
         </li>
@@ -169,10 +169,12 @@ export interface ApiPanelProps {
   readonly data: ApiPrData | null;
   readonly onRead: () => void;
   readonly onOpenSettings: () => void;
+  /** قراءة API لالتزام غير الرأس الظاهر (VR-03): تُعرض منفصلة بتنبيه ولا تُدمج. */
+  readonly mismatch?: { readonly apiHead: string; readonly pageHead: string | null } | null;
 }
 
 /** لوحة API العامة: لا طلب إلا بنقر صريح، والصلاحية تُمنح من الإعدادات لا من الصفحة. */
-export function ApiPanel({ status, loading, data, onRead, onOpenSettings }: ApiPanelProps) {
+export function ApiPanel({ status, loading, data, onRead, onOpenSettings, mismatch = null }: ApiPanelProps) {
   const rate = data?.rate ?? status?.rate ?? null;
   return (
     <div class="d-api" data-section="api">
@@ -205,6 +207,21 @@ export function ApiPanel({ status, loading, data, onRead, onOpenSettings }: ApiP
       )}
       {data && (data.pull.available ? null : <p class="d-note" data-api-error="pull">تعذّرت قراءة API: {data.pull.reason}</p>)}
       {data?.pull.available && !data.checks.available && <p class="d-note" data-api-error="checks">فحوص API غير متاحة: {data.checks.reason}</p>}
+      {mismatch && data?.pull.available && (
+        <p class="d-note" data-api-mismatch="">
+          بيانات API المقروءة لالتزام آخر (<bdi dir="ltr">{mismatch.apiHead.slice(0, 7)}</bdi>)
+          {mismatch.pageHead ? (
+            <>
+              {' '}
+              غير الظاهر الآن (<bdi dir="ltr">{mismatch.pageHead.slice(0, 7)}</bdi>)
+            </>
+          ) : (
+            ' ورأس الصفحة غير معروف'
+          )}
+          ، فلا تُدمج في الملخص ولا في الموانع؛ أعد القراءة من API. ما قُرئ لذلك الالتزام: <bdi dir="ltr">{`mergeable_state = ${data.pull.value.mergeableState ?? 'null'}`}</bdi>
+          {data.checks.available ? `، وفحوصه ${data.checks.value.items.length}` : ''}.
+        </p>
+      )}
     </div>
   );
 }

@@ -24,7 +24,10 @@ export interface ApiChecks {
   readonly items: readonly CheckItem[];
   readonly checkRunsTotal: number | null;
   readonly statusesTotal: number | null;
-  /** لم تُقرأ كل check-runs (أكثر من حد الصفحات). */
+  /** ما قُرئ فعلًا من كل مصدر، ليُقارن كلٌّ بإجماليه. */
+  readonly checkRunsRead: number;
+  readonly statusesRead: number;
+  /** لم تُقرأ كل check-runs أو كل commit statuses (أكثر من حد الصفحات، VR-06). */
   readonly partial: boolean;
   /** check-runs = 0 وcommit status = 0 معًا: لا فحوص مُبلَّغ عنها (لا «قيد التشغيل»). */
   readonly noneReported: boolean;
@@ -161,7 +164,9 @@ export async function readPrApi(port: PublicApiPort, owner: string, repo: string
       items,
       checkRunsTotal: runsTotal,
       statusesTotal,
-      partial: runs.data.partial,
+      checkRunsRead: runs.data.items.length,
+      statusesRead: statuses.data.items.length,
+      partial: runs.data.partial || statuses.data.partial,
       noneReported: runsTotal === 0 && statusesTotal === 0,
     });
   }
