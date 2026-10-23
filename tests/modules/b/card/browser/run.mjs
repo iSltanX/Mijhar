@@ -97,6 +97,8 @@ try {
         check(b.label, page.name, 'الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف', a.changedParents === 0 && a.sameHtmlOutsideHosts, { changedParents: a.changedParents, same: a.sameHtmlOutsideHosts });
         check(b.label, page.name, 'كل شارة داخل نافذة العرض وبحجم 20×20', a.badges.every((x) => x.inView && x.w === 20 && x.h === 20), a.badges.filter((x) => !x.inView || x.w !== 20));
         check(b.label, page.name, 'لا شرح للشراك', !a.badges.some((x) => TRAPS.includes(x.entry)), a.badges.map((x) => x.entry));
+        p.scan = await call(b, 'scanTime', { href: page.href });
+        check(b.label, page.name, 'زمن المطابقة معقول (الوسيط أقل من 250ms)', p.scan.median < 250, p.scan);
         p.badgeCount = a.badges.length;
         p.explained = a.badges.map((x) => x.entry);
         if (page.name === 'sample') {
@@ -117,7 +119,7 @@ try {
           await call(b, 'closeWithEscape');
         }
         p.deactivate = await call(b, 'deactivate');
-        check(b.label, page.name, 'Alt+H ثانيةً توقف الوضع وتفرّغ الطبقة', p.deactivate.active === false && p.deactivate.badges === 0, p.deactivate);
+        check(b.label, page.name, 'Alt+H ثانيةً توقف الوضع وتُزيل المضيف', p.deactivate.active === false && p.deactivate.badges === 0 && p.deactivate.hosts === 0, p.deactivate);
         await call(b, 'activate');
         p.stop = await call(b, 'stop');
         check(b.label, page.name, 'إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف', p.stop.hosts === 0 && p.stop.identical, p.stop);
@@ -133,7 +135,7 @@ try {
         }
       }
       const mine = checks.filter((c) => c.browser === b.label);
-      console.error(`${b.label} ${b.version}: ${mine.filter((c) => c.ok).length}/${mine.length} فحصًا · العينة ${r.pages.sample?.badgeCount} شارة · المستودع الحقيقي ${r.pages['real-repo']?.badgeCount} · المشكلة ${r.pages['real-issue']?.badgeCount} · PR ${r.pages['real-pr']?.badgeCount}`);
+      console.error(`${b.label} ${b.version}: ${mine.filter((c) => c.ok).length}/${mine.length} فحصًا · العينة ${r.pages.sample?.badgeCount} شارة · المستودع الحقيقي ${r.pages['real-repo']?.badgeCount} · المشكلة ${r.pages['real-issue']?.badgeCount} · PR ${r.pages['real-pr']?.badgeCount} · المطابقة (وسيط ms) ${Object.entries(r.pages).map(([k, v]) => `${k} ${v.scan?.median?.toFixed(2)}`).join(' ')}`);
     } catch (e) {
       r.error = String(e.stack ?? e);
       console.error(`${b.label}: ${e}`);

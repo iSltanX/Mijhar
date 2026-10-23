@@ -19,7 +19,13 @@ export interface PrStatusOptions {
   readonly fetchDetails?: FetchDetails;
   /** مهلة تجميع التعديلات قبل إعادة القراءة. الافتراضي 300ms. */
   readonly debounceMs?: number;
+  /** عمر نتيجة جلب التزام قبل أن تُجلب من جديد عند إعادة تركيب الوحدة (تنقل أو إعادة رسم الصفحة). الافتراضي 30 ثانية. */
+  readonly cacheMs?: number;
+  readonly now?: () => number;
 }
+
+/** نتيجة جلب لالتزام (مفتاحها رابط الجزء الحامل لـsha) تبقى صالحة عبر إعادات التركيب فلا يتكرر الطلب. */
+type FetchCache = Map<string, { readonly at: number; readonly result: FetchedChecks & { readonly url: string } }>;
 
 const GITHUB_ORIGIN = 'https://github.com';
 
@@ -35,13 +41,16 @@ export const sameOriginFetch: FetchDetails = async (url, signal) => {
 export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionModule {
   const fetchDetails = options.fetchDetails ?? sameOriginFetch;
   const debounceMs = options.debounceMs ?? 300;
+  const cache: FetchCache = new Map();
+  const cacheMs = options.cacheMs ?? 30_000;
+  const now = options.now ?? (() => Date.now());
   return {
     id: PR_STATUS_MODULE_ID,
     title: 'ملخص حالة طلب الدمج',
     pages: ['pr'],
     selectors: PR_STATUS_SELECTORS,
     mount(ctx) {
-      new PrStatusController(ctx, fetchDetails, debounceMs).start();
+      new PrStatusController(ctx, fetchDetails, debounceMs, cache, cacheMs, now).start();
     },
   };
 }
@@ -57,6 +66,9 @@ class PrStatusController {
     private readonly ctx: ModuleContext,
     private readonly fetchDetails: FetchDetails,
     private readonly debounceMs: number,
+    private readonly cache: FetchCache,
+    private readonly cacheMs: number,
+    private readonly now: () => number,
   ) {}
 
   start(): void {
@@ -118,21 +130,24 @@ class PrStatusController {
 
   private load(url: string): void {
     const { ctx } = this;
+    const hit = this.cache.get(url);
+    if (hit && this.now() - hit.at < this.cacheMs) {
+      this.fetched = hit.result;
+      this.refresh();
+      return;
+    }
     this.pendingUrl = url;
+    const done = (result: FetchedChecks): void => {
+      if (ctx.signal.aborted) return;
+      this.fetched = { url, ...result };
+      // الفشل لا يُحفظ: إعادة التركيب تعيد المحاولة، والنجاح يُحفظ فلا يتكرر الطلب.
+      if (!result.error) this.cache.set(url, { at: this.now(), result: this.fetched });
+      this.pendingUrl = null;
+      this.refresh();
+    };
     this.fetchDetails(url, ctx.signal).then(
-      (html) => {
-        if (ctx.signal.aborted) return;
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        this.fetched = { url, items: parseStatusDetails(doc), error: null };
-        this.pendingUrl = null;
-        this.refresh();
-      },
-      (error: unknown) => {
-        if (ctx.signal.aborted) return;
-        this.fetched = { url, items: [], error: error instanceof Error ? error.message : String(error) };
-        this.pendingUrl = null;
-        this.refresh();
-      },
+      (html) => done({ items: parseStatusDetails(new DOMParser().parseFromString(html, 'text/html')), error: null }),
+      (error: unknown) => done({ items: [], error: error instanceof Error ? error.message : String(error) }),
     );
   }
 }

@@ -61,6 +61,9 @@ class CardController {
   private openElement: Element | null = null;
   private frame = 0;
   private scanTimer: ReturnType<typeof setTimeout> | null = null;
+  /** مراقب التعديلات ومستمعا التمرير وتغيير الحجم: يعملون ما دام الوضع مفعَّلًا وحده (الوحدة تُركَّب في كل صفحة GitHub). */
+  private observer: MutationObserver | null = null;
+  private bound = false;
 
   constructor(
     private readonly ctx: ModuleContext,
@@ -89,17 +92,31 @@ class CardController {
       api.runtime.onMessage.addListener(onMessage);
       ctx.onTeardown(() => api.runtime.onMessage.removeListener(onMessage));
     }
-    const view = ctx.document.defaultView;
-    if (view) {
-      ctx.listen(view, 'scroll', () => this.redraw(), { capture: true, passive: true });
-      ctx.listen(view, 'resize', () => this.redraw(), { passive: true });
-    }
-    const root = ctx.document.body ?? ctx.document.documentElement;
-    ctx.observe(root, { childList: true, subtree: true }, (records) => {
-      const own = this.parts?.host;
-      if (this.mode.active && records.some((r) => [...r.addedNodes, ...r.removedNodes].some((n) => n !== own))) this.scheduleScan();
-    });
     this.sync();
+  }
+
+  private readonly onScroll = (): void => this.redraw();
+
+  /** يربط المراقب والمستمعين عند التفعيل ويفكّهما عند الإيقاف، فلا كلفة على صفحة لم يُفعَّل فيها الوضع. */
+  private bind(on: boolean): void {
+    const { ctx } = this;
+    if (on === this.bound) return;
+    this.bound = on;
+    const view = ctx.document.defaultView;
+    const root = ctx.document.body ?? ctx.document.documentElement;
+    if (on) {
+      view?.addEventListener('scroll', this.onScroll, { capture: true, passive: true });
+      view?.addEventListener('resize', this.onScroll, { passive: true });
+      this.observer ??= ctx.observe(root, { childList: true, subtree: true }, (records) => {
+        const own = this.parts?.host;
+        if (records.some((r) => [...r.addedNodes, ...r.removedNodes].some((n) => n !== own))) this.scheduleScan();
+      });
+      this.observer.observe(root, { childList: true, subtree: true });
+    } else {
+      view?.removeEventListener('scroll', this.onScroll, { capture: true } as EventListenerOptions);
+      view?.removeEventListener('resize', this.onScroll);
+      this.observer?.disconnect();
+    }
   }
 
   private readonly dispose = (): void => {
@@ -107,18 +124,27 @@ class CardController {
     this.scanTimer = null;
     if (this.frame) this.ctx.document.defaultView?.cancelAnimationFrame?.(this.frame);
     this.frame = 0;
+    this.bind(false);
     if (this.parts) render(null, this.parts.root);
   };
 
-  /** مطابقة حالة الوضع: عند التفعيل يُفحص ويُرسم، وعند الإيقاف تُفرَّغ الطبقة. */
+  /** مطابقة حالة الوضع: عند التفعيل يُفحص ويُرسم، وعند الإيقاف يُزال المضيف فتعود الصفحة بلا أثر. */
   private sync(): void {
     if (this.ctx.signal.aborted) return;
+    this.bind(this.mode.active);
     if (this.mode.active) this.scan();
-    else {
-      this.matches = [];
-      this.openElement = null;
-      this.draw();
-    }
+    else this.release();
+  }
+
+  private release(): void {
+    this.matches = [];
+    this.openElement = null;
+    if (this.scanTimer) clearTimeout(this.scanTimer);
+    this.scanTimer = null;
+    if (!this.parts) return;
+    render(null, this.parts.root);
+    this.parts.host.remove();
+    this.parts = null;
   }
 
   private scan(): void {
@@ -157,7 +183,7 @@ class CardController {
   private draw(): void {
     const { ctx } = this;
     if (ctx.signal.aborted) return;
-    if (!this.parts && !this.mode.active) return;
+    if (!this.mode.active) return;
     const parts = this.ensureHost();
     const doc = ctx.document;
     const viewport = { width: doc.documentElement.clientWidth || doc.defaultView?.innerWidth || 0, height: doc.documentElement.clientHeight || doc.defaultView?.innerHeight || 0 };

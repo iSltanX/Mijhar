@@ -1,7 +1,7 @@
 // مدخل حزمة اختبار (لا تُشحن) لـe2e بطاقة الشرح في المتصفحات: يحقن window.MijharB بدوال يستدعيها run.mjs على الشيفرة التي تُشحن
 // (createCardModule وmatch وExplainOverlay)، فيرى القياس تخطيطًا حقيقيًا ومواضع حقيقية بدل المواضع المحاكاة في jsdom.
-import { ExplainMode, createCardModule } from '../../../../../src/modules/b/card';
-import { mountInPage } from '../../../browser-context';
+import { ExplainMode, GLOSSARY_ENTRIES, buildIndex, createCardModule, findMatches, pageKindsOf } from '../../../../../src/modules/b/card';
+import { mountInPage, pageStateFor } from '../../../browser-context';
 import type { MountedModule } from '../../../browser-context';
 
 const mode = new ExplainMode();
@@ -116,7 +116,7 @@ function clickThrough(selector: string): { reached: boolean } {
 async function deactivate(): Promise<unknown> {
   document.dispatchEvent(new KeyboardEvent('keydown', { key: '˙', code: 'KeyH', altKey: true, bubbles: true, cancelable: true }));
   await settle();
-  return { active: mode.active, badges: badges().length };
+  return { active: mode.active, badges: badges().length, hosts: document.querySelectorAll('mijhar-host').length };
 }
 
 async function stop(): Promise<unknown> {
@@ -135,7 +135,31 @@ async function stop(): Promise<unknown> {
   };
 }
 
-const api: Record<string, (arg?: never) => unknown> = { mount, activate, openCard, closeWithEscape, clickThrough, deactivate, stop } as never;
+/** زمن فحص المطابقة وحده (ms) على الصفحة الحالية: ثلاثة تسخين ثم 30 قياسًا (informative، لا ميزانية أداء للوحدة (ب) في الخطة). */
+function scanTime(arg: { href: string }): { median: number; p95: number; min: number; max: number; matches: number; skipped: number; elements: number } {
+  const index = buildIndex(GLOSSARY_ENTRIES);
+  const ctx = { kinds: pageKindsOf(pageStateFor(arg.href)), href: arg.href };
+  const times: number[] = [];
+  let last = findMatches(document, index, ctx);
+  for (let i = 0; i < 33; i += 1) {
+    const t0 = performance.now();
+    last = findMatches(document, index, ctx);
+    const t1 = performance.now();
+    if (i >= 3) times.push(t1 - t0);
+  }
+  times.sort((a, b) => a - b);
+  return {
+    median: times[Math.floor(times.length / 2)] as number,
+    p95: times[Math.ceil(times.length * 0.95) - 1] as number,
+    min: times[0] as number,
+    max: times[times.length - 1] as number,
+    matches: last.matches.length,
+    skipped: last.skipped.length,
+    elements: document.querySelectorAll('*').length,
+  };
+}
+
+const api: Record<string, (arg?: never) => unknown> = { mount, activate, openCard, closeWithEscape, clickThrough, deactivate, stop, scanTime } as never;
 
 // يستدعي دالة بوعدها ويخزّن النتيجة نصًّا في window.__mjResult: Firefox (Marionette) لا يحلّ وعدًا من عالم الصفحة عبر حدود الأغلفة،
 // فيستدعي run.mjs الدالة متزامنًا ثم يستطلع __mjDone ويقرأ نصًّا بسيطًا.

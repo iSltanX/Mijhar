@@ -1,0 +1,3359 @@
+{
+  "measuredAt": "2026-10-23T12:09:54.383Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)، وخادم محلي بنفس الأصل لجزء status-details؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "pages": {
+        "compare-branches": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "branches",
+          "kindLabel": "بين فرعين",
+          "pageFiles": "30",
+          "pageLines": "+4,301 / −733",
+          "read": "30 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "1",
+              "+6",
+              "−2"
+            ],
+            "workflows": [
+              "1",
+              "+18",
+              "−4"
+            ],
+            "docs": [
+              "1",
+              "+9",
+              "−1"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "30",
+              "+4,301",
+              "−733"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "dependencies",
+            "workflows",
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "compare-commits": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "compare-tags": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "tags",
+          "kindLabel": "بين إصدارين (وسمين)",
+          "pageFiles": "12",
+          "pageLines": "+1,891 / −387",
+          "read": "12 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "8",
+              "+1,432",
+              "−284"
+            ],
+            "tests": [
+              "4",
+              "+459",
+              "−103"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "12",
+              "+1,891",
+              "−387"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "real-commit-as-compare": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1280,
+          "vw": 1280,
+          "overflowX": false
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "pages": {
+        "compare-branches": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "branches",
+          "kindLabel": "بين فرعين",
+          "pageFiles": "30",
+          "pageLines": "+4,301 / −733",
+          "read": "30 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "1",
+              "+6",
+              "−2"
+            ],
+            "workflows": [
+              "1",
+              "+18",
+              "−4"
+            ],
+            "docs": [
+              "1",
+              "+9",
+              "−1"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "30",
+              "+4,301",
+              "−733"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "dependencies",
+            "workflows",
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "compare-commits": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "compare-tags": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "tags",
+          "kindLabel": "بين إصدارين (وسمين)",
+          "pageFiles": "12",
+          "pageLines": "+1,891 / −387",
+          "read": "12 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "8",
+              "+1,432",
+              "−284"
+            ],
+            "tests": [
+              "4",
+              "+459",
+              "−103"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "12",
+              "+1,891",
+              "−387"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "real-commit-as-compare": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1280,
+          "vw": 1280,
+          "overflowX": false
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "pages": {
+        "compare-branches": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "branches",
+          "kindLabel": "بين فرعين",
+          "pageFiles": "30",
+          "pageLines": "+4,301 / −733",
+          "read": "30 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "1",
+              "+6",
+              "−2"
+            ],
+            "workflows": [
+              "1",
+              "+18",
+              "−4"
+            ],
+            "docs": [
+              "1",
+              "+9",
+              "−1"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "30",
+              "+4,301",
+              "−733"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "dependencies",
+            "workflows",
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "compare-commits": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "compare-tags": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "tags",
+          "kindLabel": "بين إصدارين (وسمين)",
+          "pageFiles": "12",
+          "pageLines": "+1,891 / −387",
+          "read": "12 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "8",
+              "+1,432",
+              "−284"
+            ],
+            "tests": [
+              "4",
+              "+459",
+              "−103"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "12",
+              "+1,891",
+              "−387"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1264,
+          "vw": 1280,
+          "overflowX": false
+        },
+        "real-commit-as-compare": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(255, 255, 255)",
+            "impact": "rgb(255, 248, 235)"
+          },
+          "factsRect": 1280,
+          "vw": 1280,
+          "overflowX": false
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "pages": {
+        "compare-branches": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "branches",
+          "kindLabel": "بين فرعين",
+          "pageFiles": "30",
+          "pageLines": "+4,301 / −733",
+          "read": "30 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "1",
+              "+6",
+              "−2"
+            ],
+            "workflows": [
+              "1",
+              "+18",
+              "−4"
+            ],
+            "docs": [
+              "1",
+              "+9",
+              "−1"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "30",
+              "+4,301",
+              "−733"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "dependencies",
+            "workflows",
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(23, 28, 34)",
+            "impact": "rgb(43, 26, 7)"
+          },
+          "factsRect": 1335,
+          "vw": 1351,
+          "overflowX": false
+        },
+        "compare-commits": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(23, 28, 34)",
+            "impact": "rgb(43, 26, 7)"
+          },
+          "factsRect": 1335,
+          "vw": 1351,
+          "overflowX": false
+        },
+        "compare-tags": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "tags",
+          "kindLabel": "بين إصدارين (وسمين)",
+          "pageFiles": "12",
+          "pageLines": "+1,891 / −387",
+          "read": "12 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "8",
+              "+1,432",
+              "−284"
+            ],
+            "tests": [
+              "4",
+              "+459",
+              "−103"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "12",
+              "+1,891",
+              "−387"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(23, 28, 34)",
+            "impact": "rgb(43, 26, 7)"
+          },
+          "factsRect": 1335,
+          "vw": 1351,
+          "overflowX": false
+        },
+        "real-commit-as-compare": {
+          "hosts": 2,
+          "siblings": true,
+          "nested": false,
+          "factsInImpact": false,
+          "kind": "commits",
+          "kindLabel": "بين التزامين",
+          "pageFiles": "27",
+          "pageLines": "+4,268 / −726",
+          "read": "27 — يطابق الصفحة",
+          "agreement": "match",
+          "completeness": "complete",
+          "rows": {
+            "code": [
+              "21",
+              "+3,265",
+              "−520"
+            ],
+            "tests": [
+              "6",
+              "+1,003",
+              "−206"
+            ],
+            "dependencies": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "workflows": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "docs": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "other": [
+              "0",
+              "+0",
+              "−0"
+            ],
+            "total": [
+              "27",
+              "+4,268",
+              "−726"
+            ]
+          },
+          "impactTag": "يحتاج مراجعة بشرية",
+          "impactNotes": [
+            "large-change"
+          ],
+          "impactHasTable": false,
+          "factsHasImpactList": false,
+          "border": {
+            "facts": "solid",
+            "impact": "dashed"
+          },
+          "background": {
+            "facts": "rgb(23, 28, 34)",
+            "impact": "rgb(43, 26, 7)"
+          },
+          "factsRect": 1351,
+          "vw": 1351,
+          "overflowX": false
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "branches",
+        "got": "branches",
+        "label": "بين فرعين"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "30",
+        "lines": "+4,301 / −733"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "1",
+          "+6",
+          "−2"
+        ],
+        "workflows": [
+          "1",
+          "+18",
+          "−4"
+        ],
+        "docs": [
+          "1",
+          "+9",
+          "−1"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-branches",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-commits",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "tags",
+        "got": "tags",
+        "label": "بين إصدارين (وسمين)"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "12",
+        "lines": "+1,891 / −387"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "8",
+          "+1,432",
+          "−284"
+        ],
+        "tests": [
+          "4",
+          "+459",
+          "−103"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "compare-tags",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1280,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-commit-as-compare",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "branches",
+        "got": "branches",
+        "label": "بين فرعين"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "30",
+        "lines": "+4,301 / −733"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "1",
+          "+6",
+          "−2"
+        ],
+        "workflows": [
+          "1",
+          "+18",
+          "−4"
+        ],
+        "docs": [
+          "1",
+          "+9",
+          "−1"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-branches",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-commits",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "tags",
+        "got": "tags",
+        "label": "بين إصدارين (وسمين)"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "12",
+        "lines": "+1,891 / −387"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "8",
+          "+1,432",
+          "−284"
+        ],
+        "tests": [
+          "4",
+          "+459",
+          "−103"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "compare-tags",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1280,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-commit-as-compare",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "branches",
+        "got": "branches",
+        "label": "بين فرعين"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "30",
+        "lines": "+4,301 / −733"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "1",
+          "+6",
+          "−2"
+        ],
+        "workflows": [
+          "1",
+          "+18",
+          "−4"
+        ],
+        "docs": [
+          "1",
+          "+9",
+          "−1"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-branches",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-commits",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "tags",
+        "got": "tags",
+        "label": "بين إصدارين (وسمين)"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "12",
+        "lines": "+1,891 / −387"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "8",
+          "+1,432",
+          "−284"
+        ],
+        "tests": [
+          "4",
+          "+459",
+          "−103"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1264,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "compare-tags",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(255, 255, 255)",
+          "impact": "rgb(255, 248, 235)"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1280,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-commit-as-compare",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "branches",
+        "got": "branches",
+        "label": "بين فرعين"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "30",
+        "lines": "+4,301 / −733"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "1",
+          "+6",
+          "−2"
+        ],
+        "workflows": [
+          "1",
+          "+18",
+          "−4"
+        ],
+        "docs": [
+          "1",
+          "+9",
+          "−1"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "30",
+          "+4,301",
+          "−733"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(23, 28, 34)",
+          "impact": "rgb(43, 26, 7)"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1335,
+        "vw": 1351,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-branches",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(23, 28, 34)",
+          "impact": "rgb(43, 26, 7)"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1335,
+        "vw": 1351,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-commits",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "tags",
+        "got": "tags",
+        "label": "بين إصدارين (وسمين)"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "12",
+        "lines": "+1,891 / −387"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "8",
+          "+1,432",
+          "−284"
+        ],
+        "tests": [
+          "4",
+          "+459",
+          "−103"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "12",
+          "+1,891",
+          "−387"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(23, 28, 34)",
+          "impact": "rgb(43, 26, 7)"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1335,
+        "vw": 1351,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "compare-tags",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "نوع المقارنة",
+      "ok": true,
+      "detail": {
+        "expected": "commits",
+        "got": "commits",
+        "label": "بين التزامين"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "أرقام الصفحة (الملفات والأسطر) تظهر كما هي",
+      "ok": true,
+      "detail": {
+        "files": "27",
+        "lines": "+4,268 / −726"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "إحصاء الملفات المقروءة يطابق الصفحة والجدول يجمع إلى أرقامها",
+      "ok": true,
+      "detail": {
+        "agreement": "match",
+        "completeness": "complete",
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "تصنيف النوع: أعداد كل نوع",
+      "ok": true,
+      "detail": {
+        "code": [
+          "21",
+          "+3,265",
+          "−520"
+        ],
+        "tests": [
+          "6",
+          "+1,003",
+          "−206"
+        ],
+        "dependencies": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "workflows": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "docs": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "other": [
+          "0",
+          "+0",
+          "−0"
+        ],
+        "total": [
+          "27",
+          "+4,268",
+          "−726"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "قسم الأثر مضيف شقيق منفصل لا متداخل، موسوم «يحتاج مراجعة بشرية»",
+      "ok": true,
+      "detail": {
+        "hosts": 2,
+        "siblings": true,
+        "nested": false,
+        "tag": "يحتاج مراجعة بشرية"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "الانفصال البصري: حدّ متقطع وخلفية مختلفة للأثر",
+      "ok": true,
+      "detail": {
+        "border": {
+          "facts": "solid",
+          "impact": "dashed"
+        },
+        "background": {
+          "facts": "rgb(23, 28, 34)",
+          "impact": "rgb(43, 26, 7)"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "لا ملاحظات أثر في قسم الحقائق ولا جدول أنواع في قسم الأثر",
+      "ok": true,
+      "detail": {
+        "factsHasImpactList": false,
+        "impactHasTable": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "القسمان داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "factsRect": 1351,
+        "vw": 1351,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-commit-as-compare",
+      "name": "الإيقاف يزيل المضيفين ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 2,
+        "skipped": 0,
+        "identical": true
+      }
+    }
+  ]
+}

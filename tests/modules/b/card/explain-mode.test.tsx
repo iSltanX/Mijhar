@@ -91,7 +91,8 @@ describe('وضع الشرح بالاختصار Alt+H', () => {
     expect(document.querySelectorAll('mijhar-host')).toHaveLength(1);
   });
 
-  it('Alt+H ثانيةً توقف الوضع وتفرّغ الطبقة', async () => {
+  it('Alt+H ثانيةً توقف الوضع وتُزيل الطبقة كلها فتعود الصفحة حرفيًا بلا أثر، وتعود الشارات عند التفعيل التالي', async () => {
+    const before = document.documentElement.outerHTML;
     live = await setup();
     altH();
     await flush();
@@ -99,8 +100,34 @@ describe('وضع الشرح بالاختصار Alt+H', () => {
     altH();
     await flush();
     expect(live.mode.active).toBe(false);
-    expect(badges()).toHaveLength(0);
-    expect(host().shadowRoot?.querySelector('[data-bar]')).toBeNull();
+    expect(hostsOf('b.card')).toHaveLength(0);
+    expect(document.documentElement.outerHTML).toBe(before);
+    altH();
+    await flush();
+    expect(hostsOf('b.card')).toHaveLength(1);
+    expect(badges()).toHaveLength(20);
+  });
+
+  it('مراقب الصفحة ومستمعا التمرير وتغيير الحجم لا يعملون إلا والوضع مفعَّل', async () => {
+    const added: string[] = [];
+    const removed: string[] = [];
+    const add = window.addEventListener.bind(window);
+    const remove = window.removeEventListener.bind(window);
+    window.addEventListener = ((type: string, ...rest: unknown[]) => (added.push(type), (add as (...a: unknown[]) => void)(type, ...rest))) as typeof window.addEventListener;
+    window.removeEventListener = ((type: string, ...rest: unknown[]) => (removed.push(type), (remove as (...a: unknown[]) => void)(type, ...rest))) as typeof window.removeEventListener;
+    try {
+      live = await setup();
+      expect(added.filter((t) => t === 'scroll' || t === 'resize')).toEqual([]);
+      altH();
+      await flush();
+      expect(added.filter((t) => t === 'scroll' || t === 'resize').sort()).toEqual(['resize', 'scroll']);
+      altH();
+      await flush();
+      expect(removed.filter((t) => t === 'scroll' || t === 'resize').sort()).toEqual(['resize', 'scroll']);
+    } finally {
+      window.addEventListener = add as typeof window.addEventListener;
+      window.removeEventListener = remove as typeof window.removeEventListener;
+    }
   });
 
   it('لا تلتقط ضغطة داخل حقل إدخال ولا اختصارًا مختلفًا', async () => {

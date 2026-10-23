@@ -1,0 +1,52 @@
+$ npx vitest run tests/modules/d/categories.test.ts tests/modules/d/pr-status.test.tsx --reporter=verbose
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj8-2440b2
+
+ ✓ tests/modules/d/categories.test.ts > التصنيفات السبعة > سبعة بالضبط وبأسمائها العربية المعتمدة في الخطة 1ms
+ ✓ tests/modules/d/categories.test.ts > جدول ربط الحالات الموثقة (قيم GitHub الرسمية) > كل status وconclusion موثقة تُعيَّن إلى تصنيف، ويطابق ما في جدول T-0.3 1ms
+ ✓ tests/modules/d/categories.test.ts > جدول ربط الحالات الموثقة (قيم GitHub الرسمية) > القيم الموثقة التي ذكرها التقرير باسمها: stale وtimed_out وaction_required 0ms
+ ✓ tests/modules/d/categories.test.ts > جدول ربط الحالات الموثقة (قيم GitHub الرسمية) > neutral ناجح بوسم «محايد» (لا يميّزه DOM عن النجاح) 0ms
+ ✓ tests/modules/d/categories.test.ts > جدول ربط الحالات الموثقة (قيم GitHub الرسمية) > commit status القديمة: success وfailure وerror وpending 0ms
+ ✓ tests/modules/d/categories.test.ts > جدول ربط الحالات الموثقة (قيم GitHub الرسمية) > الجداول لا تحوي تصنيفًا خارج السبعة، وكل قيمة موثقة لها صف 0ms
+ ✓ tests/modules/d/categories.test.ts > القيم غير المعروفة أو الناقصة تُصنَّف «غير معروف» ولا تُهمل > قيمة غير موثقة أو فارغة أو من نوع آخر 0ms
+ ✓ tests/modules/d/categories.test.ts > القيم غير المعروفة أو الناقصة تُصنَّف «غير معروف» ولا تُهمل > الحالة والقيمة تُقرآن بلا حساسية لحالة الأحرف ولا مسافات 0ms
+ ✓ tests/modules/d/categories.test.ts > القيم غير المعروفة أو الناقصة تُصنَّف «غير معروف» ولا تُهمل > status غير مكتمل يحسم التصنيف ولو جاء معه conclusion 0ms
+ ✓ tests/modules/d/categories.test.ts > المجموعة المرجعية: 12 PR حقيقية (check runs وcommit status) > المجموعة كما قاسها T-0.3 0ms
+ ✓ tests/modules/d/categories.test.ts > المجموعة المرجعية: 12 PR حقيقية (check runs وcommit status) > كل check run يُصنَّف، وعدد كل تصنيف في كل PR يطابق جدول T-0.3 المحسوب مستقلًا 1ms
+ ✓ tests/modules/d/categories.test.ts > المجموعة المرجعية: 12 PR حقيقية (check runs وcommit status) > كل commit status يُصنَّف، وأعداده تطابق الجدول 0ms
+ ✓ tests/modules/d/categories.test.ts > المجموعة المرجعية: 12 PR حقيقية (check runs وcommit status) > أمثلة بأرقام التقرير: node#66911 نجاح 31 وتجاوز 4، وvscode#343703 فيه neutral وفاشل 6 وقيد التشغيل 6 0ms
+ ✓ tests/modules/d/categories.test.ts > المجموعة المرجعية: 12 PR حقيقية (check runs وcommit status) > لا فحوص: check-runs وstatus معًا صفر (kubernetes وjlevy) ولا يُصنَّف شيء «قيد التشغيل» 0ms
+ ✓ tests/modules/d/categories.test.ts > المجموعة المرجعية: 12 PR حقيقية (check runs وcommit status) > لم يظهر تصنيف «لم يُشغَّل» ولا «غير معروف» ولا «ملغى» عدا next#100335 في الـAPI المرجعية 0ms
+ ✓ tests/modules/d/categories.test.ts > ما يظهر في DOM (بلا تسجيل دخول) > جدول الرموز كما رصده T-0.3 0ms
+ ✓ tests/modules/d/categories.test.ts > ما يظهر في DOM (بلا تسجيل دخول) > أوصاف status-details النصية 0ms
+ ✓ tests/modules/d/categories.test.ts > ما يظهر في DOM (بلا تسجيل دخول) > «Expected — Waiting for status to be reported» = لم يُشغَّل (لا قيد التشغيل) 0ms
+ ✓ tests/modules/d/categories.test.ts > ما يظهر في DOM (بلا تسجيل دخول) > رمز مجهول أو غائب = غير معروف 0ms
+ ✓ tests/modules/d/categories.test.ts > تنظيف الملف > fixture-check-runs.json مولَّد من evidence/T-0.3 ولا يحوي ترويسات حد الطلبات ولا عنوان IP 0ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > الفرعان والحالة والالتزامات والملفات والأسطر كما تعرضها الصفحة 145ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > المراجعات من قائمة المراجعين في الشريط الجانبي (تظهر لكل زائر): طلب أحدهم تغييرات 103ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > ما لا تعرضه الصفحة لغير المسجَّل يبقى غير متاح بسببه: التعارضات والتأخر (صندوق الدمج للمسجَّل فقط) 88ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > الفحوص: الرمز المجمَّع لآخر التزام (1 / 1) بلا صفوف، فلا تُخمَّن صفوف ولا يُفصل الإلزامي 88ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > الترويسة: بيانات الصفحة المنظّمة تعطي الرقم وsha، والفرعان والتلميح يعطيان المستودع 9ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > المراجعات والتعارضات والتأخر من صندوق الدمج 9ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > الفحوص بالتصنيفات السبعة كلها، وفصل الإلزامية (4) عن الاختيارية (5) 4ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > رمز التزام الرأس بمطابقة sha لا بآخر رمز: الأخير هو الأصفر 6 / 12 4ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > بلا صندوق دمج: مراجعات وتعارض غير متاحة ولا تُستنتج من غياب العبارة 3ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > صندوق الدمج لا يذكر التعارض: غير متاح لا «لا تعارضات»، وإن صرّح بعدمه فـ false 8ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > الحالات الأخرى للمراجعة: طُلبت تغييرات ومعتمد 5ms
+ ✓ tests/modules/d/pr-status.test.tsx > المراجعون في الشريط الجانبي > طلب التغييرات يغلب الاعتماد، والاعتماد يغلب التعليقات، والتعليقات تغلب الانتظار 14ms
+ ✓ tests/modules/d/pr-status.test.tsx > المراجعون في الشريط الجانبي > «No reviews» صراحةً = لا مراجعات، وقائمة بلا حالات مقروءة = غير متاح 6ms
+ ✓ tests/modules/d/pr-status.test.tsx > المراجعون في الشريط الجانبي > صندوق الدمج هو المرجع حين يذكر حالة، وإلا يُقرأ الشريط 5ms
+ ✓ tests/modules/d/pr-status.test.tsx > جزء status-details > صفوف بلا تسجيل دخول: التصنيف من الرمز والوصف، وrequired = null (لا يعرضه الجزء) 3ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > تُدرج المضيف بعد ترويسة الطلب وتعرض الحقول، وتُزال بإيقاف الوحدة فيعود DOM الصفحة كما كان 51ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > صفحة حقيقية لغير مسجَّل: غير متاح للمراجعات والتعارضات والتأخر، وتفاصيل الفحوص تُجلب من status-details بنفس الأصل 155ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > فشل جلب التفاصيل: يُعلَن «غير متاح» بسببه ولا يُعرض نجاحًا 151ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > لا فحوص مُبلَّغ عنها: جزء status-details بلا صفوف يعلن ذلك ولا يعرضه «قيد التشغيل» 155ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > إعادة تركيب الوحدة (تنقل أو إعادة رسم الصفحة) لا تكرر طلب الالتزام نفسه، وتنتهي صلاحية النتيجة بعد مهلتها، والفشل لا يُحفظ 478ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > لا طلب إلى خارج github.com ولا إلى api.github.com 1ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > تتجدد البطاقة حين تتغير الصفحة بعد التركيب (الالتزامات 3 ← 4) 72ms
+
+ Test Files  2 passed (2)
+      Tests  42 passed (42)
+   Start at  15:09:14
+   Duration  1.96s (tests 80%, environment 12%, transform 4%, import 4%)
+

@@ -271,6 +271,50 @@ describe('الوحدة d.pr-status على الصفحة', () => {
     manager.stop();
   });
 
+  it('إعادة تركيب الوحدة (تنقل أو إعادة رسم الصفحة) لا تكرر طلب الالتزام نفسه، وتنتهي صلاحية النتيجة بعد مهلتها، والفشل لا يُحفظ', async () => {
+    loadHtml(REAL_PR);
+    let clock = 1000;
+    const requested: string[] = [];
+    let fail = false;
+    const module = createPrStatusModule({
+      debounceMs: 5,
+      cacheMs: 5000,
+      now: () => clock,
+      fetchDetails: async (url) => {
+        requested.push(url);
+        if (fail) throw new Error('HTTP 500');
+        return readFixture('fixture-status-details.html');
+      },
+    });
+    const first = await mountModules([module]);
+    await flush(30);
+    expect(requested).toHaveLength(1);
+    first.manager.refresh();
+    first.manager.stop();
+    const second = await mountModules([module]);
+    await flush(30);
+    expect(requested).toHaveLength(1);
+    expect(shadowText(hostsOf('d.pr-status')[0])).toContain('ناجح');
+    second.manager.stop();
+    clock += 6000;
+    const third = await mountModules([module]);
+    await flush(30);
+    expect(requested).toHaveLength(2);
+    third.manager.stop();
+    // فشل: لا يُحفظ فتعيد المحاولة التالية الطلب.
+    clock += 6000;
+    fail = true;
+    const fourth = await mountModules([module]);
+    await flush(30);
+    expect(requested).toHaveLength(3);
+    fourth.manager.stop();
+    fail = false;
+    const fifth = await mountModules([module]);
+    await flush(30);
+    expect(requested).toHaveLength(4);
+    fifth.manager.stop();
+  });
+
   it('لا طلب إلى خارج github.com ولا إلى api.github.com', async () => {
     const { sameOriginFetch } = await import('../../../src/modules/d/pr-status');
     await expect(sameOriginFetch('https://api.github.com/repos/o/r/pulls/1', new AbortController().signal)).rejects.toThrow('خارج github.com');

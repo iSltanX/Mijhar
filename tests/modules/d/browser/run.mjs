@@ -91,7 +91,8 @@ const code = await bundle();
 const server = await serveDir(SERVE);
 const output = { measuredAt: new Date().toISOString(), machine: machineInfo(), conditions: 'ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)، وخادم محلي بنفس الأصل لجزء status-details؛ الشيفرة كما تُشحن', results: [] };
 const screensDir = outDir ? path.join(outDir, 'T-5.1/screens') : null;
-if (screensDir) fs.mkdirSync(screensDir, { recursive: true });
+const compareScreensDir = outDir ? path.join(outDir, 'T-5.4/screens') : null;
+for (const dir of [screensDir, compareScreensDir]) if (dir) fs.mkdirSync(dir, { recursive: true });
 
 try {
   for (const key of keys) {
@@ -168,7 +169,7 @@ try {
         await run(b, inject, code);
         await call(b, 'mountCompare', { href: COMPARE[0].href });
         await b.page.evaluate(() => document.querySelector('mijhar-host[data-mijhar-host="d.compare"]')?.scrollIntoView({ block: 'start' }));
-        await b.page.screenshot({ path: path.join(screensDir, `${key}-compare-branches.png`) });
+        await b.page.screenshot({ path: path.join(compareScreensDir, `${key}-compare-branches.png`) });
         await call(b, 'stop');
       }
       const mine = checks.filter((c) => c.browser === L);
@@ -188,5 +189,15 @@ try {
 output.checks = checks;
 const failed = checks.filter((c) => !c.ok);
 console.error(`المجموع: ${checks.length - failed.length}/${checks.length} فحصًا اجتاز`);
-if (outDir) writeJson(path.join(outDir, 'T-5.1/browser-results.json'), output);
+if (outDir) {
+  // نتائج البطاقة (T-5.1) والمقارنة (T-5.4) في ملفين منفصلين لكل مهمة دليلها.
+  const isCompare = (name) => name.startsWith('compare') || name === 'real-commit-as-compare';
+  const part = (compare) => ({
+    ...output,
+    results: output.results.map((r) => ({ ...r, pages: Object.fromEntries(Object.entries(r.pages).filter(([name]) => isCompare(name) === compare)) })),
+    checks: checks.filter((c) => isCompare(c.page) === compare || c.page === '-'),
+  });
+  writeJson(path.join(outDir, 'T-5.1/browser-results.json'), part(false));
+  writeJson(path.join(outDir, 'T-5.4/browser-results.json'), part(true));
+}
 if (failed.length) process.exitCode = 1;
