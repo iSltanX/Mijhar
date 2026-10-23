@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "مِجهَر",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "mijhar@mijhar.invalid",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "host_permissions": ["https://github.com/*"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "sidebar_action": {
+    "default_panel": "sidepanel.html"
+  }
+}

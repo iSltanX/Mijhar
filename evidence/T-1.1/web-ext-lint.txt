@@ -1,0 +1,8 @@
+$ npx web-ext lint --source-dir dist/firefox
+Validation Summary:
+
+errors          0              
+notices         0              
+warnings        0              
+
+exit=0
