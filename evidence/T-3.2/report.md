@@ -14,6 +14,7 @@
 | البناء | `node scripts/build.mjs` | الحزمتان؛ `content.js` 509 KB (كان 137 KB: القاموس المضمَّن نحو 240 KB) | [`build.txt`](build.txt) |
 | `web-ext lint` | `npx web-ext lint --source-dir dist/firefox` | 0 أخطاء و0 تحذيرات و0 ملاحظات | [`web-ext-lint.txt`](web-ext-lint.txt) |
 | تحميل الحزم | `node scripts/load-check.mjs` | نجح في الأربعة بلا أخطاء مانيفست ولا تشغيل | [`load-check.md`](load-check.md) |
+| عدم تراجع مضيف الواجهات (`MJ5`) | `node tests/core/ui-host/browser/run.mjs chrome edge brave firefox` | اجتاز كله في الأربعة بعد تسجيل أول واجهة وقسمين وثلاث وحدات | [`ui-host-run.txt`](ui-host-run.txt) |
 | e2e على الشيفرة المحقونة (تخطيط حقيقي) | `node tests/modules/b/card/browser/run.mjs …` | 45/45 في كل من الأربعة (180/180) | [`browser-run.txt`](browser-run.txt) · [`browser-results.json`](browser-results.json) |
 | تكامل الحزمة المشحونة | `node tests/modules/browser/integration.mjs …` | Chrome وEdge وBrave 26/26، وFirefox 25/25 (103/103) | [`integration-run.txt`](integration-run.txt) · [`integration.json`](integration.json) |
 | التغطية على صفحات حقيقية | `MJ8_COVERAGE_OUT=… npx vitest run tests/modules/b/card/real-pages.test.ts` | تقرير ما يُشرح وما يُترك وسببه | [`real-pages-coverage.md`](real-pages-coverage.md) |
