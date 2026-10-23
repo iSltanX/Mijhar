@@ -28,8 +28,8 @@
 
 | الاختبار | أين | النتيجة |
 | :--- | :--- | :--- |
-| `TEST-TR-04` بمحرك وهمي | `tests/modules/c/engines/`: `wire` (6) · `translator-api` (21) · `select` (6) · `fallback` (3) · `ui` (7) · `reference` (3)؛ صنف `Translator` وهمي بشكل الواجهة العامة يحاكي ما قاسته `T-0.2` | 46 اجتازت |
-| الحزمة المتأثرة | `npx vitest run tests/modules/c tests/core tests/build` | 36 ملفًا و523 اختبارًا اجتازت (`vitest.txt`)؛ `tsc --noEmit` بلا أخطاء (`typecheck.txt`) |
+| `TEST-TR-04` بمحرك وهمي | `tests/modules/c/engines/`: `wire` (6) · `translator-api` (22) · `select` (6) · `fallback` (3) · `ui` (7) · `reference` (3)؛ صنف `Translator` وهمي بشكل الواجهة العامة يحاكي ما قاسته `T-0.2` | 47 اجتازت |
+| الحزمة المتأثرة | `npx vitest run tests/modules/c tests/core tests/build` | 36 ملفًا و524 اختبارًا اجتازت (`vitest.txt`)؛ `tsc --noEmit` بلا أخطاء (`typecheck.txt`) |
 | `web-ext lint` | `dist/firefox` | 0 أخطاء و0 تحذيرات (`web-ext-lint.txt`) |
 | تجربة حقيقية: العينة | `tests/modules/c/engines/browser/run.mjs`: المحرك الذي يختاره `selectLocalEngine` في الصفحة، ونقر وتحديد بالفأرة فعليان، وملف تعريف جديد (الحزمة `downloadable`) | 38/38 فحصًا: Chrome 12/12 · Edge 7/7 · Brave 12/12 · Firefox 7/7 (`browser-results.json`، `browser-run.txt`) |
 | تجربة حقيقية: github.com | `tests/modules/c/engines/browser/live.mjs`: الحزمة المشحونة (`dist`) على صفحتين حيتين، وسكربت المحتوى الحقيقي تحت سياسة الصفحة الحقيقية | الأربعة كما في الجدول أدناه (`live-github.json`، `live-run.txt`) |
@@ -50,8 +50,8 @@
 
 | الحالة | Chrome | Brave |
 | :--- | :--- | :--- |
-| فقرة README (عينة، 17 فقرة، أول ضغط يشمل تنزيل الحزمة) | 17/17 مترجمة في 11.7 ث | 17/17 في 12.4 ث |
-| README حي (`octocat/Spoon-Knife`) | 5/5 في 9.7 ث (أول ضغط في ملف التعريف) | 5/5 في 10.9 ث |
+| فقرة README (عينة، 17 فقرة، أول ضغط يشمل تنزيل الحزمة) | 17/17 مترجمة في 11.7 ث | 17/17 في 10.8 ث |
+| README حي (`octocat/Spoon-Knife`) | 5/5 في 6.9 ث (أول ضغط في ملف التعريف) | 5/5 في 11.7 ث |
 | تعليق (عينة · حي `microsoft/TypeScript#1`) | 2/2 · 5/5 | 2/2 · 5/5 |
 | وصف مشكلة (عينة · حي `microsoft/TypeScript#1`) | 2/2 · 15/15 في 1.1 ث | 2/2 · 15/15 في 1.1 ث |
 | نص محدد بالفأرة (عينة · حي) | «تفتح اللوحة الجانبية من شريط الأدوات.» · «هذا المستودع مخصص للعلاقات العامة» | مثله |
@@ -68,7 +68,7 @@
 | `Translator API` بالصيغة على السلك (ما يُشحن) | Brave | 28/28 | 0 | 0 | 0% | 0 |
 | خط الأساس: المترجم نفسه بصيغة الخطة `⟦TYPE_N⟧` | Chrome وBrave | 0/28 | 0 | 28 | 100% | 0 |
 
-خط الأساس يكرر نتيجة `T-0.2` (0 من 20)، ويثبت أن الفاحص يرفض ولا يعرض نصًا مشوَّهًا: الأصل يبقى مع التنبيه. الزمن بعد الإنشاء: 33 عنصرًا في 309 ms (Chrome) و294 ms (Brave)، بوسيط 6 ms للعنصر وأقصى 92 ms. وقيس الفاحص لا جودة الترجمة: تظهر أحيانًا ركاكة حول المصطلحات المقنَّعة (مثل «فهم GitHub صفحات») دون أي إخلال بالرموز.
+خط الأساس يكرر نتيجة `T-0.2` (0 من 20)، ويثبت أن الفاحص يرفض ولا يعرض نصًا مشوَّهًا: الأصل يبقى مع التنبيه. الزمن بعد الإنشاء: 33 عنصرًا في 547 ms (Chrome، وسيط العنصر 14 ms وأقصاه 120 ms) و328 ms (Brave، وسيطه 6 ms وأقصاه 102 ms). وقيس الفاحص لا جودة الترجمة: تظهر أحيانًا ركاكة حول المصطلحات المقنَّعة (مثل «فهم GitHub صفحات») دون أي إخلال بالرموز.
 
 ### البديل حيث لا محرك
 
@@ -78,7 +78,7 @@
 ### الشبكة
 
 - العينة (127.0.0.1) في الأربعة: لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة أو البديل (`performance.getEntriesByType('resource')`).
-- github.com الحية (Chromium): أثناء الترجمة لم تصدر من الصفحة إلا طلبات GitHub نفسها (`collector.github.com/github/collect` و`api.github.com/_private/browser/stats` و`github.com/scribe/artifacts` وصور `avatars.githubusercontent.com`)، ولا مضيف خارج نطاقات GitHub. وأثناء النسخ في Edge لم يصدر أي طلب. وفي Firefox لم يُرصد (Marionette لا يرصد الشبكة).
+- github.com الحية (Chromium): أثناء الترجمة لم تصدر من الصفحة إلا طلبات GitHub نفسها: `collector.github.com/github/collect` و`api.github.com/_private/browser/stats` في التشغيل الأخير، ومعهما في تشغيل سابق `github.com/scribe/artifacts` وصور `avatars.githubusercontent.com`. ولا مضيف خارج نطاقات GitHub. وأثناء النسخ في Edge لم يصدر أي طلب. وفي Firefox لم يُرصد (Marionette لا يرصد الشبكة).
 - تنزيل حزمة لغة المتصفح يجري داخل المتصفح وخارج سيطرة الإضافة، فلا يظهر في سجل الصفحة ولا يُدّعى فحصه (`T-4.5`).
 - github.com لم ترسل ترويسة `Permissions-Policy` في الردود المقيسة. فإن منعت `translator` يومًا رمت `availability()`، فتظهر الحالة الصريحة والبديل (اختبار «blocked by policy»).
 

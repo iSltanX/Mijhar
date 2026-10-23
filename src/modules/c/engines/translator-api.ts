@@ -114,6 +114,8 @@ export class TranslatorApiEngine implements TranslationService {
     try {
       output = await translator.translate(codec.wire, signal ? { signal } : undefined);
     } catch (error) {
+      // مترجم تعطّل (InvalidStateError مثلًا) لا يُعاد استعماله: الضغط التالي ينشئ غيره.
+      if (nameOf(error) !== 'AbortError') this.instance = null;
       throw explain(error);
     }
     return codec.decode(output);

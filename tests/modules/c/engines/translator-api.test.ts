@@ -90,6 +90,15 @@ describe('translate()', () => {
     expect(await engine.translate('Hello.')).toBe('ترجمة: Hello.');
   });
 
+  it('مترجم تعطّل في translate() (InvalidStateError) لا يُعاد استعماله: الضغط التالي ينشئ غيره', async () => {
+    const fake = new FakeTranslatorApi({ translateFailure: 'InvalidStateError' });
+    const engine = engineOf(fake);
+    await expect(engine.translate('x')).rejects.toMatchObject({ name: 'InvalidStateError' });
+    fake.translateFailure = null;
+    expect(await engine.translate('y')).toBe('ترجمة: y');
+    expect(fake.createCalls).toBe(2);
+  });
+
   it('QuotaExceededError من translate(): رسالة صريحة؛ وخطأ غير معروف يمر كما هو', async () => {
     await expect(engineOf(new FakeTranslatorApi({ translateFailure: 'QuotaExceededError' })).translate('x')).rejects.toMatchObject({ message: ENGINE_MESSAGES.tooLong });
     await expect(engineOf(new FakeTranslatorApi({ translateFailure: 'InvalidStateError' })).translate('x')).rejects.toMatchObject({ name: 'InvalidStateError' });

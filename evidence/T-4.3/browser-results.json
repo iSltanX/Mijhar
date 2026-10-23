@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-10-23T22:17:14.092Z",
+  "measuredAt": "2026-10-23T22:22:30.503Z",
   "machine": {
     "cpu": "Apple M4",
     "cores": 8,
@@ -28,14 +28,14 @@
           "attempts": [
             {
               "attempt": 1,
-              "ms": 11663,
+              "ms": 11672,
               "phase": "done",
               "note": "تُرجمت 17 من 17 فقرة."
             }
           ],
           "final": {
             "attempt": 1,
-            "ms": 11663,
+            "ms": 11672,
             "phase": "done",
             "note": "تُرجمت 17 من 17 فقرة."
           },
@@ -57,14 +57,14 @@
           "attempts": [
             {
               "attempt": 1,
-              "ms": 389,
+              "ms": 384,
               "phase": "done",
               "note": "تُرجمت 2 من 2 فقرة."
             }
           ],
           "final": {
             "attempt": 1,
-            "ms": 389,
+            "ms": 384,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           },
@@ -85,14 +85,14 @@
           "attempts": [
             {
               "attempt": 1,
-              "ms": 380,
+              "ms": 386,
               "phase": "done",
               "note": "تُرجمت 2 من 2 فقرة."
             }
           ],
           "final": {
             "attempt": 1,
-            "ms": 380,
+            "ms": 386,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           },
@@ -124,7 +124,7 @@
         "engine": "translator-api",
         "items": 33,
         "withWireFormat": {
-          "ms": 309,
+          "ms": 547,
           "rates": {
             "all": {
               "n": 33,
@@ -153,7 +153,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 92,
+              "ms": 120,
               "output": "قم بتشغيل `npm install` قبل فتح طلب سحب."
             },
             {
@@ -163,7 +163,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 7,
               "output": "يوجد ملف التكوين في src/config/settings.json ويتم تحميله عند بدء التشغيل."
             },
             {
@@ -173,7 +173,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 6,
+              "ms": 9,
               "output": "الترقية إلى الإصدار 2.4.1 لإصلاح تسرب الذاكرة المبلغ عنه في #1532."
             },
             {
@@ -183,7 +183,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 13,
               "output": "استخدم علامة --dry-run لمعاينة التغييرات دون كتابة الملفات."
             },
             {
@@ -193,7 +193,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 9,
               "output": "شكرًا @octocat على مراجعة التصحيح بهذه السرعة."
             },
             {
@@ -203,7 +203,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 22,
               "output": "راجع https://docs.github.com/actions للحصول على القائمة الكاملة للأحداث."
             },
             {
@@ -213,7 +213,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 13,
               "output": "تعمل الدالة `fetchUser()` على إرجاع وعد يتم حله باستخدام كائن المستخدم."
             },
             {
@@ -223,7 +223,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 6,
+              "ms": 24,
               "output": "فشلت الاختبارات في Node.js 22 لأن `structuredClone` مفقود في المحاكاة."
             },
             {
@@ -233,7 +233,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 17,
               "output": "تحرير README لتوثيق الخيار `--output` الجديد وقيمته الافتراضية."
             },
             {
@@ -243,7 +243,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 6,
+              "ms": 15,
               "output": "GitHub Actions ذاكرات التخزين المؤقت Node_modules بين عمليات التشغيل باستخدام الإجراءات / cache @ v4."
             },
             {
@@ -253,7 +253,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 7,
               "output": "إذا تم تعيين `process.env.CI`، يتخطى البرنامج النصي الموجه التفاعلي."
             },
             {
@@ -263,7 +263,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 5,
               "output": "أعد تسمية lib/utils/date.ts إلى lib/utils/time.ts وتحديث جميع عمليات الاستيراد."
             },
             {
@@ -273,7 +273,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 6,
+              "ms": 7,
               "output": "يسقط الإصدار 3.0.0-beta.2 الدعم لـ TypeScript 4."
             },
             {
@@ -283,7 +283,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 14,
               "output": "يُرجى إعادة تأسيس فرعك على Main وحل التعارض في package.json."
             },
             {
@@ -293,7 +293,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 3,
+              "ms": 4,
               "output": "اتصل بـ `app.listen(3000)` بعد تسجيل جميع المسارات."
             },
             {
@@ -303,7 +303,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 6,
               "output": "تتم كتابة السجلات إلى /var/log/app/error.log عندما يكون المستوى `warn` أو أعلى."
             },
             {
@@ -313,7 +313,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 7,
               "output": "يؤدي هذا التغيير إلى إغلاق #88 ويخاطب جزئيًا #91."
             },
             {
@@ -323,7 +323,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 8,
               "output": "اضبط `MAX_RETRIES` على 5 في .env.example لمطابقة الإنتاج."
             },
             {
@@ -333,7 +333,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 12,
               "output": "قم بتشغيل `git bisect` للعثور على الالتزام الذي قدم الانحدار."
             },
             {
@@ -343,7 +343,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 6,
               "output": "يرفض وضع `--strict` المفاتيح غير المعروفة في المخطط YAML."
             },
             {
@@ -353,7 +353,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10,
+              "ms": 20,
               "output": "هذا المشروع هو الحد الأدنى من إطار عمل الويب لبناء واجهات برمجة التطبيقات. يوفر طبقة رقيقة من ميزات تطبيق الويب الأساسية ، دون حجب الميزات التي يعرفها المطورون ويحبونها."
             },
             {
@@ -363,7 +363,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10,
+              "ms": 15,
               "output": "قبل تقديم طلب السحب ، تأكد من مرور الاختبارات محليًا وأن تغييراتك مغطاة باختبارات جديدة أو محدثة. حافظ على كل طلب سحب مركزًا على تغيير واحد."
             },
             {
@@ -373,7 +373,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10,
+              "ms": 14,
               "output": "تدعم المكتبة بيئات المتصفح والخادم. في المتصفح ، يستخدم تطبيق Fetch الأصلي ، بينما على الخادم يعود إلى الوحدة النمطية المضمنة HTTP."
             },
             {
@@ -383,7 +383,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10,
+              "ms": 21,
               "output": "إذا وجدت ثغرة أمنية ، فالرجاء عدم فتح مشكلة عامة. بدلاً من ذلك ، قم بالإبلاغ عن ذلك بشكل خاص إلى المشرفين بحيث يمكن إعداد الإصلاح قبل الكشف عنه."
             },
             {
@@ -393,7 +393,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 9,
+              "ms": 23,
               "output": "تتم قراءة التكوين من متغيرات البيئة أولاً ، ثم من ملف التكوين المحلي ، وأخيراً من الإعدادات الافتراضية. المصادر اللاحقة لا تتجاوز المصادر السابقة أبدًا."
             },
             {
@@ -403,7 +403,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10,
+              "ms": 14,
               "output": "يساعد هذا الامتداد القراء العرب على فهم GitHub صفحات. قم بتثبيته باستخدام `npm install mijhar` وافتح صفحة الإعدادات من شريط الأدوات. يذهب إخراج الإنشاء إلى dist/chromium و dist/firefox."
             },
             {
@@ -413,7 +413,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 11,
+              "ms": 17,
               "output": "لإجراء الاختبارات محليًا، استخدم `npm test`. يستغرق الجناح حوالي دقيقتين على جهاز كمبيوتر محمول. إذا فشل الاختبار، فتحقق من tests/setup/paths.ts أولاً وتأكد من تثبيت Node.js 22."
             },
             {
@@ -423,7 +423,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 8,
+              "ms": 22,
               "output": "راجع https://docs.github.com/actions للحصول على القائمة الكاملة للأحداث. تعمل مهام سير العمل في .github/workflows وتعمل على كل دفعة إلى Main."
             },
             {
@@ -433,7 +433,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 15,
+              "ms": 20,
               "output": "لا تفتح اللوحة الجانبية عند الضغط على `Alt+G` في Firefox 158. خطوات إعادة الإنتاج: تثبيت البنية من #12 ، وفتح أي مستودع ، واضغط على الاختصار. متوقع: تفتح اللوحة. الفعلي: لا شيء يحدث."
             },
             {
@@ -443,7 +443,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 7,
+              "ms": 12,
               "output": "شكرًا @octocat، يمكنني إعادة إنتاج هذا في macOS. يبدو مرتبطًا بـ #42 وربما بالتغيير في src/core/ui-host/shadow.ts."
             },
             {
@@ -453,7 +453,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 9,
+              "ms": 15,
               "output": "LGTM. شيء واحد صغير: أعد تسمية `MAX_RETRIES` إلى `RETRY_LIMIT` بحيث تتطابق مع .env.example ، ثم سأقوم بدمجها."
             },
             {
@@ -463,7 +463,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10,
+              "ms": 16,
               "output": "يستبدل طلب السحب هذا المحلل القديم بآخر متدفق. يغلق #88 ويحدث docs/parser.md. يرجى مراجعة التغييرات في `parseLine()` بعناية قبل الدمج."
             },
             {
@@ -473,7 +473,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 6,
+              "ms": 11,
               "output": "اضبط `TARGET` على Chromium أو Firefox قبل تشغيل الإنشاء."
             }
           ]
@@ -507,7 +507,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 27,
+              "ms": 39,
               "firstChecks": [
                 "count",
                 "identity"
@@ -524,7 +524,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 28,
               "firstChecks": [
                 "count",
                 "identity",
@@ -543,7 +543,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 13,
+              "ms": 16,
               "firstChecks": [
                 "count",
                 "identity"
@@ -560,7 +560,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5
+              "ms": 20
             },
             {
               "id": "s5",
@@ -569,7 +569,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 9,
+              "ms": 14,
               "firstChecks": [
                 "count",
                 "identity"
@@ -586,7 +586,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 8,
+              "ms": 10,
               "firstChecks": [
                 "count",
                 "identity"
@@ -603,7 +603,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 12,
+              "ms": 21,
               "firstChecks": [
                 "count",
                 "identity"
@@ -637,7 +637,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 13,
+              "ms": 21,
               "firstChecks": [
                 "count",
                 "identity"
@@ -654,7 +654,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 14,
+              "ms": 23,
               "firstChecks": [
                 "count",
                 "identity"
@@ -671,7 +671,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 31,
               "firstChecks": [
                 "count",
                 "identity"
@@ -688,7 +688,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 12,
+              "ms": 24,
               "firstChecks": [
                 "count",
                 "identity"
@@ -705,7 +705,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 13,
+              "ms": 23,
               "firstChecks": [
                 "count",
                 "identity"
@@ -722,7 +722,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 15,
               "firstChecks": [
                 "count",
                 "identity"
@@ -739,7 +739,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 8,
+              "ms": 12,
               "firstChecks": [
                 "count",
                 "identity"
@@ -756,7 +756,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 12,
+              "ms": 15,
               "firstChecks": [
                 "count",
                 "identity"
@@ -773,7 +773,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 15,
               "firstChecks": [
                 "count",
                 "identity"
@@ -790,7 +790,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 12,
               "firstChecks": [
                 "count",
                 "identity"
@@ -807,7 +807,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 9,
+              "ms": 12,
               "firstChecks": [
                 "count",
                 "identity"
@@ -824,7 +824,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 12,
+              "ms": 19,
               "firstChecks": [
                 "count",
                 "identity"
@@ -841,7 +841,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 11
+              "ms": 15
             },
             {
               "id": "p2",
@@ -850,7 +850,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 11
+              "ms": 14
             },
             {
               "id": "p3",
@@ -859,7 +859,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 3,
-              "ms": 24,
+              "ms": 29,
               "firstChecks": [
                 "count",
                 "identity"
@@ -876,7 +876,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10
+              "ms": 14
             },
             {
               "id": "p5",
@@ -885,7 +885,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 9
+              "ms": 11
             },
             {
               "id": "t1",
@@ -894,7 +894,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 19,
+              "ms": 25,
               "firstChecks": [
                 "count",
                 "identity"
@@ -911,7 +911,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 20,
+              "ms": 27,
               "firstChecks": [
                 "count",
                 "identity"
@@ -928,7 +928,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 16,
+              "ms": 25,
               "firstChecks": [
                 "count",
                 "identity"
@@ -945,7 +945,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 24,
+              "ms": 31,
               "firstChecks": [
                 "count",
                 "identity"
@@ -962,7 +962,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 17,
+              "ms": 23,
               "firstChecks": [
                 "count",
                 "identity"
@@ -979,7 +979,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 14,
+              "ms": 22,
               "firstChecks": [
                 "count",
                 "identity"
@@ -996,7 +996,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 3,
-              "ms": 23,
+              "ms": 59,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1013,7 +1013,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 25,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1076,14 +1076,14 @@
           "attempts": [
             {
               "attempt": 1,
-              "ms": 12388,
+              "ms": 10849,
               "phase": "done",
               "note": "تُرجمت 17 من 17 فقرة."
             }
           ],
           "final": {
             "attempt": 1,
-            "ms": 12388,
+            "ms": 10849,
             "phase": "done",
             "note": "تُرجمت 17 من 17 فقرة."
           },
@@ -1105,14 +1105,14 @@
           "attempts": [
             {
               "attempt": 1,
-              "ms": 390,
+              "ms": 380,
               "phase": "done",
               "note": "تُرجمت 2 من 2 فقرة."
             }
           ],
           "final": {
             "attempt": 1,
-            "ms": 390,
+            "ms": 380,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           },
@@ -1133,14 +1133,14 @@
           "attempts": [
             {
               "attempt": 1,
-              "ms": 388,
+              "ms": 385,
               "phase": "done",
               "note": "تُرجمت 2 من 2 فقرة."
             }
           ],
           "final": {
             "attempt": 1,
-            "ms": 388,
+            "ms": 385,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           },
@@ -1172,7 +1172,7 @@
         "engine": "translator-api",
         "items": 33,
         "withWireFormat": {
-          "ms": 294,
+          "ms": 328,
           "rates": {
             "all": {
               "n": 33,
@@ -1201,7 +1201,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 76,
+              "ms": 102,
               "output": "قم بتشغيل `npm install` قبل فتح طلب سحب."
             },
             {
@@ -1241,7 +1241,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 3,
+              "ms": 4,
               "output": "شكرًا @octocat على مراجعة التصحيح بهذه السرعة."
             },
             {
@@ -1251,7 +1251,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 3,
+              "ms": 4,
               "output": "راجع https://docs.github.com/actions للحصول على القائمة الكاملة للأحداث."
             },
             {
@@ -1261,7 +1261,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 9,
               "output": "تعمل الدالة `fetchUser()` على إرجاع وعد يتم حله باستخدام كائن المستخدم."
             },
             {
@@ -1281,7 +1281,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 6,
               "output": "تحرير README لتوثيق الخيار `--output` الجديد وقيمته الافتراضية."
             },
             {
@@ -1311,7 +1311,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 5,
               "output": "أعد تسمية lib/utils/date.ts إلى lib/utils/time.ts وتحديث جميع عمليات الاستيراد."
             },
             {
@@ -1321,7 +1321,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 6,
+              "ms": 7,
               "output": "يسقط الإصدار 3.0.0-beta.2 الدعم لـ TypeScript 4."
             },
             {
@@ -1331,7 +1331,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 6,
               "output": "يُرجى إعادة تأسيس فرعك على Main وحل التعارض في package.json."
             },
             {
@@ -1371,7 +1371,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 5,
               "output": "اضبط `MAX_RETRIES` على 5 في .env.example لمطابقة الإنتاج."
             },
             {
@@ -1381,7 +1381,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 4,
+              "ms": 5,
               "output": "قم بتشغيل `git bisect` للعثور على الالتزام الذي قدم الانحدار."
             },
             {
@@ -1421,7 +1421,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 11,
+              "ms": 10,
               "output": "تدعم المكتبة بيئات المتصفح والخادم. في المتصفح ، يستخدم تطبيق Fetch الأصلي ، بينما على الخادم يعود إلى الوحدة النمطية المضمنة HTTP."
             },
             {
@@ -1431,7 +1431,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 11,
+              "ms": 10,
               "output": "إذا وجدت ثغرة أمنية ، فالرجاء عدم فتح مشكلة عامة. بدلاً من ذلك ، قم بالإبلاغ عن ذلك بشكل خاص إلى المشرفين بحيث يمكن إعداد الإصلاح قبل الكشف عنه."
             },
             {
@@ -1491,7 +1491,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 6,
+              "ms": 7,
               "output": "شكرًا @octocat، يمكنني إعادة إنتاج هذا في macOS. يبدو مرتبطًا بـ #42 وربما بالتغيير في src/core/ui-host/shadow.ts."
             },
             {
@@ -1521,7 +1521,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5,
+              "ms": 6,
               "output": "اضبط `TARGET` على Chromium أو Firefox قبل تشغيل الإنشاء."
             }
           ]
@@ -1555,7 +1555,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 13,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1572,7 +1572,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 10,
               "firstChecks": [
                 "count",
                 "identity",
@@ -1591,7 +1591,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 13,
+              "ms": 11,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1608,7 +1608,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 5
+              "ms": 4
             },
             {
               "id": "s5",
@@ -1634,7 +1634,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 9,
+              "ms": 8,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1668,7 +1668,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 14,
+              "ms": 13,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1685,7 +1685,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 13,
+              "ms": 12,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1702,7 +1702,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 14,
+              "ms": 13,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1719,7 +1719,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 10,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1736,7 +1736,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 12,
+              "ms": 11,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1753,7 +1753,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 13,
+              "ms": 12,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1770,7 +1770,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 10,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1804,7 +1804,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 13,
+              "ms": 14,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1821,7 +1821,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 10,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1838,7 +1838,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 11,
+              "ms": 10,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1872,7 +1872,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 12,
+              "ms": 11,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1889,7 +1889,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 11
+              "ms": 10
             },
             {
               "id": "p2",
@@ -1898,7 +1898,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 11
+              "ms": 10
             },
             {
               "id": "p3",
@@ -1907,7 +1907,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 3,
-              "ms": 24,
+              "ms": 23,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1933,7 +1933,7 @@
               "status": "translated",
               "retryAttempts": 0,
               "engineCalls": 1,
-              "ms": 10
+              "ms": 11
             },
             {
               "id": "t1",
@@ -1942,7 +1942,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 19,
+              "ms": 25,
               "firstChecks": [
                 "count",
                 "identity"
@@ -1993,7 +1993,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 23,
+              "ms": 22,
               "firstChecks": [
                 "count",
                 "identity"
@@ -2010,7 +2010,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 15,
+              "ms": 17,
               "firstChecks": [
                 "count",
                 "identity"
@@ -2027,7 +2027,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 14,
+              "ms": 15,
               "firstChecks": [
                 "count",
                 "identity"
@@ -2044,7 +2044,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 3,
-              "ms": 23,
+              "ms": 31,
               "firstChecks": [
                 "count",
                 "identity"
@@ -2061,7 +2061,7 @@
               "status": "original-kept",
               "retryAttempts": 1,
               "engineCalls": 2,
-              "ms": 12,
+              "ms": 21,
               "firstChecks": [
                 "count",
                 "identity"
@@ -2143,14 +2143,14 @@
         "attempts": [
           {
             "attempt": 1,
-            "ms": 11663,
+            "ms": 11672,
             "phase": "done",
             "note": "تُرجمت 17 من 17 فقرة."
           }
         ],
         "final": {
           "attempt": 1,
-          "ms": 11663,
+          "ms": 11672,
           "phase": "done",
           "note": "تُرجمت 17 من 17 فقرة."
         },
@@ -2197,14 +2197,14 @@
         "attempts": [
           {
             "attempt": 1,
-            "ms": 389,
+            "ms": 384,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           }
         ],
         "final": {
           "attempt": 1,
-          "ms": 389,
+          "ms": 384,
           "phase": "done",
           "note": "تُرجمت 2 من 2 فقرة."
         },
@@ -2249,14 +2249,14 @@
         "attempts": [
           {
             "attempt": 1,
-            "ms": 380,
+            "ms": 386,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           }
         ],
         "final": {
           "attempt": 1,
-          "ms": 380,
+          "ms": 386,
           "phase": "done",
           "note": "تُرجمت 2 من 2 فقرة."
         },
@@ -2475,14 +2475,14 @@
         "attempts": [
           {
             "attempt": 1,
-            "ms": 12388,
+            "ms": 10849,
             "phase": "done",
             "note": "تُرجمت 17 من 17 فقرة."
           }
         ],
         "final": {
           "attempt": 1,
-          "ms": 12388,
+          "ms": 10849,
           "phase": "done",
           "note": "تُرجمت 17 من 17 فقرة."
         },
@@ -2529,14 +2529,14 @@
         "attempts": [
           {
             "attempt": 1,
-            "ms": 390,
+            "ms": 380,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           }
         ],
         "final": {
           "attempt": 1,
-          "ms": 390,
+          "ms": 380,
           "phase": "done",
           "note": "تُرجمت 2 من 2 فقرة."
         },
@@ -2581,14 +2581,14 @@
         "attempts": [
           {
             "attempt": 1,
-            "ms": 388,
+            "ms": 385,
             "phase": "done",
             "note": "تُرجمت 2 من 2 فقرة."
           }
         ],
         "final": {
           "attempt": 1,
-          "ms": 388,
+          "ms": 385,
           "phase": "done",
           "note": "تُرجمت 2 من 2 فقرة."
         },
