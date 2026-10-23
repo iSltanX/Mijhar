@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "placeholder",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "placeholder@placeholder.invalid",
+      "strict_min_version": "128.0"
+    }
+  },
+  "host_permissions": ["https://github.com/*"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "sidebar_action": {
+    "default_panel": "sidepanel.html"
+  }
+}
