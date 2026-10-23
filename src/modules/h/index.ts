@@ -1,5 +1,5 @@
 // الوحدة (ح): المجتمع وأول مساهمة — الطبقة الأولى (T-9.1 وT-9.3 وT-9.4 وT-9.5).
-export { UNAVAILABLE_ACCESS, apiJson, githubApiAccess } from './api-access';
+export { UNAVAILABLE_ACCESS, apiJson, failureText, githubApiAccess } from './api-access';
 export type { GithubApiAccess } from './api-access';
 export { builtinResources, communityContext, connectCommunity, resourcesRepository } from './context';
 export type { CommunityContext } from './context';

@@ -1,7 +1,7 @@
 // فحص مجلد docs/ عند الطلب (T-9.1، AC-H1): طلبات api.github.com بنقر صريح وبالصلاحية الاختيارية وحدها، حتى ثلاثة طلبات
 // (docs/ ثم مجلدا لغة فيه على الأكثر). كل فشل (رفض أو حد طلبات أو خطأ أو 404) يعلن «لم يكتمل» ولا يجزم بغياب الملف؛
 // وحتى القراءة الكاملة لـdocs/ لا تعني غياب توثيق عربي في موضع آخر.
-import { FAILURE_TEXT, apiJson } from '../api-access';
+import { FAILURE_TEXT, apiJson, failureText } from '../api-access';
 import type { ApiFailure, GithubApiAccess } from '../api-access';
 import { ARABIC_FILE_NAME } from './detect';
 import type { ArabicReadmeMatch } from './detect';
@@ -42,7 +42,7 @@ export async function scanDocsFolder(access: GithubApiAccess, owner: string, rep
   const read = async (path: string): Promise<{ ok: true; items: ContentItem[] } | { ok: false; result: DocsScanResult }> => {
     requests += 1;
     const response = await apiJson<unknown>(access, `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}`);
-    if (!response.ok) return { ok: false, result: { state: 'incomplete', reason: response.reason, requests, message: FAILURE_TEXT[response.reason] } };
+    if (!response.ok) return { ok: false, result: { state: 'incomplete', reason: response.reason, requests, message: failureText(response.reason, response.retryAt) } };
     if (!isItems(response.data)) return { ok: false, result: { state: 'incomplete', reason: 'unexpected', requests, message: 'ردّ GitHub بصيغة غير متوقعة (ربما docs ملف لا مجلد)؛ الفحص لم يكتمل.' } };
     return { ok: true, items: response.data };
   };

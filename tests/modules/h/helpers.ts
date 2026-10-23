@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { vi } from 'vitest';
 import { JSDOM } from 'jsdom';
+import type { PublicApiResult } from '../../../src/core';
 import type { GithubApiAccess } from '../../../src/modules/h/api-access';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -28,7 +29,6 @@ export const ASSERTIVE_ABSENCE: readonly RegExp[] = [
 
 export interface Recorded {
   readonly path: string;
-  readonly init: RequestInit | undefined;
 }
 
 export type Responder = (path: string) => { status?: number; body?: unknown; headers?: Record<string, string> } | Error;
@@ -40,7 +40,20 @@ export interface FakeAccess extends GithubApiAccess {
   granted: boolean;
 }
 
-/** وصول وهمي: request() يمنح أو يرفض بحسب granted، وfetch يرد من الدالة ويسجّل ترتيب النداءات. */
+const failed = <T>(failure: 'permission' | 'rate-limit' | 'not-found' | 'forbidden' | 'http' | 'network', status: number | null, message: string): PublicApiResult<T> => ({
+  ok: false,
+  failure,
+  status,
+  message,
+  retryAt: null,
+  readAt: 1,
+  rate: null,
+});
+
+/**
+ * وصول وهمي: request() يمنح أو يرفض بحسب granted، وget يرد من الدالة ويسجّل ترتيب النداءات (باسم 'fetch' كما كانت). الرد يُحوَّل إلى نتيجة
+ * الطبقة كما تعيدها الخلفية: 404 غير موجود، و429 أو 403 بنفاد الحد «rate-limit»، وغيرها من غير 2xx «http».
+ */
 export function fakeAccess(responder: Responder, options: { available?: boolean; granted?: boolean } = {}): FakeAccess {
   const calls: string[] = [];
   const requests: Recorded[] = [];
@@ -54,13 +67,17 @@ export function fakeAccess(responder: Responder, options: { available?: boolean;
       calls.push('request');
       return access.granted;
     }),
-    fetch: async (requestPath, init) => {
+    get: async <T,>(requestPath: string): Promise<PublicApiResult<T>> => {
       calls.push('fetch');
-      requests.push({ path: requestPath, init });
-      if (!access.granted) throw new (await import('../../../src/core/ui-host/permissions')).PermissionNotGrantedError('https://api.github.com/*');
+      requests.push({ path: requestPath });
+      if (!access.granted) return failed('permission', null, 'لم تُمنح الصلاحية');
       const result = responder(requestPath);
-      if (result instanceof Error) throw result;
-      return new Response(JSON.stringify(result.body ?? []), { status: result.status ?? 200, headers: { 'content-type': 'application/json', ...(result.headers ?? {}) } });
+      if (result instanceof Error) return failed('network', null, result.message);
+      const status = result.status ?? 200;
+      if (status === 404) return failed('not-found', 404, 'Not Found');
+      if (status === 429 || (status === 403 && result.headers?.['x-ratelimit-remaining'] === '0')) return failed('rate-limit', status, 'rate limit');
+      if (status < 200 || status >= 300) return failed('http', status, `HTTP ${status}`);
+      return { ok: true, status, data: (result.body ?? []) as T, fromCache: false, readAt: 1, rate: null };
     },
     subscribe: () => () => {},
   };

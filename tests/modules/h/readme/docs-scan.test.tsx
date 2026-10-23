@@ -10,7 +10,6 @@ import { DocsScanControl, MAX_SCAN_REQUESTS, README_SELECTORS, ReadmeBanner, SCO
 import type { ReadmeDetection } from '../../../../src/modules/h/readme-detector';
 import { createReadmePanelView } from '../../../../src/modules/h/readme-detector/ReadmePanelView';
 import { pageInfoFromUrl } from '../../../../src/shared/page';
-import { fakePermissions } from '../../../core/ui-host/helpers';
 import { ASSERTIVE_ABSENCE, fakeAccess, flush, loadFixture } from '../helpers';
 import type { Responder } from '../helpers';
 
@@ -185,39 +184,13 @@ describe('زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحي
   it('تدقيق الشبكة: كل ما يصدر GET إلى contents/docs في المستودع الحالي لا غير', async () => {
     const access = fakeAccess((path) => (path === `${BASE}docs` ? { body: listing(['ar', 'dir']) } : { body: [] }));
     await scanDocsFolder(access, 'octo', 'community');
-    for (const { path, init } of access.requests) {
-      expect(path).toMatch(/^\/repos\/octo\/community\/contents\/docs(\/ar)?$/);
-      expect(init?.method ?? 'GET').toBe('GET');
-      expect(init?.body).toBeUndefined();
-    }
+    // الطريقة والترويسات من طبقة الخلفية (background-api.test.ts)؛ والوصول يقبل المسار وحده.
+    for (const { path } of access.requests) expect(path).toMatch(/^\/repos\/octo\/community\/contents\/docs(\/ar)?$/);
   });
 });
 
-describe('البوابة الفعلية githubApiAccess', () => {
-  it('بلا منح الصلاحية لا يصدر طلب fetch أصلًا (PermissionNotGrantedError)', async () => {
-    const permissions = fakePermissions();
-    const fetchImpl = vi.fn(async (_url: string) => new Response('[]'));
-    const access = githubApiAccess({ runtime: {} as never, permissions }, fetchImpl as never);
-    const result = await scanDocsFolder(
-      { ...access, request: async () => true },
-      'octo',
-      'community',
-    );
-    expect(result).toMatchObject({ state: 'incomplete', reason: 'permission' });
-    expect(fetchImpl).not.toHaveBeenCalled();
-  });
-
-  it('بعد المنح: طلب إلى api.github.com وحده', async () => {
-    const permissions = fakePermissions();
-    const fetchImpl = vi.fn(async (_url: string) => new Response(JSON.stringify([{ name: 'README.ar.md', path: 'docs/README.ar.md', type: 'file' }]), { status: 200 }));
-    const access = githubApiAccess({ runtime: {} as never, permissions }, fetchImpl as never);
-    const result = await scanDocsFolder(access, 'octo', 'community');
-    expect(permissions.request).toHaveBeenCalledTimes(1);
-    expect(result.state).toBe('found');
-    expect(fetchImpl).toHaveBeenCalledTimes(1);
-    expect(String(fetchImpl.mock.calls[0]?.[0])).toBe('https://api.github.com/repos/octo/community/contents/docs');
-  });
-
+// البوابة الفعلية (الصلاحية في اللوحة، والتحقق والطلب في الخلفية) تُختبر على الخلفية الفعلية في background-api.test.ts (AD-24).
+describe('githubApiAccess', () => {
   it('بلا واجهة صلاحيات: وصول غير متاح لا يحمل أي fetch', () => {
     expect(githubApiAccess(null).available).toBe(false);
     expect(githubApiAccess({ runtime: {} as never }).available).toBe(false);
@@ -235,11 +208,11 @@ describe('فحص docs/ في اللوحة عبر تبديل المستودع', ()
     const gates: Array<() => void> = [];
     let slow = false;
     const access = fakeAccess((path) => (path.includes('/contents/docs') ? docsHit(path.includes('/octo/one/') ? 'one' : 'two') : { status: 404, body: {} }));
-    const fetch = access.fetch;
-    access.fetch = async (p, i) => {
+    const get = access.get;
+    access.get = (async (p: string) => {
       if (slow) await new Promise<void>((resolve) => gates.push(resolve));
-      return fetch(p, i);
-    };
+      return get(p);
+    }) as typeof access.get;
     const View = createReadmePanelView({ source: () => source, access: () => access });
     const settle = async () => {
       for (let i = 0; i < 4; i += 1) await act(async () => void (await flush(40)));
