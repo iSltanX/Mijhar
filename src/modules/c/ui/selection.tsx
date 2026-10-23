@@ -6,6 +6,8 @@ import { useEffect, useRef } from 'preact/hooks';
 import type { ModuleContext } from '../../../core';
 import { createShadowHost } from '../../../core/ui-host/shadow';
 import type { ShadowParts } from '../../../core/ui-host/shadow';
+import { copyMaskedText } from '../engines/fallback';
+import type { ClipboardWrite } from '../engines/fallback';
 import { INTEGRITY_WARNING, maskSegments, translateProtected } from '../masking';
 import type { ProtectedTranslation } from '../masking';
 import { inlineSegments, skipReasonFor, tokenNodes } from './blocks';
@@ -69,6 +71,9 @@ export interface SelectionCardState {
   readonly original: string;
   readonly body?: HTMLElement;
   readonly message?: string;
+  /** بديل غياب المحرك (AC-C4): نسخ التحديد مقنَّعًا، ونتيجة آخر نسخ. */
+  readonly copy?: () => void;
+  readonly copyNote?: string;
 }
 
 function Card({ state, left, top, onClose }: { state: SelectionCardState; left: number; top: number; onClose: () => void }) {
@@ -120,6 +125,16 @@ function Card({ state, left, top, onClose }: { state: SelectionCardState; left: 
           {state.message}
         </p>
       )}
+      {state.copy && (
+        <button type="button" class="btn" data-action="copy-masked" title="ينسخ التحديد إلى الحافظة والشيفرة والمسارات والروابط مستبدلة برموز ⟦…⟧، بلا أي اتصال" onClick={state.copy}>
+          نسخ النص المقنَّع
+        </button>
+      )}
+      {state.copyNote && (
+        <p class="sel-result" role="status" data-section="copy-note">
+          {state.copyNote}
+        </p>
+      )}
     </div>
   );
 }
@@ -129,6 +144,8 @@ export interface SelectionOptions {
   readonly rectOf?: (range: Range) => Rect;
   /** محددات النص المرسوم القابل للترجمة (مرشحات c.ui.body المسجلة، VR-21). الافتراضي .markdown-body. */
   readonly bodySelector?: string;
+  /** الكتابة إلى الحافظة لبديل «نسخ النص المقنَّع»؛ الافتراضي navigator.clipboard. */
+  readonly copy?: ClipboardWrite;
 }
 
 const defaultRect = (range: Range): Rect => {
@@ -231,10 +248,19 @@ export class SelectionTranslator {
       this.draw();
     };
     set({ status: 'working', original });
-    if (!service) return set({ status: 'unavailable', original, message: 'لا محرك ترجمة محلي مُفعَّل.' });
-    const availability = await service.availability().catch(() => ({ state: 'unavailable' as const, reason: 'تعذّر فحص المحرك' }));
-    if (availability.state !== 'ready') return set({ status: 'unavailable', original, message: availability.state === 'unavailable' ? `المحرك غير متاح: ${availability.reason}` : 'لا محرك ترجمة محلي مُفعَّل.' });
     const { segments, nodes } = inlineSegments(target.range.cloneContents(), true);
+    const unavailable = (message: string): void => {
+      const state: SelectionCardState = {
+        status: 'unavailable',
+        original,
+        message,
+        copy: () => void copyMaskedText([segments], this.options.copy).then((copyNote) => set({ ...state, copyNote })),
+      };
+      set(state);
+    };
+    if (!service) return unavailable('لا محرك ترجمة محلي مُفعَّل.');
+    const availability = await service.availability().catch(() => ({ state: 'unavailable' as const, reason: 'تعذّر فحص المحرك' }));
+    if (availability.state !== 'ready') return unavailable(availability.state === 'unavailable' ? `المحرك غير متاح: ${availability.reason}` : 'لا محرك ترجمة محلي مُفعَّل.');
     let result: ProtectedTranslation;
     try {
       result = await translateProtected(segments, (masked, context) => service.translate(masked, context), { signal: controller.signal, locale: 'en' });

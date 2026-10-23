@@ -1,14 +1,18 @@
 // الوحدة c.ui: واجهة الترجمة عند الطلب (T-4.1 / F-C1، F-C3). تضع شريطًا هادئًا فوق كل نص مرسوم (README وتعليق ووصف مشكلة أو PR…) فيه زر «ترجمة إلى العربية»،
 // وزرًا عائمًا عند تحديد نص إنجليزي؛ ولا تبدأ ترجمة قبل ضغط صريح. المحرك خلف TranslationService (service.ts):
-//  - لا محرك مسجَّل (الحال حتى MJ14): الوحدة ساكنة تمامًا — لا شريط ولا مراقب ولا مستمع تحديد — فلا يرى المستخدم زرًّا بلا فعل وراءه.
-//  - محرك مسجَّل غير متاح (غير مدعوم في هذا المتصفح…): الأزرار تظهر ويُعرض السبب صراحةً عند الضغط، بلا أي اتصال.
+//  - لا محرك مسجَّل: الوحدة ساكنة تمامًا — لا شريط ولا مراقب ولا مستمع تحديد — فلا يرى المستخدم زرًّا بلا فعل وراءه. سكربت المحتوى يسجّل محرك
+//    DEC-03 عند بدئه (src/modules/c/engines، MJ14)، فيكون مسجَّلًا دائمًا: جاهزًا أو غير متاح بسببه.
+//  - محرك مسجَّل غير متاح (غير مدعوم في هذا المتصفح…): الأزرار تظهر ويُعرض السبب صراحةً، ومعه بديل «نسخ النص المقنَّع» (AC-C4)، بلا أي اتصال.
 //  - محرك جاهز: الترجمة بالتقنيع والفحص الرباعي والفشل الآمن (translateProtected)، وأنماط العرض وإلغاء الترجمة (session.ts).
 import { render } from 'preact';
 import type { ExtensionModule, ModuleContext, SelectorEntry } from '../../../core';
 import { createShadowHost } from '../../../core/ui-host/shadow';
 import type { ShadowParts } from '../../../core/ui-host/shadow';
+import { copyMaskedText } from '../engines/fallback';
+import type { ClipboardWrite } from '../engines/fallback';
 import { TranslationBar } from './bar';
 import type { BarKind } from './bar';
+import { collectBlocks } from './blocks';
 import { TRANSLATE_MODULE_ID } from './ids';
 import { SelectionTranslator } from './selection';
 import type { SelectionOptions } from './selection';
@@ -40,6 +44,8 @@ export interface TranslateModuleOptions {
   readonly maxBlocks?: number;
   /** خيارات ترجمة التحديد، أو false لتعطيلها. */
   readonly selection?: SelectionOptions | false;
+  /** الكتابة إلى الحافظة لبديل «نسخ النص المقنَّع»؛ الافتراضي navigator.clipboard. */
+  readonly copy?: ClipboardWrite;
 }
 
 interface Bar {
@@ -49,6 +55,7 @@ interface Bar {
   session: TranslationSession | null;
   snapshot: SessionSnapshot;
   unavailable: string | null;
+  copied: string | null;
 }
 
 const IDLE: SessionSnapshot = { phase: 'idle', mode: 'both', total: 0, done: 0, kept: 0, skipped: 0, truncated: false };
@@ -94,7 +101,8 @@ class TranslateController {
   ) {
     // التحديد يقبل كل محددات النص المرسوم المسجلة لا .markdown-body وحدها (VR-21).
     const bodySelector = ctx.selectors.entry(TRANSLATE_SELECTOR_KEYS.body).candidates.join(', ');
-    this.selection = options.selection === false ? null : new SelectionTranslator(ctx, () => this.service(), { bodySelector, ...options.selection });
+    this.selection =
+      options.selection === false ? null : new SelectionTranslator(ctx, () => this.service(), { bodySelector, ...(options.copy ? { copy: options.copy } : {}), ...options.selection });
   }
 
   private service(): TranslationService | null {
@@ -179,7 +187,7 @@ class TranslateController {
   private addBar(body: Element): void {
     const parts = createShadowHost(this.ctx.document, { name: BAR_HOST_NAME, hostCss: BAR_HOST_CSS, styles: BAR_CSS, label: 'ترجمة إلى العربية' });
     parts.root.classList.add('bar-root');
-    const bar: Bar = { body, kind: barKindOf(body), parts, session: null, snapshot: IDLE, unavailable: this.unavailable };
+    const bar: Bar = { body, kind: barKindOf(body), parts, session: null, snapshot: IDLE, unavailable: this.unavailable, copied: null };
     this.bars.set(body, bar);
     this.insertBar(bar);
     this.paint(bar);
@@ -205,12 +213,26 @@ class TranslateController {
         snapshot={bar.snapshot}
         unavailable={bar.unavailable}
         engineLabel={service?.label ?? ''}
+        copyNote={bar.copied}
         onTranslate={() => void this.translate(bar)}
         onCancel={() => bar.session?.cancel()}
         onMode={(mode: DisplayMode) => bar.session?.setMode(mode)}
+        onCopyMasked={() => void this.copyMasked(bar)}
       />,
       bar.parts.root,
     );
+  }
+
+  /** فعل صريح: بديل غياب المحرك (AC-C4)، نص الفقرات مقنَّعًا إلى الحافظة، بلا أي اتصال. */
+  private async copyMasked(bar: Bar): Promise<void> {
+    const { blocks } = collectBlocks(bar.body);
+    const note = await copyMaskedText(
+      blocks.map((block) => block.segments),
+      this.options.copy,
+    );
+    if (this.ctx.signal.aborted) return;
+    bar.copied = note;
+    this.paint(bar);
   }
 
   /** فعل صريح: ضغط زر الترجمة. */

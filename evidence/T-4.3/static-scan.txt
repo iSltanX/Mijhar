@@ -1,0 +1,19 @@
+# فحص ساكن لمسار الترجمة (MJ14، T-4.3) — 2026-10-23T22:20Z
+
+## مضيفات ترجمة سحابية أو نموذج أو WebAssembly في الحزمتين المشحونتين (content.js)
+$ grep -n "huggingface|onnx|trial\.ml|translate.googleapis|wasm" dist/{chromium,firefox}/content.js
+(لا شيء)
+
+## طلبات شبكة في شيفرة الوحدة (ج)
+$ grep -rn "fetch(|XMLHttpRequest|sendBeacon|WebSocket" src/modules/c/
+(لا شيء)
+
+## الصلاحيات في المانيفست (لم تتغير في هذه المرحلة)
+$ git diff main -- src/manifest/ | wc -l
+       0
+src/manifest/firefox.json:16:  "permissions": ["storage"],
+src/manifest/firefox.json:17:  "host_permissions": ["https://github.com/*"],
+src/manifest/firefox.json:18:  "optional_host_permissions": ["https://api.github.com/*"],
+src/manifest/chromium.json:5:  "permissions": ["sidePanel", "storage"],
+src/manifest/chromium.json:6:  "host_permissions": ["https://github.com/*"],
+src/manifest/chromium.json:7:  "optional_host_permissions": ["https://api.github.com/*"],
