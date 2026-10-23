@@ -54,8 +54,8 @@ describe('السجل', () => {
     const ids = PANEL_VIEWS.map((v) => v.id);
     expect(new Set(ids).size).toBe(ids.length);
     expect(ids).toEqual(expect.arrayContaining(['g-notes', 'g-notes-drawer', 'h-readme', 'h-guide', 'h-discovery', 'h-discovery-drawer', 'h-resources', 'h-resources-drawer']));
-    for (const view of PANEL_VIEWS) {
-      expect(['g', 'h']).toContain(view.unit);
+    // السجل مشترك بين المراحل: يُقاس واجهات (ز) و(ح) وحدها، لا واجهات الوحدات الأخرى المدمجة معهما.
+    for (const view of PANEL_VIEWS.filter((v) => v.unit === 'g' || v.unit === 'h')) {
       expect(view.tab).toBe(view.unit === 'g' ? 'notes' : 'community');
     }
   });
