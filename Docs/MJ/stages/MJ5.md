@@ -2,7 +2,7 @@
 id: MJ5
 title: مضيف الواجهات واللوحة الجانبية والإعدادات
 status: active
-delivery: none
+delivery: branch
 wave: C
 order: 1
 depends: [MJ2]
@@ -13,9 +13,9 @@ why_model: مضيف معزول عبر متصفحات بسلوك مختلف، و�
 session: worktree
 branch: mj/5-ui-host
 base: mj-C/base
-commit: —
+commit: 0b60723
 updated: 2026-10-23
-resume: الشيفرة والمانيفست واختبارات vitest (68) ملتزمة على mj/5-ui-host؛ DEC-01 ثبت على (أ) بعد اجتياز Toggle المنقول عبر preact/compat. التالي: تجارب المتصفحات الأربعة tests/core/ui-host/browser (TEST-CORE-05 وTEST-CORE-06 وتدقيق الشبكة) ثم الأدلة في evidence/T-1.4.
+resume: سُلِّمت على الفرع (آخر التزام عمل `0b60723`) — جاهزة للدمج في الموجة C. `T-1.4` منفّذة وتقريرها في `evidence/T-1.4/report.md`؛ `DEC-01` ثبت على (أ) و`HYP-14` ثبتت؛ ما لم يُجرَ آليًا (ضغطة `⌥G` الفعلية وقبول نافذة الصلاحية في عائلة Chromium) مسجَّل قيدًا وينتظر الجولة اليدوية لبوابة الموجة.
 ---
 
 # MJ5 — مضيف الواجهات واللوحة الجانبية والإعدادات
@@ -87,7 +87,7 @@ resume: الشيفرة والمانيفست واختبارات vitest (68) مل�
 
 | المهمة | الحالة | ما أُنجز | الدليل |
 | :--- | :--- | :--- | :--- |
-| `T-1.4` | جارٍ التنفيذ | — | — |
+| `T-1.4` | منفّذة | إطار Preact 10.29.8 وطبقة `preact/compat` (المكوّنان المنقولان `Toggle` و`Ltr` يعملان: `DEC-01` ثبت على أ)؛ مضيف Shadow DOM (`src/core/ui-host`) بأنماط متبنّاة وعزل `:host`، و`mountSurface` لواجهات الوحدات؛ الدرج في الطبقة العليا؛ `PanelApp` بالتبويبات الخمسة في اللوحة الأصلية (`side_panel` و`sidebar_action`) والدرج؛ «الإعدادات والخصوصية» بمفاتيح الوحدات الثماني ومكان اللوحة وتدفق `api.github.com` الاختياري (`fetchApiGithub` البوابة الوحيدة) والاختصار؛ أمر `toggle-panel` بـ`Alt+G` مؤقتًا. `TEST-CORE-05` و`TEST-CORE-06` اجتازا في Chrome وEdge وBrave وFirefox (صفر اختلاف في 13×37 خاصية بين صفحة الضبط والمعادية، وصفر طلبات إلى `api.github.com` قبل المنح)، عدا ضغطة `⌥G` الفعلية وقبول نافذة الصلاحية في عائلة Chromium (لم يُجريا آليًا)؛ `HYP-14` ثبتت؛ 54 اختبار vitest والطقم كاملًا 405 و1 متخطى، و`web-ext lint` بلا تحذيرات | [`evidence/T-1.4/report.md`](../../../evidence/T-1.4/report.md) · [`browser-report.md`](../../../evidence/T-1.4/browser-report.md) |
 
 الحالات: لم تبدأ · جارٍ التنفيذ · متوقفة: السبب · منفّذة (على الفرع) · مدمجة (يكتبها منسّق الدمج وحده). الدليل مسار تقرير في `evidence/` أو رابط.
 
@@ -96,5 +96,43 @@ resume: الشيفرة والمانيفست واختبارات vitest (68) مل�
 | التاريخ | ما أُنجز | الدليل |
 | :--- | :--- | :--- |
 | 2026-10-23 | كُتبت المواصفة | — |
+| 2026-10-23 | تحقق من worktree والأساس `mj-C/base` و`MJ2` (`done` على `main`)؛ أُنشئ `mj/5-ui-host` من `main`؛ الحالة `active` | `09126c1` |
+| 2026-10-23 | تجربة مستكشفة (خارج المستودع) لفتح اللوحة من الأمر في الأربعة: الفتح لا يُقبل إلا داخل فعل المستخدم، وFirefox يرفضه بعد أي `await`، وضغطات CDP لا تبلغ مسرّعات macOS؛ فبُني الأمر متزامنًا والتفضيل يُقرأ متزامنًا | [`evidence/T-1.4/report.md`](../../../evidence/T-1.4/report.md) |
+| 2026-10-23 | الدفعة الأولى: Preact وطبقة التوافق والمضيف والدرج واللوحة والإعدادات والأمر والمانيفست وحجب `dangerouslySetInnerHTML` في البناء (لا تحذير في `web-ext lint`) | `26d5f3d` |
+| 2026-10-23 | 54 اختبار vitest للمضيف (منها `TEST-CORE-06` وحدويًا وطبقة التوافق) | `26e7724` |
+| 2026-10-23 | تجارب المتصفحات الأربعة وعينات معادية؛ واكتُشف في Firefox أن سكربت المحتوى يفشل كليًا عند فتح المخزن بقفل `navigator.locks` الافتراضي، فأُصلح عند المستدعي | `2ebec89` |
+| 2026-10-23 | مراجعة بصرية بلقطات: تبويبات مختصرة واسمها المقروء كامل، وعنوان اللوحة، ولا إطار تركيز على عنوان الدرج؛ الأدلة النهائية في الأربعة | `d98d235` |
+| 2026-10-23 | تقرير المهمة؛ آخر التزام عمل | `0b60723` |
 
-**المتبقي:** كل المهام.
+**المتبقي:** لا شيء للجلسة — `T-1.4` منفّذة على الفرع وتنتظر دمج الموجة C؛ وضغطة `⌥G` الفعلية وقبول نافذة الصلاحية وسحبها في Chrome وEdge وBrave للجولة اليدوية بعد الدمج.
+
+### تقرير التسليم — MJ5
+
+- الفرع: `mj/5-ui-host` · الأساس: `mj-C/base` (`d10d783`) · آخر التزام عمل: `0b60723`
+- الفرق: `110 files changed, 8873 insertions(+), 527 deletions(-)` من `git diff --stat mj-C/base...HEAD` عند `0b60723`؛ منها التزاما `main` بعد الوسم (`17a794c` و`0c075ad`: توسيع النطاق والسجل). وفرق المرحلة وحدها عن `main`: `80 files changed, 5586 insertions(+), 22 deletions(-)` (منها 8 لقطات PNG ونتائج خام JSON في `evidence/T-1.4`).
+- المهام:
+  - `T-1.4` منفّذة. `src/core/ui-host/` (`shadow.ts` و`surface.ts` و`drawer.tsx` و`units.ts` و`permissions.ts` و`commands.ts` و`settings-runtime.ts` و`browser-api.ts` و`index.ts`)، و`src/shared/ui/` (`tokens.ts` و`Tabs.tsx` و`useSetting.ts` و`compat/Toggle.tsx` و`compat/Ltr.tsx`)، و`src/sidepanel/` (`PanelApp.tsx` و`views.ts` و`main.tsx` و`index.html`)، و`src/options/` (`SettingsTab.tsx` و`sections.ts` و`page.tsx` و`main.tsx` و`index.html`)، و`src/background/main.ts` و`src/content/main.tsx`، ومفاتيح المانيفست. الدليل: `evidence/T-1.4/report.md`.
+- معايير القبول (`AC-1.4`، بأوامرها):
+  - العزل: `node tests/core/ui-host/browser/run.mjs` ← في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1: صفر اختلاف في 13 عنصرًا × 37 خاصية بين `control-pr.html` و`hostile-pr.html` (بـ`hostile.css` وCSP `style-src 'self'`)، والدرج في الطبقة العليا وما يعلو مركزه هو الدرج، وأنماط عناصر الصفحة بأسماء أصناف الواجهة لا تتغير بفتح الدرج ولا بإزالة الواجهات، ولا `<style>` ولا ورقة متبنّاة في المستند — تحقق.
+  - المفاتيح الثمانية: الأمر نفسه ← في الأربعة: كل مفتاح من صفحة الإعدادات يزيل وحدته الوهمية ويعيدها، والقيم تبقى بعد إعادة تحميل التبويبين، ومفتاح من الدرج يعمل؛ و`npx vitest run tests/core/ui-host` ← 54 من 54 — تحقق.
+  - الدرج في كل متصفح مُختبَر: في الأربعة يُفتح ويُغلق بالرسالة وEscape وزره، والتركيز إلى عنوانه، وتبويب الإعدادات فيه بلا حقل نص ولا زر طلب صلاحية — تحقق.
+  - اللوحة الأصلية حيث ثبت دعمها: `sidePanel.open` بنقر في الثلاثة ووثيقتها في `SIDE_PANEL`، و`sidebarAction.open` في Firefox ووثيقته مرسومة — تحقق (`HYP-14` ثبتت). والعرض المرئي في نافذة: لم يُجرَ (وضع بلا نافذة).
+  - صلاحية `api.github.com`: صفر طلبات قبل المنح في الأربعة من كل السياقات، و`fetchApiGithub` ترفض بلا إرسال — تحقق. Firefox: الطلب بلا نقر رفضه المتصفح، والنقر منح، والسحب من الصفحة ومن إعدادات المتصفح ظهر — تحقق. عائلة Chromium: النقر يفتح نافذة المتصفح؛ **قبولها ثم السحب لم يُجرَ آليًا** (النافذة لا تبلغها CDP، و`developerPrivate.addHostPermission` لا يمنح الاختيارية).
+  - الأمر واختصاره: مسجّل `⌥G`/`Alt+G`؛ Firefox: مسار الضغطة نفسه يبدّل الشريط، وبتفضيل الدرج يفتح الدرج ولو كانت الخلفية متوقفة — تحقق؛ عائلة Chromium: المعالج يفتح الأصلية، وبلا فعل مستخدم أو بتفضيل الدرج (ولو بعد إعادة تشغيل service worker) يفتح الدرج — تحقق؛ إعادة الربط من إعدادات المتصفح تظهر في صفحة الإعدادات في الأربعة — تحقق. **الضغطة الفعلية في عائلة Chromium لم تُجرَ آليًا** (لا تبلغها CDP في macOS، و`computer use` لا يكتب في المتصفحات).
+- الفحوص بحسب الأثر: `npx tsc --noEmit` بلا أخطاء؛ `npx vitest run` الطقم كاملًا ← 405 اجتازت و1 متخطى (`GHSIM_SOURCE`) لأن المرحلة مسّت `vite.config.ts` و`tsconfig.json` المشتركين؛ `node scripts/build.mjs`؛ `npx web-ext lint --source-dir dist/firefox` ← 0 أخطاء و0 تحذيرات؛ `node scripts/load-check.mjs` ← نجح في الأربعة؛ وتجارب المتصفحات تباعًا. لم يُشغَّل `tests/core/storage/browser/run.mjs` (`TEST-CORE-04`): لا تغيير في `src/core/storage` ولا `src/core/settings`.
+- القرار المفوَّض: **افتراضي تفعيل الوحدات الثماني: مفعَّلة** (`UNIT_DEFAULT_ENABLED` في `src/core/ui-host/units.ts`) بتفويض `AD-14`، وأحاله تقرير `T-1.3` إلى هذه المهمة. السبب: الأبسط الذي يحقق المتطلب؛ وحدة لم تُبنَ لا تركّب شيئًا، وكل ما يرسل أو ينزّل له موافقته المستقلة (`AD-17` والصلاحية الاختيارية)، فلا يبدأ التفعيل الافتراضي إرسالًا. مسجَّل في `evidence/T-1.4/report.md` (القرار 12)؛ ولم يُضف إلى `data/plan.json` لأنه ليس من قرارات `DEC-*`. و`DEC-01` ثبت على (أ) بلا تغيير.
+- المراجعة المستقلة: تلزم (صلاحية مضيف اختيارية وشبكة وكتابة تخزين من سكربت المحتوى وواجهة محقونة في صفحة طرف ثالث). برومبت جاهز للنسخ: «راجع للقراءة فقط الفرع `mj/5-ui-host` في مستودع مجهر (الفرق `git diff main...mj/5-ui-host -- src tests/core/ui-host fixtures/adversarial vite.config.ts scripts/build.mjs src/manifest`). ابحث عن: (1) أي مسار يصدر منه طلب إلى `api.github.com` دون `fetchApiGithub` أو قبل `permissions.contains`، أو يقبل مضيفًا غيره؛ (2) أي استدعاء لـ`permissions.request` لا يقع متزامنًا في معالج نقر صريح؛ (3) أي حقل إدخال أو سرّ يمكن أن يبلغ الدرج المحقون في صفحة GitHub (`src/content` و`src/core/ui-host/drawer.tsx` و`sections.ts` و`views.ts`)، أو أي نص من الصفحة يُعامل HTML؛ (4) ما يتسرب من أنماط الصفحة إلى الواجهات المحقونة أو العكس رغم `:host { all: initial !important }` والطبقة العليا، وما تستطيع الصفحة فعله بعنصر المضيف أو جذره المفتوح؛ (5) مسار `openPanel` في `commands.ts`: هل يمكن أن يقع `await` قبل فتح اللوحة، وهل يُحترم تفضيل الدرج بعد نوم الخلفية في المتصفحين؛ (6) ترتيب الإزالة في `mountSurface` وDrawer (فك Preact قبل إزالة المضيف) وأي تسرب مستمعات. لا تعدّل شيئًا؛ أبلغ بالملف والسطر والسيناريو الذي يكشف الخلل.»
+- خارج النطاق — مسجَّل لا منفَّذ:
+  - النسبة «تصميم وتطوير سلطان» وروابطها في تبويب الإعدادات (`AD-20` و`AC-10.3`، `T-10.2`).
+  - تضمين خطّي الهوية Cairo وAlmarai (`T-2.3`): الرموز تسمّيهما أولًا ثم خطوط النظام، فيظهران حيث ثُبّتا محليًا فقط.
+  - أيقونات الإضافة في المانيفست (`AD-13`): لم تُضف بعد.
+  - إغلاق اللوحة الأصلية بالأمر في عائلة Chromium (`sidePanel.close` أحدث من `minimum_chrome_version: 114`).
+  - تبديل القفل الافتراضي في `Store` لسكربتات المحتوى: `src/core/storage` ملك `MJ2`؛ أُصلح عند المستدعي (`openSettings`) وحده.
+  - أقسام إعدادات الوحدات وواجهاتها في التبويبات: تضيفها مراحلها سطرًا في `SETTINGS_SECTIONS` و`PANEL_VIEWS`.
+- ما يحتاجه منسّق الدمج:
+  - **ملفات مشتركة مُسّت:** `package.json` وملف القفل (أول `dependencies`: `preact` 10.29.8)؛ `src/core/index.ts` (`export * from './ui-host'`)؛ `src/manifest/chromium.json` و`firefox.json` (`optional_host_permissions` و`options_ui` و`commands`، و`sidebar_action.default_title` و`open_at_install: false`)؛ `src/manifest/generate.mjs` (`OPTIONAL_HOSTS` وحارسه)؛ `vite.config.ts` (JSX بـPreact، و`react`←`preact/compat`، ومكوّن حجب `innerHTML`، و`*.test.tsx`)؛ `tsconfig.json` (`jsx` و`paths` و`DOM.Iterable`)؛ `scripts/build.mjs` (مدخلا اللوحة والإعدادات وصفحتاهما، وتصدير `ENTRIES` و`PAGES`)؛ وحُذف `src/manifest/sidepanel.placeholder.html`؛ ومُلئت نقطتا الدخول `src/background/index.ts` و`src/content/index.ts`. وسجلّان مشتركان جديدان تضيف إليهما المراحل اللاحقة: `src/options/sections.ts` و`src/sidepanel/views.ts`.
+  - **مع `MJ6` عند الدمج:** مفتاح `modules.a.enabled` يحكم وحدة برمجية معرّفها `a` أو `a.<اسم>` أو `a-<اسم>`؛ ومعرّف خارج هذا الاصطلاح بلا مفتاح خاص لا يُركَّب أبدًا (`isModuleEnabled`). يُتحقق من معرّف وحدة `MJ6` في `BUILTIN_MODULES` عند ضم `registry.ts`.
+  - **بوابة الموجة:** `node tests/core/ui-host/browser/run.mjs` على الشجرة المجمّعة (المتصفحات تباعًا) مع `npx vitest run tests/core tests/modules/a`؛ والجولة اليدوية تضيف إلى «فتح اللوحة الجانبية والدرج في Chrome وEdge وBrave» ضغطة `⌥G` الفعلية وقبول نافذة `api.github.com` ثم «اسحب الصلاحية».
+  - **لـ`data/status.json`:** `TEST-CORE-05` اجتاز في الأربعة؛ `TEST-CORE-06` اجتاز في الأربعة عدا البندين غير الآليين في عائلة Chromium (الضغطة الفعلية وقبول نافذة الصلاحية)؛ والدليل `evidence/T-1.4/`. و`HYP-14` ثبتت (Edge 155 وBrave 156).
+  - **ملاحظة لطبقة التخزين (`MJ2`):** `Store.open` في سكربت محتوى Firefox بقفل `navigator.locks` الافتراضي يفشل كليًا («Permission denied to access property "then"»)؛ على كل سكربت محتوى يفتح المخزن أن يمرّر `locks: null` (يفعله `openSettings`). ومراجعة تخزين `MJ2` المستقلة من الموجة B ما زالت معلّقة.
+  - **ما ينتظر المالك:** إقرار افتراضي «مفعَّلة» للوحدات الثماني أو قلبه (ثابت واحد)؛ والقيمة النهائية للاختصار في `DEC-08` (`T-10.2`). وإعلان `data_collection_permissions` في Firefox باقٍ `none`: لا ميزة مشحونة تطلب `api.github.com` بعد.
