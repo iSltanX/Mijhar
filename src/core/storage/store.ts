@@ -92,7 +92,7 @@ export interface StoreOptions {
   migrate?: boolean;
   /** عدد النسخ الاحتياطية الأحدث المحتفَظ بها بعد نجاح عملية. الافتراضي 2. */
   keepBackups?: number;
-  /** هل يُعرض طلب unlimitedStorage علاجًا لامتلاء الحصة (يحسمه ناتج تجربة HYP-06 للمتصفح). الافتراضي false. */
+  /** هل يُعرض طلب unlimitedStorage علاجًا لامتلاء الحصة. الافتراضي false: دُحضت HYP-06 في المتصفحات الأربعة (capabilities.ts). */
   canRequestUnlimitedStorage?: boolean;
   now?: () => Date;
 }

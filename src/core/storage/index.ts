@@ -17,3 +17,5 @@ export { CURRENT_SCHEMA_VERSION, MIGRATIONS, migrationPath } from './migrations'
 export type { Migration, Snapshot } from './migrations';
 export { BACKUP_PREFIX, DATA_PREFIX, EXPORT_FORMAT, JOURNAL_KEY, KEY_PREFIX, META_KEY, Store, assertJsonValue } from './store';
 export type { BackupInfo, BackupReason, BackupRecord, ExportEnvelope, ImportResult, Meta, StoreOptions } from './store';
+export { UNLIMITED_STORAGE_FINDINGS, UNLIMITED_STORAGE_REQUESTABLE_AT_RUNTIME } from './capabilities';
+export type { UnlimitedStorageFinding, UnlimitedStorageHandling } from './capabilities';
