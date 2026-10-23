@@ -1,0 +1,60 @@
+# اختبارات التدقيق في نسخة مؤقتة خارج المستودع (القسم 7، الخطوة 5)
+
+- الأصل: git archive لرأس الفرع fix/audit-remediation-e (72e270709420a69004b2e613cf5f9496666f7f07)، وnode_modules رابط إلى الـ worktree.
+- أُضيف إليها: Docs/Mijhar-Audits/codex-independent-audit-20261023-2218-evidence/independent-reproductions.test.tsx (R1–R9) في tests/، وملفات الملحق 1 من Docs/Mijhar-Audit-Review/fable-executive-review-20261023-2246.md في tests/fable/ حرفيًا. لا شيء منها في المستودع.
+- الأمر: npx vitest run tests/independent-reproductions.test.tsx tests/fable --reporter=verbose
+
+```text
+F-003 late [{"at":0,"href":"https://github.com/octo/demo/blob/main/a.ts","marker":"old"},{"at":340,"href":"https://github.com/octo/demo/blob/main/b.ts","marker":"new-b.ts"}]
+F-003 early [{"at":0,"href":"https://github.com/octo/demo/blob/main/a.ts","marker":"old"},{"at":160,"href":"https://github.com/octo/demo/blob/main/b.ts","marker":"new-b.ts"}]
+ ✓ tests/fable/review-c.test.ts > F-003 detector timing (MJ-AUDIT-003) > DOM arrives at 240ms after the URL change (measured live order in evidence/T-1.2) 50ms
+ ✓ tests/fable/review-c.test.ts > F-003 detector timing (MJ-AUDIT-003) > control: DOM arrives at 60ms 8ms
+R1 {"id":"15ed90bd-8dbe-4ca2-8de8-b10667321c0a","version":1,"target":{"level":"line","view":"blob","owner":"octo","repo":"shop","ref":"main","refKind":"ref","path":"src/cart.js","start":40,"end":40},"text":"original","anchorStatus":"changed","createdAt":"2026-10-23T21:00:34.011Z","updatedAt":"2026-10-23T21:00:34.012Z","url":"https://github.com/octo/shop/blob/main/src/cart.js","title":null}
+R2 {"id":"3082a9b2-6e67-471f-9280-78c390a4a745","version":1,"target":{"level":"line","view":"blob","owner":"octo","repo":"shop","ref":"main","refKind":"ref","path":"src/cart.js","start":40,"end":40},"text":"original","anchorStatus":"changed","createdAt":"2026-10-23T21:00:34.016Z","updatedAt":"2026-10-23T21:00:34.016Z","url":"https://github.com/octo/shop/blob/main/src/cart.js","title":null}
+F-001 {"panel":{"ref":"chore","path":"v2-pnpm-monorepo/README.md","refKind":"unknown"},"content":{"ref":"chore/v2-pnpm-monorepo","path":"README.md","refKind":"ref"},"panelNoteOnSamePage":"exact","panelFileNoteOnSamePage":"exact","panelNoteOnMain":null,"contentNoteOnMain":"other-ref"}
+F-005a {"masked":"See ⟦REF_0⟧ and ⟦REF_1⟧ for the details please","bound":[["⟦REF_0⟧","#7",null],["⟦REF_1⟧","#7","https://github.com/o/r/issues/7"]]}
+F-005b {"masked":"⟦CODE_0⟧ is fast\nNext line should be translated.","tokens":[["CODE","```npm test```"]]}
+F-007d {"original":"ِسمِ","stripped":"سم","slice":"ِسمِ","onlyMarksStrippedLength":0}
+R3 {"original":"Intro\n\n## Expected behavior\n\nIt works.\nTail","before":"Intro\n\n## Expected behavior\n\nIt works.\nTail\n\n## Expected behavior\n\nIt changed.\n","after":"Intro\n\n## Expected behavior\n\nIt works.\nTail\n\n## Expected behavior\n\nIt changed.\n","result":{"status":"modified","previous":"Intro\n\n## Expected behavior\n\nIt works.\nTail"}}
+R4 {"cached":"changed","fresh":"changed","actualLine":"function calculateTotul(items) {"}
+R5 {"visibleHead":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","apiHead":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","before":"failure","after":"failure"}
+R6 {"items":101,"total":101,"partial":true}
+R7 {}
+R8 {"before":"تحديث الصفحة src/new.ts","after":"هذا المسار src/app.ts مهم"}
+R9 {"calls":1,"first":{"ok":false,"failure":"rate-limit","status":429,"message":"secondary rate limit","retryAt":61000,"readAt":1000,"rate":{"limit":60,"remaining":50,"used":null,"reset":9999,"resource":"core","readAt":1000}},"second":{"ok":false,"failure":"rate-limit","status":403,"message":"بلغ حد الطلبات العامة؛ لم يُرسل الطلب","retryAt":61000,"readAt":1000,"rate":{"limit":60,"remaining":50,"used":null,"reset":9999,"resource":"core","readAt":1000}}}
+ × tests/independent-reproductions.test.tsx > R1 preserves independent note text and anchor status updates from two contexts 6ms
+ × tests/independent-reproductions.test.tsx > R2 does not resurrect a note deleted during an anchor status update 1ms
+ ✓ tests/independent-reproductions.test.tsx > R3 undo never deletes a pre-existing identical block after the inserted block was edited 35ms
+ ✓ tests/independent-reproductions.test.tsx > R4 invalidates the anchor cache when an interior line changes without changing its length 18ms
+ ✓ tests/independent-reproductions.test.tsx > R5 rejects API checks from another head commit when merging with the visible PR 16ms
+ ✓ tests/independent-reproductions.test.tsx > R6 does not label incomplete commit-status pagination as complete 0ms
+ ✓ tests/independent-reproductions.test.tsx > R7 deleting a note also removes its persisted anchor with no content tab mounted 8ms
+ × tests/independent-reproductions.test.tsx > R8 isolation restore preserves text subsequently written by the page 4ms
+ ✓ tests/independent-reproductions.test.tsx > R9 honors Retry-After after a secondary rate limit 2ms
+ × tests/fable/review-a.test.tsx > F-001 slash-branch panel target (MJ-AUDIT-001) > native-panel URL parsing vs enriched content page 21ms
+ ✓ tests/fable/review-a.test.tsx > F-005 masking (MJ-AUDIT-005) > plain #7 before a real <a>#7</a> link 11ms
+ ✓ tests/fable/review-a.test.tsx > F-005 masking (MJ-AUDIT-005) > line starting with a same-line triple-backtick inline code span 0ms
+ ✓ tests/fable/review-a.test.tsx > F-007 reader copy offsets (MJ-AUDIT-007d) > leading diacritic in a text node 0ms
+F-006a {"both":"في الخطوة ٣ راجع #12","groups":1,"afterIsolationOff":"في الخطوة 3 راجع #12","innerHTML":"في الخطوة 3 راجع #12","reports":[{"f":"isolation","reason":"out-of-scope","skipped":[],"text":null}]}
+F-008a {"active":"input","isInput":true,"cardOpen":false}
+F-006b {"both":"في الخطوة ٣ راجع #12","after":"في الخطوة 3 راجع #12","html":"في الخطوة 3 راجع #12","leftovers":0,"reports":[{"f":"isolation","reason":"out-of-scope","skipped":[],"text":null},{"f":"digits","reason":"out-of-scope","skipped":[],"text":{"restored":0,"skipped":["text-node-removed"]}}]}
+F-008b {"modeActive":false,"active":"button","isStar":true}
+ ✓ tests/fable/review-a.test.tsx > F-006 isolation + digits lifecycle (MJ-AUDIT-006, CODEX U-01 kept separate) > disable isolation only while digits stays active 84ms
+ ✓ tests/fable/review-a.test.tsx > F-006 isolation + digits lifecycle (MJ-AUDIT-006, CODEX U-01 kept separate) > disable both via scope change (forward-order reconcile) 72ms
+ ✓ tests/fable/review-b.test.tsx > F-008 explain-mode focus (MJ-AUDIT-008) > outside pointerdown onto a page input keeps focus on the input 138ms
+ ✓ tests/fable/review-b.test.tsx > F-008 explain-mode focus (MJ-AUDIT-008) > the in-overlay Stop button returns focus to the element focused before activation 58ms
+F-006c {"reenabled":"في الخطوة ٣ راجع #12","afterStop":"في الخطوة 3 راجع #12","reports":[{"f":"isolation","reason":"out-of-scope","skipped":[],"text":null},{"f":"isolation","reason":"unmount","skipped":[],"text":null},{"f":"digits","reason":"unmount","skipped":[],"text":{"restored":0,"skipped":["text-node-removed","text-node-removed"]}},{"f":"direction","reason":"unmount","skipped":[],"text":null}]}
+ ✓ tests/fable/review-a.test.tsx > F-006 isolation + digits lifecycle (MJ-AUDIT-006, CODEX U-01 kept separate) > re-enable isolation with digits active, then stop the module 103ms
+F-009 html <div data-view="readme" class="community"><h3>README العربي</h3><p class="muted small">لم يُعثر على ملف README عربي ضمن نطاق الفحص الحالي (شجرة الجذر الظاهرة والروابط المباشرة داخل README الأساسي). تنبيه: قد تكون قائمة الملفات في الصفحة ناقصة أو مقطوعة أو قد يوجد التوثيق العربي داخل مجلد فرعي غير مفتوح مثل docs/ أو i18n/.</p><div data-section="docs-scan" class="block"><p class="muted small">المستو
+F-009a {"onOne":"README.ar.md","afterSwitch":{"slug":true,"match":null,"matchTarget":null},"late":{"slugTwo":true,"match":null}}
+F-011b {"requests":["/repos/octo/demo/pulls/4242","/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs","/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status","/repos/octo/demo/branches/main"],"where":"/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status"}
+ ✓ tests/fable/review-b.test.tsx > F-009 README panel state across repositories (MJ-AUDIT-009a) > switching octo/one -> octo/two (and a late result) does not show octo/one results 1169ms
+ ✓ tests/fable/review-b.test.tsx > F-011 evidence path for commit statuses (MJ-AUDIT-011b) > a required failing legacy commit status cites the /status request 23ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected 'original' to be 'user edit' // Object.is equality
+AssertionError: expected { …(9) } to be null
+AssertionError: expected 'هذا المسار src/app.ts مهم' to be 'تحديث الصفحة src/new.ts' // Object.is equality
+AssertionError: expected 'v2-pnpm-monorepo/README.md' to be 'README.md' // Object.is equality
+ Test Files  2 failed | 2 passed (4)
+      Tests  4 failed | 18 passed (22)
+```

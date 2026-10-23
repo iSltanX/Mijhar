@@ -1,0 +1,170 @@
+# الاختبارات الجديدة على الشيفرة قبل كل إصلاح (اختبار أولًا)
+
+كل ملف كُتب اختباره ثم شُغّل على الشيفرة غير المعدّلة قبل الإصلاح؛ × سقط كما ينبغي، و✓ ضابط ينجح قبل الإصلاح وبعده.
+
+## vr01-04
+```text
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > ضابط: على المسار المباشر بمخزنين تضيع إحدى الكتابتين المتزامنتين (المنطقة تفرض التداخل) 20ms
+ × tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > تعديل النص من اللوحة وحالة المرساة من الصفحة معًا يبقيان كلاهما 4ms
+ × tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > حذف يتداخل مع تعديل بدأ قبله يبقي الملاحظة محذوفة، حتى بعد إعادة فتح التخزين 3ms
+ × tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > تعديل يصل بعد الحذف يفشل ولا يعيد الملاحظة 3ms
+ × tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > حفظ مرساة بعد حذف ملاحظتها يُرفض ولا يُكتب 3ms
+ × tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > تعديل ملاحظة غير موجودة يفشل ولا ينشئ شيئًا 3ms
+ × tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > الخلفية تتحقق من شكل الرسالة ولا تقبل سجلًا محسوبًا عند المرسل 3ms
+ × tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > خلفية غير متاحة: تفشل العملية ظاهرًا ولا يُكتب شيء محليًا 4ms
+ × tests/modules/g/notes/broker.test.ts > حذف الملاحظة يزيل مرساتها (VR-04) > الحذف عبر الوسيط من سياق بلا متحكم مرساة يزيل الملاحظة ومرساتها، حتى بعد إعادة فتح التخزين 3ms
+ × tests/modules/g/notes/broker.test.ts > حذف الملاحظة يزيل مرساتها (VR-04) > المسار المباشر يحذف السجلين في استدعاء واحد للمنطقة 3ms
+ × tests/modules/g/notes/broker.test.ts > حذف الملاحظة يزيل مرساتها (VR-04) > الخلفية تنظّف المراسي اليتيمة مرة بعد فتح التخزين، وتجيب رسائل الكتابة بـsendResponse وتعيد true 7ms
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  10 failed | 1 passed (11)
+```
+
+## vr05
+```text
+ × tests/modules/g/anchor/engine.test.ts > ذاكرة أسطر المقارنة في المتحكم (VR-05) > تغيّر سطر داخلي بالطول نفسه يُعاد حسابه في المتحكم نفسه كما في متحكم جديد (نص) 22ms
+ × tests/modules/g/anchor/engine.test.ts > ذاكرة أسطر المقارنة في المتحكم (VR-05) > تغيّر سطر داخلي بالطول نفسه يُعاد حسابه في المتحكم نفسه كما في متحكم جديد (بصمة مملّحة) 10ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected 'matched' to be 'changed' // Object.is equality
+AssertionError: expected 'matched' to be 'changed' // Object.is equality
+      Tests  2 failed | 19 skipped (21)
+```
+
+## vr10
+```text
+ × tests/modules/g/notes/panel-bridge.test.tsx > مصدر التبويبات في صفحة ملف (VR-10) > الجسر ناجح: المرجع والمسار من الصفحة نفسها لا من تقسيم الرابط 9ms
+ × tests/modules/g/notes/panel-bridge.test.tsx > مصدر التبويبات في صفحة ملف (VR-10) > الجسر معطّل أو يجيب عن ملف آخر: لا مرجع ولا مسار، ولا هدف ملف ولا سطر، والمستودع متاح 4ms
+ × tests/modules/g/notes/panel-bridge.test.tsx > مصدر التبويبات في صفحة ملف (VR-10) > صفحة غير صفحة ملف لا تطلب الجسر 4ms
+ × tests/modules/g/notes/panel-bridge.test.tsx > ملاحظات اللوحة على فرع فيه «/» (VR-10) > الجسر ناجح: ملاحظة الملف وملاحظة السطر تُحفظان بالفرع والمسار الصحيحين 5ms
+ × tests/modules/g/notes/panel-bridge.test.tsx > ملاحظات اللوحة على فرع فيه «/» (VR-10) > الجسر معطّل: لا يُعرض هدف ملف ولا سطر ويظهر السبب، ومستوى المستودع يعمل 401ms
+ × tests/modules/g/notes/panel-bridge.test.tsx > الحفظ السريع في اللوحة على فرع فيه «/» (VR-10) > الجسر ناجح: الفرع الكامل 11ms
+ × tests/modules/g/notes/panel-bridge.test.tsx > الحفظ السريع في اللوحة على فرع فيه «/» (VR-10) > الجسر معطّل: لا يُحفظ فرع من تقسيم الرابط 215ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+TypeError: respondPageInfo is not a function
+TypeError: respondPageInfo is not a function
+TypeError: respondPageInfo is not a function
+TypeError: respondPageInfo is not a function
+AssertionError: expected false to be true // Object.is equality
+TypeError: respondPageInfo is not a function
+AssertionError: expected { …(15) } to match object { branch: null, …(2) }
+      Tests  7 failed (7)
+```
+
+## vr02
+```text
+ ✓ tests/modules/f/composer/insert.test.ts > insertBlock: الإلحاق > الإلحاق مرتين: الكتلتان معًا والمسودة في أولها لم تُمس 1ms
+ × tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > كتلة مطابقة كانت في المسودة قبل الإدراج لا تُحذف إن عُدّل المُدرج نفسه (modified، والمسودة كما هي حرفيًا) 3ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > كتلة مطابقة سابقة وتعديل بعد المُدرج: يُزال المُدرج وحده وتبقى السابقة 1ms
+ ✓ tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > كتلة مطابقة لاحقة وتعديل قبل المُدرج: يُزال المُدرج وحده من موضعه المزاح وتبقى اللاحقة 0ms
+ × tests/modules/f/composer/insert.test.ts > التراجع عن آخر إدراج > تعديل قبل الكتلة وبعدها معًا: modified بلا حذف (تغيّر سلوك مقصود: كان removed) 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 24 passed (26)
+```
+
+## vr03-06-19
+```text
+ × tests/modules/d/blockers.test.tsx > هوية التزام الرأس بين DOM وAPI (VR-03) > mergeApi يعيد ملخص DOM كما هو حين يختلف رأس API أو يُجهل أحدهما، ويدمج عند التطابق ولو مختصرًا (7 أحرف فأكثر) 7ms
+ × tests/modules/d/blockers.test.tsx > هوية التزام الرأس بين DOM وAPI (VR-03) > رد API متأخر للالتزام A بعد أن صار الرأس الظاهر B: فشل B يبقى في الملخص والموانع، ولا يظهر نجاح A، ويُنبَّه أنها لا�
+ × tests/modules/d/blockers.test.tsx > نقص صفحات commit statuses (VR-06) > check-runs كاملة وstatuses ناقصة: partial، والعددان من المصدرين كلٌّ بإجماليه، وتنبيه الطي في البطاقة 2ms
+ × tests/modules/d/blockers.test.tsx > مسار دليل commit status (VR-19) > فحص commit status إلزامي فاشل يُنسب إلى طلب /status لا check-runs 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+TypeError: apiMatchesHead is not a function
+AssertionError: expected [] to deeply equal [ 'failure' ]
+AssertionError: expected { items: [ { …(6) }, …(102) ], …(4) } to match object { partial: true, …(2) }
+AssertionError: expected '/repos/octo/demo/commits/22c15d5f509f…' to be '/repos/octo/demo/commits/22c15d5f509f…' // Object.is equality
+      Tests  4 failed | 20 passed (24)
+```
+
+## vr07
+```text
+ × tests/core/api/client.test.ts > حدود الطلبات من x-ratelimit-* > بعد 429 بـretry-after: لا طلب قبل الموعد (ولا من مستهلك آخر للعميل نفسه)، ويحمل الرفض retryAt؛ وبعده يُرسل 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected { ok: true, status: 200, …(4) } to match object { ok: false, …(2) }
+      Tests  1 failed | 15 passed (16)
+```
+
+## vr08
+```text
+VR-08 DOM-first latency after URL change (ms): 99
+ × tests/core/detector/detector.test.ts > توقيت الإعلان بعد DOM الجديد (VR-08) > 1. DOM بعد المسار بـ240ms: إعلان واحد بعد DOM الجديد (F-003 late) 50ms
+ × tests/core/detector/detector.test.ts > توقيت الإعلان بعد DOM الجديد (VR-08) > 2. تعديل غريب في body خارج الحاوية قبل المسار بـ200ms لا يُعدّ DOM جديدًا: إعلان واحد بعد DOM 8ms
+ ✓ tests/core/detector/detector.test.ts > توقيت الإعلان بعد DOM الجديد (VR-08) > 3. DOM أولًا داخل الحاوية (120ms) ثم المسار (500ms): إعلان واحد بالـDOM الجديد بعد هدوء المسار 7ms
+ ✓ tests/core/detector/detector.test.ts > توقيت الإعلان بعد DOM الجديد (VR-08) > 4. تغيّر الهاش وحده لا يُعلن 6ms
+ ✓ tests/core/detector/detector.test.ts > توقيت الإعلان بعد DOM الجديد (VR-08) > 5. إدراج مضيفات الوحدات لا يعلن ولا يدور ولا يؤخر إعلانًا قائمًا 7ms
+ × tests/core/detector/detector.test.ts > توقيت الإعلان بعد DOM الجديد (VR-08) > 6. تغيّر المسار بلا أي تغيّر في DOM يُعلن عند الحد الأقصى 6ms
+ ✓ tests/core/detector/detector.test.ts > توقيت الإعلان بعد DOM الجديد (VR-08) > 7. ضابط: DOM بعد المسار بـ60ms: إعلان واحد بالـDOM الجديد (F-003 control) 6ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected { at: 112, …(2) } to match object { …(2) }
+AssertionError: expected { at: 399, …(2) } to match object { marker: 'new-b.ts' }
+AssertionError: expected [ { at: +0, …(2) }, { at: 112, …(2) } ] to have a length of 1 but got 2
+      Tests  3 failed | 4 passed | 28 skipped (35)
+```
+
+## vr09
+```text
+ × tests/modules/h/module.test.tsx > شريط README العربي في صفحة المستودع > إعادة رسم حاوية الشريط ثلاث مرات (الجذر والمسار كما هما): مضيف واحد يعمل بلا مراقب زائد، والإيقاف يعيد الصفحة ح
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected [] to have a length of 1 but got +0
+      Tests  1 failed | 16 skipped (17)
+```
+
+## vr17
+```text
+ × tests/modules/a/reading/reading.test.tsx > الميزة في صفحة GitHub > حاوية تُرسم بعد التركيب: يظهر زر واحد فقط بعد وصولها ولا يتكرر، والإيقاف يزيله 87ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected  to have a length of 1 but got +0
+      Tests  1 failed | 17 skipped (18)
+```
+
+## vr11-18
+```text
+ ✓ tests/modules/h/readme/docs-scan.test.tsx > البوابة الفعلية githubApiAccess > بلا منح الصلاحية لا يصدر طلب fetch أصلًا (PermissionNotGrantedError) 1ms
+ × tests/modules/h/readme/docs-scan.test.tsx > فحص docs/ في اللوحة عبر تبديل المستودع > A ثم B: لا تظهر نتيجة A في B؛ وفحص A يكتمل بعد التبديل إلى B لا يظهر 378ms
+ × tests/modules/h/readme/docs-scan.test.tsx > فحص docs/ في اللوحة عبر تبديل المستودع > A ← B ← A برد متأخر من A الأولى: لا يظهر شيء في نسخة A الجديدة 707ms
+ × tests/modules/h/readme/docs-scan.test.tsx > فحص docs/ في اللوحة عبر تبديل المستودع > روابط النتيجة في اللوحة تُفتح في تبويب جديد بـnoopener وnoreferrer، وفي شريط الصفحة بلا target 198ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected <a …(3)><span …(1)></span></a> to be null
+AssertionError: expected <a …(3)><span …(1)></span></a> to be null
+AssertionError: expected null to be '_blank' // Object.is equality
+      Tests  3 failed | 23 passed (26)
+```
+
+## vr12-13-21
+```text
+ × tests/modules/c/masking/mask.test.ts > ما يُحمى > سطر يبدأ بشيفرة مضمّنة ثلاثية في السطر نفسه ليس سياجًا: لا يبتلع ما بعده، وتُحمى الشيفرة وحدها 6ms
+ × tests/modules/c/ui/blocks.test.ts > ربط الرموز الصريحة بعناصرها بالموضع > «#7» نصًا قبل رابط «#7»: رمز الرابط يصل إلى الرابط، ورمز النص بلا عنصر 7ms
+ × tests/modules/c/ui/selection.test.tsx > ما لا يُعرض له زر > تحديد داخل .comment-body بلا .markdown-body يُظهر الزر 80ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected '⟦CODE_0⟧' to contain 'Next line should be translated.'
+AssertionError: expected { type: 'REF', value: '#7', …(2) } to be undefined
+AssertionError: expected undefined to be 'ترجمة المحدد' // Object.is equality
+      Tests  3 failed | 163 passed (166)
+```
+
+## vr14
+```text
+ × tests/modules/a/reading/reading.test.tsx > العارض: إخفاء التشكيل والنسخ > حركة في أول العقدة تبقى في المدى من أوله 3ms
+ × tests/modules/a/reading/reading.test.tsx > العارض: إخفاء التشكيل والنسخ > نسخ فقرة فيها <strong>ب</strong>ِسمِ وعقدة من حركات وحدها: text/plain وtext/html بكل الحركات 6ms
+ ✓ tests/modules/a/reading/reading.test.tsx > 05D و05F و05G: تحديث GitHub الحي وإعادة تحميل العارض > 05G: ثلاث كتابات × ستة تراتيب × أربعة مواضع لإيقاف الميزة: النص النهائي آخر ما كتبه GitHub، ولقطة م
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected 'سمِ' to be 'ِسمِ' // Object.is equality
+AssertionError: expected 'بسمِ اللهِ الرحمن' to be 'بِسمِ اللهِ ّالرحمن' // Object.is equality
+      Tests  2 failed | 18 passed (20)
+```
+
+## vr15-16
+```text
+ × tests/modules/b/access/keyboard.test.tsx > التركيز عند الإغلاق من الخارج والإيقاف من الطبقة > نقرة خارج الطبقة على حقل في الصفحة تغلق البطاقة ويبقى التركيز في الحقل 73ms
+ × tests/modules/b/access/keyboard.test.tsx > التركيز عند الإغلاق من الخارج والإيقاف من الطبقة > زر «إيقاف» في الطبقة يعيد التركيز إلى العنصر المركَّز قبل التفعيل 56ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected <mijhar-host …(2)></mijhar-host> to be <input></input> // Object.is equality
+AssertionError: expected <body …(1)>…(2)</body> to be <button type="button" …(2)>…(3)</button> // Object.is equality
+      Tests  2 failed | 12 passed (14)
+```
+
+## vr20
+```text
+ × tests/modules/b/search/view.test.tsx > بيان الدرج عن البحث في القاموس > يدل على اللوحة الأصلية وعلى تغيير «مكان اللوحة» من الإعدادات، ولا يدّعي أن Alt+K يفتح اللوحة الأصلية 6ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected 'البحث في القاموستتطلب هذه الواجهة حقو…' not to match /Alt\+K\)? اللوحة الأصلية على هذا البحث/
+      Tests  1 failed | 23 skipped (24)
+```
