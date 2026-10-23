@@ -1,0 +1,6 @@
+### direction: node tests/modules/a/direction/browser/run.mjs chrome edge brave firefox --out-dir evidence/wave-D/modules/direction-out
+Chrome 156.0.8078.47: timer 0.004999995231628418ms isolated=true · PB-02 cold 1.225/1.325 warm 0.810/0.895 (30 كتلة) · PB-01 js-algorithm وحدة 0.160 إعداد 0.190 بقايا 0 مطابق true · shakkala.htm وحدة 0.090 إعداد 0.113 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+Edge 155.0.4283.60: timer 0.004999995231628418ms isolated=true · PB-02 cold 1.302/1.385 warm 0.765/0.875 (30 كتلة) · PB-01 js-algorithm وحدة 0.173 إعداد 0.208 بقايا 0 مطابق true · shakkala.htm وحدة 0.095 إعداد 0.117 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+Brave 156.0.8078.48: timer 0.004999995231628418ms isolated=true · PB-02 cold 1.227/1.310 warm 0.795/0.945 (30 كتلة) · PB-01 js-algorithm وحدة 0.150 إعداد 0.185 بقايا 0 مطابق true · shakkala.htm وحدة 0.093 إعداد 0.105 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+Firefox 158.0.1: timer 0.019999999999527063ms isolated=true · PB-02 cold 4.200/4.680 warm 0.920/1.120 (30 كتلة) · PB-01 js-algorithm وحدة 0.240 إعداد 0.270 بقايا 0 مطابق true · shakkala.htm وحدة 0.080 إعداد 0.190 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+exit=0

@@ -1,0 +1,569 @@
+{
+  "label": "Chrome",
+  "mode": "نافذة مرئية (headless: false)",
+  "bundle": "dist/chromium",
+  "pages": {
+    "readme": {
+      "url": "/Barqawiz/Shakkala",
+      "hosts": [
+        {
+          "id": "g",
+          "rect": [
+            8,
+            2142,
+            1249,
+            38
+          ],
+          "text": "ملاحظاتي على هذه الصفحة0",
+          "styles": "adopted"
+        },
+        {
+          "id": "a.reading",
+          "rect": [
+            8,
+            4040,
+            1249,
+            32
+          ],
+          "text": "وضع القراءة",
+          "styles": "adopted"
+        },
+        {
+          "id": "h",
+          "rect": [
+            8,
+            4080,
+            1249,
+            122
+          ],
+          "text": "لم يُعثر على ملف README عربي ضمن نطاق الفحص الحالي (شجرة الجذر الظاهرة والروابط المباشرة داخل README الأساسي). تنبيه: قد تكون قائمة الملفات في الصفحة ناقصة أو مقطوعة أو قد يوجد التوثيق العربي داخل مجلد فرعي غير مفتوح مثل docs/ أو i18n/.ما فُحص: 9 عنصرًا من شجرة الجذر، و7 رابطًا في README الأساسي.فحص مجلد docs/ عند الطلبيتطلب صلاحية GitHub API الاختيارية ويعم",
+          "styles": "adopted"
+        }
+      ],
+      "directionFlipped": 6,
+      "directionKept": 0,
+      "readerStyles": true,
+      "title": "GitHub - Barqawiz/Shakkala: Deep learning for AR text Vocalization - التشكيل الالي للنصوص العربية · GitHub"
+    },
+    "pr": {
+      "url": "/Watad-Project/Watad/pull/80",
+      "hosts": [
+        {
+          "id": "g",
+          "rect": [
+            8,
+            2124,
+            1249,
+            38
+          ],
+          "text": "ملاحظاتي على هذه الصفحة0",
+          "styles": "adopted"
+        },
+        {
+          "id": "d.pr-status",
+          "rect": [
+            8,
+            2389,
+            1249,
+            424
+          ],
+          "text": "ملخص حالة طلب الدمجمفتوحالفرع المصدر ← الهدفfeature/contractor-work-tabs ←إلىmainالتأخر عن الهدفغير متاحالالتزامات8الملفات المتغيرة56الأسطر المضافة / المحذوفة+5,381 / −1المراجعاتطُلبت تغييراتالتعارضاتغير متاحالفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها ",
+          "styles": "adopted"
+        },
+        {
+          "id": "a.reading",
+          "rect": [
+            8,
+            3159,
+            1249,
+            32
+          ],
+          "text": "وضع القراءة",
+          "styles": "adopted"
+        }
+      ],
+      "directionFlipped": 0,
+      "directionKept": 0,
+      "readerStyles": true,
+      "title": "feat: Contractor Work Tabs & Offer Flow (GRA-26, GRA-27, GRA-28) by hashimalsobhi · Pull Request #80 · Watad-Project/Watad",
+      "explain": {
+        "hostsBefore": [
+          "g",
+          "d.pr-status",
+          "a.reading"
+        ],
+        "hostsAfter": [
+          "g",
+          "d.pr-status",
+          "a.reading",
+          "b.card"
+        ],
+        "cardText": "وضع الشرح مفعَّل · 1 عنصرًا مشروحًاإيقاف",
+        "hostsAfterOff": [
+          "g",
+          "d.pr-status",
+          "a.reading"
+        ]
+      }
+    }
+  },
+  "browserVersion": "156.0.8078.47",
+  "extensionId": "aanpkdfoolfjkglledjjcicachechjhh",
+  "consoleErrors": [
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "camo.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "source": "github.com"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "source": "github.com"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "source": "github.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "source": "github.com"
+    },
+    {
+      "text": "Manifest fetch from https://github.com/manifest.json failed, code 404",
+      "source": "github.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "avatars.githubusercontent.com"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "source": "github.com"
+    },
+    {
+      "text": "Manifest fetch from https://github.com/manifest.json failed, code 404",
+      "source": "github.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "source": "github.githubassets.com"
+    }
+  ],
+  "consoleErrorsBySource": {
+    "github.githubassets.com": 79,
+    "camo.githubusercontent.com": 1,
+    "github.com": 7,
+    "avatars.githubusercontent.com": 23
+  },
+  "network": {
+    "githubRequests": 8,
+    "apiGithub": [],
+    "otherHosts": [
+      "github.githubassets.com",
+      "camo.githubusercontent.com",
+      "avatars.githubusercontent.com"
+    ]
+  }
+}

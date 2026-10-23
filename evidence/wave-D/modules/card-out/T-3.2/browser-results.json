@@ -1,0 +1,4615 @@
+{
+  "measuredAt": "2026-10-23T12:54:56.876Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)، وخادم محلي؛ الشيفرة كما تُشحن (createCardModule)، والاختصار Alt+H حدث لوحة مفاتيح فعلي على المستند",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "pages": {
+        "sample": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "nav-search",
+                "safety": "آمن",
+                "label": "شرح «البحث الشامل (Global search)» — آمن",
+                "x": 200,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-create",
+                "safety": "آمن",
+                "label": "شرح «زر الإنشاء (Create new)» — آمن",
+                "x": 236,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-notifications",
+                "safety": "آمن",
+                "label": "شرح «الإشعارات (Notifications)» — آمن",
+                "x": 256,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-profile-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة الحساب (Account menu)» — آمن",
+                "x": 356,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "watch",
+                "safety": "آمن",
+                "label": "شرح «المراقبة (Watch)» — آمن",
+                "x": 123,
+                "y": 57,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "fork",
+                "safety": "آمن",
+                "label": "شرح «النسخة المتفرعة (Fork)» — آمن",
+                "x": 198,
+                "y": 58,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "star",
+                "safety": "آمن",
+                "label": "شرح «النجمة (Star)» — آمن",
+                "x": 304,
+                "y": 56,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 32,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 115,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 235,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 295,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-settings",
+                "safety": "حساس",
+                "label": "شرح «تبويب إعدادات المستودع (Settings tab)» — حساس",
+                "x": 360,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "branch-select",
+                "safety": "آمن",
+                "label": "شرح «قائمة الفروع والوسوم (Branches / tags switcher)» — آمن",
+                "x": 70,
+                "y": 114,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "add-file-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة إضافة ملف (Add file menu)» — آمن",
+                "x": 143,
+                "y": 114,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "create_new_file",
+                "safety": "آمن",
+                "label": "شرح «إنشاء ملف جديد (Create new file)» — آمن",
+                "x": 135,
+                "y": 151,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "upload_files",
+                "safety": "آمن",
+                "label": "شرح «رفع ملفات (Upload files)» — آمن",
+                "x": 115,
+                "y": 172,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_https",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر HTTPS (Clone via HTTPS)» — آمن",
+                "x": 58,
+                "y": 206,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_ssh",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر SSH (Clone via SSH)» — آمن",
+                "x": 105,
+                "y": 206,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "download_zip",
+                "safety": "آمن",
+                "label": "شرح «تنزيل ملف ZIP (Download ZIP)» — آمن",
+                "x": 198,
+                "y": 207,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "readme-block",
+                "safety": "آمن",
+                "label": "شرح «ملف التعريف README (README file)» — آمن",
+                "x": 1252,
+                "y": 336,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 20 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.10000000149011612,
+            "p95": 0.20000000298023224,
+            "min": 0,
+            "max": 0.5,
+            "matches": 20,
+            "skipped": 6,
+            "elements": 68
+          },
+          "badgeCount": 20,
+          "explained": [
+            "nav-search",
+            "nav-create",
+            "nav-notifications",
+            "nav-profile-menu",
+            "watch",
+            "fork",
+            "star",
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-settings",
+            "branch-select",
+            "add-file-menu",
+            "create_new_file",
+            "upload_files",
+            "clone_https",
+            "clone_ssh",
+            "download_zip",
+            "readme-block"
+          ],
+          "card": {
+            "found": true,
+            "opened": true,
+            "entry": "star",
+            "title": "النجمة (Star)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Star",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+              },
+              {
+                "id": "impact",
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              {
+                "id": "safety",
+                "text": "آمن"
+              },
+              {
+                "id": "permission",
+                "text": "لا صلاحية على مستودع"
+              },
+              {
+                "id": "reversal",
+                "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+              }
+            ],
+            "rect": {
+              "x": 124,
+              "y": 84,
+              "w": 360,
+              "h": 636,
+              "vw": 1280,
+              "vh": 900
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "escape": {
+            "closed": true,
+            "focusedBadge": "star"
+          },
+          "sensitive": {
+            "found": true,
+            "opened": true,
+            "entry": "repo-tab-settings",
+            "title": "تبويب إعدادات المستودع (Settings tab)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Settings tab",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "يضم إعدادات المستودع العامة، والوصول، وحماية الفروع، والإجراءات، وWebhooks، وGitHub Pages، والأمان، وينتهي بالمنطقة الخطرة."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "هذا التبويب لا يظهر إطلاقًا لمن لا يملك صلاحية إدارية على المستودع؛ لا يظهر معطّلاً أو رماديًا، بل يختفي تمامًا من شريط التبويبات، فغيابه أول إشارة عملية إلى أن صلاحياتك محدودة بالكتابة أو القراءة فقط."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+              },
+              {
+                "id": "impact",
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              {
+                "id": "safety",
+                "text": "حساس"
+              },
+              {
+                "id": "permission",
+                "text": "إدارة (Admin)"
+              },
+              {
+                "id": "reversal",
+                "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+              }
+            ],
+            "rect": {
+              "x": 180,
+              "y": 122,
+              "w": 360,
+              "h": 716,
+              "vw": 1280,
+              "vh": 900
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-repo": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 81,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 173,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 337,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 436,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-insights",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإحصاءات (Insights tab)» — آمن",
+                "x": 824,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "about-panel",
+                "safety": "آمن",
+                "label": "شرح «لوحة حول المشروع (About panel)» — آمن",
+                "x": 1238,
+                "y": 255,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-releases",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإصدارات (Releases)» — آمن",
+                "x": 1034,
+                "y": 670,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 9 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.5,
+            "p95": 0.7000000029802322,
+            "min": 0.5,
+            "max": 1.2000000029802322,
+            "matches": 9,
+            "skipped": 9,
+            "elements": 1237
+          },
+          "badgeCount": 7,
+          "explained": [
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-insights",
+            "about-panel",
+            "repo-tab-releases"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-issue": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [],
+            "barText": "وضع الشرح مفعَّل · 0 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.6000000014901161,
+            "p95": 0.8999999985098839,
+            "min": 0.5,
+            "max": 0.8999999985098839,
+            "matches": 0,
+            "skipped": 7,
+            "elements": 1525
+          },
+          "badgeCount": 0,
+          "explained": [],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-pr": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "checks",
+                "safety": "آمن",
+                "label": "شرح «الفحوص (Checks)» — آمن",
+                "x": 450,
+                "y": 284,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 1 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.8999999985098839,
+            "p95": 1.1000000014901161,
+            "min": 0.7999999970197678,
+            "max": 1.2000000029802322,
+            "matches": 1,
+            "skipped": 7,
+            "elements": 2323
+          },
+          "badgeCount": 1,
+          "explained": [
+            "checks"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "pages": {
+        "sample": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "nav-search",
+                "safety": "آمن",
+                "label": "شرح «البحث الشامل (Global search)» — آمن",
+                "x": 200,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-create",
+                "safety": "آمن",
+                "label": "شرح «زر الإنشاء (Create new)» — آمن",
+                "x": 236,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-notifications",
+                "safety": "آمن",
+                "label": "شرح «الإشعارات (Notifications)» — آمن",
+                "x": 256,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-profile-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة الحساب (Account menu)» — آمن",
+                "x": 356,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "watch",
+                "safety": "آمن",
+                "label": "شرح «المراقبة (Watch)» — آمن",
+                "x": 123,
+                "y": 57,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "fork",
+                "safety": "آمن",
+                "label": "شرح «النسخة المتفرعة (Fork)» — آمن",
+                "x": 198,
+                "y": 58,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "star",
+                "safety": "آمن",
+                "label": "شرح «النجمة (Star)» — آمن",
+                "x": 304,
+                "y": 56,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 32,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 115,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 235,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 295,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-settings",
+                "safety": "حساس",
+                "label": "شرح «تبويب إعدادات المستودع (Settings tab)» — حساس",
+                "x": 360,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "branch-select",
+                "safety": "آمن",
+                "label": "شرح «قائمة الفروع والوسوم (Branches / tags switcher)» — آمن",
+                "x": 70,
+                "y": 114,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "add-file-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة إضافة ملف (Add file menu)» — آمن",
+                "x": 143,
+                "y": 114,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "create_new_file",
+                "safety": "آمن",
+                "label": "شرح «إنشاء ملف جديد (Create new file)» — آمن",
+                "x": 135,
+                "y": 151,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "upload_files",
+                "safety": "آمن",
+                "label": "شرح «رفع ملفات (Upload files)» — آمن",
+                "x": 115,
+                "y": 172,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_https",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر HTTPS (Clone via HTTPS)» — آمن",
+                "x": 58,
+                "y": 206,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_ssh",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر SSH (Clone via SSH)» — آمن",
+                "x": 105,
+                "y": 206,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "download_zip",
+                "safety": "آمن",
+                "label": "شرح «تنزيل ملف ZIP (Download ZIP)» — آمن",
+                "x": 198,
+                "y": 207,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "readme-block",
+                "safety": "آمن",
+                "label": "شرح «ملف التعريف README (README file)» — آمن",
+                "x": 1252,
+                "y": 336,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 20 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.10000000149011612,
+            "p95": 0.20000000298023224,
+            "min": 0,
+            "max": 2.600000001490116,
+            "matches": 20,
+            "skipped": 6,
+            "elements": 68
+          },
+          "badgeCount": 20,
+          "explained": [
+            "nav-search",
+            "nav-create",
+            "nav-notifications",
+            "nav-profile-menu",
+            "watch",
+            "fork",
+            "star",
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-settings",
+            "branch-select",
+            "add-file-menu",
+            "create_new_file",
+            "upload_files",
+            "clone_https",
+            "clone_ssh",
+            "download_zip",
+            "readme-block"
+          ],
+          "card": {
+            "found": true,
+            "opened": true,
+            "entry": "star",
+            "title": "النجمة (Star)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Star",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+              },
+              {
+                "id": "impact",
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              {
+                "id": "safety",
+                "text": "آمن"
+              },
+              {
+                "id": "permission",
+                "text": "لا صلاحية على مستودع"
+              },
+              {
+                "id": "reversal",
+                "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+              }
+            ],
+            "rect": {
+              "x": 124,
+              "y": 84,
+              "w": 360,
+              "h": 636,
+              "vw": 1280,
+              "vh": 900
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "escape": {
+            "closed": true,
+            "focusedBadge": "star"
+          },
+          "sensitive": {
+            "found": true,
+            "opened": true,
+            "entry": "repo-tab-settings",
+            "title": "تبويب إعدادات المستودع (Settings tab)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Settings tab",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "يضم إعدادات المستودع العامة، والوصول، وحماية الفروع، والإجراءات، وWebhooks، وGitHub Pages، والأمان، وينتهي بالمنطقة الخطرة."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "هذا التبويب لا يظهر إطلاقًا لمن لا يملك صلاحية إدارية على المستودع؛ لا يظهر معطّلاً أو رماديًا، بل يختفي تمامًا من شريط التبويبات، فغيابه أول إشارة عملية إلى أن صلاحياتك محدودة بالكتابة أو القراءة فقط."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+              },
+              {
+                "id": "impact",
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              {
+                "id": "safety",
+                "text": "حساس"
+              },
+              {
+                "id": "permission",
+                "text": "إدارة (Admin)"
+              },
+              {
+                "id": "reversal",
+                "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+              }
+            ],
+            "rect": {
+              "x": 180,
+              "y": 122,
+              "w": 360,
+              "h": 716,
+              "vw": 1280,
+              "vh": 900
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-repo": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 81,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 173,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 337,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 436,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-insights",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإحصاءات (Insights tab)» — آمن",
+                "x": 824,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "about-panel",
+                "safety": "آمن",
+                "label": "شرح «لوحة حول المشروع (About panel)» — آمن",
+                "x": 1238,
+                "y": 255,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-releases",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإصدارات (Releases)» — آمن",
+                "x": 1034,
+                "y": 670,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 9 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.5,
+            "p95": 0.9000000059604645,
+            "min": 0.3999999985098839,
+            "max": 1,
+            "matches": 9,
+            "skipped": 9,
+            "elements": 1237
+          },
+          "badgeCount": 7,
+          "explained": [
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-insights",
+            "about-panel",
+            "repo-tab-releases"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-issue": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [],
+            "barText": "وضع الشرح مفعَّل · 0 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.6000000014901161,
+            "p95": 0.7000000029802322,
+            "min": 0.5,
+            "max": 1,
+            "matches": 0,
+            "skipped": 7,
+            "elements": 1525
+          },
+          "badgeCount": 0,
+          "explained": [],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-pr": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "checks",
+                "safety": "آمن",
+                "label": "شرح «الفحوص (Checks)» — آمن",
+                "x": 450,
+                "y": 284,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 1 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.8999999985098839,
+            "p95": 1.1000000014901161,
+            "min": 0.6999999955296516,
+            "max": 1.1000000014901161,
+            "matches": 1,
+            "skipped": 7,
+            "elements": 2323
+          },
+          "badgeCount": 1,
+          "explained": [
+            "checks"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "pages": {
+        "sample": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "nav-search",
+                "safety": "آمن",
+                "label": "شرح «البحث الشامل (Global search)» — آمن",
+                "x": 200,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-create",
+                "safety": "آمن",
+                "label": "شرح «زر الإنشاء (Create new)» — آمن",
+                "x": 236,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-notifications",
+                "safety": "آمن",
+                "label": "شرح «الإشعارات (Notifications)» — آمن",
+                "x": 256,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-profile-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة الحساب (Account menu)» — آمن",
+                "x": 356,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "watch",
+                "safety": "آمن",
+                "label": "شرح «المراقبة (Watch)» — آمن",
+                "x": 123,
+                "y": 57,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "fork",
+                "safety": "آمن",
+                "label": "شرح «النسخة المتفرعة (Fork)» — آمن",
+                "x": 198,
+                "y": 58,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "star",
+                "safety": "آمن",
+                "label": "شرح «النجمة (Star)» — آمن",
+                "x": 304,
+                "y": 56,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 32,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 115,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 235,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 295,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-settings",
+                "safety": "حساس",
+                "label": "شرح «تبويب إعدادات المستودع (Settings tab)» — حساس",
+                "x": 360,
+                "y": 94,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "branch-select",
+                "safety": "آمن",
+                "label": "شرح «قائمة الفروع والوسوم (Branches / tags switcher)» — آمن",
+                "x": 70,
+                "y": 114,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "add-file-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة إضافة ملف (Add file menu)» — آمن",
+                "x": 143,
+                "y": 114,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "create_new_file",
+                "safety": "آمن",
+                "label": "شرح «إنشاء ملف جديد (Create new file)» — آمن",
+                "x": 135,
+                "y": 151,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "upload_files",
+                "safety": "آمن",
+                "label": "شرح «رفع ملفات (Upload files)» — آمن",
+                "x": 115,
+                "y": 172,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_https",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر HTTPS (Clone via HTTPS)» — آمن",
+                "x": 58,
+                "y": 206,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_ssh",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر SSH (Clone via SSH)» — آمن",
+                "x": 105,
+                "y": 206,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "download_zip",
+                "safety": "آمن",
+                "label": "شرح «تنزيل ملف ZIP (Download ZIP)» — آمن",
+                "x": 198,
+                "y": 207,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "readme-block",
+                "safety": "آمن",
+                "label": "شرح «ملف التعريف README (README file)» — آمن",
+                "x": 1252,
+                "y": 336,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 20 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.10000000149011612,
+            "p95": 0.20000000298023224,
+            "min": 0,
+            "max": 0.3999999985098839,
+            "matches": 20,
+            "skipped": 6,
+            "elements": 68
+          },
+          "badgeCount": 20,
+          "explained": [
+            "nav-search",
+            "nav-create",
+            "nav-notifications",
+            "nav-profile-menu",
+            "watch",
+            "fork",
+            "star",
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-settings",
+            "branch-select",
+            "add-file-menu",
+            "create_new_file",
+            "upload_files",
+            "clone_https",
+            "clone_ssh",
+            "download_zip",
+            "readme-block"
+          ],
+          "card": {
+            "found": true,
+            "opened": true,
+            "entry": "star",
+            "title": "النجمة (Star)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Star",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+              },
+              {
+                "id": "impact",
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              {
+                "id": "safety",
+                "text": "آمن"
+              },
+              {
+                "id": "permission",
+                "text": "لا صلاحية على مستودع"
+              },
+              {
+                "id": "reversal",
+                "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+              }
+            ],
+            "rect": {
+              "x": 124,
+              "y": 84,
+              "w": 360,
+              "h": 636,
+              "vw": 1280,
+              "vh": 900
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "escape": {
+            "closed": true,
+            "focusedBadge": "star"
+          },
+          "sensitive": {
+            "found": true,
+            "opened": true,
+            "entry": "repo-tab-settings",
+            "title": "تبويب إعدادات المستودع (Settings tab)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Settings tab",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "يضم إعدادات المستودع العامة، والوصول، وحماية الفروع، والإجراءات، وWebhooks، وGitHub Pages، والأمان، وينتهي بالمنطقة الخطرة."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "هذا التبويب لا يظهر إطلاقًا لمن لا يملك صلاحية إدارية على المستودع؛ لا يظهر معطّلاً أو رماديًا، بل يختفي تمامًا من شريط التبويبات، فغيابه أول إشارة عملية إلى أن صلاحياتك محدودة بالكتابة أو القراءة فقط."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+              },
+              {
+                "id": "impact",
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              {
+                "id": "safety",
+                "text": "حساس"
+              },
+              {
+                "id": "permission",
+                "text": "إدارة (Admin)"
+              },
+              {
+                "id": "reversal",
+                "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+              }
+            ],
+            "rect": {
+              "x": 180,
+              "y": 122,
+              "w": 360,
+              "h": 736,
+              "vw": 1280,
+              "vh": 900
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-repo": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 81,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 173,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 337,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 436,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-insights",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإحصاءات (Insights tab)» — آمن",
+                "x": 824,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "about-panel",
+                "safety": "آمن",
+                "label": "شرح «لوحة حول المشروع (About panel)» — آمن",
+                "x": 1238,
+                "y": 255,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-releases",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإصدارات (Releases)» — آمن",
+                "x": 1034,
+                "y": 670,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 9 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.5,
+            "p95": 0.7000000029802322,
+            "min": 0.3999999985098839,
+            "max": 0.7000000029802322,
+            "matches": 9,
+            "skipped": 9,
+            "elements": 1237
+          },
+          "badgeCount": 7,
+          "explained": [
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-insights",
+            "about-panel",
+            "repo-tab-releases"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-issue": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [],
+            "barText": "وضع الشرح مفعَّل · 0 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.6000000014901161,
+            "p95": 0.7000000029802322,
+            "min": 0.5,
+            "max": 0.8999999985098839,
+            "matches": 0,
+            "skipped": 7,
+            "elements": 1525
+          },
+          "badgeCount": 0,
+          "explained": [],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-pr": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1280,
+              "h": 900,
+              "vw": 1280,
+              "vh": 900
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "checks",
+                "safety": "آمن",
+                "label": "شرح «الفحوص (Checks)» — آمن",
+                "x": 450,
+                "y": 284,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 1 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0.9000000059604645,
+            "p95": 1.2000000029802322,
+            "min": 0.7999999970197678,
+            "max": 1.3999999985098839,
+            "matches": 1,
+            "skipped": 7,
+            "elements": 2323
+          },
+          "badgeCount": 1,
+          "explained": [
+            "checks"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "pages": {
+        "sample": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1366,
+              "h": 683,
+              "vw": 1366,
+              "vh": 683
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "nav-search",
+                "safety": "آمن",
+                "label": "شرح «البحث الشامل (Global search)» — آمن",
+                "x": 236,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-create",
+                "safety": "آمن",
+                "label": "شرح «زر الإنشاء (Create new)» — آمن",
+                "x": 268,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-notifications",
+                "safety": "آمن",
+                "label": "شرح «الإشعارات (Notifications)» — آمن",
+                "x": 288,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "nav-profile-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة الحساب (Account menu)» — آمن",
+                "x": 373,
+                "y": 8,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "watch",
+                "safety": "آمن",
+                "label": "شرح «المراقبة (Watch)» — آمن",
+                "x": 122,
+                "y": 55,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "fork",
+                "safety": "آمن",
+                "label": "شرح «النسخة المتفرعة (Fork)» — آمن",
+                "x": 198,
+                "y": 57,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "star",
+                "safety": "آمن",
+                "label": "شرح «النجمة (Star)» — آمن",
+                "x": 300,
+                "y": 55,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 32,
+                "y": 93,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 116,
+                "y": 93,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 236,
+                "y": 93,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 296,
+                "y": 93,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-settings",
+                "safety": "حساس",
+                "label": "شرح «تبويب إعدادات المستودع (Settings tab)» — حساس",
+                "x": 361,
+                "y": 93,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "branch-select",
+                "safety": "آمن",
+                "label": "شرح «قائمة الفروع والوسوم (Branches / tags switcher)» — آمن",
+                "x": 68,
+                "y": 112,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "add-file-menu",
+                "safety": "آمن",
+                "label": "شرح «قائمة إضافة ملف (Add file menu)» — آمن",
+                "x": 139,
+                "y": 112,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "create_new_file",
+                "safety": "آمن",
+                "label": "شرح «إنشاء ملف جديد (Create new file)» — آمن",
+                "x": 135,
+                "y": 150,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "upload_files",
+                "safety": "آمن",
+                "label": "شرح «رفع ملفات (Upload files)» — آمن",
+                "x": 115,
+                "y": 171,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_https",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر HTTPS (Clone via HTTPS)» — آمن",
+                "x": 53,
+                "y": 204,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "clone_ssh",
+                "safety": "آمن",
+                "label": "شرح «الاستنساخ عبر SSH (Clone via SSH)» — آمن",
+                "x": 96,
+                "y": 204,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "download_zip",
+                "safety": "آمن",
+                "label": "شرح «تنزيل ملف ZIP (Download ZIP)» — آمن",
+                "x": 189,
+                "y": 206,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "readme-block",
+                "safety": "آمن",
+                "label": "شرح «ملف التعريف README (README file)» — آمن",
+                "x": 1338,
+                "y": 335,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 20 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0,
+            "p95": 1,
+            "min": 0,
+            "max": 1,
+            "matches": 20,
+            "skipped": 6,
+            "elements": 68
+          },
+          "badgeCount": 20,
+          "explained": [
+            "nav-search",
+            "nav-create",
+            "nav-notifications",
+            "nav-profile-menu",
+            "watch",
+            "fork",
+            "star",
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-settings",
+            "branch-select",
+            "add-file-menu",
+            "create_new_file",
+            "upload_files",
+            "clone_https",
+            "clone_ssh",
+            "download_zip",
+            "readme-block"
+          ],
+          "card": {
+            "found": true,
+            "opened": true,
+            "entry": "star",
+            "title": "النجمة (Star)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Star",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+              },
+              {
+                "id": "impact",
+                "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+              },
+              {
+                "id": "safety",
+                "text": "آمن"
+              },
+              {
+                "id": "permission",
+                "text": "لا صلاحية على مستودع"
+              },
+              {
+                "id": "reversal",
+                "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+              }
+            ],
+            "rect": {
+              "x": 120,
+              "y": 83,
+              "w": 360,
+              "h": 592,
+              "vw": 1366,
+              "vh": 683
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "escape": {
+            "closed": true,
+            "focusedBadge": "star"
+          },
+          "sensitive": {
+            "found": true,
+            "opened": true,
+            "entry": "repo-tab-settings",
+            "title": "تبويب إعدادات المستودع (Settings tab)",
+            "enDir": "ltr",
+            "enComputedDirection": "ltr",
+            "enText": "Settings tab",
+            "levels": {
+              "brief": {
+                "selected": true,
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              "medium": {
+                "selected": true,
+                "text": "يضم إعدادات المستودع العامة، والوصول، وحماية الفروع، والإجراءات، وWebhooks، وGitHub Pages، والأمان، وينتهي بالمنطقة الخطرة."
+              },
+              "detailed": {
+                "selected": true,
+                "text": "هذا التبويب لا يظهر إطلاقًا لمن لا يملك صلاحية إدارية على المستودع؛ لا يظهر معطّلاً أو رماديًا، بل يختفي تمامًا من شريط التبويبات، فغيابه أول إشارة عملية إلى أن صلاحياتك محدودة بالكتابة أو القراءة فقط."
+              }
+            },
+            "fields": [
+              {
+                "id": "whenToUse",
+                "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+              },
+              {
+                "id": "impact",
+                "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+              },
+              {
+                "id": "safety",
+                "text": "حساس"
+              },
+              {
+                "id": "permission",
+                "text": "إدارة (Admin)"
+              },
+              {
+                "id": "reversal",
+                "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+              }
+            ],
+            "rect": {
+              "x": 181,
+              "y": 121,
+              "w": 360,
+              "h": 554,
+              "vw": 1366,
+              "vh": 683
+            },
+            "focusedIsCard": true,
+            "hasExample": true
+          },
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-repo": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1351,
+              "h": 683,
+              "vw": 1351,
+              "vh": 683
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "repo-tab-code",
+                "safety": "آمن",
+                "label": "شرح «تبويب الشفرة (Code tab)» — آمن",
+                "x": 81,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-issues",
+                "safety": "آمن",
+                "label": "شرح «تبويب المشكلات (Issues tab)» — آمن",
+                "x": 173,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-pulls",
+                "safety": "آمن",
+                "label": "شرح «تبويب طلبات السحب (Pull requests tab)» — آمن",
+                "x": 337,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-actions",
+                "safety": "حساس",
+                "label": "شرح «تبويب الإجراءات (Actions tab)» — حساس",
+                "x": 436,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-insights",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإحصاءات (Insights tab)» — آمن",
+                "x": 824,
+                "y": 122,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "about-panel",
+                "safety": "آمن",
+                "label": "شرح «لوحة حول المشروع (About panel)» — آمن",
+                "x": 1274,
+                "y": 255,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              },
+              {
+                "entry": "repo-tab-releases",
+                "safety": "آمن",
+                "label": "شرح «تبويب الإصدارات (Releases)» — آمن",
+                "x": 1069,
+                "y": 655,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 9 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0,
+            "p95": 1,
+            "min": 0,
+            "max": 1,
+            "matches": 9,
+            "skipped": 9,
+            "elements": 1237
+          },
+          "badgeCount": 7,
+          "explained": [
+            "repo-tab-code",
+            "repo-tab-issues",
+            "repo-tab-pulls",
+            "repo-tab-actions",
+            "repo-tab-insights",
+            "about-panel",
+            "repo-tab-releases"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-issue": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1351,
+              "h": 683,
+              "vw": 1351,
+              "vh": 683
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [],
+            "barText": "وضع الشرح مفعَّل · 0 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 0,
+            "p95": 1,
+            "min": 0,
+            "max": 1,
+            "matches": 0,
+            "skipped": 7,
+            "elements": 1525
+          },
+          "badgeCount": 0,
+          "explained": [],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        },
+        "real-pr": {
+          "mount": {
+            "hostsBefore": 0
+          },
+          "activate": {
+            "active": true,
+            "hosts": 1,
+            "hostIsLastBodyChild": true,
+            "hostCovers": {
+              "w": 1351,
+              "h": 683,
+              "vw": 1351,
+              "vh": 683
+            },
+            "hostPointerEvents": "none",
+            "changedParents": 0,
+            "sameHtmlOutsideHosts": true,
+            "badges": [
+              {
+                "entry": "checks",
+                "safety": "آمن",
+                "label": "شرح «الفحوص (Checks)» — آمن",
+                "x": 486,
+                "y": 283,
+                "w": 20,
+                "h": 20,
+                "inView": true
+              }
+            ],
+            "barText": "وضع الشرح مفعَّل · 1 عنصرًا مشروحًاإيقاف"
+          },
+          "scan": {
+            "median": 1,
+            "p95": 1,
+            "min": 0,
+            "max": 2,
+            "matches": 1,
+            "skipped": 7,
+            "elements": 2323
+          },
+          "badgeCount": 1,
+          "explained": [
+            "checks"
+          ],
+          "deactivate": {
+            "active": false,
+            "badges": 0,
+            "hosts": 0
+          },
+          "stop": {
+            "hosts": 0,
+            "identical": true,
+            "restored": 1,
+            "skipped": 0
+          }
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "nav-search",
+        "nav-create",
+        "nav-notifications",
+        "nav-profile-menu",
+        "watch",
+        "fork",
+        "star",
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-settings",
+        "branch-select",
+        "add-file-menu",
+        "create_new_file",
+        "upload_files",
+        "clone_https",
+        "clone_ssh",
+        "download_zip",
+        "readme-block"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.10000000149011612,
+        "p95": 0.20000000298023224,
+        "min": 0,
+        "max": 0.5,
+        "matches": 20,
+        "skipped": 6,
+        "elements": 68
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "٢٠ شارة بالضبط",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "النقر على العنصر الأصلي يبلغه (الطبقة شفافة للنقر)",
+      "ok": true,
+      "detail": {
+        "reached": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "فُتحت بطاقة النجمة بصيغة «العربي (English)»",
+      "ok": true,
+      "detail": "النجمة (Star)"
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "الإنجليزي dir=ltr والاتجاه المحسوب ltr",
+      "ok": true,
+      "detail": {
+        "dir": "ltr",
+        "computed": "ltr"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "المستويات الثلاثة تتبدل ونصها متمايز",
+      "ok": true,
+      "detail": {
+        "brief": {
+          "selected": true,
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        "medium": {
+          "selected": true,
+          "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+        },
+        "detailed": {
+          "selected": true,
+          "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "الحقول الخمسة بقيم غير فارغة",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+        },
+        {
+          "id": "impact",
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        {
+          "id": "safety",
+          "text": "آمن"
+        },
+        {
+          "id": "permission",
+          "text": "لا صلاحية على مستودع"
+        },
+        {
+          "id": "reversal",
+          "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "مثال عملي والتركيز على البطاقة وهي داخل نافذة العرض",
+      "ok": true,
+      "detail": {
+        "x": 124,
+        "y": 84,
+        "w": 360,
+        "h": 636,
+        "vw": 1280,
+        "vh": 900
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "closed": true,
+        "focusedBadge": "star"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "تبويب Settings حساس: الحقول الخمسة وتنبيه الحساسية",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+        },
+        {
+          "id": "impact",
+          "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+        },
+        {
+          "id": "safety",
+          "text": "حساس"
+        },
+        {
+          "id": "permission",
+          "text": "إدارة (Admin)"
+        },
+        {
+          "id": "reversal",
+          "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-insights",
+        "about-panel",
+        "repo-tab-releases"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.5,
+        "p95": 0.7000000029802322,
+        "min": 0.5,
+        "max": 1.2000000029802322,
+        "matches": 9,
+        "skipped": 9,
+        "elements": 1237
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.6000000014901161,
+        "p95": 0.8999999985098839,
+        "min": 0.5,
+        "max": 0.8999999985098839,
+        "matches": 0,
+        "skipped": 7,
+        "elements": 1525
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-issue",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "checks"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.8999999985098839,
+        "p95": 1.1000000014901161,
+        "min": 0.7999999970197678,
+        "max": 1.2000000029802322,
+        "matches": 1,
+        "skipped": 7,
+        "elements": 2323
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "nav-search",
+        "nav-create",
+        "nav-notifications",
+        "nav-profile-menu",
+        "watch",
+        "fork",
+        "star",
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-settings",
+        "branch-select",
+        "add-file-menu",
+        "create_new_file",
+        "upload_files",
+        "clone_https",
+        "clone_ssh",
+        "download_zip",
+        "readme-block"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.10000000149011612,
+        "p95": 0.20000000298023224,
+        "min": 0,
+        "max": 2.600000001490116,
+        "matches": 20,
+        "skipped": 6,
+        "elements": 68
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "٢٠ شارة بالضبط",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "النقر على العنصر الأصلي يبلغه (الطبقة شفافة للنقر)",
+      "ok": true,
+      "detail": {
+        "reached": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "فُتحت بطاقة النجمة بصيغة «العربي (English)»",
+      "ok": true,
+      "detail": "النجمة (Star)"
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "الإنجليزي dir=ltr والاتجاه المحسوب ltr",
+      "ok": true,
+      "detail": {
+        "dir": "ltr",
+        "computed": "ltr"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "المستويات الثلاثة تتبدل ونصها متمايز",
+      "ok": true,
+      "detail": {
+        "brief": {
+          "selected": true,
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        "medium": {
+          "selected": true,
+          "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+        },
+        "detailed": {
+          "selected": true,
+          "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "الحقول الخمسة بقيم غير فارغة",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+        },
+        {
+          "id": "impact",
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        {
+          "id": "safety",
+          "text": "آمن"
+        },
+        {
+          "id": "permission",
+          "text": "لا صلاحية على مستودع"
+        },
+        {
+          "id": "reversal",
+          "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "مثال عملي والتركيز على البطاقة وهي داخل نافذة العرض",
+      "ok": true,
+      "detail": {
+        "x": 124,
+        "y": 84,
+        "w": 360,
+        "h": 636,
+        "vw": 1280,
+        "vh": 900
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "closed": true,
+        "focusedBadge": "star"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "تبويب Settings حساس: الحقول الخمسة وتنبيه الحساسية",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+        },
+        {
+          "id": "impact",
+          "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+        },
+        {
+          "id": "safety",
+          "text": "حساس"
+        },
+        {
+          "id": "permission",
+          "text": "إدارة (Admin)"
+        },
+        {
+          "id": "reversal",
+          "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-insights",
+        "about-panel",
+        "repo-tab-releases"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.5,
+        "p95": 0.9000000059604645,
+        "min": 0.3999999985098839,
+        "max": 1,
+        "matches": 9,
+        "skipped": 9,
+        "elements": 1237
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.6000000014901161,
+        "p95": 0.7000000029802322,
+        "min": 0.5,
+        "max": 1,
+        "matches": 0,
+        "skipped": 7,
+        "elements": 1525
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-issue",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "checks"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.8999999985098839,
+        "p95": 1.1000000014901161,
+        "min": 0.6999999955296516,
+        "max": 1.1000000014901161,
+        "matches": 1,
+        "skipped": 7,
+        "elements": 2323
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "nav-search",
+        "nav-create",
+        "nav-notifications",
+        "nav-profile-menu",
+        "watch",
+        "fork",
+        "star",
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-settings",
+        "branch-select",
+        "add-file-menu",
+        "create_new_file",
+        "upload_files",
+        "clone_https",
+        "clone_ssh",
+        "download_zip",
+        "readme-block"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.10000000149011612,
+        "p95": 0.20000000298023224,
+        "min": 0,
+        "max": 0.3999999985098839,
+        "matches": 20,
+        "skipped": 6,
+        "elements": 68
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "٢٠ شارة بالضبط",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "النقر على العنصر الأصلي يبلغه (الطبقة شفافة للنقر)",
+      "ok": true,
+      "detail": {
+        "reached": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "فُتحت بطاقة النجمة بصيغة «العربي (English)»",
+      "ok": true,
+      "detail": "النجمة (Star)"
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "الإنجليزي dir=ltr والاتجاه المحسوب ltr",
+      "ok": true,
+      "detail": {
+        "dir": "ltr",
+        "computed": "ltr"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "المستويات الثلاثة تتبدل ونصها متمايز",
+      "ok": true,
+      "detail": {
+        "brief": {
+          "selected": true,
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        "medium": {
+          "selected": true,
+          "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+        },
+        "detailed": {
+          "selected": true,
+          "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "الحقول الخمسة بقيم غير فارغة",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+        },
+        {
+          "id": "impact",
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        {
+          "id": "safety",
+          "text": "آمن"
+        },
+        {
+          "id": "permission",
+          "text": "لا صلاحية على مستودع"
+        },
+        {
+          "id": "reversal",
+          "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "مثال عملي والتركيز على البطاقة وهي داخل نافذة العرض",
+      "ok": true,
+      "detail": {
+        "x": 124,
+        "y": 84,
+        "w": 360,
+        "h": 636,
+        "vw": 1280,
+        "vh": 900
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "closed": true,
+        "focusedBadge": "star"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "تبويب Settings حساس: الحقول الخمسة وتنبيه الحساسية",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+        },
+        {
+          "id": "impact",
+          "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+        },
+        {
+          "id": "safety",
+          "text": "حساس"
+        },
+        {
+          "id": "permission",
+          "text": "إدارة (Admin)"
+        },
+        {
+          "id": "reversal",
+          "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-insights",
+        "about-panel",
+        "repo-tab-releases"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.5,
+        "p95": 0.7000000029802322,
+        "min": 0.3999999985098839,
+        "max": 0.7000000029802322,
+        "matches": 9,
+        "skipped": 9,
+        "elements": 1237
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.6000000014901161,
+        "p95": 0.7000000029802322,
+        "min": 0.5,
+        "max": 0.8999999985098839,
+        "matches": 0,
+        "skipped": 7,
+        "elements": 1525
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-issue",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1280,
+          "h": 900,
+          "vw": 1280,
+          "vh": 900
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "checks"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0.9000000059604645,
+        "p95": 1.2000000029802322,
+        "min": 0.7999999970197678,
+        "max": 1.3999999985098839,
+        "matches": 1,
+        "skipped": 7,
+        "elements": 2323
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1366,
+          "h": 683,
+          "vw": 1366,
+          "vh": 683
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "nav-search",
+        "nav-create",
+        "nav-notifications",
+        "nav-profile-menu",
+        "watch",
+        "fork",
+        "star",
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-settings",
+        "branch-select",
+        "add-file-menu",
+        "create_new_file",
+        "upload_files",
+        "clone_https",
+        "clone_ssh",
+        "download_zip",
+        "readme-block"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0,
+        "p95": 1,
+        "min": 0,
+        "max": 1,
+        "matches": 20,
+        "skipped": 6,
+        "elements": 68
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "٢٠ شارة بالضبط",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "النقر على العنصر الأصلي يبلغه (الطبقة شفافة للنقر)",
+      "ok": true,
+      "detail": {
+        "reached": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "فُتحت بطاقة النجمة بصيغة «العربي (English)»",
+      "ok": true,
+      "detail": "النجمة (Star)"
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "الإنجليزي dir=ltr والاتجاه المحسوب ltr",
+      "ok": true,
+      "detail": {
+        "dir": "ltr",
+        "computed": "ltr"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "المستويات الثلاثة تتبدل ونصها متمايز",
+      "ok": true,
+      "detail": {
+        "brief": {
+          "selected": true,
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        "medium": {
+          "selected": true,
+          "text": "وضع نجمة (Star) على مستودع يحفظه في قائمة نجومك الخاصة (Stars) لتصل إليه بسرعة لاحقًا، كما يُظهر تقديرك للمشروع لصاحبه."
+        },
+        "detailed": {
+          "selected": true,
+          "text": "النجمة ليست «إعجابًا» فقط؛ كثير من المطورين يستخدمونها كنظام إشارات مرجعية شخصي، بل يمكن تنظيمها في قوائم (Lists) مخصصة حسب الموضوع. عدد النجوم أيضًا مؤشر شائع على شعبية المشروع."
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "الحقول الخمسة بقيم غير فارغة",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في حفظ مستودع في قائمتك للرجوع إليه أو لإظهار تقديرك لصاحبه."
+        },
+        {
+          "id": "impact",
+          "text": "إشارة مرجعية لحفظ مستودع والعودة إليه لاحقًا."
+        },
+        {
+          "id": "safety",
+          "text": "آمن"
+        },
+        {
+          "id": "permission",
+          "text": "لا صلاحية على مستودع"
+        },
+        {
+          "id": "reversal",
+          "text": "نعم — يُتراجع عنها بالضغط على الزر نفسه (Starred) لإزالة المستودع من نجومك، ولا أثر لذلك إلا على قائمتك وعدّاد المستودع."
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "مثال عملي والتركيز على البطاقة وهي داخل نافذة العرض",
+      "ok": true,
+      "detail": {
+        "x": 120,
+        "y": 83,
+        "w": 360,
+        "h": 592,
+        "vw": 1366,
+        "vh": 683
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "closed": true,
+        "focusedBadge": "star"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "تبويب Settings حساس: الحقول الخمسة وتنبيه الحساسية",
+      "ok": true,
+      "detail": [
+        {
+          "id": "whenToUse",
+          "text": "عند رغبتك في تغيير إعدادات المستودع: الاسم والوصول وحماية الفروع والأمان والإجراءات."
+        },
+        {
+          "id": "impact",
+          "text": "كل إعدادات المستودع، من الاسم حتى حذفه نهائيًا."
+        },
+        {
+          "id": "safety",
+          "text": "حساس"
+        },
+        {
+          "id": "permission",
+          "text": "إدارة (Admin)"
+        },
+        {
+          "id": "reversal",
+          "text": "جزئيًا — معظم الإعدادات تُعاد إلى قيمها السابقة بتعديلها. أما إجراءات منطقة الخطر (الحذف والنقل والأرشفة وتغيير الظهور) فلكل منها حدود تراجع في مدخلها."
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1351,
+          "h": 683,
+          "vw": 1351,
+          "vh": 683
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "repo-tab-code",
+        "repo-tab-issues",
+        "repo-tab-pulls",
+        "repo-tab-actions",
+        "repo-tab-insights",
+        "about-panel",
+        "repo-tab-releases"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0,
+        "p95": 1,
+        "min": 0,
+        "max": 1,
+        "matches": 9,
+        "skipped": 9,
+        "elements": 1237
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1351,
+          "h": 683,
+          "vw": 1351,
+          "vh": 683
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 0,
+        "p95": 1,
+        "min": 0,
+        "max": 1,
+        "matches": 0,
+        "skipped": 7,
+        "elements": 1525
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-issue",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": {
+        "hostsBefore": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "الاختصار Alt+H فعّل الوضع",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "مضيف واحد في نهاية body وحجمه نافذة العرض كلها ولا يلتقط النقر",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "last": true,
+        "covers": {
+          "w": 1351,
+          "h": 683,
+          "vw": 1351,
+          "vh": 683
+        },
+        "pe": "none"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "الأب المباشر لكل عنصر أصلي لم يتغير والصفحة كما هي خارج المضيف",
+      "ok": true,
+      "detail": {
+        "changedParents": 0,
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "كل شارة داخل نافذة العرض وبحجم 20×20",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "لا شرح للشراك",
+      "ok": true,
+      "detail": [
+        "checks"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "زمن المطابقة معقول (الوسيط أقل من 250ms)",
+      "ok": true,
+      "detail": {
+        "median": 1,
+        "p95": 1,
+        "min": 0,
+        "max": 2,
+        "matches": 1,
+        "skipped": 7,
+        "elements": 2323
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "Alt+H ثانيةً توقف الوضع وتُزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "badges": 0,
+        "hosts": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة وهي مفعَّلة يعيد DOM حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "restored": 1,
+        "skipped": 0
+      }
+    }
+  ]
+}

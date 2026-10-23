@@ -86,6 +86,12 @@
       "date": "2026-10-23",
       "text": "استُكمل تصميم توسيع 2026-10-23 في ملف Figma المعتمد دون إعادة تصميم ولا ملف جديد: أُضيفت 14 شاشة للوحة الجانبية (P-41 إلى P-54: «نسخ البرومبت» نجاحًا وفشلًا وتنبيه المحتوى الخاص، والعودة إلى الميزة بعد الربط، والموافقة قبل الإرسال، والتحليل جاريًا ونتيجته في الطبقة الثالثة وتعذّره، ومراجعة تغييرات طلب الدمج وقائمة قوالب البرومبت، وفهم المشكلة، ومسار الإنجاز بخطواته الخمس، ودقة الحالة الموثَّقة، والوضع الداكن)، و7 شاشات لصفحة الإعدادات (O-09 إلى O-15: إضافة المفتاح والتحقق، والسليم والعودة، وحالات الصحة، والحذف وما يتعطّل وحده، و«حول مِجهَر» بالنسبة الحرفية والروابط، والوضع الداكن، وإشعارات الأطراف الثالثة)، وثمانية مكوّنات في القسم H من صفحة المكوّنات (Copy prompt button وInline note وPrompt template menu وFeature gate وConsent sheet وAnalysis result وConnection card وDiff block). وعُدّلت P-01 وP-04 وP-05 وP-07 وP-35 وP-36 وO-04 (صارت «الاتصالات والصلاحيات» بعد DEC-04 د-5) وO-06 وO-08 وG-05، وبطاقة طلب الدمج الموسّعة (فتغيّرت G-08 وG-16)، وجدول الحصر 00، وأُضيفت ثلاثة مسارات تفاعلية (٧ و٨ و٩) هي محاكاة لا اتصال فيها. هذا تصميم لا تنفيذ: لا يغيّر حالة أي مهمة أو اختبار، وتبقى T-5.5 وT-11.1 إلى T-11.9 وT-10.2 كما هي؛ ورابط المستودع في «حول مِجهَر» مشروط بإتاحته قبل أي نشر (AD-20)، والبديل اليدوي لفشل الحافظة وتقدير التكلفة فرضيتان تقيسهما T-0.5 (HYP-18 وHYP-19).",
       "how": "ملف التصميم https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp — اللوحة الجانبية (القسم H): https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=86-14604؛ صفحة الإعدادات (القسم I): https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=91-17568؛ O-04 الاتصالات والصلاحيات: https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=53-8141؛ مكوّنات القسم H: https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=79-2699؛ جدول الحصر والتغطية 00: https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=41-699"
+    },
+    {
+      "id": "EV-14",
+      "date": "2026-10-23",
+      "text": "أُغلقت الموجة D على الشجرة المجمّعة: بقية الوحدة (أ) (MJ7: العزل والخطوط وزر الاتجاه ووضع القراءة والتلميح الهجري)، وبطاقة الشرح وحالة طلب الدمج والمقارنة (MJ8)، والملاحظات وكاشف README والمرشد والاكتشاف والدليل (MJ9). صار سكربت المحتوى المشحون يركّب خمس وحدات (أ وب ود ز ح) بست وحدات برمجية معًا؛ واجتاز الطقم 1204 اختبارًا (1 متخطى) وعدم تراجع المضيف (TEST-CORE-05 و06: 0 اختلاف في 13×37 و0 طلب إلى api.github.com قبل المنح) وتكامل الحزمة المشحونة 103/103 في الأربعة، وجولة Chrome المرئية على README وPR (Alt+H الفعلي). لم يتعارض نصيًا غير ضمّ الأسطر المشتركة بترتيب الدمج، وأُصلح اختباران وفحص تكامل كتبتها المراحل على افتراض انفرادها بالسجل المشترك. حُسم DEC-02 بأ-2 من منفّذ MJ7. ينتظر المالك ثلاث مراجعات مستقلة وقرار توسيع pages لتبويبات المستودع وقرار الدرج وAC-10.1 (raw.githubusercontent.com)؛ ولم تُجرَ صفحات github.com الحية.",
+      "how": "`evidence/wave-D/gate.md`؛ `evidence/MJ7/`؛ `evidence/T-3.2/`؛ `evidence/T-5.1/`؛ `evidence/T-5.4/`؛ `evidence/MJ9/`"
     }
   ],
   "deliverables": [],
@@ -232,59 +238,100 @@
       "note": "AC-A1 (أ)–(د) و(و): 85 اختبارًا في tests/modules/a/direction؛ العينة 51/51 و205/205 كتلة فعّالة في الأربعة؛ وعلى الشجرة المجمّعة داخل سكربت المحتوى المشحون 26/26 rtl و0 خطأ في الأربعة. PB-02 مقيس (البارد 1.26–4.65 ms)، والإغلاق الرقمي في T-10.1."
     },
     "TEST-RTL-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.2/report.md",
+        "evidence/MJ7/bundle-run.json",
+        "evidence/MJ7/extension-run.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A2: 30 اختبارًا في tests/modules/a/isolation؛ ‏9/9 عنصرًا معزولًا محسوبًا ltr/isolate و7/7 عنصرًا قائمًا، والنص والمنسوخ كما هما وصفر محرف مضاف، في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1؛ وفي الحزمة المشحونة 9 معزولة في الأربعة. أُعيدت حزمة القياس على الشجرة المجمّعة للموجة D."
     },
     "TEST-RTL-03": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.3/report.md",
+        "evidence/T-2.3/license-check.json",
+        "evidence/T-2.3/fonts-github.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A3: الخطوط الثلاثة woff2 بتراخيص OFL-1.1 متحقق منها من كل خط ومن ملفه، وجداولها مطابقة لأصلها بايتًا ببايت؛ و11 اختبارًا في tests/modules/a/fonts؛ وعلى صفحة GitHub حقيقية بـCSP الحقيقية: الوجوه loaded و0 انتهاك CSP في الأربعة (HYP-16 ثبتت، فلم يلزم BLK-CSP-FONT)."
     },
     "TEST-RTL-04": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.4/report.md",
+        "evidence/T-2.4/editor-undo.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A4 بقيد معلن: عشرون تبديلًا بلا إخفاق في القيمة والتحديد واتجاهه والتمرير، والتراجع والإعادة سليمان في Chrome وEdge وBrave. في Firefox يُفقد سجل التراجع بأي تغيّر فعلي لاتجاه الحقل فالزر مخفي فيه بنص المعيار، وقبِل المالك ذلك في 2026-10-23. لم يُجرَ: الفحص اليدوي على محرر GitHub الحي."
     },
     "TEST-RTL-05A": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.5/report.md",
+        "evidence/MJ7/bundle-run.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A5 (١) بطريقة أ-2 (DEC-02): النسخ الجزئي داخل عقدة نصية بالاختصار وبأمر النسخ مطابق للأصل المشكول في العارض المعزول، في الأربعة وفي الحزمة المشحونة. ومعه (٤) و(٥): صفحة GitHub لا يتغير نصها ولا حقولها (244 = 244 حركة)."
     },
     "TEST-RTL-05B": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.5/report.md",
+        "evidence/MJ7/bundle-run.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A5 (١) بطريقة أ-2: التحديد الممتد عبر عناصر مطابق للأصل في العارض المعزول، في الأربعة وفي الحزمة المشحونة."
     },
     "TEST-RTL-05C": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.5/report.md",
+        "evidence/MJ7/bundle-run.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A5 (١) بطريقة أ-2: قناتا text/plain وtext/html تحملان النص المشكول الأصلي في العارض المعزول، في الأربعة وفي الحزمة المشحونة؛ والسحب بمعالج dragstart مطابق في الأربعة (السحب الأصلي لم يُجرَ: لا يبدأ بأحداث مصطنعة)."
     },
     "TEST-RTL-05D": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.5/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A5: التحديث الحي بنص مختلف على إعادة التحميل؛ ضمن 24/24 حالة للبنود 05D و05F و05G في 17 اختبارًا في tests/modules/a/reading."
     },
     "TEST-RTL-05E": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.5/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A5 (٣): سلوك المطابقة مع التشكيل وبدونه مقيس في الأربعة ومطابق لشريط التلميح الذي لكل عائلة متصفح، ولا يعتمد النجاح على اعتراض اختصار. مقيس بالمحرك لا بواجهة الشريط في الصفحة الحية؛ وكشف آلي لإعداد Match Diacritics في Firefox غير منفَّذ (نص ثابت مقيس)."
     },
     "TEST-RTL-05F": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.5/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A5: التحديث الحي بنص يساوي النص المنزوع لا تستعيد الإضافة فوقه المشكول القديم؛ ضمن 24/24 حالة للبنود 05D و05F و05G."
     },
     "TEST-RTL-05G": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.5/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A5: تحديثات سريعة مع تعطيل الوحدة قبل تسليم السجلات؛ لا نسخة قديمة فوق الجديدة في كل تراتيب التتابع المولَّدة؛ ضمن 24/24 حالة للبنود 05D و05F و05G. لم يُجرَ: اقتباس الرد في جلسة المالك بعد التغيير (الصفحة لا تتغير بالبناء)."
     },
     "TEST-RTL-06": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.6/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-A6: التلميح الهجري بأم القرى وتعديل ±2 يطابق Intl لأربعة تواريخ × خمسة تعديلات والمراجع الأربع في الأربعة، و<relative-time> لم يتغير؛ والأرقام المشرقية 15/15 حالة، وإيقافها يعيد النص في 0.035 إلى 0.102 ms (الوسيط) بلا بقايا (PB-01)."
     },
     "TEST-RTL-07": {
       "status": "passed",
@@ -332,24 +379,38 @@
       "note": "حارس ملكية الكتابة: الاستبدال والفصل والنقل وفصل الحاوية؛ ضمن 43 اختبارًا لـTEST-GUARD-01 إلى 04 في tests/modules/a/guard، اجتازت على الشجرة المجمّعة للموجة C (551 في الطقم كاملًا)."
     },
     "TEST-GLOSS-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-3.2/report.md",
+        "evidence/T-3.2/integration.json",
+        "evidence/wave-D/modules/integration.txt",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-B1: 59 اختبارًا في tests/modules/b؛ و45/45 فحصًا لكل متصفح (180/180) على الشيفرة المحقونة؛ والحزمة المشحونة على الشجرة المجمّعة بعد الدمج (Alt+H الفعلي ورسالة اللوحة ومفتاح الإعدادات). لم يُجرَ: الاختصار الفعلي بنافذة مرئية وتعارضه مع المتصفحات (DEC-08)."
     },
     "TEST-GLOSS-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-3.2/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-B2: مداخل القاموس الـ112 بمستوياتها الثلاثة قابلة للتبديل، ومثال لكل من الـ52 في «قائمة المصطلحات الأساسية» (card-view.test.tsx)."
     },
     "TEST-GLOSS-03": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-3.2/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-B3 دون بند «في نتائج البحث» (T-3.4، MJ10): الإنجليزي dir=ltr بجوار العربي في البطاقة وفي كل مستوى، والاتجاه المحسوب ltr في الأربعة، ولا خيار إخفاء."
     },
     "TEST-GLOSS-06": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-3.2/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-B4: الحقول الخمسة على المداخل الـ112 بقيم غير فارغة من المجموعات المضبوطة، و«غير محدد في المصدر» لما ينقص (مُختبَر على مدخل معيب)، وتنبيه ما لم يُطابَق على الوثائق."
     },
     "TEST-GLOSS-04": {
       "status": "planned",
@@ -453,14 +514,21 @@
       "note": ""
     },
     "TEST-PR-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-5.1/report.md",
+        "evidence/wave-D/modules/d-status.txt",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-D1: صفحة PR حقيقية محفوظة وعينة معقدة: كل الحقول و«غير متاح» لكل ناقص بسببه وفصل الإلزامية عن الاختيارية؛ أُعيدت على الشجرة المجمّعة: 344/344 فحصًا (86 لكل متصفح). لم يُثبَّت صندوق الدمج المسجَّل وعباراته على صفحة حية."
     },
     "TEST-PR-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-5.1/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-D2: 20 اختبارًا في categories.test.ts: كل status وكل conclusion الموثقة وكل commit status القديمة مربوطة، والمجهول والناقص «غير معروف»، وأعداد 12 PR حقيقية تطابق المحسوب مستقلًا. قيم غير مرصودة معلَّمة verified: false."
     },
     "TEST-PR-03": {
       "status": "planned",
@@ -478,9 +546,13 @@
       "note": ""
     },
     "TEST-DIFF-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-5.4/report.md",
+        "evidence/wave-D/modules/d-status.txt",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-D6: ثلاث صفحات مقارنة عامة حقيقية محفوظة (فرعان وتزامان ووسمان) وثلاث عينات React وصفحة التزام حقيقية: إحصاء الملفات يطابق أرقام الصفحة، وقسم الأثر مضيف شقيق بحدّ وخلفية مختلفين وموسوم «يحتاج مراجعة بشرية»؛ 39 اختبارًا و344/344 فحصًا على الشجرة المجمّعة. لم يُصوَّر حيًّا: ملف مُعاد تسميته أو ثنائي أو أكثر من 300 ملف."
     },
     "TEST-SEC-01": {
       "status": "planned",
@@ -553,9 +625,14 @@
       "note": ""
     },
     "TEST-NOTE-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-8.1/report.md",
+        "evidence/MJ9/report.md",
+        "evidence/MJ9/integration.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-G1: الدورة كاملة على سبع حالات في بطاقة الصفحة واللوحة، وبقاء الملاحظة عند تعذّر الموضع، وحقل المرساة مستقل عن النص؛ وفي المتصفحات الأربعة إنشاء من الصفحة ورؤية وتحرير وحذف من اللوحة الأصلية بسياقين حقيقيين."
     },
     "TEST-NOTE-02": {
       "status": "planned",
@@ -603,9 +680,13 @@
       "note": ""
     },
     "TEST-COMM-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-9.1/report.md",
+        "evidence/MJ9/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-H1: الأنماط على العينات المرجعية، وبيان النطاق بلا عبارة جازمة، والاقتطاع صراحة، وزر docs/ لا طلب قبل النقر والصلاحية وكل فشل «لم يكتمل»؛ وبمنح فعلي في Firefox. لم تُجرَ صفحات github.com الحية."
     },
     "TEST-COMM-02": {
       "status": "planned",
@@ -613,24 +694,41 @@
       "note": ""
     },
     "TEST-COMM-03": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-9.3/report.md",
+        "evidence/MJ9/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-H3: الملخص كما ورد، وروابط الوسوم بالعدد المتاح فعلًا، وخارطة الطريق، وما لم يُعثر عليه، وعدم تنفيذ إجراء نيابة عن المستخدم."
     },
     "TEST-COMM-04": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-9.4/report.md",
+        "evidence/MJ9/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-H4: 96 تركيبة خيارات صحيحة الصياغة بحدود GitHub، والاستعلام كاملًا قابلًا للتعديل، ولا فتح ولا شبكة دون فعل المستخدم."
     },
     "TEST-COMM-05": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-9.5/report.md",
+        "evidence/MJ9/report.md",
+        "evidence/MJ9/integration.json",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-H5: العمل دون إنترنت، وتاريخ وحالة لكل مورد، وإضافة وتعديل وتصدير واستيراد على عينة من 40 موردًا، ولا سحب خارجي، والفحص بنقر ولـgithub.com وحدها؛ تدقيق الشبكة: صفر طلبات في عائلة Chromium بلا منح، و16 GET في Firefox بعد منح فعلي كلها من الفحوص الثلاثة الصريحة."
     },
     "TEST-COMM-06": {
       "status": "planned",
-      "evidence": [],
-      "note": ""
+      "evidence": [
+        "evidence/T-9.4/report.md",
+        "evidence/MJ9/report.md",
+        "evidence/wave-D/gate.md"
+      ],
+      "note": "AC-H6: الجزء الآلي اجتاز (فصل العرضين، والمعلن حرفيًا بتنبيهه، وثبات وسم المحتوى مع تبديل حقول الحساب، وفحص المسح لا يجد مسار استنتاج). لا يُعدّ «اجتاز» لأن نص المعيار يشترط مراجعة بشرية للشيفرة التي تكمله، وهي ما ينتظر المالك."
     },
     "TEST-SPIKE-05": {
       "status": "planned",

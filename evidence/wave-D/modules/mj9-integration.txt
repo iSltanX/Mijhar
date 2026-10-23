@@ -1,0 +1,6 @@
+### mj9-integration: node evidence/MJ9/integration-check.mjs chrome edge brave firefox
+Chrome 156.0.8078.47:  فحوص 48/48 · api.github.com 0 · مضيفات أخرى 0 · أخطاء الإضافة 0 · رسائل مجمّعة 5
+Edge 155.0.4283.60:  فحوص 48/48 · api.github.com 0 · مضيفات أخرى 0 · أخطاء الإضافة 0 · رسائل مجمّعة 5
+Brave 156.0.8078.48:  فحوص 48/48 · api.github.com 0 · مضيفات أخرى 0 · أخطاء الإضافة 0 · رسائل مجمّعة 5
+Firefox 158.0.1:  فحوص 50/50 · api.github.com 16 · مضيفات أخرى 0 · أخطاء الإضافة — · رسائل مجمّعة 0
+exit=0

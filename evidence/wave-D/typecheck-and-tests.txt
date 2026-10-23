@@ -1,0 +1,16 @@
+$ npx tsc --noEmit
+exit=0
+
+$ npx vitest run tests/core tests/modules tests/data   # بوابة الموجة
+ Test Files  64 passed (64)
+      Tests  1159 passed | 1 skipped (1160)
+
+$ npx vitest run   # الطقم كاملًا
+ Test Files  66 passed (66)
+      Tests  1204 passed | 1 skipped (1205)
+
+$ node scripts/glossary/validate.mjs
+روابط الوثائق: 112 · طوبقت على المصدر: 43 · لم تُطابَق: 69
+المعجم: 94 مصطلحًا · تبقى بالإنجليزية: 20
+النتيجة: اجتاز التحقق من المخطط لكل مدخل
+exit=0

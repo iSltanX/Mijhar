@@ -1,0 +1,2017 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "checks": [
+      {
+        "name": "readme.scope",
+        "pass": true,
+        "detail": {
+          "state": "not-found-in-scope"
+        }
+      },
+      {
+        "name": "readme.no-assertive-absence",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.banner-before-readme",
+        "pass": true,
+        "detail": {
+          "before": "ARTICLE"
+        }
+      },
+      {
+        "name": "readme.scope-detail",
+        "pass": true,
+        "detail": {
+          "scope": "ما فُحص: 9 عنصرًا من شجرة الجذر، و4 رابطًا في README الأساسي. مجلدات لم تُفتح: docs."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-incomplete",
+        "pass": true,
+        "detail": {
+          "scanText": "يتطلب الفحص صلاحية GitHub API الاختيارية ويُجرى من لوحة مِجهَر الجانبية أو صفحة الإعدادات؛ الفحص لم يكتمل."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-no-api-request",
+        "pass": true,
+        "detail": {
+          "requests": 0
+        }
+      },
+      {
+        "name": "readme.arabic-found",
+        "pass": true,
+        "detail": {
+          "matches": [
+            "README.ar-AR.md https://github.com/octo/community-ar/blob/main/README.ar-AR.md"
+          ]
+        }
+      },
+      {
+        "name": "readme.arabic-no-scan-button",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.truncation-announced",
+        "pass": true,
+        "detail": {
+          "truncated": "قائمة الملفات في الصفحة مقتطعة: ظهر 1000 من أصل 5108؛ فلا يُحكم بغياب أي ملف من هذه القائمة."
+        }
+      },
+      {
+        "name": "profile.two-separate-blocks",
+        "pass": true,
+        "detail": {
+          "profile": {
+            "c": "محتوى عربي",
+            "d": "بيانات يعلنها صاحب الحساب"
+          }
+        }
+      },
+      {
+        "name": "profile.declared-verbatim",
+        "pass": true,
+        "detail": {
+          "name": "Mohammed Al-Farsi",
+          "location": "Riyadh, Saudi Arabia",
+          "bio": "Backend engineer"
+        }
+      },
+      {
+        "name": "profile.arabic-content-from-description-only",
+        "pass": true,
+        "detail": {
+          "repos": [
+            "abu_ahmad/arabic-nlp"
+          ]
+        }
+      },
+      {
+        "name": "profile.notice",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-collapsed-by-default",
+        "pass": true,
+        "detail": {
+          "card": {
+            "e": "false",
+            "c": "0"
+          }
+        }
+      },
+      {
+        "name": "notes.card-styled",
+        "pass": true,
+        "detail": {
+          "display": "flex"
+        }
+      },
+      {
+        "name": "notes.levels-on-blob-page",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "file:false",
+            "line:true"
+          ]
+        }
+      },
+      {
+        "name": "notes.line-target-from-hash",
+        "pass": true,
+        "detail": {
+          "field": "ملاحظة جديدة على octo/demo: lib/response.js (3–5)"
+        }
+      },
+      {
+        "name": "notes.line-note-stored",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "5d195b47-9522-49a4-894c-6873784257f5",
+              "level": "line",
+              "view": "blob",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchorStatus": "unverified",
+              "start": 3,
+              "path": "lib/response.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-beside-line-number",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "3",
+              "id": "L3",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-aria-label",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-lists-note",
+        "pass": true,
+        "detail": {
+          "notes": [
+            {
+              "id": "5d195b47-9522-49a4-894c-6873784257f5",
+              "level": "line",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.panel-sees-page-note",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.panel-reads-active-tab",
+        "pass": true,
+        "detail": {
+          "page": "الصفحة المفتوحة: octo/demo"
+        }
+      },
+      {
+        "name": "notes.edit-in-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "page": [
+            {
+              "id": "5d195b47-9522-49a4-894c-6873784257f5",
+              "level": "line",
+              "text": "ملاحظة معدّلة من اللوحة",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.edit-keeps-anchor-status-separate",
+        "pass": true,
+        "detail": {
+          "keptStatus": {
+            "id": "5d195b47-9522-49a4-894c-6873784257f5",
+            "level": "line",
+            "view": "blob",
+            "text": "ملاحظة معدّلة من اللوحة",
+            "anchorStatus": "unverified",
+            "start": 3,
+            "path": "lib/response.js"
+          }
+        }
+      },
+      {
+        "name": "notes.file-note-from-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "count": "2"
+        }
+      },
+      {
+        "name": "notes.delete-in-panel-removes-marker",
+        "pass": true,
+        "detail": {
+          "markers": []
+        }
+      },
+      {
+        "name": "notes.unit-off-removes-card",
+        "pass": true,
+        "detail": {
+          "hosts": []
+        }
+      },
+      {
+        "name": "notes.unit-off-restores-main",
+        "pass": true,
+        "detail": {
+          "mainAfterOff": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "name": "notes.unit-on-restores-card",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.markdown-line-unanchored-but-saved",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "82223a74-6a56-418a-a595-a6d49e51c63a",
+              "level": "line",
+              "view": "blob",
+              "text": "سطر في Markdown معروض",
+              "anchorStatus": "unanchored",
+              "start": 2,
+              "path": "README.md"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.no-marker-for-unlocatable-line",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.diff-line-level-selected",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "thread:false",
+            "line:true"
+          ],
+          "field": "ملاحظة جديدة على octo/demo: src/app.js (الجديد 5)"
+        }
+      },
+      {
+        "name": "notes.diff-marker-on-right-side-line",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "5",
+              "id": "diff-c72a907ac323cd2f334ed0e2bd07d15ab62581c4753660c8a0d1c681b30be4b6R5",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.diff-note-stored-with-path",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "ab7308c3-1090-4d2f-a3a8-a55c3e1f693c",
+              "level": "line",
+              "view": "diff",
+              "text": "ملاحظة على فرق",
+              "anchorStatus": "unverified",
+              "start": 5,
+              "path": "src/app.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "drawer.opens-by-message",
+        "pass": true,
+        "detail": {
+          "sent": 3
+        }
+      },
+      {
+        "name": "drawer.no-text-fields-in-any-tab",
+        "pass": true,
+        "detail": {
+          "tabs": {
+            "context": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            },
+            "glossary": {
+              "fields": 0,
+              "notices": [],
+              "views": [
+                "explain-toggle"
+              ]
+            },
+            "notes": {
+              "fields": 0,
+              "notices": [
+                "ملاحظاتي"
+              ],
+              "views": []
+            },
+            "community": {
+              "fields": 0,
+              "notices": [
+                "اكتشاف المحتوى العربي",
+                "موارد تعلّم عربية"
+              ],
+              "views": [
+                "readme",
+                "guide"
+              ]
+            },
+            "settings": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            }
+          }
+        }
+      },
+      {
+        "name": "drawer.notes-tab-shows-native-only-notice",
+        "pass": true,
+        "detail": {
+          "notices": [
+            "ملاحظاتي"
+          ]
+        }
+      },
+      {
+        "name": "drawer.community-tab",
+        "pass": true,
+        "detail": {
+          "community": {
+            "fields": 0,
+            "notices": [
+              "اكتشاف المحتوى العربي",
+              "موارد تعلّم عربية"
+            ],
+            "views": [
+              "readme",
+              "guide"
+            ]
+          }
+        }
+      },
+      {
+        "name": "community.four-views-in-panel",
+        "pass": true,
+        "detail": {
+          "views": 4
+        }
+      },
+      {
+        "name": "community.guide-reads-project-files",
+        "pass": true,
+        "detail": {
+          "groups": 4,
+          "html": "<div data-guide-state=\"done\" data-requests=\"8\" class=\"list\"><div data-file=\"contributing\" class=\"item\"><div class=\"item-head\"><strong>CONTRIBUTING</strong><a href=\"https://github.com/octo/community/blob/HEAD/CONTRIBUTING.md\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"small\">افتح <span class=\"ltr-inline mono\">CONTRIBUTING.md</span></a></div><div data-group=\"Getting started\"><p dir=\"auto\" class=\"field-title\">Getting started</p><ol class=\"steps\"><li dir=\"auto\">Fork the repository and clone it locally.</li><li dir=\"auto\">Create a branch from main for your change.</li><li dir=\"auto\">Run npm install to install the dependencies.</li></ol></div><div data-group=\"Development setup\"><p dir=\"auto\""
+        }
+      },
+      {
+        "name": "community.guide-reports-missing",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-query-visible",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-opens-nothing",
+        "pass": true,
+        "detail": {
+          "before": 10,
+          "after": 10
+        }
+      },
+      {
+        "name": "community.resources-builtin-listed",
+        "pass": true,
+        "detail": {
+          "items": 12
+        }
+      },
+      {
+        "name": "community.no-api-before-click",
+        "pass": true,
+        "detail": {
+          "before": 0,
+          "after": 0
+        }
+      },
+      {
+        "name": "community.permission-click-sends-nothing-while-pending",
+        "pass": true,
+        "detail": {
+          "before": 0,
+          "after": 0
+        }
+      },
+      {
+        "name": "network.no-api-requests-without-grant",
+        "pass": true,
+        "detail": {
+          "requests": []
+        }
+      }
+    ],
+    "console": [
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiGithub": [],
+      "other": []
+    }
+  },
+  "edge": {
+    "label": "Edge",
+    "checks": [
+      {
+        "name": "readme.scope",
+        "pass": true,
+        "detail": {
+          "state": "not-found-in-scope"
+        }
+      },
+      {
+        "name": "readme.no-assertive-absence",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.banner-before-readme",
+        "pass": true,
+        "detail": {
+          "before": "ARTICLE"
+        }
+      },
+      {
+        "name": "readme.scope-detail",
+        "pass": true,
+        "detail": {
+          "scope": "ما فُحص: 9 عنصرًا من شجرة الجذر، و4 رابطًا في README الأساسي. مجلدات لم تُفتح: docs."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-incomplete",
+        "pass": true,
+        "detail": {
+          "scanText": "يتطلب الفحص صلاحية GitHub API الاختيارية ويُجرى من لوحة مِجهَر الجانبية أو صفحة الإعدادات؛ الفحص لم يكتمل."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-no-api-request",
+        "pass": true,
+        "detail": {
+          "requests": 0
+        }
+      },
+      {
+        "name": "readme.arabic-found",
+        "pass": true,
+        "detail": {
+          "matches": [
+            "README.ar-AR.md https://github.com/octo/community-ar/blob/main/README.ar-AR.md"
+          ]
+        }
+      },
+      {
+        "name": "readme.arabic-no-scan-button",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.truncation-announced",
+        "pass": true,
+        "detail": {
+          "truncated": "قائمة الملفات في الصفحة مقتطعة: ظهر 1000 من أصل 5108؛ فلا يُحكم بغياب أي ملف من هذه القائمة."
+        }
+      },
+      {
+        "name": "profile.two-separate-blocks",
+        "pass": true,
+        "detail": {
+          "profile": {
+            "c": "محتوى عربي",
+            "d": "بيانات يعلنها صاحب الحساب"
+          }
+        }
+      },
+      {
+        "name": "profile.declared-verbatim",
+        "pass": true,
+        "detail": {
+          "name": "Mohammed Al-Farsi",
+          "location": "Riyadh, Saudi Arabia",
+          "bio": "Backend engineer"
+        }
+      },
+      {
+        "name": "profile.arabic-content-from-description-only",
+        "pass": true,
+        "detail": {
+          "repos": [
+            "abu_ahmad/arabic-nlp"
+          ]
+        }
+      },
+      {
+        "name": "profile.notice",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-collapsed-by-default",
+        "pass": true,
+        "detail": {
+          "card": {
+            "e": "false",
+            "c": "0"
+          }
+        }
+      },
+      {
+        "name": "notes.card-styled",
+        "pass": true,
+        "detail": {
+          "display": "flex"
+        }
+      },
+      {
+        "name": "notes.levels-on-blob-page",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "file:false",
+            "line:true"
+          ]
+        }
+      },
+      {
+        "name": "notes.line-target-from-hash",
+        "pass": true,
+        "detail": {
+          "field": "ملاحظة جديدة على octo/demo: lib/response.js (3–5)"
+        }
+      },
+      {
+        "name": "notes.line-note-stored",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "a5b05656-cab3-4df5-a437-5d106cb9a0d9",
+              "level": "line",
+              "view": "blob",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchorStatus": "unverified",
+              "start": 3,
+              "path": "lib/response.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-beside-line-number",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "3",
+              "id": "L3",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-aria-label",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-lists-note",
+        "pass": true,
+        "detail": {
+          "notes": [
+            {
+              "id": "a5b05656-cab3-4df5-a437-5d106cb9a0d9",
+              "level": "line",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.panel-sees-page-note",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.panel-reads-active-tab",
+        "pass": true,
+        "detail": {
+          "page": "الصفحة المفتوحة: octo/demo"
+        }
+      },
+      {
+        "name": "notes.edit-in-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "page": [
+            {
+              "id": "a5b05656-cab3-4df5-a437-5d106cb9a0d9",
+              "level": "line",
+              "text": "ملاحظة معدّلة من اللوحة",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.edit-keeps-anchor-status-separate",
+        "pass": true,
+        "detail": {
+          "keptStatus": {
+            "id": "a5b05656-cab3-4df5-a437-5d106cb9a0d9",
+            "level": "line",
+            "view": "blob",
+            "text": "ملاحظة معدّلة من اللوحة",
+            "anchorStatus": "unverified",
+            "start": 3,
+            "path": "lib/response.js"
+          }
+        }
+      },
+      {
+        "name": "notes.file-note-from-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "count": "2"
+        }
+      },
+      {
+        "name": "notes.delete-in-panel-removes-marker",
+        "pass": true,
+        "detail": {
+          "markers": []
+        }
+      },
+      {
+        "name": "notes.unit-off-removes-card",
+        "pass": true,
+        "detail": {
+          "hosts": []
+        }
+      },
+      {
+        "name": "notes.unit-off-restores-main",
+        "pass": true,
+        "detail": {
+          "mainAfterOff": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "name": "notes.unit-on-restores-card",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.markdown-line-unanchored-but-saved",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "b94e714f-aaf5-47f9-96ba-f8aeaefc4870",
+              "level": "line",
+              "view": "blob",
+              "text": "سطر في Markdown معروض",
+              "anchorStatus": "unanchored",
+              "start": 2,
+              "path": "README.md"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.no-marker-for-unlocatable-line",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.diff-line-level-selected",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "thread:false",
+            "line:true"
+          ],
+          "field": "ملاحظة جديدة على octo/demo: src/app.js (الجديد 5)"
+        }
+      },
+      {
+        "name": "notes.diff-marker-on-right-side-line",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "5",
+              "id": "diff-c72a907ac323cd2f334ed0e2bd07d15ab62581c4753660c8a0d1c681b30be4b6R5",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.diff-note-stored-with-path",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "12039882-0122-479b-8e10-8f5e9f980c7e",
+              "level": "line",
+              "view": "diff",
+              "text": "ملاحظة على فرق",
+              "anchorStatus": "unverified",
+              "start": 5,
+              "path": "src/app.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "drawer.opens-by-message",
+        "pass": true,
+        "detail": {
+          "sent": 3
+        }
+      },
+      {
+        "name": "drawer.no-text-fields-in-any-tab",
+        "pass": true,
+        "detail": {
+          "tabs": {
+            "context": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            },
+            "glossary": {
+              "fields": 0,
+              "notices": [],
+              "views": [
+                "explain-toggle"
+              ]
+            },
+            "notes": {
+              "fields": 0,
+              "notices": [
+                "ملاحظاتي"
+              ],
+              "views": []
+            },
+            "community": {
+              "fields": 0,
+              "notices": [
+                "اكتشاف المحتوى العربي",
+                "موارد تعلّم عربية"
+              ],
+              "views": [
+                "readme",
+                "guide"
+              ]
+            },
+            "settings": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            }
+          }
+        }
+      },
+      {
+        "name": "drawer.notes-tab-shows-native-only-notice",
+        "pass": true,
+        "detail": {
+          "notices": [
+            "ملاحظاتي"
+          ]
+        }
+      },
+      {
+        "name": "drawer.community-tab",
+        "pass": true,
+        "detail": {
+          "community": {
+            "fields": 0,
+            "notices": [
+              "اكتشاف المحتوى العربي",
+              "موارد تعلّم عربية"
+            ],
+            "views": [
+              "readme",
+              "guide"
+            ]
+          }
+        }
+      },
+      {
+        "name": "community.four-views-in-panel",
+        "pass": true,
+        "detail": {
+          "views": 4
+        }
+      },
+      {
+        "name": "community.guide-reads-project-files",
+        "pass": true,
+        "detail": {
+          "groups": 4,
+          "html": "<div data-guide-state=\"done\" data-requests=\"8\" class=\"list\"><div data-file=\"contributing\" class=\"item\"><div class=\"item-head\"><strong>CONTRIBUTING</strong><a href=\"https://github.com/octo/community/blob/HEAD/CONTRIBUTING.md\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"small\">افتح <span class=\"ltr-inline mono\">CONTRIBUTING.md</span></a></div><div data-group=\"Getting started\"><p dir=\"auto\" class=\"field-title\">Getting started</p><ol class=\"steps\"><li dir=\"auto\">Fork the repository and clone it locally.</li><li dir=\"auto\">Create a branch from main for your change.</li><li dir=\"auto\">Run npm install to install the dependencies.</li></ol></div><div data-group=\"Development setup\"><p dir=\"auto\""
+        }
+      },
+      {
+        "name": "community.guide-reports-missing",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-query-visible",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-opens-nothing",
+        "pass": true,
+        "detail": {
+          "before": 10,
+          "after": 10
+        }
+      },
+      {
+        "name": "community.resources-builtin-listed",
+        "pass": true,
+        "detail": {
+          "items": 12
+        }
+      },
+      {
+        "name": "community.no-api-before-click",
+        "pass": true,
+        "detail": {
+          "before": 0,
+          "after": 0
+        }
+      },
+      {
+        "name": "community.permission-click-sends-nothing-while-pending",
+        "pass": true,
+        "detail": {
+          "before": 0,
+          "after": 0
+        }
+      },
+      {
+        "name": "network.no-api-requests-without-grant",
+        "pass": true,
+        "detail": {
+          "requests": []
+        }
+      }
+    ],
+    "console": [
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiGithub": [],
+      "other": []
+    }
+  },
+  "brave": {
+    "label": "Brave",
+    "checks": [
+      {
+        "name": "readme.scope",
+        "pass": true,
+        "detail": {
+          "state": "not-found-in-scope"
+        }
+      },
+      {
+        "name": "readme.no-assertive-absence",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.banner-before-readme",
+        "pass": true,
+        "detail": {
+          "before": "ARTICLE"
+        }
+      },
+      {
+        "name": "readme.scope-detail",
+        "pass": true,
+        "detail": {
+          "scope": "ما فُحص: 9 عنصرًا من شجرة الجذر، و4 رابطًا في README الأساسي. مجلدات لم تُفتح: docs."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-incomplete",
+        "pass": true,
+        "detail": {
+          "scanText": "يتطلب الفحص صلاحية GitHub API الاختيارية ويُجرى من لوحة مِجهَر الجانبية أو صفحة الإعدادات؛ الفحص لم يكتمل."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-no-api-request",
+        "pass": true,
+        "detail": {
+          "requests": 0
+        }
+      },
+      {
+        "name": "readme.arabic-found",
+        "pass": true,
+        "detail": {
+          "matches": [
+            "README.ar-AR.md https://github.com/octo/community-ar/blob/main/README.ar-AR.md"
+          ]
+        }
+      },
+      {
+        "name": "readme.arabic-no-scan-button",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.truncation-announced",
+        "pass": true,
+        "detail": {
+          "truncated": "قائمة الملفات في الصفحة مقتطعة: ظهر 1000 من أصل 5108؛ فلا يُحكم بغياب أي ملف من هذه القائمة."
+        }
+      },
+      {
+        "name": "profile.two-separate-blocks",
+        "pass": true,
+        "detail": {
+          "profile": {
+            "c": "محتوى عربي",
+            "d": "بيانات يعلنها صاحب الحساب"
+          }
+        }
+      },
+      {
+        "name": "profile.declared-verbatim",
+        "pass": true,
+        "detail": {
+          "name": "Mohammed Al-Farsi",
+          "location": "Riyadh, Saudi Arabia",
+          "bio": "Backend engineer"
+        }
+      },
+      {
+        "name": "profile.arabic-content-from-description-only",
+        "pass": true,
+        "detail": {
+          "repos": [
+            "abu_ahmad/arabic-nlp"
+          ]
+        }
+      },
+      {
+        "name": "profile.notice",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-collapsed-by-default",
+        "pass": true,
+        "detail": {
+          "card": {
+            "e": "false",
+            "c": "0"
+          }
+        }
+      },
+      {
+        "name": "notes.card-styled",
+        "pass": true,
+        "detail": {
+          "display": "flex"
+        }
+      },
+      {
+        "name": "notes.levels-on-blob-page",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "file:false",
+            "line:true"
+          ]
+        }
+      },
+      {
+        "name": "notes.line-target-from-hash",
+        "pass": true,
+        "detail": {
+          "field": "ملاحظة جديدة على octo/demo: lib/response.js (3–5)"
+        }
+      },
+      {
+        "name": "notes.line-note-stored",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "f2c669f9-d99d-4deb-8b2e-51f50934e3b5",
+              "level": "line",
+              "view": "blob",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchorStatus": "unverified",
+              "start": 3,
+              "path": "lib/response.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-beside-line-number",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "3",
+              "id": "L3",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-aria-label",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-lists-note",
+        "pass": true,
+        "detail": {
+          "notes": [
+            {
+              "id": "f2c669f9-d99d-4deb-8b2e-51f50934e3b5",
+              "level": "line",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.panel-sees-page-note",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.panel-reads-active-tab",
+        "pass": true,
+        "detail": {
+          "page": "الصفحة المفتوحة: octo/demo"
+        }
+      },
+      {
+        "name": "notes.edit-in-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "page": [
+            {
+              "id": "f2c669f9-d99d-4deb-8b2e-51f50934e3b5",
+              "level": "line",
+              "text": "ملاحظة معدّلة من اللوحة",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.edit-keeps-anchor-status-separate",
+        "pass": true,
+        "detail": {
+          "keptStatus": {
+            "id": "f2c669f9-d99d-4deb-8b2e-51f50934e3b5",
+            "level": "line",
+            "view": "blob",
+            "text": "ملاحظة معدّلة من اللوحة",
+            "anchorStatus": "unverified",
+            "start": 3,
+            "path": "lib/response.js"
+          }
+        }
+      },
+      {
+        "name": "notes.file-note-from-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "count": "2"
+        }
+      },
+      {
+        "name": "notes.delete-in-panel-removes-marker",
+        "pass": true,
+        "detail": {
+          "markers": []
+        }
+      },
+      {
+        "name": "notes.unit-off-removes-card",
+        "pass": true,
+        "detail": {
+          "hosts": []
+        }
+      },
+      {
+        "name": "notes.unit-off-restores-main",
+        "pass": true,
+        "detail": {
+          "mainAfterOff": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "name": "notes.unit-on-restores-card",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.markdown-line-unanchored-but-saved",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "7063075b-f15e-4aa3-910f-8c2ff181c878",
+              "level": "line",
+              "view": "blob",
+              "text": "سطر في Markdown معروض",
+              "anchorStatus": "unanchored",
+              "start": 2,
+              "path": "README.md"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.no-marker-for-unlocatable-line",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.diff-line-level-selected",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "thread:false",
+            "line:true"
+          ],
+          "field": "ملاحظة جديدة على octo/demo: src/app.js (الجديد 5)"
+        }
+      },
+      {
+        "name": "notes.diff-marker-on-right-side-line",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "5",
+              "id": "diff-c72a907ac323cd2f334ed0e2bd07d15ab62581c4753660c8a0d1c681b30be4b6R5",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.diff-note-stored-with-path",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "acd02651-395e-4a9d-8496-ce32f1f09c88",
+              "level": "line",
+              "view": "diff",
+              "text": "ملاحظة على فرق",
+              "anchorStatus": "unverified",
+              "start": 5,
+              "path": "src/app.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "drawer.opens-by-message",
+        "pass": true,
+        "detail": {
+          "sent": 3
+        }
+      },
+      {
+        "name": "drawer.no-text-fields-in-any-tab",
+        "pass": true,
+        "detail": {
+          "tabs": {
+            "context": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            },
+            "glossary": {
+              "fields": 0,
+              "notices": [],
+              "views": [
+                "explain-toggle"
+              ]
+            },
+            "notes": {
+              "fields": 0,
+              "notices": [
+                "ملاحظاتي"
+              ],
+              "views": []
+            },
+            "community": {
+              "fields": 0,
+              "notices": [
+                "اكتشاف المحتوى العربي",
+                "موارد تعلّم عربية"
+              ],
+              "views": [
+                "readme",
+                "guide"
+              ]
+            },
+            "settings": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            }
+          }
+        }
+      },
+      {
+        "name": "drawer.notes-tab-shows-native-only-notice",
+        "pass": true,
+        "detail": {
+          "notices": [
+            "ملاحظاتي"
+          ]
+        }
+      },
+      {
+        "name": "drawer.community-tab",
+        "pass": true,
+        "detail": {
+          "community": {
+            "fields": 0,
+            "notices": [
+              "اكتشاف المحتوى العربي",
+              "موارد تعلّم عربية"
+            ],
+            "views": [
+              "readme",
+              "guide"
+            ]
+          }
+        }
+      },
+      {
+        "name": "community.four-views-in-panel",
+        "pass": true,
+        "detail": {
+          "views": 4
+        }
+      },
+      {
+        "name": "community.guide-reads-project-files",
+        "pass": true,
+        "detail": {
+          "groups": 4,
+          "html": "<div data-guide-state=\"done\" data-requests=\"8\" class=\"list\"><div data-file=\"contributing\" class=\"item\"><div class=\"item-head\"><strong>CONTRIBUTING</strong><a href=\"https://github.com/octo/community/blob/HEAD/CONTRIBUTING.md\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"small\">افتح <span class=\"ltr-inline mono\">CONTRIBUTING.md</span></a></div><div data-group=\"Getting started\"><p dir=\"auto\" class=\"field-title\">Getting started</p><ol class=\"steps\"><li dir=\"auto\">Fork the repository and clone it locally.</li><li dir=\"auto\">Create a branch from main for your change.</li><li dir=\"auto\">Run npm install to install the dependencies.</li></ol></div><div data-group=\"Development setup\"><p dir=\"auto\""
+        }
+      },
+      {
+        "name": "community.guide-reports-missing",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-query-visible",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-opens-nothing",
+        "pass": true,
+        "detail": {
+          "before": 10,
+          "after": 10
+        }
+      },
+      {
+        "name": "community.resources-builtin-listed",
+        "pass": true,
+        "detail": {
+          "items": 12
+        }
+      },
+      {
+        "name": "community.no-api-before-click",
+        "pass": true,
+        "detail": {
+          "before": 0,
+          "after": 0
+        }
+      },
+      {
+        "name": "community.permission-click-sends-nothing-while-pending",
+        "pass": true,
+        "detail": {
+          "before": 0,
+          "after": 0
+        }
+      },
+      {
+        "name": "network.no-api-requests-without-grant",
+        "pass": true,
+        "detail": {
+          "requests": []
+        }
+      }
+    ],
+    "console": [
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "panel: error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiGithub": [],
+      "other": []
+    }
+  },
+  "firefox": {
+    "label": "Firefox",
+    "checks": [
+      {
+        "name": "readme.scope",
+        "pass": true,
+        "detail": {
+          "state": "not-found-in-scope"
+        }
+      },
+      {
+        "name": "readme.no-assertive-absence",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.banner-before-readme",
+        "pass": true,
+        "detail": {
+          "before": "ARTICLE"
+        }
+      },
+      {
+        "name": "readme.scope-detail",
+        "pass": true,
+        "detail": {
+          "scope": "ما فُحص: 9 عنصرًا من شجرة الجذر، و4 رابطًا في README الأساسي. مجلدات لم تُفتح: docs."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-incomplete",
+        "pass": true,
+        "detail": {
+          "scanText": "يتطلب الفحص صلاحية GitHub API الاختيارية ويُجرى من لوحة مِجهَر الجانبية أو صفحة الإعدادات؛ الفحص لم يكتمل."
+        }
+      },
+      {
+        "name": "readme.docs-scan-in-page-no-api-request",
+        "pass": true,
+        "detail": {
+          "requests": 0
+        }
+      },
+      {
+        "name": "readme.arabic-found",
+        "pass": true,
+        "detail": {
+          "matches": [
+            "README.ar-AR.md https://github.com/octo/community-ar/blob/main/README.ar-AR.md"
+          ]
+        }
+      },
+      {
+        "name": "readme.arabic-no-scan-button",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "readme.truncation-announced",
+        "pass": true,
+        "detail": {
+          "truncated": "قائمة الملفات في الصفحة مقتطعة: ظهر 1000 من أصل 5108؛ فلا يُحكم بغياب أي ملف من هذه القائمة."
+        }
+      },
+      {
+        "name": "profile.two-separate-blocks",
+        "pass": true,
+        "detail": {
+          "profile": {
+            "c": "محتوى عربي",
+            "d": "بيانات يعلنها صاحب الحساب"
+          }
+        }
+      },
+      {
+        "name": "profile.declared-verbatim",
+        "pass": true,
+        "detail": {
+          "name": "Mohammed Al-Farsi",
+          "location": "Riyadh, Saudi Arabia",
+          "bio": "Backend engineer"
+        }
+      },
+      {
+        "name": "profile.arabic-content-from-description-only",
+        "pass": true,
+        "detail": {
+          "repos": [
+            "abu_ahmad/arabic-nlp"
+          ]
+        }
+      },
+      {
+        "name": "profile.notice",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-collapsed-by-default",
+        "pass": true,
+        "detail": {
+          "card": {
+            "e": "false",
+            "c": "0"
+          }
+        }
+      },
+      {
+        "name": "notes.card-styled",
+        "pass": true,
+        "detail": {
+          "display": "flex"
+        }
+      },
+      {
+        "name": "notes.levels-on-blob-page",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "file:false",
+            "line:true"
+          ]
+        }
+      },
+      {
+        "name": "notes.line-target-from-hash",
+        "pass": true,
+        "detail": {
+          "field": "ملاحظة جديدة على octo/demo: lib/response.js (3–5)"
+        }
+      },
+      {
+        "name": "notes.line-note-stored",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "da64ec96-7ecd-465e-b585-fd778e8fe1a9",
+              "level": "line",
+              "view": "blob",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchorStatus": "unverified",
+              "start": 3,
+              "path": "lib/response.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-beside-line-number",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "3",
+              "id": "L3",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.marker-aria-label",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.card-lists-note",
+        "pass": true,
+        "detail": {
+          "notes": [
+            {
+              "id": "da64ec96-7ecd-465e-b585-fd778e8fe1a9",
+              "level": "line",
+              "text": "ملاحظة على الأسطر ٣ إلى ٥",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.panel-sees-page-note",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.panel-reads-active-tab",
+        "pass": true,
+        "detail": {
+          "page": "الصفحة المفتوحة: octo/demo"
+        }
+      },
+      {
+        "name": "notes.edit-in-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "page": [
+            {
+              "id": "da64ec96-7ecd-465e-b585-fd778e8fe1a9",
+              "level": "line",
+              "text": "ملاحظة معدّلة من اللوحة",
+              "anchor": "unverified",
+              "flash": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.edit-keeps-anchor-status-separate",
+        "pass": true,
+        "detail": {
+          "keptStatus": {
+            "id": "da64ec96-7ecd-465e-b585-fd778e8fe1a9",
+            "level": "line",
+            "view": "blob",
+            "text": "ملاحظة معدّلة من اللوحة",
+            "anchorStatus": "unverified",
+            "start": 3,
+            "path": "lib/response.js"
+          }
+        }
+      },
+      {
+        "name": "notes.file-note-from-panel-reaches-page",
+        "pass": true,
+        "detail": {
+          "count": "2"
+        }
+      },
+      {
+        "name": "notes.delete-in-panel-removes-marker",
+        "pass": true,
+        "detail": {
+          "markers": []
+        }
+      },
+      {
+        "name": "notes.unit-off-removes-card",
+        "pass": true,
+        "detail": {
+          "hosts": []
+        }
+      },
+      {
+        "name": "notes.unit-off-restores-main",
+        "pass": true,
+        "detail": {
+          "mainAfterOff": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "name": "notes.unit-on-restores-card",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.markdown-line-unanchored-but-saved",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "817aeb69-6356-4058-aa68-d841c138e7e5",
+              "level": "line",
+              "view": "blob",
+              "text": "سطر في Markdown معروض",
+              "anchorStatus": "unanchored",
+              "start": 2,
+              "path": "README.md"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.no-marker-for-unlocatable-line",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "notes.diff-line-level-selected",
+        "pass": true,
+        "detail": {
+          "chips": [
+            "repo:false",
+            "thread:false",
+            "line:true"
+          ],
+          "field": "ملاحظة جديدة على octo/demo: src/app.js (الجديد 5)"
+        }
+      },
+      {
+        "name": "notes.diff-marker-on-right-side-line",
+        "pass": true,
+        "detail": {
+          "markers": [
+            {
+              "line": "5",
+              "id": "diff-c72a907ac323cd2f334ed0e2bd07d15ab62581c4753660c8a0d1c681b30be4b6R5",
+              "label": "ملاحظة خاصة على هذا السطر"
+            }
+          ]
+        }
+      },
+      {
+        "name": "notes.diff-note-stored-with-path",
+        "pass": true,
+        "detail": {
+          "stored": [
+            {
+              "id": "598083ba-3f64-4fc3-a62b-7acef6fa274b",
+              "level": "line",
+              "view": "diff",
+              "text": "ملاحظة على فرق",
+              "anchorStatus": "unverified",
+              "start": 5,
+              "path": "src/app.js"
+            }
+          ]
+        }
+      },
+      {
+        "name": "drawer.opens-by-message",
+        "pass": true,
+        "detail": {
+          "sent": 3
+        }
+      },
+      {
+        "name": "drawer.no-text-fields-in-any-tab",
+        "pass": true,
+        "detail": {
+          "tabs": {
+            "context": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            },
+            "glossary": {
+              "fields": 0,
+              "notices": [],
+              "views": [
+                "explain-toggle"
+              ]
+            },
+            "notes": {
+              "fields": 0,
+              "notices": [
+                "ملاحظاتي"
+              ],
+              "views": []
+            },
+            "community": {
+              "fields": 0,
+              "notices": [
+                "اكتشاف المحتوى العربي",
+                "موارد تعلّم عربية"
+              ],
+              "views": [
+                "readme",
+                "guide"
+              ]
+            },
+            "settings": {
+              "fields": 0,
+              "notices": [],
+              "views": []
+            }
+          }
+        }
+      },
+      {
+        "name": "drawer.notes-tab-shows-native-only-notice",
+        "pass": true,
+        "detail": {
+          "notices": [
+            "ملاحظاتي"
+          ]
+        }
+      },
+      {
+        "name": "drawer.community-tab",
+        "pass": true,
+        "detail": {
+          "community": {
+            "fields": 0,
+            "notices": [
+              "اكتشاف المحتوى العربي",
+              "موارد تعلّم عربية"
+            ],
+            "views": [
+              "readme",
+              "guide"
+            ]
+          }
+        }
+      },
+      {
+        "name": "community.four-views-in-panel",
+        "pass": true,
+        "detail": {
+          "views": 4
+        }
+      },
+      {
+        "name": "community.guide-reads-project-files",
+        "pass": true,
+        "detail": {
+          "groups": 4,
+          "html": "<div data-guide-state=\"done\" data-requests=\"8\" class=\"list\"><div data-file=\"contributing\" class=\"item\"><div class=\"item-head\"><strong>CONTRIBUTING</strong><a href=\"https://github.com/octo/community/blob/HEAD/CONTRIBUTING.md\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"small\">افتح <span class=\"ltr-inline mono\">CONTRIBUTING.md</span></a></div><div data-group=\"Getting started\"><p dir=\"auto\" class=\"field-title\">Getting started</p><ol class=\"steps\"><li dir=\"auto\">Fork the repository and clone it locally.</li><li dir=\"auto\">Create a branch from main for your change.</li><li dir=\"auto\">Run npm install to install the dependencies.</li></ol></div><div data-group=\"Development setup\"><p dir=\"auto\""
+        }
+      },
+      {
+        "name": "community.guide-reports-missing",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-query-visible",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.discovery-opens-nothing",
+        "pass": true,
+        "detail": {
+          "before": 9,
+          "after": 9
+        }
+      },
+      {
+        "name": "community.resources-builtin-listed",
+        "pass": true,
+        "detail": {
+          "items": 12
+        }
+      },
+      {
+        "name": "community.no-api-before-click",
+        "pass": true,
+        "detail": {
+          "before": 0,
+          "after": 0
+        }
+      },
+      {
+        "name": "community.docs-scan-after-grant-finds-arabic-readme",
+        "pass": true,
+        "detail": {}
+      },
+      {
+        "name": "community.label-counts-after-grant",
+        "pass": true,
+        "detail": {
+          "counts": 4
+        }
+      },
+      {
+        "name": "community.resources-check-after-grant",
+        "pass": true,
+        "detail": {
+          "summary": "تُحقق من 12."
+        }
+      },
+      {
+        "name": "network.api-only-for-the-three-explicit-checks",
+        "pass": true,
+        "detail": {
+          "total": 16,
+          "sample": [
+            "GET /repos/octo/community/contents/docs",
+            "GET /search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22&per_page=1",
+            "GET /search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22help%20wanted%22&per_page=1",
+            "GET /search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22documentation%22&per_page=1",
+            "GET /repos/github/opensource.guide"
+          ]
+        }
+      }
+    ],
+    "console": [],
+    "browserVersion": "158.0.1",
+    "network": {
+      "apiGithub": [
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/octo/community/contents/docs"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22&per_page=1"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22help%20wanted%22&per_page=1"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22documentation%22&per_page=1"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/github/opensource.guide"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/trekhleb/javascript-algorithms"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/EbookFoundation/free-programming-books"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/aissa-bouguern/arabic-programming-blogs"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/01walid/awesome-arabic"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/mohataher/arabic-stop-words"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/khaled-alshamaa/ar-php"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/aub-mind/arabert"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/ARBML/ARBML"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/Barqawiz/Shakkala"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/Gue3bara/Cairo"
+        },
+        {
+          "host": "api.github.com",
+          "method": "GET",
+          "path": "/repos/aliftype/amiri"
+        }
+      ],
+      "other": [],
+      "githubPages": 16,
+      "refusedHosts": [
+        "firefox.settings.services.mozilla.com",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "content-signature-2.cdn.mozilla.net"
+      ]
+    }
+  }
+}
