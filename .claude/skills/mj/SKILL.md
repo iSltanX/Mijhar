@@ -14,14 +14,15 @@ allowed-tools: Bash(pwd) Bash(true) Bash(git rev-parse *) Bash(git worktree list
 ## الحالة كما قيست الآن
 
 - المجلد: !`pwd`
-- مجلد git ومجلده المشترك (يختلفان في worktree): !`git rev-parse --git-dir --git-common-dir`
-- الـworktrees: !`git worktree list`
-- الفرع الحالي: !`git rev-parse --abbrev-ref HEAD`
-- الرأس ثم `main`: !`git rev-parse --short HEAD main`
-- التزامات فوق `main`: !`git rev-list --count main..HEAD`
-- تغييرات غير ملتزمة: !`git status --porcelain --untracked-files=no`
-- وسوم أساس الموجات: !`git tag -l 'mj-*/base' --format='%(refname:short) %(objectname:short)'`
-- فروع المراحل الموجودة: !`git branch --list 'mj/*' --format='%(refname:short) %(objectname:short)'`
+- مجلد git ومجلده المشترك (يختلفان في worktree): !`git rev-parse --git-dir --git-common-dir || true`
+- الـworktrees: !`git worktree list || true`
+- الفرع الحالي: !`git rev-parse --abbrev-ref HEAD || true`
+- الرأس: !`git rev-parse --short HEAD || true`
+- `main`: !`git rev-parse --short main || true`
+- التزامات فوق `main`: !`git rev-list --count main..HEAD || true`
+- تغييرات غير ملتزمة: !`git status --porcelain --untracked-files=no || true`
+- وسوم أساس الموجات: !`git tag -l 'mj-*/base' --format='%(refname:short) %(objectname:short)' || true`
+- فروع المراحل الموجودة: !`git branch --list 'mj/*' --format='%(refname:short) %(objectname:short)' || true`
 - ترويسة المرحلة في هذا المجلد: !`sed -n '1,/^---$/p' Docs/MJ/stages/$0.md || true`
 
 ## ما تفعله

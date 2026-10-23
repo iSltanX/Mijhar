@@ -8,17 +8,17 @@ allowed-tools: Bash(pwd) Bash(true) Bash(git rev-parse *) Bash(git worktree list
 
 # /mj-merge $0
 
-الموجة المطلوبة: **$0** (حرف واحد: `B`). الحاكم `CLAUDE.md`، ثم `Docs/MJ/README.md`. كل التواصل مع المالك بالعربية.
+الموجة المطلوبة: **$0** (حرف واحد، مثل `B`). الحاكم `CLAUDE.md`، ثم `Docs/MJ/README.md`. كل التواصل مع المالك بالعربية.
 
 ## الحالة كما قيست الآن
 
 - المجلد: !`pwd`
-- مجلد git ومجلده المشترك (متطابقان في النسخة الرئيسية): !`git rev-parse --git-dir --git-common-dir`
-- الفرع الحالي: !`git rev-parse --abbrev-ref HEAD`
-- تغييرات غير ملتزمة: !`git status --porcelain`
-- وسوم أساس الموجات: !`git tag -l 'mj-*/base' --format='%(refname:short) %(objectname:short)'`
-- فروع المراحل: !`git branch --list 'mj/*' --format='%(refname:short) %(objectname:short)'`
-- الـworktrees: !`git worktree list`
+- مجلد git ومجلده المشترك (متطابقان في النسخة الرئيسية): !`git rev-parse --git-dir --git-common-dir || true`
+- الفرع الحالي: !`git rev-parse --abbrev-ref HEAD || true`
+- تغييرات غير ملتزمة: !`git status --porcelain || true`
+- وسوم أساس الموجات: !`git tag -l 'mj-*/base' --format='%(refname:short) %(objectname:short)' || true`
+- فروع المراحل: !`git branch --list 'mj/*' --format='%(refname:short) %(objectname:short)' || true`
+- الـworktrees: !`git worktree list || true`
 - صف الموجة في الكتلة المشتقة: !`grep -n "^| $0 " Docs/MJ/README.md || true`
 
 ## ما تفعله
