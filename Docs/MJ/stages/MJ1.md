@@ -1,7 +1,7 @@
 ---
 id: MJ1
 title: هيكل الإضافة ونظام البناء
-status: planned
+status: active
 delivery: none
 wave: A
 order: 1
@@ -15,7 +15,7 @@ branch: mj/1-core-scaffold
 base: mj-A/base
 commit: —
 updated: 2026-10-23
-resume: لم تبدأ. تبدأ من الخطوة 1 في «المهام» بعد التحقق من الفرع والأساس.
+resume: بدأت. فُحصت الشروط وأُنشئ الفرع؛ الخطوة التالية بناء الهيكل (package.json وvite وtsconfig) ثم المانيفستات.
 ---
 
 # MJ1 — هيكل الإضافة ونظام البناء
