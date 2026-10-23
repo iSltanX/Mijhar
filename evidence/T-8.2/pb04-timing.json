@@ -1,0 +1,88 @@
+{
+  "budget": "PB-04 < 15ms",
+  "items": 500,
+  "node": "v24.18.1",
+  "buildIndexMs": 1.82,
+  "timings": [
+    {
+      "query": {
+        "text": "ا"
+      },
+      "medianMs": 0.093,
+      "p90Ms": 0.121,
+      "maxMs": 0.135,
+      "results": 459
+    },
+    {
+      "query": {
+        "text": "cache"
+      },
+      "medianMs": 0.056,
+      "p90Ms": 0.072,
+      "maxMs": 1.259,
+      "results": 208
+    },
+    {
+      "query": {
+        "text": "الاداء مراجعة"
+      },
+      "medianMs": 0.068,
+      "p90Ms": 0.074,
+      "maxMs": 0.138,
+      "results": 138
+    },
+    {
+      "query": {
+        "text": "refactor router timeout"
+      },
+      "medianMs": 0.059,
+      "p90Ms": 0.072,
+      "maxMs": 0.112,
+      "results": 102
+    },
+    {
+      "query": {
+        "repo": "nodejs/node",
+        "sort": "oldest"
+      },
+      "medianMs": 0.01,
+      "p90Ms": 0.019,
+      "maxMs": 0.025,
+      "results": 43
+    },
+    {
+      "query": {
+        "kind": "bookmark",
+        "tag": "أداء",
+        "status": "review"
+      },
+      "medianMs": 0.007,
+      "p90Ms": 0.011,
+      "maxMs": 0.023,
+      "results": 11
+    },
+    {
+      "query": {
+        "level": "line",
+        "from": "2025-03-01",
+        "to": "2026-01-01",
+        "sort": "repo"
+      },
+      "medianMs": 0.008,
+      "p90Ms": 0.013,
+      "maxMs": 0.046,
+      "results": 45
+    },
+    {
+      "query": {
+        "text": "test",
+        "kind": "note",
+        "sort": "updated"
+      },
+      "medianMs": 0.024,
+      "p90Ms": 0.031,
+      "maxMs": 0.064,
+      "results": 115
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import type { UnitId } from '../core/ui-host/units';
 import { ExplainToggleView } from '../modules/b/card/panel-view';
 import { LATER_PANEL_VIEWS } from '../modules/g/bookmarks/view';
 import { NOTES_DRAWER_VIEW, NOTES_PANEL_VIEW } from '../modules/g/notes/view';
+import { README_WIZARD_VIEWS } from '../modules/h/readme-wizard/view';
 import { COMMUNITY_PANEL_VIEWS } from '../modules/h/views';
 
 /** التبويبات الأربعة الأولى من المستوى 3 (EXECUTION_PLAN.md ‏5)؛ الخامس «الإعدادات والخصوصية» يملكه المضيف. */
@@ -34,4 +35,5 @@ export const PANEL_VIEWS: readonly PanelView[] = [
   NOTES_DRAWER_VIEW, // MJ9 (T-8.1): رسالة بديلة في الدرج (بلا حقول كتابة)
   ...COMMUNITY_PANEL_VIEWS, // MJ9 (T-9.1، T-9.3، T-9.4، T-9.5): المجتمع وأول مساهمة
   ...LATER_PANEL_VIEWS, // MJ12 (T-8.2): ملاحظاتي وأكمل لاحقًا (البحث والتصفية والفرز)
+  ...README_WIZARD_VIEWS, // MJ12 (T-9.2): معالج اقتراح README عربي
 ];

@@ -34,5 +34,5 @@ export {
 } from './types';
 export type { Bookmark, BookmarkDraft, BookmarkLevel, BookmarkPatch, BookmarkPosition, BookmarkStatus } from './types';
 export { LATER_PANEL_VIEWS, LaterView, createLaterView } from './view';
-export { LaterCenter } from './ui/LaterCenter';
+export { CENTER_PAGE_SIZE, LaterCenter } from './ui/LaterCenter';
 export { QuickSave } from './ui/QuickSave';

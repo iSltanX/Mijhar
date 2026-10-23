@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { act } from 'preact/test-utils';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { HOST_TAG, LifecycleManager, ModuleRegistry, PageDetector } from '../../../../src/core';
+import { AnchorStore } from '../../../../src/modules/g/anchor';
 import { NOTES_LINE_MARKERS_KEY, NOTES_PAGE_CARD_KEY, createModuleG } from '../../../../src/modules/g/notes';
 import { SHA, TARGETS, draft, flush, memoryNotes } from './helpers';
 import type { MemoryNotes } from './helpers';
@@ -27,7 +28,7 @@ const settle = (ms = 30) => act(async () => void (await flush(ms)));
 
 async function start(): Promise<LifecycleManager> {
   context = context ?? (await memoryNotes());
-  const module = createModuleG({ context: async () => context });
+  const module = createModuleG({ context: async () => context, anchors: () => AnchorStore.open(context.store) });
   manager = new LifecycleManager({ registry: new ModuleRegistry([module]), detector: new PageDetector({ document, settleMs: 1 }), document, isEnabled: () => true });
   await act(async () => {
     manager?.start();

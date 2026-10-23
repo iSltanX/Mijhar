@@ -35,18 +35,33 @@ function contextAt(page: PageLines, fingerprint: Fingerprint, k: number): boolea
   return true;
 }
 
+// فهرس «نص السطر ← مواضعه» لكل حالة أسطر، يُبنى مرة عند أول بحث: كل ملاحظة بعدها تزور مواضع سطرها الأول وحدها.
+const indexes = new WeakMap<PageLines, Map<string, number[]>>();
+
+function positionsOf(page: PageLines, text: string): readonly number[] {
+  let index = indexes.get(page);
+  if (!index) {
+    index = new Map();
+    for (const [n, t] of page.lines) {
+      const list = index.get(t);
+      if (list) list.push(n);
+      else index.set(t, [n]);
+    }
+    for (const list of index.values()) list.sort((a, b) => a - b);
+    indexes.set(page, index);
+  }
+  return index.get(text) ?? [];
+}
+
 /** المواضع (بداية النطاق) التي يطابق فيها النطاق نصًّا، وتلك التي يطابق فيها مع السياق. */
 export function locate(page: PageLines, fingerprint: Fingerprint): { readonly strict: number[]; readonly textOnly: number[] } {
-  const first = fingerprint.block[0];
   const strict: number[] = [];
   const textOnly: number[] = [];
-  for (const [k, text] of page.lines) {
-    if (text !== first || !blockAt(page, fingerprint, k)) continue;
+  for (const k of positionsOf(page, fingerprint.block[0] as string)) {
+    if (!blockAt(page, fingerprint, k)) continue;
     textOnly.push(k);
     if (contextAt(page, fingerprint, k)) strict.push(k);
   }
-  strict.sort((a, b) => a - b);
-  textOnly.sort((a, b) => a - b);
   return { strict, textOnly };
 }
 

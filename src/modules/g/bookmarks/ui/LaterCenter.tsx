@@ -1,7 +1,7 @@
 // مركز «ملاحظاتي وأكمل لاحقًا»: بحث فوري في الملاحظات والروابط المحفوظة معًا، وتصفية بالنوع والمستودع والمستوى والوسم والحالة
 // والتاريخ، وفرز. الفهرس يُبنى عند تغيّر البيانات وحدها، والاستعلام مرور واحد عليه (search.ts). تحرير الملاحظات في مساحة عملها؛
 // وهنا يُحرَّر الرابط المحفوظ ويُزال، وتُفتح صفحة العنصر في تبويب جديد بنقر المستخدم.
-import { useMemo, useRef, useState } from 'preact/hooks';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { useStyles } from '../../../../shared/ui/useStyles';
 import { useNotes } from '../../notes/ui/NotesWorkspace';
 import type { NotesRepository } from '../../notes/repository';
@@ -16,6 +16,9 @@ import { BookmarkEditor } from './BookmarkEditor';
 import { LATER_CSS, LATER_STYLE_ID } from './styles';
 
 const describeError = (error: unknown): string => (error instanceof Error ? error.message : String(error));
+
+/** تُرسم النتائج دفعات: زمن «ظهور النتائج» (PB-04) لا يكبر بحجم المجموعة. */
+export const CENTER_PAGE_SIZE = 50;
 
 function formatDate(iso: string): string {
   const date = new Date(iso);
@@ -159,10 +162,14 @@ export function LaterCenter({ notes: notesRepository, bookmarks: bookmarksReposi
   const [status, setStatus] = useState<BookmarkStatus | 'all'>('all');
   const [preset, setPreset] = useState<DatePreset>('all');
   const [sort, setSort] = useState<CenterSort>('newest');
+  const [limit, setLimit] = useState(CENTER_PAGE_SIZE);
   const results = useMemo(
     () => queryCenter(index, { text, kind, repo: repo || null, level, tag: tag || null, status, from: presetFrom(preset, now()), sort }),
     [index, text, kind, repo, level, tag, status, preset, sort],
   );
+  // أي تغيير في المعايير يعيد العرض إلى الدفعة الأولى.
+  useEffect(() => setLimit(CENTER_PAGE_SIZE), [text, kind, repo, level, tag, status, preset, sort]);
+  const shown = results.length > limit ? results.slice(0, limit) : results;
 
   return (
     <div class="later" ref={root} data-later-center="">
@@ -247,12 +254,17 @@ export function LaterCenter({ notes: notesRepository, bookmarks: bookmarksReposi
       <p class="count-line" role="status" data-result-count={results.length}>
         {index.length === 0 ? 'لا ملاحظات ولا روابط محفوظة بعد.' : `${results.length} من ${index.length}`}
       </p>
-      {results.length > 0 && (
+      {shown.length > 0 && (
         <ul class="results" aria-label="النتائج">
-          {results.map((entry) =>
+          {shown.map((entry) =>
             entry.kind === 'bookmark' ? <BookmarkResult key={`b-${entry.id}`} entry={entry} repository={bookmarksRepository} /> : <NoteResult key={`n-${entry.id}`} entry={entry} />,
           )}
         </ul>
+      )}
+      {results.length > shown.length && (
+        <button type="button" class="btn btn-small" data-action="show-more" onClick={() => setLimit(limit + CENTER_PAGE_SIZE)}>
+          اعرض {Math.min(CENTER_PAGE_SIZE, results.length - shown.length)} أخرى ({shown.length} من {results.length} معروضة)
+        </button>
       )}
     </div>
   );

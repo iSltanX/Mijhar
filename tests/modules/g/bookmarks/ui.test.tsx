@@ -9,12 +9,14 @@ import { render } from 'preact';
 import { act } from 'preact/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HOST_TAG, LifecycleManager, ModuleRegistry, PageDetector } from '../../../../src/core';
-import { BOOKMARKS_PAGE_BUTTON_KEY, LATER_PANEL_VIEWS, LATER_SETTINGS_SECTION, connectLater, createBookmarksModule, createLaterView } from '../../../../src/modules/g/bookmarks';
+import { MemoryStorageArea, Store } from '../../../../src/core';
+import { BOOKMARKS_PAGE_BUTTON_KEY, CENTER_PAGE_SIZE, LATER_PANEL_VIEWS, LATER_SETTINGS_SECTION, bookmarkRecordName, buildIndex, connectLater, createBookmarksModule, createLaterView, queryCenter } from '../../../../src/modules/g/bookmarks';
+import { noteRecordName } from '../../../../src/modules/g/notes';
 import { SETTINGS_SECTIONS } from '../../../../src/options/sections';
 import { pageInfoFromUrl } from '../../../../src/shared/page';
 import type { PageSource } from '../../../../src/shared/page';
 import { PANEL_VIEWS } from '../../../../src/sidepanel/views';
-import { flush, memoryLater } from './helpers';
+import { flush, memoryLater, notesSet } from './helpers';
 import type { MemoryLater } from './helpers';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -238,6 +240,50 @@ describe('مركز «ملاحظاتي وأكمل لاحقًا» في اللوح�
     await settle();
     expect(later.bookmarks.size).toBe(0);
     expect($('[data-result-count]').textContent).toContain('لا ملاحظات ولا روابط');
+  });
+
+  it('PB-04 حتى ظهور النتائج: 500 عنصر، والنتائج تُرسم دفعات من 50 مع «اعرض المزيد»', async () => {
+    const area = new MemoryStorageArea();
+    const seed = await Store.open({ area, changes: area, locks: null });
+    const set = notesSet();
+    for (const note of set.notes) await seed.write(noteRecordName(note.id), note);
+    for (const bookmark of set.bookmarks) await seed.write(bookmarkRecordName(bookmark.id), bookmark);
+    later = await memoryLater(area);
+    await mount('about:blank');
+    expect($('[data-result-count]').getAttribute('data-result-count')).toBe('500');
+    expect(container.querySelectorAll('[data-entry-kind]')).toHaveLength(CENTER_PAGE_SIZE);
+    await click($('[data-action="show-more"]'));
+    expect(container.querySelectorAll('[data-entry-kind]')).toHaveLength(CENTER_PAGE_SIZE * 2);
+
+    const index = buildIndex(set.notes, set.bookmarks);
+    const search = $<HTMLInputElement>('#mj-later-search');
+    const timings: Array<{ text: string; results: number; medianMs: number; p90Ms: number }> = [];
+    for (const text of ['ا', 'cache', 'الاداء مراجعة', 'refactor router', 'test']) {
+      const runs: number[] = [];
+      for (let i = 0; i < 12; i += 1) {
+        act(() => {
+          search.value = '';
+          search.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+        const t0 = performance.now();
+        act(() => {
+          search.value = text;
+          search.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+        runs.push(performance.now() - t0);
+      }
+      const expected = queryCenter(index, { text }).length;
+      expect($('[data-result-count]').getAttribute('data-result-count')).toBe(String(expected));
+      expect(container.querySelectorAll('[data-entry-kind]').length).toBe(Math.min(expected, CENTER_PAGE_SIZE));
+      runs.sort((a, b) => a - b);
+      timings.push({ text, results: expected, medianMs: Number(runs[6]!.toFixed(2)), p90Ms: Number(runs[10]!.toFixed(2)) });
+    }
+    if (process.env.MIJHAR_EVIDENCE === '1') {
+      const out = path.join(ROOT, 'evidence/T-8.2/pb04-render-jsdom.json');
+      fs.mkdirSync(path.dirname(out), { recursive: true });
+      fs.writeFileSync(out, JSON.stringify({ budget: 'PB-04 < 15ms (إدخال ← ظهور النتائج)', env: 'jsdom (أبطأ من المتصفح)، الدفعة الأولى 50', items: 500, timings }, null, 2) + '\n');
+    }
+    for (const t of timings) expect(t.medianMs).toBeLessThan(15);
   });
 
   it('مسجَّل في تبويب «ملاحظاتي»: اللوحة الأصلية وحدها، وفي الدرج رسالة بديلة؛ وقسم الإعدادات يبيّن ما يُحفظ من السطر', () => {
