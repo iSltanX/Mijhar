@@ -83,15 +83,21 @@ export type UndoResult =
   | { readonly status: 'restored' }
   /** عُدّلت المسودة بعد الإدراج: أُزيلت الكتلة وحدها وبقيت التعديلات. */
   | { readonly status: 'removed'; readonly remaining: number }
-  /** تعذّر: الكتلة المُدرجة نفسها تغيّرت أو الحقل زال. previous: نص المسودة السابقة ليُنسخ. */
+  /** تعذّر: الكتلة المُدرجة نفسها تغيّرت، أو لم يثبت موضعها (تعديل قبلها وبعدها)، أو الحقل زال. previous: نص المسودة السابقة ليُنسخ. */
   | { readonly status: 'modified'; readonly previous: string };
 
-function closest(value: string, needle: string, near: number): number {
-  let best = -1;
-  for (let at = value.indexOf(needle); at !== -1; at = value.indexOf(needle, at + 1)) {
-    if (best === -1 || Math.abs(at - near) < Math.abs(best - near)) best = at;
-  }
-  return best;
+/**
+ * موضع المُدرج الآن إن ثبتت ملكيته (VR-02)، أو -1. يُقبل موضعه الأصلي إن لم يتغير شيء قبله، أو موضعه مزاحًا بفرق الطول إن لم يتغير
+ * شيء بعده؛ وفي الحالين نصه نفسه في ذلك الموضع. لا بحث في الحقل كله: كتلة مطابقة كانت في المسودة ليست المُدرج.
+ */
+function ownedPosition(value: string, insertion: Insertion): number {
+  const { inserted, start, valueAfter } = insertion;
+  const end = start + inserted.length;
+  const holds = (at: number): boolean => at >= 0 && value.slice(at, at + inserted.length) === inserted;
+  if (value.slice(0, start) === valueAfter.slice(0, start) && holds(start)) return start;
+  const shifted = start + (value.length - valueAfter.length);
+  if (value.slice(shifted + inserted.length) === valueAfter.slice(end) && holds(shifted)) return shifted;
+  return -1;
 }
 
 /** «التراجع عن آخر إدراج». */
@@ -107,8 +113,9 @@ export function undoInsertion(insertion: Insertion): UndoResult {
       return { status: 'restored' };
     }
   }
-  // عُدّلت المسودة بعد الإدراج (أو رمّمها معالج الصفحة): تُزال الكتلة وحدها حيث هي الآن.
-  const at = closest(field.value, inserted, start);
+  // عُدّلت المسودة بعد الإدراج (أو رمّمها معالج الصفحة): تُزال الكتلة وحدها حيث هي الآن، إن ثبت أنها المُدرج نفسه. تعديل قبلها
+  // وبعدها معًا لا يثبت الموضع، فيُعاد modified دون مساس (والمسودة السابقة تُنسخ).
+  const at = ownedPosition(field.value, insertion);
   if (at === -1) return { status: 'modified', previous: snapshot.value };
   deleteRange(field, at, at + inserted.length);
   field.setSelectionRange(at, at);
