@@ -107,6 +107,8 @@ export interface NoteDraft {
 export interface NotePatch {
   readonly text?: string;
   readonly anchorStatus?: AnchorStatus;
+  /** موضع جديد لملاحظة سطر بنقر المستخدم (T-8.3): السطر نفسه في ملفه أو فروقه، وتتغير الأسطر وحدها. */
+  readonly target?: LineTarget;
 }
 
 export const NOTE_PREFIX = 'notes.';

@@ -1,0 +1,682 @@
+{
+ "engine": "src/modules/g/anchor (T-8.3)",
+ "method": "مراسي T-0.4 نفسها: كل سطر غير فارغ، سياق ±2، مقابل التالية والخامسة بعدها ورأس الملف",
+ "node": "v24.18.1",
+ "files": [
+  {
+   "repo": "axios",
+   "path": "lib/adapters/http.js",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 15990,
+      "B": 25589,
+      "C": 197,
+      "D": 930,
+      "D_textUnique": 441
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 1771,
+      "B": 31640,
+      "C": 242,
+      "D": 3817,
+      "D_textUnique": 1719
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 746,
+      "B": 28935,
+      "C": 335,
+      "D": 12690,
+      "D_textUnique": 5108
+     }
+    }
+   },
+   "hashNext": {
+    "A": 15990,
+    "B": 25589,
+    "C": 197,
+    "D": 930,
+    "D_textUnique": 441
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 15990,
+      "B": 25589,
+      "C": 197,
+      "D": 930,
+      "D_textUnique": 441
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 1771,
+      "B": 31640,
+      "C": 242,
+      "D": 3817,
+      "D_textUnique": 1719
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 746,
+      "B": 28935,
+      "C": 335,
+      "D": 12690,
+      "D_textUnique": 5108
+     }
+    }
+   }
+  },
+  {
+   "repo": "axios",
+   "path": "README.md",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 23639,
+      "B": 51153,
+      "C": 1202,
+      "D": 769,
+      "D_textUnique": 274
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 7622,
+      "B": 54943,
+      "C": 1546,
+      "D": 3460,
+      "D_textUnique": 1253
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 2745,
+      "B": 58894,
+      "C": 2947,
+      "D": 12177,
+      "D_textUnique": 4164
+     }
+    }
+   },
+   "hashNext": {
+    "A": 23639,
+    "B": 51153,
+    "C": 1202,
+    "D": 769,
+    "D_textUnique": 274
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 23639,
+      "B": 51153,
+      "C": 1202,
+      "D": 769,
+      "D_textUnique": 274
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 7622,
+      "B": 54943,
+      "C": 1546,
+      "D": 3460,
+      "D_textUnique": 1253
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 2745,
+      "B": 58894,
+      "C": 2947,
+      "D": 12177,
+      "D_textUnique": 4164
+     }
+    }
+   }
+  },
+  {
+   "repo": "express",
+   "path": "lib/response.js",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 16432,
+      "B": 18529,
+      "C": 1019,
+      "D": 982,
+      "D_textUnique": 334
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 3022,
+      "B": 26618,
+      "C": 1686,
+      "D": 2010,
+      "D_textUnique": 720
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 2699,
+      "B": 26363,
+      "C": 862,
+      "D": 7038,
+      "D_textUnique": 2352
+     }
+    }
+   },
+   "hashNext": {
+    "A": 16432,
+    "B": 18529,
+    "C": 1019,
+    "D": 982,
+    "D_textUnique": 334
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 16432,
+      "B": 18529,
+      "C": 1019,
+      "D": 982,
+      "D_textUnique": 334
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 3022,
+      "B": 26618,
+      "C": 1686,
+      "D": 2010,
+      "D_textUnique": 720
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 2699,
+      "B": 26363,
+      "C": 862,
+      "D": 7038,
+      "D_textUnique": 2352
+     }
+    }
+   }
+  },
+  {
+   "repo": "express",
+   "path": "lib/application.js",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 8195,
+      "B": 9744,
+      "C": 343,
+      "D": 1949,
+      "D_textUnique": 562
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 1754,
+      "B": 12476,
+      "C": 415,
+      "D": 3466,
+      "D_textUnique": 1142
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 2590,
+      "B": 9923,
+      "C": 352,
+      "D": 7366,
+      "D_textUnique": 2140
+     }
+    }
+   },
+   "hashNext": {
+    "A": 8195,
+    "B": 9744,
+    "C": 343,
+    "D": 1949,
+    "D_textUnique": 562
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 8195,
+      "B": 9744,
+      "C": 343,
+      "D": 1949,
+      "D_textUnique": 562
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 1754,
+      "B": 12476,
+      "C": 415,
+      "D": 3466,
+      "D_textUnique": 1142
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 2590,
+      "B": 9923,
+      "C": 352,
+      "D": 7366,
+      "D_textUnique": 2140
+     }
+    }
+   }
+  },
+  {
+   "repo": "express",
+   "path": "Readme.md",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 4660,
+      "B": 1793,
+      "C": 12,
+      "D": 365,
+      "D_textUnique": 206
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 1161,
+      "B": 3434,
+      "C": 39,
+      "D": 1372,
+      "D_textUnique": 681
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 400,
+      "B": 3607,
+      "C": 63,
+      "D": 2760,
+      "D_textUnique": 1083
+     }
+    }
+   },
+   "hashNext": {
+    "A": 4660,
+    "B": 1793,
+    "C": 12,
+    "D": 365,
+    "D_textUnique": 206
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 4660,
+      "B": 1793,
+      "C": 12,
+      "D": 365,
+      "D_textUnique": 206
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 1161,
+      "B": 3434,
+      "C": 39,
+      "D": 1372,
+      "D_textUnique": 681
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 400,
+      "B": 3607,
+      "C": 63,
+      "D": 2760,
+      "D_textUnique": 1083
+     }
+    }
+   }
+  },
+  {
+   "repo": "flask",
+   "path": "src/flask/app.py",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 18748,
+      "B": 30687,
+      "C": 60,
+      "D": 4035,
+      "D_textUnique": 1429
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 5357,
+      "B": 35705,
+      "C": 53,
+      "D": 7181,
+      "D_textUnique": 2137
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 1249,
+      "B": 31743,
+      "C": 56,
+      "D": 20482,
+      "D_textUnique": 6448
+     }
+    }
+   },
+   "hashNext": {
+    "A": 18748,
+    "B": 30687,
+    "C": 60,
+    "D": 4035,
+    "D_textUnique": 1429
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 18748,
+      "B": 30687,
+      "C": 60,
+      "D": 4035,
+      "D_textUnique": 1429
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 5357,
+      "B": 35705,
+      "C": 53,
+      "D": 7181,
+      "D_textUnique": 2137
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 1249,
+      "B": 31743,
+      "C": 56,
+      "D": 20482,
+      "D_textUnique": 6448
+     }
+    }
+   }
+  },
+  {
+   "repo": "flask",
+   "path": "README.md",
+   "text": {
+    "1": {
+     "pairs": 7,
+     "counts": {
+      "A": 148,
+      "B": 67,
+      "C": 0,
+      "D": 36,
+      "D_textUnique": 14
+     }
+    },
+    "5": {
+     "pairs": 4,
+     "counts": {
+      "A": 7,
+      "B": 59,
+      "C": 0,
+      "D": 76,
+      "D_textUnique": 22
+     }
+    },
+    "head": {
+     "pairs": 8,
+     "counts": {
+      "A": 37,
+      "B": 167,
+      "C": 0,
+      "D": 82,
+      "D_textUnique": 27
+     }
+    }
+   },
+   "hashNext": {
+    "A": 148,
+    "B": 67,
+    "C": 0,
+    "D": 36,
+    "D_textUnique": 14
+   },
+   "spike": {
+    "1": {
+     "pairs": 7,
+     "counts": {
+      "A": 148,
+      "B": 67,
+      "C": 0,
+      "D": 36,
+      "D_textUnique": 14
+     }
+    },
+    "5": {
+     "pairs": 4,
+     "counts": {
+      "A": 7,
+      "B": 59,
+      "C": 0,
+      "D": 76,
+      "D_textUnique": 22
+     }
+    },
+    "head": {
+     "pairs": 8,
+     "counts": {
+      "A": 37,
+      "B": 167,
+      "C": 0,
+      "D": 82,
+      "D_textUnique": 27
+     }
+    }
+   }
+  },
+  {
+   "repo": "requests",
+   "path": "src/requests/sessions.py",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 14590,
+      "B": 9405,
+      "C": 374,
+      "D": 873,
+      "D_textUnique": 454
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 4207,
+      "B": 14279,
+      "C": 564,
+      "D": 3167,
+      "D_textUnique": 1721
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 3256,
+      "B": 9838,
+      "C": 592,
+      "D": 11556,
+      "D_textUnique": 5986
+     }
+    }
+   },
+   "hashNext": {
+    "A": 14590,
+    "B": 9405,
+    "C": 374,
+    "D": 873,
+    "D_textUnique": 454
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 14590,
+      "B": 9405,
+      "C": 374,
+      "D": 873,
+      "D_textUnique": 454
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 4207,
+      "B": 14279,
+      "C": 564,
+      "D": 3167,
+      "D_textUnique": 1721
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 3256,
+      "B": 9838,
+      "C": 592,
+      "D": 11556,
+      "D_textUnique": 5986
+     }
+    }
+   }
+  },
+  {
+   "repo": "requests",
+   "path": "src/requests/models.py",
+   "text": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 19391,
+      "B": 12438,
+      "C": 262,
+      "D": 1031,
+      "D_textUnique": 571
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 5244,
+      "B": 19265,
+      "C": 408,
+      "D": 4256,
+      "D_textUnique": 2277
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 674,
+      "B": 17693,
+      "C": 462,
+      "D": 14293,
+      "D_textUnique": 7024
+     }
+    }
+   },
+   "hashNext": {
+    "A": 19391,
+    "B": 12438,
+    "C": 262,
+    "D": 1031,
+    "D_textUnique": 571
+   },
+   "spike": {
+    "1": {
+     "pairs": 39,
+     "counts": {
+      "A": 19391,
+      "B": 12438,
+      "C": 262,
+      "D": 1031,
+      "D_textUnique": 571
+     }
+    },
+    "5": {
+     "pairs": 35,
+     "counts": {
+      "A": 5244,
+      "B": 19265,
+      "C": 408,
+      "D": 4256,
+      "D_textUnique": 2277
+     }
+    },
+    "head": {
+     "pairs": 39,
+     "counts": {
+      "A": 674,
+      "B": 17693,
+      "C": 462,
+      "D": 14293,
+      "D_textUnique": 7024
+     }
+    }
+   }
+  }
+ ]
+}

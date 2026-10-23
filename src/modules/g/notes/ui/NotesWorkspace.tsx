@@ -1,5 +1,6 @@
 // مساحة عمل الملاحظات: اختيار المستوى، وكتابة ملاحظة جديدة، وقائمة ملاحظات الصفحة بالتعديل والحذف. تُرسم بالمكوّن نفسه في بطاقة
 // الصفحة وفي اللوحة الجانبية والدرج (mode)، فسلوك الإنشاء والتحرير واحد في الثلاثة.
+import type { ComponentChildren } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { PageInfo } from '../../../../shared/page';
 import { useStyles } from '../../../../shared/ui/useStyles';
@@ -21,6 +22,10 @@ export interface NotesWorkspaceProps {
   readonly locate?: (target: LineTarget) => boolean;
   /** ملاحظة تُبرز وتُمرَّر إلى مجال الرؤية (من نقر علامة سطر). */
   readonly highlightId?: string | null;
+  /** بعد إنشاء ملاحظة من هذه المساحة (بطاقة الصفحة تحفظ مرساة السطر، T-8.3). */
+  readonly onCreated?: (note: Note) => void;
+  /** عرض حالة مرساة ملاحظة سطر بدل الوسم البسيط (بطاقة الصفحة وحدها ترى أسطر الملف، T-8.3). */
+  readonly renderAnchor?: (note: Note) => ComponentChildren;
 }
 
 /** ملاحظات المستودع كلها وتحديثها الحي من أي سياق. */
@@ -57,11 +62,12 @@ interface NoteItemProps {
   readonly showOpen: boolean;
   readonly flash: boolean;
   readonly onError: (message: string | null) => void;
+  readonly renderAnchor?: ((note: Note) => ComponentChildren) | undefined;
 }
 
 const isGithubUrl = (url: string): boolean => url.startsWith('https://github.com/');
 
-function NoteItem({ note, relation, repository, showTarget, showOpen, flash, onError }: NoteItemProps) {
+function NoteItem({ note, relation, repository, showTarget, showOpen, flash, onError, renderAnchor }: NoteItemProps) {
   const [editing, setEditing] = useState<string | null>(null);
   const [confirming, setConfirming] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -122,7 +128,7 @@ function NoteItem({ note, relation, repository, showTarget, showOpen, flash, onE
             {LEVEL_LABELS[target.level]}: <span class="ltr-inline">{describeTarget(target)}</span>
           </span>
         )}
-        {(target.level === 'file' || target.level === 'line') && (
+        {(target.level === 'file' || (target.level === 'line' && !(renderAnchor && relation === 'exact'))) && (
           <span class="anchor" data-status={note.anchorStatus} data-anchor-status={note.anchorStatus}>
             {ANCHOR_LABELS[note.anchorStatus]}
           </span>
@@ -133,6 +139,7 @@ function NoteItem({ note, relation, repository, showTarget, showOpen, flash, onE
           </span>
         )}
       </div>
+      {renderAnchor && relation === 'exact' && target.level === 'line' && renderAnchor(note)}
       <div class="note-actions">
         {editing === null ? (
           <>
@@ -174,7 +181,7 @@ function NoteItem({ note, relation, repository, showTarget, showOpen, flash, onE
   );
 }
 
-export function NotesWorkspace({ repository, page, mode, locate, highlightId }: NotesWorkspaceProps) {
+export function NotesWorkspace({ repository, page, mode, locate, highlightId, onCreated, renderAnchor }: NotesWorkspaceProps) {
   const root = useRef<HTMLDivElement>(null);
   useStyles(root, NOTES_STYLE_ID, NOTES_CSS);
   const notes = useNotes(repository);
@@ -222,9 +229,10 @@ export function NotesWorkspace({ repository, page, mode, locate, highlightId }: 
     setError(null);
     const anchorStatus = target.level === 'line' ? (locate ? (locate(target) ? 'unverified' : 'unanchored') : 'unverified') : 'not-applicable';
     repository.create({ target, text, url: page.href, title: page.title, anchorStatus }).then(
-      () => {
+      (note) => {
         setBusy(false);
         setDraft('');
+        onCreated?.(note);
       },
       (e: unknown) => {
         setBusy(false);
@@ -295,6 +303,7 @@ export function NotesWorkspace({ repository, page, mode, locate, highlightId }: 
               showOpen={mode === 'panel'}
               flash={highlightId === note.id}
               onError={setError}
+              renderAnchor={renderAnchor}
             />
           ))}
         </ul>

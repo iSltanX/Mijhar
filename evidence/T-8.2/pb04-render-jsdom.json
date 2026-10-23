@@ -1,0 +1,37 @@
+{
+  "budget": "PB-04 < 15ms (إدخال ← ظهور النتائج)",
+  "env": "jsdom (أبطأ من المتصفح)، الدفعة الأولى 50",
+  "items": 500,
+  "timings": [
+    {
+      "text": "ا",
+      "results": 459,
+      "medianMs": 2.43,
+      "p90Ms": 6.84
+    },
+    {
+      "text": "cache",
+      "results": 208,
+      "medianMs": 4.54,
+      "p90Ms": 4.78
+    },
+    {
+      "text": "الاداء مراجعة",
+      "results": 138,
+      "medianMs": 4.33,
+      "p90Ms": 4.45
+    },
+    {
+      "text": "refactor router",
+      "results": 132,
+      "medianMs": 3.94,
+      "p90Ms": 4.06
+    },
+    {
+      "text": "test",
+      "results": 204,
+      "medianMs": 3.56,
+      "p90Ms": 3.66
+    }
+  ]
+}

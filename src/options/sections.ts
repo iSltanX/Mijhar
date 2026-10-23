@@ -12,6 +12,7 @@ import { SEARCH_SECTION } from '../modules/b/search/section';
 import { TRANSLATE_SECTION } from '../modules/c/ui/section';
 import { PR_STATUS_SECTION } from '../modules/d/pr-status/section';
 import { COMPOSER_SECTION } from '../modules/f/composer/section';
+import { LATER_SETTINGS_SECTION } from '../modules/g/bookmarks/section';
 import { NOTES_SETTINGS_SECTION } from '../modules/g/notes/section';
 import { COMMUNITY_SETTINGS_SECTION } from '../modules/h/section';
 
@@ -47,6 +48,7 @@ export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
   COMPOSER_SECTION, // MJ10 (T-7.1): الوحدة (و)
   NOTES_SETTINGS_SECTION, // MJ9 (T-8.1): الملاحظات الخاصة
   COMMUNITY_SETTINGS_SECTION, // MJ9 (T-9.1، T-9.4): المجتمع وأول مساهمة
+  LATER_SETTINGS_SECTION, // MJ12 (T-8.2، T-8.3): أكمل لاحقًا وخصوصية الأسطر (DEC-05)
 ];
 
 export const sectionsFor = (surface: SettingsSurface, sections: readonly SettingsSection[] = SETTINGS_SECTIONS): SettingsSection[] =>
