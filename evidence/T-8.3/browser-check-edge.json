@@ -20,7 +20,7 @@
       "ok": true,
       "detail": {
         "branch": "main",
-        "id": "0eaad49a-3ee8-4191-8272-3593f2a65600",
+        "id": "0295e26d-598c-48b2-9068-8deb60356b0e",
         "level": "line",
         "note": "",
         "owner": "octo",
@@ -31,11 +31,11 @@
         },
         "refKind": "ref",
         "repo": "shop",
-        "savedAt": "2026-10-23T14:02:21.628Z",
+        "savedAt": "2026-10-23T14:09:09.553Z",
         "status": "reading",
         "tags": [],
         "title": "cart.js at main · octo/shop",
-        "updatedAt": "2026-10-23T14:02:21.628Z",
+        "updatedAt": "2026-10-23T14:09:09.553Z",
         "url": "https://github.com/octo/shop/blob/main/src/cart.js#L40",
         "version": 1
       }
@@ -44,7 +44,7 @@
       "name": "مرساة السطر في التخزين: نص النطاق وسياقه (مستودع عام) والتزام الصفحة",
       "ok": true,
       "detail": {
-        "capturedAt": "2026-10-23T14:02:22.003Z",
+        "capturedAt": "2026-10-23T14:09:09.935Z",
         "commit": "1111111111111111111111111111111111111111",
         "end": 40,
         "fingerprint": {
@@ -62,7 +62,7 @@
           "mode": "text"
         },
         "missing": null,
-        "noteId": "bb5e69f5-be77-4b99-9473-92bebaa431fe",
+        "noteId": "e6e1ef85-83f6-4b95-95d4-6aa313e8cf64",
         "owner": "octo",
         "path": "src/cart.js",
         "ref": "main",
@@ -150,18 +150,18 @@
         "view": "matched",
         "fingerprint": {
           "after": [
-            "4062c99075125220afc9dab8cd4cf4eaa4646eb5993b240b976bb2ae0f705bd0",
-            "66b3446fee898cc5335afa0bc4248425e809bd49f991c15fa47917a0ad008843"
+            "f24bf1c2316f6eb5a57e7056799e7f5293e61e95a10493d5df45178e18f28829",
+            "e0682e8c9fd1b6a21bb963fb6653a61264bddb5cb3d429e45a04b68195bd19f6"
           ],
           "before": [
-            "93365835c35c9f1808f643bb78940ed277feca703934689e27124cec0be351a1",
-            "4af7345afc29a9b0a1698adffc7856590aff806590cdde2063335516e0d3fd76"
+            "bdfa038c36087037a9d7a489fc3a2e456d8ab374d21340f4bc650e156a77c894",
+            "5b64542c853cdd54d050fa6afb7c7a596666d8f6f3487aea770a09015aa7449f"
           ],
           "block": [
-            "1e6b0a6496ff080fb1725faa6e2ac58e5d7535f082a9a34eef7134ed00d32ee4"
+            "7b4e68ffd4b358e93494d3367757acea3193c8dab7c8511601d4ea8c31e52e11"
           ],
           "mode": "hash",
-          "saltId": "d956cf146338"
+          "saltId": "28516c5d1385"
         }
       }
     },

@@ -1,27 +1,27 @@
- ✓ tests/modules/g/anchor/histories.test.ts > توزيع إعادة التثبيت على تاريخ حقيقي (flask/README.md، مضمَّن) > محرك T-8.3 يعيد أعداد T-0.4 نفسها (A وB وC وD والنص وحده) 5ms
- ✓ tests/modules/g/anchor/histories.test.ts > توزيع إعادة التثبيت على تاريخ حقيقي (flask/README.md، مضمَّن) > صيغة الخاص (بصمة مملّحة) تعطي التوزيع نفسه: التجزئة لا تغيّر الحكم 114ms
+ ✓ tests/modules/g/anchor/histories.test.ts > توزيع إعادة التثبيت على تاريخ حقيقي (flask/README.md، مضمَّن) > محرك T-8.3 يعيد أعداد T-0.4 نفسها (A وB وC وD والنص وحده) 6ms
+ ✓ tests/modules/g/anchor/histories.test.ts > توزيع إعادة التثبيت على تاريخ حقيقي (flask/README.md، مضمَّن) > صيغة الخاص (بصمة مملّحة) تعطي التوزيع نفسه: التجزئة لا تغيّر الحكم 66ms
  ↓ tests/modules/g/anchor/histories.test.ts > التواريخ التسعة كلها (MIJHAR_HISTORIES) > أعداد المحرك على كل ملف ومسافة تطابق T-0.4، والتجزئة لا تغيّرها في المراجعة التالية
- ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > كل مستوى من الخمسة (وسطر الفروق) يُنشأ ويُقرأ كما أُدخل 6ms
- ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > حالة المرساة الافتراضية: بلا موضع لغير السطر، وغير متحقق منه للسطر 0ms
+ ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > كل مستوى من الخمسة (وسطر الفروق) يُنشأ ويُقرأ كما أُدخل 16ms
+ ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > حالة المرساة الافتراضية: بلا موضع لغير السطر، وغير متحقق منه للسطر 1ms
  ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > النص يُهذَّب، والفارغ والمفرط الطول مرفوضان بلا كتابة 1ms
- ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > هدف تالف يُرفض 0ms
- ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > الترتيب: الأحدث تعديلًا أولًا 5ms
- ✓ tests/modules/g/notes/repository.test.ts > التحرير والحذف > تعديل النص لا يمس حالة المرساة، وتعديل الحالة لا يمس النص 0ms
+ ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > هدف تالف يُرفض 1ms
+ ✓ tests/modules/g/notes/repository.test.ts > الإنشاء والقراءة > الترتيب: الأحدث تعديلًا أولًا 9ms
+ ✓ tests/modules/g/notes/repository.test.ts > التحرير والحذف > تعديل النص لا يمس حالة المرساة، وتعديل الحالة لا يمس النص 1ms
  ✓ tests/modules/g/notes/repository.test.ts > التحرير والحذف > تعديل ملاحظة غير موجودة يفشل بخطأ مفهوم ولا ينشئها 0ms
  ✓ tests/modules/g/notes/repository.test.ts > التحرير والحذف > الحذف يزيلها من الذاكرة والتخزين 0ms
  ✓ tests/modules/g/notes/repository.test.ts > البقاء والتزامن > تبقى الملاحظات بعد إعادة الفتح (إعادة تحميل المتصفح) 0ms
- ✓ tests/modules/g/notes/repository.test.ts > البقاء والتزامن > سياقان: ما يكتبه أحدهما يظهر في الآخر ويُبلَّغ به، والحذف كذلك 11ms
+ ✓ tests/modules/g/notes/repository.test.ts > البقاء والتزامن > سياقان: ما يكتبه أحدهما يظهر في الآخر ويُبلَّغ به، والحذف كذلك 8ms
  ✓ tests/modules/g/notes/repository.test.ts > البقاء والتزامن > لا إشعار مكرر لكتابة المستودع نفسه (الحدث الوارد مطابق للذاكرة) 3ms
- ✓ tests/modules/g/notes/repository.test.ts > البقاء والتزامن > سجل غير صالح في التخزين يُهمل في العرض ويبقى في التخزين 0ms
+ ✓ tests/modules/g/notes/repository.test.ts > البقاء والتزامن > سجل غير صالح في التخزين يُهمل في العرض ويبقى في التخزين 1ms
  ✓ tests/modules/g/notes/repository.test.ts > البقاء والتزامن > dispose يوقف الإشعارات 3ms
  ✓ tests/modules/g/notes/repository.test.ts > الحصة > تجاوز الحصة يرفع StorageQuotaError ولا يضيع ما سبق 1ms
  ✓ tests/modules/g/notes/repository.test.ts > open > بلا ملاحظات مخزنة مستودع فارغ 0ms
- ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > مستودع: المستودع وحده 1ms
+ ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > مستودع: المستودع وحده 2ms
  ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > شجرة ملفات: المستودع وحده 0ms
  ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > مشكلة وطلب دمج وتبويباته: المستودع والموضوع 0ms
- ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > التزام: المستودع والالتزام والسطر (يحتاج تحديدًا) 0ms
- ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > ملف: المستودع والملف والسطر؛ والسطر بلا تحديد سببه ظاهر 0ms
- ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > ملف بتحديد أسطر: هدف السطر جاهز بنطاقه 0ms
+ ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > التزام: المستودع والالتزام والسطر (يحتاج تحديدًا) 1ms
+ ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > ملف: المستودع والملف والسطر؛ والسطر بلا تحديد سببه ظاهر 1ms
+ ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > ملف بتحديد أسطر: هدف السطر جاهز بنطاقه 1ms
  ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > فروق طلب دمج: السطر يحتاج مسار الملف من DOM 0ms
  ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > تحديد فروق في الرابط بلا مسار ملف (اللوحة): السبب يدل على بطاقة الصفحة 0ms
  ✓ tests/modules/g/notes/targets.test.ts > targetOptions: مستويات كل صفحة > فروق التزام: سياقه معرّف الالتزام 0ms
@@ -36,27 +36,8 @@
  ✓ tests/modules/g/notes/targets.test.ts > relationTo: المطابقة بالمعرّفات > سطر الملف: exact على مرجعه فقط، وغيره يظهر ولا يُلصق 0ms
  ✓ tests/modules/g/notes/targets.test.ts > relationTo: المطابقة بالمعرّفات > سطر الفروق بسياقه 0ms
  ✓ tests/modules/g/notes/targets.test.ts > notesForPage / notesForRepo > توزيع ملاحظات صفحة الملف على المستويات 0ms
- ✓ tests/modules/g/notes/targets.test.ts > notesForPage / notesForRepo > ملاحظات المستودع كلها للوحة، دون مستودع آخر 1ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > A مطابق: السطر بنصه وسياقه في موضعه 3ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > B منزاح بمرشح وحيد: موضع جديد واحد بالنص والسياق، يُعاد مرشحًا لا تطبيقًا 1ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > C ملتبس: النص والسياق في أكثر من موضع، فتُعاد المرشحات كلها 0ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > D متغيّر: تعديل السطر أو حذفه، ومرشح «بالنص وحده» حين يبقى السطر في موضع واحد بسياق آخر 1ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > A مطابق: السطر بنصه وسياقه في موضعه 4ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > B منزاح بمرشح وحيد: موضع جديد واحد بالنص والسياق، يُعاد مرشحًا لا تطبيقًا 2ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > C ملتبس: النص والسياق في أكثر من موضع، فتُعاد المرشحات كلها 1ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > D متغيّر: تعديل السطر أو حذفه، ومرشح «بالنص وحده» حين يبقى السطر في موضع واحد بسياق آخر 3ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > صفحة لم تُظهر الملف كله: A وحده يُحكم به، وغيره «جزئي» لا موضع جديد 0ms
- ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > السطر الأول والأخير: السياق خارج الملف «لا سطر» ويُطابق كذلك 0ms
- ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > العام يحفظ النص المطبَّع للنطاق وسياقه ±2 0ms
- ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > الخاص لا يحفظ نص أي سطر: بصمات SHA-256 بالملح وsaltId فقط 2ms
- ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > ملح مختلف لا يطابق: بصمة صُنعت بملح آخر لا تُقرأ «مطابقة» ولا «منزاحة» 1ms
- ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > التطبيع: \r والمسافات الختامية فقط، والإزاحة البادئة جزء من السطر 0ms
- ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > لا بصمة لنطاق أطول من 40 سطرًا ولا لأسطر غير ظاهرة 0ms
- ✓ tests/modules/g/anchor/engine.test.ts > قراءة الصفحة (E وF من DOM وحده) > أسطر الكود كاملة من LC<n> (ومعرّفات LC<n>-container لا تُعدّ أسطرًا) 20ms
- ✓ tests/modules/g/anchor/engine.test.ts > قراءة الصفحة (E وF من DOM وحده) > العموم من meta repository_public = true وحدها؛ غيابها أو false خاص 11ms
- ✓ tests/modules/g/anchor/engine.test.ts > قراءة الصفحة (E وF من DOM وحده) > عرض بلا أسطر، والملف غائب من مستودع ظاهر، وصفحة «غير موجود»، وصفحة الدخول، وما لم يكتمل 11ms
- ✓ tests/modules/g/anchor/engine.test.ts > مخزن المراسي والملح > الملح يُنشأ مرة ويبقى، والمرساة تُحفظ وتُزال وتُنظَّف بلا ملاحظتها 1ms
- ✓ tests/modules/g/notes/types.test.ts > isNoteTarget > يقبل المستويات الخمسة بنوعي السطر 1ms
+ ✓ tests/modules/g/notes/targets.test.ts > notesForPage / notesForRepo > ملاحظات المستودع كلها للوحة، دون مستودع آخر 0ms
+ ✓ tests/modules/g/notes/types.test.ts > isNoteTarget > يقبل المستويات الخمسة بنوعي السطر 2ms
  ✓ tests/modules/g/notes/types.test.ts > isNoteTarget > يرفض مستودع بلا اسم 0ms
  ✓ tests/modules/g/notes/types.test.ts > isNoteTarget > يرفض مستوى مجهول 0ms
  ✓ tests/modules/g/notes/types.test.ts > isNoteTarget > يرفض رقم غير صحيح 0ms
@@ -83,65 +64,85 @@
  ✓ tests/modules/g/notes/types.test.ts > الوصف والتسمية > اسم السجل بالبادئة 0ms
  ✓ tests/modules/g/notes/types.test.ts > الوصف والتسمية > وصف الهدف لكل مستوى 0ms
  ✓ tests/modules/g/notes/types.test.ts > حقل المرساة مستقل عن النص > النوع يفصل الحقلين: لا تعتمد إحداهما على الأخرى في المخطط 0ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > المستودع: تُنشأ وتُعرض وتُعدَّل وتُحذف 81ms
- ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > تُدرج مطويةً في أول حاوية المحتوى بعدّاد صفر، وتُفتح بالنقر على مساحة العمل 81ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > A مطابق: السطر بنصه وسياقه في موضعه 1ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > B منزاح بمرشح وحيد: موضع جديد واحد بالنص والسياق، يُعاد مرشحًا لا تطبيقًا 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > C ملتبس: النص والسياق في أكثر من موضع، فتُعاد المرشحات كلها 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع عام (نص) > D متغيّر: تعديل السطر أو حذفه، ومرشح «بالنص وحده» حين يبقى السطر في موضع واحد بسياق آخر 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > A مطابق: السطر بنصه وسياقه في موضعه 2ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > B منزاح بمرشح وحيد: موضع جديد واحد بالنص والسياق، يُعاد مرشحًا لا تطبيقًا 1ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > C ملتبس: النص والسياق في أكثر من موضع، فتُعاد المرشحات كلها 1ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > مستودع خاص (بصمة مملّحة) > D متغيّر: تعديل السطر أو حذفه، ومرشح «بالنص وحده» حين يبقى السطر في موضع واحد بسياق آخر 2ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > صفحة لم تُظهر الملف كله: A وحده يُحكم به، وغيره «جزئي» لا موضع جديد 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > إعادة التثبيت بالنتائج الصريحة (AC-G3) > السطر الأول والأخير: السياق خارج الملف «لا سطر» ويُطابق كذلك 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > العام يحفظ النص المطبَّع للنطاق وسياقه ±2 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > الخاص لا يحفظ نص أي سطر: بصمات SHA-256 بالملح وsaltId فقط 4ms
+ ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > ملح مختلف لا يطابق: بصمة صُنعت بملح آخر لا تُقرأ «مطابقة» ولا «منزاحة» 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > التطبيع: \r والمسافات الختامية فقط، والإزاحة البادئة جزء من السطر 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > صيغة الحفظ بحسب DEC-05 (ز-1) > لا بصمة لنطاق أطول من 40 سطرًا ولا لأسطر غير ظاهرة 0ms
+ ✓ tests/modules/g/anchor/engine.test.ts > قراءة الصفحة (E وF من DOM وحده) > أسطر الكود كاملة من LC<n> (ومعرّفات LC<n>-container لا تُعدّ أسطرًا) 20ms
+ ✓ tests/modules/g/anchor/engine.test.ts > قراءة الصفحة (E وF من DOM وحده) > العموم من meta repository_public = true وحدها؛ غيابها أو false خاص 15ms
+ ✓ tests/modules/g/anchor/engine.test.ts > قراءة الصفحة (E وF من DOM وحده) > عرض بلا أسطر، والملف غائب من مستودع ظاهر، وصفحة «غير موجود»، وصفحة الدخول، وما لم يكتمل 14ms
+ ✓ tests/modules/g/anchor/engine.test.ts > مخزن المراسي والملح > الملح يُنشأ مرة ويبقى، والمرساة تُحفظ وتُزال وتُنظَّف بلا ملاحظتها 1ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > المستودع: تُنشأ وتُعرض وتُعدَّل وتُحذف 85ms
+ ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > تُدرج مطويةً في أول حاوية المحتوى بعدّاد صفر، وتُفتح بالنقر على مساحة العمل 93ms
  ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > طلب دمج: تُنشأ وتُعرض وتُعدَّل وتُحذف 33ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > مشكلة: تُنشأ وتُعرض وتُعدَّل وتُحذف 32ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > التزام: تُنشأ وتُعرض وتُعدَّل وتُحذف 30ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > ملف: تُنشأ وتُعرض وتُعدَّل وتُحذف 32ms
- ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > إنشاء ملاحظة من البطاقة يحدّث العدّاد ويحفظها بهدف المستودع 96ms
- ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > إيقاف الوحدة يعيد الصفحة كما كانت حرفيًا ولا يبقى مضيف 44ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > سطر/نطاق في ملف: تُنشأ وتُعرض وتُعدَّل وتُحذف 31ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > سطر في فروق طلب دمج: تُنشأ وتُعرض وتُعدَّل وتُحذف 31ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > مشكلة: تُنشأ وتُعرض وتُعدَّل وتُحذف 33ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > التزام: تُنشأ وتُعرض وتُعدَّل وتُحذف 33ms
+ ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > إنشاء ملاحظة من البطاقة يحدّث العدّاد ويحفظها بهدف المستودع 98ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > ملف: تُنشأ وتُعرض وتُعدَّل وتُحذف 34ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > سطر/نطاق في ملف: تُنشأ وتُعرض وتُعدَّل وتُحذف 33ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > سطر في فروق طلب دمج: تُنشأ وتُعرض وتُعدَّل وتُحذف 32ms
  ✓ tests/modules/g/notes/workspace.test.tsx > الإنشاء والتحرير والحذف على كل مستوى > إلغاء الحذف والتعديل لا يغيّران شيئًا 17ms
  ✓ tests/modules/g/notes/workspace.test.tsx > الملاحظة محفوظة حتى لو تعذّر تحديد موضعها، وحالة المرساة حقل مستقل > سطر لا يظهر في الصفحة: يُحفظ بحالة «غير مثبتة» ونصه كاملًا 9ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الملاحظة محفوظة حتى لو تعذّر تحديد موضعها، وحالة المرساة حقل مستقل > سطر ظاهر: «موضع غير متحقق منه»؛ واللوحة بلا DOM تعامل الموضع كذلك 18ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الملاحظة محفوظة حتى لو تعذّر تحديد موضعها، وحالة المرساة حقل مستقل > تعديل النص من الواجهة لا يغيّر حالة المرساة 19ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الملاحظة محفوظة حتى لو تعذّر تحديد موضعها، وحالة المرساة حقل مستقل > ملف بلا تحديد أسطر: لا تُنشأ ملاحظة سطر والسبب ظاهر 4ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الملاحظة محفوظة حتى لو تعذّر تحديد موضعها، وحالة المرساة حقل مستقل > سطر ظاهر: «موضع غير متحقق منه»؛ واللوحة بلا DOM تعامل الموضع كذلك 19ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الملاحظة محفوظة حتى لو تعذّر تحديد موضعها، وحالة المرساة حقل مستقل > تعديل النص من الواجهة لا يغيّر حالة المرساة 20ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الملاحظة محفوظة حتى لو تعذّر تحديد موضعها، وحالة المرساة حقل مستقل > ملف بلا تحديد أسطر: لا تُنشأ ملاحظة سطر والسبب ظاهر 5ms
  ✓ tests/modules/g/notes/workspace.test.tsx > العرض > الزر معطّل لنص فارغ أو فراغات 1ms
  ✓ tests/modules/g/notes/workspace.test.tsx > العرض > خارج مستودع: رسالة إرشاد بلا نموذج 1ms
- ✓ tests/modules/g/notes/workspace.test.tsx > العرض > ملاحظة ملف محفوظة على مرجع آخر تُعلَن ولا تُعرض كأنها في موضعها 4ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > العرض > ملاحظة ملف محفوظة على مرجع آخر تُعلَن ولا تُعرض كأنها في موضعها 5ms
  ✓ tests/modules/g/notes/workspace.test.tsx > العرض > اللوحة تعرض ملاحظات المستودع الأخرى (مستويات ليست في الصفحة) بتحريرها وحذفها 13ms
  ✓ tests/modules/g/notes/workspace.test.tsx > العرض > البطاقة لا تعرض «افتح الصفحة»؛ فهي في الصفحة نفسها 2ms
- ✓ tests/modules/g/notes/workspace.test.tsx > العرض > ملاحظة تصل من سياق آخر تظهر فورًا 6ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > العرض > ملاحظة تصل من سياق آخر تظهر فورًا 7ms
  ✓ tests/modules/g/notes/workspace.test.tsx > العرض > النص يُعرض نصًّا لا HTML 6ms
  ✓ tests/modules/g/notes/workspace.test.tsx > الأخطاء > فشل الحفظ بسبب الحصة يظهر تنبيهًا ويبقى النص في الحقل 8ms
- ✓ tests/modules/g/notes/workspace.test.tsx > الأخطاء > ملاحظة تُحذف من نافذة أخرى أثناء تحريرها تختفي من القائمة ولا يبقى تعديل معلّق 14ms
- ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > صفحات المستويات كلها تُركَّب فيها البطاقة 180ms
- ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > مفتاح البطاقة يخفيها فورًا ويعيدها 54ms
- ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > تعرض ملاحظات الصفحة النشطة وتنشئ عليها، وتتبع تغيّر الصفحة 440ms
- ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > تنقل Turbo إلى صفحة أخرى يعيد التركيب بلا بطاقة مكررة 74ms
- ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > علامة بجوار رقم السطر لملاحظة سطر على المرجع نفسه، وتُزال بالإيقاف 48ms
+ ✓ tests/modules/g/notes/workspace.test.tsx > الأخطاء > ملاحظة تُحذف من نافذة أخرى أثناء تحريرها تختفي من القائمة ولا يبقى تعديل معلّق 13ms
+ ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > إيقاف الوحدة يعيد الصفحة كما كانت حرفيًا ولا يبقى مضيف 46ms
+ ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > صفحات المستويات كلها تُركَّب فيها البطاقة 181ms
+ ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > مفتاح البطاقة يخفيها فورًا ويعيدها 56ms
+ ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > تعرض ملاحظات الصفحة النشطة وتنشئ عليها، وتتبع تغيّر الصفحة 442ms
+ ✓ tests/modules/g/notes/module.test.tsx > بطاقة الصفحة > تنقل Turbo إلى صفحة أخرى يعيد التركيب بلا بطاقة مكررة 73ms
+ ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > علامة بجوار رقم السطر لملاحظة سطر على المرجع نفسه، وتُزال بالإيقاف 46ms
+ ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > فك الواجهة يلغي اشتراك المصدر 245ms
+ ✓ tests/modules/g/anchor/page.test.tsx > الحفظ > ملاحظة السطر من البطاقة تحفظ مرساة مزدوجة: رابط الفرع والالتزام وبصمة النطاق وسياقه، وتظهر «مطابق» بعلامة على سطرها 815ms
+ ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > صفحة ليست مستودعًا: إرشاد وعدد الملاحظات المحفوظة 245ms
+ ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > لا تبويب نشط أو خارج GitHub: الإرشاد نفسه بلا انهيار 246ms
+ ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > تعذّر فتح التخزين يظهر خطأً مقروءًا 94ms
  ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > نقر العلامة يفتح البطاقة ويبرز الملاحظة 55ms
- ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > ملاحظة سطر محفوظة على مرجع آخر لا تُلصق بسطر هذه الصفحة 46ms
- ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > ملاحظتان على السطر نفسه: علامة واحدة بعدّاد 45ms
- ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > فك الواجهة يلغي اشتراك المصدر 244ms
- ✓ tests/modules/g/anchor/page.test.tsx > الحفظ > ملاحظة السطر من البطاقة تحفظ مرساة مزدوجة: رابط الفرع والالتزام وبصمة النطاق وسياقه، وتظهر «مطابق» بعلامة على سطرها 805ms
- ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > صفحة ليست مستودعًا: إرشاد وعدد الملاحظات المحفوظة 248ms
- ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > لا تبويب نشط أو خارج GitHub: الإرشاد نفسه بلا انهيار 250ms
- ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > تعذّر فتح التخزين يظهر خطأً مقروءًا 95ms
- ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > بيان الخصوصية المحلية ظاهر 248ms
- ✓ tests/modules/g/notes/view.test.tsx > مصدر التبويبات (اللوحة الأصلية) > يقرأ رابط التبويب النشط ويجدّد عند تفعيل تبويب آخر وعند تحديثه 3ms
- ✓ tests/modules/g/notes/view.test.tsx > مصدر التبويبات (اللوحة الأصلية) > بلا تبويب نشط: null، وبلا واجهة تبويبات: لا مصدر 1ms
- ✓ tests/modules/g/notes/view.test.tsx > مصدر التبويبات (اللوحة الأصلية) > مصدر المستند يقرأ رابط الصفحة الحالي ويغنيه من DOM ويتتبع الهاش 3ms
- ✓ tests/modules/g/notes/view.test.tsx > التسجيل في اللوحة والإعدادات > الواجهة مسجّلة في تبويب «ملاحظاتي» للوحدة (ز) وفي PANEL_VIEWS 2ms
- ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > مفتاح العلامات، وملاحظة تُضاف أو تُحذف تحدّث العلامات 938ms
- ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > سطر غير ظاهر في الصفحة (عرض Markdown) لا علامة له والملاحظة محفوظة 47ms
- ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > علامة لسطر في فروق طلب دمج داخل ملفه المقصود وبجهته 48ms
+ ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > ملاحظة سطر محفوظة على مرجع آخر لا تُلصق بسطر هذه الصفحة 45ms
+ ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > ملاحظتان على السطر نفسه: علامة واحدة بعدّاد 46ms
+ ✓ tests/modules/g/notes/view.test.tsx > واجهة التبويب > بيان الخصوصية المحلية ظاهر 245ms
+ ✓ tests/modules/g/notes/view.test.tsx > مصدر التبويبات (اللوحة الأصلية) > يقرأ رابط التبويب النشط ويجدّد عند تفعيل تبويب آخر وعند تحديثه 1ms
+ ✓ tests/modules/g/notes/view.test.tsx > مصدر التبويبات (اللوحة الأصلية) > بلا تبويب نشط: null، وبلا واجهة تبويبات: لا مصدر 0ms
+ ✓ tests/modules/g/notes/view.test.tsx > مصدر التبويبات (اللوحة الأصلية) > مصدر المستند يقرأ رابط الصفحة الحالي ويغنيه من DOM ويتتبع الهاش 1ms
+ ✓ tests/modules/g/notes/view.test.tsx > التسجيل في اللوحة والإعدادات > الواجهة مسجّلة في تبويب «ملاحظاتي» للوحدة (ز) وفي PANEL_VIEWS 1ms
+ ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > مفتاح العلامات، وملاحظة تُضاف أو تُحذف تحدّث العلامات 932ms
+ ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > سطر غير ظاهر في الصفحة (عرض Markdown) لا علامة له والملاحظة محفوظة 45ms
+ ✓ tests/modules/g/notes/module.test.tsx > علامات الأسطر > علامة لسطر في فروق طلب دمج داخل ملفه المقصود وبجهته 45ms
  ✓ tests/modules/g/notes/view.test.tsx > التسجيل في اللوحة والإعدادات > PanelApp: التبويب يعرض الواجهة، وإيقاف الوحدة (ز) يحجبها برسالة 252ms
- ✓ tests/modules/g/notes/view.test.tsx > التسجيل في اللوحة والإعدادات > قسم الإعدادات يظهر في الصفحة واللوحة الأصلية لا في الدرج، ويحفظ المفتاحين 25ms
- ✓ tests/modules/g/notes/module.test.tsx > تحديد الأسطر من الرابط > الهاش يفعّل مستوى السطر في البطاقة وحالة «غير مثبتة» حين لا يظهر السطر 87ms
- ✓ tests/modules/g/notes/module.test.tsx > تحديد الأسطر من الرابط > تغيّر الهاش يحدّث هدف السطر دون إعادة تركيب 178ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03A: مطابق > تُعرض في موضعها بعلامة السطر عند فتح الصفحة على الالتزام نفسه أو على فرع لم يتغير فيه الملف 1305ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03B: منزاح بمرشح وحيد > يُقترح السطر 55 ولا يُطبَّق ولا تُلصق علامة؛ ثم ينقلها نقر المستخدم فتصير مطابقة بعلامتها 1573ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03B: منزاح بمرشح وحيد > النطاق كله (40–44) ينزاح كتلة واحدة 1560ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03C: ملتبس لتكرار الأسطر > تُعرض المرشحات وتبقى الملاحظة غير مربوطة ولا علامة 1307ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03D: متغيّر > العام: تُعرض الملاحظة بمقتطفها المحفوظ وبلا موضع ولا علامة 1828ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03D: متغيّر > الخاص (DEC-05 ز-1): «متغيّر» بلا مقتطف، ولا نص كود في التخزين 1302ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03D: متغيّر > مرشح «بالنص وحده»: السطر باقٍ في موضع واحد بسياق آخر؛ يُعرض اقتراحًا ولا يُطبَّق 1299ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03E: مورد محذوف أو مُعاد تسميته > «المورد غير متاح» مع رابط الفرع والرابط الثابت كمحاولة، في صفحة «غير موجود» لمستودع عام وفي ملف غائب من مستودع ظاهر 1778ms
- ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03F: فقدان الوصول > «تعذّر التحقق» في صفحة «غير موجود» لمستودع خاص (لا يُجزم بالحذف) وفي صفحة الدخول 1795ms
- ✓ tests/modules/g/anchor/page.test.tsx > حالات بلا حكم > Markdown معروض بلا أسطر: «غير مثبتة» مع رابط عرض الكود (plain=1)، ولا علامة 1306ms
- ✓ tests/modules/g/anchor/page.test.tsx > حالات بلا حكم > ملاحظة بلا مرساة (قبل T-8.3) تبقى «موضع غير متحقق منه» كما كانت 533ms
+ ✓ tests/modules/g/notes/view.test.tsx > التسجيل في اللوحة والإعدادات > قسم الإعدادات يظهر في الصفحة واللوحة الأصلية لا في الدرج، ويحفظ المفتاحين 24ms
+ ✓ tests/modules/g/notes/module.test.tsx > تحديد الأسطر من الرابط > الهاش يفعّل مستوى السطر في البطاقة وحالة «غير مثبتة» حين لا يظهر السطر 86ms
+ ✓ tests/modules/g/notes/module.test.tsx > تحديد الأسطر من الرابط > تغيّر الهاش يحدّث هدف السطر دون إعادة تركيب 173ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03A: مطابق > تُعرض في موضعها بعلامة السطر عند فتح الصفحة على الالتزام نفسه أو على فرع لم يتغير فيه الملف 1267ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03B: منزاح بمرشح وحيد > يُقترح السطر 55 ولا يُطبَّق ولا تُلصق علامة؛ ثم ينقلها نقر المستخدم فتصير مطابقة بعلامتها 1521ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03B: منزاح بمرشح وحيد > النطاق كله (40–44) ينزاح كتلة واحدة 1525ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03C: ملتبس لتكرار الأسطر > تُعرض المرشحات وتبقى الملاحظة غير مربوطة ولا علامة 1306ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03D: متغيّر > العام: تُعرض الملاحظة بمقتطفها المحفوظ وبلا موضع ولا علامة 1811ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03D: متغيّر > الخاص (DEC-05 ز-1): «متغيّر» بلا مقتطف، ولا نص كود في التخزين 1286ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03D: متغيّر > مرشح «بالنص وحده»: السطر باقٍ في موضع واحد بسياق آخر؛ يُعرض اقتراحًا ولا يُطبَّق 1284ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03E: مورد محذوف أو مُعاد تسميته > «المورد غير متاح» مع رابط الفرع والرابط الثابت كمحاولة، في صفحة «غير موجود» لمستودع عام وفي ملف غائب من مستودع ظاهر 1790ms
+ ✓ tests/modules/g/anchor/page.test.tsx > TEST-NOTE-03F: فقدان الوصول > «تعذّر التحقق» في صفحة «غير موجود» لمستودع خاص (لا يُجزم بالحذف) وفي صفحة الدخول 1779ms
+ ✓ tests/modules/g/anchor/page.test.tsx > حذف الملاحظة > حذفها من البطاقة يزيل مرساتها من التخزين، وحذفها من سياق آخر يُزيلها عند إعادة التثبيت التالية 2790ms
+ ✓ tests/modules/g/anchor/page.test.tsx > حالات بلا حكم > Markdown معروض بلا أسطر: «غير مثبتة» مع رابط عرض الكود (plain=1)، ولا علامة 1269ms
+ ✓ tests/modules/g/anchor/page.test.tsx > حالات بلا حكم > ملاحظة بلا مرساة (قبل T-8.3) تبقى «موضع غير متحقق منه» كما كانت 510ms
  Test Files  9 passed (9)
-      Tests  144 passed | 1 skipped (145)
+      Tests  145 passed | 1 skipped (146)

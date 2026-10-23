@@ -19,7 +19,7 @@
       "name": "الحفظ السريع كتب الحقول المعرّفة في التخزين الفعلي",
       "ok": true,
       "detail": {
-        "id": "e4146ade-a354-4b4f-a6d9-fb0c852bca12",
+        "id": "f7bc7fe6-2602-4222-969c-6a0189fc0166",
         "version": 1,
         "url": "https://github.com/octo/shop/blob/main/src/cart.js#L40",
         "title": "cart.js at main · octo/shop",
@@ -36,15 +36,15 @@
         "status": "reading",
         "tags": [],
         "note": "",
-        "savedAt": "2026-10-23T14:02:01.740Z",
-        "updatedAt": "2026-10-23T14:02:01.740Z"
+        "savedAt": "2026-10-23T14:09:20.385Z",
+        "updatedAt": "2026-10-23T14:09:20.385Z"
       }
     },
     {
       "name": "مرساة السطر في التخزين: نص النطاق وسياقه (مستودع عام) والتزام الصفحة",
       "ok": true,
       "detail": {
-        "noteId": "7aa6db85-afb7-472f-831d-191c101d9270",
+        "noteId": "c00f530e-53b3-45c0-b1d0-1ff5d377a61e",
         "version": 1,
         "owner": "octo",
         "repo": "shop",
@@ -55,7 +55,7 @@
         "start": 40,
         "end": 40,
         "visibility": "public",
-        "capturedAt": "2026-10-23T14:02:02.169Z",
+        "capturedAt": "2026-10-23T14:09:20.835Z",
         "fingerprint": {
           "mode": "text",
           "block": [
@@ -150,17 +150,17 @@
         "view": "matched",
         "fingerprint": {
           "mode": "hash",
-          "saltId": "10c1b3b6cc02",
+          "saltId": "39f34d0251ea",
           "block": [
-            "c647196f7925b629dc218c79d7c32bca666b6702e64d8b5f593a9be280062ed6"
+            "9896a7b8de7e6245a17aa51baa2e11661928de8f68277ef3db497a3edc9dde2a"
           ],
           "before": [
-            "36c90f51bd7bec4ac45948fec6a6d182e84968bf90a160c408e5146a2958112b",
-            "31bdf0a1a5ba499490a504ecd055ff779da81a91b9b6261fb485655585af8d02"
+            "a3c6bfc5f0c3c85685aa63b0b6c2811dfe4734f54f8a204df1b0f4593d82f453",
+            "a7336db75d63bc2e18ac7832518d7b9b9943a7f3f8008f6803fa7489cbff0d9e"
           ],
           "after": [
-            "7d473f56630b19c006e2d6ac57eea4f909598d9cf048ad721df1f29dbb8ab88a",
-            "8aec17f92bf4d0474d6e149cf8594f202c204b0559ba1b140c0b003b2f937a10"
+            "1cbd7fa7bca5de5a175b7266e12596809fed5b74bf43369e5c3042a746f9e791",
+            "6f987c90cef79174876c9287e36f593274de29970f60b0b1fe489141795c335c"
           ]
         }
       }

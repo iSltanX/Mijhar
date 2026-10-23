@@ -1,6 +1,7 @@
 // تخزين المراسي والملح المحلي فوق Store. المرساة سجل لكل ملاحظة (anchors.<noteId>)، والملح سجل واحد (anchor-salt) يُنشأ عند أول
 // بصمة لمستودع خاص ولا يغادر الجهاز إلا بتصدير يختاره المستخدم (T-8.4). مرساة ملاحظة حُذفت تُزال عند التنظيف (prune).
 import type { Store } from '../../../core/storage';
+import { NOTE_PREFIX } from '../notes/types';
 import { newSalt } from './fingerprint';
 import { ANCHOR_PREFIX, SALT_RECORD, anchorRecordName, isLineAnchor } from './types';
 import type { LineAnchor } from './types';
@@ -55,6 +56,15 @@ export class AnchorStore {
     const stale = [...this.anchors.keys()].filter((id) => !existing.has(id));
     for (const id of stale) await this.remove(id);
     return stale.length;
+  }
+
+  /**
+   * يزيل مراسي الملاحظات التي لا سجل لها في التخزين. يقارن بالسجلات لا بقائمة الملاحظات الصالحة: سجل ملاحظة من نسخة أحدث يُهمل في
+   * العرض ويبقى، فتبقى مرساته معه.
+   */
+  async pruneOrphans(): Promise<number> {
+    const names = Object.keys(await this.store.readPrefix(NOTE_PREFIX));
+    return this.prune(new Set(names.map((name) => name.slice(NOTE_PREFIX.length))));
   }
 
   /** الملح المحلي، أو null إن لم يُنشأ بعد. */

@@ -62,6 +62,7 @@ export class AnchorController {
   private again = false;
   private disposed = false;
   private comparable: { key: string; lines: PageLines } | null = null;
+  private seen: Set<string> | null = null;
   private readonly now: () => Date;
 
   constructor(private readonly deps: AnchorControllerDeps) {
@@ -119,6 +120,11 @@ export class AnchorController {
 
   private async run(): Promise<void> {
     if (this.disposed) return;
+    // مرساة ملاحظة حُذفت (من هذه الصفحة أو من اللوحة أو تبويب آخر) تُزال: لا تبقى بصمة سطر بعد حذف صاحبها. يُنظَّف عند أول
+    // جولة في الصفحة وعند رؤية حذف، لا في كل جولة (يقرأ سجلات الملاحظات من التخزين).
+    const ids = new Set(this.deps.notes.list().map((n) => n.id));
+    if (this.seen === null || [...this.seen].some((id) => !ids.has(id))) await this.deps.anchors.pruneOrphans();
+    this.seen = ids;
     const page = this.deps.page();
     if (page.type !== 'blob') return this.publish(new Map());
     const notes = this.deps.notes.list().filter((n) => isBlobLine(n) && relationTo(n, page) === 'exact');

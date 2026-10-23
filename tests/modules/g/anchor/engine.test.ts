@@ -145,7 +145,12 @@ describe('مخزن المراسي والملح', () => {
     await anchors.save(anchor);
     const other = await AnchorStore.open(store);
     expect(other.get('n1')).toEqual(anchor);
-    expect(await anchors.prune(new Set(['n2']))).toBe(1);
+    // سجل ملاحظة غير صالح للمخطط الحالي (نسخة أحدث) يُبقي مرساته؛ وغياب السجل يزيلها.
+    await store.write('notes.n1', { id: 'n1', version: 99 });
+    expect(await anchors.pruneOrphans()).toBe(0);
+    expect(anchors.get('n1')).toBeDefined();
+    await store.remove('notes.n1');
+    expect(await anchors.pruneOrphans()).toBe(1);
     expect(anchors.get('n1')).toBeUndefined();
   });
 });

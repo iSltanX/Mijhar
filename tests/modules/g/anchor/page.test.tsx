@@ -228,6 +228,27 @@ describe('TEST-NOTE-03F: فقدان الوصول', () => {
   });
 });
 
+describe('حذف الملاحظة', () => {
+  it('حذفها من البطاقة يزيل مرساتها من التخزين، وحذفها من سياق آخر يُزيلها عند إعادة التثبيت التالية', async () => {
+    const note = await createOnV1('private');
+    expect(anchors.get(note.id)).toBeDefined();
+    await click($('[data-action="delete"]'));
+    await click($('[data-action="confirm-delete"]'));
+    await settle();
+    expect(notes.repository.get(note.id)).toBeUndefined();
+    expect(anchors.get(note.id)).toBeUndefined();
+    expect(Object.keys(await notes.store.readPrefix('anchors.'))).toEqual([]);
+
+    const other = await createOnV1('private');
+    act(() => manager?.stop());
+    manager = null;
+    await notes.repository.remove(other.id);
+    expect(anchors.get(other.id)).toBeDefined();
+    await open(codeViewHtml(V1));
+    expect(anchors.get(other.id)).toBeUndefined();
+  });
+});
+
 describe('حالات بلا حكم', () => {
   it('Markdown معروض بلا أسطر: «غير مثبتة» مع رابط عرض الكود (plain=1)، ولا علامة', async () => {
     await createOnV1();
