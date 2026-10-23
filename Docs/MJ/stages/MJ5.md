@@ -15,7 +15,7 @@ branch: mj/5-ui-host
 base: mj-C/base
 commit: —
 updated: 2026-10-23
-resume: بدأت على الفرع mj/5-ui-host من mj-C/base. التحقق اجتاز؛ DEC-01 محسوم (أ) ويبقى شرط طبقة التوافق يُفحص في أول بناء. التالي: إطار Preact ومضيف Shadow DOM.
+resume: الشيفرة والمانيفست واختبارات vitest (68) ملتزمة على mj/5-ui-host؛ DEC-01 ثبت على (أ) بعد اجتياز Toggle المنقول عبر preact/compat. التالي: تجارب المتصفحات الأربعة tests/core/ui-host/browser (TEST-CORE-05 وTEST-CORE-06 وتدقيق الشبكة) ثم الأدلة في evidence/T-1.4.
 ---
 
 # MJ5 — مضيف الواجهات واللوحة الجانبية والإعدادات
