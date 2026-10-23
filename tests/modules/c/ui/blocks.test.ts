@@ -112,6 +112,20 @@ describe('ربط الرمز بعنصره الأصلي', () => {
   });
 });
 
+// VR-12 (الجزء (أ) من MJ-AUDIT-005): كانت المطابقة بالنوع والنص فيرتبط الرابط برمز نص عادي مطابق يسبقه.
+describe('ربط الرموز الصريحة بعناصرها بالموضع', () => {
+  it('«#7» نصًا قبل رابط «#7»: رمز الرابط يصل إلى الرابط، ورمز النص بلا عنصر', () => {
+    document.body.innerHTML = '<p id="x">See #7 and <a href="https://github.com/o/r/issues/7">#7</a> for the details please</p>';
+    const block = blockOf(document.getElementById('x')!) as TranslatableBlock;
+    const { expectedTokens } = maskSegments(block.segments);
+    const map = tokenNodes(block, expectedTokens);
+    const refs = [...expectedTokens.values()].filter((r) => r.original === '#7').sort((a, b) => a.index - b.index);
+    expect(refs).toHaveLength(2);
+    expect(map.get(refs[0]!.token)).toBeUndefined();
+    expect(map.get(refs[1]!.token)?.href).toBe('https://github.com/o/r/issues/7');
+  });
+});
+
 describe('inlineSegments للتحديد (شظية عبر فقرات)', () => {
   it('الكتل المتداخلة تُسطَّر بدل أن تُسقط، وكتلة الشيفرة تُحمى كاملة', () => {
     const range = document.createRange();

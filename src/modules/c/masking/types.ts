@@ -16,6 +16,8 @@ export interface ProtectedTokenRecord {
   readonly index: number;
   /** النص الأصلي الذي يُعاد حرفيًا عند فك التقنيع. */
   readonly original: string;
+  /** true لرمز مقطع صريح حدده المستدعي (عنصر <code> أو رابط…)، لا لما اكتشفه المقنِّع في النص؛ به تُربط الرموز بعناصرها بالموضع. */
+  readonly explicit?: true;
 }
 
 export type ExpectedTokens = ReadonlyMap<string, ProtectedTokenRecord>;

@@ -127,6 +127,8 @@ function Card({ state, left, top, onClose }: { state: SelectionCardState; left: 
 export interface SelectionOptions {
   readonly debounceMs?: number;
   readonly rectOf?: (range: Range) => Rect;
+  /** محددات النص المرسوم القابل للترجمة (مرشحات c.ui.body المسجلة، VR-21). الافتراضي .markdown-body. */
+  readonly bodySelector?: string;
 }
 
 const defaultRect = (range: Range): Rect => {
@@ -174,7 +176,7 @@ export class SelectionTranslator {
 
   private evaluate(): void {
     if (this.ctx.signal.aborted || this.card) return;
-    const target = selectionTarget(this.ctx.document);
+    const target = selectionTarget(this.ctx.document, this.options.bodySelector);
     if (!target) {
       this.hide();
       return;

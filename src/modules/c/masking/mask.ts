@@ -22,11 +22,11 @@ export function maskSegments(segments: readonly MaskSegment[], options: MaskOpti
   const records = new Map<string, ProtectedTokenRecord>();
   let masked = '';
 
-  const protect = (type: TokenType, original: string): void => {
+  const protect = (type: TokenType, original: string, explicit = false): void => {
     if (original.length === 0) return;
     const index = records.size;
     const token = tokenName(type, index);
-    records.set(token, { token, type, index, original });
+    records.set(token, { token, type, index, original, ...(explicit ? { explicit: true as const } : {}) });
     masked += token;
   };
 
@@ -42,7 +42,7 @@ export function maskSegments(segments: readonly MaskSegment[], options: MaskOpti
 
   for (const segment of segments) {
     if (typeof segment !== 'string') {
-      protect(segment.type, segment.value);
+      protect(segment.type, segment.value, true);
       continue;
     }
     let cursor = 0;
@@ -66,6 +66,10 @@ export function maskText(text: string, options: MaskOptions = {}): MaskResult {
 
 const FENCE_OPEN = /^ {0,3}(`{3,}|~{3,})/;
 
+// CommonMark §4.5: سياج الاقتباس العكسي لا يحوي نص معلوماته اقتباسًا عكسيًا؛ فسطر مثل «```npm test``` is fast» شيفرة مضمّنة لا سياج
+// (VR-13)، ويبقى نصًا تحميه pushInlineCode. وسياج ~ يقبل الاقتباس العكسي في نص معلوماته.
+const opensFence = (line: string, m: RegExpExecArray): boolean => m[1]?.[0] !== '`' || !line.slice(m[0].length).includes('`');
+
 function splitMarkdownCode(text: string): MaskSegment[] {
   const out: MaskSegment[] = [];
   let plainFrom = 0;
@@ -80,7 +84,7 @@ function splitMarkdownCode(text: string): MaskSegment[] {
     const lineEnd = offset + line.length;
     const m = FENCE_OPEN.exec(line);
     if (fence === null) {
-      if (m?.[1]) {
+      if (m?.[1] && opensFence(line, m)) {
         pushPlain(offset);
         fence = { start: offset, char: m[1][0] ?? '`', length: m[1].length };
       }
