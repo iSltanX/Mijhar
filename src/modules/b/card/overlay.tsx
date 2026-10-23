@@ -79,14 +79,19 @@ export interface Placed {
   readonly rect: Rect;
 }
 
+/** سبب إغلاق البطاقة: لوحة المفاتيح والزر يعيدان التركيز إلى الشارة؛ والنقر خارجها وإعادة الفحص لا يسحبانه (VR-15). */
+export type CloseReason = 'keyboard' | 'button' | 'outside' | 'rescan';
+
 export interface ExplainOverlayProps {
   readonly matches: readonly Match[];
   readonly viewport: { readonly width: number; readonly height: number };
   readonly openIndex: number | null;
   readonly active: boolean;
   readonly onOpen: (index: number) => void;
-  readonly onClose: () => void;
+  readonly onClose: (reason: 'keyboard' | 'button') => void;
   readonly onStop: () => void;
+  /** سبب آخر إغلاق، يقرؤه أثر التركيز. */
+  readonly closeReason?: CloseReason | null;
   readonly rectOf?: (element: Element) => Rect;
   /** قطر الشارة بالبكسل: 20 للمؤشر الدقيق و32 للمؤشر الخشن (b/access). */
   readonly badgeSize?: number;
@@ -127,21 +132,22 @@ function cardStyle(badge: { left: number; top: number }, viewport: { width: numb
 }
 
 export function ExplainOverlay(props: ExplainOverlayProps) {
-  const { matches, viewport, openIndex, active, onOpen, onClose, onStop } = props;
+  const { matches, viewport, openIndex, active, onOpen, onClose, onStop, closeReason = null } = props;
   const size = props.badgeSize ?? BADGE_SIZE.fine;
   const placed = placeBadges(matches, viewport, props.rectOf);
   const open = openIndex === null ? null : (placed.find((p) => p.index === openIndex) ?? null);
   const cardRef = useRef<HTMLDivElement>(null);
   const lastOpen = useRef<number | null>(null);
 
-  // الفتح ينقل التركيز إلى البطاقة، والإغلاق يعيده إلى الشارة التي فتحتها.
+  // الفتح ينقل التركيز إلى البطاقة، والإغلاق بلوحة المفاتيح أو بزر يعيده إلى الشارة التي فتحتها؛ والإغلاق بنقرة خارج الطبقة أو بإعادة
+  // الفحص يترك التركيز حيث هو (VR-15).
   useEffect(() => {
     const root = cardRef.current?.getRootNode() as ShadowRoot | undefined;
     if (openIndex !== null && cardRef.current) {
       cardRef.current.querySelector<HTMLElement>('.card')?.focus({ preventScroll: true });
       lastOpen.current = openIndex;
     } else if (lastOpen.current !== null && root?.querySelector) {
-      root.querySelector<HTMLElement>(`.badge[data-index="${lastOpen.current}"]`)?.focus({ preventScroll: true });
+      if (closeReason === 'keyboard' || closeReason === 'button') root.querySelector<HTMLElement>(`.badge[data-index="${lastOpen.current}"]`)?.focus({ preventScroll: true });
       lastOpen.current = null;
     }
   }, [openIndex]);
@@ -156,7 +162,7 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
         if (isEscape(event) && openIndex !== null) {
           event.stopPropagation();
           event.preventDefault();
-          onClose();
+          onClose('keyboard');
         } else if (shouldContainKey(event)) {
           // ضغطات هذه الطبقة لا تبلغ اختصارات GitHub أحادية الحرف.
           event.stopPropagation();
@@ -179,7 +185,7 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
             aria-haspopup="dialog"
             aria-label={`شرح «${entry.ar} (${entry.en})» — ${entry.safety}`}
             style={{ left: `${pos.left}px`, top: `${pos.top}px`, inlineSize: `${size}px`, blockSize: `${size}px` }}
-            onClick={() => (expanded ? onClose() : onOpen(index))}
+            onClick={() => (expanded ? onClose('button') : onOpen(index))}
           >
             {entry.safety === 'آمن' ? '؟' : '!'}
           </button>
@@ -187,7 +193,7 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
       })}
       {open && (
         <div class="card-slot" style={{ display: 'contents' }}>
-          <CardAt placed={open} viewport={viewport} size={size} onClose={onClose} />
+          <CardAt placed={open} viewport={viewport} size={size} onClose={() => onClose('button')} />
         </div>
       )}
       {active && (

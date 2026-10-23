@@ -7,7 +7,7 @@ import { render } from 'preact';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MemoryStorageArea, PANEL_REQUEST_KEY, SettingsStore, Store, createSettingsRegistry } from '../../../../src/core';
 import type { LocateBridge, LocateResult } from '../../../../src/modules/b/search';
-import { CATEGORY_IDS, CATEGORY_LABELS, GlossarySearchView, PAGE_SIZE, buildSearchIndex, countLabel, search } from '../../../../src/modules/b/search';
+import { CATEGORY_IDS, CATEGORY_LABELS, GlossarySearchDrawerNotice, GlossarySearchView, PAGE_SIZE, buildSearchIndex, countLabel, search } from '../../../../src/modules/b/search';
 import { GLOSSARY_ENTRIES } from '../../../../src/modules/b/card';
 import { flush } from '../card/helpers';
 
@@ -353,5 +353,19 @@ describe('أمر فتح القاموس: التركيز في خانة البحث'
 describe('countLabel', () => {
   it('صيغ العدد بالعربية', () => {
     expect([0, 1, 2, 3, 10, 11, 112].map(countLabel)).toEqual(['لا نتائج', 'نتيجة واحدة', 'نتيجتان', '3 نتائج', '10 نتائج', '11 نتيجة', '112 نتيجة']);
+  });
+});
+
+// VR-20 (الجزء (ج) من MJ-AUDIT-008): حين يكون مكان اللوحة «الدرج» يفتح Alt+K الدرج نفسه (applySurface يعطّل sidePanel)، فلا يُوعد
+// بأنه يفتح اللوحة الأصلية.
+describe('بيان الدرج عن البحث في القاموس', () => {
+  it('يدل على اللوحة الأصلية وعلى تغيير «مكان اللوحة» من الإعدادات، ولا يدّعي أن Alt+K يفتح اللوحة الأصلية', () => {
+    act(() => void render(<GlossarySearchDrawerNotice />, container));
+    const text = container.textContent ?? '';
+    expect(text).toContain('Alt+K');
+    expect(text).toContain('اللوحة الجانبية الأصلية');
+    expect(text).toContain('مكان اللوحة');
+    expect(text).not.toMatch(/Alt\+K\)? اللوحة الأصلية على هذا البحث/);
+    expect(text).not.toContain('اللوحة الأصلية على هذا البحث');
   });
 });

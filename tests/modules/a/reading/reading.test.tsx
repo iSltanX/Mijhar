@@ -240,6 +240,29 @@ describe('العارض: إخفاء التشكيل والنسخ', () => {
     expect(realign('كتب\nالمطور', 'كَتَبَ المُطَوِّرُ')).toBe('كَتَبَ\nالمُطَوِّرُ');
   });
 
+  // VR-14 (الجزء (د) من MJ-AUDIT-007)، AC-A5 البند 1: حركة في أول العقدة، وعقدة من حركات وحدها، كانتا تسقطان من النسخ.
+  it('حركة في أول العقدة تبقى في المدى من أوله', () => {
+    const original = 'ِسمِ';
+    const { stripped, offsets } = stripWithOffsets(original);
+    expect(originalSlice(original, offsets, 0, stripped.length)).toBe(original);
+    expect(originalSlice(original, offsets, 1, stripped.length)).toBe('مِ');
+  });
+
+  it('نسخ فقرة فيها <strong>ب</strong>ِسمِ وعقدة من حركات وحدها: text/plain وtext/html بكل الحركات', () => {
+    const dom = new JSDOM('<!doctype html><html><body><article id="r"><p id="p"><strong>ب</strong>ِسمِ اللهِ <em>ّ</em>الرحمن</p></article></body></html>');
+    const doc = dom.window.document;
+    const article = doc.getElementById('r') as HTMLElement;
+    const before = article.querySelector('p')!.textContent!;
+    const view = new DiacriticsView(article);
+    view.hide();
+    expect(article.querySelector('em')!.textContent).toBe('');
+    const range = doc.createRange();
+    range.selectNodeContents(doc.getElementById('p')!);
+    const data = view.clipboard(range);
+    expect(data?.plain).toBe(before);
+    expect(data?.html).toBe('<strong>ب</strong>ِسمِ اللهِ <em>ّ</em>الرحمن');
+  });
+
   it('05A: نسخ جزئي داخل عقدة يحمل الكلمة بحركاتها', () => {
     const { doc, article, view } = reader(liveSnapshot());
     view.hide();

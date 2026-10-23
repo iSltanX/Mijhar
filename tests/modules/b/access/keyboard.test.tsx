@@ -160,6 +160,42 @@ describe('التفعيل بلوحة المفاتيح ينقل التركيز إ�
   });
 });
 
+// VR-15 (الجزء (أ) من MJ-AUDIT-008) وVR-16 (البند 2 من الجزء (ب)): الإغلاق بنقرة خارج البطاقة لا يسحب التركيز من حيث نقر المستخدم،
+// وزر «إيقاف» داخل الطبقة يعيد التركيز كما يعيده Alt+H.
+describe('التركيز عند الإغلاق من الخارج والإيقاف من الطبقة', () => {
+  it('نقرة خارج الطبقة على حقل في الصفحة تغلق البطاقة ويبقى التركيز في الحقل', async () => {
+    live = await mountCard();
+    altH();
+    await flush();
+    act(() => void badge('star').click());
+    await flush();
+    expect(shadow().querySelector('.card')).not.toBeNull();
+    const input = document.createElement('input');
+    document.body.append(input);
+    act(() => {
+      input.dispatchEvent(new Event('pointerdown', { bubbles: true, composed: true }));
+      input.focus();
+    });
+    await flush(30);
+    expect(shadow().querySelector('.card')).toBeNull();
+    expect(document.activeElement).toBe(input);
+  });
+
+  it('زر «إيقاف» في الطبقة يعيد التركيز إلى العنصر المركَّز قبل التفعيل', async () => {
+    live = await mountCard();
+    const star = document.querySelector<HTMLElement>('#star-btn')!;
+    star.focus();
+    altH(star);
+    await flush();
+    const stop = shadow().querySelector<HTMLButtonElement>('[data-action="stop"]')!;
+    stop.focus();
+    act(() => stop.click());
+    await flush(20);
+    expect(live.mode.active).toBe(false);
+    expect(document.activeElement).toBe(star);
+  });
+});
+
 describe('الطبقة لا تسرّب الضغطات إلى اختصارات GitHub', () => {
   it('حرف أو Enter أو Space أو سهم أو "?" على الشارة لا يبلغ مستمع المستند، وAlt+H يبلغه', async () => {
     live = await mountCard();

@@ -16,7 +16,7 @@ import type { LabelIndex, Match } from './match';
 import { EXPLAIN_MODE, isExplainMessage, isExplainShortcut } from './mode';
 import type { ExplainMode } from './mode';
 import { CARD_CSS, ExplainOverlay, OVERLAY_HOST_CSS } from './overlay';
-import type { Rect } from './overlay';
+import type { CloseReason, Rect } from './overlay';
 import { pageKindsOf } from './page-kind';
 
 export { CARD_MODULE_ID };
@@ -60,6 +60,7 @@ class CardController {
   private parts: ReturnType<typeof createShadowHost> | null = null;
   private matches: readonly Match[] = [];
   private openElement: Element | null = null;
+  private closeReason: CloseReason | null = null;
   private frame = 0;
   private scanTimer: ReturnType<typeof setTimeout> | null = null;
   /** مراقب التعديلات ومستمعا التمرير وتغيير الحجم: يعملون ما دام الوضع مفعَّلًا وحده (الوحدة تُركَّب في كل صفحة GitHub). */
@@ -85,10 +86,8 @@ class CardController {
     ctx.listen(ctx.document, 'keydown', (event) => {
       if (!isExplainShortcut(event as KeyboardEvent)) return;
       event.preventDefault();
-      if (this.mode.active) {
-        this.mode.set(false);
-        this.focusReturn.restore((element) => this.parts?.shadow.contains(element) === true || element?.getRootNode() === this.parts?.shadow);
-      } else {
+      if (this.mode.active) this.stop();
+      else {
         this.focusReturn.capture();
         this.focusPending = true;
         this.mode.set(true);
@@ -99,6 +98,7 @@ class CardController {
       const host = this.parts?.host;
       if (this.openElement && host && !event.composedPath().includes(host)) {
         this.openElement = null;
+        this.closeReason = 'outside';
         this.draw();
       }
     });
@@ -116,6 +116,13 @@ class CardController {
   }
 
   private readonly onScroll = (): void => this.redraw();
+
+  /** إيقاف الوضع من Alt+H أو من زر «إيقاف» في الطبقة (VR-16): يُحفظ جذر الظل قبل الإزالة فيُعرف أن التركيز كان فيها، ثم يعود. */
+  private stop(): void {
+    const shadow = this.parts?.shadow ?? null;
+    this.mode.set(false);
+    this.focusReturn.restore((element) => element !== null && shadow !== null && (shadow.contains(element) || element.getRootNode() === shadow));
+  }
 
   /** يربط المراقب والمستمعين عند التفعيل ويفكّهما عند الإيقاف، فلا كلفة على صفحة لم يُفعَّل فيها الوضع. */
   private bind(on: boolean): void {
@@ -170,7 +177,10 @@ class CardController {
   private scan(): void {
     const { ctx } = this;
     this.matches = findMatches(ctx.document, this.index, { kinds: pageKindsOf(ctx.page), href: ctx.page.href }).matches;
-    if (this.openElement && !this.matches.some((m) => m.element === this.openElement)) this.openElement = null;
+    if (this.openElement && !this.matches.some((m) => m.element === this.openElement)) {
+      this.openElement = null;
+      this.closeReason = 'rescan';
+    }
     this.draw();
   }
 
@@ -216,15 +226,18 @@ class CardController {
         active={this.mode.active}
         badgeSize={badgeSizeFor(doc.defaultView)}
         {...(this.options.rectOf ? { rectOf: this.options.rectOf } : {})}
+        closeReason={this.closeReason}
         onOpen={(i) => {
           this.openElement = this.matches[i]?.element ?? null;
+          this.closeReason = null;
           this.draw();
         }}
-        onClose={() => {
+        onClose={(reason) => {
           this.openElement = null;
+          this.closeReason = reason;
           this.draw();
         }}
-        onStop={() => this.mode.set(false)}
+        onStop={() => this.stop()}
       />,
       parts.root,
     );
