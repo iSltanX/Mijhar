@@ -6,6 +6,7 @@
 import type { FunctionComponent } from 'preact';
 import type { SettingsRegistry, SettingsStore } from '../core/settings';
 import type { UnitId } from '../core/ui-host/units';
+import { MODULE_A_SECTION } from '../modules/a/settings/section';
 
 export type SettingsSurface = 'options' | 'native' | 'drawer';
 
@@ -30,7 +31,9 @@ export interface SettingsSection {
 export const DEFAULT_SECTION_SURFACES: readonly SettingsSurface[] = ['options', 'native'];
 
 // سطر واحد لكل قسم، تضيفه مرحلته.
-export const SETTINGS_SECTIONS: readonly SettingsSection[] = [];
+export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
+  MODULE_A_SECTION, // MJ7: الوحدة (أ)
+];
 
 export const sectionsFor = (surface: SettingsSurface, sections: readonly SettingsSection[] = SETTINGS_SECTIONS): SettingsSection[] =>
   sections.filter((section) => (section.surfaces ?? DEFAULT_SECTION_SURFACES).includes(surface));

@@ -1,0 +1,10 @@
+$ npx tsc --noEmit
+tsc: لا أخطاء
+
+$ npx vitest run tests/modules/a
+ Test Files  11 passed (11)
+      Tests  252 passed (252)
+
+$ npx vitest run
+ Test Files  36 passed (36)
+      Tests  657 passed | 1 skipped (658)

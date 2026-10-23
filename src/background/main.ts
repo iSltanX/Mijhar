@@ -13,6 +13,7 @@ import { createSettingsRegistry, SURFACE_KEY } from '../core/ui-host/units';
 import type { Surface } from '../core/ui-host/units';
 import type { StorageBinding } from '../core/storage';
 import { defineSectionSettings } from '../options/sections';
+import { openReaderFor } from '../modules/a/reading/background';
 
 export interface BackgroundOptions {
   readonly api?: ExtensionApi;
@@ -38,8 +39,9 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     openPanel({ api, target, surface: () => readSurfaceMirror(options.mirror) ?? surface, ...(options.onOutcome ? { onOutcome: options.onOutcome } : {}) }, tab);
   });
 
-  api.runtime.onMessage.addListener((message) => {
+  api.runtime.onMessage.addListener((message, sender) => {
     if (typeof message === 'object' && message !== null && (message as { type?: unknown }).type === OPEN_OPTIONS_MESSAGE) void api.runtime.openOptionsPage?.();
+    else openReaderFor(api, message, sender); // MJ7 (T-2.5): وضع القراءة يفتح العارض في تبويب
     return undefined;
   });
 

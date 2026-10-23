@@ -2,7 +2,7 @@
 // يبني حزمتي الإضافة: dist/chromium (عائلة Chromium) وdist/firefox.
 // الاستعمال: node scripts/build.mjs [chromium|firefox ...] [--out <مجلد>]
 // لكل هدف: مدخل Vite لكل نقطة دخول (iife لأن سكربتات الإضافة لا تقبل وحدات ES بلا تهيئة)، ثم manifest.json المولَّد
-// وصفحتا الإضافة (اللوحة الجانبية والإعدادات).
+// وصفحات الإضافة (اللوحة الجانبية والإعدادات وعارض القراءة) والخطوط المضمّنة.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -16,13 +16,18 @@ export const ENTRIES = [
   { name: 'content', source: 'src/content/index.ts', global: 'MijharContent' },
   { name: 'sidepanel', source: 'src/sidepanel/main.tsx', global: 'MijharSidepanel' },
   { name: 'options', source: 'src/options/main.tsx', global: 'MijharOptions' },
+  { name: 'reader', source: 'src/modules/a/reading/reader/main.tsx', global: 'MijharReader' },
 ];
 
 // صفحات الإضافة: كل صفحة تحمّل حزمة مدخلها بالاسم نفسه.
 export const PAGES = [
   { source: 'src/sidepanel/index.html', file: 'sidepanel.html' },
   { source: 'src/options/index.html', file: 'options.html' },
+  { source: 'src/modules/a/reading/reader/index.html', file: 'reader.html' },
 ];
+
+// الخطوط المضمّنة ونصوص تراخيصها (T-2.3): تُنسخ كما هي إلى fonts/ في كل حزمة.
+export const FONTS_DIR = 'assets/fonts';
 
 export async function buildTarget(target, outRoot = path.join(ROOT, 'dist')) {
   const outDir = path.join(outRoot, target);
@@ -50,6 +55,11 @@ export async function buildTarget(target, outRoot = path.join(ROOT, 'dist')) {
   const manifest = generateManifest(target, { version });
   fs.writeFileSync(path.join(outDir, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   for (const page of PAGES) fs.copyFileSync(path.join(ROOT, page.source), path.join(outDir, page.file));
+  const fontsDir = path.join(ROOT, FONTS_DIR);
+  if (fs.existsSync(fontsDir)) {
+    fs.mkdirSync(path.join(outDir, 'fonts'), { recursive: true });
+    for (const file of fs.readdirSync(fontsDir)) if (/\.(woff2|txt)$/.test(file)) fs.copyFileSync(path.join(fontsDir, file), path.join(outDir, 'fonts', file));
+  }
   return outDir;
 }
 
