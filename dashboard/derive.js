@@ -242,7 +242,7 @@
     var next;
     if (!current) next = { kind: 'done', text: 'اكتملت كل الموجات: كل المراحل مدمجة ومتحقق منها.', cmd: null };
     else if (!current.open) next = { kind: 'wait', text: 'الموجة ' + current.wave.id + ' لم تُفتح بعد؛ يفتحها منسّق الدمج بوسم ' + tick('mj-' + current.wave.id + '/base') + ' عند إغلاق الموجة السابقة.', cmd: null };
-    else if (current.key === 'ready') next = { kind: 'merge', text: 'كل مراحل الموجة ' + current.wave.id + ' جاهزة للدمج. افتح جلسة في النسخة الرئيسية (بلا worktree) بمودل ' + current.wave.merge_model + ' وألصق: «' + current.mergeCmd + '».', cmd: current.mergeCmd };
+    else if (current.key === 'ready') next = { kind: 'merge', text: 'كل مراحل الموجة ' + current.wave.id + ' جاهزة للدمج. افتح جلسة في النسخة الرئيسية (بلا worktree) بمودل ' + current.wave.merge_model + ' وألصق: «' + current.mergeCmd + '». تراجع الجلسة الفروع بنفسها قبل الدمج؛ لا جلسة مراجعة لكل مرحلة.', cmd: current.mergeCmd };
     else {
       var startable = current.stages.filter(function (v) { return v.canStart; });
       var fresh = startable.filter(function (v) { return !v.isResume; }), resume = startable.filter(function (v) { return v.isResume; });
