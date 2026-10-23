@@ -1,0 +1,18 @@
+<!doctype html>
+<!--
+  عينة T-7.2 (TEST-WRITE-02): صفحة طلب دمج جديد (مقارنة) بحقل الوصف الذي يملؤه GitHub بقالب PULL_REQUEST_TEMPLATE.md؛ يملؤه الاختبار بنص القالب. مكتوبة لهذه المرحلة؛ ليست لقطة حية.
+-->
+<html lang="en" data-color-mode="auto">
+<head><meta charset="utf-8"><title>Comparing main...feature · octo/demo</title></head>
+<body class="logged-in env-production">
+<main id="js-repo-pjax-container">
+  <form id="new-pr-form" action="/octo/demo/pulls" method="post" class="js-new-pull-request">
+    <input type="text" name="pull_request[title]" aria-label="Title" value="Add feature">
+    <markdown-toolbar for="pull_request_body"><div class="toolbar-group"><button type="button" data-md-button aria-label="Bold">B</button></div></markdown-toolbar>
+    <textarea id="pull_request_body" name="pull_request[body]" aria-label="Markdown value"></textarea>
+    <label><input type="checkbox" name="pull_request[allow_edits]" checked> Allow edits by maintainers</label>
+    <button type="submit" id="submit-pr">Create pull request</button>
+  </form>
+</main>
+</body>
+</html>
