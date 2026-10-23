@@ -9,6 +9,8 @@ import type { UnitId } from '../core/ui-host/units';
 import { MODULE_A_SECTION } from '../modules/a/settings/section';
 import { CARD_SECTION } from '../modules/b/card/section';
 import { PR_STATUS_SECTION } from '../modules/d/pr-status/section';
+import { NOTES_SETTINGS_SECTION } from '../modules/g/notes/section';
+import { COMMUNITY_SETTINGS_SECTION } from '../modules/h/section';
 
 export type SettingsSurface = 'options' | 'native' | 'drawer';
 
@@ -37,6 +39,8 @@ export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
   MODULE_A_SECTION, // MJ7: الوحدة (أ)
   CARD_SECTION, // MJ8 (T-3.2): الوحدة (ب)
   PR_STATUS_SECTION, // MJ8 (T-5.1، T-5.4): الوحدة (د)
+  NOTES_SETTINGS_SECTION, // MJ9 (T-8.1): الملاحظات الخاصة
+  COMMUNITY_SETTINGS_SECTION, // MJ9 (T-9.1، T-9.4): المجتمع وأول مساهمة
 ];
 
 export const sectionsFor = (surface: SettingsSurface, sections: readonly SettingsSection[] = SETTINGS_SECTIONS): SettingsSection[] =>

@@ -1,0 +1,11 @@
+$ npx vitest run tests/modules/h/resources
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj9-a2de59
+
+
+ Test Files  4 passed (4)
+      Tests  80 passed (80)
+   Start at  15:31:51
+   Duration  2.13s (tests 59%, import 27%, environment 9%, transform 6%)
+
+exit: 0

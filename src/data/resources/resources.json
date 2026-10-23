@@ -1,0 +1,186 @@
+{
+  "format": "mijhar-resources",
+  "schemaVersion": 1,
+  "review": {
+    "status": "automated-pending-owner-review",
+    "date": "2026-10-23",
+    "method": "اختيار من بحث GitHub REST العام (مواضيع arabic وarabic-nlp وarabic-fonts، وعبارات «awesome arabic») ثم فحص كل مستودع: وجوده وعدم أرشفته وترخيصه وآخر دفع، والتأكد من وجود المحتوى العربي المذكور في وصفه حيث ادُّعي وجوده.",
+    "note": "القائمة الأولى اقتراح أولي دُقِّق آليًا ولم يراجعه إنسان بعد؛ تبقى بانتظار مراجعة المالك لاعتماد الاختيار قبل الإصدار. لا تُسحب قوائم خارجية تلقائيًا."
+  },
+  "categories": [
+    {
+      "id": "guides",
+      "title": "أدلة وكتب لتعلّم البرمجة والمصادر المفتوحة"
+    },
+    {
+      "id": "lists",
+      "title": "قوائم موارد عربية منتقاة"
+    },
+    {
+      "id": "nlp",
+      "title": "معالجة اللغة العربية"
+    },
+    {
+      "id": "fonts",
+      "title": "خطوط عربية"
+    }
+  ],
+  "resources": [
+    {
+      "id": "opensource-guide",
+      "title": "أدلة المصادر المفتوحة (Open Source Guides)",
+      "url": "https://github.com/github/opensource.guide",
+      "category": "guides",
+      "description": "أدلة مجتمعية لمن يبدأ في المصادر المفتوحة أو يديرها، وفيها ترجمة عربية لمقالاتها في المجلد _articles/ar (كيف تساهم، ومدونة السلوك، وبناء المجتمع).",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2026-10-20",
+      "license": "CC-BY-4.0",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/github/opensource.guide؛ ثم: GET /repos/github/opensource.guide/contents/_articles/ar ← 200 وفيه how-to-contribute.md",
+      "origin": "builtin"
+    },
+    {
+      "id": "free-programming-books",
+      "title": "Free Programming Books",
+      "url": "https://github.com/EbookFoundation/free-programming-books",
+      "category": "guides",
+      "description": "قائمة كتب ومواد برمجة مجانية مرتبة بلغات كثيرة، وفيها قائمة عربية: books/free-programming-books-ar.md.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2026-10-22",
+      "license": "CC-BY-4.0",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/EbookFoundation/free-programming-books؛ ثم: GET /repos/EbookFoundation/free-programming-books/contents/books ← يضم free-programming-books-ar.md",
+      "origin": "builtin"
+    },
+    {
+      "id": "javascript-algorithms",
+      "title": "خوارزميات وبنى بيانات بجافاسكربت",
+      "url": "https://github.com/trekhleb/javascript-algorithms",
+      "category": "guides",
+      "description": "شرح الخوارزميات وبنى البيانات مع تنفيذها بجافاسكربت، وله README عربي (README.ar-AR.md).",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2026-07-26",
+      "license": "MIT",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/trekhleb/javascript-algorithms؛ ثم: evidence/T-0.4: README.ar-AR.md في الجذر وقراءته بنفس الأصل 200 بـ5299 حرفًا عربيًا",
+      "origin": "builtin"
+    },
+    {
+      "id": "awesome-arabic",
+      "title": "Awesome Arabic",
+      "url": "https://github.com/01walid/awesome-arabic",
+      "category": "lists",
+      "description": "قائمة منتقاة لمشاريع وموارد للمطورين والمصممين تدعم احتياجات اللغة العربية الحاسوبية.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2026-06-09",
+      "license": null,
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/01walid/awesome-arabic؛ ثم: وصف المستودع في GitHub API",
+      "origin": "builtin"
+    },
+    {
+      "id": "arabic-programming-blogs",
+      "title": "المدونات والمصادر العربية لتعلم البرمجة",
+      "url": "https://github.com/aissa-bouguern/arabic-programming-blogs",
+      "category": "lists",
+      "description": "قائمة بأهم المدونات والمصادر العربية لتعلم البرمجة وتطوير الويب.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2024-01-22",
+      "license": "MIT",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/aissa-bouguern/arabic-programming-blogs؛ ثم: وصف المستودع في GitHub API",
+      "origin": "builtin"
+    },
+    {
+      "id": "arbml",
+      "title": "ARBML",
+      "url": "https://github.com/ARBML/ARBML",
+      "category": "nlp",
+      "description": "تنفيذات لمشاريع عديدة في معالجة اللغة العربية والرؤية الحاسوبية، بتجارب تفاعلية.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2024-03-01",
+      "license": "MIT",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/ARBML/ARBML؛ ثم: وصف المستودع في GitHub API",
+      "origin": "builtin"
+    },
+    {
+      "id": "arabic-stop-words",
+      "title": "قائمة مستبعدات الفهرسة العربية",
+      "url": "https://github.com/mohataher/arabic-stop-words",
+      "category": "nlp",
+      "description": "أكبر قائمة لمستبعدات الفهرسة (Stop Words) العربية على GitHub.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2024-03-27",
+      "license": "MIT",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/mohataher/arabic-stop-words؛ ثم: وصف المستودع في GitHub API وعينة fixtures/spikes/gh-repo-arabic-stop-words.html",
+      "origin": "builtin"
+    },
+    {
+      "id": "arabert",
+      "title": "AraBERT",
+      "url": "https://github.com/aub-mind/arabert",
+      "category": "nlp",
+      "description": "نماذج محوّلات (Transformers) مدرَّبة مسبقًا لفهم اللغة العربية وتوليدها.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2022-10-17",
+      "license": null,
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/aub-mind/arabert؛ ثم: وصف المستودع في GitHub API",
+      "origin": "builtin"
+    },
+    {
+      "id": "ar-php",
+      "title": "ar-php",
+      "url": "https://github.com/khaled-alshamaa/ar-php",
+      "category": "nlp",
+      "description": "مكتبة PHP لمطوري المواقع العربية: بحث وعرض ومعالجة للنص العربي.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2026-09-13",
+      "license": "LGPL-3.0",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/khaled-alshamaa/ar-php؛ ثم: وصف المستودع في GitHub API",
+      "origin": "builtin"
+    },
+    {
+      "id": "shakkala",
+      "title": "Shakkala",
+      "url": "https://github.com/Barqawiz/Shakkala",
+      "category": "nlp",
+      "description": "تشكيل آلي للنصوص العربية بالتعلم العميق.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2023-03-25",
+      "license": "NOASSERTION",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/Barqawiz/Shakkala؛ ثم: وصف المستودع في GitHub API وعينة fixtures/spikes/gh-readme-shakkala.html",
+      "origin": "builtin"
+    },
+    {
+      "id": "amiri",
+      "title": "خط أميري",
+      "url": "https://github.com/aliftype/amiri",
+      "category": "fonts",
+      "description": "خط نسخ لنصوص الكتب بترخيص OFL.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2026-10-12",
+      "license": "OFL-1.1",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/aliftype/amiri؛ ثم: وصف المستودع وترخيصه في GitHub API",
+      "origin": "builtin"
+    },
+    {
+      "id": "cairo",
+      "title": "خط القاهرة (Cairo)",
+      "url": "https://github.com/Gue3bara/Cairo",
+      "category": "fonts",
+      "description": "عائلة خطوط عربية ولاتينية معاصرة، بترخيص OFL.",
+      "lastVerified": "2026-10-23",
+      "status": "active",
+      "lastPush": "2023-03-06",
+      "license": "OFL-1.1",
+      "source": "GitHub REST API بتاريخ 2026-10-23: GET /repos/Gue3bara/Cairo؛ ثم: وصف المستودع وترخيصه في GitHub API",
+      "origin": "builtin"
+    }
+  ]
+}
