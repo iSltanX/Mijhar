@@ -1,0 +1,3 @@
+$ node tests/modules/g/browser/mj13-check.mjs chrome --out-dir evidence/wave-F/modules/mj13
+Chrome 156.0.8078.47: 27/27 فحصًا
+exit=0

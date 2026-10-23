@@ -1,6 +1,6 @@
 # المرحلة 1: البنية والنواة المعيارية
 
-> **ملف مولَّد** من `data/plan.json` و`data/status.json` بالأمر `node tools/build.mjs`؛ لا تحرّره يدويًا، وعدّل البيانات ثم أعد التوليد. تاريخ البيانات: `2026-10-23`. لا يحوي هذا الملف أي تقدير زمني.
+> **ملف مولَّد** من `data/plan.json` و`data/status.json` بالأمر `node tools/build.mjs`؛ لا تحرّره يدويًا، وعدّل البيانات ثم أعد التوليد. تاريخ البيانات: `2026-10-24`. لا يحوي هذا الملف أي تقدير زمني.
 
 **موضعها:** لا تعتمد على مرحلة أخرى؛ وتعتمد عليها [المرحلة 2](phase-02-module-a.md) و[المرحلة 3](phase-03-module-b.md) و[المرحلة 4](phase-04-module-c.md) و[المرحلة 5](phase-05-module-d.md) و[المرحلة 6](phase-06-module-e.md) و[المرحلة 7](phase-07-module-f.md) و[المرحلة 8](phase-08-module-g.md) و[المرحلة 9](phase-09-module-h.md) و[المرحلة 11](phase-11-assist-layer.md). ملفات ذات صلة: [خريطة الطريق](../ROADMAP.md) و[التتبع](../TRACEABILITY.md) و[القرارات](../DECISIONS.md) و[الحالة](../STATUS.md).
 

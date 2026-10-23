@@ -1,0 +1,5 @@
+$ node tests/modules/f/template/browser/run.mjs chrome firefox --out-dir evidence/wave-F/modules/template
+Chrome 156.0.8078.47: 45/45 فحصًا
+Firefox 158.0.1: 45/45 فحصًا
+المجموع: 90/90 فحصًا اجتاز
+exit=0

@@ -1,0 +1,53 @@
+$ node evidence/wave-F/review/export-token-check.mjs chrome edge brave
+— Chrome 156.0.8078.47
+  ✓ الرمز محفوظ في ذاكرة الجلسة من واجهة الإعدادات
+  ✓ [session] التصدير حقيقي وكامل (250 ملاحظة و250 رابطًا)
+  ✓ [session] JSON بلا ملح: لا الرمز ولا نمط github_pat_
+  ✓ [session] JSON بالملح: لا الرمز ولا نمط github_pat_
+  ✓ [session] Markdown: لا الرمز ولا نمط github_pat_
+  ✓ [session] storage.local كاملًا (والملاحظات فيه): لا الرمز ولا نمط github_pat_
+  ✓ [session] DOM صفحة الإعدادات بعد الحفظ والتصدير بلا الرمز
+  ✓ الرمز محفوظ في القرص من واجهة الإعدادات
+  ✓ [disk] التصدير حقيقي وكامل (250 ملاحظة و250 رابطًا)
+  ✓ [disk] JSON بلا ملح: لا الرمز ولا نمط github_pat_
+  ✓ [disk] JSON بالملح: لا الرمز ولا نمط github_pat_
+  ✓ [disk] Markdown: لا الرمز ولا نمط github_pat_
+  ✓ [disk] storage.local كاملًا (والملاحظات فيه): لا الرمز ولا نمط github_pat_
+  ✓ [disk] DOM صفحة الإعدادات بعد الحفظ والتصدير بلا الرمز
+  ✓ المسح بعد الفحص
+Chrome: 15/15
+— Edge 155.0.4283.60
+  ✓ الرمز محفوظ في ذاكرة الجلسة من واجهة الإعدادات
+  ✓ [session] التصدير حقيقي وكامل (250 ملاحظة و250 رابطًا)
+  ✓ [session] JSON بلا ملح: لا الرمز ولا نمط github_pat_
+  ✓ [session] JSON بالملح: لا الرمز ولا نمط github_pat_
+  ✓ [session] Markdown: لا الرمز ولا نمط github_pat_
+  ✓ [session] storage.local كاملًا (والملاحظات فيه): لا الرمز ولا نمط github_pat_
+  ✓ [session] DOM صفحة الإعدادات بعد الحفظ والتصدير بلا الرمز
+  ✓ الرمز محفوظ في القرص من واجهة الإعدادات
+  ✓ [disk] التصدير حقيقي وكامل (250 ملاحظة و250 رابطًا)
+  ✓ [disk] JSON بلا ملح: لا الرمز ولا نمط github_pat_
+  ✓ [disk] JSON بالملح: لا الرمز ولا نمط github_pat_
+  ✓ [disk] Markdown: لا الرمز ولا نمط github_pat_
+  ✓ [disk] storage.local كاملًا (والملاحظات فيه): لا الرمز ولا نمط github_pat_
+  ✓ [disk] DOM صفحة الإعدادات بعد الحفظ والتصدير بلا الرمز
+  ✓ المسح بعد الفحص
+Edge: 15/15
+— Brave 156.0.8078.48
+  ✓ الرمز محفوظ في ذاكرة الجلسة من واجهة الإعدادات
+  ✓ [session] التصدير حقيقي وكامل (250 ملاحظة و250 رابطًا)
+  ✓ [session] JSON بلا ملح: لا الرمز ولا نمط github_pat_
+  ✓ [session] JSON بالملح: لا الرمز ولا نمط github_pat_
+  ✓ [session] Markdown: لا الرمز ولا نمط github_pat_
+  ✓ [session] storage.local كاملًا (والملاحظات فيه): لا الرمز ولا نمط github_pat_
+  ✓ [session] DOM صفحة الإعدادات بعد الحفظ والتصدير بلا الرمز
+  ✓ الرمز محفوظ في القرص من واجهة الإعدادات
+  ✓ [disk] التصدير حقيقي وكامل (250 ملاحظة و250 رابطًا)
+  ✓ [disk] JSON بلا ملح: لا الرمز ولا نمط github_pat_
+  ✓ [disk] JSON بالملح: لا الرمز ولا نمط github_pat_
+  ✓ [disk] Markdown: لا الرمز ولا نمط github_pat_
+  ✓ [disk] storage.local كاملًا (والملاحظات فيه): لا الرمز ولا نمط github_pat_
+  ✓ [disk] DOM صفحة الإعدادات بعد الحفظ والتصدير بلا الرمز
+  ✓ المسح بعد الفحص
+Brave: 15/15
+exit=0

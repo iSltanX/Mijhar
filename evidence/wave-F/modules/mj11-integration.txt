@@ -1,0 +1,7 @@
+$ node tests/modules/d/browser/mj11-integration.mjs chrome edge brave firefox --out-dir evidence/wave-F/modules/mj11
+Chrome 156.0.8078.47: 18/18 فحصًا · رسائل كونسول الإضافة 0
+Edge 155.0.4283.60: 18/18 فحصًا · رسائل كونسول الإضافة 0
+Brave 156.0.8078.48: 18/18 فحصًا · رسائل كونسول الإضافة 0
+Firefox 158.0.1: 18/18 فحصًا · رسائل كونسول الإضافة 0
+المجموع: 72/72 فحصًا اجتاز
+exit=0

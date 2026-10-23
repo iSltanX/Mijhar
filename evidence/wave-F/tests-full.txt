@@ -1,0 +1,14 @@
+$ npx vitest run
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+
+ Test Files  122 passed (122)
+      Tests  1983 passed | 2 skipped (1985)
+   Start at  02:42:22
+   Duration  21.15s (tests 67%, import 15%, environment 14%, transform 4%)
+
+    Isolate  122 workers spawned · ~272ms startup each (spawn + environment, per file)
+             at least ~4.46s faster with isolate: false — reuses workers across files instead of one per file
+
+exit=0

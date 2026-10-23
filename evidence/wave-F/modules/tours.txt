@@ -1,0 +1,5 @@
+$ node tests/modules/b/tours/browser/run.mjs chrome firefox --out-dir evidence/wave-F/modules/tours
+Chrome 156.0.8078.47: 220/220 فحصًا
+Firefox 158.0.1: 220/220 فحصًا
+المجموع: 440/440 فحصًا اجتاز
+exit=0
