@@ -24,3 +24,5 @@ export { UNAVAILABLE_TEXT, have, missing, parseCount, squash } from './value';
 export type { Value } from './value';
 export { D_CARD_CSS } from './style';
 export { ChecksView, PrStatusCard, Val } from './view';
+export type { PrStatusCardProps } from './view';
+export { STALE_MINUTES_DEFAULT, STALE_MINUTES_KEY, defineDStatusSettings, isStaleMinutes } from './settings';

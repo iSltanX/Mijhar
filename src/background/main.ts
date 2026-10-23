@@ -14,12 +14,17 @@ import type { Surface } from '../core/ui-host/units';
 import type { StorageBinding } from '../core/storage';
 import { defineSectionSettings } from '../options/sections';
 import { openReaderFor } from '../modules/a/reading/background';
+import { PublicApiClient } from '../core/api/client';
+import { directPort, handlePublicApiRequest, isPublicApiRequest } from '../core/api/port';
+import type { PublicApiPort } from '../core/api/port';
 
 export interface BackgroundOptions {
   readonly api?: ExtensionApi;
   readonly target?: 'chromium' | 'firefox';
   /** الافتراضي storage.local للإضافة. */
   readonly binding?: StorageBinding;
+  /** fetch لطبقة API العامة (للاختبار). الافتراضي fetch العام. */
+  readonly fetch?: typeof fetch;
   /** انعكاس التفضيل المتزامن في Firefox. الافتراضي localStorage صفحة الخلفية. */
   readonly mirror?: Pick<Storage, 'getItem' | 'setItem'>;
   readonly onOutcome?: (outcome: PanelOutcome, detail?: string) => void;
@@ -39,7 +44,22 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     openPanel({ api, target, surface: () => readSurfaceMirror(options.mirror) ?? surface, ...(options.onOutcome ? { onOutcome: options.onOutcome } : {}) }, tab);
   });
 
-  api.runtime.onMessage.addListener((message, sender) => {
+  // MJ11 (T-5.2): طبقة GitHub REST العامة لسكربت المحتوى. العميل يُنشأ عند أول طلب، وحالته (الحد وETag) في ذاكرة الخلفية وحدها.
+  let publicApi: PublicApiPort | null = null;
+  const apiPort = (): PublicApiPort | null => {
+    if (!api.permissions) return null;
+    publicApi ??= directPort(new PublicApiClient({ permissions: api.permissions, ...(options.fetch ? { fetch: options.fetch } : {}) }), api.permissions);
+    return publicApi;
+  };
+
+  api.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (isPublicApiRequest(message)) {
+      const port = apiPort();
+      if (!port) return undefined;
+      // sendResponse مع true: الرد غير المتزامن في عائلة Chromium وFirefox معًا.
+      void handlePublicApiRequest(message, port).then(sendResponse, (error: unknown) => sendResponse({ ok: false, failure: 'network', status: null, message: String(error), retryAt: null, readAt: Date.now(), rate: null }));
+      return true;
+    }
     if (typeof message === 'object' && message !== null && (message as { type?: unknown }).type === OPEN_OPTIONS_MESSAGE) void api.runtime.openOptionsPage?.();
     else openReaderFor(api, message, sender); // MJ7 (T-2.5): وضع القراءة يفتح العارض في تبويب
     return undefined;

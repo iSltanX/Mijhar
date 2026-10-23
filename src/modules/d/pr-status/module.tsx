@@ -1,13 +1,31 @@
-// الوحدة d.pr-status: بطاقة ملخص حالة طلب الدمج في صفحة محادثة PR (T-5.1). تُدرج بعد ترويسة الطلب في جذر Shadow DOM عبر
-// ctx.mutations فتُزال بإيقاف الوحدة، وتتجدد حين تتغير الصفحة (الفحوص تكتمل، والتزام جديد).
-//  - الشبكة: طلب واحد لكل التزام إلى github.com نفسه (جزء status-details الذي تطلبه الصفحة بنفسها) حين لا يعرض DOM صفوف الفحوص؛
-//    لا طلبات إلى api.github.com هنا (طبقة API الموثَّقة في T-5.2)، وفشله يُعلَن «غير متاح» ولا يُعرض نجاحًا.
+// الوحدة d.pr-status: بطاقة ملخص حالة طلب الدمج في صفحة محادثة PR (T-5.1)، ومعها تفسير موانع الدمج بالأدلة وشارة المصدر والتقادم
+// وقراءة API العامة (T-5.2). تُدرج بعد ترويسة الطلب في جذر Shadow DOM عبر ctx.mutations فتُزال بإيقاف الوحدة، وتتجدد حين تتغير الصفحة.
+//  - الشبكة: طلب واحد لكل التزام إلى github.com نفسه (جزء status-details الذي تطلبه الصفحة بنفسها) حين لا يعرض DOM صفوف الفحوص.
+//    وapi.github.com لا يُطلب إلا بنقر صريح على «أكمل من GitHub API العامة» وبعد منح الصلاحية الاختيارية من الإعدادات، ومن الخلفية
+//    وحدها (core/api)؛ وفشل أيٍّ منهما يُعلَن «غير متاح» بسببه ولا يُعرض نجاحًا.
+//  - وقت آخر قراءة يتجدد بأول قراءة، وبتحديث حي (تغيّرت قيمة مقروءة بعد تعديل أجرته الصفحة)، وبإعادة القراءة الصريحة؛ ولا يتجدد بتعديلات
+//    لا تغيّر شيئًا، فيظهر التقادم (PP-01) حين تسكت الصفحة.
 import { mountSurface } from '../../../core/ui-host/surface';
+import { extensionApi } from '../../../core/ui-host/browser-api';
+import { OPEN_OPTIONS_MESSAGE } from '../../../core/ui-host/commands';
+import { createSettingsRegistry } from '../../../core/ui-host/units';
+import { openSettings } from '../../../core/ui-host/settings-runtime';
+import { runtimePort } from '../../../core/api/port';
+import type { PublicApiPort, PublicApiStatus } from '../../../core/api/port';
 import type { ExtensionModule, ModuleContext } from '../../../core';
+import { readPrApi } from '../blockers/api-read';
+import type { ApiPrData } from '../blockers/api-read';
+import { explainBlockers, readDomEvidence } from '../blockers/explain';
+import { collapsedInfo, freshnessAlerts, isLiveChange, readFacts } from '../blockers/freshness';
+import { mergeApi } from '../blockers/merge';
+import { BLOCKERS_CSS } from '../blockers/style';
+import { ApiPanel, BlockersView, FreshnessBadge } from '../blockers/view';
 import { PR_STATUS_MODULE_ID } from './ids';
 import { PR_STATUS_SELECTORS, parseStatusDetails, readPrSummary } from './extract';
 import type { FetchedChecks } from './extract';
+import { STALE_MINUTES_DEFAULT, STALE_MINUTES_KEY, defineDStatusSettings, isStaleMinutes } from './settings';
 import { D_CARD_CSS } from './style';
+import type { PrSummary } from './summary';
 import { PrStatusCard } from './view';
 
 export { PR_STATUS_MODULE_ID };
@@ -22,6 +40,14 @@ export interface PrStatusOptions {
   /** عمر نتيجة جلب التزام قبل أن تُجلب من جديد عند إعادة تركيب الوحدة (تنقل أو إعادة رسم الصفحة). الافتراضي 30 ثانية. */
   readonly cacheMs?: number;
   readonly now?: () => number;
+  /** منفذ طبقة API العامة. الافتراضي رسائل إلى الخلفية؛ وnull يخفي لوحة API. */
+  readonly api?: PublicApiPort | null;
+  /** عتبة التقادم بالمللي ثانية وقت كل رسم. الافتراضي من الإعدادات (PP-01، 5 دقائق). */
+  readonly staleMs?: () => number;
+  /** فاصل إعادة الرسم ليظهر تنبيه التقادم في وقته. الافتراضي 15 ثانية. */
+  readonly tickMs?: number;
+  /** يفتح صفحة الإعدادات (منح الصلاحية هناك لا في الصفحة). */
+  readonly openSettings?: () => void;
 }
 
 /** نتيجة جلب لالتزام (مفتاحها رابط الجزء الحامل لـsha) تبقى صالحة عبر إعادات التركيب فلا يتكرر الطلب. */
@@ -38,42 +64,108 @@ export const sameOriginFetch: FetchDetails = async (url, signal) => {
   return response.text();
 };
 
+function defaultPort(): PublicApiPort | null {
+  try {
+    return runtimePort(extensionApi().runtime);
+  } catch {
+    return null;
+  }
+}
+
+function defaultOpenSettings(): void {
+  try {
+    void extensionApi().runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE });
+  } catch {
+    // خارج الإضافة (اختبار): لا شيء.
+  }
+}
+
+/** عتبة PP-01 من الإعدادات، تُقرأ كسولًا عند أول تركيب وتتبع تغيّرها؛ وحتى تُقرأ (أو إن تعذّر) فالقيمة الافتراضية. */
+function settingsStaleMs(): () => number {
+  let minutes = STALE_MINUTES_DEFAULT;
+  let started = false;
+  return () => {
+    if (!started) {
+      started = true;
+      try {
+        openSettings({ migrate: false, registry: createSettingsRegistry(defineDStatusSettings) }).then(
+          ({ settings }) => {
+            const read = (value: unknown): void => {
+              if (isStaleMinutes(value)) minutes = value;
+            };
+            read(settings.get(STALE_MINUTES_KEY));
+            settings.subscribe((change) => {
+              if (change.key === STALE_MINUTES_KEY) read(change.value);
+            });
+          },
+          () => {},
+        );
+      } catch {
+        // لا تخزين للإضافة هنا: تبقى القيمة الافتراضية.
+      }
+    }
+    return minutes * 60_000;
+  };
+}
+
 export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionModule {
   const fetchDetails = options.fetchDetails ?? sameOriginFetch;
   const debounceMs = options.debounceMs ?? 300;
   const cache: FetchCache = new Map();
   const cacheMs = options.cacheMs ?? 30_000;
   const now = options.now ?? (() => Date.now());
+  const staleMs = options.staleMs ?? settingsStaleMs();
+  let port: PublicApiPort | null | undefined = options.api;
   return {
     id: PR_STATUS_MODULE_ID,
     title: 'ملخص حالة طلب الدمج',
     pages: ['pr'],
     selectors: PR_STATUS_SELECTORS,
     mount(ctx) {
-      new PrStatusController(ctx, fetchDetails, debounceMs, cache, cacheMs, now).start();
+      if (port === undefined) port = defaultPort();
+      new PrStatusController(ctx, { fetchDetails, debounceMs, cache, cacheMs, now, staleMs, tickMs: options.tickMs ?? 15_000, api: port, openSettings: options.openSettings ?? defaultOpenSettings }).start();
     },
   };
 }
+
+interface ControllerDeps {
+  readonly fetchDetails: FetchDetails;
+  readonly debounceMs: number;
+  readonly cache: FetchCache;
+  readonly cacheMs: number;
+  readonly now: () => number;
+  readonly staleMs: () => number;
+  readonly tickMs: number;
+  readonly api: PublicApiPort | null;
+  readonly openSettings: () => void;
+}
+
+type ReadReason = 'initial' | 'mutation' | 'fetched' | 'explicit' | 'tick' | 'api';
 
 class PrStatusController {
   private surface: ReturnType<typeof mountSurface> | null = null;
   private fetched: (FetchedChecks & { readonly url: string }) | null = null;
   private pendingUrl: string | null = null;
   private timer: ReturnType<typeof setTimeout> | null = null;
+  private ticker: ReturnType<typeof setInterval> | null = null;
   private anchor: { parent: Node; before: Node | null } | null = null;
+  private facts: Map<string, string> | null = null;
+  private domReadAt: number;
+  private liveUpdateAt: number | null = null;
+  private apiData: ApiPrData | null = null;
+  private apiStatus: PublicApiStatus | null = null;
+  private apiLoading = false;
 
   constructor(
     private readonly ctx: ModuleContext,
-    private readonly fetchDetails: FetchDetails,
-    private readonly debounceMs: number,
-    private readonly cache: FetchCache,
-    private readonly cacheMs: number,
-    private readonly now: () => number,
-  ) {}
+    private readonly deps: ControllerDeps,
+  ) {
+    this.domReadAt = deps.now();
+  }
 
   start(): void {
     const { ctx } = this;
-    this.refresh();
+    this.refresh('initial');
     const root = ctx.page.contentRoot ?? ctx.document.body;
     ctx.observe(root, { childList: true, subtree: true, characterData: true }, (records) => {
       // تعديلات مضيفنا وحده لا تستدعي إعادة قراءة (وإلا دارت الدورة)؛ وتغيّر نص أو عقد غيره يستدعيها.
@@ -81,18 +173,31 @@ class PrStatusController {
       const foreign = records.some((r) => r.type === 'characterData' || [...r.addedNodes, ...r.removedNodes].some((n) => n !== own));
       if (foreign) this.schedule();
     });
+    this.ticker = setInterval(() => this.refresh('tick'), this.deps.tickMs);
     ctx.onTeardown(() => {
       if (this.timer) clearTimeout(this.timer);
+      if (this.ticker) clearInterval(this.ticker);
       this.timer = null;
+      this.ticker = null;
     });
+    if (this.deps.api) {
+      this.deps.api.status().then(
+        (status) => {
+          if (ctx.signal.aborted) return;
+          this.apiStatus = status;
+          this.refresh('tick');
+        },
+        () => {},
+      );
+    }
   }
 
   private schedule(): void {
     if (this.timer || this.ctx.signal.aborted) return;
     this.timer = setTimeout(() => {
       this.timer = null;
-      this.refresh();
-    }, this.debounceMs);
+      this.refresh('mutation');
+    }, this.deps.debounceMs);
   }
 
   private place(): { parent: Node; before: Node | null } {
@@ -103,7 +208,7 @@ class PrStatusController {
     return { parent, before: parent.firstChild };
   }
 
-  private refresh(): void {
+  private refresh(reason: ReadReason): void {
     const { ctx } = this;
     if (ctx.signal.aborted) return;
     const read = (fetched: FetchedChecks | null) => readPrSummary(ctx.document, ctx.selectors, { fetched, pageNumber: ctx.page.number });
@@ -111,29 +216,101 @@ class PrStatusController {
     const url = base.checks.detailsUrl;
     // نتيجة التزام آخر لا تُعرض على الجديد: الرابط يحمل sha الالتزام.
     const fetched = url && this.fetched?.url === url ? this.fetched : null;
-    this.draw(fetched ? read(fetched) : base, Boolean(url && !fetched));
+    const summary = fetched ? read(fetched) : base;
+    this.track(reason, summary);
+    this.draw(summary, Boolean(url && !fetched));
     if (url && !fetched && this.pendingUrl !== url) this.load(url);
   }
 
-  private draw(summary: ReturnType<typeof readPrSummary>, loading: boolean): void {
-    const { ctx } = this;
+  /** يجدد وقت القراءة بحسب سببها، ويرصد التحديث الحي: قيمة مقروءة تغيّرت بعد تعديل أجرته الصفحة. */
+  private track(reason: ReadReason, summary: PrSummary): void {
+    const facts = readFacts(summary);
+    const now = this.deps.now();
+    if (reason === 'initial' || reason === 'explicit' || reason === 'fetched') {
+      this.domReadAt = now;
+      if (reason === 'explicit') this.liveUpdateAt = null;
+    } else if (reason === 'mutation' && this.facts && isLiveChange(this.facts, facts)) {
+      this.domReadAt = now;
+      this.liveUpdateAt = now;
+    }
+    if (reason !== 'tick') this.facts = facts;
+  }
+
+  private draw(summary: PrSummary, loading: boolean): void {
+    const { ctx, deps } = this;
     if (!this.surface) {
       const spot = (this.anchor = this.place());
-      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: D_CARD_CSS, label: 'ملخص حالة طلب الدمج' });
+      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: D_CARD_CSS + BLOCKERS_CSS, label: 'ملخص حالة طلب الدمج' });
     } else if (!this.surface.host.isConnected && this.anchor) {
       // أعادت الصفحة رسم حاويتها فأزالت المضيف: يُعاد إدراجه في موضعه الجديد.
       const spot = (this.anchor = this.place());
       ctx.mutations.insert(spot.parent, this.surface.host, spot.before);
     }
-    this.surface.render(<PrStatusCard summary={summary} loading={loading} />);
+    const merged = mergeApi(summary, this.apiData);
+    const report = explainBlockers(merged, readDomEvidence(ctx.document, ctx.selectors), this.apiData);
+    const apiRead = Boolean(this.apiData?.pull.available);
+    const alerts = freshnessAlerts(
+      { now: deps.now(), domReadAt: this.domReadAt, apiReadAt: apiRead ? (this.apiData?.readAt ?? null) : null, liveUpdateAt: this.liveUpdateAt, staleMs: deps.staleMs() },
+      collapsedInfo(merged, apiRead ? this.apiData : null),
+    );
+    const canApi = Boolean(deps.api && ctx.page.owner && ctx.page.repo && ctx.page.number !== null);
+    this.surface.render(
+      <PrStatusCard
+        summary={merged}
+        loading={loading}
+        top={
+          <FreshnessBadge
+            sources={apiRead ? ['dom', 'api'] : ['dom']}
+            domReadAt={this.domReadAt}
+            apiReadAt={apiRead ? (this.apiData?.readAt ?? null) : null}
+            alerts={alerts}
+            onRefresh={() => this.explicitRefresh()}
+            onApiRefresh={canApi && this.apiStatus?.granted ? () => this.readApi() : null}
+          />
+        }
+        blockers={<BlockersView report={report} />}
+        footer={canApi ? <ApiPanel status={this.apiStatus} loading={this.apiLoading} data={this.apiData} onRead={() => this.readApi()} onOpenSettings={deps.openSettings} /> : null}
+      />,
+    );
+  }
+
+  /** إعادة قراءة صريحة: تُعاد قراءة الصفحة ويُجلب جزء status-details من جديد متجاوزًا الذاكرة. */
+  private explicitRefresh(): void {
+    if (this.fetched) this.deps.cache.delete(this.fetched.url);
+    this.fetched = null;
+    this.pendingUrl = null;
+    this.refresh('explicit');
+  }
+
+  private readApi(): void {
+    const { ctx, deps } = this;
+    const { owner, repo, number } = ctx.page;
+    if (!deps.api || !owner || !repo || number === null || this.apiLoading) return;
+    const port = deps.api;
+    this.apiLoading = true;
+    this.refresh('tick');
+    readPrApi(port, owner, repo, number, deps.now).then(
+      async (data) => {
+        if (ctx.signal.aborted) return;
+        this.apiData = data;
+        this.apiLoading = false;
+        this.apiStatus = await port.status().catch(() => this.apiStatus);
+        this.refresh('api');
+      },
+      () => {
+        if (ctx.signal.aborted) return;
+        this.apiLoading = false;
+        this.refresh('api');
+      },
+    );
   }
 
   private load(url: string): void {
-    const { ctx } = this;
-    const hit = this.cache.get(url);
-    if (hit && this.now() - hit.at < this.cacheMs) {
+    const { ctx, deps } = this;
+    const hit = deps.cache.get(url);
+    if (hit && deps.now() - hit.at < deps.cacheMs) {
       this.fetched = hit.result;
-      this.refresh();
+      this.refresh('fetched');
       return;
     }
     this.pendingUrl = url;
@@ -141,11 +318,11 @@ class PrStatusController {
       if (ctx.signal.aborted) return;
       this.fetched = { url, ...result };
       // الفشل لا يُحفظ: إعادة التركيب تعيد المحاولة، والنجاح يُحفظ فلا يتكرر الطلب.
-      if (!result.error) this.cache.set(url, { at: this.now(), result: this.fetched });
+      if (!result.error) deps.cache.set(url, { at: deps.now(), result: this.fetched });
       this.pendingUrl = null;
-      this.refresh();
+      this.refresh('fetched');
     };
-    this.fetchDetails(url, ctx.signal).then(
+    deps.fetchDetails(url, ctx.signal).then(
       (html) => done({ items: parseStatusDetails(new DOMParser().parseFromString(html, 'text/html')), error: null }),
       (error: unknown) => done({ items: [], error: error instanceof Error ? error.message : String(error) }),
     );

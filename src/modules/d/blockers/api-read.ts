@@ -1,0 +1,170 @@
+// قراءة طلب الدمج من GitHub REST العامة (T-5.2) على ما قاسته evidence/T-0.3: الطلب نفسه (draft وmergeable وmergeable_state)،
+// وcheck-runs لالتزام الرأس بتصفّح الصفحات، وcommit status المجمَّع، وسياقات الفحوص الإلزامية من حماية فرع الهدف.
+// كل جزء Value مستقل بسبب فشله، فلا يُسقط فشلُ جزء غيرَه ولا يُعرض نجاحًا.
+import type { PublicApiPort, PublicApiResult, RateLimit } from '../../../core/api';
+import { classifyCheckRun, classifyCommitStatus } from '../pr-status/categories';
+import type { CheckItem } from '../pr-status/summary';
+import { have, missing } from '../pr-status/value';
+import type { Value } from '../pr-status/value';
+
+export interface ApiPull {
+  readonly number: number;
+  readonly state: string;
+  readonly draft: boolean;
+  readonly merged: boolean;
+  /** true/false/null كما في الحقل: null = لم يحسبه GitHub بعد. */
+  readonly mergeable: boolean | null;
+  /** القيمة كما هي (clean، dirty، blocked، behind، unstable، draft، has_hooks، unknown). */
+  readonly mergeableState: string | null;
+  readonly headSha: string;
+  readonly baseRef: string;
+}
+
+export interface ApiChecks {
+  readonly items: readonly CheckItem[];
+  readonly checkRunsTotal: number | null;
+  readonly statusesTotal: number | null;
+  /** لم تُقرأ كل check-runs (أكثر من حد الصفحات). */
+  readonly partial: boolean;
+  /** check-runs = 0 وcommit status = 0 معًا: لا فحوص مُبلَّغ عنها (لا «قيد التشغيل»). */
+  readonly noneReported: boolean;
+}
+
+export interface ApiPrData {
+  readonly readAt: number;
+  readonly pull: Value<ApiPull>;
+  readonly checks: Value<ApiChecks>;
+  /** سياقات الفحوص الإلزامية من branches/{base}، أو غياب بسببه (الفرع غير محمي يعني أن الحماية لا تذكر شيئًا، لا أن لا إلزامي). */
+  readonly required: Value<readonly string[]>;
+  readonly rate: RateLimit | null;
+  /** الطلبات التي أُجريت (للعرض وتدقيق الشبكة). */
+  readonly requests: readonly string[];
+}
+
+interface RawPull {
+  number?: unknown;
+  state?: unknown;
+  draft?: unknown;
+  merged?: unknown;
+  mergeable?: unknown;
+  mergeable_state?: unknown;
+  head?: { sha?: unknown };
+  base?: { ref?: unknown };
+}
+
+interface RawRun {
+  id?: unknown;
+  name?: unknown;
+  status?: unknown;
+  conclusion?: unknown;
+  output?: { title?: unknown };
+}
+
+interface RawStatus {
+  context?: unknown;
+  state?: unknown;
+  description?: unknown;
+}
+
+const str = (value: unknown): string | null => (typeof value === 'string' && value ? value : null);
+
+const failureText = (result: PublicApiResult<unknown>): string => {
+  if (result.ok) return '';
+  const when = result.retryAt ? ` حتى ${new Date(result.retryAt).toLocaleTimeString('en-GB')}` : '';
+  switch (result.failure) {
+    case 'permission':
+      return 'لم تُمنح صلاحية api.github.com الاختيارية';
+    case 'rate-limit':
+      return `بلغ حد الطلبات العامة${when}`;
+    case 'not-found':
+      return 'غير موجود أو غير عام (404)';
+    default:
+      return result.message;
+  }
+};
+
+const enc = encodeURIComponent;
+
+export async function readPrApi(port: PublicApiPort, owner: string, repo: string, number: number, now: () => number = () => Date.now()): Promise<ApiPrData> {
+  const base = `/repos/${enc(owner)}/${enc(repo)}`;
+  const requests: string[] = [];
+  const pullPath = `${base}/pulls/${number}`;
+  requests.push(pullPath);
+  const pullResult = await port.get<RawPull>(pullPath);
+  if (!pullResult.ok) {
+    const reason = failureText(pullResult);
+    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests };
+  }
+  const raw = pullResult.data;
+  const headSha = str(raw.head?.sha);
+  const baseRef = str(raw.base?.ref);
+  if (!headSha || !baseRef) {
+    const reason = 'استجابة الطلب بلا head.sha أو base.ref';
+    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests };
+  }
+  const pull: ApiPull = {
+    number: typeof raw.number === 'number' ? raw.number : number,
+    state: str(raw.state) ?? 'unknown',
+    draft: raw.draft === true,
+    merged: raw.merged === true,
+    mergeable: typeof raw.mergeable === 'boolean' ? raw.mergeable : null,
+    mergeableState: str(raw.mergeable_state),
+    headSha,
+    baseRef,
+  };
+
+  const runsPath = `${base}/commits/${headSha}/check-runs`;
+  const statusPath = `${base}/commits/${headSha}/status`;
+  const branchPath = `${base}/branches/${enc(baseRef)}`;
+  requests.push(runsPath, statusPath, branchPath);
+  const [runs, statuses, branch] = await Promise.all([
+    port.getAll<RawRun>(runsPath, 'check_runs', 3),
+    port.getAll<RawStatus>(statusPath, 'statuses', 1),
+    port.get<{ protected?: unknown; protection?: { required_status_checks?: { contexts?: unknown } } }>(branchPath),
+  ]);
+
+  let required: Value<readonly string[]>;
+  if (!branch.ok) required = missing(failureText(branch));
+  else {
+    const contexts = branch.data.protection?.required_status_checks?.contexts;
+    if (branch.data.protected === false) required = missing('فرع الهدف غير محمي في API، وقد تفرض قواعد أخرى (rulesets) فحوصًا إلزامية لا تظهر هنا');
+    else if (Array.isArray(contexts)) required = have(contexts.filter((c): c is string => typeof c === 'string'));
+    else required = missing('لا تذكر حماية الفرع فحوصًا إلزامية');
+  }
+  const requiredSet = new Set(required.available ? required.value : []);
+
+  let checks: Value<ApiChecks>;
+  if (!runs.ok || !statuses.ok) {
+    checks = missing(`check-runs: ${runs.ok ? 'قُرئت' : failureText(runs)}؛ commit status: ${statuses.ok ? 'قُرئت' : failureText(statuses)}`);
+  } else {
+    const items: CheckItem[] = [];
+    for (const run of runs.data.items) {
+      const name = str(run.name);
+      if (!name) continue;
+      items.push({
+        name,
+        id: typeof run.id === 'number' || typeof run.id === 'string' ? String(run.id) : null,
+        classification: classifyCheckRun(run),
+        required: requiredSet.has(name) ? true : null,
+        detail: str(run.output?.title),
+        source: 'api',
+      });
+    }
+    for (const status of statuses.data.items) {
+      const name = str(status.context);
+      if (!name) continue;
+      items.push({ name, id: null, classification: classifyCommitStatus(status.state), required: requiredSet.has(name) ? true : null, detail: str(status.description), source: 'api' });
+    }
+    const runsTotal = runs.data.total;
+    const statusesTotal = statuses.data.total ?? statuses.data.items.length;
+    checks = have({
+      items,
+      checkRunsTotal: runsTotal,
+      statusesTotal,
+      partial: runs.data.partial,
+      noneReported: runsTotal === 0 && statusesTotal === 0,
+    });
+  }
+  const rate = [runs, statuses, branch].reduce<RateLimit | null>((latest, r) => (r.rate && (!latest || r.rate.readAt >= latest.readAt) ? r.rate : latest), pullResult.rate);
+  return { readAt: now(), pull: have(pull), checks, required, rate, requests };
+}

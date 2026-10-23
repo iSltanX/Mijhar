@@ -36,7 +36,8 @@ export interface ReviewInfo {
   readonly source: 'mergebox' | 'sidebar';
 }
 
-export type CheckSource = 'mergebox' | 'status-details' | 'checks-tab';
+/** api: من GitHub REST العامة بعد منح الصلاحية الاختيارية (T-5.2). */
+export type CheckSource = 'mergebox' | 'status-details' | 'checks-tab' | 'api';
 
 export interface CheckItem {
   readonly name: string;
