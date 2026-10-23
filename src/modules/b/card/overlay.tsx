@@ -2,6 +2,7 @@
 // وفيه زر شارة لكل عنصر مطابق عند موضعه، وبطاقة الشرح للشارة المفتوحة. لا شيء من الصفحة يُغلَّف أو يُعدَّل: المواضع تُقرأ من
 // getBoundingClientRect فقط، والمضيف يُدرج مرة واحدة في نهاية body عبر ctx.mutations فيُزال بإيقاف الوحدة.
 import { useEffect, useRef } from 'preact/hooks';
+import { BADGE_SIZE, isEscape, shouldContainKey } from '../access';
 import type { Match } from './match';
 import { ExplainCard } from './card';
 
@@ -67,7 +68,6 @@ export interface Rect {
   readonly height: number;
 }
 
-const BADGE = 20;
 const CARD_GAP = 8;
 const CARD_WIDTH = 360;
 const CARD_MIN_ROOM = 280;
@@ -88,6 +88,8 @@ export interface ExplainOverlayProps {
   readonly onClose: () => void;
   readonly onStop: () => void;
   readonly rectOf?: (element: Element) => Rect;
+  /** قطر الشارة بالبكسل: 20 للمؤشر الدقيق و32 للمؤشر الخشن (b/access). */
+  readonly badgeSize?: number;
 }
 
 const defaultRect = (element: Element): Rect => {
@@ -110,22 +112,23 @@ export function placeBadges(matches: readonly Match[], viewport: { width: number
 
 const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), Math.max(min, max));
 
-function badgePosition(rect: Rect, viewport: { width: number; height: number }): { left: number; top: number } {
+function badgePosition(rect: Rect, viewport: { width: number; height: number }, size: number): { left: number; top: number } {
   // أعلى الطرف الأيمن للعنصر (خارج محتواه قدر الإمكان) ويبقى داخل نافذة العرض.
-  return { left: clamp(rect.left + rect.width - BADGE / 2, MARGIN, viewport.width - BADGE - MARGIN), top: clamp(rect.top - BADGE / 2, MARGIN, viewport.height - BADGE - MARGIN) };
+  return { left: clamp(rect.left + rect.width - size / 2, MARGIN, viewport.width - size - MARGIN), top: clamp(rect.top - size / 2, MARGIN, viewport.height - size - MARGIN) };
 }
 
-function cardStyle(badge: { left: number; top: number }, viewport: { width: number; height: number }): Record<string, string> {
+function cardStyle(badge: { left: number; top: number }, viewport: { width: number; height: number }, size: number): Record<string, string> {
   const left = clamp(badge.left - CARD_WIDTH / 2, MARGIN, viewport.width - Math.min(CARD_WIDTH, viewport.width - 2 * MARGIN) - MARGIN);
-  const below = viewport.height - (badge.top + BADGE);
+  const below = viewport.height - (badge.top + size);
   if (below >= CARD_MIN_ROOM || below >= badge.top) {
-    return { left: `${left}px`, top: `${badge.top + BADGE + CARD_GAP}px`, maxHeight: `${Math.max(120, below - CARD_GAP - MARGIN)}px` };
+    return { left: `${left}px`, top: `${badge.top + size + CARD_GAP}px`, maxHeight: `${Math.max(120, below - CARD_GAP - MARGIN)}px` };
   }
   return { left: `${left}px`, bottom: `${viewport.height - badge.top + CARD_GAP}px`, maxHeight: `${Math.max(120, badge.top - CARD_GAP - MARGIN)}px` };
 }
 
 export function ExplainOverlay(props: ExplainOverlayProps) {
   const { matches, viewport, openIndex, active, onOpen, onClose, onStop } = props;
+  const size = props.badgeSize ?? BADGE_SIZE.fine;
   const placed = placeBadges(matches, viewport, props.rectOf);
   const open = openIndex === null ? null : (placed.find((p) => p.index === openIndex) ?? null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -147,16 +150,21 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
     <div
       class="overlay"
       data-active={active ? 'true' : 'false'}
+      data-pointer={size > BADGE_SIZE.fine ? 'coarse' : 'fine'}
       ref={cardRef}
       onKeyDown={(event) => {
-        if (event.key === 'Escape' && openIndex !== null) {
+        if (isEscape(event) && openIndex !== null) {
           event.stopPropagation();
+          event.preventDefault();
           onClose();
+        } else if (shouldContainKey(event)) {
+          // ضغطات هذه الطبقة لا تبلغ اختصارات GitHub أحادية الحرف.
+          event.stopPropagation();
         }
       }}
     >
       {placed.map(({ index, match, rect }) => {
-        const pos = badgePosition(rect, viewport);
+        const pos = badgePosition(rect, viewport, size);
         const { entry } = match;
         const expanded = openIndex === index;
         return (
@@ -168,8 +176,9 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
             data-entry={entry.id}
             data-safety={entry.safety}
             aria-expanded={expanded ? 'true' : 'false'}
+            aria-haspopup="dialog"
             aria-label={`شرح «${entry.ar} (${entry.en})» — ${entry.safety}`}
-            style={{ left: `${pos.left}px`, top: `${pos.top}px` }}
+            style={{ left: `${pos.left}px`, top: `${pos.top}px`, inlineSize: `${size}px`, blockSize: `${size}px` }}
             onClick={() => (expanded ? onClose() : onOpen(index))}
           >
             {entry.safety === 'آمن' ? '؟' : '!'}
@@ -178,7 +187,7 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
       })}
       {open && (
         <div class="card-slot" style={{ display: 'contents' }}>
-          <CardAt placed={open} viewport={viewport} onClose={onClose} />
+          <CardAt placed={open} viewport={viewport} size={size} onClose={onClose} />
         </div>
       )}
       {active && (
@@ -195,10 +204,10 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
   );
 }
 
-function CardAt({ placed, viewport, onClose }: { placed: Placed; viewport: { width: number; height: number }; onClose: () => void }) {
-  const pos = badgePosition(placed.rect, viewport);
+function CardAt({ placed, viewport, size, onClose }: { placed: Placed; viewport: { width: number; height: number }; size: number; onClose: () => void }) {
+  const pos = badgePosition(placed.rect, viewport, size);
   return (
-    <div style={{ position: 'absolute', ...cardStyle(pos, viewport) }} class="card-anchor" data-card-for={placed.match.entry.id}>
+    <div style={{ position: 'absolute', ...cardStyle(pos, viewport, size) }} class="card-anchor" data-card-for={placed.match.entry.id}>
       <ExplainCard key={placed.match.entry.id} entry={placed.match.entry} onClose={onClose} />
     </div>
   );

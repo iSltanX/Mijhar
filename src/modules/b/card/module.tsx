@@ -8,6 +8,7 @@ import { extensionApi } from '../../../core/ui-host/browser-api';
 import type { ExtensionApi } from '../../../core/ui-host/browser-api';
 import type { ExtensionModule, ModuleContext } from '../../../core';
 import type { GlossaryEntry } from '../../../data/glossary/types';
+import { ACCESS_CSS, FocusReturn, badgeSizeFor, focusFirstBadge } from '../access';
 import { GLOSSARY_ENTRIES } from './entries';
 import { CARD_MODULE_ID } from './ids';
 import { buildIndex, findMatches } from './match';
@@ -64,6 +65,9 @@ class CardController {
   /** مراقب التعديلات ومستمعا التمرير وتغيير الحجم: يعملون ما دام الوضع مفعَّلًا وحده (الوحدة تُركَّب في كل صفحة GitHub). */
   private observer: MutationObserver | null = null;
   private bound = false;
+  /** التفعيل بلوحة المفاتيح ينقل التركيز إلى أول شارة بعد الرسم (F-B5)؛ والإيقاف يعيده إلى ما كان مركَّزًا. */
+  private focusPending = false;
+  private readonly focusReturn: FocusReturn;
 
   constructor(
     private readonly ctx: ModuleContext,
@@ -71,6 +75,7 @@ class CardController {
     private readonly options: CardOptions,
   ) {
     this.mode = options.mode ?? EXPLAIN_MODE;
+    this.focusReturn = new FocusReturn(ctx.document);
   }
 
   start(): void {
@@ -80,7 +85,22 @@ class CardController {
     ctx.listen(ctx.document, 'keydown', (event) => {
       if (!isExplainShortcut(event as KeyboardEvent)) return;
       event.preventDefault();
-      this.mode.toggle();
+      if (this.mode.active) {
+        this.mode.set(false);
+        this.focusReturn.restore((element) => this.parts?.shadow.contains(element) === true || element?.getRootNode() === this.parts?.shadow);
+      } else {
+        this.focusReturn.capture();
+        this.focusPending = true;
+        this.mode.set(true);
+      }
+    });
+    // لمسة أو نقرة خارج الطبقة تغلق البطاقة المفتوحة: لا Escape في الأجهزة اللمسية (F-B5).
+    ctx.listen(ctx.document, 'pointerdown', (event) => {
+      const host = this.parts?.host;
+      if (this.openElement && host && !event.composedPath().includes(host)) {
+        this.openElement = null;
+        this.draw();
+      }
     });
     const api = this.options.api === undefined ? tryApi() : this.options.api;
     if (api) {
@@ -173,7 +193,7 @@ class CardController {
 
   private ensureHost(): ReturnType<typeof createShadowHost> {
     if (this.parts) return this.parts;
-    const parts = createShadowHost(this.ctx.document, { name: CARD_MODULE_ID, hostCss: OVERLAY_HOST_CSS, styles: CARD_CSS, label: 'شرح واجهة GitHub' });
+    const parts = createShadowHost(this.ctx.document, { name: CARD_MODULE_ID, hostCss: OVERLAY_HOST_CSS, styles: `${CARD_CSS}\n${ACCESS_CSS}`, label: 'شرح واجهة GitHub' });
     parts.root.classList.add('overlay-root');
     this.ctx.mutations.insert(this.ctx.document.body ?? this.ctx.document.documentElement, parts.host);
     this.parts = parts;
@@ -194,6 +214,7 @@ class CardController {
         viewport={viewport}
         openIndex={openIndex >= 0 ? openIndex : null}
         active={this.mode.active}
+        badgeSize={badgeSizeFor(doc.defaultView)}
         {...(this.options.rectOf ? { rectOf: this.options.rectOf } : {})}
         onOpen={(i) => {
           this.openElement = this.matches[i]?.element ?? null;
@@ -207,6 +228,10 @@ class CardController {
       />,
       parts.root,
     );
+    if (this.focusPending) {
+      this.focusPending = false;
+      focusFirstBadge(parts.root);
+    }
   }
 }
 
