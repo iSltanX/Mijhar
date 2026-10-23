@@ -113,7 +113,7 @@
 | البناء | `npm run build` | exit 0 | [`build.txt`](build.txt) |
 | Firefox lint على البناء الجديد | `npm run lint:firefox` | 0 أخطاء و0 تحذيرات و0 ملاحظات | [`web-ext-lint.txt`](web-ext-lint.txt) |
 | تحميل الحزم | `node scripts/load-check.mjs chrome edge brave firefox --dist dist` | Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1: نجح، ENABLED، بلا أخطاء مانيفست ولا تشغيل ولا تحذيرات، والخلفية بدأت | [`load-check.txt`](load-check.txt) |
-| مساعد الكتابة في Chrome | `node tests/modules/f/composer/browser/run.mjs chrome` | Chrome 156: **29/29**، والتراجع الأصلي يعمل | [`composer-browser/`](composer-browser/) |
+| مساعد الكتابة في Chrome | `node tests/modules/f/composer/browser/run.mjs chrome` | Chrome 156: **29/29**، والتراجع الأصلي يعمل | [`composer-browser/`](composer-browser/) (`run.txt` و`browser-results.json`) |
 | الوحدة (ز) على الحزمة المشحونة (وسيط الخلفية في متصفح حقيقي) | `node tests/modules/g/browser/mj12-check.mjs chrome` و`firefox` | Chrome 156: **16/16**، وFirefox 158.0.1: **15/15** | [`mj12-chrome.txt`](mj12-chrome.txt) و[`mj12-firefox.txt`](mj12-firefox.txt) |
 | اختبارات التدقيق | النسخة المؤقتة أعلاه | كما في الجدول | [`audit-tests.txt`](audit-tests.txt) |
 | المزامنة | `node tools/build.mjs --sync` | «تمت المزامنة: 23 مرحلة»؛ كتب `dashboard/data.js` (غير متتبَّع) هنا وفي النسخة الرئيسية كما صُمّمت الأداة | — |
