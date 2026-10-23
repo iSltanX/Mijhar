@@ -7,10 +7,10 @@ $ npx vitest run
 
 
  Test Files  38 passed (38)
-      Tests  674 passed | 1 skipped (675)
-   Start at  15:09:06
-   Duration  6.21s (tests 58%, import 25%, environment 14%, transform 4%)
+      Tests  691 passed | 1 skipped (692)
+   Start at  15:44:58
+   Duration  6.24s (tests 59%, import 24%, environment 12%, transform 5%)
 
-    Isolate  38 workers spawned · ~257ms startup each (spawn + environment, per file)
-             at least ~1.14s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  38 workers spawned · ~235ms startup each (spawn + environment, per file)
+             at least ~1.04s faster with isolate: false — reuses workers across files instead of one per file
 

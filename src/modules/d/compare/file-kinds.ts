@@ -27,7 +27,8 @@ const DEPENDENCY_FILES = new Set([
 const DEPENDENCY_REQ = /(^|\/)requirements[\w.-]*\.txt$/i;
 
 const TEST_DIR = /(^|\/)(tests?|__tests__|spec|specs|e2e|__mocks__|__snapshots__|fixtures|testdata)\//i;
-const TEST_FILE = /(\.|_|-)(test|spec|tests|e2e)\.[\w]+$|(^|\/)test_[\w.-]+\.\w+$|(^|\/)[\w.-]+_test\.\w+$/i;
+// ملفات الاختبار بتسميتها: x.test.js وx.spec.ts وx_test.go وtest_x.py وx.test-d.ts (تعريفات tsd)، وtest.js وtests.py وحدها (تسمية شائعة لملف اختبار وحيد).
+const TEST_FILE = /(\.|_|-)(test|spec|tests|e2e)(-d)?\.[\w]+$|(^|\/)(test|tests|spec)\.\w+$|(^|\/)test_[\w.-]+\.\w+$|(^|\/)[\w.-]+_test\.\w+$/i;
 
 const DOC_EXT = /\.(md|mdx|markdown|rst|adoc|txt)$/i;
 const DOC_FILE = /(^|\/)(readme|license|licence|changelog|contributing|code_of_conduct|security|authors|notice|copying)(\.[\w]+)?$/i;

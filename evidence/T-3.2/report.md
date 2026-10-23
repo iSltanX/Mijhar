@@ -10,7 +10,7 @@
 | :--- | :--- | :--- | :--- |
 | الأنواع | `npx tsc --noEmit` | بلا أخطاء | [`typecheck-and-tests.txt`](typecheck-and-tests.txt) |
 | اختبارات الوحدة (ب) | `npx vitest run tests/modules/b` | 59 من 59 (5 ملفات: `TEST-GLOSS-01` إلى `03` و`06` والمطابقة والصفحات الحقيقية والإعدادات واللوحة) | [`vitest.txt`](vitest.txt) |
-| الطقم كاملًا | `npx vitest run` | 674 اجتازت و1 متخطى (إعادة نقل القاموس المشروطة بـ`GHSIM_SOURCE`) في 38 ملفًا | [`typecheck-and-tests.txt`](typecheck-and-tests.txt) |
+| الطقم كاملًا | `npx vitest run` | 691 اجتازت و1 متخطى (إعادة نقل القاموس المشروطة بـ`GHSIM_SOURCE`) في 38 ملفًا | [`typecheck-and-tests.txt`](typecheck-and-tests.txt) |
 | البناء | `node scripts/build.mjs` | الحزمتان؛ `content.js` 509 KB (كان 137 KB: القاموس المضمَّن نحو 240 KB) | [`build.txt`](build.txt) |
 | `web-ext lint` | `npx web-ext lint --source-dir dist/firefox` | 0 أخطاء و0 تحذيرات و0 ملاحظات | [`web-ext-lint.txt`](web-ext-lint.txt) |
 | تحميل الحزم | `node scripts/load-check.mjs` | نجح في الأربعة بلا أخطاء مانيفست ولا تشغيل | [`load-check.md`](load-check.md) |

@@ -8,7 +8,7 @@
 //   3. مفتاح «بطاقة الشرح» من صفحة الإعدادات يوقف الوحدة فلا يعمل الاختصار، ثم يعيدها.
 //   4. PR معقدة (صندوق دمج): بطاقة الحالة بحقولها وبفصل الإلزامي عن الاختياري.
 //   5. PR حقيقية محفوظة: البطاقة، وطلب واحد إلى github.com نفسه لجزء status-details (المسار الافتراضي الذي يُشحن) يُخدم محليًا.
-//   6. صفحة مقارنة: الملخص المؤكد وقسم الأثر المنفصل. 7. مفاتيح الوحدات (د) من الإعدادات تزيل مضيفاتها.
+//   6. صفحة مقارنة وسمين حقيقية محفوظة: الملخص المؤكد وقسم الأثر المنفصل. 7. مفاتيح الوحدات (د) من الإعدادات تزيل مضيفاتها.
 //   8. تدقيق الشبكة: صفر طلبات إلى api.github.com، ولا مضيف خارجي خدمه الاختبار (الأنماط الخارجية للصفحات الحقيقية تُحجب).
 // الاستعمال: node tests/modules/browser/integration.mjs [chrome edge brave firefox] [--out-dir evidence]
 import { execFileSync, spawn } from 'node:child_process';
@@ -42,12 +42,13 @@ const read = (file) => fs.readFileSync(path.join(ROOT, file), 'utf8');
 const SAMPLE_URL = 'https://github.com/octo/demo';
 const PR_URL = 'https://github.com/octo/demo/pull/4242';
 const REAL_PR_URL = 'https://github.com/Watad-Project/Watad/pull/80';
-const COMPARE_URL = 'https://github.com/octo/demo/compare/main...feature%2Fui-refresh';
+const COMPARE_URL = 'https://github.com/sindresorhus/is-plain-obj/compare/v3.0.0...v4.0.0';
 const PAGES = {
   '/octo/demo': { file: 'tests/modules/b/card/fixtures/fixture-github-ui-sample.html' },
   '/octo/demo/pull/4242': { file: 'tests/modules/d/fixtures/fixture-pr-complex.html' },
   '/Watad-Project/Watad/pull/80': { file: 'fixtures/spikes/gh-pr-watad-80.html' },
-  '/octo/demo/compare/main...feature%2Fui-refresh': { file: 'tests/modules/d/fixtures/fixture-compare-branches.html' },
+  // صفحة مقارنة وسمين عامة حقيقية محفوظة (تخطيط Rails).
+  '/sindresorhus/is-plain-obj/compare/v3.0.0...v4.0.0': { file: 'tests/modules/d/fixtures/gh-compare-tags.html' },
 };
 const STATUS_DETAILS = /^\/Watad-Project\/Watad\/commit\/[0-9a-f]{40}\/status-details$/;
 const RAW = Object.fromEntries(Object.entries(PAGES).map(([p, v]) => [p, read(v.file)]));
@@ -223,8 +224,8 @@ async function scenario(d, steps, checks, label) {
   // 6. المقارنة.
   await d.open('compare', COMPARE_URL);
   steps.compare = await waitUntil(async () => ((await d.page('compare', compareState)).hosts === 2 ? await d.page('compare', compareState) : null), 10000, 100);
-  check('المقارنة: مضيفان شقيقان، مطابقة كاملة للصفحة، وقسم الأثر موسوم بحدّ متقطع', steps.compare?.siblings && steps.compare.agreement === 'match' && steps.compare.completeness === 'complete' && steps.compare.pageFiles === '30' && steps.compare.total?.[0] === '30' && steps.compare.tag === 'يحتاج مراجعة بشرية' && steps.compare.impactBorder === 'dashed', steps.compare);
-  if (d.shot) await d.shot('compare', 'compare-branches');
+  check('المقارنة: مضيفان شقيقان، مطابقة كاملة للصفحة، وقسم الأثر موسوم بحدّ متقطع', steps.compare?.siblings && steps.compare.agreement === 'match' && steps.compare.completeness === 'complete' && steps.compare.pageFiles === '8' && steps.compare.total?.[0] === '8' && steps.compare.tag === 'يحتاج مراجعة بشرية' && steps.compare.impactBorder === 'dashed', steps.compare);
+  if (d.shot) await d.shot('compare', 'compare-real-tags');
 
   // 7. مفاتيح الوحدات (د).
   await d.clickOptions('#mj-d-compare');

@@ -1,0 +1,29 @@
+{
+  "browser": "156.0.8078.47",
+  "samples": [
+    {
+      "name": "branches",
+      "kind": "مقارنة بين فرعين (مستودع octocat/Hello-World الرسمي للتجارب)",
+      "url": "https://github.com/octocat/Hello-World/compare/master...octocat-patch-1",
+      "file": "tests/modules/d/fixtures/gh-compare-branches.html",
+      "bytes": 207770,
+      "capturedAt": "2026-10-23T12:42:04.059Z"
+    },
+    {
+      "name": "tags",
+      "kind": "مقارنة بين وسمين (إصداران)",
+      "url": "https://github.com/sindresorhus/is-plain-obj/compare/v3.0.0...v4.0.0",
+      "file": "tests/modules/d/fixtures/gh-compare-tags.html",
+      "bytes": 386308,
+      "capturedAt": "2026-10-23T12:42:14.665Z"
+    },
+    {
+      "name": "commits",
+      "kind": "مقارنة بين التزامين",
+      "url": "https://github.com/sindresorhus/is-plain-obj/compare/8fd127e...68e8cc7",
+      "file": "tests/modules/d/fixtures/gh-compare-commits.html",
+      "bytes": 489031,
+      "capturedAt": "2026-10-23T12:42:32.281Z"
+    }
+  ]
+}

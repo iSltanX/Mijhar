@@ -1,9 +1,12 @@
 // قراءة صفحة مقارنة (بين فرعين أو التزامين أو وسمين) وبناء الإحصاء المصنَّف (T-5.4). الأرقام التي تعرضها الصفحة نفسها
 // (عدد الملفات والأسطر المضافة والمحذوفة) هي المرجع؛ وإحصاء الملفات المقروءة يُقارَن بها صراحةً (AC-D6) فإن نقصت الملفات
 // المحمّلة عن المعلن في الصفحة أُعلن ذلك ولم تُقدَّم أرقام جزئية على أنها كاملة.
-// مصدر بنية الملفات: تخطيط React لعرض الفروقات كما في صفحة التزام حقيقية محفوظة (fixtures/spikes/gh-commit-bms-1.html): منطقة
-// لكل ملف [role=region][aria-labelledby^=heading-] عنوانها h3 يضم المسار، و«Lines changed: N additions & M deletions» لكل ملف
-// وللمجموع. وللتخطيط القديم بدائل (.file-header[data-path] و«Showing N changed files with…»). لم تُحفظ صفحة مقارنة حيّة (أُعلن في التقرير).
+// تخطيطان لعرض الفروقات، وكلاهما مغطى:
+//  - Rails (التخطيط الذي تستعمله صفحة المقارنة الحقيقية اليوم، وثبت على ثلاث صفحات عامة محفوظة: tests/modules/d/fixtures/gh-compare-*.html):
+//    «Showing N changed files with A additions and D deletions.» في .toc-diff-stats، ولكل ملف .file-header[data-path] وفي
+//    sr-only «N changes: A additions & D deletions».
+//  - React (تستعمله صفحة التزام حقيقية محفوظة fixtures/spikes/gh-commit-bms-1.html، وقد تنتقل إليه المقارنة): منطقة لكل ملف
+//    [role=region][aria-labelledby^=heading-] عنوانها h3 يضم المسار، و«Lines changed: N additions & M deletions» لكل ملف وللمجموع.
 import type { SelectorEntry, SelectorsRegistry } from '../../../core';
 import { have, missing, parseCount, squash } from '../pr-status/value';
 import type { Value } from '../pr-status/value';
@@ -13,18 +16,18 @@ import type { FileKind } from './file-kinds';
 export const COMPARE_SELECTORS: readonly SelectorEntry[] = [
   {
     key: 'd.compare.file',
-    description: 'منطقة ملف واحد في عرض الفروقات',
-    candidates: ['[role="region"][aria-labelledby^="heading-"]', '.file-header[data-path]', '[data-tagsearch-path]'],
+    description: 'ترويسة ملف واحد في عرض الفروقات (Rails: .file-header[data-path]؛ React: منطقة بعنوان h3)',
+    candidates: ['.file-header[data-path]', '[role="region"][aria-labelledby^="heading-"]', '[data-tagsearch-path]'],
+  },
+  {
+    key: 'd.compare.summary',
+    description: 'جملة «Showing N changed files with A additions and D deletions.»',
+    candidates: ['.toc-diff-stats'],
   },
   {
     key: 'd.compare.anchor',
     description: 'حاوية الفروقات؛ يُدرج الملخص قبلها',
     candidates: ['#diff-comparison-viewer-container', '#files_bucket', '#files', '[data-testid="diff-view"]'],
-  },
-  {
-    key: 'd.compare.ref-tag-icon',
-    description: 'أيقونة وسم في ترويسة المقارنة (دليل على أن أحد الطرفين وسم)',
-    candidates: ['.octicon-tag'],
   },
 ];
 
@@ -105,14 +108,18 @@ export function parseCompareRefs(href: string): { base: string; head: string } |
 const SHA = /^[0-9a-f]{7,40}$/i;
 const VERSION_TAG = /^v?\d+(\.\d+){0,3}([-+.][\w.]+)?$/;
 
-/** نوع المقارنة: التزامان إن كان الطرفان sha، ووسمان إن بدا الطرفان إصدارين أو ظهرت أيقونة وسم، وإلا فرعان. */
-export function inferCompareKind(refs: { base: string; head: string } | null, tagIcons: number): CompareKind {
+/**
+ * نوع المقارنة: التزامان إن كان الطرفان sha، ووسمان إن بدا الطرفان إصدارين (v1.2.3)، وإلا فرعان. استدلال من اسمي الطرفين لا يقين:
+ * منتقيا الطرفين في الصفحة الحقيقية لا يحملان أيقونة تفرّق الوسم من الفرع (قاسته عيّنات المقارنة المحفوظة)، فاسم فرع على هيئة
+ * إصدار يُعلَن «بين إصدارين» دون أن يغيّر ذلك الأرقام.
+ */
+export function inferCompareKind(refs: { base: string; head: string } | null): CompareKind {
   if (!refs) return 'unknown';
   const strip = (ref: string): string => ref.replace(/^[^:]+:/, '');
   const a = strip(refs.base);
   const b = strip(refs.head);
   if (SHA.test(a) && SHA.test(b)) return 'commits';
-  if ((VERSION_TAG.test(a) && VERSION_TAG.test(b)) || tagIcons >= 2) return 'tags';
+  if (VERSION_TAG.test(a) && VERSION_TAG.test(b)) return 'tags';
   return 'branches';
 }
 
@@ -121,6 +128,7 @@ export function inferCompareKind(refs: { base: string; head: string } | null, ta
 const LINES = /Lines changed:\s*([\d,]+)\s+additions?\s*&\s*([\d,]+)\s+deletions?/i;
 const FILES_CHANGED = /^([\d,]+)\s*files?\s*changed\b/i;
 const SHOWING = /Showing\s+([\d,]+)\s+changed files?\s+with\s+([\d,]+)\s+additions?\s+and\s+([\d,]+)\s+deletions?/i;
+const CHANGES = /(?:[\d,]+\s+changes?:\s*)?([\d,]+)\s+additions?\s*&\s*([\d,]+)\s+deletions?/i;
 
 function linesOf(el: Element): { additions: number; deletions: number } | null {
   const m = LINES.exec(squash(el.textContent));
@@ -130,10 +138,17 @@ function linesOf(el: Element): { additions: number; deletions: number } | null {
   return additions === null || deletions === null ? null : { additions, deletions };
 }
 
-function pagePageTotals(doc: Document, fileEls: ReadonlySet<Element>): CompareSummary['page'] {
+function pagePageTotals(doc: Document, fileEls: ReadonlySet<Element>, selectors: SelectorsRegistry): CompareSummary['page'] {
   let files: Value<number> = missing('لا تعرض الصفحة عدد الملفات المتغيرة');
   let additions: Value<number> = missing('لا تعرض الصفحة مجموع الأسطر المضافة');
   let deletions: Value<number> = missing('لا تعرض الصفحة مجموع الأسطر المحذوفة');
+
+  // تخطيط Rails: جملة واحدة تحمل الثلاثة.
+  const sentence = SHOWING.exec(squash(selectors.resolve(doc, 'd.compare.summary')?.element.textContent));
+  if (sentence) {
+    const [n, a, d] = [parseCount(sentence[1]), parseCount(sentence[2]), parseCount(sentence[3])];
+    if (n !== null && a !== null && d !== null) return { files: have(n), additions: have(a), deletions: have(d) };
+  }
 
   const insideFile = (el: Element): boolean => {
     for (let node: Element | null = el; node; node = node.parentElement) if (fileEls.has(node)) return true;
@@ -159,18 +174,6 @@ function pagePageTotals(doc: Document, fileEls: ReadonlySet<Element>): CompareSu
       break;
     }
   }
-  // التخطيط القديم: «Showing N changed files with X additions and Y deletions».
-  if (!files.available || !additions.available) {
-    const m = SHOWING.exec(squash(doc.body.textContent).slice(0, 20000));
-    if (m) {
-      const [n, a, d] = [parseCount(m[1]), parseCount(m[2]), parseCount(m[3])];
-      if (n !== null && !files.available) files = have(n);
-      if (a !== null && d !== null && !additions.available) {
-        additions = have(a);
-        deletions = have(d);
-      }
-    }
-  }
   return { files, additions, deletions };
 }
 
@@ -191,12 +194,16 @@ function fileLines(region: Element): { additions: number; deletions: number } | 
     const lines = linesOf(el);
     if (lines) return lines;
   }
-  // التخطيط القديم: aria-label على .diffstat مثل «5 changes: 3 additions & 2 deletions».
-  const label = region.querySelector('.diffstat')?.getAttribute('aria-label') ?? '';
-  const m = /([\d,]+)\s+additions?\s*&\s*([\d,]+)\s+deletions?/i.exec(label);
-  const a = m ? parseCount(m[1]) : null;
-  const d = m ? parseCount(m[2]) : null;
-  return a !== null && d !== null ? { additions: a, deletions: d } : null;
+  // Rails: sr-only «21 changes: 21 additions & 0 deletions» (ومفردات «1 addition» و«1 deletion»)، وبديلها aria-label على .diffstat.
+  const candidates = [...region.querySelectorAll('.sr-only')].map((el) => squash(el.textContent));
+  candidates.push(region.querySelector('.diffstat')?.getAttribute('aria-label') ?? '');
+  for (const text of candidates) {
+    const m = CHANGES.exec(text);
+    const a = m ? parseCount(m[1]) : null;
+    const d = m ? parseCount(m[2]) : null;
+    if (a !== null && d !== null) return { additions: a, deletions: d };
+  }
+  return null;
 }
 
 export function readCompareFiles(doc: Document, selectors: SelectorsRegistry): { files: CompareFile[]; regions: Set<Element> } {
@@ -239,14 +246,13 @@ const agree = (page: Value<number>, ours: number, usable: boolean): Agreement =>
 
 export function readCompare(doc: Document, selectors: SelectorsRegistry, href: string): CompareSummary {
   const { files, regions } = readCompareFiles(doc, selectors);
-  const page = pagePageTotals(doc, regions);
+  const page = pagePageTotals(doc, regions, selectors);
   const { read, byKind, linesKnown } = tally(files);
   const refs = parseCompareRefs(href);
-  const tagIcons = selectors.resolveAll(doc, 'd.compare.ref-tag-icon').length;
   const filesAgree = agree(page.files, read.files, files.length > 0 || (page.files.available && page.files.value === 0));
   const complete = filesAgree === 'match' && linesKnown;
   return {
-    kind: inferCompareKind(refs, tagIcons),
+    kind: inferCompareKind(refs),
     base: refs ? have(refs.base) : missing('لم يُقرأ الطرفان من مسار المقارنة'),
     head: refs ? have(refs.head) : missing('لم يُقرأ الطرفان من مسار المقارنة'),
     page,

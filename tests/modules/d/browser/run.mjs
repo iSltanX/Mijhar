@@ -3,8 +3,9 @@
 //   TEST-PR-01 (AC-D1): صفحة PR حقيقية محفوظة (Watad-Project/Watad#80) وعينة PR المعقدة: الحقول وغير المتاح والفحوص بفصل الإلزامي،
 //     وجزء status-details عبر fetch وDOMParser حقيقيين من خادم محلي بنفس الأصل (بلا شبكة خارجية)، وفشل الجلب يُعلَن ولا يُعرض نجاحًا.
 //   TEST-PR-02 (AC-D2): التصنيفات السبعة بنصها في البطاقة (عينة معقدة بالسبعة، وجزء status-details).
-//   TEST-DIFF-01 (AC-D6): ثلاث صفحات مقارنة (فرعان، التزامان، وسمان) وصفحة التزام حقيقية محفوظة بتخطيط الفروقات الفعلي: مطابقة الإحصاء
-//     للصفحة، وانفصال قسم الأثر بنيويًا وبصريًا (الحدود والخلفية المحسوبتان) ووسمه «يحتاج مراجعة بشرية».
+//   TEST-DIFF-01 (AC-D6): ثلاث صفحات مقارنة عامة حقيقية محفوظة (فرعان، التزامان، وسمان؛ تخطيط Rails الفعلي) وثلاث عينات مكتوبة بتخطيط
+//     React وصفحة التزام حقيقية محفوظة بذلك التخطيط: مطابقة الإحصاء للصفحة، وانفصال قسم الأثر بنيويًا وبصريًا (الحدود والخلفية
+//     المحسوبتان) ووسمه «يحتاج مراجعة بشرية».
 // الاستعمال: node tests/modules/d/browser/run.mjs [chrome edge brave firefox] [--out-dir evidence]
 // كل متصفح بملف تعريف مؤقت جديد؛ المتصفحات تباعًا؛ العينات تُخدم من 127.0.0.1 (الصفحات الحقيقية تطلب أنماط github.githubassets.com).
 import fs from 'node:fs';
@@ -26,9 +27,14 @@ const PR = [
   { name: 'complex-pr', file: 'tests/modules/d/fixtures/fixture-pr-complex.html', href: 'https://github.com/octo/demo/pull/4242', repo: 'octo/demo' },
 ];
 const COMPARE = [
-  { name: 'compare-branches', file: 'tests/modules/d/fixtures/fixture-compare-branches.html', href: 'https://github.com/octo/demo/compare/main...feature%2Fui-refresh', kind: 'branches', files: 30, additions: 4301, deletions: 733, kinds: { code: 21, tests: 6, dependencies: 1, workflows: 1, docs: 1, other: 0 } },
-  { name: 'compare-commits', file: 'tests/modules/d/fixtures/fixture-compare-commits.html', href: 'https://github.com/octo/demo/compare/98ea6bc...86a863a', kind: 'commits', files: 27, additions: 4268, deletions: 726, kinds: { code: 21, tests: 6, dependencies: 0, workflows: 0, docs: 0, other: 0 } },
-  { name: 'compare-tags', file: 'tests/modules/d/fixtures/fixture-compare-tags.html', href: 'https://github.com/octo/demo/compare/v1.4.0...v1.5.0', kind: 'tags', files: 12, additions: 1891, deletions: 387, kinds: { code: 8, tests: 4, dependencies: 0, workflows: 0, docs: 0, other: 0 } },
+  // صفحات مقارنة عامة حقيقية محفوظة (scripts/spikes/t54-capture-compare.mjs، تخطيط Rails).
+  { name: 'compare-real-branches', file: 'tests/modules/d/fixtures/gh-compare-branches.html', href: 'https://github.com/octocat/Hello-World/compare/master...octocat-patch-1', kind: 'branches', files: 1, additions: 1, deletions: 1, kinds: { code: 0, tests: 0, dependencies: 0, workflows: 0, docs: 1, other: 0 } },
+  { name: 'compare-real-commits', file: 'tests/modules/d/fixtures/gh-compare-commits.html', href: 'https://github.com/sindresorhus/is-plain-obj/compare/8fd127e...68e8cc7', kind: 'commits', files: 6, additions: 82, deletions: 4, kinds: { code: 3, tests: 1, dependencies: 1, workflows: 0, docs: 1, other: 0 } },
+  { name: 'compare-real-tags', file: 'tests/modules/d/fixtures/gh-compare-tags.html', href: 'https://github.com/sindresorhus/is-plain-obj/compare/v3.0.0...v4.0.0', kind: 'tags', files: 8, additions: 36, deletions: 23, kinds: { code: 2, tests: 2, dependencies: 1, workflows: 2, docs: 1, other: 0 } },
+  // عينات مكتوبة بتخطيط React (مسارات وأسطر حقيقية من صفحة التزام).
+  { name: 'compare-branches', file: 'tests/modules/d/fixtures/fixture-compare-react-branches.html', href: 'https://github.com/octo/demo/compare/main...feature%2Fui-refresh', kind: 'branches', files: 30, additions: 4301, deletions: 733, kinds: { code: 21, tests: 6, dependencies: 1, workflows: 1, docs: 1, other: 0 } },
+  { name: 'compare-commits', file: 'tests/modules/d/fixtures/fixture-compare-react-commits.html', href: 'https://github.com/octo/demo/compare/98ea6bc...86a863a', kind: 'commits', files: 27, additions: 4268, deletions: 726, kinds: { code: 21, tests: 6, dependencies: 0, workflows: 0, docs: 0, other: 0 } },
+  { name: 'compare-tags', file: 'tests/modules/d/fixtures/fixture-compare-react-tags.html', href: 'https://github.com/octo/demo/compare/v1.4.0...v1.5.0', kind: 'tags', files: 12, additions: 1891, deletions: 387, kinds: { code: 8, tests: 4, dependencies: 0, workflows: 0, docs: 0, other: 0 } },
   // صفحة التزام حقيقية محفوظة بتخطيط الفروقات الفعلي، تُركَّب عليها الوحدة بعنوان مقارنة: التحقق من الاستخراج على بنية GitHub لا على كتابتنا.
   { name: 'real-commit-as-compare', file: 'fixtures/spikes/gh-commit-bms-1.html', href: 'https://github.com/ahrrfy/business_management_system/compare/98ea6bc...86a863a', kind: 'commits', files: 27, additions: 4268, deletions: 726, kinds: { code: 21, tests: 6, dependencies: 0, workflows: 0, docs: 0, other: 0 } },
 ];
@@ -165,12 +171,14 @@ try {
           await b.page.screenshot({ path: path.join(screensDir, `${key}-${name}.png`) });
           await call(b, 'stop');
         }
-        await b.open(`${server.url}/compare-branches.html`);
-        await run(b, inject, code);
-        await call(b, 'mountCompare', { href: COMPARE[0].href });
-        await b.page.evaluate(() => document.querySelector('mijhar-host[data-mijhar-host="d.compare"]')?.scrollIntoView({ block: 'start' }));
-        await b.page.screenshot({ path: path.join(compareScreensDir, `${key}-compare-branches.png`) });
-        await call(b, 'stop');
+        for (const page of COMPARE.filter((p) => ['compare-real-tags', 'compare-branches'].includes(p.name))) {
+          await b.open(`${server.url}/${page.name}.html`);
+          await run(b, inject, code);
+          await call(b, 'mountCompare', { href: page.href });
+          await b.page.evaluate(() => document.querySelector('mijhar-host[data-mijhar-host="d.compare"]')?.scrollIntoView({ block: 'start' }));
+          await b.page.screenshot({ path: path.join(compareScreensDir, `${key}-${page.name}.png`) });
+          await call(b, 'stop');
+        }
       }
       const mine = checks.filter((c) => c.browser === L);
       console.error(`${L} ${b.version}: ${mine.filter((c) => c.ok).length}/${mine.length} فحصًا`);
