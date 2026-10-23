@@ -1,0 +1,7 @@
+$ node tests/modules/b/card/browser/run.mjs chrome edge brave firefox --out-dir evidence/wave-E/modules/card-out
+Chrome 156.0.8078.47: 45/45 فحصًا · العينة 20 شارة · المستودع الحقيقي 7 · المشكلة 0 · PR 1 · المطابقة (وسيط ms) sample 0.10 real-repo 0.60 real-issue 0.60 real-pr 0.90
+Edge 155.0.4283.60: 45/45 فحصًا · العينة 20 شارة · المستودع الحقيقي 7 · المشكلة 0 · PR 1 · المطابقة (وسيط ms) sample 0.10 real-repo 0.60 real-issue 0.70 real-pr 0.90
+Brave 156.0.8078.48: 45/45 فحصًا · العينة 20 شارة · المستودع الحقيقي 7 · المشكلة 0 · PR 1 · المطابقة (وسيط ms) sample 0.10 real-repo 0.60 real-issue 0.60 real-pr 1.00
+Firefox 158.0.1: 45/45 فحصًا · العينة 20 شارة · المستودع الحقيقي 7 · المشكلة 0 · PR 1 · المطابقة (وسيط ms) sample 0.00 real-repo 0.00 real-issue 0.00 real-pr 1.00
+المجموع: 180/180 فحصًا اجتاز
+exit: 0

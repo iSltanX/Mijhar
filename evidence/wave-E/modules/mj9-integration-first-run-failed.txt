@@ -1,0 +1,26 @@
+$ node evidence/MJ9/integration-check.mjs chrome edge brave firefox
+Chrome 156.0.8078.47:  فحوص 43/48 · api.github.com 0 · مضيفات أخرى 0 · أخطاء الإضافة 0 · رسائل مجمّعة 5
+   ✗ notes.line-note-stored {"stored":[{"id":"f71592c0-5c6f-4d18-b524-158f67e5c8f5","level":"line","view":"blob","text":"ملاحظة على الأسطر ٣ إلى ٥","anchorStatus":"matched","start":3,"path":"lib/response.js"}]}
+   ✗ notes.card-lists-note {"notes":[{"id":"f71592c0-5c6f-4d18-b524-158f67e5c8f5","level":"line","text":"ملاحظة على الأسطر ٣ إلى ٥","anchor":"matched","flash":false}]}
+   ✗ notes.edit-keeps-anchor-status-separate {"keptStatus":{"id":"f71592c0-5c6f-4d18-b524-158f67e5c8f5","level":"line","view":"blob","text":"ملاحظة معدّلة من اللوحة","anchorStatus":"matched","start":3,"path":"lib/response.js"}}
+   ✗ drawer.no-text-fields-in-any-tab {"tabs":{"context":{"fields":0,"notices":[],"views":[]},"glossary":{"fields":0,"notices":["البحث في القاموس"],"views":["explain-toggle"]},"notes":{"fields":0,"notices":["ملاحظاتي","أكمل لاحقًا والبحث في ملاحظاتك"],"views":[]},"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]},"settings":{"fields":1,"notices":[],"views":[]}}}
+   ✗ drawer.community-tab {"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]}}
+Edge 155.0.4283.60:  فحوص 43/48 · api.github.com 0 · مضيفات أخرى 0 · أخطاء الإضافة 0 · رسائل مجمّعة 5
+   ✗ notes.line-note-stored {"stored":[{"id":"65fb35fc-61da-405b-aba9-bdaf56f786c0","level":"line","view":"blob","text":"ملاحظة على الأسطر ٣ إلى ٥","anchorStatus":"matched","start":3,"path":"lib/response.js"}]}
+   ✗ notes.card-lists-note {"notes":[{"id":"65fb35fc-61da-405b-aba9-bdaf56f786c0","level":"line","text":"ملاحظة على الأسطر ٣ إلى ٥","anchor":"matched","flash":false}]}
+   ✗ notes.edit-keeps-anchor-status-separate {"keptStatus":{"id":"65fb35fc-61da-405b-aba9-bdaf56f786c0","level":"line","view":"blob","text":"ملاحظة معدّلة من اللوحة","anchorStatus":"matched","start":3,"path":"lib/response.js"}}
+   ✗ drawer.no-text-fields-in-any-tab {"tabs":{"context":{"fields":0,"notices":[],"views":[]},"glossary":{"fields":0,"notices":["البحث في القاموس"],"views":["explain-toggle"]},"notes":{"fields":0,"notices":["ملاحظاتي","أكمل لاحقًا والبحث في ملاحظاتك"],"views":[]},"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]},"settings":{"fields":1,"notices":[],"views":[]}}}
+   ✗ drawer.community-tab {"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]}}
+Brave 156.0.8078.48:  فحوص 43/48 · api.github.com 0 · مضيفات أخرى 0 · أخطاء الإضافة 0 · رسائل مجمّعة 5
+   ✗ notes.line-note-stored {"stored":[{"id":"bfe03693-08cc-4cde-a310-db8845a438a8","level":"line","view":"blob","text":"ملاحظة على الأسطر ٣ إلى ٥","anchorStatus":"matched","start":3,"path":"lib/response.js"}]}
+   ✗ notes.card-lists-note {"notes":[{"id":"bfe03693-08cc-4cde-a310-db8845a438a8","level":"line","text":"ملاحظة على الأسطر ٣ إلى ٥","anchor":"matched","flash":false}]}
+   ✗ notes.edit-keeps-anchor-status-separate {"keptStatus":{"id":"bfe03693-08cc-4cde-a310-db8845a438a8","level":"line","view":"blob","text":"ملاحظة معدّلة من اللوحة","anchorStatus":"matched","start":3,"path":"lib/response.js"}}
+   ✗ drawer.no-text-fields-in-any-tab {"tabs":{"context":{"fields":0,"notices":[],"views":[]},"glossary":{"fields":0,"notices":["البحث في القاموس"],"views":["explain-toggle"]},"notes":{"fields":0,"notices":["ملاحظاتي","أكمل لاحقًا والبحث في ملاحظاتك"],"views":[]},"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]},"settings":{"fields":1,"notices":[],"views":[]}}}
+   ✗ drawer.community-tab {"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]}}
+Firefox 158.0.1:  فحوص 45/50 · api.github.com 16 · مضيفات أخرى 0 · أخطاء الإضافة — · رسائل مجمّعة 0
+   ✗ notes.line-note-stored {"stored":[{"id":"fa1bb003-8a98-40d5-9515-8005ebdfeeb9","level":"line","view":"blob","text":"ملاحظة على الأسطر ٣ إلى ٥","anchorStatus":"matched","start":3,"path":"lib/response.js"}]}
+   ✗ notes.card-lists-note {"notes":[{"id":"fa1bb003-8a98-40d5-9515-8005ebdfeeb9","level":"line","text":"ملاحظة على الأسطر ٣ إلى ٥","anchor":"matched","flash":false}]}
+   ✗ notes.edit-keeps-anchor-status-separate {"keptStatus":{"id":"fa1bb003-8a98-40d5-9515-8005ebdfeeb9","level":"line","view":"blob","text":"ملاحظة معدّلة من اللوحة","anchorStatus":"matched","start":3,"path":"lib/response.js"}}
+   ✗ drawer.no-text-fields-in-any-tab {"tabs":{"context":{"fields":0,"notices":[],"views":[]},"glossary":{"fields":0,"notices":["البحث في القاموس"],"views":["explain-toggle"]},"notes":{"fields":0,"notices":["ملاحظاتي","أكمل لاحقًا والبحث في ملاحظاتك"],"views":[]},"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]},"settings":{"fields":1,"notices":[],"views":[]}}}
+   ✗ drawer.community-tab {"community":{"fields":0,"notices":["اكتشاف المحتوى العربي","موارد تعلّم عربية","اقتراح README عربي"],"views":["readme","guide"]}}
+exit: 0

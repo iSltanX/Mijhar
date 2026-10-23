@@ -1,0 +1,7 @@
+$ node tests/modules/f/composer/browser/run.mjs chrome edge brave firefox --out-dir evidence/wave-E/modules/composer-out
+Chrome 156.0.8078.47: 29/29 فحصًا · التراجع الأصلي يعمل
+Edge 155.0.4283.60: 29/29 فحصًا · التراجع الأصلي يعمل
+Brave 156.0.8078.48: 29/29 فحصًا · التراجع الأصلي يعمل
+Firefox 158.0.1: 29/29 فحصًا · التراجع الأصلي يعمل
+المجموع: 116/116 فحصًا اجتاز
+exit: 0

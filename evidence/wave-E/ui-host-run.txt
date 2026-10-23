@@ -1,0 +1,7 @@
+$ node tests/core/ui-host/browser/run.mjs chrome edge brave firefox --out evidence/wave-E/ui-host
+Chrome 156.0.8078.47: تمت التجارب
+Edge 155.0.4283.60: تمت التجارب
+Brave 156.0.8078.48: تمت التجارب
+Firefox 158.0.1: تمت التجارب
+كُتبت النتائج الخام والتقرير في evidence/wave-E/ui-host
+exit: 0

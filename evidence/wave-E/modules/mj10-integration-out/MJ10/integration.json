@@ -1,0 +1,2209 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "steps": {
+      "baseline": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "baseline2": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "found": {
+        "status": "found",
+        "count": 1
+      },
+      "foundState": {
+        "around": true
+      },
+      "elsewhere": {
+        "status": "elsewhere",
+        "paths": [
+          "تبويب Settings في المستودع (إعدادات المستودع)"
+        ],
+        "here": false
+      },
+      "concept": {
+        "status": "concept"
+      },
+      "unknown": {
+        "status": "unknown-entry"
+      },
+      "explain": {
+        "badges": 20,
+        "focusIndex": "0",
+        "haspopup": "dialog"
+      },
+      "unitOff": "none",
+      "unitOn": "found",
+      "composerReady": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 4,
+        "composerPanel": 0
+      },
+      "panelOpen": {
+        "open": true,
+        "focus": "mj-composer-expected",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "preview": {
+        "open": true,
+        "focus": "mj-composer-steps",
+        "preview": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "inserted": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n\nSecond line of my draft.\nThird line of my draft.",
+      "fOff": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "fOffHtml": {
+        "equal": true
+      },
+      "fOn": true,
+      "english": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 1,
+        "composerPanel": 0
+      },
+      "englishHtml": {
+        "equal": true
+      },
+      "commands": [
+        {
+          "description": "ابحث في قاموس مِجهَر",
+          "name": "open-glossary",
+          "shortcut": "⌥K"
+        },
+        {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥G"
+        }
+      ],
+      "rebind": {
+        "before": "⌥K",
+        "after": "⌥⇧K",
+        "restored": "⌥K"
+      },
+      "panel0": {
+        "tab": "context",
+        "focus": "",
+        "query": null,
+        "first": null,
+        "via": null,
+        "results": 0,
+        "note": null,
+        "chips": 0
+      },
+      "panel1": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "",
+        "first": "repository",
+        "via": "name",
+        "results": 20,
+        "note": null,
+        "chips": 8
+      },
+      "panel2": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": null,
+        "chips": 8
+      },
+      "panel3": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        },
+        "chips": 8
+      },
+      "manifest": {
+        "background": {
+          "service_worker": "background.js"
+        },
+        "commands": {
+          "open-glossary": {
+            "description": "ابحث في قاموس مِجهَر",
+            "suggested_key": {
+              "default": "Alt+K"
+            }
+          },
+          "toggle-panel": {
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "suggested_key": {
+              "default": "Alt+G"
+            }
+          }
+        },
+        "content_scripts": [
+          {
+            "js": [
+              "content.js"
+            ],
+            "matches": [
+              "https://github.com/*"
+            ],
+            "run_at": "document_idle"
+          }
+        ],
+        "host_permissions": [
+          "https://github.com/*"
+        ],
+        "manifest_version": 3,
+        "minimum_chrome_version": "114",
+        "name": "مِجهَر",
+        "optional_host_permissions": [
+          "https://api.github.com/*"
+        ],
+        "options_ui": {
+          "open_in_tab": true,
+          "page": "options.html"
+        },
+        "permissions": [
+          "sidePanel",
+          "storage"
+        ],
+        "side_panel": {
+          "default_path": "sidepanel.html"
+        },
+        "version": "0.0.1",
+        "web_accessible_resources": [
+          {
+            "matches": [
+              "https://github.com/*"
+            ],
+            "resources": [
+              "fonts/*.woff2"
+            ]
+          }
+        ]
+      }
+    },
+    "checks": [
+      {
+        "browser": "Chrome",
+        "name": "سكربت المحتوى جاهز والوحدة (ب) تردّ على رسالة الحالة",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Chrome",
+        "name": "الوحدات الجديدة بلا أثر قبل أي طلب: لا مضيف لأي منها (الإبراز والأشرطة والتحديد والمساعد)",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 0,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "رسالة locate من صفحة الإضافة: found وحلقة تحيط بزر النجمة الأصلي",
+        "ok": true,
+        "detail": {
+          "found": {
+            "status": "found",
+            "count": 1
+          },
+          "ring": {
+            "around": true
+          }
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "locate clear يزيل الإبراز",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Chrome",
+        "name": "الشرك (حذف المستودع) elsewhere بمسار Settings، والمفهوم concept، والمجهول unknown-entry، ولا إبراز",
+        "ok": true,
+        "detail": {
+          "e": {
+            "status": "elsewhere",
+            "paths": [
+              "تبويب Settings في المستودع (إعدادات المستودع)"
+            ],
+            "here": false
+          },
+          "c": {
+            "status": "concept"
+          },
+          "u": {
+            "status": "unknown-entry"
+          }
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "وضع الشرح بالاختصار الفعلي: ٢٠ شارة بـaria-haspopup، والتركيز على أول شارة (T-3.3)",
+        "ok": true,
+        "detail": {
+          "badges": 20,
+          "focusIndex": "0",
+          "haspopup": "dialog"
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "مفتاح الوحدة (ب) مطفأ: وحدة البحث تتوقف (لا ردّ على رسالة locate)",
+        "ok": true,
+        "detail": "none"
+      },
+      {
+        "browser": "Chrome",
+        "name": "وإعادته تعيدها",
+        "ok": true,
+        "detail": "found"
+      },
+      {
+        "browser": "Chrome",
+        "name": "صفحة بلاغ جديد: أربعة أزرار «مساعد» (ثلاثة في الأشرطة وواحد لحقل بلا شريط) ولا لوحة",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 4,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "نقر الزر يفتح اللوحة (حوار) والتركيز على أول حقل",
+        "ok": true,
+        "detail": {
+          "open": true,
+          "focus": "mj-composer-expected",
+          "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+          "status": "",
+          "undoDisabled": true,
+          "role": "dialog"
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "كتابة فعلية في الحقلين ← معاينة بعناوين وقائمة مرقّمة",
+        "ok": true,
+        "detail": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n"
+      },
+      {
+        "browser": "Chrome",
+        "name": "الإدراج عند المؤشر: ما قبل المؤشر وما بعده حرفيًا والنص بينهما",
+        "ok": true,
+        "detail": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open"
+      },
+      {
+        "browser": "Chrome",
+        "name": "«التراجع عن آخر إدراج» يعيد المسودة حرفيًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Chrome",
+        "name": "لا submit ولا نقر على زر إرسال في كل ذلك",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Chrome",
+        "name": "مفتاح الوحدة (و) مطفأ: تزول الأزرار واللوحة، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "fOff": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 0,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "وإعادته تعيد الأزرار",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Chrome",
+        "name": "وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "counts": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 1,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "الأمر open-glossary مسجَّل في المتصفح باختصار افتراضي (Alt+K) ووصف عربي، وأمر اللوحة باقٍ",
+        "ok": true,
+        "detail": {
+          "glossary": {
+            "description": "ابحث في قاموس مِجهَر",
+            "name": "open-glossary",
+            "shortcut": "⌥K"
+          },
+          "panelCmd": {
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "name": "toggle-panel",
+            "shortcut": "⌥G"
+          }
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "إعادة ربط open-glossary من إعدادات المتصفح تغيّر اختصاره المسجَّل (Alt+Shift+K) ثم يُستعاد الافتراضي",
+        "ok": true,
+        "detail": {
+          "before": "⌥K",
+          "after": "⌥⇧K",
+          "restored": "⌥K"
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "اللوحة الأصلية تبدأ على تبويب «السياق»",
+        "ok": true,
+        "detail": {
+          "tab": "context",
+          "focus": "",
+          "query": null,
+          "first": null,
+          "via": null,
+          "results": 0,
+          "note": null,
+          "chips": 0
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "طلب التبويب في التخزين (ما يكتبه معالج Alt+K في الخلفية) ينقل اللوحة المفتوحة إلى القاموس ويركّز خانة البحث",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "",
+          "first": "repository",
+          "via": "name",
+          "results": 20,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "كتابة فعلية «كوميت» (مرادف) في خانة اللوحة ← Commit أولًا بمطابقة مرادف، وثماني أزرار تصفية",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "كوميت",
+          "first": "commit",
+          "via": "synonym",
+          "results": 1,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "«أبرز الموضع» من لوحة على تبويب إضافة (لا صفحة GitHub نشطة): رسالة صريحة بمسارات الوجود، بلا خطأ",
+        "ok": true,
+        "detail": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "الصلاحيات كما هي: sidePanel وstorage (أو storage وحدها) والمضيف الأساسي github.com وحده والاختياري api.github.com",
+        "ok": true,
+        "detail": {
+          "p": [
+            "sidePanel",
+            "storage"
+          ],
+          "h": [
+            "https://github.com/*"
+          ],
+          "o": [
+            "https://api.github.com/*"
+          ]
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "browser": "Chrome",
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Chrome",
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true,
+        "detail": {
+          "runtime": [],
+          "manifest": []
+        }
+      }
+    ],
+    "console": [],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiGithub": [],
+      "blockedExternalHosts": []
+    }
+  },
+  "edge": {
+    "label": "Edge",
+    "steps": {
+      "baseline": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "baseline2": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "found": {
+        "status": "found",
+        "count": 1
+      },
+      "foundState": {
+        "around": true
+      },
+      "elsewhere": {
+        "status": "elsewhere",
+        "paths": [
+          "تبويب Settings في المستودع (إعدادات المستودع)"
+        ],
+        "here": false
+      },
+      "concept": {
+        "status": "concept"
+      },
+      "unknown": {
+        "status": "unknown-entry"
+      },
+      "explain": {
+        "badges": 20,
+        "focusIndex": "0",
+        "haspopup": "dialog"
+      },
+      "unitOff": "none",
+      "unitOn": "found",
+      "composerReady": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 4,
+        "composerPanel": 0
+      },
+      "panelOpen": {
+        "open": true,
+        "focus": "mj-composer-expected",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "preview": {
+        "open": true,
+        "focus": "mj-composer-steps",
+        "preview": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "inserted": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n\nSecond line of my draft.\nThird line of my draft.",
+      "fOff": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "fOffHtml": {
+        "equal": true
+      },
+      "fOn": true,
+      "english": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 1,
+        "composerPanel": 0
+      },
+      "englishHtml": {
+        "equal": true
+      },
+      "commands": [
+        {
+          "description": "ابحث في قاموس مِجهَر",
+          "name": "open-glossary",
+          "shortcut": "⌥K"
+        },
+        {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥G"
+        }
+      ],
+      "rebind": {
+        "before": "⌥K",
+        "after": "⌥⇧K",
+        "restored": "⌥K"
+      },
+      "panel0": {
+        "tab": "context",
+        "focus": "",
+        "query": null,
+        "first": null,
+        "via": null,
+        "results": 0,
+        "note": null,
+        "chips": 0
+      },
+      "panel1": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "",
+        "first": "repository",
+        "via": "name",
+        "results": 20,
+        "note": null,
+        "chips": 8
+      },
+      "panel2": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": null,
+        "chips": 8
+      },
+      "panel3": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        },
+        "chips": 8
+      },
+      "manifest": {
+        "background": {
+          "service_worker": "background.js"
+        },
+        "commands": {
+          "open-glossary": {
+            "description": "ابحث في قاموس مِجهَر",
+            "suggested_key": {
+              "default": "Alt+K"
+            }
+          },
+          "toggle-panel": {
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "suggested_key": {
+              "default": "Alt+G"
+            }
+          }
+        },
+        "content_scripts": [
+          {
+            "js": [
+              "content.js"
+            ],
+            "matches": [
+              "https://github.com/*"
+            ],
+            "run_at": "document_idle"
+          }
+        ],
+        "host_permissions": [
+          "https://github.com/*"
+        ],
+        "manifest_version": 3,
+        "minimum_chrome_version": "114",
+        "name": "مِجهَر",
+        "optional_host_permissions": [
+          "https://api.github.com/*"
+        ],
+        "options_ui": {
+          "open_in_tab": true,
+          "page": "options.html"
+        },
+        "permissions": [
+          "sidePanel",
+          "storage"
+        ],
+        "side_panel": {
+          "default_path": "sidepanel.html"
+        },
+        "version": "0.0.1",
+        "web_accessible_resources": [
+          {
+            "matches": [
+              "https://github.com/*"
+            ],
+            "resources": [
+              "fonts/*.woff2"
+            ]
+          }
+        ]
+      }
+    },
+    "checks": [
+      {
+        "browser": "Edge",
+        "name": "سكربت المحتوى جاهز والوحدة (ب) تردّ على رسالة الحالة",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Edge",
+        "name": "الوحدات الجديدة بلا أثر قبل أي طلب: لا مضيف لأي منها (الإبراز والأشرطة والتحديد والمساعد)",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 0,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "رسالة locate من صفحة الإضافة: found وحلقة تحيط بزر النجمة الأصلي",
+        "ok": true,
+        "detail": {
+          "found": {
+            "status": "found",
+            "count": 1
+          },
+          "ring": {
+            "around": true
+          }
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "locate clear يزيل الإبراز",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Edge",
+        "name": "الشرك (حذف المستودع) elsewhere بمسار Settings، والمفهوم concept، والمجهول unknown-entry، ولا إبراز",
+        "ok": true,
+        "detail": {
+          "e": {
+            "status": "elsewhere",
+            "paths": [
+              "تبويب Settings في المستودع (إعدادات المستودع)"
+            ],
+            "here": false
+          },
+          "c": {
+            "status": "concept"
+          },
+          "u": {
+            "status": "unknown-entry"
+          }
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "وضع الشرح بالاختصار الفعلي: ٢٠ شارة بـaria-haspopup، والتركيز على أول شارة (T-3.3)",
+        "ok": true,
+        "detail": {
+          "badges": 20,
+          "focusIndex": "0",
+          "haspopup": "dialog"
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "مفتاح الوحدة (ب) مطفأ: وحدة البحث تتوقف (لا ردّ على رسالة locate)",
+        "ok": true,
+        "detail": "none"
+      },
+      {
+        "browser": "Edge",
+        "name": "وإعادته تعيدها",
+        "ok": true,
+        "detail": "found"
+      },
+      {
+        "browser": "Edge",
+        "name": "صفحة بلاغ جديد: أربعة أزرار «مساعد» (ثلاثة في الأشرطة وواحد لحقل بلا شريط) ولا لوحة",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 4,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "نقر الزر يفتح اللوحة (حوار) والتركيز على أول حقل",
+        "ok": true,
+        "detail": {
+          "open": true,
+          "focus": "mj-composer-expected",
+          "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+          "status": "",
+          "undoDisabled": true,
+          "role": "dialog"
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "كتابة فعلية في الحقلين ← معاينة بعناوين وقائمة مرقّمة",
+        "ok": true,
+        "detail": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n"
+      },
+      {
+        "browser": "Edge",
+        "name": "الإدراج عند المؤشر: ما قبل المؤشر وما بعده حرفيًا والنص بينهما",
+        "ok": true,
+        "detail": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open"
+      },
+      {
+        "browser": "Edge",
+        "name": "«التراجع عن آخر إدراج» يعيد المسودة حرفيًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Edge",
+        "name": "لا submit ولا نقر على زر إرسال في كل ذلك",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Edge",
+        "name": "مفتاح الوحدة (و) مطفأ: تزول الأزرار واللوحة، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "fOff": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 0,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "وإعادته تعيد الأزرار",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Edge",
+        "name": "وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "counts": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 1,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "الأمر open-glossary مسجَّل في المتصفح باختصار افتراضي (Alt+K) ووصف عربي، وأمر اللوحة باقٍ",
+        "ok": true,
+        "detail": {
+          "glossary": {
+            "description": "ابحث في قاموس مِجهَر",
+            "name": "open-glossary",
+            "shortcut": "⌥K"
+          },
+          "panelCmd": {
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "name": "toggle-panel",
+            "shortcut": "⌥G"
+          }
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "إعادة ربط open-glossary من إعدادات المتصفح تغيّر اختصاره المسجَّل (Alt+Shift+K) ثم يُستعاد الافتراضي",
+        "ok": true,
+        "detail": {
+          "before": "⌥K",
+          "after": "⌥⇧K",
+          "restored": "⌥K"
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "اللوحة الأصلية تبدأ على تبويب «السياق»",
+        "ok": true,
+        "detail": {
+          "tab": "context",
+          "focus": "",
+          "query": null,
+          "first": null,
+          "via": null,
+          "results": 0,
+          "note": null,
+          "chips": 0
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "طلب التبويب في التخزين (ما يكتبه معالج Alt+K في الخلفية) ينقل اللوحة المفتوحة إلى القاموس ويركّز خانة البحث",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "",
+          "first": "repository",
+          "via": "name",
+          "results": 20,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "كتابة فعلية «كوميت» (مرادف) في خانة اللوحة ← Commit أولًا بمطابقة مرادف، وثماني أزرار تصفية",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "كوميت",
+          "first": "commit",
+          "via": "synonym",
+          "results": 1,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "«أبرز الموضع» من لوحة على تبويب إضافة (لا صفحة GitHub نشطة): رسالة صريحة بمسارات الوجود، بلا خطأ",
+        "ok": true,
+        "detail": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "الصلاحيات كما هي: sidePanel وstorage (أو storage وحدها) والمضيف الأساسي github.com وحده والاختياري api.github.com",
+        "ok": true,
+        "detail": {
+          "p": [
+            "sidePanel",
+            "storage"
+          ],
+          "h": [
+            "https://github.com/*"
+          ],
+          "o": [
+            "https://api.github.com/*"
+          ]
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "browser": "Edge",
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Edge",
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true,
+        "detail": {
+          "runtime": [],
+          "manifest": []
+        }
+      }
+    ],
+    "console": [],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiGithub": [],
+      "blockedExternalHosts": []
+    }
+  },
+  "brave": {
+    "label": "Brave",
+    "steps": {
+      "baseline": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "baseline2": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "found": {
+        "status": "found",
+        "count": 1
+      },
+      "foundState": {
+        "around": true
+      },
+      "elsewhere": {
+        "status": "elsewhere",
+        "paths": [
+          "تبويب Settings في المستودع (إعدادات المستودع)"
+        ],
+        "here": false
+      },
+      "concept": {
+        "status": "concept"
+      },
+      "unknown": {
+        "status": "unknown-entry"
+      },
+      "explain": {
+        "badges": 20,
+        "focusIndex": "0",
+        "haspopup": "dialog"
+      },
+      "unitOff": "none",
+      "unitOn": "found",
+      "composerReady": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 4,
+        "composerPanel": 0
+      },
+      "panelOpen": {
+        "open": true,
+        "focus": "mj-composer-expected",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "preview": {
+        "open": true,
+        "focus": "mj-composer-steps",
+        "preview": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "inserted": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n\nSecond line of my draft.\nThird line of my draft.",
+      "fOff": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "fOffHtml": {
+        "equal": true
+      },
+      "fOn": true,
+      "english": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 1,
+        "composerPanel": 0
+      },
+      "englishHtml": {
+        "equal": true
+      },
+      "commands": [
+        {
+          "description": "ابحث في قاموس مِجهَر",
+          "name": "open-glossary",
+          "shortcut": "⌥K"
+        },
+        {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥G"
+        }
+      ],
+      "rebind": {
+        "before": "⌥K",
+        "after": "⌥⇧K",
+        "restored": "⌥K"
+      },
+      "panel0": {
+        "tab": "context",
+        "focus": "",
+        "query": null,
+        "first": null,
+        "via": null,
+        "results": 0,
+        "note": null,
+        "chips": 0
+      },
+      "panel1": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "",
+        "first": "repository",
+        "via": "name",
+        "results": 20,
+        "note": null,
+        "chips": 8
+      },
+      "panel2": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": null,
+        "chips": 8
+      },
+      "panel3": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        },
+        "chips": 8
+      },
+      "manifest": {
+        "background": {
+          "service_worker": "background.js"
+        },
+        "commands": {
+          "open-glossary": {
+            "description": "ابحث في قاموس مِجهَر",
+            "suggested_key": {
+              "default": "Alt+K"
+            }
+          },
+          "toggle-panel": {
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "suggested_key": {
+              "default": "Alt+G"
+            }
+          }
+        },
+        "content_scripts": [
+          {
+            "js": [
+              "content.js"
+            ],
+            "matches": [
+              "https://github.com/*"
+            ],
+            "run_at": "document_idle"
+          }
+        ],
+        "host_permissions": [
+          "https://github.com/*"
+        ],
+        "manifest_version": 3,
+        "minimum_chrome_version": "114",
+        "name": "مِجهَر",
+        "optional_host_permissions": [
+          "https://api.github.com/*"
+        ],
+        "options_ui": {
+          "open_in_tab": true,
+          "page": "options.html"
+        },
+        "permissions": [
+          "sidePanel",
+          "storage"
+        ],
+        "side_panel": {
+          "default_path": "sidepanel.html"
+        },
+        "version": "0.0.1",
+        "web_accessible_resources": [
+          {
+            "matches": [
+              "https://github.com/*"
+            ],
+            "resources": [
+              "fonts/*.woff2"
+            ]
+          }
+        ]
+      }
+    },
+    "checks": [
+      {
+        "browser": "Brave",
+        "name": "سكربت المحتوى جاهز والوحدة (ب) تردّ على رسالة الحالة",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Brave",
+        "name": "الوحدات الجديدة بلا أثر قبل أي طلب: لا مضيف لأي منها (الإبراز والأشرطة والتحديد والمساعد)",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 0,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "رسالة locate من صفحة الإضافة: found وحلقة تحيط بزر النجمة الأصلي",
+        "ok": true,
+        "detail": {
+          "found": {
+            "status": "found",
+            "count": 1
+          },
+          "ring": {
+            "around": true
+          }
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "locate clear يزيل الإبراز",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Brave",
+        "name": "الشرك (حذف المستودع) elsewhere بمسار Settings، والمفهوم concept، والمجهول unknown-entry، ولا إبراز",
+        "ok": true,
+        "detail": {
+          "e": {
+            "status": "elsewhere",
+            "paths": [
+              "تبويب Settings في المستودع (إعدادات المستودع)"
+            ],
+            "here": false
+          },
+          "c": {
+            "status": "concept"
+          },
+          "u": {
+            "status": "unknown-entry"
+          }
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "وضع الشرح بالاختصار الفعلي: ٢٠ شارة بـaria-haspopup، والتركيز على أول شارة (T-3.3)",
+        "ok": true,
+        "detail": {
+          "badges": 20,
+          "focusIndex": "0",
+          "haspopup": "dialog"
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "مفتاح الوحدة (ب) مطفأ: وحدة البحث تتوقف (لا ردّ على رسالة locate)",
+        "ok": true,
+        "detail": "none"
+      },
+      {
+        "browser": "Brave",
+        "name": "وإعادته تعيدها",
+        "ok": true,
+        "detail": "found"
+      },
+      {
+        "browser": "Brave",
+        "name": "صفحة بلاغ جديد: أربعة أزرار «مساعد» (ثلاثة في الأشرطة وواحد لحقل بلا شريط) ولا لوحة",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 4,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "نقر الزر يفتح اللوحة (حوار) والتركيز على أول حقل",
+        "ok": true,
+        "detail": {
+          "open": true,
+          "focus": "mj-composer-expected",
+          "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+          "status": "",
+          "undoDisabled": true,
+          "role": "dialog"
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "كتابة فعلية في الحقلين ← معاينة بعناوين وقائمة مرقّمة",
+        "ok": true,
+        "detail": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n"
+      },
+      {
+        "browser": "Brave",
+        "name": "الإدراج عند المؤشر: ما قبل المؤشر وما بعده حرفيًا والنص بينهما",
+        "ok": true,
+        "detail": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open"
+      },
+      {
+        "browser": "Brave",
+        "name": "«التراجع عن آخر إدراج» يعيد المسودة حرفيًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Brave",
+        "name": "لا submit ولا نقر على زر إرسال في كل ذلك",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Brave",
+        "name": "مفتاح الوحدة (و) مطفأ: تزول الأزرار واللوحة، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "fOff": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 0,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "وإعادته تعيد الأزرار",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Brave",
+        "name": "وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "counts": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 1,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "الأمر open-glossary مسجَّل في المتصفح باختصار افتراضي (Alt+K) ووصف عربي، وأمر اللوحة باقٍ",
+        "ok": true,
+        "detail": {
+          "glossary": {
+            "description": "ابحث في قاموس مِجهَر",
+            "name": "open-glossary",
+            "shortcut": "⌥K"
+          },
+          "panelCmd": {
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "name": "toggle-panel",
+            "shortcut": "⌥G"
+          }
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "إعادة ربط open-glossary من إعدادات المتصفح تغيّر اختصاره المسجَّل (Alt+Shift+K) ثم يُستعاد الافتراضي",
+        "ok": true,
+        "detail": {
+          "before": "⌥K",
+          "after": "⌥⇧K",
+          "restored": "⌥K"
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "اللوحة الأصلية تبدأ على تبويب «السياق»",
+        "ok": true,
+        "detail": {
+          "tab": "context",
+          "focus": "",
+          "query": null,
+          "first": null,
+          "via": null,
+          "results": 0,
+          "note": null,
+          "chips": 0
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "طلب التبويب في التخزين (ما يكتبه معالج Alt+K في الخلفية) ينقل اللوحة المفتوحة إلى القاموس ويركّز خانة البحث",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "",
+          "first": "repository",
+          "via": "name",
+          "results": 20,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "كتابة فعلية «كوميت» (مرادف) في خانة اللوحة ← Commit أولًا بمطابقة مرادف، وثماني أزرار تصفية",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "كوميت",
+          "first": "commit",
+          "via": "synonym",
+          "results": 1,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "«أبرز الموضع» من لوحة على تبويب إضافة (لا صفحة GitHub نشطة): رسالة صريحة بمسارات الوجود، بلا خطأ",
+        "ok": true,
+        "detail": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "الصلاحيات كما هي: sidePanel وstorage (أو storage وحدها) والمضيف الأساسي github.com وحده والاختياري api.github.com",
+        "ok": true,
+        "detail": {
+          "p": [
+            "sidePanel",
+            "storage"
+          ],
+          "h": [
+            "https://github.com/*"
+          ],
+          "o": [
+            "https://api.github.com/*"
+          ]
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "browser": "Brave",
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Brave",
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true,
+        "detail": {
+          "runtime": [],
+          "manifest": []
+        }
+      }
+    ],
+    "console": [],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiGithub": [],
+      "blockedExternalHosts": []
+    }
+  },
+  "firefox": {
+    "label": "Firefox",
+    "steps": {
+      "baseline": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "baseline2": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "found": {
+        "status": "found",
+        "count": 1
+      },
+      "foundState": {
+        "around": true
+      },
+      "elsewhere": {
+        "status": "elsewhere",
+        "paths": [
+          "تبويب Settings في المستودع (إعدادات المستودع)"
+        ],
+        "here": false
+      },
+      "concept": {
+        "status": "concept"
+      },
+      "unknown": {
+        "status": "unknown-entry"
+      },
+      "explain": {
+        "badges": 20,
+        "focusIndex": "0",
+        "haspopup": "dialog"
+      },
+      "unitOff": "none",
+      "unitOn": "found",
+      "composerReady": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 4,
+        "composerPanel": 0
+      },
+      "panelOpen": {
+        "open": true,
+        "focus": "mj-composer-expected",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "preview": {
+        "open": true,
+        "focus": "mj-composer-steps",
+        "preview": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n",
+        "status": "",
+        "undoDisabled": true,
+        "role": "dialog"
+      },
+      "inserted": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n\nSecond line of my draft.\nThird line of my draft.",
+      "fOff": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 0,
+        "composerPanel": 0
+      },
+      "fOffHtml": {
+        "equal": true
+      },
+      "fOn": true,
+      "english": {
+        "card": 0,
+        "highlight": 0,
+        "bar": 0,
+        "translation": 0,
+        "selection": 0,
+        "composerButtons": 1,
+        "composerPanel": 0
+      },
+      "englishHtml": {
+        "equal": true
+      },
+      "commands": [
+        {
+          "name": "toggle-panel",
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "shortcut": "Alt+G"
+        },
+        {
+          "name": "open-glossary",
+          "description": "ابحث في قاموس مِجهَر",
+          "shortcut": "Alt+K"
+        }
+      ],
+      "rebind": {
+        "before": "Alt+K",
+        "after": "Alt+Shift+K",
+        "restored": "Alt+K"
+      },
+      "panel0": {
+        "tab": "context",
+        "focus": "",
+        "query": null,
+        "first": null,
+        "via": null,
+        "results": 0,
+        "note": null,
+        "chips": 0
+      },
+      "panel1": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "",
+        "first": "repository",
+        "via": "name",
+        "results": 20,
+        "note": null,
+        "chips": 8
+      },
+      "panel2": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": null,
+        "chips": 8
+      },
+      "panel3": {
+        "tab": "glossary",
+        "focus": "mj-gs-input",
+        "query": "كوميت",
+        "first": "commit",
+        "via": "synonym",
+        "results": 1,
+        "note": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        },
+        "chips": 8
+      },
+      "manifest": {
+        "author": null,
+        "browser_specific_settings": {
+          "gecko": {
+            "admin_install_only": null,
+            "data_collection_permissions": {
+              "has_previous_consent": false,
+              "optional": [],
+              "required": [
+                "none"
+              ]
+            },
+            "id": "mijhar@mijhar.invalid",
+            "strict_max_version": null,
+            "strict_min_version": "140.0",
+            "update_url": null
+          },
+          "gecko_android": {
+            "strict_max_version": null,
+            "strict_min_version": "142.0"
+          }
+        },
+        "description": null,
+        "developer": null,
+        "homepage_url": null,
+        "install_origins": null,
+        "manifest_version": 3,
+        "name": "مِجهَر",
+        "short_name": null,
+        "version": "0.0.1",
+        "background": {
+          "page": null,
+          "preferred_environment": null,
+          "scripts": [
+            "moz-extension://becdc355-79b9-4014-afaa-e0fdb662449c/background.js"
+          ],
+          "service_worker": null,
+          "type": null
+        },
+        "content_scripts": [
+          {
+            "all_frames": null,
+            "css": null,
+            "css_origin": "author",
+            "exclude_globs": null,
+            "exclude_matches": null,
+            "include_globs": null,
+            "js": [
+              "moz-extension://becdc355-79b9-4014-afaa-e0fdb662449c/content.js"
+            ],
+            "match_about_blank": null,
+            "match_origin_as_fallback": null,
+            "matches": [
+              "https://github.com/*"
+            ],
+            "run_at": "document_idle",
+            "world": "ISOLATED"
+          }
+        ],
+        "content_security_policy": null,
+        "granted_host_permissions": false,
+        "hidden": false,
+        "host_permissions": [
+          "https://github.com/*"
+        ],
+        "icons": null,
+        "incognito": "spanning",
+        "minimum_chrome_version": null,
+        "minimum_opera_version": null,
+        "optional_host_permissions": [
+          "https://api.github.com/*"
+        ],
+        "optional_permissions": [],
+        "options_page": null,
+        "options_ui": {
+          "browser_style": false,
+          "open_in_tab": true,
+          "page": "moz-extension://becdc355-79b9-4014-afaa-e0fdb662449c/options.html"
+        },
+        "permissions": [
+          "storage"
+        ],
+        "sandbox": null,
+        "web_accessible_resources": [
+          {
+            "extension_ids": null,
+            "matches": [
+              "https://github.com/*"
+            ],
+            "resources": [
+              "/fonts/*.woff2"
+            ]
+          }
+        ],
+        "action": null,
+        "chrome_settings_overrides": null,
+        "commands": {
+          "toggle-panel": {
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "suggested_key": {
+              "additionalProperties": null,
+              "android": null,
+              "chromeos": null,
+              "default": "Alt+G",
+              "ios": null,
+              "linux": null,
+              "mac": null,
+              "windows": null
+            }
+          },
+          "open-glossary": {
+            "description": "ابحث في قاموس مِجهَر",
+            "suggested_key": {
+              "additionalProperties": null,
+              "android": null,
+              "chromeos": null,
+              "default": "Alt+K",
+              "ios": null,
+              "linux": null,
+              "mac": null,
+              "windows": null
+            }
+          }
+        },
+        "devtools_page": null,
+        "omnibox": null,
+        "page_action": null,
+        "sidebar_action": {
+          "browser_style": false,
+          "default_icon": null,
+          "default_panel": "moz-extension://becdc355-79b9-4014-afaa-e0fdb662449c/sidepanel.html",
+          "default_title": "مِجهَر",
+          "open_at_install": false
+        },
+        "chrome_url_overrides": null,
+        "declarative_net_request": null,
+        "default_locale": null,
+        "l10n_resources": null,
+        "protocol_handlers": null,
+        "theme_experiment": null,
+        "experiment_apis": null,
+        "applications": {
+          "gecko": {
+            "admin_install_only": null,
+            "data_collection_permissions": {
+              "has_previous_consent": false,
+              "optional": [],
+              "required": [
+                "none"
+              ]
+            },
+            "id": "mijhar@mijhar.invalid",
+            "strict_max_version": null,
+            "strict_min_version": "140.0",
+            "update_url": null
+          },
+          "gecko_android": {
+            "strict_max_version": null,
+            "strict_min_version": "142.0"
+          }
+        }
+      }
+    },
+    "checks": [
+      {
+        "browser": "Firefox",
+        "name": "سكربت المحتوى جاهز والوحدة (ب) تردّ على رسالة الحالة",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Firefox",
+        "name": "الوحدات الجديدة بلا أثر قبل أي طلب: لا مضيف لأي منها (الإبراز والأشرطة والتحديد والمساعد)",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 0,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "رسالة locate من صفحة الإضافة: found وحلقة تحيط بزر النجمة الأصلي",
+        "ok": true,
+        "detail": {
+          "found": {
+            "status": "found",
+            "count": 1
+          },
+          "ring": {
+            "around": true
+          }
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "locate clear يزيل الإبراز",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Firefox",
+        "name": "الشرك (حذف المستودع) elsewhere بمسار Settings، والمفهوم concept، والمجهول unknown-entry، ولا إبراز",
+        "ok": true,
+        "detail": {
+          "e": {
+            "status": "elsewhere",
+            "paths": [
+              "تبويب Settings في المستودع (إعدادات المستودع)"
+            ],
+            "here": false
+          },
+          "c": {
+            "status": "concept"
+          },
+          "u": {
+            "status": "unknown-entry"
+          }
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "وضع الشرح بالاختصار الفعلي: ٢٠ شارة بـaria-haspopup، والتركيز على أول شارة (T-3.3)",
+        "ok": true,
+        "detail": {
+          "badges": 20,
+          "focusIndex": "0",
+          "haspopup": "dialog"
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "مفتاح الوحدة (ب) مطفأ: وحدة البحث تتوقف (لا ردّ على رسالة locate)",
+        "ok": true,
+        "detail": "none"
+      },
+      {
+        "browser": "Firefox",
+        "name": "وإعادته تعيدها",
+        "ok": true,
+        "detail": "found"
+      },
+      {
+        "browser": "Firefox",
+        "name": "صفحة بلاغ جديد: أربعة أزرار «مساعد» (ثلاثة في الأشرطة وواحد لحقل بلا شريط) ولا لوحة",
+        "ok": true,
+        "detail": {
+          "card": 0,
+          "highlight": 0,
+          "bar": 0,
+          "translation": 0,
+          "selection": 0,
+          "composerButtons": 4,
+          "composerPanel": 0
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "نقر الزر يفتح اللوحة (حوار) والتركيز على أول حقل",
+        "ok": true,
+        "detail": {
+          "open": true,
+          "focus": "mj-composer-expected",
+          "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+          "status": "",
+          "undoDisabled": true,
+          "role": "dialog"
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "كتابة فعلية في الحقلين ← معاينة بعناوين وقائمة مرقّمة",
+        "ok": true,
+        "detail": "## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n"
+      },
+      {
+        "browser": "Firefox",
+        "name": "الإدراج عند المؤشر: ما قبل المؤشر وما بعده حرفيًا والنص بينهما",
+        "ok": true,
+        "detail": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens.\n\n## Steps to reproduce\n\n1. Open"
+      },
+      {
+        "browser": "Firefox",
+        "name": "«التراجع عن آخر إدراج» يعيد المسودة حرفيًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Firefox",
+        "name": "لا submit ولا نقر على زر إرسال في كل ذلك",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Firefox",
+        "name": "مفتاح الوحدة (و) مطفأ: تزول الأزرار واللوحة، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "fOff": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 0,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "وإعادته تعيد الأزرار",
+        "ok": true,
+        "detail": true
+      },
+      {
+        "browser": "Firefox",
+        "name": "وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل",
+        "ok": true,
+        "detail": {
+          "counts": {
+            "card": 0,
+            "highlight": 0,
+            "bar": 0,
+            "translation": 0,
+            "selection": 0,
+            "composerButtons": 1,
+            "composerPanel": 0
+          },
+          "html": {
+            "equal": true
+          }
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "الأمر open-glossary مسجَّل في المتصفح باختصار افتراضي (Alt+K) ووصف عربي، وأمر اللوحة باقٍ",
+        "ok": true,
+        "detail": {
+          "glossary": {
+            "name": "open-glossary",
+            "description": "ابحث في قاموس مِجهَر",
+            "shortcut": "Alt+K"
+          },
+          "panelCmd": {
+            "name": "toggle-panel",
+            "description": "افتح لوحة مِجهَر أو الدرج",
+            "shortcut": "Alt+G"
+          }
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "إعادة ربط open-glossary من إعدادات المتصفح تغيّر اختصاره المسجَّل (Alt+Shift+K) ثم يُستعاد الافتراضي",
+        "ok": true,
+        "detail": {
+          "before": "Alt+K",
+          "after": "Alt+Shift+K",
+          "restored": "Alt+K"
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "اللوحة الأصلية تبدأ على تبويب «السياق»",
+        "ok": true,
+        "detail": {
+          "tab": "context",
+          "focus": "",
+          "query": null,
+          "first": null,
+          "via": null,
+          "results": 0,
+          "note": null,
+          "chips": 0
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "طلب التبويب في التخزين (ما يكتبه معالج Alt+K في الخلفية) ينقل اللوحة المفتوحة إلى القاموس ويركّز خانة البحث",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "",
+          "first": "repository",
+          "via": "name",
+          "results": 20,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "كتابة فعلية «كوميت» (مرادف) في خانة اللوحة ← Commit أولًا بمطابقة مرادف، وثماني أزرار تصفية",
+        "ok": true,
+        "detail": {
+          "tab": "glossary",
+          "focus": "mj-gs-input",
+          "query": "كوميت",
+          "first": "commit",
+          "via": "synonym",
+          "results": 1,
+          "note": null,
+          "chips": 8
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "«أبرز الموضع» من لوحة على تبويب إضافة (لا صفحة GitHub نشطة): رسالة صريحة بمسارات الوجود، بلا خطأ",
+        "ok": true,
+        "detail": {
+          "status": "unavailable",
+          "text": "افتح صفحة على github.com في التبويب النشط ثم أعد المحاولة لإبراز الموضع."
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "الصلاحيات كما هي: sidePanel وstorage (أو storage وحدها) والمضيف الأساسي github.com وحده والاختياري api.github.com",
+        "ok": true,
+        "detail": {
+          "p": [
+            "storage"
+          ],
+          "h": [
+            "https://github.com/*"
+          ],
+          "o": [
+            "https://api.github.com/*"
+          ]
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "browser": "Firefox",
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true,
+        "detail": []
+      }
+    ],
+    "console": [],
+    "browserVersion": "158.0.1",
+    "network": {
+      "apiGithub": [],
+      "blockedExternalHosts": [
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com"
+      ]
+    }
+  }
+}

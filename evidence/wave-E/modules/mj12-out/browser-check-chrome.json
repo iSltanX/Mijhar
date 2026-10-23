@@ -1,0 +1,245 @@
+{
+  "label": "Chrome",
+  "checks": [
+    {
+      "name": "شريط «أكمل لاحقًا» وبطاقة «ملاحظاتي» في صفحة الملف",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": null,
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": []
+      }
+    },
+    {
+      "name": "الحفظ السريع كتب الحقول المعرّفة في التخزين الفعلي",
+      "ok": true,
+      "detail": {
+        "branch": "main",
+        "id": "b70571fb-4b61-478b-9750-c96a09b79574",
+        "level": "line",
+        "note": "",
+        "owner": "octo",
+        "position": {
+          "end": 40,
+          "kind": "lines",
+          "start": 40
+        },
+        "refKind": "ref",
+        "repo": "shop",
+        "savedAt": "2026-10-23T15:40:06.506Z",
+        "status": "reading",
+        "tags": [],
+        "title": "cart.js at main · octo/shop",
+        "updatedAt": "2026-10-23T15:40:06.506Z",
+        "url": "https://github.com/octo/shop/blob/main/src/cart.js#L40",
+        "version": 1
+      }
+    },
+    {
+      "name": "مرساة السطر في التخزين: نص النطاق وسياقه (مستودع عام) والتزام الصفحة",
+      "ok": true,
+      "detail": {
+        "capturedAt": "2026-10-23T15:40:06.889Z",
+        "commit": "1111111111111111111111111111111111111111",
+        "end": 40,
+        "fingerprint": {
+          "after": [
+            "  let sum = 0;",
+            "  for (const item of items) sum += item.price * item.qty;"
+          ],
+          "before": [
+            "const limit33 = 231; // limit 33",
+            "const limit34 = 238; // limit 34"
+          ],
+          "block": [
+            "function calculateTotal(items) {"
+          ],
+          "mode": "text"
+        },
+        "missing": null,
+        "noteId": "9e78c3f3-66c6-4450-9421-31d400bc60db",
+        "owner": "octo",
+        "path": "src/cart.js",
+        "ref": "main",
+        "refKind": "ref",
+        "repo": "shop",
+        "start": 40,
+        "version": 1,
+        "visibility": "public"
+      }
+    },
+    {
+      "name": "«مطابق» وعلامة على السطر 40",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "matched",
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": [
+          "40"
+        ]
+      }
+    },
+    {
+      "name": "«منزاح» مقترحًا على 55، بلا علامة ولا نقل تلقائي",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "shifted",
+        "candidate": "55",
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": []
+      }
+    },
+    {
+      "name": "نقر «انقل» يجعلها مطابقة بعلامة على 55",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "matched",
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": [
+          "55"
+        ]
+      }
+    },
+    {
+      "name": "لا طلب إلى github.com أثناء إعادة التثبيت غير وثيقة الصفحة",
+      "ok": true,
+      "detail": [
+        "document /octo/shop/blob/main/src/cart.js"
+      ]
+    },
+    {
+      "name": "«المورد غير متاح» برابط الفرع والرابط الثابت",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "resource-unavailable",
+        "candidate": null,
+        "links": [
+          "https://github.com/octo/shop/blob/main/src/cart.js#L55",
+          "https://github.com/octo/shop/blob/2222222222222222222222222222222222222222/src/cart.js#L55"
+        ],
+        "snippet": false,
+        "snippetPrivate": false,
+        "markers": []
+      }
+    },
+    {
+      "name": "الخاص: بصمة مملّحة (hash) وملح محلي، ولا نص كود في التخزين، و«مطابق»",
+      "ok": true,
+      "detail": {
+        "view": "matched",
+        "fingerprint": {
+          "after": [
+            "bd2163cabbf356f0651524e934350daa101bc44b05999b8dd67ff183c394a1df",
+            "aeb4a6925b09b180c1737783f44c77e17cb0452e5dbdb28e54cc697df74a43ff"
+          ],
+          "before": [
+            "57913b7423cfe3ec733474bc829178950ba5e9cf5a49be35f6a5520bbc70294c",
+            "1e3a9147c82de83b3537343e744745d8bc327760fa374c022245f10d3754f68c"
+          ],
+          "block": [
+            "da9cb3e245c4d88e09ab204ab5448354e4092808c4db341e320d2e471707144b"
+          ],
+          "mode": "hash",
+          "saltId": "ff5cd91b9e23"
+        }
+      }
+    },
+    {
+      "name": "الخاص المتغيّر: «متغيّر» بلا مقتطف وبلا علامة",
+      "ok": true,
+      "detail": {
+        "later": true,
+        "card": true,
+        "anchorView": "changed",
+        "candidate": null,
+        "links": [],
+        "snippet": false,
+        "snippetPrivate": true,
+        "markers": []
+      }
+    },
+    {
+      "name": "المركز يعرض الملاحظتين والرابط المحفوظين",
+      "ok": true,
+      "detail": {
+        "count": "3",
+        "kinds": [
+          "bookmark",
+          "note",
+          "note"
+        ]
+      }
+    },
+    {
+      "name": "البحث في المركز يصفّي إلى الملاحظة",
+      "ok": true,
+      "detail": {
+        "count": "1",
+        "kinds": [
+          "note"
+        ]
+      }
+    },
+    {
+      "name": "معالج README في تبويب المجتمع (التبويب النشط صفحة الإضافة: يطلب صفحة مستودع)",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "name": "لا رسائل خطأ من الإضافة في الصفحة",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "لا أخطاء تشغيل ولا مانيفست مسجلة للإضافة",
+      "ok": true,
+      "detail": {
+        "runtime": [],
+        "manifest": []
+      }
+    },
+    {
+      "name": "صفر طلبات إلى api.github.com",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "browserVersion": "156.0.8078.47",
+  "extensionErrors": {
+    "runtime": [],
+    "manifest": []
+  },
+  "network": {
+    "apiGithub": [],
+    "github": [
+      "document /octo/shop/blob/main/src/cart.js",
+      "document /octo/shop/blob/main/src/cart.js",
+      "document /octo/shop/blob/main/src/cart.js",
+      "image /404.png",
+      "document /octo/secret/blob/main/src/cart.js",
+      "document /octo/secret/blob/main/src/cart.js"
+    ],
+    "blockedExternalHosts": []
+  }
+}

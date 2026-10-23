@@ -1,0 +1,2425 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "steps": {
+      "pr": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:34.981Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:34قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "real": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:35.339Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:35الفرع المصدر ← الهدفfeature/contractor-work-tabs ←إلىmainالتأخر عن الهدفغير متاحالالتزامات8الملفات المتغيرة56الأسطر المضافة / المحذوفة+5,381 / −1المراجعاتطُلبت تغييراتالتعارضاتغير متاحما يمنع الدمج بحسب الأدلةلم يُرصد في الأدلة المقروءة مانعٌ صريح؛ وغيابه فيها لا يثبت أن الدمج ممكن أو مأمون.قد يمنع الدمج (الدليل لا يحسم)طلب مراجعٌ تغييراتالصفحة قائمة المراجعين في الشريط الجانبي: «Om4rMu requested changes»فحوص لم تنجح، ولا تعرض الأدلة أيها إلزاميالصفحة جزء status-details لالتزام الرأس: «build-and-deploy / test (pull_request) — Failing after 4m» — التصنيف: فاشلالصفحة جزء status-details لالتزام الرأس: «nightly — Cancelled after 12s» — التصنيف: ملغىصندوق الدمج لا يعرضه GitHub لغير المسجَّل، وبيانات API العامة لم تُقرأ؛ فموانع المراجعة والتعارض والحماية غير متاحة من الأدلة الحالية.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغىبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "job": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": false,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "jobSigned": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: لم يُقرأ بعد؛ اقرأه بالزر أدناه. ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": true,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "logRequestsBefore": 0,
+      "jobRead": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": null,
+        "stateText": "",
+        "source": "step-log",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [
+          "typescript-error",
+          "typescript-error",
+          "typescript-error"
+        ],
+        "noRootCause": "",
+        "possibilities": 2,
+        "possibilityTags": 2,
+        "readButton": false,
+        "exitCode": "2",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "apiBeforeGrant": 0,
+      "grantMethod": "نسخة مشتقة من dist/chromium بإضافة https://api.github.com/* إلى host_permissions (نافذة طلب الصلاحية في عائلة Chromium لا تُقبل آليًا، evidence/T-1.4)",
+      "granted": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:37.014Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "ready",
+        "apiButton": true,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:37قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفأكمل من GitHub API العامة أربعة طلبات عامة بلا رمزملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiBeforeClick": 0,
+      "afterApi": {
+        "card": true,
+        "source": "DOM + API",
+        "times": [
+          "2026-10-23T15:39:37.014Z",
+          "2026-10-23T15:39:37.711Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / lint (pull_request) — Lint failed (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / build (pull_request) (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "read",
+        "apiButton": true,
+        "checksSource": "api",
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOM + APIآخر قراءة للصفحة: 18:39:37قراءة API: 18:39:37الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»API /repos/octo/demo/pulls/4242: «mergeable_state = dirty»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / lint (pull_request) — Lint failed (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / build (pull_request) (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالصفوف من GitHub API العامة لالتزام الرأس (تميّز «محايد» وتشمل ما لا تعرضه الصفحة)، ومعها ما تعرضه الصفحة وحدها.الرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (6)ناجح2فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفحدّث من GitHub API العامة أربعة طلبات عامة بلا رمز · المتبقي من الحد 56/60 حتى 09:34:41ملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiPaths": [
+        "/repos/octo/demo/branches/main",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status",
+        "/repos/octo/demo/pulls/4242"
+      ],
+      "apiRequestContexts": [
+        "service-worker"
+      ]
+    },
+    "checks": [
+      {
+        "browser": "Chrome",
+        "name": "TEST-PR-03 · PR المعقدة: الموانع الأربعة «يمنع» والتأخر «قد يمنع»، كلها بأدلة من الصفحة",
+        "ok": true,
+        "detail": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-PR-03 · التنبيه المنهجي ظاهر ولا عبارة جاهزية",
+        "ok": true,
+        "detail": {
+          "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية."
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-PR-04 · الشارة: المصدر DOM ووقت آخر قراءة، وتنبيه القائمة المطوية (9 من 12)",
+        "ok": true,
+        "detail": {
+          "source": "DOM",
+          "times": [
+            "2026-10-23T15:39:34.981Z"
+          ],
+          "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا."
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "تدقيق الشبكة · قبل المنح: لا زر API ويُعرض «افتح الإعدادات»",
+        "ok": true,
+        "detail": "not-granted"
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-PR-03 · PR الحقيقية: طلب التغييرات من الشريط الجانبي «قد يمنع» بدليله، والفحوص الفاشلة بلا معرفة الإلزام «قد يمنع»",
+        "ok": true,
+        "detail": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-PR-03 · PR الحقيقية: التنبيه المنهجي وإعلان غياب صندوق الدمج، ولا عبارة جاهزية",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-LOG-01 · صفحة مهمة حقيقية لغير مسجَّل: البطاقة قبل #logs بثلاث طبقات، والسجل «غير متاح» بالحجب، والتنبيه حرفيًا، وعبارة غياب السبب، ولا زر",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": "unavailable",
+          "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+          "source": "annotations",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [],
+          "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+          "possibilities": 1,
+          "possibilityTags": 1,
+          "readButton": false,
+          "exitCode": "1",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-LOG-01 · الطبقات مفصولة بصريًا: حدّ صلب ومزدوج ومتقطع",
+        "ok": true,
+        "detail": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-LOG-01 · «مسجَّل»: زر القراءة ظاهر، ولا طلب للسجل قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": 0
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-LOG-01 · بعد النقر: طلب واحد لسجل الخطوة بنفس الأصل، والطبقة الثانية من نمط TypeScript (3)، والاحتمالات موسومة، وكود الخروج 2",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": null,
+          "stateText": "",
+          "source": "step-log",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [
+            "typescript-error",
+            "typescript-error",
+            "typescript-error"
+          ],
+          "noRootCause": "",
+          "possibilities": 2,
+          "possibilityTags": 2,
+          "readButton": false,
+          "exitCode": "2",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "تدقيق الشبكة · صفر طلبات إلى api.github.com قبل المنح (كل الصفحات أعلاه)",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Chrome",
+        "name": "تدقيق الشبكة · بعد المنح: زر «أكمل من GitHub API العامة» ظاهر، ولا طلب قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": []
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "تدقيق الشبكة · النقر يطلب أربعة مسارات عامة بالضبط من الخلفية",
+        "ok": true,
+        "detail": [
+          {
+            "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/branches/main",
+            "from": "service-worker"
+          }
+        ]
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-PR-04 · بعد API: المصدر «DOM + API» بوقتين، والصفوف من API، وmergeable_state = dirty دليل ثانٍ للتعارض",
+        "ok": true,
+        "detail": {
+          "times": [
+            "2026-10-23T15:39:37.014Z",
+            "2026-10-23T15:39:37.711Z"
+          ],
+          "conflicts": {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          }
+        }
+      },
+      {
+        "browser": "Chrome",
+        "name": "TEST-PR-03 · بعد API: التنبيه المنهجي ولا عبارة جاهزية، وneutral لا يُعدّ مانعًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Chrome",
+        "name": "تدقيق الشبكة · كل طلبات api.github.com من service worker الخلفية لا من الصفحة",
+        "ok": true,
+        "detail": [
+          {
+            "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/branches/main",
+            "from": "service-worker"
+          }
+        ]
+      },
+      {
+        "browser": "Chrome",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "browser": "Chrome",
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true,
+        "detail": {
+          "runtime": [],
+          "manifest": []
+        }
+      }
+    ],
+    "console": [],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiAfterGrant": [
+        {
+          "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/branches/main",
+          "from": "service-worker"
+        }
+      ],
+      "stepLogRequests": 1,
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "github.githubassets.com"
+      ]
+    }
+  },
+  "edge": {
+    "label": "Edge",
+    "steps": {
+      "pr": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:39.164Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:39قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "real": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:39.540Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:39الفرع المصدر ← الهدفfeature/contractor-work-tabs ←إلىmainالتأخر عن الهدفغير متاحالالتزامات8الملفات المتغيرة56الأسطر المضافة / المحذوفة+5,381 / −1المراجعاتطُلبت تغييراتالتعارضاتغير متاحما يمنع الدمج بحسب الأدلةلم يُرصد في الأدلة المقروءة مانعٌ صريح؛ وغيابه فيها لا يثبت أن الدمج ممكن أو مأمون.قد يمنع الدمج (الدليل لا يحسم)طلب مراجعٌ تغييراتالصفحة قائمة المراجعين في الشريط الجانبي: «Om4rMu requested changes»فحوص لم تنجح، ولا تعرض الأدلة أيها إلزاميالصفحة جزء status-details لالتزام الرأس: «build-and-deploy / test (pull_request) — Failing after 4m» — التصنيف: فاشلالصفحة جزء status-details لالتزام الرأس: «nightly — Cancelled after 12s» — التصنيف: ملغىصندوق الدمج لا يعرضه GitHub لغير المسجَّل، وبيانات API العامة لم تُقرأ؛ فموانع المراجعة والتعارض والحماية غير متاحة من الأدلة الحالية.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغىبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "job": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": false,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "jobSigned": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: لم يُقرأ بعد؛ اقرأه بالزر أدناه. ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": true,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "logRequestsBefore": 0,
+      "jobRead": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": null,
+        "stateText": "",
+        "source": "step-log",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [
+          "typescript-error",
+          "typescript-error",
+          "typescript-error"
+        ],
+        "noRootCause": "",
+        "possibilities": 2,
+        "possibilityTags": 2,
+        "readButton": false,
+        "exitCode": "2",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "apiBeforeGrant": 0,
+      "grantMethod": "نسخة مشتقة من dist/chromium بإضافة https://api.github.com/* إلى host_permissions (نافذة طلب الصلاحية في عائلة Chromium لا تُقبل آليًا، evidence/T-1.4)",
+      "granted": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:41.336Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "ready",
+        "apiButton": true,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:41قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفأكمل من GitHub API العامة أربعة طلبات عامة بلا رمزملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiBeforeClick": 0,
+      "afterApi": {
+        "card": true,
+        "source": "DOM + API",
+        "times": [
+          "2026-10-23T15:39:41.336Z",
+          "2026-10-23T15:39:41.996Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / lint (pull_request) — Lint failed (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / build (pull_request) (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "read",
+        "apiButton": true,
+        "checksSource": "api",
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOM + APIآخر قراءة للصفحة: 18:39:41قراءة API: 18:39:41الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»API /repos/octo/demo/pulls/4242: «mergeable_state = dirty»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / lint (pull_request) — Lint failed (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / build (pull_request) (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالصفوف من GitHub API العامة لالتزام الرأس (تميّز «محايد» وتشمل ما لا تعرضه الصفحة)، ومعها ما تعرضه الصفحة وحدها.الرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (6)ناجح2فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفحدّث من GitHub API العامة أربعة طلبات عامة بلا رمز · المتبقي من الحد 56/60 حتى 09:34:41ملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiPaths": [
+        "/repos/octo/demo/branches/main",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status",
+        "/repos/octo/demo/pulls/4242"
+      ],
+      "apiRequestContexts": [
+        "service-worker"
+      ]
+    },
+    "checks": [
+      {
+        "browser": "Edge",
+        "name": "TEST-PR-03 · PR المعقدة: الموانع الأربعة «يمنع» والتأخر «قد يمنع»، كلها بأدلة من الصفحة",
+        "ok": true,
+        "detail": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-PR-03 · التنبيه المنهجي ظاهر ولا عبارة جاهزية",
+        "ok": true,
+        "detail": {
+          "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية."
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-PR-04 · الشارة: المصدر DOM ووقت آخر قراءة، وتنبيه القائمة المطوية (9 من 12)",
+        "ok": true,
+        "detail": {
+          "source": "DOM",
+          "times": [
+            "2026-10-23T15:39:39.164Z"
+          ],
+          "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا."
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "تدقيق الشبكة · قبل المنح: لا زر API ويُعرض «افتح الإعدادات»",
+        "ok": true,
+        "detail": "not-granted"
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-PR-03 · PR الحقيقية: طلب التغييرات من الشريط الجانبي «قد يمنع» بدليله، والفحوص الفاشلة بلا معرفة الإلزام «قد يمنع»",
+        "ok": true,
+        "detail": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-PR-03 · PR الحقيقية: التنبيه المنهجي وإعلان غياب صندوق الدمج، ولا عبارة جاهزية",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-LOG-01 · صفحة مهمة حقيقية لغير مسجَّل: البطاقة قبل #logs بثلاث طبقات، والسجل «غير متاح» بالحجب، والتنبيه حرفيًا، وعبارة غياب السبب، ولا زر",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": "unavailable",
+          "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+          "source": "annotations",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [],
+          "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+          "possibilities": 1,
+          "possibilityTags": 1,
+          "readButton": false,
+          "exitCode": "1",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-LOG-01 · الطبقات مفصولة بصريًا: حدّ صلب ومزدوج ومتقطع",
+        "ok": true,
+        "detail": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-LOG-01 · «مسجَّل»: زر القراءة ظاهر، ولا طلب للسجل قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": 0
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-LOG-01 · بعد النقر: طلب واحد لسجل الخطوة بنفس الأصل، والطبقة الثانية من نمط TypeScript (3)، والاحتمالات موسومة، وكود الخروج 2",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": null,
+          "stateText": "",
+          "source": "step-log",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [
+            "typescript-error",
+            "typescript-error",
+            "typescript-error"
+          ],
+          "noRootCause": "",
+          "possibilities": 2,
+          "possibilityTags": 2,
+          "readButton": false,
+          "exitCode": "2",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "تدقيق الشبكة · صفر طلبات إلى api.github.com قبل المنح (كل الصفحات أعلاه)",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Edge",
+        "name": "تدقيق الشبكة · بعد المنح: زر «أكمل من GitHub API العامة» ظاهر، ولا طلب قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": []
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "تدقيق الشبكة · النقر يطلب أربعة مسارات عامة بالضبط من الخلفية",
+        "ok": true,
+        "detail": [
+          {
+            "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/branches/main",
+            "from": "service-worker"
+          }
+        ]
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-PR-04 · بعد API: المصدر «DOM + API» بوقتين، والصفوف من API، وmergeable_state = dirty دليل ثانٍ للتعارض",
+        "ok": true,
+        "detail": {
+          "times": [
+            "2026-10-23T15:39:41.336Z",
+            "2026-10-23T15:39:41.996Z"
+          ],
+          "conflicts": {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          }
+        }
+      },
+      {
+        "browser": "Edge",
+        "name": "TEST-PR-03 · بعد API: التنبيه المنهجي ولا عبارة جاهزية، وneutral لا يُعدّ مانعًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Edge",
+        "name": "تدقيق الشبكة · كل طلبات api.github.com من service worker الخلفية لا من الصفحة",
+        "ok": true,
+        "detail": [
+          {
+            "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/branches/main",
+            "from": "service-worker"
+          }
+        ]
+      },
+      {
+        "browser": "Edge",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "browser": "Edge",
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true,
+        "detail": {
+          "runtime": [],
+          "manifest": []
+        }
+      }
+    ],
+    "console": [],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiAfterGrant": [
+        {
+          "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/branches/main",
+          "from": "service-worker"
+        }
+      ],
+      "stepLogRequests": 1,
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "github.githubassets.com"
+      ]
+    }
+  },
+  "brave": {
+    "label": "Brave",
+    "steps": {
+      "pr": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:48.633Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:48قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "real": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:49.011Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:49الفرع المصدر ← الهدفfeature/contractor-work-tabs ←إلىmainالتأخر عن الهدفغير متاحالالتزامات8الملفات المتغيرة56الأسطر المضافة / المحذوفة+5,381 / −1المراجعاتطُلبت تغييراتالتعارضاتغير متاحما يمنع الدمج بحسب الأدلةلم يُرصد في الأدلة المقروءة مانعٌ صريح؛ وغيابه فيها لا يثبت أن الدمج ممكن أو مأمون.قد يمنع الدمج (الدليل لا يحسم)طلب مراجعٌ تغييراتالصفحة قائمة المراجعين في الشريط الجانبي: «Om4rMu requested changes»فحوص لم تنجح، ولا تعرض الأدلة أيها إلزاميالصفحة جزء status-details لالتزام الرأس: «build-and-deploy / test (pull_request) — Failing after 4m» — التصنيف: فاشلالصفحة جزء status-details لالتزام الرأس: «nightly — Cancelled after 12s» — التصنيف: ملغىصندوق الدمج لا يعرضه GitHub لغير المسجَّل، وبيانات API العامة لم تُقرأ؛ فموانع المراجعة والتعارض والحماية غير متاحة من الأدلة الحالية.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغىبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "job": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": false,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "jobSigned": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: لم يُقرأ بعد؛ اقرأه بالزر أدناه. ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": true,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "logRequestsBefore": 0,
+      "jobRead": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": null,
+        "stateText": "",
+        "source": "step-log",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [
+          "typescript-error",
+          "typescript-error",
+          "typescript-error"
+        ],
+        "noRootCause": "",
+        "possibilities": 2,
+        "possibilityTags": 2,
+        "readButton": false,
+        "exitCode": "2",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "apiBeforeGrant": 0,
+      "grantMethod": "نسخة مشتقة من dist/chromium بإضافة https://api.github.com/* إلى host_permissions (نافذة طلب الصلاحية في عائلة Chromium لا تُقبل آليًا، evidence/T-1.4)",
+      "granted": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:50.668Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "ready",
+        "apiButton": true,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:50قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفأكمل من GitHub API العامة أربعة طلبات عامة بلا رمزملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiBeforeClick": 0,
+      "afterApi": {
+        "card": true,
+        "source": "DOM + API",
+        "times": [
+          "2026-10-23T15:39:50.668Z",
+          "2026-10-23T15:39:51.365Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / lint (pull_request) — Lint failed (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / build (pull_request) (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "read",
+        "apiButton": true,
+        "checksSource": "api",
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOM + APIآخر قراءة للصفحة: 18:39:50قراءة API: 18:39:51الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»API /repos/octo/demo/pulls/4242: «mergeable_state = dirty»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / lint (pull_request) — Lint failed (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / build (pull_request) (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالصفوف من GitHub API العامة لالتزام الرأس (تميّز «محايد» وتشمل ما لا تعرضه الصفحة)، ومعها ما تعرضه الصفحة وحدها.الرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (6)ناجح2فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفحدّث من GitHub API العامة أربعة طلبات عامة بلا رمز · المتبقي من الحد 56/60 حتى 09:34:41ملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiPaths": [
+        "/repos/octo/demo/branches/main",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status",
+        "/repos/octo/demo/pulls/4242"
+      ],
+      "apiRequestContexts": [
+        "service-worker"
+      ]
+    },
+    "checks": [
+      {
+        "browser": "Brave",
+        "name": "TEST-PR-03 · PR المعقدة: الموانع الأربعة «يمنع» والتأخر «قد يمنع»، كلها بأدلة من الصفحة",
+        "ok": true,
+        "detail": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-PR-03 · التنبيه المنهجي ظاهر ولا عبارة جاهزية",
+        "ok": true,
+        "detail": {
+          "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية."
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-PR-04 · الشارة: المصدر DOM ووقت آخر قراءة، وتنبيه القائمة المطوية (9 من 12)",
+        "ok": true,
+        "detail": {
+          "source": "DOM",
+          "times": [
+            "2026-10-23T15:39:48.633Z"
+          ],
+          "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا."
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "تدقيق الشبكة · قبل المنح: لا زر API ويُعرض «افتح الإعدادات»",
+        "ok": true,
+        "detail": "not-granted"
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-PR-03 · PR الحقيقية: طلب التغييرات من الشريط الجانبي «قد يمنع» بدليله، والفحوص الفاشلة بلا معرفة الإلزام «قد يمنع»",
+        "ok": true,
+        "detail": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-PR-03 · PR الحقيقية: التنبيه المنهجي وإعلان غياب صندوق الدمج، ولا عبارة جاهزية",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-LOG-01 · صفحة مهمة حقيقية لغير مسجَّل: البطاقة قبل #logs بثلاث طبقات، والسجل «غير متاح» بالحجب، والتنبيه حرفيًا، وعبارة غياب السبب، ولا زر",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": "unavailable",
+          "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+          "source": "annotations",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [],
+          "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+          "possibilities": 1,
+          "possibilityTags": 1,
+          "readButton": false,
+          "exitCode": "1",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-LOG-01 · الطبقات مفصولة بصريًا: حدّ صلب ومزدوج ومتقطع",
+        "ok": true,
+        "detail": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-LOG-01 · «مسجَّل»: زر القراءة ظاهر، ولا طلب للسجل قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": 0
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-LOG-01 · بعد النقر: طلب واحد لسجل الخطوة بنفس الأصل، والطبقة الثانية من نمط TypeScript (3)، والاحتمالات موسومة، وكود الخروج 2",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": null,
+          "stateText": "",
+          "source": "step-log",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [
+            "typescript-error",
+            "typescript-error",
+            "typescript-error"
+          ],
+          "noRootCause": "",
+          "possibilities": 2,
+          "possibilityTags": 2,
+          "readButton": false,
+          "exitCode": "2",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "تدقيق الشبكة · صفر طلبات إلى api.github.com قبل المنح (كل الصفحات أعلاه)",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Brave",
+        "name": "تدقيق الشبكة · بعد المنح: زر «أكمل من GitHub API العامة» ظاهر، ولا طلب قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": []
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "تدقيق الشبكة · النقر يطلب أربعة مسارات عامة بالضبط من الخلفية",
+        "ok": true,
+        "detail": [
+          {
+            "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/branches/main",
+            "from": "service-worker"
+          }
+        ]
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-PR-04 · بعد API: المصدر «DOM + API» بوقتين، والصفوف من API، وmergeable_state = dirty دليل ثانٍ للتعارض",
+        "ok": true,
+        "detail": {
+          "times": [
+            "2026-10-23T15:39:50.668Z",
+            "2026-10-23T15:39:51.365Z"
+          ],
+          "conflicts": {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          }
+        }
+      },
+      {
+        "browser": "Brave",
+        "name": "TEST-PR-03 · بعد API: التنبيه المنهجي ولا عبارة جاهزية، وneutral لا يُعدّ مانعًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Brave",
+        "name": "تدقيق الشبكة · كل طلبات api.github.com من service worker الخلفية لا من الصفحة",
+        "ok": true,
+        "detail": [
+          {
+            "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+            "from": "service-worker"
+          },
+          {
+            "url": "https://api.github.com/repos/octo/demo/branches/main",
+            "from": "service-worker"
+          }
+        ]
+      },
+      {
+        "browser": "Brave",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "browser": "Brave",
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true,
+        "detail": {
+          "runtime": [],
+          "manifest": []
+        }
+      }
+    ],
+    "console": [],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "apiAfterGrant": [
+        {
+          "url": "https://api.github.com/repos/octo/demo/pulls/4242",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs?per_page=100&page=1",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status?per_page=100&page=1",
+          "from": "service-worker"
+        },
+        {
+          "url": "https://api.github.com/repos/octo/demo/branches/main",
+          "from": "service-worker"
+        }
+      ],
+      "stepLogRequests": 1,
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "github.githubassets.com"
+      ]
+    }
+  },
+  "firefox": {
+    "label": "Firefox",
+    "steps": {
+      "pr": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:53.190Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:53قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "real": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:53.499Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "not-granted",
+        "apiButton": false,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:53الفرع المصدر ← الهدفfeature/contractor-work-tabs ←إلىmainالتأخر عن الهدفغير متاحالالتزامات8الملفات المتغيرة56الأسطر المضافة / المحذوفة+5,381 / −1المراجعاتطُلبت تغييراتالتعارضاتغير متاحما يمنع الدمج بحسب الأدلةلم يُرصد في الأدلة المقروءة مانعٌ صريح؛ وغيابه فيها لا يثبت أن الدمج ممكن أو مأمون.قد يمنع الدمج (الدليل لا يحسم)طلب مراجعٌ تغييراتالصفحة قائمة المراجعين في الشريط الجانبي: «Om4rMu requested changes»فحوص لم تنجح، ولا تعرض الأدلة أيها إلزاميالصفحة جزء status-details لالتزام الرأس: «build-and-deploy / test (pull_request) — Failing after 4m» — التصنيف: فاشلالصفحة جزء status-details لالتزام الرأس: «nightly — Cancelled after 12s» — التصنيف: ملغىصندوق الدمج لا يعرضه GitHub لغير المسجَّل، وبيانات API العامة لم تُقرأ؛ فموانع المراجعة والتعارض والحماية غير متاحة من الأدلة الحالية.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغىبيانات GitHub API العامة (حالة قابلية الدمج وكل الفحوص) تحتاج صلاحية api.github.com الاختيارية. افتح الإعداداتملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "job": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": false,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "jobSigned": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": "unavailable",
+        "stateText": "نص السجل غير متاح: لم يُقرأ بعد؛ اقرأه بالزر أدناه. ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+        "source": "annotations",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [],
+        "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+        "possibilities": 1,
+        "possibilityTags": 1,
+        "readButton": true,
+        "exitCode": "1",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "logRequestsBefore": 0,
+      "jobRead": {
+        "card": true,
+        "beforeLogs": "logs",
+        "state": null,
+        "stateText": "",
+        "source": "step-log",
+        "layers": [
+          "literal",
+          "root-cause",
+          "possibility"
+        ],
+        "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+        "patterns": [
+          "typescript-error",
+          "typescript-error",
+          "typescript-error"
+        ],
+        "noRootCause": "",
+        "possibilities": 2,
+        "possibilityTags": 2,
+        "readButton": false,
+        "exitCode": "2",
+        "layerBorders": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      "apiBeforeGrant": 0,
+      "stateBeforeGrant": "denied",
+      "grantMethod": "نقر «امنح» في صفحة الإعدادات الحقيقية (extensions.webextOptionalPermissionPrompts = false)",
+      "grantedState": "granted",
+      "granted": {
+        "card": true,
+        "source": "DOM",
+        "times": [
+          "2026-10-23T15:39:54.339Z"
+        ],
+        "alerts": [
+          "collapsed"
+        ],
+        "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "ready",
+        "apiButton": true,
+        "checksSource": null,
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOMآخر قراءة للصفحة: 18:39:54قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا.الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحالصفحة صندوق الدمج: «ci / lint (pull_request) — Failing after 4m (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدالصفحة صندوق الدمج: «ci / build (pull_request) — In progress — This check has started... (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفأكمل من GitHub API العامة أربعة طلبات عامة بلا رمزملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiBeforeClick": 0,
+      "afterApi": {
+        "card": true,
+        "source": "DOM + API",
+        "times": [
+          "2026-10-23T15:39:54.339Z",
+          "2026-10-23T15:39:54.976Z"
+        ],
+        "alerts": [],
+        "collapsed": "",
+        "blockers": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / lint (pull_request) — Lint failed (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "api: ci / build (pull_request) (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ],
+        "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.",
+        "apiState": "read",
+        "apiButton": true,
+        "checksSource": "api",
+        "text": "ملخص حالة طلب الدمجمفتوحالمصدر: DOM + APIآخر قراءة للصفحة: 18:39:54قراءة API: 18:39:54الفرع المصدر ← الهدفfeature/ui-refresh ←إلىmainالتأخر عن الهدفمتأخر عن فرع الهدفالالتزامات3الملفات المتغيرة12الأسطر المضافة / المحذوفة+1,204 / −87المراجعاتمطلوب مراجعةالتعارضاتيوجد تعارض يجب حلهما يمنع الدمج بحسب الأدلةتعارض مع فرع الهدف يجب حلهالصفحة صندوق الدمج: «This branch has conflicts that must be resolved»API /repos/octo/demo/pulls/4242: «mergeable_state = dirty»مراجعة معتمِدة مطلوبة قبل الدمجالصفحة صندوق الدمج: «Review required»فحص إلزامي لم ينجحAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / lint (pull_request) — Lint failed (Required)» — التصنيف: فاشلفحص إلزامي لم يكتمل بعدAPI /repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs: «ci / build (pull_request) (Required)» — التصنيف: قيد التشغيلالصفحة صندوق الدمج: «Linux / Browser — Expected — Waiting for status to be reported (Required)» — التصنيف: لم يُشغَّلقد يمنع الدمج (الدليل لا يحسم)فرع المصدر متأخر عن الهدفالصفحة صندوق الدمج: «This branch is out-of-date with the base branch»فحوص لم تنجح وليست إلزامية بحسب صندوق الدمج: preview-deploy، nightly-smoke.نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية.الفحوصالصفوف من GitHub API العامة لالتزام الرأس (تميّز «محايد» وتشمل ما لا تعرضه الصفحة)، ومعها ما تعرضه الصفحة وحدها.الرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (6)ناجح2فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروفحدّث من GitHub API العامة أربعة طلبات عامة بلا رمز · المتبقي من الحد 56/60 حتى 09:34:41ملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «غير متاح» ولا يُخمَّن."
+      },
+      "apiPaths": [
+        "/repos/octo/demo/branches/main",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs",
+        "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status",
+        "/repos/octo/demo/pulls/4242"
+      ]
+    },
+    "checks": [
+      {
+        "browser": "Firefox",
+        "name": "TEST-PR-03 · PR المعقدة: الموانع الأربعة «يمنع» والتأخر «قد يمنع»، كلها بأدلة من الصفحة",
+        "ok": true,
+        "detail": [
+          {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved"
+            ]
+          },
+          {
+            "id": "review-required",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: Review required"
+            ]
+          },
+          {
+            "id": "required-failed",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / lint (pull_request) — Failing after 4m (Required)"
+            ]
+          },
+          {
+            "id": "required-pending",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: ci / build (pull_request) — In progress — This check has started... (Required)",
+              "dom: Linux / Browser — Expected — Waiting for status to be reported (Required)"
+            ]
+          },
+          {
+            "id": "behind",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: This branch is out-of-date with the base branch"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-PR-03 · التنبيه المنهجي ظاهر ولا عبارة جاهزية",
+        "ok": true,
+        "detail": {
+          "notice": "نجاح الفحوص الآلية يقتصر على ما تغطيه اختبارات CI، ولا يعني جاهزية المشروع أو الإصدار دون مراجعة بشرية."
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-PR-04 · الشارة: المصدر DOM ووقت آخر قراءة، وتنبيه القائمة المطوية (9 من 12)",
+        "ok": true,
+        "detail": {
+          "source": "DOM",
+          "times": [
+            "2026-10-23T15:39:53.190Z"
+          ],
+          "collapsed": "قائمة الفحوص مطوية أو ناقصة: قُرئ 9 من 12 (الرمز المجمَّع لالتزام الرأس يعلن «6 / 12 checks OK»). ما لم يُقرأ لا يُعدّ ناجحًا."
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "تدقيق الشبكة · قبل المنح: لا زر API ويُعرض «افتح الإعدادات»",
+        "ok": true,
+        "detail": "not-granted"
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-PR-03 · PR الحقيقية: طلب التغييرات من الشريط الجانبي «قد يمنع» بدليله، والفحوص الفاشلة بلا معرفة الإلزام «قد يمنع»",
+        "ok": true,
+        "detail": [
+          {
+            "id": "changes-requested",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: Om4rMu requested changes"
+            ]
+          },
+          {
+            "id": "failing-unknown-required",
+            "certainty": "may-block",
+            "evidence": [
+              "dom: build-and-deploy / test (pull_request) — Failing after 4m",
+              "dom: nightly — Cancelled after 12s"
+            ]
+          }
+        ]
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-PR-03 · PR الحقيقية: التنبيه المنهجي وإعلان غياب صندوق الدمج، ولا عبارة جاهزية",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-LOG-01 · صفحة مهمة حقيقية لغير مسجَّل: البطاقة قبل #logs بثلاث طبقات، والسجل «غير متاح» بالحجب، والتنبيه حرفيًا، وعبارة غياب السبب، ولا زر",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": "unavailable",
+          "stateText": "نص السجل غير متاح: يحجبه GitHub عن غير المسجَّل («Sign in to view logs»). ما يلي مبني على التنبيهات الظاهرة وحدها، وقد لا يكفي لمعرفة السبب.",
+          "source": "annotations",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [],
+          "noRootCause": "لا يوجد سبب جذري مثبت من نص السجل وحده",
+          "possibilities": 1,
+          "possibilityTags": 1,
+          "readButton": false,
+          "exitCode": "1",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-LOG-01 · الطبقات مفصولة بصريًا: حدّ صلب ومزدوج ومتقطع",
+        "ok": true,
+        "detail": [
+          "solid",
+          "solid",
+          "dashed"
+        ]
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-LOG-01 · «مسجَّل»: زر القراءة ظاهر، ولا طلب للسجل قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": 0
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-LOG-01 · بعد النقر: طلب واحد لسجل الخطوة بنفس الأصل، والطبقة الثانية من نمط TypeScript (3)، والاحتمالات موسومة، وكود الخروج 2",
+        "ok": true,
+        "detail": {
+          "card": true,
+          "beforeLogs": "logs",
+          "state": null,
+          "stateText": "",
+          "source": "step-log",
+          "layers": [
+            "literal",
+            "root-cause",
+            "possibility"
+          ],
+          "literal": "١ الرسالة الحرفية وموضعها حقيقة منقولة كما هيالخطوة: 14. Compile & Hygiene · الأسطر 481، 482، 483، 490 · سطر طابق نمطًا معرّفًا، سطر ##[error]476 477> demo@1.4.0 build 478> tsc -p tsconfig.json && vite build 479 480The 'set-output' command is deprecated and will be disabled soon. Please upgrade to using Environment Files. 481src/settings/panel.ts(42,7): error TS2322: Type 'string' is not assignable to type 'number'. 482src/settings/panel.ts(88,15): error TS2339: Property 'enabeld' does not exist on type 'Options'. Did you mean 'enabled'? 483src/api/client.ts(12,24): error TS2307: Cannot find module './cache' or its corresponding type declarations. 484 485Found 3 errors in 2 files. 486 487Errors Files 488 2 src/settings/panel.ts:42 489 1 src/api/client.ts:12 490Process completed with exit code 2. 491Post job cleanup. 492/usr/bin/git version الخطوة: 14. Compile & Hygiene · السطر 2364 · من التنبيهات الظاهرة لا من نص السجلProcess completed with exit code 1.",
+          "patterns": [
+            "typescript-error",
+            "typescript-error",
+            "typescript-error"
+          ],
+          "noRootCause": "",
+          "possibilities": 2,
+          "possibilityTags": 2,
+          "readButton": false,
+          "exitCode": "2",
+          "layerBorders": [
+            "solid",
+            "solid",
+            "dashed"
+          ]
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "تدقيق الشبكة · صفر طلبات إلى api.github.com قبل المنح (كل الصفحات أعلاه)",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "browser": "Firefox",
+        "name": "المنح في Firefox بنقر «امنح» نجح",
+        "ok": true,
+        "detail": "granted"
+      },
+      {
+        "browser": "Firefox",
+        "name": "تدقيق الشبكة · بعد المنح: زر «أكمل من GitHub API العامة» ظاهر، ولا طلب قبل النقر",
+        "ok": true,
+        "detail": {
+          "button": true,
+          "requests": []
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "تدقيق الشبكة · النقر يطلب أربعة مسارات عامة بالضبط من الخلفية",
+        "ok": true,
+        "detail": [
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/pulls/4242",
+            "search": "",
+            "authorization": false,
+            "cookie": false
+          },
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs",
+            "search": "?per_page=100&page=1",
+            "authorization": false,
+            "cookie": false
+          },
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status",
+            "search": "?per_page=100&page=1",
+            "authorization": false,
+            "cookie": false
+          },
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/branches/main",
+            "search": "",
+            "authorization": false,
+            "cookie": false
+          }
+        ]
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-PR-04 · بعد API: المصدر «DOM + API» بوقتين، والصفوف من API، وmergeable_state = dirty دليل ثانٍ للتعارض",
+        "ok": true,
+        "detail": {
+          "times": [
+            "2026-10-23T15:39:54.339Z",
+            "2026-10-23T15:39:54.976Z"
+          ],
+          "conflicts": {
+            "id": "conflicts",
+            "certainty": "blocks",
+            "evidence": [
+              "dom: This branch has conflicts that must be resolved",
+              "api: mergeable_state = dirty"
+            ]
+          }
+        }
+      },
+      {
+        "browser": "Firefox",
+        "name": "TEST-PR-03 · بعد API: التنبيه المنهجي ولا عبارة جاهزية، وneutral لا يُعدّ مانعًا",
+        "ok": true,
+        "detail": null
+      },
+      {
+        "browser": "Firefox",
+        "name": "تدقيق الشبكة · طلبات api.github.com بلا Authorization ولا ملفات تعريف",
+        "ok": true,
+        "detail": [
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/pulls/4242",
+            "search": "",
+            "authorization": false,
+            "cookie": false
+          },
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs",
+            "search": "?per_page=100&page=1",
+            "authorization": false,
+            "cookie": false
+          },
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status",
+            "search": "?per_page=100&page=1",
+            "authorization": false,
+            "cookie": false
+          },
+          {
+            "host": "api.github.com",
+            "path": "/repos/octo/demo/branches/main",
+            "search": "",
+            "authorization": false,
+            "cookie": false
+          }
+        ]
+      },
+      {
+        "browser": "Firefox",
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      }
+    ],
+    "console": [],
+    "browserVersion": "158.0.1",
+    "network": {
+      "api": [
+        {
+          "host": "api.github.com",
+          "path": "/repos/octo/demo/pulls/4242",
+          "search": "",
+          "authorization": false,
+          "cookie": false
+        },
+        {
+          "host": "api.github.com",
+          "path": "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/check-runs",
+          "search": "?per_page=100&page=1",
+          "authorization": false,
+          "cookie": false
+        },
+        {
+          "host": "api.github.com",
+          "path": "/repos/octo/demo/commits/22c15d5f509f0a7076b74b3f0f48a740802103b4/status",
+          "search": "?per_page=100&page=1",
+          "authorization": false,
+          "cookie": false
+        },
+        {
+          "host": "api.github.com",
+          "path": "/repos/octo/demo/branches/main",
+          "search": "",
+          "authorization": false,
+          "cookie": false
+        }
+      ],
+      "stepLogRequests": 1,
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com",
+        "github.githubassets.com"
+      ]
+    }
+  }
+}

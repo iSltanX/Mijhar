@@ -1,0 +1,39 @@
+$ npx tsc --noEmit
+exit: 0
+
+$ npx vitest run tests/core tests/modules tests/data   (من gate-vitest.raw.txt)
+ Test Files  96 passed (96)
+      Tests  1615 passed | 2 skipped (1617)
+   Start at  18:16:50
+   Duration  30.21s (tests 66%, import 16%, environment 14%, transform 5%)
+
+$ npx vitest run
+ Test Files  98 passed (98)
+      Tests  1660 passed | 2 skipped (1662)
+   Start at  18:17:44
+   Duration  20.12s (tests 68%, import 17%, environment 13%, transform 3%)
+exit: 0
+
+$ node scripts/glossary/validate.mjs
+الصلاحيات: {"None":32,"Write":25,"Read":27,"Admin":23,"Maintain":1,"Owner":2,"Triage":2}
+المصطلحات الأساسية: 52
+روابط الوثائق: 112 · طوبقت على المصدر: 43 · لم تُطابَق: 69
+المعجم: 94 مصطلحًا · تبقى بالإنجليزية: 20
+النتيجة: اجتاز التحقق من المخطط لكل مدخل
+exit: 0
+
+--- بعد التزام إصلاح التكامل (abd6f8d) ---
+$ npx tsc --noEmit
+exit: 0
+
+$ npx vitest run tests/core tests/modules tests/data
+ Test Files  96 passed (96)
+      Tests  1616 passed | 2 skipped (1618)
+   Start at  18:33:00
+   Duration  20.09s (tests 68%, import 16%, environment 13%, transform 3%)
+
+$ npx vitest run
+ Test Files  98 passed (98)
+      Tests  1661 passed | 2 skipped (1663)
+   Start at  18:33:20
+   Duration  20.11s (tests 67%, import 17%, environment 13%, transform 2%)

@@ -1,0 +1,2023 @@
+{
+  "measuredAt": "2026-10-23T15:41:07.793Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)، وخادم محلي بنفس الأصل لجزء status-details؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "pages": {
+        "real-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [
+            "all"
+          ],
+          "chips": {
+            "success#0": 2,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 1,
+            "cancelled#0": 1,
+            "not-run#0": 0,
+            "unknown#0": 0
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": true,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغى",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 791,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        },
+        "complex-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/ui-refresh ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "متأخر عن فرع الهدف",
+            "unavailable": false
+          },
+          "commits": {
+            "text": "3",
+            "unavailable": false
+          },
+          "files": {
+            "text": "12",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+1,204 / −87",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "مطلوب مراجعة",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "يوجد تعارض يجب حله",
+            "unavailable": false
+          },
+          "groups": [
+            "required",
+            "optional"
+          ],
+          "chips": {
+            "success#0": 1,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 0,
+            "cancelled#0": 0,
+            "not-run#0": 1,
+            "unknown#0": 0,
+            "success#1": 1,
+            "failure#1": 1,
+            "running#1": 0,
+            "skipped#1": 1,
+            "cancelled#1": 1,
+            "not-run#1": 0,
+            "unknown#1": 1
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروف",
+          "claimsReady": false,
+          "requests": [],
+          "layout": {
+            "width": 1264,
+            "height": 1105,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        },
+        "real-pr-fetch-failed": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [],
+          "chips": {},
+          "chipLabels": [],
+          "checksState": "error",
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة.",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 609,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "pages": {
+        "real-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [
+            "all"
+          ],
+          "chips": {
+            "success#0": 2,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 1,
+            "cancelled#0": 1,
+            "not-run#0": 0,
+            "unknown#0": 0
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": true,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغى",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 791,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        },
+        "complex-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/ui-refresh ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "متأخر عن فرع الهدف",
+            "unavailable": false
+          },
+          "commits": {
+            "text": "3",
+            "unavailable": false
+          },
+          "files": {
+            "text": "12",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+1,204 / −87",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "مطلوب مراجعة",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "يوجد تعارض يجب حله",
+            "unavailable": false
+          },
+          "groups": [
+            "required",
+            "optional"
+          ],
+          "chips": {
+            "success#0": 1,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 0,
+            "cancelled#0": 0,
+            "not-run#0": 1,
+            "unknown#0": 0,
+            "success#1": 1,
+            "failure#1": 1,
+            "running#1": 0,
+            "skipped#1": 1,
+            "cancelled#1": 1,
+            "not-run#1": 0,
+            "unknown#1": 1
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروف",
+          "claimsReady": false,
+          "requests": [],
+          "layout": {
+            "width": 1264,
+            "height": 1105,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        },
+        "real-pr-fetch-failed": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [],
+          "chips": {},
+          "chipLabels": [],
+          "checksState": "error",
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة.",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 609,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "pages": {
+        "real-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [
+            "all"
+          ],
+          "chips": {
+            "success#0": 2,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 1,
+            "cancelled#0": 1,
+            "not-run#0": 0,
+            "unknown#0": 0
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": true,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغى",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 796,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        },
+        "complex-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/ui-refresh ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "متأخر عن فرع الهدف",
+            "unavailable": false
+          },
+          "commits": {
+            "text": "3",
+            "unavailable": false
+          },
+          "files": {
+            "text": "12",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+1,204 / −87",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "مطلوب مراجعة",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "يوجد تعارض يجب حله",
+            "unavailable": false
+          },
+          "groups": [
+            "required",
+            "optional"
+          ],
+          "chips": {
+            "success#0": 1,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 0,
+            "cancelled#0": 0,
+            "not-run#0": 1,
+            "unknown#0": 0,
+            "success#1": 1,
+            "failure#1": 1,
+            "running#1": 0,
+            "skipped#1": 1,
+            "cancelled#1": 1,
+            "not-run#1": 0,
+            "unknown#1": 1
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروف",
+          "claimsReady": false,
+          "requests": [],
+          "layout": {
+            "width": 1264,
+            "height": 1112,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        },
+        "real-pr-fetch-failed": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [],
+          "chips": {},
+          "chipLabels": [],
+          "checksState": "error",
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة.",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 611,
+            "vw": 1280,
+            "overflowX": false
+          },
+          "font": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, "
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "pages": {
+        "real-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [
+            "all"
+          ],
+          "chips": {
+            "success#0": 2,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 1,
+            "cancelled#0": 1,
+            "not-run#0": 0,
+            "unknown#0": 0
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": true,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKالإلزامية: غير متاح — لا تفرّق هذه الصفحة الفحوص الإلزامية من الاختيارية، فتُعرض كلها معًا.ناجح2فاشل1قيد التشغيل1متجاوز1ملغى1لم يُشغَّل0غير معروف0build-and-deploy / test (pull_request) — فاشلe2e / chrome — قيد التشغيلnightly — ملغى",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 798,
+            "vw": 1351,
+            "overflowX": false
+          },
+          "font": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans"
+        },
+        "complex-pr": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/ui-refresh ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "متأخر عن فرع الهدف",
+            "unavailable": false
+          },
+          "commits": {
+            "text": "3",
+            "unavailable": false
+          },
+          "files": {
+            "text": "12",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+1,204 / −87",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "مطلوب مراجعة",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "يوجد تعارض يجب حله",
+            "unavailable": false
+          },
+          "groups": [
+            "required",
+            "optional"
+          ],
+          "chips": {
+            "success#0": 1,
+            "failure#0": 1,
+            "running#0": 1,
+            "skipped#0": 0,
+            "cancelled#0": 0,
+            "not-run#0": 1,
+            "unknown#0": 0,
+            "success#1": 1,
+            "failure#1": 1,
+            "running#1": 0,
+            "skipped#1": 1,
+            "cancelled#1": 1,
+            "not-run#1": 0,
+            "unknown#1": 1
+          },
+          "chipLabels": [
+            "ناجح",
+            "فاشل",
+            "قيد التشغيل",
+            "متجاوز",
+            "ملغى",
+            "لم يُشغَّل",
+            "غير معروف"
+          ],
+          "checksState": null,
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 6 / 12 checks OKالإلزامية (4)ناجح1فاشل1قيد التشغيل1متجاوز0ملغى0لم يُشغَّل1غير معروف0ci / lint (pull_request) — فاشلci / build (pull_request) — قيد التشغيلLinux / Browser — لم يُشغَّل (منتظر الإبلاغ)الاختيارية (5)ناجح1فاشل1قيد التشغيل0متجاوز1ملغى1لم يُشغَّل0غير معروف1preview-deploy — فاشلnightly-smoke — ملغىlegacy-bot — غير معروف",
+          "claimsReady": false,
+          "requests": [],
+          "layout": {
+            "width": 1335,
+            "height": 1119,
+            "vw": 1351,
+            "overflowX": false
+          },
+          "font": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans"
+        },
+        "real-pr-fetch-failed": {
+          "hosts": 1,
+          "afterHeader": true,
+          "hasCard": true,
+          "title": "ملخص حالة طلب الدمج",
+          "state": "مفتوح",
+          "branches": {
+            "text": "feature/contractor-work-tabs ←إلىmain",
+            "unavailable": false
+          },
+          "behind": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "commits": {
+            "text": "8",
+            "unavailable": false
+          },
+          "files": {
+            "text": "56",
+            "unavailable": false
+          },
+          "lines": {
+            "text": "+5,381 / −1",
+            "unavailable": false
+          },
+          "reviews": {
+            "text": "طُلبت تغييرات",
+            "unavailable": false
+          },
+          "conflicts": {
+            "text": "غير متاح",
+            "unavailable": true
+          },
+          "groups": [],
+          "chips": {},
+          "chipLabels": [],
+          "checksState": "error",
+          "requiredUnavailable": false,
+          "checksText": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة.",
+          "claimsReady": false,
+          "requests": [
+            "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+          ],
+          "layout": {
+            "width": 1216,
+            "height": 611,
+            "vw": 1351,
+            "overflowX": false
+          },
+          "font": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans"
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1216,
+        "height": 791,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "الحالة والفرعان من الصفحة",
+      "ok": true,
+      "detail": {
+        "state": "مفتوح",
+        "branches": {
+          "text": "feature/contractor-work-tabs ←إلىmain",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "الالتزامات 8 والملفات 56 والأسطر +5,381/−1",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "8",
+          "unavailable": false
+        },
+        "files": {
+          "text": "56",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+5,381 / −1",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "المراجعات من الشريط الجانبي (طُلبت تغييرات)",
+      "ok": true,
+      "detail": {
+        "text": "طُلبت تغييرات",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "التعارضات والتأخر «غير متاح» لغير المسجَّل (صندوق الدمج للمسجَّل فقط)",
+      "ok": true,
+      "detail": {
+        "conflicts": {
+          "text": "غير متاح",
+          "unavailable": true
+        },
+        "behind": {
+          "text": "غير متاح",
+          "unavailable": true
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "طلب واحد بنفس الأصل لجزء status-details لالتزام الرأس",
+      "ok": true,
+      "detail": [
+        "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "الفحوص من الجزء بالتصنيفات (6 صفوف) والإلزامي «غير متاح»",
+      "ok": true,
+      "detail": {
+        "groups": [
+          "all"
+        ],
+        "chips": {
+          "success#0": 2,
+          "failure#0": 1,
+          "running#0": 1,
+          "skipped#0": 1,
+          "cancelled#0": 1,
+          "not-run#0": 0,
+          "unknown#0": 0
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1264,
+        "height": 1105,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "الحالة والفرعان والمستودع",
+      "ok": true,
+      "detail": {
+        "text": "feature/ui-refresh ←إلىmain",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "الالتزامات 3 والملفات 12 والأسطر +1,204/−87",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "3",
+          "unavailable": false
+        },
+        "files": {
+          "text": "12",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+1,204 / −87",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "المراجعات والتعارض والتأخر من صندوق الدمج",
+      "ok": true,
+      "detail": {
+        "reviews": {
+          "text": "مطلوب مراجعة",
+          "unavailable": false
+        },
+        "conflicts": {
+          "text": "يوجد تعارض يجب حله",
+          "unavailable": false
+        },
+        "behind": {
+          "text": "متأخر عن فرع الهدف",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "فصل الإلزامية عن الاختيارية",
+      "ok": true,
+      "detail": [
+        "required",
+        "optional"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة كلها حاضرة بأعدادها (الإلزامية 4 والاختيارية 5)",
+      "ok": true,
+      "detail": {
+        "success#0": 1,
+        "failure#0": 1,
+        "running#0": 1,
+        "skipped#0": 0,
+        "cancelled#0": 0,
+        "not-run#0": 1,
+        "unknown#0": 0,
+        "success#1": 1,
+        "failure#1": 1,
+        "running#1": 0,
+        "skipped#1": 1,
+        "cancelled#1": 1,
+        "not-run#1": 0,
+        "unknown#1": 1
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "لا طلب شبكة (الصفوف في الصفحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "complex-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "فشل الجلب: «غير متاح» بسببه ولا فحوص مزعومة",
+      "ok": true,
+      "detail": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة."
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1216,
+        "height": 791,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "الحالة والفرعان من الصفحة",
+      "ok": true,
+      "detail": {
+        "state": "مفتوح",
+        "branches": {
+          "text": "feature/contractor-work-tabs ←إلىmain",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "الالتزامات 8 والملفات 56 والأسطر +5,381/−1",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "8",
+          "unavailable": false
+        },
+        "files": {
+          "text": "56",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+5,381 / −1",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "المراجعات من الشريط الجانبي (طُلبت تغييرات)",
+      "ok": true,
+      "detail": {
+        "text": "طُلبت تغييرات",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "التعارضات والتأخر «غير متاح» لغير المسجَّل (صندوق الدمج للمسجَّل فقط)",
+      "ok": true,
+      "detail": {
+        "conflicts": {
+          "text": "غير متاح",
+          "unavailable": true
+        },
+        "behind": {
+          "text": "غير متاح",
+          "unavailable": true
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "طلب واحد بنفس الأصل لجزء status-details لالتزام الرأس",
+      "ok": true,
+      "detail": [
+        "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "الفحوص من الجزء بالتصنيفات (6 صفوف) والإلزامي «غير متاح»",
+      "ok": true,
+      "detail": {
+        "groups": [
+          "all"
+        ],
+        "chips": {
+          "success#0": 2,
+          "failure#0": 1,
+          "running#0": 1,
+          "skipped#0": 1,
+          "cancelled#0": 1,
+          "not-run#0": 0,
+          "unknown#0": 0
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1264,
+        "height": 1105,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "الحالة والفرعان والمستودع",
+      "ok": true,
+      "detail": {
+        "text": "feature/ui-refresh ←إلىmain",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "الالتزامات 3 والملفات 12 والأسطر +1,204/−87",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "3",
+          "unavailable": false
+        },
+        "files": {
+          "text": "12",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+1,204 / −87",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "المراجعات والتعارض والتأخر من صندوق الدمج",
+      "ok": true,
+      "detail": {
+        "reviews": {
+          "text": "مطلوب مراجعة",
+          "unavailable": false
+        },
+        "conflicts": {
+          "text": "يوجد تعارض يجب حله",
+          "unavailable": false
+        },
+        "behind": {
+          "text": "متأخر عن فرع الهدف",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "فصل الإلزامية عن الاختيارية",
+      "ok": true,
+      "detail": [
+        "required",
+        "optional"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة كلها حاضرة بأعدادها (الإلزامية 4 والاختيارية 5)",
+      "ok": true,
+      "detail": {
+        "success#0": 1,
+        "failure#0": 1,
+        "running#0": 1,
+        "skipped#0": 0,
+        "cancelled#0": 0,
+        "not-run#0": 1,
+        "unknown#0": 0,
+        "success#1": 1,
+        "failure#1": 1,
+        "running#1": 0,
+        "skipped#1": 1,
+        "cancelled#1": 1,
+        "not-run#1": 0,
+        "unknown#1": 1
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "لا طلب شبكة (الصفوف في الصفحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "complex-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "فشل الجلب: «غير متاح» بسببه ولا فحوص مزعومة",
+      "ok": true,
+      "detail": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة."
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1216,
+        "height": 796,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "الحالة والفرعان من الصفحة",
+      "ok": true,
+      "detail": {
+        "state": "مفتوح",
+        "branches": {
+          "text": "feature/contractor-work-tabs ←إلىmain",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "الالتزامات 8 والملفات 56 والأسطر +5,381/−1",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "8",
+          "unavailable": false
+        },
+        "files": {
+          "text": "56",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+5,381 / −1",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "المراجعات من الشريط الجانبي (طُلبت تغييرات)",
+      "ok": true,
+      "detail": {
+        "text": "طُلبت تغييرات",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "التعارضات والتأخر «غير متاح» لغير المسجَّل (صندوق الدمج للمسجَّل فقط)",
+      "ok": true,
+      "detail": {
+        "conflicts": {
+          "text": "غير متاح",
+          "unavailable": true
+        },
+        "behind": {
+          "text": "غير متاح",
+          "unavailable": true
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "طلب واحد بنفس الأصل لجزء status-details لالتزام الرأس",
+      "ok": true,
+      "detail": [
+        "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "الفحوص من الجزء بالتصنيفات (6 صفوف) والإلزامي «غير متاح»",
+      "ok": true,
+      "detail": {
+        "groups": [
+          "all"
+        ],
+        "chips": {
+          "success#0": 2,
+          "failure#0": 1,
+          "running#0": 1,
+          "skipped#0": 1,
+          "cancelled#0": 1,
+          "not-run#0": 0,
+          "unknown#0": 0
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1264,
+        "height": 1112,
+        "vw": 1280,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "الحالة والفرعان والمستودع",
+      "ok": true,
+      "detail": {
+        "text": "feature/ui-refresh ←إلىmain",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "الالتزامات 3 والملفات 12 والأسطر +1,204/−87",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "3",
+          "unavailable": false
+        },
+        "files": {
+          "text": "12",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+1,204 / −87",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "المراجعات والتعارض والتأخر من صندوق الدمج",
+      "ok": true,
+      "detail": {
+        "reviews": {
+          "text": "مطلوب مراجعة",
+          "unavailable": false
+        },
+        "conflicts": {
+          "text": "يوجد تعارض يجب حله",
+          "unavailable": false
+        },
+        "behind": {
+          "text": "متأخر عن فرع الهدف",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "فصل الإلزامية عن الاختيارية",
+      "ok": true,
+      "detail": [
+        "required",
+        "optional"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة كلها حاضرة بأعدادها (الإلزامية 4 والاختيارية 5)",
+      "ok": true,
+      "detail": {
+        "success#0": 1,
+        "failure#0": 1,
+        "running#0": 1,
+        "skipped#0": 0,
+        "cancelled#0": 0,
+        "not-run#0": 1,
+        "unknown#0": 0,
+        "success#1": 1,
+        "failure#1": 1,
+        "running#1": 0,
+        "skipped#1": 1,
+        "cancelled#1": 1,
+        "not-run#1": 0,
+        "unknown#1": 1
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "لا طلب شبكة (الصفوف في الصفحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "complex-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "فشل الجلب: «غير متاح» بسببه ولا فحوص مزعومة",
+      "ok": true,
+      "detail": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة."
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1216,
+        "height": 798,
+        "vw": 1351,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "الحالة والفرعان من الصفحة",
+      "ok": true,
+      "detail": {
+        "state": "مفتوح",
+        "branches": {
+          "text": "feature/contractor-work-tabs ←إلىmain",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "الالتزامات 8 والملفات 56 والأسطر +5,381/−1",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "8",
+          "unavailable": false
+        },
+        "files": {
+          "text": "56",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+5,381 / −1",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "المراجعات من الشريط الجانبي (طُلبت تغييرات)",
+      "ok": true,
+      "detail": {
+        "text": "طُلبت تغييرات",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "التعارضات والتأخر «غير متاح» لغير المسجَّل (صندوق الدمج للمسجَّل فقط)",
+      "ok": true,
+      "detail": {
+        "conflicts": {
+          "text": "غير متاح",
+          "unavailable": true
+        },
+        "behind": {
+          "text": "غير متاح",
+          "unavailable": true
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "طلب واحد بنفس الأصل لجزء status-details لالتزام الرأس",
+      "ok": true,
+      "detail": [
+        "/Watad-Project/Watad/commit/2ec06bc572aa5e70f8d16ee5caa9a4e70b6f42dc/status-details?popover=true"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "الفحوص من الجزء بالتصنيفات (6 صفوف) والإلزامي «غير متاح»",
+      "ok": true,
+      "detail": {
+        "groups": [
+          "all"
+        ],
+        "chips": {
+          "success#0": 2,
+          "failure#0": 1,
+          "running#0": 1,
+          "skipped#0": 1,
+          "cancelled#0": 1,
+          "not-run#0": 0,
+          "unknown#0": 0
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "مضيف واحد بعد ترويسة الطلب وبطاقة بعنوانها",
+      "ok": true,
+      "detail": {
+        "hosts": 1,
+        "afterHeader": true,
+        "title": "ملخص حالة طلب الدمج"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "لا ادعاء «جاهز للدمج»",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "البطاقة داخل العرض بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "width": 1335,
+        "height": 1119,
+        "vw": 1351,
+        "overflowX": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة بنصها وترتيبها",
+      "ok": true,
+      "detail": [
+        "ناجح",
+        "فاشل",
+        "قيد التشغيل",
+        "متجاوز",
+        "ملغى",
+        "لم يُشغَّل",
+        "غير معروف"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "الحالة والفرعان والمستودع",
+      "ok": true,
+      "detail": {
+        "text": "feature/ui-refresh ←إلىmain",
+        "unavailable": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "الالتزامات 3 والملفات 12 والأسطر +1,204/−87",
+      "ok": true,
+      "detail": {
+        "commits": {
+          "text": "3",
+          "unavailable": false
+        },
+        "files": {
+          "text": "12",
+          "unavailable": false
+        },
+        "lines": {
+          "text": "+1,204 / −87",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "المراجعات والتعارض والتأخر من صندوق الدمج",
+      "ok": true,
+      "detail": {
+        "reviews": {
+          "text": "مطلوب مراجعة",
+          "unavailable": false
+        },
+        "conflicts": {
+          "text": "يوجد تعارض يجب حله",
+          "unavailable": false
+        },
+        "behind": {
+          "text": "متأخر عن فرع الهدف",
+          "unavailable": false
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "فصل الإلزامية عن الاختيارية",
+      "ok": true,
+      "detail": [
+        "required",
+        "optional"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "التصنيفات السبعة كلها حاضرة بأعدادها (الإلزامية 4 والاختيارية 5)",
+      "ok": true,
+      "detail": {
+        "success#0": 1,
+        "failure#0": 1,
+        "running#0": 1,
+        "skipped#0": 0,
+        "cancelled#0": 0,
+        "not-run#0": 1,
+        "unknown#0": 0,
+        "success#1": 1,
+        "failure#1": 1,
+        "running#1": 0,
+        "skipped#1": 1,
+        "cancelled#1": 1,
+        "not-run#1": 0,
+        "unknown#1": 1
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "لا طلب شبكة (الصفوف في الصفحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "complex-pr",
+      "name": "الإيقاف يزيل المضيف ويعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "restored": 1,
+        "skipped": 0,
+        "identical": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "فشل الجلب: «غير متاح» بسببه ولا فحوص مزعومة",
+      "ok": true,
+      "detail": "الفحوصالرمز المجمَّع لآخر التزام ظاهر في المحادثة: 1 / 1 checks OKتعذّرت قراءة تفاصيل الفحوص (HTTP 503) — فهي غير متاح وليست ناجحة."
+    }
+  ]
+}

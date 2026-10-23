@@ -1,0 +1,7 @@
+$ node tests/modules/b/access/browser/run.mjs chrome edge brave firefox --out-dir evidence/wave-E/modules/access-out
+Chrome 156.0.8078.47: 55/55 فحصًا
+Edge 155.0.4283.60: 55/55 فحصًا
+Brave 156.0.8078.48: 55/55 فحصًا
+Firefox 158.0.1: 48/48 فحصًا
+المجموع: 213/213 فحصًا اجتاز
+exit: 0
