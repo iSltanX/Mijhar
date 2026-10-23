@@ -247,8 +247,8 @@
       var startable = current.stages.filter(function (v) { return v.canStart; });
       var fresh = startable.filter(function (v) { return !v.isResume; }), resume = startable.filter(function (v) { return v.isResume; });
       var parts = [];
-      if (fresh.length) parts.push('افتح جلسة مستقلة (worktree) لكل مرحلة من: ' + fresh.map(function (v) { return tick(v.stage.id) + ' بمودل ' + v.stage.header.model; }).join('، ') + ' وألصق أمرها؛ المراحل المستقلة في الموجة تعمل بالتوازي');
-      if (resume.length) parts.push('وللاستئناف أعد إرسال أمر ' + resume.map(function (v) { return tick(v.stage.id); }).join(' و') + ' في جلستها');
+      if (fresh.length) parts.push('افتح جلسة worktree لكل من ' + fresh.map(function (v) { return tick(v.stage.id); }).join(' و') + ' بمودلها وألصق أمرها من صفها' + (fresh.length > 1 ? '؛ تعمل بالتوازي' : ''));
+      if (resume.length) parts.push((fresh.length ? 'واستأنف ' : 'استأنف ') + resume.map(function (v) { return tick(v.stage.id); }).join(' و') + ' بإعادة أمرها في جلستها');
       next = { kind: 'start', text: (parts.length ? parts.join('؛ ') : 'مراحل الموجة ' + current.wave.id + ' كلها سُلِّمت أو تنتظر') + '.', cmd: startable.length === 1 ? startable[0].startCmd : null, startable: startable.map(function (v) { return v.stage.id; }) };
     }
     return { mj: mj, waves: waves, current: current, next: next, counts: countTasks(status, all), stageCount: mj.stages.length };
