@@ -16,7 +16,8 @@ describe.each(Object.keys(manifests))('مانيفست %s', (target) => {
   it('أمر toggle-panel باختصار افتراضي مؤقت Alt+G ووصف عربي', () => {
     expect(manifest.commands[PANEL_COMMAND].suggested_key).toEqual({ default: PANEL_SHORTCUT });
     expect(manifest.commands[PANEL_COMMAND].description).toMatch(/[؀-ۿ]/);
-    expect(Object.keys(manifest.commands)).toEqual([PANEL_COMMAND]);
+    // الأمر الثاني open-glossary أضافته MJ10 (T-3.4) باختصاره المؤقت Alt+K؛ يقيسه tests/modules/b/search/command.test.ts.
+    expect(Object.keys(manifest.commands)).toEqual([PANEL_COMMAND, 'open-glossary']);
   });
 
   it('api.github.com اختيارية وحدها، وليست في الصلاحيات الأساسية', () => {

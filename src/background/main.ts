@@ -9,11 +9,12 @@ import { applySurface, OPEN_OPTIONS_MESSAGE, openPanel, PANEL_COMMAND, readSurfa
 import type { PanelOutcome } from '../core/ui-host/commands';
 import { openSettings } from '../core/ui-host/settings-runtime';
 import type { OpenedSettings } from '../core/ui-host/settings-runtime';
-import { createSettingsRegistry, SURFACE_KEY } from '../core/ui-host/units';
+import { createSettingsRegistry, requestPanelTab, SURFACE_KEY } from '../core/ui-host/units';
 import type { Surface } from '../core/ui-host/units';
 import type { StorageBinding } from '../core/storage';
 import { defineSectionSettings } from '../options/sections';
 import { openReaderFor } from '../modules/a/reading/background';
+import { GLOSSARY_COMMAND, GLOSSARY_TAB } from '../modules/b/search/ids';
 
 export interface BackgroundOptions {
   readonly api?: ExtensionApi;
@@ -34,9 +35,14 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
   const target = options.target ?? __TARGET__;
   let surface: Surface | undefined;
 
+  const panelDeps = () => ({ api, target, surface: () => readSurfaceMirror(options.mirror) ?? surface, ...(options.onOutcome ? { onOutcome: options.onOutcome } : {}) });
   api.commands?.onCommand.addListener((command, tab) => {
-    if (command !== PANEL_COMMAND) return;
-    openPanel({ api, target, surface: () => readSurfaceMirror(options.mirror) ?? surface, ...(options.onOutcome ? { onOutcome: options.onOutcome } : {}) }, tab);
+    if (command === PANEL_COMMAND) openPanel(panelDeps(), tab);
+    else if (command === GLOSSARY_COMMAND) {
+      // MJ10 (T-3.4): يفتح اللوحة أو الدرج ولا يغلق ما هو مفتوح، ثم يطلب منها تبويب القاموس (تفتحه واللوحة تقرأ الطلب الحديث).
+      openPanel(panelDeps(), tab, 'open');
+      void ready.then(({ settings }) => requestPanelTab(settings, GLOSSARY_TAB)).catch((error: unknown) => console.error('[mijhar] تعذّر طلب تبويب القاموس', error));
+    }
   });
 
   api.runtime.onMessage.addListener((message, sender) => {

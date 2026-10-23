@@ -1,0 +1,1621 @@
+{
+  "measuredAt": "2026-10-23T14:47:46.517Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)؛ نقر وكتابة فعليان؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "nativeUndo": true,
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "nativeUndo": true,
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "nativeUndo": true,
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "nativeUndo": true,
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "الأزرار",
+      "name": "أربعة أزرار ظاهرة (ثلاثة في أشرطة وواحد قبل حقل بلا شريط) ولا زر لـCodeMirror",
+      "ok": true,
+      "detail": {
+        "all": [
+          {
+            "id": "issue-body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 167,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "pull_request_body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 355,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "new_comment_field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 542,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "fallback-field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 608,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          }
+        ],
+        "cmButtons": 0,
+        "total": 4
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "قبل الفعل",
+      "name": "لا لوحة، والمسودات كما هي، ولا أحداث input",
+      "ok": true,
+      "detail": {
+        "comment": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "pr": "Draft: this PR fixes the sidebar toggle.\n\nStill need to add tests."
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "اللوحة",
+      "name": "نقر الزر الفعلي يفتح لوحة في نهاية body داخل النافذة، والتركيز على أول حقل، والنوع Issue، ومعاينتها فارغة وأزرار الإدراج معطّلة",
+      "ok": true,
+      "detail": {
+        "open": true,
+        "hostIsLast": true,
+        "rect": {
+          "x": 804,
+          "y": 16,
+          "w": 460,
+          "h": 868
+        },
+        "inViewport": true,
+        "scrollable": false,
+        "focus": "mj-composer-expected",
+        "kind": "issue",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "previewEmpty": true,
+        "status": "",
+        "statusVisible": false,
+        "buttons": {
+          "close": {
+            "disabled": false,
+            "x": 833,
+            "y": 45
+          },
+          "insert-cursor": {
+            "disabled": true,
+            "x": 1189,
+            "y": 809
+          },
+          "insert-append": {
+            "disabled": true,
+            "x": 1035,
+            "y": 809
+          },
+          "undo": {
+            "disabled": true,
+            "x": 1178,
+            "y": 849
+          }
+        },
+        "fields": {
+          "expected": "",
+          "actual": "",
+          "steps": "",
+          "environment": "",
+          "evidence": ""
+        },
+        "pageFocus": "f.composer.panel",
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "اللوحة",
+      "name": "التركيز في الصفحة على مضيف اللوحة، وحقل الكتابة الأصلي لم يفقد موضع المؤشر",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 24,
+        "end": 24,
+        "direction": "none",
+        "focused": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "اللوحة",
+      "name": "Tab ينقل من «المتوقع» إلى «الفعلي»",
+      "ok": true,
+      "detail": "mj-composer-actual"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F1",
+      "name": "الحقول الخمسة بما كُتب بالكيبورد حرفيًا (بما فيها الأسطر المتعددة)",
+      "ok": true,
+      "detail": {
+        "expected": "The side panel opens when I press Alt+G.",
+        "actual": "Nothing happens in Firefox 158.",
+        "steps": "Open github.com\nPress Alt+G\nWatch the sidebar",
+        "environment": "macOS 15\nFirefox 158.0.1",
+        "evidence": "https://example.com/shot.png"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F1",
+      "name": "المعاينة الكاملة تطابق النص الذي سيُدرج بالضبط (عناوين وقوائم مرقّمة ونقطية)",
+      "ok": true,
+      "detail": "## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing happens in Firefox 158.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n\n## Environment\n\n- macOS 15\n- Firefox 158.0.1\n\n## Evidence\n\n- https://example.com/shot.png\n"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "عند المؤشر: ما قبل المؤشر وما بعده كما هما حرفيًا والكتلة بينهما",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing hap"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "أمر التحرير الحقيقي: أحداث input موثوقة (isTrusted) بنوع insertText، فيراها GitHub كما لو كتب المستخدم",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "الحالة تعلن الإدراج وأن شيئًا لم يُمسح ولم يُرسل، وزر التراجع مفعَّل",
+      "ok": true,
+      "detail": "أُدرج عند المؤشر (285 حرفًا). لم يُمسح شيء من مسودتك، ولم يُرسل شيء؛ يمكنك التراجع."
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "الإدراج لم يمس الحقول الأخرى",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "Ctrl/⌘+Z الأصلي في الحقل يتراجع عن الإدراج (سجل التراجع الأصلي: الإدراج بأمر التحرير)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "isOriginal": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "زر «التراجع» بعد تراجع المستخدم الأصلي: المسودة سليمة بلا حذف ولا تحذير",
+      "ok": true,
+      "detail": {
+        "value": 72,
+        "status": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "تحديد نص ثم إدراج عند المؤشر: لا يُستبدل المحدد (يُطوى إلى طرفه الأخير)",
+      "ok": true,
+      "detail": {
+        "head": "First line of my draft.\n\n## Expected beh"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "زر «التراجع عن آخر إدراج»: المسودة حرفيًا كما كانت والتحديد الأصلي (12 إلى 24)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 12,
+        "end": 24,
+        "direction": "none",
+        "focused": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "التراجع بأمر التحرير الحقيقي: input موثوق بنوع deleteContentBackward",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "change",
+          "inputType": null,
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true,
+          "length": 72
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "بعد التراجع: الحالة تعلن عودة المسودة حرفيًا وزر التراجع معطّل",
+      "ok": true,
+      "detail": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+    },
+    {
+      "browser": "Chrome",
+      "page": "اللوحة",
+      "name": "فتح حقل آخر يستبدل اللوحة (واحدة فقط) ويبدأ بحقول فارغة (جلسة لكل حقل)",
+      "ok": true,
+      "detail": {
+        "expected": "",
+        "actual": "",
+        "steps": "",
+        "environment": "",
+        "evidence": ""
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "الإلحاق: مسودة الطلب سليمة في أول الحقل والكتلة في آخره",
+      "ok": true,
+      "detail": {
+        "tail": "\n\n## Expected behavior\n\nThe side panel opens when I press Al"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "التراجع بعد الإلحاق يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F4",
+      "name": "حقل فارغ: يُدرج النص وحده بسطر أخير بلا فواصل زائدة في أوله",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "احتياطي",
+      "name": "حقل بلا شريط أدوات (BLK-GH-EDITOR-DOM): زره قبله، والإدراج عند المؤشر يحفظ ما حوله",
+      "ok": true,
+      "detail": {
+        "value": "Existing\n\n## Expected behavior\n\nFallback works.\n\n text without a toolbar."
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "احتياطي",
+      "name": "والتراجع يعيده حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "لوحة المفاتيح",
+      "name": "Escape الفعلي يغلق اللوحة ويعيد التركيز إلى زر المساعد",
+      "ok": true,
+      "detail": {
+        "open": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "لوحة المفاتيح",
+      "name": "التركيز في الصفحة على مضيف زر المساعد",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على أي زر إرسال في كل ما سبق (فتح وكتابة وإدراج وإلحاق وتراجع وإغلاق وEnter داخل اللوحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة داخل النافذة الضيقة، بلا تمرير أفقي للصفحة، وأزرار الإدراج قابلة للبلوغ",
+      "ok": true,
+      "detail": {
+        "rect": {
+          "x": 8,
+          "y": 16,
+          "w": 336,
+          "h": 608
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الأزرار",
+      "name": "أربعة أزرار ظاهرة (ثلاثة في أشرطة وواحد قبل حقل بلا شريط) ولا زر لـCodeMirror",
+      "ok": true,
+      "detail": {
+        "all": [
+          {
+            "id": "issue-body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 167,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "pull_request_body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 355,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "new_comment_field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 542,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "fallback-field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 608,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          }
+        ],
+        "cmButtons": 0,
+        "total": 4
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "قبل الفعل",
+      "name": "لا لوحة، والمسودات كما هي، ولا أحداث input",
+      "ok": true,
+      "detail": {
+        "comment": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "pr": "Draft: this PR fixes the sidebar toggle.\n\nStill need to add tests."
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "اللوحة",
+      "name": "نقر الزر الفعلي يفتح لوحة في نهاية body داخل النافذة، والتركيز على أول حقل، والنوع Issue، ومعاينتها فارغة وأزرار الإدراج معطّلة",
+      "ok": true,
+      "detail": {
+        "open": true,
+        "hostIsLast": true,
+        "rect": {
+          "x": 804,
+          "y": 16,
+          "w": 460,
+          "h": 868
+        },
+        "inViewport": true,
+        "scrollable": false,
+        "focus": "mj-composer-expected",
+        "kind": "issue",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "previewEmpty": true,
+        "status": "",
+        "statusVisible": false,
+        "buttons": {
+          "close": {
+            "disabled": false,
+            "x": 833,
+            "y": 45
+          },
+          "insert-cursor": {
+            "disabled": true,
+            "x": 1189,
+            "y": 809
+          },
+          "insert-append": {
+            "disabled": true,
+            "x": 1035,
+            "y": 809
+          },
+          "undo": {
+            "disabled": true,
+            "x": 1178,
+            "y": 849
+          }
+        },
+        "fields": {
+          "expected": "",
+          "actual": "",
+          "steps": "",
+          "environment": "",
+          "evidence": ""
+        },
+        "pageFocus": "f.composer.panel",
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "اللوحة",
+      "name": "التركيز في الصفحة على مضيف اللوحة، وحقل الكتابة الأصلي لم يفقد موضع المؤشر",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 24,
+        "end": 24,
+        "direction": "none",
+        "focused": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "اللوحة",
+      "name": "Tab ينقل من «المتوقع» إلى «الفعلي»",
+      "ok": true,
+      "detail": "mj-composer-actual"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F1",
+      "name": "الحقول الخمسة بما كُتب بالكيبورد حرفيًا (بما فيها الأسطر المتعددة)",
+      "ok": true,
+      "detail": {
+        "expected": "The side panel opens when I press Alt+G.",
+        "actual": "Nothing happens in Firefox 158.",
+        "steps": "Open github.com\nPress Alt+G\nWatch the sidebar",
+        "environment": "macOS 15\nFirefox 158.0.1",
+        "evidence": "https://example.com/shot.png"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F1",
+      "name": "المعاينة الكاملة تطابق النص الذي سيُدرج بالضبط (عناوين وقوائم مرقّمة ونقطية)",
+      "ok": true,
+      "detail": "## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing happens in Firefox 158.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n\n## Environment\n\n- macOS 15\n- Firefox 158.0.1\n\n## Evidence\n\n- https://example.com/shot.png\n"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "عند المؤشر: ما قبل المؤشر وما بعده كما هما حرفيًا والكتلة بينهما",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing hap"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "أمر التحرير الحقيقي: أحداث input موثوقة (isTrusted) بنوع insertText، فيراها GitHub كما لو كتب المستخدم",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "الحالة تعلن الإدراج وأن شيئًا لم يُمسح ولم يُرسل، وزر التراجع مفعَّل",
+      "ok": true,
+      "detail": "أُدرج عند المؤشر (285 حرفًا). لم يُمسح شيء من مسودتك، ولم يُرسل شيء؛ يمكنك التراجع."
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "الإدراج لم يمس الحقول الأخرى",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "Ctrl/⌘+Z الأصلي في الحقل يتراجع عن الإدراج (سجل التراجع الأصلي: الإدراج بأمر التحرير)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "isOriginal": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "زر «التراجع» بعد تراجع المستخدم الأصلي: المسودة سليمة بلا حذف ولا تحذير",
+      "ok": true,
+      "detail": {
+        "value": 72,
+        "status": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "تحديد نص ثم إدراج عند المؤشر: لا يُستبدل المحدد (يُطوى إلى طرفه الأخير)",
+      "ok": true,
+      "detail": {
+        "head": "First line of my draft.\n\n## Expected beh"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "زر «التراجع عن آخر إدراج»: المسودة حرفيًا كما كانت والتحديد الأصلي (12 إلى 24)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 12,
+        "end": 24,
+        "direction": "none",
+        "focused": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "التراجع بأمر التحرير الحقيقي: input موثوق بنوع deleteContentBackward",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "change",
+          "inputType": null,
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true,
+          "length": 72
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "بعد التراجع: الحالة تعلن عودة المسودة حرفيًا وزر التراجع معطّل",
+      "ok": true,
+      "detail": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+    },
+    {
+      "browser": "Edge",
+      "page": "اللوحة",
+      "name": "فتح حقل آخر يستبدل اللوحة (واحدة فقط) ويبدأ بحقول فارغة (جلسة لكل حقل)",
+      "ok": true,
+      "detail": {
+        "expected": "",
+        "actual": "",
+        "steps": "",
+        "environment": "",
+        "evidence": ""
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "الإلحاق: مسودة الطلب سليمة في أول الحقل والكتلة في آخره",
+      "ok": true,
+      "detail": {
+        "tail": "\n\n## Expected behavior\n\nThe side panel opens when I press Al"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "التراجع بعد الإلحاق يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F4",
+      "name": "حقل فارغ: يُدرج النص وحده بسطر أخير بلا فواصل زائدة في أوله",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "احتياطي",
+      "name": "حقل بلا شريط أدوات (BLK-GH-EDITOR-DOM): زره قبله، والإدراج عند المؤشر يحفظ ما حوله",
+      "ok": true,
+      "detail": {
+        "value": "Existing\n\n## Expected behavior\n\nFallback works.\n\n text without a toolbar."
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "احتياطي",
+      "name": "والتراجع يعيده حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "لوحة المفاتيح",
+      "name": "Escape الفعلي يغلق اللوحة ويعيد التركيز إلى زر المساعد",
+      "ok": true,
+      "detail": {
+        "open": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "لوحة المفاتيح",
+      "name": "التركيز في الصفحة على مضيف زر المساعد",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على أي زر إرسال في كل ما سبق (فتح وكتابة وإدراج وإلحاق وتراجع وإغلاق وEnter داخل اللوحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة داخل النافذة الضيقة، بلا تمرير أفقي للصفحة، وأزرار الإدراج قابلة للبلوغ",
+      "ok": true,
+      "detail": {
+        "rect": {
+          "x": 8,
+          "y": 16,
+          "w": 336,
+          "h": 608
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الأزرار",
+      "name": "أربعة أزرار ظاهرة (ثلاثة في أشرطة وواحد قبل حقل بلا شريط) ولا زر لـCodeMirror",
+      "ok": true,
+      "detail": {
+        "all": [
+          {
+            "id": "issue-body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 167,
+              "w": 73,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "pull_request_body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 355,
+              "w": 73,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "new_comment_field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 542,
+              "w": 73,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "fallback-field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 608,
+              "w": 73,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          }
+        ],
+        "cmButtons": 0,
+        "total": 4
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "قبل الفعل",
+      "name": "لا لوحة، والمسودات كما هي، ولا أحداث input",
+      "ok": true,
+      "detail": {
+        "comment": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "pr": "Draft: this PR fixes the sidebar toggle.\n\nStill need to add tests."
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "اللوحة",
+      "name": "نقر الزر الفعلي يفتح لوحة في نهاية body داخل النافذة، والتركيز على أول حقل، والنوع Issue، ومعاينتها فارغة وأزرار الإدراج معطّلة",
+      "ok": true,
+      "detail": {
+        "open": true,
+        "hostIsLast": true,
+        "rect": {
+          "x": 804,
+          "y": 16,
+          "w": 460,
+          "h": 868
+        },
+        "inViewport": true,
+        "scrollable": false,
+        "focus": "mj-composer-expected",
+        "kind": "issue",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "previewEmpty": true,
+        "status": "",
+        "statusVisible": false,
+        "buttons": {
+          "close": {
+            "disabled": false,
+            "x": 833,
+            "y": 45
+          },
+          "insert-cursor": {
+            "disabled": true,
+            "x": 1184,
+            "y": 809
+          },
+          "insert-append": {
+            "disabled": true,
+            "x": 1016,
+            "y": 809
+          },
+          "undo": {
+            "disabled": true,
+            "x": 1171,
+            "y": 849
+          }
+        },
+        "fields": {
+          "expected": "",
+          "actual": "",
+          "steps": "",
+          "environment": "",
+          "evidence": ""
+        },
+        "pageFocus": "f.composer.panel",
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "اللوحة",
+      "name": "التركيز في الصفحة على مضيف اللوحة، وحقل الكتابة الأصلي لم يفقد موضع المؤشر",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 24,
+        "end": 24,
+        "direction": "none",
+        "focused": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "اللوحة",
+      "name": "Tab ينقل من «المتوقع» إلى «الفعلي»",
+      "ok": true,
+      "detail": "mj-composer-actual"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F1",
+      "name": "الحقول الخمسة بما كُتب بالكيبورد حرفيًا (بما فيها الأسطر المتعددة)",
+      "ok": true,
+      "detail": {
+        "expected": "The side panel opens when I press Alt+G.",
+        "actual": "Nothing happens in Firefox 158.",
+        "steps": "Open github.com\nPress Alt+G\nWatch the sidebar",
+        "environment": "macOS 15\nFirefox 158.0.1",
+        "evidence": "https://example.com/shot.png"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F1",
+      "name": "المعاينة الكاملة تطابق النص الذي سيُدرج بالضبط (عناوين وقوائم مرقّمة ونقطية)",
+      "ok": true,
+      "detail": "## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing happens in Firefox 158.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n\n## Environment\n\n- macOS 15\n- Firefox 158.0.1\n\n## Evidence\n\n- https://example.com/shot.png\n"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "عند المؤشر: ما قبل المؤشر وما بعده كما هما حرفيًا والكتلة بينهما",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing hap"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "أمر التحرير الحقيقي: أحداث input موثوقة (isTrusted) بنوع insertText، فيراها GitHub كما لو كتب المستخدم",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "الحالة تعلن الإدراج وأن شيئًا لم يُمسح ولم يُرسل، وزر التراجع مفعَّل",
+      "ok": true,
+      "detail": "أُدرج عند المؤشر (285 حرفًا). لم يُمسح شيء من مسودتك، ولم يُرسل شيء؛ يمكنك التراجع."
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "الإدراج لم يمس الحقول الأخرى",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "Ctrl/⌘+Z الأصلي في الحقل يتراجع عن الإدراج (سجل التراجع الأصلي: الإدراج بأمر التحرير)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "isOriginal": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "زر «التراجع» بعد تراجع المستخدم الأصلي: المسودة سليمة بلا حذف ولا تحذير",
+      "ok": true,
+      "detail": {
+        "value": 72,
+        "status": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "تحديد نص ثم إدراج عند المؤشر: لا يُستبدل المحدد (يُطوى إلى طرفه الأخير)",
+      "ok": true,
+      "detail": {
+        "head": "First line of my draft.\n\n## Expected beh"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "زر «التراجع عن آخر إدراج»: المسودة حرفيًا كما كانت والتحديد الأصلي (12 إلى 24)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 12,
+        "end": 24,
+        "direction": "none",
+        "focused": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "التراجع بأمر التحرير الحقيقي: input موثوق بنوع deleteContentBackward",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "change",
+          "inputType": null,
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true,
+          "length": 72
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "بعد التراجع: الحالة تعلن عودة المسودة حرفيًا وزر التراجع معطّل",
+      "ok": true,
+      "detail": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+    },
+    {
+      "browser": "Brave",
+      "page": "اللوحة",
+      "name": "فتح حقل آخر يستبدل اللوحة (واحدة فقط) ويبدأ بحقول فارغة (جلسة لكل حقل)",
+      "ok": true,
+      "detail": {
+        "expected": "",
+        "actual": "",
+        "steps": "",
+        "environment": "",
+        "evidence": ""
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "الإلحاق: مسودة الطلب سليمة في أول الحقل والكتلة في آخره",
+      "ok": true,
+      "detail": {
+        "tail": "\n\n## Expected behavior\n\nThe side panel opens when I press Al"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "التراجع بعد الإلحاق يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F4",
+      "name": "حقل فارغ: يُدرج النص وحده بسطر أخير بلا فواصل زائدة في أوله",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "احتياطي",
+      "name": "حقل بلا شريط أدوات (BLK-GH-EDITOR-DOM): زره قبله، والإدراج عند المؤشر يحفظ ما حوله",
+      "ok": true,
+      "detail": {
+        "value": "Existing\n\n## Expected behavior\n\nFallback works.\n\n text without a toolbar."
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "احتياطي",
+      "name": "والتراجع يعيده حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "لوحة المفاتيح",
+      "name": "Escape الفعلي يغلق اللوحة ويعيد التركيز إلى زر المساعد",
+      "ok": true,
+      "detail": {
+        "open": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "لوحة المفاتيح",
+      "name": "التركيز في الصفحة على مضيف زر المساعد",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على أي زر إرسال في كل ما سبق (فتح وكتابة وإدراج وإلحاق وتراجع وإغلاق وEnter داخل اللوحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة داخل النافذة الضيقة، بلا تمرير أفقي للصفحة، وأزرار الإدراج قابلة للبلوغ",
+      "ok": true,
+      "detail": {
+        "rect": {
+          "x": 8,
+          "y": 16,
+          "w": 336,
+          "h": 608
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الأزرار",
+      "name": "أربعة أزرار ظاهرة (ثلاثة في أشرطة وواحد قبل حقل بلا شريط) ولا زر لـCodeMirror",
+      "ok": true,
+      "detail": {
+        "all": [
+          {
+            "id": "issue-body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 165,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "pull_request_body",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 350,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "new_comment_field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 534,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          },
+          {
+            "id": "fallback-field",
+            "present": true,
+            "rect": {
+              "x": 17,
+              "y": 600,
+              "w": 69,
+              "h": 32
+            },
+            "expanded": "false",
+            "label": "افتح مساعد كتابة البلاغات والمراجعات لهذا الحقل"
+          }
+        ],
+        "cmButtons": 0,
+        "total": 4
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "قبل الفعل",
+      "name": "لا لوحة، والمسودات كما هي، ولا أحداث input",
+      "ok": true,
+      "detail": {
+        "comment": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "pr": "Draft: this PR fixes the sidebar toggle.\n\nStill need to add tests."
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "اللوحة",
+      "name": "نقر الزر الفعلي يفتح لوحة في نهاية body داخل النافذة، والتركيز على أول حقل، والنوع Issue، ومعاينتها فارغة وأزرار الإدراج معطّلة",
+      "ok": true,
+      "detail": {
+        "open": true,
+        "hostIsLast": true,
+        "rect": {
+          "x": 875,
+          "y": 16,
+          "w": 460,
+          "h": 651
+        },
+        "inViewport": true,
+        "scrollable": false,
+        "focus": "mj-composer-expected",
+        "kind": "issue",
+        "preview": "اكتب في الحقول أعلاه لتظهر هنا المعاينة الكاملة للنص الذي سيُدرج.",
+        "previewEmpty": true,
+        "status": "",
+        "statusVisible": false,
+        "buttons": {
+          "close": {
+            "disabled": false,
+            "x": 904,
+            "y": 45
+          },
+          "insert-cursor": {
+            "disabled": true,
+            "x": 1260,
+            "y": 592
+          },
+          "insert-append": {
+            "disabled": true,
+            "x": 1107,
+            "y": 592
+          },
+          "undo": {
+            "disabled": true,
+            "x": 1250,
+            "y": 632
+          }
+        },
+        "fields": {
+          "expected": "",
+          "actual": "",
+          "steps": "",
+          "environment": "",
+          "evidence": ""
+        },
+        "pageFocus": "f.composer.panel",
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "اللوحة",
+      "name": "التركيز في الصفحة على مضيف اللوحة، وحقل الكتابة الأصلي لم يفقد موضع المؤشر",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 24,
+        "end": 24,
+        "direction": "forward",
+        "focused": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "اللوحة",
+      "name": "Tab ينقل من «المتوقع» إلى «الفعلي»",
+      "ok": true,
+      "detail": "mj-composer-actual"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F1",
+      "name": "الحقول الخمسة بما كُتب بالكيبورد حرفيًا (بما فيها الأسطر المتعددة)",
+      "ok": true,
+      "detail": {
+        "expected": "The side panel opens when I press Alt+G.",
+        "actual": "Nothing happens in Firefox 158.",
+        "steps": "Open github.com\nPress Alt+G\nWatch the sidebar",
+        "environment": "macOS 15\nFirefox 158.0.1",
+        "evidence": "https://example.com/shot.png"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F1",
+      "name": "المعاينة الكاملة تطابق النص الذي سيُدرج بالضبط (عناوين وقوائم مرقّمة ونقطية)",
+      "ok": true,
+      "detail": "## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing happens in Firefox 158.\n\n## Steps to reproduce\n\n1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n\n## Environment\n\n- macOS 15\n- Firefox 158.0.1\n\n## Evidence\n\n- https://example.com/shot.png\n"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "عند المؤشر: ما قبل المؤشر وما بعده كما هما حرفيًا والكتلة بينهما",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\n\n## Expected behavior\n\nThe side panel opens when I press Alt+G.\n\n## Actual behavior\n\nNothing hap"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "أمر التحرير الحقيقي: أحداث input موثوقة (isTrusted) بنوع insertText، فيراها GitHub كما لو كتب المستخدم",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true,
+          "length": 360
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "الحالة تعلن الإدراج وأن شيئًا لم يُمسح ولم يُرسل، وزر التراجع مفعَّل",
+      "ok": true,
+      "detail": "أُدرج عند المؤشر (285 حرفًا). لم يُمسح شيء من مسودتك، ولم يُرسل شيء؛ يمكنك التراجع."
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "الإدراج لم يمس الحقول الأخرى",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "Ctrl/⌘+Z الأصلي في الحقل يتراجع عن الإدراج (سجل التراجع الأصلي: الإدراج بأمر التحرير)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "isOriginal": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "زر «التراجع» بعد تراجع المستخدم الأصلي: المسودة سليمة بلا حذف ولا تحذير",
+      "ok": true,
+      "detail": {
+        "value": 72,
+        "status": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "تحديد نص ثم إدراج عند المؤشر: لا يُستبدل المحدد (يُطوى إلى طرفه الأخير)",
+      "ok": true,
+      "detail": {
+        "head": "First line of my draft.\n\n## Expected beh"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "زر «التراجع عن آخر إدراج»: المسودة حرفيًا كما كانت والتحديد الأصلي (12 إلى 24)",
+      "ok": true,
+      "detail": {
+        "value": "First line of my draft.\nSecond line of my draft.\nThird line of my draft.",
+        "start": 12,
+        "end": 24,
+        "direction": "forward",
+        "focused": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "التراجع بأمر التحرير الحقيقي: input موثوق بنوع deleteContentBackward",
+      "ok": true,
+      "detail": [
+        {
+          "target": "new_comment_field",
+          "type": "change",
+          "inputType": null,
+          "trusted": true,
+          "length": 360
+        },
+        {
+          "target": "new_comment_field",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true,
+          "length": 72
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "بعد التراجع: الحالة تعلن عودة المسودة حرفيًا وزر التراجع معطّل",
+      "ok": true,
+      "detail": "تراجع الإدراج: عادت مسودتك كما كانت قبله حرفيًا."
+    },
+    {
+      "browser": "Firefox",
+      "page": "اللوحة",
+      "name": "فتح حقل آخر يستبدل اللوحة (واحدة فقط) ويبدأ بحقول فارغة (جلسة لكل حقل)",
+      "ok": true,
+      "detail": {
+        "expected": "",
+        "actual": "",
+        "steps": "",
+        "environment": "",
+        "evidence": ""
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "الإلحاق: مسودة الطلب سليمة في أول الحقل والكتلة في آخره",
+      "ok": true,
+      "detail": {
+        "tail": "\n\n## Expected behavior\n\nThe side panel opens when I press Al"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "التراجع بعد الإلحاق يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F4",
+      "name": "حقل فارغ: يُدرج النص وحده بسطر أخير بلا فواصل زائدة في أوله",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "احتياطي",
+      "name": "حقل بلا شريط أدوات (BLK-GH-EDITOR-DOM): زره قبله، والإدراج عند المؤشر يحفظ ما حوله",
+      "ok": true,
+      "detail": {
+        "value": "Existing\n\n## Expected behavior\n\nFallback works.\n\n text without a toolbar."
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "احتياطي",
+      "name": "والتراجع يعيده حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "لوحة المفاتيح",
+      "name": "Escape الفعلي يغلق اللوحة ويعيد التركيز إلى زر المساعد",
+      "ok": true,
+      "detail": {
+        "open": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "لوحة المفاتيح",
+      "name": "التركيز في الصفحة على مضيف زر المساعد",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على أي زر إرسال في كل ما سبق (فتح وكتابة وإدراج وإلحاق وتراجع وإغلاق وEnter داخل اللوحة)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة داخل النافذة الضيقة، بلا تمرير أفقي للصفحة، وأزرار الإدراج قابلة للبلوغ",
+      "ok": true,
+      "detail": {
+        "rect": {
+          "x": 9,
+          "y": 16,
+          "w": 460,
+          "h": 643
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    }
+  ]
+}

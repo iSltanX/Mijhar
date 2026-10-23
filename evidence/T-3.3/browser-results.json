@@ -1,0 +1,2407 @@
+{
+  "measuredAt": "2026-10-23T14:44:57.887Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)؛ مدخلات حقيقية (Playwright keyboard/touchscreen في Chromium، وWebDriver actions في Firefox)؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "keyboard": {
+        "sample": {
+          "badges": 20,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        },
+        "real-repo": {
+          "badges": 7,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        }
+      },
+      "touch": {
+        "sample": {
+          "media": {
+            "hoverNone": true,
+            "pointerCoarse": true,
+            "anyHover": false
+          }
+        },
+        "real-repo": {
+          "media": {
+            "hoverNone": true,
+            "pointerCoarse": true,
+            "anyHover": false
+          },
+          "note": "الأحجام والهندسة فقط؛ اللمس على العينة المحلية (صفحة حقيقية أعرض من الجهاز)"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "keyboard": {
+        "sample": {
+          "badges": 20,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        },
+        "real-repo": {
+          "badges": 7,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        }
+      },
+      "touch": {
+        "sample": {
+          "media": {
+            "hoverNone": true,
+            "pointerCoarse": true,
+            "anyHover": false
+          }
+        },
+        "real-repo": {
+          "media": {
+            "hoverNone": true,
+            "pointerCoarse": true,
+            "anyHover": false
+          },
+          "note": "الأحجام والهندسة فقط؛ اللمس على العينة المحلية (صفحة حقيقية أعرض من الجهاز)"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "keyboard": {
+        "sample": {
+          "badges": 20,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        },
+        "real-repo": {
+          "badges": 7,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        }
+      },
+      "touch": {
+        "sample": {
+          "media": {
+            "hoverNone": true,
+            "pointerCoarse": true,
+            "anyHover": false
+          }
+        },
+        "real-repo": {
+          "media": {
+            "hoverNone": true,
+            "pointerCoarse": true,
+            "anyHover": false
+          },
+          "note": "الأحجام والهندسة فقط؛ اللمس على العينة المحلية (صفحة حقيقية أعرض من الجهاز)"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "keyboard": {
+        "sample": {
+          "badges": 20,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        },
+        "real-repo": {
+          "badges": 7,
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        }
+      },
+      "touch": {
+        "sample": {
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          }
+        },
+        "real-repo": {
+          "media": {
+            "hoverNone": false,
+            "pointerCoarse": false,
+            "anyHover": true
+          },
+          "note": "الأحجام والهندسة فقط؛ اللمس على العينة المحلية (صفحة حقيقية أعرض من الجهاز)"
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "button#star-btn"
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "20 شارة",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Tab يزور الشارات 20 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ],
+        "expected": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[readme-block]"
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "nav-search",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 20,
+            "y": 36,
+            "w": 360,
+            "h": 616
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 49,
+            "cy": 65
+          }
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "nav-search",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 20,
+          "y": 36,
+          "w": 360,
+          "h": 616
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 49,
+          "cy": 65
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[nav-search]"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-create"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[nav-create]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "button#star-btn",
+        "now": "button#star-btn"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "a"
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "7 شارة",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Tab يزور الشارات 7 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ],
+        "expected": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[repo-tab-releases]"
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "repo-tab-code",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 8,
+            "y": 150,
+            "w": 360,
+            "h": 536
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 37,
+            "cy": 179
+          }
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "repo-tab-code",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 8,
+          "y": 150,
+          "w": 360,
+          "h": 536
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 37,
+          "cy": 179
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[repo-tab-code]"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "repo-tab-issues"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[repo-tab-issues]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "a",
+        "now": "a"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "الجهاز المحاكى: hover: none وpointer: coarse",
+      "ok": true,
+      "detail": {
+        "hoverNone": true,
+        "pointerCoarse": true,
+        "anyHover": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "حجم كل شارة ≥ 24px في المؤشر الخشن",
+      "ok": true,
+      "detail": {
+        "sizes": [
+          "32x32"
+        ],
+        "pointer": "coarse"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "لا تمرير أفقي في الصفحة بسبب الطبقة",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "لا بطاقة مفتوحة قبل أي لمسة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "لمسة حقيقية على الشارة تفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-search"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "card": {
+          "x": 14,
+          "y": 48,
+          "w": 360,
+          "h": 634
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "زر إغلاق البطاقة ≥ 24px",
+      "ok": true,
+      "detail": {
+        "w": 44,
+        "h": 44,
+        "cx": 49,
+        "cy": 83
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "وُجدت نقطة خارج الطبقة للمس",
+      "ok": true,
+      "detail": {
+        "x": 61,
+        "y": 823
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "لمسة خارج الطبقة تغلق البطاقة والوضع باقٍ",
+      "ok": true,
+      "detail": {
+        "mode": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "sample",
+      "name": "لمسة تفتح ولمسة على زر الإغلاق تغلق وتعيد التركيز إلى الشارة (6 شارات)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "الجهاز المحاكى: hover: none وpointer: coarse",
+      "ok": true,
+      "detail": {
+        "hoverNone": true,
+        "pointerCoarse": true,
+        "anyHover": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "حجم كل شارة ≥ 24px في المؤشر الخشن",
+      "ok": true,
+      "detail": {
+        "sizes": [
+          "32x32"
+        ],
+        "pointer": "coarse"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-repo",
+      "name": "لا تمرير أفقي في الصفحة بسبب الطبقة",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "button#star-btn"
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "20 شارة",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Tab يزور الشارات 20 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ],
+        "expected": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[readme-block]"
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "nav-search",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 20,
+            "y": 36,
+            "w": 360,
+            "h": 616
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 49,
+            "cy": 65
+          }
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "nav-search",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 20,
+          "y": 36,
+          "w": 360,
+          "h": 616
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 49,
+          "cy": 65
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[nav-search]"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-create"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[nav-create]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "button#star-btn",
+        "now": "button#star-btn"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "a"
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "7 شارة",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Tab يزور الشارات 7 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ],
+        "expected": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[repo-tab-releases]"
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "repo-tab-code",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 8,
+            "y": 150,
+            "w": 360,
+            "h": 536
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 37,
+            "cy": 179
+          }
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "repo-tab-code",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 8,
+          "y": 150,
+          "w": 360,
+          "h": 536
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 37,
+          "cy": 179
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[repo-tab-code]"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "repo-tab-issues"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[repo-tab-issues]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "a",
+        "now": "a"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "الجهاز المحاكى: hover: none وpointer: coarse",
+      "ok": true,
+      "detail": {
+        "hoverNone": true,
+        "pointerCoarse": true,
+        "anyHover": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "حجم كل شارة ≥ 24px في المؤشر الخشن",
+      "ok": true,
+      "detail": {
+        "sizes": [
+          "32x32"
+        ],
+        "pointer": "coarse"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "لا تمرير أفقي في الصفحة بسبب الطبقة",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "لا بطاقة مفتوحة قبل أي لمسة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "لمسة حقيقية على الشارة تفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-search"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "card": {
+          "x": 14,
+          "y": 48,
+          "w": 360,
+          "h": 634
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "زر إغلاق البطاقة ≥ 24px",
+      "ok": true,
+      "detail": {
+        "w": 44,
+        "h": 44,
+        "cx": 49,
+        "cy": 83
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "وُجدت نقطة خارج الطبقة للمس",
+      "ok": true,
+      "detail": {
+        "x": 61,
+        "y": 823
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "لمسة خارج الطبقة تغلق البطاقة والوضع باقٍ",
+      "ok": true,
+      "detail": {
+        "mode": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "sample",
+      "name": "لمسة تفتح ولمسة على زر الإغلاق تغلق وتعيد التركيز إلى الشارة (6 شارات)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "الجهاز المحاكى: hover: none وpointer: coarse",
+      "ok": true,
+      "detail": {
+        "hoverNone": true,
+        "pointerCoarse": true,
+        "anyHover": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "حجم كل شارة ≥ 24px في المؤشر الخشن",
+      "ok": true,
+      "detail": {
+        "sizes": [
+          "32x32"
+        ],
+        "pointer": "coarse"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-repo",
+      "name": "لا تمرير أفقي في الصفحة بسبب الطبقة",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "button#star-btn"
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "20 شارة",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Tab يزور الشارات 20 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ],
+        "expected": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[readme-block]"
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "nav-search",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 20,
+            "y": 36,
+            "w": 360,
+            "h": 616
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 49,
+            "cy": 65
+          }
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "nav-search",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 20,
+          "y": 36,
+          "w": 360,
+          "h": 616
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 49,
+          "cy": 65
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[nav-search]"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-create"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[nav-create]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "button#star-btn",
+        "now": "button#star-btn"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "a"
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "7 شارة",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Tab يزور الشارات 7 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ],
+        "expected": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[repo-tab-releases]"
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "repo-tab-code",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 8,
+            "y": 150,
+            "w": 360,
+            "h": 556
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 37,
+            "cy": 179
+          }
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "repo-tab-code",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 8,
+          "y": 150,
+          "w": 360,
+          "h": 556
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 37,
+          "cy": 179
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[repo-tab-code]"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "repo-tab-issues"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[repo-tab-issues]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "a",
+        "now": "a"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "الجهاز المحاكى: hover: none وpointer: coarse",
+      "ok": true,
+      "detail": {
+        "hoverNone": true,
+        "pointerCoarse": true,
+        "anyHover": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "حجم كل شارة ≥ 24px في المؤشر الخشن",
+      "ok": true,
+      "detail": {
+        "sizes": [
+          "32x32"
+        ],
+        "pointer": "coarse"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "لا تمرير أفقي في الصفحة بسبب الطبقة",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "لا بطاقة مفتوحة قبل أي لمسة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "لمسة حقيقية على الشارة تفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-search"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "card": {
+          "x": 14,
+          "y": 48,
+          "w": 360,
+          "h": 634
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "زر إغلاق البطاقة ≥ 24px",
+      "ok": true,
+      "detail": {
+        "w": 44,
+        "h": 44,
+        "cx": 49,
+        "cy": 83
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "وُجدت نقطة خارج الطبقة للمس",
+      "ok": true,
+      "detail": {
+        "x": 206,
+        "y": 804
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "لمسة خارج الطبقة تغلق البطاقة والوضع باقٍ",
+      "ok": true,
+      "detail": {
+        "mode": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "sample",
+      "name": "لمسة تفتح ولمسة على زر الإغلاق تغلق وتعيد التركيز إلى الشارة (6 شارات)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "الجهاز المحاكى: hover: none وpointer: coarse",
+      "ok": true,
+      "detail": {
+        "hoverNone": true,
+        "pointerCoarse": true,
+        "anyHover": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "حجم كل شارة ≥ 24px في المؤشر الخشن",
+      "ok": true,
+      "detail": {
+        "sizes": [
+          "32x32"
+        ],
+        "pointer": "coarse"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-repo",
+      "name": "لا تمرير أفقي في الصفحة بسبب الطبقة",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "button#star-btn"
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "20 شارة",
+      "ok": true,
+      "detail": 20
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Tab يزور الشارات 20 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ],
+        "expected": [
+          "button[nav-search]",
+          "button[nav-create]",
+          "button[nav-notifications]",
+          "button[nav-profile-menu]"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[readme-block]"
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[nav-search]"
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "nav-search",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 56,
+            "y": 36,
+            "w": 360,
+            "h": 616
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 85,
+            "cy": 65
+          }
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "nav-search",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 56,
+          "y": 36,
+          "w": 360,
+          "h": 616
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 85,
+          "cy": 65
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[nav-search]"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-create"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[nav-create]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "button#star-btn",
+        "now": "button#star-btn"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "قبل التفعيل لا مضيف",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "تركيز عنصر من الصفحة قبل التفعيل",
+      "ok": true,
+      "detail": "a"
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Alt+H الفعلي فعّل الوضع وأضاف مضيفًا واحدًا",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "hosts": 1
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "7 شارة",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "التركيز على أول شارة بعد التفعيل بلوحة المفاتيح",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "كل شارة button type=button باسم وصول وaria-expanded=false وaria-haspopup=dialog",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Tab يزور الشارات 7 بترتيبها بلا قفز ولا تكرار",
+      "ok": true,
+      "detail": {
+        "visited": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ],
+        "expected": [
+          "button[repo-tab-code]",
+          "button[repo-tab-issues]",
+          "button[repo-tab-pulls]",
+          "button[repo-tab-actions]"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "بعد آخر شارة يصل Tab إلى زر «إيقاف» في شريط الوضع",
+      "ok": true,
+      "detail": "button{stop}"
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Shift+Tab يعود إلى آخر شارة",
+      "ok": true,
+      "detail": "button[repo-tab-releases]"
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Shift+Tab مرارًا يصل إلى أول شارة",
+      "ok": true,
+      "detail": "button[repo-tab-code]"
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Enter على الشارة يفتح البطاقة ويركّزها",
+      "ok": true,
+      "detail": {
+        "expanded": "true",
+        "card": {
+          "entry": "repo-tab-code",
+          "role": "dialog",
+          "focused": true,
+          "rect": {
+            "x": 8,
+            "y": 150,
+            "w": 360,
+            "h": 525
+          },
+          "insideViewport": true,
+          "close": "إغلاق الشرح",
+          "closeRect": {
+            "w": 32,
+            "h": 32,
+            "cx": 37,
+            "cy": 179
+          }
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "البطاقة داخل نافذة العرض ولها زر إغلاق باسم وصول",
+      "ok": true,
+      "detail": {
+        "entry": "repo-tab-code",
+        "role": "dialog",
+        "focused": true,
+        "rect": {
+          "x": 8,
+          "y": 150,
+          "w": 360,
+          "h": 525
+        },
+        "insideViewport": true,
+        "close": "إغلاق الشرح",
+        "closeRect": {
+          "w": 32,
+          "h": 32,
+          "cx": 37,
+          "cy": 179
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Escape يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "card": null,
+        "focus": "button[repo-tab-code]"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Space على الشارة يفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "repo-tab-issues"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "زر الإغلاق في البطاقة قابل للبلوغ بـTab",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Enter على زر الإغلاق يغلق البطاقة ويعيد التركيز إلى الشارة",
+      "ok": true,
+      "detail": {
+        "focus": "button[repo-tab-issues]",
+        "card": null
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "حروف الاختصارات (g وi و?) على الشارة لا تبلغ المستند",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "Alt+H ثانيةً تبلغ المستند (الاختصار غير محجوب) وتوقف الوضع وتزيل المضيف",
+      "ok": true,
+      "detail": {
+        "active": false,
+        "hosts": 0,
+        "keys": [
+          "Alt",
+          "h"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "الإيقاف يعيد التركيز إلى العنصر السابق في الصفحة",
+      "ok": true,
+      "detail": {
+        "before": "a",
+        "now": "a"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "إيقاف الوحدة يعيد DOM حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "لا بطاقة مفتوحة قبل أي لمسة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "لمسة حقيقية على الشارة تفتح البطاقة",
+      "ok": true,
+      "detail": {
+        "card": "nav-search"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "البطاقة داخل نافذة العرض ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "card": {
+          "x": 56,
+          "y": 36,
+          "w": 360,
+          "h": 616
+        },
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "وُجدت نقطة خارج الطبقة للمس",
+      "ok": true,
+      "detail": {
+        "x": 683,
+        "y": 628
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "لمسة خارج الطبقة تغلق البطاقة والوضع باقٍ",
+      "ok": true,
+      "detail": {
+        "mode": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "sample",
+      "name": "لمسة تفتح ولمسة على زر الإغلاق تغلق وتعيد التركيز إلى الشارة (6 شارات)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-repo",
+      "name": "شارات ظاهرة في نافذة العرض",
+      "ok": true,
+      "detail": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 // مفاتيح الوحدات الثماني وربطها بالوحدات البرمجية (جزء من TEST-CORE-06).
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_SURFACE, MemoryStorageArea, SURFACE_KEY, SettingsRegistry, UNITS, UNIT_IDS, createSettingsRegistry, isModuleEnabled, moduleEnabledKey, unitOf } from '../../../src/core';
+import { DEFAULT_SURFACE, MemoryStorageArea, PANEL_REQUEST_KEY, SURFACE_KEY, SettingsRegistry, UNITS, UNIT_IDS, createSettingsRegistry, isModuleEnabled, moduleEnabledKey, unitOf } from '../../../src/core';
 import { memorySettings } from './helpers';
 
 describe('سجل الإعدادات الأساسي', () => {
@@ -11,7 +11,9 @@ describe('سجل الإعدادات الأساسي', () => {
     for (const id of UNIT_IDS) expect(registry.get(moduleEnabledKey(id))?.default).toBe(true);
     expect(registry.get(SURFACE_KEY)?.default).toBe(DEFAULT_SURFACE);
     expect(registry.get(SURFACE_KEY)?.validate?.('sideways')).toBe(false);
-    expect(registry.list()).toHaveLength(9);
+    // مفتاح طلب تبويب اللوحة أضافته MJ10 (T-3.4) لأمر فتح القاموس: قيمته الافتراضية null.
+    expect(registry.get(PANEL_REQUEST_KEY)?.default).toBeNull();
+    expect(registry.list()).toHaveLength(10);
   });
 
   it('extend يضيف إعدادات الأقسام فوق الأساسي', () => {

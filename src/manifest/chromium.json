@@ -32,6 +32,10 @@
     "toggle-panel": {
       "suggested_key": { "default": "Alt+G" },
       "description": "افتح لوحة مِجهَر أو الدرج"
+    },
+    "open-glossary": {
+      "suggested_key": { "default": "Alt+K" },
+      "description": "ابحث في قاموس مِجهَر"
     }
   }
 }

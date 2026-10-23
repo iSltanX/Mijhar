@@ -62,7 +62,8 @@ describe('السجل', () => {
 
   it('كل واجهة فيها حقول كتابة مقصورة على اللوحة الأصلية، ولها بديل في الدرج', () => {
     const native = PANEL_VIEWS.filter((v) => v.surfaces?.length === 1 && v.surfaces[0] === 'native').map((v) => v.id);
-    expect(native.sort()).toEqual(['g-notes', 'h-discovery', 'h-resources']);
+    // 'b-glossary-search' أضافته MJ10 (T-3.4): خانة بحث القاموس للوحة الأصلية وحدها، وبديلها في الدرج بيان.
+    expect(native.sort()).toEqual(['b-glossary-search', 'g-notes', 'h-discovery', 'h-resources']);
     for (const id of native) expect(PANEL_VIEWS.some((v) => v.id.startsWith(id) && v.surfaces?.[0] === 'drawer')).toBe(true);
   });
 });

@@ -53,11 +53,14 @@ export async function toggleDrawer(api: ExtensionApi, tab: TabLike | undefined, 
   }
 }
 
-/** معالج الأمر. متزامن حتى أول استدعاء لواجهة المتصفح؛ لا تُضف await قبله. */
-export function openPanel(deps: PanelCommandDeps, tab: TabLike | undefined): void {
+/**
+ * معالج الأمر. متزامن حتى أول استدعاء لواجهة المتصفح؛ لا تُضف await قبله. action: 'toggle' (أمر اللوحة) يبدّل الفتح والإغلاق، و'open' (أوامر الوحدات
+ * مثل فتح القاموس) يفتح ولا يغلق ما هو مفتوح.
+ */
+export function openPanel(deps: PanelCommandDeps, tab: TabLike | undefined, action: Exclude<DrawerAction, 'close'> = 'toggle'): void {
   const { api, onOutcome = () => {} } = deps;
   const fallback = (reason: unknown): void => {
-    void toggleDrawer(api, tab).then((outcome) => onOutcome(outcome, reason instanceof Error ? reason.message : String(reason ?? '')));
+    void toggleDrawer(api, tab, action).then((outcome) => onOutcome(outcome, reason instanceof Error ? reason.message : String(reason ?? '')));
   };
 
   let opening: Promise<void> | undefined;
@@ -65,7 +68,7 @@ export function openPanel(deps: PanelCommandDeps, tab: TabLike | undefined): voi
     if (deps.target === 'chromium') {
       if (api.sidePanel && tab?.windowId !== undefined) opening = api.sidePanel.open({ windowId: tab.windowId });
     } else if (deps.surface?.() !== 'drawer' && api.sidebarAction) {
-      opening = api.sidebarAction.toggle ? api.sidebarAction.toggle() : api.sidebarAction.open();
+      opening = action === 'toggle' && api.sidebarAction.toggle ? api.sidebarAction.toggle() : api.sidebarAction.open();
     }
   } catch (error) {
     fallback(error);

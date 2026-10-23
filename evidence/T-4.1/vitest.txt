@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj10-8366f0
+
+
+ Test Files  44 passed (44)
+      Tests  619 passed (619)
+   Start at  17:17:31
+   Duration  6.50s (tests 52%, environment 25%, import 16%, transform 7%, worker 1%)
+
+    Isolate  44 workers spawned · ~338ms startup each (spawn + environment, per file)
+             at least ~1.78s faster with isolate: false — reuses workers across files instead of one per file
+

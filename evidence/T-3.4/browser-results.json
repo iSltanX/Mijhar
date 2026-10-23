@@ -1,0 +1,2663 @@
+{
+  "measuredAt": "2026-10-23T14:45:45.379Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)؛ كتابة ونقر فعليان؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "width400": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        },
+        "queries": [
+          {
+            "q": "مستودع",
+            "first": "repository",
+            "via": "name",
+            "count": 67
+          },
+          {
+            "q": "commit",
+            "first": "commit",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "كوميت",
+            "first": "commit",
+            "via": "synonym",
+            "count": 1
+          },
+          {
+            "q": "pull request",
+            "first": "pull_request",
+            "via": "name",
+            "count": 5
+          },
+          {
+            "q": "المخزن",
+            "first": "repository",
+            "via": "synonym",
+            "count": 2
+          },
+          {
+            "q": "حذف مستودع",
+            "first": "delete_repo",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "Squash and merge",
+            "first": "squash_merge",
+            "via": "name",
+            "count": 2
+          }
+        ],
+        "pb03": {
+          "samples": 67,
+          "domMs": {
+            "n": 67,
+            "min": 0.1,
+            "median": 0.7,
+            "p95": 2.2,
+            "max": 4.3
+          },
+          "frameMs": {
+            "n": 67,
+            "min": 0.6,
+            "median": 7.5,
+            "p95": 14.8,
+            "max": 17.5
+          }
+        }
+      },
+      "width360": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "width400": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        },
+        "queries": [
+          {
+            "q": "مستودع",
+            "first": "repository",
+            "via": "name",
+            "count": 67
+          },
+          {
+            "q": "commit",
+            "first": "commit",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "كوميت",
+            "first": "commit",
+            "via": "synonym",
+            "count": 1
+          },
+          {
+            "q": "pull request",
+            "first": "pull_request",
+            "via": "name",
+            "count": 5
+          },
+          {
+            "q": "المخزن",
+            "first": "repository",
+            "via": "synonym",
+            "count": 2
+          },
+          {
+            "q": "حذف مستودع",
+            "first": "delete_repo",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "Squash and merge",
+            "first": "squash_merge",
+            "via": "name",
+            "count": 2
+          }
+        ],
+        "pb03": {
+          "samples": 67,
+          "domMs": {
+            "n": 67,
+            "min": 0.2,
+            "median": 0.6,
+            "p95": 2.6,
+            "max": 3.1
+          },
+          "frameMs": {
+            "n": 67,
+            "min": 0.5,
+            "median": 6.5,
+            "p95": 15.4,
+            "max": 16.8
+          }
+        }
+      },
+      "width360": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "width400": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        },
+        "queries": [
+          {
+            "q": "مستودع",
+            "first": "repository",
+            "via": "name",
+            "count": 67
+          },
+          {
+            "q": "commit",
+            "first": "commit",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "كوميت",
+            "first": "commit",
+            "via": "synonym",
+            "count": 1
+          },
+          {
+            "q": "pull request",
+            "first": "pull_request",
+            "via": "name",
+            "count": 5
+          },
+          {
+            "q": "المخزن",
+            "first": "repository",
+            "via": "synonym",
+            "count": 2
+          },
+          {
+            "q": "حذف مستودع",
+            "first": "delete_repo",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "Squash and merge",
+            "first": "squash_merge",
+            "via": "name",
+            "count": 2
+          }
+        ],
+        "pb03": {
+          "samples": 67,
+          "domMs": {
+            "n": 67,
+            "min": 0.3,
+            "median": 0.7,
+            "p95": 2.9,
+            "max": 3.1
+          },
+          "frameMs": {
+            "n": 67,
+            "min": 0.7,
+            "median": 7.1,
+            "p95": 14.9,
+            "max": 19.4
+          }
+        }
+      },
+      "width360": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "width400": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        },
+        "queries": [
+          {
+            "q": "مستودع",
+            "first": "repository",
+            "via": "name",
+            "count": 67
+          },
+          {
+            "q": "commit",
+            "first": "commit",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "كوميت",
+            "first": "commit",
+            "via": "synonym",
+            "count": 1
+          },
+          {
+            "q": "pull request",
+            "first": "pull_request",
+            "via": "name",
+            "count": 5
+          },
+          {
+            "q": "المخزن",
+            "first": "repository",
+            "via": "synonym",
+            "count": 2
+          },
+          {
+            "q": "حذف مستودع",
+            "first": "delete_repo",
+            "via": "name",
+            "count": 9
+          },
+          {
+            "q": "Squash and merge",
+            "first": "squash_merge",
+            "via": "name",
+            "count": 2
+          }
+        ],
+        "pb03": {
+          "samples": 67,
+          "domMs": {
+            "n": 67,
+            "min": 0,
+            "median": 1,
+            "p95": 2,
+            "max": 3
+          },
+          "frameMs": {
+            "n": 67,
+            "min": 0,
+            "median": 8,
+            "p95": 21,
+            "max": 23
+          }
+        }
+      },
+      "width360": {
+        "initial": {
+          "count": "112 نتيجة",
+          "chips": [
+            "الكل(112)، 112 نتيجة",
+            "المستودع والملفات(20)، 20 نتيجة",
+            "Git: الالتزامات والفروع والدمج(16)، 16 نتيجة",
+            "التعاون: المشكلات وطلبات السحب(12)، 12 نتيجة",
+            "الإصدارات والأتمتة والنشر(19)، 19 نتيجة",
+            "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة",
+            "الحساب والملف الشخصي(13)، 13 نتيجة",
+            "الإعدادات والفوترة(4)، 4 نتائج"
+          ]
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "عرض 400",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "عرض 400",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 401,
+        "hostClientWidth": 400,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "خانة البحث قابلة للتركيز",
+      "ok": true,
+      "detail": {
+        "focused": "input#mj-gs-input"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "«مستودع» ← repository أولًا",
+      "ok": true,
+      "detail": {
+        "query": "مستودع",
+        "results": [
+          {
+            "id": "repository",
+            "via": "name",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "pin_repo",
+            "via": "name",
+            "open": "false",
+            "category": "account"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "«commit» ← commit أولًا",
+      "ok": true,
+      "detail": {
+        "query": "commit",
+        "results": [
+          {
+            "id": "commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "commit_changes",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "merge_commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "«كوميت» ← commit أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "كوميت",
+        "results": [
+          {
+            "id": "commit",
+            "via": "synonym",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "«pull request» ← pull_request أولًا",
+      "ok": true,
+      "detail": {
+        "query": "pull request",
+        "results": [
+          {
+            "id": "pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "draft_pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "pr_review",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "«المخزن» ← repository أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "المخزن",
+        "results": [
+          {
+            "id": "repository",
+            "via": "synonym",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "passkey",
+            "via": "body",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "«حذف مستودع» ← delete_repo أولًا",
+      "ok": true,
+      "detail": {
+        "query": "حذف مستودع",
+        "results": [
+          {
+            "id": "delete_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "repo-tab-settings",
+            "via": "name",
+            "open": "false",
+            "category": "settings"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "«Squash and merge» ← squash_merge أولًا",
+      "ok": true,
+      "detail": {
+        "query": "Squash and merge",
+        "results": [
+          {
+            "id": "squash_merge",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "pull_request",
+            "via": "body",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى تعديل DOM: المئين 95 أقل من 10ms (67 عيّنة)",
+      "ok": true,
+      "detail": {
+        "dom": {
+          "n": 67,
+          "min": 0.1,
+          "median": 0.7,
+          "p95": 2.2,
+          "max": 4.3
+        },
+        "frame": {
+          "n": 67,
+          "min": 0.6,
+          "median": 7.5,
+          "p95": 14.8,
+          "max": 17.5
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى أول إطار: المئين 95 أقل من 50ms (غير ملزم بـPB-03؛ للإعلام)",
+      "ok": true,
+      "detail": {
+        "n": 67,
+        "min": 0.6,
+        "median": 7.5,
+        "p95": 14.8,
+        "max": 17.5
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "البحث",
+      "name": "لا نتائج: رسالة بدل قائمة",
+      "ok": true,
+      "detail": {
+        "query": "zzqqxx",
+        "focused": "input#mj-gs-input",
+        "count": "لا نتائج لـ«zzqqxx»",
+        "dataCount": 0,
+        "results": [],
+        "docs": [],
+        "chips": [
+          {
+            "id": "all",
+            "pressed": "true",
+            "text": "الكل(0)، لا نتائج"
+          },
+          {
+            "id": "repo",
+            "pressed": "false",
+            "text": "المستودع والملفات(0)، لا نتائج"
+          },
+          {
+            "id": "git",
+            "pressed": "false",
+            "text": "Git: الالتزامات والفروع والدمج(0)، لا نتائج"
+          },
+          {
+            "id": "collab",
+            "pressed": "false",
+            "text": "التعاون: المشكلات وطلبات السحب(0)، لا نتائج"
+          },
+          {
+            "id": "deploy",
+            "pressed": "false",
+            "text": "الإصدارات والأتمتة والنشر(0)، لا نتائج"
+          },
+          {
+            "id": "security",
+            "pressed": "false",
+            "text": "الأمان والخصوصية والصلاحيات(0)، لا نتائج"
+          },
+          {
+            "id": "account",
+            "pressed": "false",
+            "text": "الحساب والملف الشخصي(0)، لا نتائج"
+          },
+          {
+            "id": "settings",
+            "pressed": "false",
+            "text": "الإعدادات والفوترة(0)، لا نتائج"
+          }
+        ],
+        "hasMore": false,
+        "emptyShown": true,
+        "locateNotes": [],
+        "cards": 0,
+        "overflow": {
+          "hostScrollWidth": 401,
+          "hostClientWidth": 400,
+          "wideElements": []
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "التصنيف",
+      "name": "نقر «الأمان» يضيّق القائمة إلى التصنيف وحده ويضغط زره",
+      "ok": true,
+      "detail": {
+        "results": [
+          {
+            "id": "visibility_public",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "visibility_private",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ],
+        "chips": [
+          {
+            "id": "security",
+            "pressed": "true",
+            "text": "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "التصنيف",
+      "name": "الاستعلام والتصنيف معًا: commit في الأمان لا يعيد المدخل Commit نفسه",
+      "ok": true,
+      "detail": [
+        {
+          "id": "visibility_public",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "visibility_private",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "archive_repo",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "الشرح",
+      "name": "نقر «اقرأ الشرح» يفتح بطاقة واحدة",
+      "ok": true,
+      "detail": {
+        "cards": 1
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الوثائق",
+      "name": "روابط docs.github.com تفتح بأمان في تبويب جديد",
+      "ok": true,
+      "detail": [
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "أبرز الموضع",
+      "name": "نقر «أبرز الموضع» ← «أُبرز الموضع في الصفحة»",
+      "ok": true,
+      "detail": [
+        {
+          "status": "found",
+          "text": "أُبرز الموضع في الصفحة. اضغط Esc في الصفحة لإزالة الإبراز."
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "أبرز الموضع",
+      "name": "مضيف إبراز واحد وحلقة تحيط بزر النجمة الأصلي (هامش 4px)",
+      "ok": true,
+      "detail": {
+        "hl": {
+          "hosts": 1
+        },
+        "around": {
+          "around": true,
+          "ring": {
+            "x": 212,
+            "y": 62,
+            "w": 105,
+            "h": 30
+          },
+          "element": {
+            "x": 216,
+            "y": 66,
+            "w": 97,
+            "h": 22
+          }
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "أبرز الموضع",
+      "name": "Escape في الصفحة يزيل الإبراز",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "أبرز الموضع",
+      "name": "الشرك «Delete this repository» لا يُبرز: يُعرض مسار التبويب (Settings)",
+      "ok": true,
+      "detail": {
+        "note": {
+          "status": "elsewhere",
+          "text": "ليس في هذه الصفحة. يوجد في:تبويب Settings في المستودع (إعدادات المستودع)"
+        },
+        "hl": {
+          "hosts": 0
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "أبرز الموضع",
+      "name": "المفهوم العام: concept بلا إبراز",
+      "ok": true,
+      "detail": [
+        {
+          "status": "concept",
+          "text": "مصطلح عام لا يقابله عنصر محدد في الصفحة؛ اقرأ شرحه هنا."
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "الأمر",
+      "name": "طلب تبويب القاموس يركّز خانة البحث",
+      "ok": true,
+      "detail": "input#mj-gs-input"
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "عرض 360",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "عرض 360",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 361,
+        "hostClientWidth": 360,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "صفحة حقيقية",
+      "name": "يوجد مدخل يُعثر عليه في الصفحة الحقيقية المحفوظة",
+      "ok": true,
+      "detail": {
+        "entries": 112,
+        "categories": 7,
+        "docHeight": 1479,
+        "viewportH": 900
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "صفحة حقيقية",
+      "name": "حلقة واحدة على الأقل لـrepo-tab-code داخل النافذة",
+      "ok": true,
+      "detail": [
+        {
+          "x": 12,
+          "y": 128,
+          "w": 83.421875,
+          "h": 40
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "صفحة حقيقية",
+      "name": "الإبراز بعد التمرير إلى أسفل الصفحة ينقل العنصر إلى النافذة (حلقة مرئية داخلها)",
+      "ok": true,
+      "detail": {
+        "far": 1,
+        "scrollY": 0,
+        "rings": [
+          {
+            "x": 12,
+            "y": 128,
+            "w": 83.421875,
+            "h": 40
+          }
+        ],
+        "viewport": {
+          "w": 1280,
+          "h": 900
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "صفحة حقيقية",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "عرض 400",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "عرض 400",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 401,
+        "hostClientWidth": 400,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "خانة البحث قابلة للتركيز",
+      "ok": true,
+      "detail": {
+        "focused": "input#mj-gs-input"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "«مستودع» ← repository أولًا",
+      "ok": true,
+      "detail": {
+        "query": "مستودع",
+        "results": [
+          {
+            "id": "repository",
+            "via": "name",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "pin_repo",
+            "via": "name",
+            "open": "false",
+            "category": "account"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "«commit» ← commit أولًا",
+      "ok": true,
+      "detail": {
+        "query": "commit",
+        "results": [
+          {
+            "id": "commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "commit_changes",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "merge_commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "«كوميت» ← commit أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "كوميت",
+        "results": [
+          {
+            "id": "commit",
+            "via": "synonym",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "«pull request» ← pull_request أولًا",
+      "ok": true,
+      "detail": {
+        "query": "pull request",
+        "results": [
+          {
+            "id": "pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "draft_pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "pr_review",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "«المخزن» ← repository أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "المخزن",
+        "results": [
+          {
+            "id": "repository",
+            "via": "synonym",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "passkey",
+            "via": "body",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "«حذف مستودع» ← delete_repo أولًا",
+      "ok": true,
+      "detail": {
+        "query": "حذف مستودع",
+        "results": [
+          {
+            "id": "delete_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "repo-tab-settings",
+            "via": "name",
+            "open": "false",
+            "category": "settings"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "«Squash and merge» ← squash_merge أولًا",
+      "ok": true,
+      "detail": {
+        "query": "Squash and merge",
+        "results": [
+          {
+            "id": "squash_merge",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "pull_request",
+            "via": "body",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى تعديل DOM: المئين 95 أقل من 10ms (67 عيّنة)",
+      "ok": true,
+      "detail": {
+        "dom": {
+          "n": 67,
+          "min": 0.2,
+          "median": 0.6,
+          "p95": 2.6,
+          "max": 3.1
+        },
+        "frame": {
+          "n": 67,
+          "min": 0.5,
+          "median": 6.5,
+          "p95": 15.4,
+          "max": 16.8
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى أول إطار: المئين 95 أقل من 50ms (غير ملزم بـPB-03؛ للإعلام)",
+      "ok": true,
+      "detail": {
+        "n": 67,
+        "min": 0.5,
+        "median": 6.5,
+        "p95": 15.4,
+        "max": 16.8
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "البحث",
+      "name": "لا نتائج: رسالة بدل قائمة",
+      "ok": true,
+      "detail": {
+        "query": "zzqqxx",
+        "focused": "input#mj-gs-input",
+        "count": "لا نتائج لـ«zzqqxx»",
+        "dataCount": 0,
+        "results": [],
+        "docs": [],
+        "chips": [
+          {
+            "id": "all",
+            "pressed": "true",
+            "text": "الكل(0)، لا نتائج"
+          },
+          {
+            "id": "repo",
+            "pressed": "false",
+            "text": "المستودع والملفات(0)، لا نتائج"
+          },
+          {
+            "id": "git",
+            "pressed": "false",
+            "text": "Git: الالتزامات والفروع والدمج(0)، لا نتائج"
+          },
+          {
+            "id": "collab",
+            "pressed": "false",
+            "text": "التعاون: المشكلات وطلبات السحب(0)، لا نتائج"
+          },
+          {
+            "id": "deploy",
+            "pressed": "false",
+            "text": "الإصدارات والأتمتة والنشر(0)، لا نتائج"
+          },
+          {
+            "id": "security",
+            "pressed": "false",
+            "text": "الأمان والخصوصية والصلاحيات(0)، لا نتائج"
+          },
+          {
+            "id": "account",
+            "pressed": "false",
+            "text": "الحساب والملف الشخصي(0)، لا نتائج"
+          },
+          {
+            "id": "settings",
+            "pressed": "false",
+            "text": "الإعدادات والفوترة(0)، لا نتائج"
+          }
+        ],
+        "hasMore": false,
+        "emptyShown": true,
+        "locateNotes": [],
+        "cards": 0,
+        "overflow": {
+          "hostScrollWidth": 401,
+          "hostClientWidth": 400,
+          "wideElements": []
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "التصنيف",
+      "name": "نقر «الأمان» يضيّق القائمة إلى التصنيف وحده ويضغط زره",
+      "ok": true,
+      "detail": {
+        "results": [
+          {
+            "id": "visibility_public",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "visibility_private",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ],
+        "chips": [
+          {
+            "id": "security",
+            "pressed": "true",
+            "text": "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "التصنيف",
+      "name": "الاستعلام والتصنيف معًا: commit في الأمان لا يعيد المدخل Commit نفسه",
+      "ok": true,
+      "detail": [
+        {
+          "id": "visibility_public",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "visibility_private",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "archive_repo",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "الشرح",
+      "name": "نقر «اقرأ الشرح» يفتح بطاقة واحدة",
+      "ok": true,
+      "detail": {
+        "cards": 1
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الوثائق",
+      "name": "روابط docs.github.com تفتح بأمان في تبويب جديد",
+      "ok": true,
+      "detail": [
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "أبرز الموضع",
+      "name": "نقر «أبرز الموضع» ← «أُبرز الموضع في الصفحة»",
+      "ok": true,
+      "detail": [
+        {
+          "status": "found",
+          "text": "أُبرز الموضع في الصفحة. اضغط Esc في الصفحة لإزالة الإبراز."
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "أبرز الموضع",
+      "name": "مضيف إبراز واحد وحلقة تحيط بزر النجمة الأصلي (هامش 4px)",
+      "ok": true,
+      "detail": {
+        "hl": {
+          "hosts": 1
+        },
+        "around": {
+          "around": true,
+          "ring": {
+            "x": 212,
+            "y": 62,
+            "w": 105,
+            "h": 30
+          },
+          "element": {
+            "x": 216,
+            "y": 66,
+            "w": 97,
+            "h": 22
+          }
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "أبرز الموضع",
+      "name": "Escape في الصفحة يزيل الإبراز",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "أبرز الموضع",
+      "name": "الشرك «Delete this repository» لا يُبرز: يُعرض مسار التبويب (Settings)",
+      "ok": true,
+      "detail": {
+        "note": {
+          "status": "elsewhere",
+          "text": "ليس في هذه الصفحة. يوجد في:تبويب Settings في المستودع (إعدادات المستودع)"
+        },
+        "hl": {
+          "hosts": 0
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "أبرز الموضع",
+      "name": "المفهوم العام: concept بلا إبراز",
+      "ok": true,
+      "detail": [
+        {
+          "status": "concept",
+          "text": "مصطلح عام لا يقابله عنصر محدد في الصفحة؛ اقرأ شرحه هنا."
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "الأمر",
+      "name": "طلب تبويب القاموس يركّز خانة البحث",
+      "ok": true,
+      "detail": "input#mj-gs-input"
+    },
+    {
+      "browser": "Edge",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "عرض 360",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "عرض 360",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 361,
+        "hostClientWidth": 360,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "صفحة حقيقية",
+      "name": "يوجد مدخل يُعثر عليه في الصفحة الحقيقية المحفوظة",
+      "ok": true,
+      "detail": {
+        "entries": 112,
+        "categories": 7,
+        "docHeight": 1479,
+        "viewportH": 900
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "صفحة حقيقية",
+      "name": "حلقة واحدة على الأقل لـrepo-tab-code داخل النافذة",
+      "ok": true,
+      "detail": [
+        {
+          "x": 12,
+          "y": 128,
+          "w": 83.421875,
+          "h": 40
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "صفحة حقيقية",
+      "name": "الإبراز بعد التمرير إلى أسفل الصفحة ينقل العنصر إلى النافذة (حلقة مرئية داخلها)",
+      "ok": true,
+      "detail": {
+        "far": 1,
+        "scrollY": 0,
+        "rings": [
+          {
+            "x": 12,
+            "y": 128,
+            "w": 83.421875,
+            "h": 40
+          }
+        ],
+        "viewport": {
+          "w": 1280,
+          "h": 900
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "صفحة حقيقية",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "عرض 400",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "عرض 400",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 401,
+        "hostClientWidth": 400,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "خانة البحث قابلة للتركيز",
+      "ok": true,
+      "detail": {
+        "focused": "input#mj-gs-input"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "«مستودع» ← repository أولًا",
+      "ok": true,
+      "detail": {
+        "query": "مستودع",
+        "results": [
+          {
+            "id": "repository",
+            "via": "name",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "pin_repo",
+            "via": "name",
+            "open": "false",
+            "category": "account"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "«commit» ← commit أولًا",
+      "ok": true,
+      "detail": {
+        "query": "commit",
+        "results": [
+          {
+            "id": "commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "commit_changes",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "merge_commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "«كوميت» ← commit أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "كوميت",
+        "results": [
+          {
+            "id": "commit",
+            "via": "synonym",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "«pull request» ← pull_request أولًا",
+      "ok": true,
+      "detail": {
+        "query": "pull request",
+        "results": [
+          {
+            "id": "pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "draft_pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "pr_review",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "«المخزن» ← repository أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "المخزن",
+        "results": [
+          {
+            "id": "repository",
+            "via": "synonym",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "passkey",
+            "via": "body",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "«حذف مستودع» ← delete_repo أولًا",
+      "ok": true,
+      "detail": {
+        "query": "حذف مستودع",
+        "results": [
+          {
+            "id": "delete_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "repo-tab-settings",
+            "via": "name",
+            "open": "false",
+            "category": "settings"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "«Squash and merge» ← squash_merge أولًا",
+      "ok": true,
+      "detail": {
+        "query": "Squash and merge",
+        "results": [
+          {
+            "id": "squash_merge",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "pull_request",
+            "via": "body",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى تعديل DOM: المئين 95 أقل من 10ms (67 عيّنة)",
+      "ok": true,
+      "detail": {
+        "dom": {
+          "n": 67,
+          "min": 0.3,
+          "median": 0.7,
+          "p95": 2.9,
+          "max": 3.1
+        },
+        "frame": {
+          "n": 67,
+          "min": 0.7,
+          "median": 7.1,
+          "p95": 14.9,
+          "max": 19.4
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى أول إطار: المئين 95 أقل من 50ms (غير ملزم بـPB-03؛ للإعلام)",
+      "ok": true,
+      "detail": {
+        "n": 67,
+        "min": 0.7,
+        "median": 7.1,
+        "p95": 14.9,
+        "max": 19.4
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "البحث",
+      "name": "لا نتائج: رسالة بدل قائمة",
+      "ok": true,
+      "detail": {
+        "query": "zzqqxx",
+        "focused": "input#mj-gs-input",
+        "count": "لا نتائج لـ«zzqqxx»",
+        "dataCount": 0,
+        "results": [],
+        "docs": [],
+        "chips": [
+          {
+            "id": "all",
+            "pressed": "true",
+            "text": "الكل(0)، لا نتائج"
+          },
+          {
+            "id": "repo",
+            "pressed": "false",
+            "text": "المستودع والملفات(0)، لا نتائج"
+          },
+          {
+            "id": "git",
+            "pressed": "false",
+            "text": "Git: الالتزامات والفروع والدمج(0)، لا نتائج"
+          },
+          {
+            "id": "collab",
+            "pressed": "false",
+            "text": "التعاون: المشكلات وطلبات السحب(0)، لا نتائج"
+          },
+          {
+            "id": "deploy",
+            "pressed": "false",
+            "text": "الإصدارات والأتمتة والنشر(0)، لا نتائج"
+          },
+          {
+            "id": "security",
+            "pressed": "false",
+            "text": "الأمان والخصوصية والصلاحيات(0)، لا نتائج"
+          },
+          {
+            "id": "account",
+            "pressed": "false",
+            "text": "الحساب والملف الشخصي(0)، لا نتائج"
+          },
+          {
+            "id": "settings",
+            "pressed": "false",
+            "text": "الإعدادات والفوترة(0)، لا نتائج"
+          }
+        ],
+        "hasMore": false,
+        "emptyShown": true,
+        "locateNotes": [],
+        "cards": 0,
+        "overflow": {
+          "hostScrollWidth": 401,
+          "hostClientWidth": 400,
+          "wideElements": []
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "التصنيف",
+      "name": "نقر «الأمان» يضيّق القائمة إلى التصنيف وحده ويضغط زره",
+      "ok": true,
+      "detail": {
+        "results": [
+          {
+            "id": "visibility_public",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "visibility_private",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ],
+        "chips": [
+          {
+            "id": "security",
+            "pressed": "true",
+            "text": "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "التصنيف",
+      "name": "الاستعلام والتصنيف معًا: commit في الأمان لا يعيد المدخل Commit نفسه",
+      "ok": true,
+      "detail": [
+        {
+          "id": "visibility_public",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "visibility_private",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "archive_repo",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "الشرح",
+      "name": "نقر «اقرأ الشرح» يفتح بطاقة واحدة",
+      "ok": true,
+      "detail": {
+        "cards": 1
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الوثائق",
+      "name": "روابط docs.github.com تفتح بأمان في تبويب جديد",
+      "ok": true,
+      "detail": [
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "أبرز الموضع",
+      "name": "نقر «أبرز الموضع» ← «أُبرز الموضع في الصفحة»",
+      "ok": true,
+      "detail": [
+        {
+          "status": "found",
+          "text": "أُبرز الموضع في الصفحة. اضغط Esc في الصفحة لإزالة الإبراز."
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "أبرز الموضع",
+      "name": "مضيف إبراز واحد وحلقة تحيط بزر النجمة الأصلي (هامش 4px)",
+      "ok": true,
+      "detail": {
+        "hl": {
+          "hosts": 1
+        },
+        "around": {
+          "around": true,
+          "ring": {
+            "x": 212,
+            "y": 62,
+            "w": 105,
+            "h": 30
+          },
+          "element": {
+            "x": 216,
+            "y": 66,
+            "w": 97,
+            "h": 22
+          }
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "أبرز الموضع",
+      "name": "Escape في الصفحة يزيل الإبراز",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "أبرز الموضع",
+      "name": "الشرك «Delete this repository» لا يُبرز: يُعرض مسار التبويب (Settings)",
+      "ok": true,
+      "detail": {
+        "note": {
+          "status": "elsewhere",
+          "text": "ليس في هذه الصفحة. يوجد في:تبويب Settings في المستودع (إعدادات المستودع)"
+        },
+        "hl": {
+          "hosts": 0
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "أبرز الموضع",
+      "name": "المفهوم العام: concept بلا إبراز",
+      "ok": true,
+      "detail": [
+        {
+          "status": "concept",
+          "text": "مصطلح عام لا يقابله عنصر محدد في الصفحة؛ اقرأ شرحه هنا."
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "الأمر",
+      "name": "طلب تبويب القاموس يركّز خانة البحث",
+      "ok": true,
+      "detail": "input#mj-gs-input"
+    },
+    {
+      "browser": "Brave",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "عرض 360",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "عرض 360",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 361,
+        "hostClientWidth": 360,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "صفحة حقيقية",
+      "name": "يوجد مدخل يُعثر عليه في الصفحة الحقيقية المحفوظة",
+      "ok": true,
+      "detail": {
+        "entries": 112,
+        "categories": 7,
+        "docHeight": 1479,
+        "viewportH": 900
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "صفحة حقيقية",
+      "name": "حلقة واحدة على الأقل لـrepo-tab-code داخل النافذة",
+      "ok": true,
+      "detail": [
+        {
+          "x": 12,
+          "y": 128,
+          "w": 83.421875,
+          "h": 40
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "صفحة حقيقية",
+      "name": "الإبراز بعد التمرير إلى أسفل الصفحة ينقل العنصر إلى النافذة (حلقة مرئية داخلها)",
+      "ok": true,
+      "detail": {
+        "far": 1,
+        "scrollY": 0,
+        "rings": [
+          {
+            "x": 12,
+            "y": 128,
+            "w": 83.421875,
+            "h": 40
+          }
+        ],
+        "viewport": {
+          "w": 1280,
+          "h": 900
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "صفحة حقيقية",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "عرض 400",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "عرض 400",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 386,
+        "hostClientWidth": 385,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "خانة البحث قابلة للتركيز",
+      "ok": true,
+      "detail": {
+        "focused": "input#mj-gs-input"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "«مستودع» ← repository أولًا",
+      "ok": true,
+      "detail": {
+        "query": "مستودع",
+        "results": [
+          {
+            "id": "repository",
+            "via": "name",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "pin_repo",
+            "via": "name",
+            "open": "false",
+            "category": "account"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "«commit» ← commit أولًا",
+      "ok": true,
+      "detail": {
+        "query": "commit",
+        "results": [
+          {
+            "id": "commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "commit_changes",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "merge_commit",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "«كوميت» ← commit أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "كوميت",
+        "results": [
+          {
+            "id": "commit",
+            "via": "synonym",
+            "open": "false",
+            "category": "git"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "«pull request» ← pull_request أولًا",
+      "ok": true,
+      "detail": {
+        "query": "pull request",
+        "results": [
+          {
+            "id": "pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "draft_pull_request",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          },
+          {
+            "id": "pr_review",
+            "via": "name",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "«المخزن» ← repository أولًا (synonym)",
+      "ok": true,
+      "detail": {
+        "query": "المخزن",
+        "results": [
+          {
+            "id": "repository",
+            "via": "synonym",
+            "open": "false",
+            "category": "repo"
+          },
+          {
+            "id": "passkey",
+            "via": "body",
+            "open": "false",
+            "category": "security"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "«حذف مستودع» ← delete_repo أولًا",
+      "ok": true,
+      "detail": {
+        "query": "حذف مستودع",
+        "results": [
+          {
+            "id": "delete_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "repo-tab-settings",
+            "via": "name",
+            "open": "false",
+            "category": "settings"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "«Squash and merge» ← squash_merge أولًا",
+      "ok": true,
+      "detail": {
+        "query": "Squash and merge",
+        "results": [
+          {
+            "id": "squash_merge",
+            "via": "name",
+            "open": "false",
+            "category": "git"
+          },
+          {
+            "id": "pull_request",
+            "via": "body",
+            "open": "false",
+            "category": "collab"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى تعديل DOM: المئين 95 أقل من 10ms (67 عيّنة)",
+      "ok": true,
+      "detail": {
+        "dom": {
+          "n": 67,
+          "min": 0,
+          "median": 1,
+          "p95": 2,
+          "max": 3
+        },
+        "frame": {
+          "n": 67,
+          "min": 0,
+          "median": 8,
+          "p95": 21,
+          "max": 23
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "PB-03",
+      "name": "زمن الإدخال حتى أول إطار: المئين 95 أقل من 50ms (غير ملزم بـPB-03؛ للإعلام)",
+      "ok": true,
+      "detail": {
+        "n": 67,
+        "min": 0,
+        "median": 8,
+        "p95": 21,
+        "max": 23
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "البحث",
+      "name": "لا نتائج: رسالة بدل قائمة",
+      "ok": true,
+      "detail": {
+        "query": "zzqqxx",
+        "focused": "input#mj-gs-input",
+        "count": "لا نتائج لـ«zzqqxx»",
+        "dataCount": 0,
+        "results": [],
+        "docs": [],
+        "chips": [
+          {
+            "id": "all",
+            "pressed": "true",
+            "text": "الكل(0)، لا نتائج"
+          },
+          {
+            "id": "repo",
+            "pressed": "false",
+            "text": "المستودع والملفات(0)، لا نتائج"
+          },
+          {
+            "id": "git",
+            "pressed": "false",
+            "text": "Git: الالتزامات والفروع والدمج(0)، لا نتائج"
+          },
+          {
+            "id": "collab",
+            "pressed": "false",
+            "text": "التعاون: المشكلات وطلبات السحب(0)، لا نتائج"
+          },
+          {
+            "id": "deploy",
+            "pressed": "false",
+            "text": "الإصدارات والأتمتة والنشر(0)، لا نتائج"
+          },
+          {
+            "id": "security",
+            "pressed": "false",
+            "text": "الأمان والخصوصية والصلاحيات(0)، لا نتائج"
+          },
+          {
+            "id": "account",
+            "pressed": "false",
+            "text": "الحساب والملف الشخصي(0)، لا نتائج"
+          },
+          {
+            "id": "settings",
+            "pressed": "false",
+            "text": "الإعدادات والفوترة(0)، لا نتائج"
+          }
+        ],
+        "hasMore": false,
+        "emptyShown": true,
+        "locateNotes": [],
+        "cards": 0,
+        "overflow": {
+          "hostScrollWidth": 401,
+          "hostClientWidth": 400,
+          "wideElements": []
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "التصنيف",
+      "name": "نقر «الأمان» يضيّق القائمة إلى التصنيف وحده ويضغط زره",
+      "ok": true,
+      "detail": {
+        "results": [
+          {
+            "id": "visibility_public",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "visibility_private",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          },
+          {
+            "id": "archive_repo",
+            "via": "name",
+            "open": "false",
+            "category": "security"
+          }
+        ],
+        "chips": [
+          {
+            "id": "security",
+            "pressed": "true",
+            "text": "الأمان والخصوصية والصلاحيات(28)، 28 نتيجة"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "التصنيف",
+      "name": "الاستعلام والتصنيف معًا: commit في الأمان لا يعيد المدخل Commit نفسه",
+      "ok": true,
+      "detail": [
+        {
+          "id": "visibility_public",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "visibility_private",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        },
+        {
+          "id": "archive_repo",
+          "via": "name",
+          "open": "false",
+          "category": "security"
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "الشرح",
+      "name": "نقر «اقرأ الشرح» يفتح بطاقة واحدة",
+      "ok": true,
+      "detail": {
+        "cards": 1
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الوثائق",
+      "name": "روابط docs.github.com تفتح بأمان في تبويب جديد",
+      "ok": true,
+      "detail": [
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "href": "https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "أبرز الموضع",
+      "name": "نقر «أبرز الموضع» ← «أُبرز الموضع في الصفحة»",
+      "ok": true,
+      "detail": [
+        {
+          "status": "found",
+          "text": "أُبرز الموضع في الصفحة. اضغط Esc في الصفحة لإزالة الإبراز."
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "أبرز الموضع",
+      "name": "مضيف إبراز واحد وحلقة تحيط بزر النجمة الأصلي (هامش 4px)",
+      "ok": true,
+      "detail": {
+        "hl": {
+          "hosts": 1
+        },
+        "around": {
+          "around": true,
+          "ring": {
+            "x": 212,
+            "y": 61,
+            "w": 102,
+            "h": 30
+          },
+          "element": {
+            "x": 216,
+            "y": 65,
+            "w": 94,
+            "h": 22
+          }
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "أبرز الموضع",
+      "name": "Escape في الصفحة يزيل الإبراز",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "أبرز الموضع",
+      "name": "الشرك «Delete this repository» لا يُبرز: يُعرض مسار التبويب (Settings)",
+      "ok": true,
+      "detail": {
+        "note": {
+          "status": "elsewhere",
+          "text": "ليس في هذه الصفحة. يوجد في:تبويب Settings في المستودع (إعدادات المستودع)"
+        },
+        "hl": {
+          "hosts": 0
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "أبرز الموضع",
+      "name": "المفهوم العام: concept بلا إبراز",
+      "ok": true,
+      "detail": [
+        {
+          "status": "concept",
+          "text": "مصطلح عام لا يقابله عنصر محدد في الصفحة؛ اقرأ شرحه هنا."
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "الأمر",
+      "name": "طلب تبويب القاموس يركّز خانة البحث",
+      "ok": true,
+      "detail": "input#mj-gs-input"
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "عرض 360",
+      "name": "الواجهة مرسومة: ثماني أزرار تصفية و٢٠ نتيجة و«عرض المزيد»",
+      "ok": true,
+      "detail": {
+        "chips": 8,
+        "results": 20
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "عرض 360",
+      "name": "لا تجاوز أفقي: لا عنصر يتجاوز حافة اللوحة",
+      "ok": true,
+      "detail": {
+        "hostScrollWidth": 346,
+        "hostClientWidth": 345,
+        "wideElements": []
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "صفحة حقيقية",
+      "name": "يوجد مدخل يُعثر عليه في الصفحة الحقيقية المحفوظة",
+      "ok": true,
+      "detail": {
+        "entries": 112,
+        "categories": 7,
+        "docHeight": 1478,
+        "viewportH": 683
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "صفحة حقيقية",
+      "name": "حلقة واحدة على الأقل لـrepo-tab-code داخل النافذة",
+      "ok": true,
+      "detail": [
+        {
+          "x": 12,
+          "y": 128,
+          "w": 83.41667175292969,
+          "h": 40
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "صفحة حقيقية",
+      "name": "الإبراز بعد التمرير إلى أسفل الصفحة ينقل العنصر إلى النافذة (حلقة مرئية داخلها)",
+      "ok": true,
+      "detail": {
+        "far": 1,
+        "scrollY": 0,
+        "rings": [
+          {
+            "x": 12,
+            "y": 128,
+            "w": 83.41667175292969,
+            "h": 40
+          }
+        ],
+        "viewport": {
+          "w": 1351,
+          "h": 683
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "صفحة حقيقية",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    }
+  ]
+}

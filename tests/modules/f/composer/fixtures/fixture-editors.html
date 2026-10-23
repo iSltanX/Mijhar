@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fixture-editors (MJ10/T-7.1)</title>
+<style>textarea { width: 560px; max-width: 100%; box-sizing: border-box; height: 120px; font: 14px/1.5 monospace; } form { margin: 16px 0; padding: 8px; border: 1px solid #ccc; }</style>
+</head>
+<body class="logged-in env-production page-responsive">
+<!--
+  عينة اختبار مكتوبة لـT-7.1 (القسم 7.1 في الخطة: حقول الكتابة في GitHub بمسودة موجودة وبغيرها). بنية الحقول كما قيست في T-0.1 (evidence/T-0.1/report.md):
+  محرر React الجديد (textarea[aria-label="Markdown value"] مع <markdown-toolbar for>) ومحرر Rails التقليدي (textarea باسم pull_request[body] وcomment[body]).
+  لكل نموذج زر إرسال حقيقي (type=submit) ليُقاس أن المساعد لا ينقر عليه ولا يرسل النموذج. data-case يقابل سلوكًا في tests/modules/f/composer.
+    new-issue: حقل فارغ (وصف Issue جديد) · new-pr: وصف PR بمسودة موجودة · comment: تعليق بمسودة متعددة الأسطر ومؤشر في وسطها
+    fallback: حقل بلا شريط أدوات (تغيّر المحرر) · cm: محرر CodeMirror لا يُدعم.
+-->
+<main id="js-repo-pjax-container">
+  <form id="new-issue" data-case="new-issue" action="/octo/demo/issues" method="post">
+    <input type="text" name="issue[title]" aria-label="Title" value="Side panel does not open">
+    <markdown-toolbar for="issue-body"><div class="toolbar-group"><button type="button" data-md-button aria-label="Bold">B</button></div></markdown-toolbar>
+    <textarea id="issue-body" name="issue[body]" aria-label="Markdown value"></textarea>
+    <button type="submit" id="submit-issue">Submit new issue</button>
+  </form>
+
+  <form id="new-pr" data-case="new-pr" action="/octo/demo/pulls" method="post" class="js-new-pull-request">
+    <markdown-toolbar for="pull_request_body"><div class="toolbar-group"><button type="button" data-md-button aria-label="Bold">B</button></div></markdown-toolbar>
+    <textarea id="pull_request_body" name="pull_request[body]" aria-label="Markdown value">Draft: this PR fixes the sidebar toggle.
+
+Still need to add tests.</textarea>
+    <button type="submit" id="submit-pr">Create pull request</button>
+  </form>
+
+  <form id="comment-form" data-case="comment" action="/octo/demo/issues/7/comments" method="post">
+    <markdown-toolbar for="new_comment_field"><div class="toolbar-group"><button type="button" data-md-button aria-label="Bold">B</button></div></markdown-toolbar>
+    <textarea id="new_comment_field" name="comment[body]" aria-label="Markdown value">First line of my draft.
+Second line of my draft.
+Third line of my draft.</textarea>
+    <button type="submit" id="submit-comment">Comment</button>
+    <button type="submit" id="close-issue" name="comment_and_close">Close issue</button>
+  </form>
+
+  <form id="fallback-form" data-case="fallback" action="/octo/demo/issues/8/comments" method="post">
+    <textarea id="fallback-field" name="comment[body]">Existing text without a toolbar.</textarea>
+    <button type="submit" id="submit-fallback">Comment</button>
+  </form>
+
+  <div class="cm-editor" data-case="cm"><markdown-toolbar for="cm"></markdown-toolbar><div class="cm-content" id="cm" contenteditable="true">code</div></div>
+</main>
+</body>
+</html>

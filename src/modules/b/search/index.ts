@@ -1,0 +1,15 @@
+export { ACTIVE_LOCATOR, defaultBridge, directBridge, isLocateMessage, messageBridge } from './bridge';
+export type { LocateAction, LocateBridge, LocateMessage, Locator } from './bridge';
+export { CATEGORY_IDS, CATEGORY_LABELS, buildSearchIndex, categoryCounts, search } from './engine';
+export type { SearchHit, SearchIndex, SearchOptions } from './engine';
+export { DEFAULT_HOLD_MS, HIGHLIGHT_HOST_NAME, Highlighter, MAX_RINGS } from './highlight';
+export { GLOSSARY_COMMAND, GLOSSARY_SHORTCUT, GLOSSARY_TAB, LOCATE_MESSAGE, SEARCH_MODULE_ID } from './ids';
+export { findEntry, locateEntry } from './locate';
+export type { Located, LocateResult } from './locate';
+export { SEARCH_MODULE, createSearchModule } from './module';
+export type { SearchModuleOptions } from './module';
+export { normalizeText, queryWords, tokens } from './normalize';
+export { PAGE_KIND_PATHS, whereIs } from './paths';
+export { SEARCH_SECTION, useCommandShortcut } from './section';
+export { EXTRA_SYNONYMS, synonymsFor } from './synonyms';
+export { GlossarySearchDrawerNotice, GlossarySearchView, LocateNote, PAGE_SIZE, countLabel } from './view';

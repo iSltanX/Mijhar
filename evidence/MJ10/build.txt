@@ -1,0 +1,28 @@
+# بناء الحزمتين (npm run build) وأحجام الملفات
+> node scripts/build.mjs
+
+chromium: dist/chromium
+firefox: dist/firefox
+
+201993 dist/chromium/background.js
+937176 dist/chromium/content.js
+213562 dist/chromium/options.js
+221787 dist/chromium/reader.js
+684725 dist/chromium/sidepanel.js
+201991 dist/firefox/background.js
+937175 dist/firefox/content.js
+213560 dist/firefox/options.js
+221785 dist/firefox/reader.js
+684723 dist/firefox/sidepanel.js
+
+# خلو الحزمة المشحونة من المحرك الوهمي (عدد ظهور FakeTranslationEngine أو نصوصه)
+dist/chromium/options.js:0
+dist/chromium/background.js:0
+dist/chromium/reader.js:0
+dist/firefox/options.js:0
+dist/firefox/background.js:0
+dist/chromium/content.js:0
+dist/chromium/sidepanel.js:0
+dist/firefox/content.js:0
+dist/firefox/reader.js:0
+dist/firefox/sidepanel.js:0
