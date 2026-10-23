@@ -1,8 +1,8 @@
 ---
 id: MJ2
 title: اكتشاف الصفحة ودورة الحياة والتخزين
-status: active
-delivery: branch
+status: done
+delivery: merged
 wave: B
 order: 1
 depends: [MJ1]
@@ -13,9 +13,9 @@ why_model: افتراضي الخطة: مهام محددة المواصفات ب�
 session: worktree
 branch: mj/2-detector-lifecycle-storage
 base: mj-B/base
-commit: ee98c14
+commit: abeb8f3
 updated: 2026-10-23
-resume: سُلّمت على الفرع (delivery: branch) وتنتظر الدمج في الموجة B؛ لا متبقٍّ في المرحلة. إن طُلب تعديل بعد المراجعة فاستأنف من «تقرير التسليم» والفرع نفسه.
+resume: مغلقة — دُمجت في الموجة B
 ---
 
 # MJ2 — اكتشاف الصفحة ودورة الحياة والتخزين
@@ -87,8 +87,8 @@ resume: سُلّمت على الفرع (delivery: branch) وتنتظر الدم�
 
 | المهمة | الحالة | ما أُنجز | الدليل |
 | :--- | :--- | :--- | :--- |
-| `T-1.2` | منفّذة | عقد `ExtensionModule` و`ModuleRegistry`؛ `PageDetector` بتصنيف 24 نوع صفحة وثقة `high`/`low` وبصمة لا تعلن التنقل الواحد مرتين؛ `SelectorsRegistry` بمرشَّحات مرتبة وترقيع نقطي وتقرير تدهور؛ `LifecycleManager` يعزل أخطاء الوحدات ويعيد تركيب الملائم عند التنقل؛ `MutationRecorder` بفحص ملكية وقائمة «استثناءات الاستعادة» (12 مدخلة). قيس على github.com الحي أن تنقل React وتبويبات طلب الدمج لا يطلق أحداث Turbo فاعتمد الكاشف Navigation API وتعديلات `body` بفحص بعد الهدوء، وصُحّحت محددات البذرة. 124 اختبارًا (`TEST-CORE-01` و`TEST-CORE-02` و`TEST-NAV-01`) | [`evidence/T-1.2/report.md`](../../../evidence/T-1.2/report.md) · [`live-selector-check.md`](../../../evidence/T-1.2/live-selector-check.md) · [`restore-exceptions.md`](../../../evidence/T-1.2/restore-exceptions.md) |
-| `T-1.3` | منفّذة | `Store` بإصدار مخطط وسجلات مسمّاة وتصدير واستيراد ونسخ احتياطية وبروتوكول كتابة محمية (نسخة ← سجل عملية ← كتابة ذرّية ← حذف) مع استرداد تلقائي وقفل بين السياقات؛ `StorageQuotaError` عربي بلا فقد؛ `SettingsStore` بسجل لكل إعداد وبث إلى السياقات وربط بمدير دورة الحياة؛ صلاحية `storage` في المانيفستين. **`HYP-06` دُحضت** في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1: لا تُطلب `unlimitedStorage` وقت التشغيل. `TEST-CORE-04` اجتاز في Chrome وEdge وBrave بسكربت محتوى فعلي وصفحتي إضافة. 92 اختبارًا (`TEST-CORE-03` و`TEST-STORAGE-02`) | [`evidence/T-1.3/report.md`](../../../evidence/T-1.3/report.md) · [`browser-report.md`](../../../evidence/T-1.3/browser-report.md) |
+| `T-1.2` | مدمجة | عقد `ExtensionModule` و`ModuleRegistry`؛ `PageDetector` بتصنيف 24 نوع صفحة وثقة `high`/`low` وبصمة لا تعلن التنقل الواحد مرتين؛ `SelectorsRegistry` بمرشَّحات مرتبة وترقيع نقطي وتقرير تدهور؛ `LifecycleManager` يعزل أخطاء الوحدات ويعيد تركيب الملائم عند التنقل؛ `MutationRecorder` بفحص ملكية وقائمة «استثناءات الاستعادة» (12 مدخلة). قيس على github.com الحي أن تنقل React وتبويبات طلب الدمج لا يطلق أحداث Turbo فاعتمد الكاشف Navigation API وتعديلات `body` بفحص بعد الهدوء، وصُحّحت محددات البذرة. 124 اختبارًا (`TEST-CORE-01` و`TEST-CORE-02` و`TEST-NAV-01`) | [`evidence/T-1.2/report.md`](../../../evidence/T-1.2/report.md) · [`live-selector-check.md`](../../../evidence/T-1.2/live-selector-check.md) · [`restore-exceptions.md`](../../../evidence/T-1.2/restore-exceptions.md) · [`evidence/wave-B/gate.md`](../../../evidence/wave-B/gate.md) |
+| `T-1.3` | مدمجة | `Store` بإصدار مخطط وسجلات مسمّاة وتصدير واستيراد ونسخ احتياطية وبروتوكول كتابة محمية (نسخة ← سجل عملية ← كتابة ذرّية ← حذف) مع استرداد تلقائي وقفل بين السياقات؛ `StorageQuotaError` عربي بلا فقد؛ `SettingsStore` بسجل لكل إعداد وبث إلى السياقات وربط بمدير دورة الحياة؛ صلاحية `storage` في المانيفستين. **`HYP-06` دُحضت** في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1: لا تُطلب `unlimitedStorage` وقت التشغيل. `TEST-CORE-04` اجتاز في Chrome وEdge وBrave بسكربت محتوى فعلي وصفحتي إضافة. 92 اختبارًا (`TEST-CORE-03` و`TEST-STORAGE-02`) | [`evidence/T-1.3/report.md`](../../../evidence/T-1.3/report.md) · [`browser-report.md`](../../../evidence/T-1.3/browser-report.md) · [`evidence/wave-B/gate.md`](../../../evidence/wave-B/gate.md) |
 
 الحالات: لم تبدأ · جارٍ التنفيذ · متوقفة: السبب · منفّذة (على الفرع) · مدمجة (يكتبها منسّق الدمج وحده). الدليل مسار تقرير في `evidence/` أو رابط.
 
@@ -104,8 +104,9 @@ resume: سُلّمت على الفرع (delivery: branch) وتنتظر الدم�
 | 2026-10-23 | فحص حي لمحددات github.com وسلوك تنقله: لا Turbo في تنقل React ولا تبويبات طلب الدمج ← إعادة بناء مصادر الكاشف وتصحيح البذرة | `1730660` · [`live-selector-check.md`](../../../evidence/T-1.2/live-selector-check.md) |
 | 2026-10-23 | مراجعة ذاتية للمخزن: قفل `navigator.locks` وحماية استرداد سياق لا يرحّل، وتجربة ترحيل متزامن في المتصفحات | `4fdc687` |
 | 2026-10-23 | تقارير `T-1.2` و`T-1.3` وأدلة الاختبارات والتجارب الفعلية | `ee98c14` |
+| 2026-10-23 | دُمجت في الموجة B (التزام الدمج `abeb8f3`)؛ المهام «مدمجة» واجتازت بوابة الموجة على الشجرة المجمّعة | [`evidence/wave-B/gate.md`](../../../evidence/wave-B/gate.md) |
 
-**المتبقي:** لا شيء في المرحلة. سُلّمت على الفرع وتنتظر الدمج في الموجة B.
+**المتبقي:** لا شيء — دُمجت في الموجة B (`abeb8f3`) واجتازت بوابتها.
 
 ### تقرير التسليم — MJ2
 

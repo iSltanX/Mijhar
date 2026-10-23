@@ -1,0 +1,30 @@
+tsc exit 0
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+
+ Test Files  16 passed (16)
+      Tests  337 passed | 1 skipped (338)
+   Start at  10:24:01
+   Duration  2.54s (tests 55%, import 38%, transform 6%, worker 1%)
+
+---- full
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+
+ Test Files  17 passed (17)
+      Tests  351 passed | 1 skipped (352)
+   Start at  10:24:04
+   Duration  2.44s (tests 62%, import 33%, transform 4%, worker 1%)
+
+عدد المدخلات: 112
+عبارات المحاكاة المُزالة: 31 بندًا في 22 مدخلًا (وبنود تنقيح أخرى: 63)
+التصنيفات: {"repo":20,"git":16,"collab":12,"deploy":19,"account":13,"security":28,"settings":4}
+الحساسية: {"آمن":66,"حساس":40,"خطر":6}
+الأنواع: {"concept":56,"element":56}
+الصلاحيات: {"None":32,"Write":25,"Read":27,"Admin":23,"Maintain":1,"Owner":2,"Triage":2}
+المصطلحات الأساسية: 52
+روابط الوثائق: 112 · طوبقت على المصدر: 43 · لم تُطابَق: 69
+المعجم: 94 مصطلحًا · تبقى بالإنجليزية: 20
+النتيجة: اجتاز التحقق من المخطط لكل مدخل

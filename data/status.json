@@ -62,29 +62,47 @@
       "date": "2026-10-23",
       "text": "ثبّت المالك Firefox 158.0.1 على جهازه إلى جانب Chrome 156 وEdge 155 وBrave 156، وحُمّلت حزمة `dist/firefox` فيه فعليًا (تثبيت مؤقت عبر Marionette): الإضافة مفعَّلة ومتوافقة بلا أخطاء مانيفست ولا تحذيرات ولا أخطاء تشغيل، وخلفيتها تعمل، ومضيفها المسموح `https://github.com/*` وحده. يغني عن `EV-06` فتُجرى بنود Firefox كغيرها ويُسجَّل «لم يُجرَ» لما يتعذر بسببه.",
       "how": "`/Applications/Firefox.app/Contents/MacOS/firefox --version`؛ `node scripts/load-check.mjs`؛ `evidence/T-1.1/load-check.md`"
+    },
+    {
+      "id": "EV-10",
+      "date": "2026-10-23",
+      "text": "أُغلقت الموجة B على الشجرة المجمّعة: النواة المنطقية (اكتشاف الصفحة ودورة الحياة والتخزين)، وتقنيع الرموز وبيانات القاموس (112 مدخلًا)، وتجارب الجدوى الأربع. نتائج التجارب: HYP-01 صحيحة بشرط؛ HYP-02 خاطئة لـEdge وصحيحة لـBrave؛ HYP-03 صحيحة بـ`wasm-unsafe-eval` وذاكرة نحو 1.3 GB؛ HYP-04 صحيحة بشروط؛ HYP-05 غير مثبتة (ترخيص النموذج مفتوح)؛ HYP-06 دُحضت في المتصفحات الأربعة (طلب unlimitedStorage وقت التشغيل لا يصح، وعلاج الامتلاء التصدير)؛ HYP-07 وHYP-09 ساقطتان بـDEC-04 (د-4)؛ HYP-08 نصفها خاطئ؛ HYP-10 صحيحة مع حالات فشل؛ HYP-11 موزَّعة بالقياس؛ HYP-12 جزئيًا خاطئة (اقتباس الرد يتأثر بإخفاء التشكيل)؛ HYP-13 صحيحة في المقيس؛ HYP-15 خاطئة في معظمها. وصيغة رمز التقنيع ⟦TYPE_INDEX⟧ تفشل في كل المحركات المقيسة (0 من 29 سليمًا)، و{0} و[[0]] سلمتا في Translator API وحده، وXQZ0 الأفضل في ONNX (24 من 29).",
+      "how": "`evidence/wave-B/gate.md`؛ `evidence/T-0.1/report.md` إلى `evidence/T-0.4/report.md`؛ `evidence/T-1.3/browser-report.md`"
     }
   ],
   "deliverables": [],
   "tests": {
     "TEST-SPIKE-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-0.1/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "نُفِّذت التجربة بسكربتاتها في scripts/spikes/ ومخرجاتها الخام في evidence/T-0.1/raw/؛ بنود «لم يُجرَ» وحالات الفشل المعلنة مسجَّلة في التقرير."
     },
     "TEST-SPIKE-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-0.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "نُفِّذت التجربة بسكربتاتها في scripts/spikes/ ومخرجاتها الخام في evidence/T-0.2/raw/؛ بنود «لم يُجرَ» وحالات الفشل المعلنة مسجَّلة في التقرير."
     },
     "TEST-SPIKE-03": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-0.3/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "نُفِّذت التجربة بسكربتاتها في scripts/spikes/ ومخرجاتها الخام في evidence/T-0.3/raw/؛ بنود «لم يُجرَ» وحالات الفشل المعلنة مسجَّلة في التقرير."
     },
     "TEST-SPIKE-04": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-0.4/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "نُفِّذت التجربة بسكربتاتها في scripts/spikes/ ومخرجاتها الخام في evidence/T-0.4/raw/؛ بنود «لم يُجرَ» وحالات الفشل المعلنة مسجَّلة في التقرير."
     },
     "TEST-BUILD-01": {
       "status": "passed",
@@ -95,34 +113,54 @@
       "note": "بناء الحزمتين و`web-ext lint` بلا تحذيرات و14 اختبارًا وتحميل في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1، على الشجرة المجمّعة للموجة A."
     },
     "TEST-CORE-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "إيقاف الوحدة يعيد التعديلات: 51 اختبارًا في tests/core/lifecycle (الاختبار الكامل 351 اجتازت على الشجرة المجمّعة للموجة B)."
     },
     "TEST-CORE-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "التنقل يزيل غير الملائم ويركّب الملائم: 40 تنقلًا في الوحدات، وتنقل SPA بلا Turbo في Chrome 156 وEdge 155 وBrave 156؛ لم يُجرَ في Firefox (لا اعتراض لصفحات github.com في سكربت محتوى فعلي هناك)؛ على الشجرة المجمّعة للموجة B."
     },
     "TEST-NAV-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "لا حقن مكرر بعد 40 تنقلًا (حقن واحد لكل وحدة، مستمعات ومراقبات ثابتة)؛ على الشجرة المجمّعة للموجة B."
     },
     "TEST-CORE-03": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.3/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "ترحيل المخطط من إصدار سابق مع نسخة احتياطية وفشل لا يفقد بيانات: 22 اختبارًا؛ على الشجرة المجمّعة للموجة B."
     },
     "TEST-CORE-04": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.3/browser-report.md",
+        "evidence/wave-B/storage-browser.txt",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "بث تشغيل/إيقاف الوحدات إلى كل السياقات: اجتاز في Chrome 156 وEdge 155 وBrave 156 وأُعيد على الشجرة المجمّعة؛ لم يُجرَ في Firefox (الخطة تحصره في الثلاثة) ولا في اللوحة الجانبية (T-1.4)."
     },
     "TEST-STORAGE-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.3/report.md",
+        "evidence/T-1.3/browser-report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "تجاوز الحصة بخطأ مفهوم بلا فقد: محاكاة (13 اختبارًا) وفعلي في Chrome وEdge وBrave؛ لم يُجرَ اختبار الخطأ في Firefox لأنه لا يُنتج خطأ حصة حتى 96 ميغابايت."
     },
     "TEST-CORE-05": {
       "status": "planned",
@@ -265,9 +303,12 @@
       "note": ""
     },
     "TEST-GLOSS-05": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-3.1/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "سلامة مخطط بيانات القاموس: 112 مدخلًا، 31 اختبارًا و scripts/glossary/validate.mjs يجتاز؛ على الشجرة المجمّعة للموجة B."
     },
     "TEST-TOUR-01": {
       "status": "planned",
@@ -290,34 +331,52 @@
       "note": ""
     },
     "TEST-TR-02A": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-4.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "فحص سلامة الرموز (tests/modules/c/masking، 91 اختبارًا للتقنيع كله)؛ على الشجرة المجمّعة للموجة B. صيغة الرمز ⟦TYPE_INDEX⟧ نفسها لم تجتز المحركات الحقيقية (evidence/T-0.2/report.md) وتُراجع قبل الترجمة الفعلية."
     },
     "TEST-TR-02B": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-4.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "فحص سلامة الرموز (tests/modules/c/masking، 91 اختبارًا للتقنيع كله)؛ على الشجرة المجمّعة للموجة B. صيغة الرمز ⟦TYPE_INDEX⟧ نفسها لم تجتز المحركات الحقيقية (evidence/T-0.2/report.md) وتُراجع قبل الترجمة الفعلية."
     },
     "TEST-TR-02C": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-4.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "فحص سلامة الرموز (tests/modules/c/masking، 91 اختبارًا للتقنيع كله)؛ على الشجرة المجمّعة للموجة B. صيغة الرمز ⟦TYPE_INDEX⟧ نفسها لم تجتز المحركات الحقيقية (evidence/T-0.2/report.md) وتُراجع قبل الترجمة الفعلية."
     },
     "TEST-TR-02D": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-4.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "فحص سلامة الرموز (tests/modules/c/masking، 91 اختبارًا للتقنيع كله)؛ على الشجرة المجمّعة للموجة B. صيغة الرمز ⟦TYPE_INDEX⟧ نفسها لم تجتز المحركات الحقيقية (evidence/T-0.2/report.md) وتُراجع قبل الترجمة الفعلية."
     },
     "TEST-TR-02E": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-4.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "فحص سلامة الرموز (tests/modules/c/masking، 91 اختبارًا للتقنيع كله)؛ على الشجرة المجمّعة للموجة B. صيغة الرمز ⟦TYPE_INDEX⟧ نفسها لم تجتز المحركات الحقيقية (evidence/T-0.2/report.md) وتُراجع قبل الترجمة الفعلية."
     },
     "TEST-TR-02F": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-4.2/report.md",
+        "evidence/wave-B/gate.md"
+      ],
+      "note": "فحص سلامة الرموز (tests/modules/c/masking، 91 اختبارًا للتقنيع كله)؛ على الشجرة المجمّعة للموجة B. صيغة الرمز ⟦TYPE_INDEX⟧ نفسها لم تجتز المحركات الحقيقية (evidence/T-0.2/report.md) وتُراجع قبل الترجمة الفعلية."
     },
     "TEST-TR-03": {
       "status": "planned",
