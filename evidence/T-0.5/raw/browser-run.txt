@@ -1,0 +1,9 @@
+Chrome 156.0.8078.47 [base]: auto=false write=true exec=true exec-shadow=true late=false bgTab=true unfocused=true background=false extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+Chrome 156.0.8078.47 [clipboardWrite]: auto=true write=true exec=true exec-shadow=true late=true bgTab=true unfocused=true background=false extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+Edge 155.0.4283.60 [base]: auto=false write=true exec=true exec-shadow=true late=false bgTab=true unfocused=true background=false extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+Edge 155.0.4283.60 [clipboardWrite]: auto=true write=true exec=true exec-shadow=true late=true bgTab=true unfocused=true background=false extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+Brave 156.0.8078.48 [base]: auto=false write=true exec=true exec-shadow=true late=false bgTab=true unfocused=true background=false extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+Brave 156.0.8078.48 [clipboardWrite]: auto=true write=true exec=true exec-shadow=true late=true bgTab=true unfocused=true background=false extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+Firefox 158.0.1 [base]: auto=false write=true exec=true exec-shadow=true late=false bgTab=true unfocused=— background=false extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+Firefox 158.0.1 [clipboardWrite]: auto=true write=true exec=true exec-shadow=true late=true bgTab=true unfocused=— background=true extPage=true · حافظة النظام 216←216 تحمل نص التجربة: false
+عدّاد حافظة النظام: 216 ← 216

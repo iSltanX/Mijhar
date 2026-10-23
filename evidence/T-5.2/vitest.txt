@@ -1,0 +1,65 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj11-1ee56e
+
+ ✓ tests/core/api/client.test.ts > البوابة والمسارات > بلا الصلاحية الاختيارية: لا يُرسل أي طلب، والنتيجة فشل مصنَّف «permission» 2ms
+ ✓ tests/core/api/client.test.ts > البوابة والمسارات > GET وحده إلى api.github.com، بلا Authorization ولا ملفات تعريف، وبترويستي Accept والإصدار 23ms
+ ✓ tests/core/api/client.test.ts > البوابة والمسارات > المسارات المقبولة /repos/… و/rate_limit وحدها؛ والأصول الأخرى و«..» والمسارات الأخرى مرفوضة بلا طلب 0ms
+ ✓ tests/core/api/client.test.ts > حدود الطلبات من x-ratelimit-* > تُقرأ الترويسات بقيمها ووقتها 0ms
+ ✓ tests/core/api/client.test.ts > حدود الطلبات من x-ratelimit-* > عند remaining = 0 لا يُرسل طلب حتى reset، ثم يُستأنف 0ms
+ ✓ tests/core/api/client.test.ts > حدود الطلبات من x-ratelimit-* > 403 بنفاد الحد: «rate-limit» بوقت reset ورسالة GitHub؛ و429 بـretry-after 0ms
+ ✓ tests/core/api/client.test.ts > حدود الطلبات من x-ratelimit-* > 404 وغير موجود، و403 بلا نفاد «forbidden» برسالتها (مثل حجب السجلات في T-0.3) 0ms
+ ✓ tests/core/api/client.test.ts > الطلبات الشرطية بـETag > الطلب الثاني يحمل If-None-Match، و304 يعيد النسخة المحفوظة موسومة fromCache 0ms
+ ✓ tests/core/api/client.test.ts > تصفّح الصفحات > check-runs = 230: ثلاث صفحات (100 و100 و30) وقائمة كاملة 1ms
+ ✓ tests/core/api/client.test.ts > تصفّح الصفحات > check-runs = 350 بحد ثلاث صفحات: 300 مقروءة والقائمة جزئية معلنة 0ms
+ ✓ tests/core/api/client.test.ts > منفذ الرسائل والخلفية > isPublicApiRequest يقبل الرسائل المعرّفة وحدها 0ms
+ ✓ tests/core/api/client.test.ts > منفذ الرسائل والخلفية > منفذ سكربت المحتوى: خلفية لا تردّ أو ترمي = فشل مصنَّف لا استثناء 0ms
+ ✓ tests/core/api/client.test.ts > منفذ الرسائل والخلفية > الخلفية تجيب رسائل المنفذ بـsendResponse وتعيد true، وتتحقق من الصلاحية قبل كل طلب 2ms
+ ✓ tests/core/api/client.test.ts > منفذ الرسائل والخلفية > handlePublicApiRequest يحصر الصفحات بين 1 و10 0ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > الفرعان والحالة والالتزامات والملفات والأسطر كما تعرضها الصفحة 156ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > المراجعات من قائمة المراجعين في الشريط الجانبي (تظهر لكل زائر): طلب أحدهم تغييرات 105ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > العينة المعقدة (صندوق دمج مسجَّل): كل مانع بعبارته المنقولة من صندوق الدمج أو صف فحص إلزامي 25ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > لا مانع بلا دليل: blocker() يرفض الدليل الفارغ، وكل مانع في كل العينات له دليل واحد على الأقل 254ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > صفحة حقيقية لغير مسجَّل (Watad#80): لا صندوق دمج، فطلب التغييرات من الشريط الجانبي «قد يمنع»، والموانع الأخرى غير متاحة معلنة 95ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > API: mergeable_state = dirty دليل ثانٍ للتعارض، والفحوص الإلزامية من حماية الفرع، وneutral لا يُعدّ فشلًا 7ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > ما لا تعرضه الصفحة لغير المسجَّل يبقى غير متاح بسببه: التعارضات والتأخر (صندوق الدمج للمسجَّل فقط) 90ms
+ ✓ tests/modules/d/pr-status.test.tsx > صفحة PR حقيقية محفوظة لغير مسجَّل (Watad-Project/Watad#80) > الفحوص: الرمز المجمَّع لآخر التزام (1 / 1) بلا صفوف، فلا تُخمَّن صفوف ولا يُفصل الإلزامي 88ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > الترويسة: بيانات الصفحة المنظّمة تعطي الرقم وsha، والفرعان والتلميح يعطيان المستودع 10ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > المراجعات والتعارضات والتأخر من صندوق الدمج 5ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > الفحوص بالتصنيفات السبعة كلها، وفصل الإلزامية (4) عن الاختيارية (5) 4ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > رمز التزام الرأس بمطابقة sha لا بآخر رمز: الأخير هو الأصفر 6 / 12 4ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > بلا صندوق دمج: مراجعات وتعارض غير متاحة ولا تُستنتج من غياب العبارة 10ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > صندوق الدمج لا يذكر التعارض: غير متاح لا «لا تعارضات»، وإن صرّح بعدمه فـ false 8ms
+ ✓ tests/modules/d/pr-status.test.tsx > العينة المعقدة (صندوق دمج مسجَّل) > الحالات الأخرى للمراجعة: طُلبت تغييرات ومعتمد 5ms
+ ✓ tests/modules/d/pr-status.test.tsx > المراجعون في الشريط الجانبي > طلب التغييرات يغلب الاعتماد، والاعتماد يغلب التعليقات، والتعليقات تغلب الانتظار 13ms
+ ✓ tests/modules/d/pr-status.test.tsx > المراجعون في الشريط الجانبي > «No reviews» صراحةً = لا مراجعات، وقائمة بلا حالات مقروءة = غير متاح 6ms
+ ✓ tests/modules/d/pr-status.test.tsx > المراجعون في الشريط الجانبي > صندوق الدمج هو المرجع حين يذكر حالة، وإلا يُقرأ الشريط 5ms
+ ✓ tests/modules/d/pr-status.test.tsx > جزء status-details > صفوف بلا تسجيل دخول: التصنيف من الرمز والوصف، وrequired = null (لا يعرضه الجزء) 3ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > تُدرج المضيف بعد ترويسة الطلب وتعرض الحقول، وتُزال بإيقاف الوحدة فيعود DOM الصفحة كما كان 56ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > صفحة حقيقية لغير مسجَّل: غير متاح للمراجعات والتعارضات والتأخر، وتفاصيل الفحوص تُجلب من status-details بنفس الأصل 171ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > API وحدها لغير المسجَّل: blocked وdraft وbehind وunstable وclean وunknown بقيمها كما هي 546ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > فشل جلب التفاصيل: يُعلَن «غير متاح» بسببه ولا يُعرض نجاحًا 172ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > المسودة من الترويسة، والمدموج والمغلق لا يُفسَّر منعهما 11ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > لا فحوص مُبلَّغ عنها: جزء status-details بلا صفوف يعلن ذلك ولا يعرضه «قيد التشغيل» 161ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > البطاقة: التنبيه المنهجي ظاهر دائمًا ولا عبارة جاهزية في أي عينة (مسجَّل، غير مسجَّل، API، مدموج، بلا مانع) 437ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-03: الموانع بأدلتها > بلا مانع في الأدلة: يُقال ذلك ومعه أن غيابه لا يثبت إمكان الدمج 29ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: المصدر والوقت والتنبيهات (وحدة) > صيغة الدقائق 0ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: المصدر والوقت والتنبيهات (وحدة) > لا تنبيه في البداية؛ والتقادم عند بلوغ العتبة بالضبط 0ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: المصدر والوقت والتنبيهات (وحدة) > التحديث الحي يُعلَن، وبيانات API الأقدم منه تُعلَن 0ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: المصدر والوقت والتنبيهات (وحدة) > القائمة المطوية: صفوف أقل مما يعلنه الرمز المجمَّع (9 من 12 في العينة المعقدة)، أو check-runs جزئية من API 4ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: المصدر والوقت والتنبيهات (وحدة) > التحديث الحي = قيمة مقروءة تغيّرت؛ لا ظهور قيمة كانت غير متاحة 4ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: على البطاقة بساعة متحكَّم بها > المصدر DOM ووقت آخر قراءة، وتنبيه القائمة المطوية من البداية 51ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: على البطاقة بساعة متحكَّم بها > عتبة التقادم: يظهر التنبيه بعد 5 دقائق بلا تحديث حي، و«أعد القراءة» يجدد الوقت ويزيله 115ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > إعادة تركيب الوحدة (تنقل أو إعادة رسم الصفحة) لا تكرر طلب الالتزام نفسه، وتنتهي صلاحية النتيجة بعد مهلتها، والفشل لا يُحفظ 556ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > لا طلب إلى خارج github.com ولا إلى api.github.com 1ms
+ ✓ tests/modules/d/pr-status.test.tsx > الوحدة d.pr-status على الصفحة > تتجدد البطاقة حين تتغير الصفحة بعد التركيب (الالتزامات 3 ← 4) 73ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: على البطاقة بساعة متحكَّم بها > تحديث حي (الالتزامات 3 ← 4): يُعلَن بوقته ويتجدد وقت القراءة، فلا تقادم بعده حتى تمضي العتبة من جديد 154ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: على البطاقة بساعة متحكَّم بها > تعديل لا يغيّر قيمة مقروءة ليس تحديثًا حيًا ولا يجدد الوقت 91ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: على البطاقة بساعة متحكَّم بها > API: لا طلب بلا نقر؛ وبعده المصدر «DOM + API» ووقت قراءتها؛ وتحديث حي بعدها يعلن أنها أقدم 126ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: على البطاقة بساعة متحكَّم بها > تدقيق شبكة: بلا صلاحية لا يصدر أي طلب API، ويُعرض زر فتح الإعدادات وحده 52ms
+ ✓ tests/modules/d/blockers.test.tsx > TEST-PR-04: على البطاقة بساعة متحكَّم بها > فشل API يُعلَن ولا يُعرض نجاحًا، وتبقى البطاقة على DOM 85ms
+
+ Test Files  3 passed (3)
+      Tests  56 passed (56)
+   Start at  17:07:20
+   Duration  2.54s (tests 82%, environment 11%, transform 4%, import 4%)
+

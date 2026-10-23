@@ -1,0 +1,54 @@
+{
+  "measuredAt": "2026-10-23T14:06:21.876Z",
+  "repo": null,
+  "tokens": {
+    "min": false,
+    "read": false
+  },
+  "unauthenticated": {
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 60,
+      "reset": 1792767982,
+      "used": 0
+    },
+    "search": {
+      "limit": 10,
+      "remaining": 10,
+      "reset": 1792764442,
+      "used": 0
+    },
+    "headers": {
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "60",
+      "x-ratelimit-used": "0",
+      "x-ratelimit-reset": "1792767982",
+      "x-ratelimit-resource": "core"
+    },
+    "publicRequest": {
+      "status": 200,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "59",
+        "x-ratelimit-used": "1",
+        "x-ratelimit-reset": "1792767982",
+        "x-ratelimit-resource": "core"
+      }
+    }
+  },
+  "signals": {
+    "invalidToken": {
+      "status": 401,
+      "message": "Bad credentials",
+      "headers": {}
+    },
+    "invalidTokenOnPublic": {
+      "status": 401,
+      "message": "Bad credentials"
+    }
+  },
+  "authenticated": {
+    "notRun": "لم يُجرَ: لم يُتح مستودع تجريبي خاص ورمز قراءة دقيق الحبيبات (T05_REPO وT05_TOKEN_FILE_READ)"
+  },
+  "minTokenNotRun": "لم يُجرَ: لم يُتح رمز بصلاحية Metadata وحدها (T05_TOKEN_FILE_MIN)، فلا يُثبت رفض أقل صلاحية"
+}

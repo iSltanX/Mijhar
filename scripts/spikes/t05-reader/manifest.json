@@ -1,0 +1,7 @@
+{
+  "manifest_version": 3,
+  "name": "mijhar-t05-clipboard-reader",
+  "version": "0.0.1",
+  "description": "قارئ حافظة لتجربة T-0.5 وحدها (لا يُشحن): إضافة مستقلة بصلاحية clipboardRead تقرأ ما وصل إلى حافظة المتصفح، فلا تمس صلاحياتُها السياقَ المقيس.",
+  "permissions": ["clipboardRead"]
+}

@@ -1,0 +1,53 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj11-1ee56e
+
+ ✓ tests/modules/d/log-parser.test.tsx > السجل المرجعي (500 سطر: خطأ بناء TypeScript و##[error] ورمز مختلَق) > يُقرأ كاملًا: 500 سطر بلا اقتطاع 1ms
+ ✓ tests/modules/d/log-parser.test.tsx > السجل المرجعي (500 سطر: خطأ بناء TypeScript و##[error] ورمز مختلَق) > الطبقة الأولى: رسالة ##[error] بنصها وموضعها (الخطوة من عنوان المجموعة، وكود الخروج، والسطر، والأسطر المحيطة) 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > السجل المرجعي (500 سطر: خطأ بناء TypeScript و##[error] ورمز مختلَق) > الطبقة الأولى تضم أسطر أخطاء المترجم بنصها الحرفي ورقمها 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > السجل المرجعي (500 سطر: خطأ بناء TypeScript و##[error] ورمز مختلَق) > الطبقة الثانية: ثلاثة أسباب من نمط TypeScript الحتمي، ودليل كل منها سطره 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > السجل المرجعي (500 سطر: خطأ بناء TypeScript و##[error] ورمز مختلَق) > الطبقة الثالثة: كل احتمال موسوم ومعه أساسه، ولا يكرر سببًا من الثانية 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > السجل المرجعي (500 سطر: خطأ بناء TypeScript و##[error] ورمز مختلَق) > سطر الرمز المختلَق ليس خطأً ولا سببًا (لا يُستنتج منه شيء) 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > السجل المرجعي (500 سطر: خطأ بناء TypeScript و##[error] ورمز مختلَق) > العرض: ثلاثة أقسام مفصولة بعناوينها، ولا يظهر نص طبقة في أخرى 12ms
+ ✓ tests/modules/d/log-parser.test.tsx > الاقتطاع وعدم الإتاحة يُعلنان > سجل أطول من الحد: يُحلَّل آخره ويُعلَن الاقتطاع بعدد ما قُرئ، ولا يضيع اسم الخطوة 10ms
+ ✓ tests/modules/d/log-parser.test.tsx > الاقتطاع وعدم الإتاحة يُعلنان > اقتطاع يعلنه المصدر أو السجل نفسه 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > الاقتطاع وعدم الإتاحة يُعلنان > سجل غير متاح: يُعلَن بسببه، والطبقة الأولى من التنبيهات موسومة بمصدرها، والثانية عبارة الغياب 1ms
+ ✓ tests/modules/d/log-parser.test.tsx > فشل بلا نمط معرّف > الطبقة الثانية فارغة فتظهر عبارة الغياب حرفيًا، والرسالة الحرفية وكود الخروج حاضران 1ms
+ ✓ tests/modules/d/log-parser.test.tsx > فشل بلا نمط معرّف > الأسطر التي تذكر الفشل قبل الخروج تُقترح في الطبقة الثالثة لا الثانية 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «src/a.ts(10,5): error TS2322: Type 'string' is not assignable to type 'number'.» ← typescript-error 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «src/a.tsx:10:5 - error TS2304: Cannot find name 'foo'.» ← typescript-error 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «error TS6053: File not found.» ← typescript-error 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «error[E0425]: cannot find value `x` in this scope» ← rust-error 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «SyntaxError: invalid syntax» ← python-syntax 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «Error: Cannot find module 'left-pad'» ← node-module-not-found 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «ModuleNotFoundError: No module named 'requests'» ← python-module-not-found 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «ERROR: No matching distribution found for torch==9.9.9» ← pip-no-distribution 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.» ← npm-ci-out-of-sync 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «npm ERR! code ERESOLVE» ← npm-eresolve 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «/home/runner/work/_temp/x.sh: line 2: pnpm: command not found» ← command-not-found 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «/bin/sh: 1: yarn: not found» ← command-not-found 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory» ← node-heap-oom 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «write /tmp/x: No space left on device» ← disk-full 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «The job running on runner GitHub Actions 12 has exceeded the maximum execution time of 360 minutes.» ← job-timeout 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «The operation was canceled.» ← operation-cancelled 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «HttpError: Resource not accessible by integration» ← integration-permission 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «✖ 4 problems (3 errors, 1 warning)» ← eslint-errors 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «Tests:       2 failed, 40 passed, 42 total» ← test-failures 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > « Test Files  1 failed | 12 passed (13)» ← test-failures 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «========= 3 failed, 120 passed in 12.3s =========» ← test-failures 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «--- FAIL: TestParse (0.00s)» ← go-test-fail 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «CONFLICT (content): Merge conflict in src/a.ts» ← git-merge-conflict 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > «toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating» ← docker-pull-limit 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > كل نمط في القائمة مُختبَر بسطر واحد على الأقل 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > لا تطابق كلمات عامة: «error» أو «failed» أو ESLint بلا أخطاء 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > قائمة الأنماط الحتمية > كود الخروج 137 وعطل الشبكة احتمالان موسومان لا سببان 0ms
+ ✓ tests/modules/d/log-parser.test.tsx > الوحدة d.log على صفحة مهمة حقيقية محفوظة (microsoft/vscode، لغير مسجَّل) > قراءة الصفحة: 20 خطوة، والفاشلة 14 «Compile & Hygiene» برابط سجلها، وتنبيه الفشل بموضعه، و«Sign in to view logs» 92ms
+ ✓ tests/modules/d/log-parser.test.tsx > الوحدة d.log على صفحة مهمة حقيقية محفوظة (microsoft/vscode، لغير مسجَّل) > لغير المسجَّل: البطاقة قبل حاوية السجلات، والسجل غير متاح بسبب الحجب، ولا زر ولا أي طلب، وتُزال بالإيقاف 109ms
+ ✓ tests/modules/d/log-parser.test.tsx > الوحدة d.log على صفحة مهمة حقيقية محفوظة (microsoft/vscode، لغير مسجَّل) > للمسجَّل: الزر يقرأ سجل الخطوة الفاشلة بنقر صريح وحده، فتمتلئ الطبقات من نصه 107ms
+ ✓ tests/modules/d/log-parser.test.tsx > الوحدة d.log على صفحة مهمة حقيقية محفوظة (microsoft/vscode، لغير مسجَّل) > للمسجَّل بلا صلاحية: 404 يُعلَن حجبًا ولا يُعرض سبب 105ms
+ ✓ tests/modules/d/log-parser.test.tsx > الوحدة d.log على صفحة مهمة حقيقية محفوظة (microsoft/vscode، لغير مسجَّل) > صفحة مهمة بلا خطوة فاشلة ولا تنبيه فشل: لا بطاقة 78ms
+
+ Test Files  1 passed (1)
+      Tests  44 passed (44)
+   Start at  17:07:23
+   Duration  952ms (tests 60%, environment 27%, transform 7%, import 6%)
+
