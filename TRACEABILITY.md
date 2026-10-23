@@ -5,9 +5,9 @@
 ## نتيجة الفحص الآلي
 
 - **اجتاز** فحص `tools/check.mjs` لسلامة البيانات ومطابقة `EXECUTION_PLAN.md`.
-- 47 ميزة في 8 وحدات؛ لكلٍّ منها مهمة منفِّذة واحدة تحمل معيار قبولها، واختبار محدد واحد على الأقل مرتبط بتلك المهمة.
-- لا ميزة مكررة (صفر)، ولا معرّف مذكور بلا تعريف، وكل معيار قبول (73) يتحقق منه اختبار واحد على الأقل، وكل اختبار (90) مربوط بمهمة.
-- **لا اعتماد دائري:** رتّب الفحص المهام الـ47 ترتيبًا طوبولوجيًا بلا دورة، وأطول سلسلة 10 مهام.
+- 56 ميزة في 8 وحدات؛ لكلٍّ منها مهمة منفِّذة واحدة تحمل معيار قبولها، واختبار محدد واحد على الأقل مرتبط بتلك المهمة.
+- لا ميزة مكررة (صفر)، ولا معرّف مذكور بلا تعريف، وكل معيار قبول (88) يتحقق منه اختبار واحد على الأقل، وكل اختبار (107) مربوط بمهمة.
+- **لا اعتماد دائري:** رتّب الفحص المهام الـ57 ترتيبًا طوبولوجيًا بلا دورة، وأطول سلسلة 12 مهام.
 - الزوج الشرطي في `T-5.5` متنافٍ: لكل خيار من `DEC-04` ينطبق معيار واحد بالضبط (`AC-5.5` أو `AC-5.5N`) وفرع اختبارات واحد.
 
 ## الوحدة (أ): اتجاه عربي وقراءة مريحة
@@ -55,6 +55,9 @@
 | `F-D4` | عرض وقت تحديث المعلومات ومصدرها (صفحة حالية / API)، والتنبيه عند نقصها أو تقادمها | [المرحلة 5](phases/phase-05-module-d.md) | [`T-5.2`](phases/phase-05-module-d.md#T-5.2) | [`T-5.5`](phases/phase-05-module-d.md#T-5.5) ([المرحلة 5](phases/phase-05-module-d.md)) | `AC-D4` | `TEST-PR-04` | `DEC-04` |
 | `F-D5` | شرح سجل الفحص: استخراج موضع الخطأ وسياقه، والتمييز بين رسالة الخطأ والسبب الجذري المثبت والاحتمال | [المرحلة 5](phases/phase-05-module-d.md) | [`T-5.3`](phases/phase-05-module-d.md#T-5.3) | [`T-0.3`](phases/phase-00-feasibility.md#T-0.3) ([المرحلة 0](phases/phase-00-feasibility.md))، [`T-5.5`](phases/phase-05-module-d.md#T-5.5) ([المرحلة 5](phases/phase-05-module-d.md)) | `AC-D5` | `TEST-LOG-01` | `DEC-04` |
 | `F-D6` | المقارنة بين فرعين أو التزامين أو إصدارين، مع الفصل بين ملخص الملفات والتغييرات المؤكدة وبين تفسير أثرها | [المرحلة 5](phases/phase-05-module-d.md) | [`T-5.4`](phases/phase-05-module-d.md#T-5.4) | — | `AC-D6` | `TEST-DIFF-01` | — |
+| `F-D7` | رمز GitHub اختياري للقراءة: جلب التفاصيل المصرّح بها (المستودعات الخاصة والفحوص والسجلات) بأقل صلاحية لازمة، مع بقاء الوحدة كاملة بدونه | [المرحلة 5](phases/phase-05-module-d.md) | [`T-5.5`](phases/phase-05-module-d.md#T-5.5) | [`T-0.3`](phases/phase-00-feasibility.md#T-0.3) ([المرحلة 0](phases/phase-00-feasibility.md))، [`T-0.5`](phases/phase-00-feasibility.md#T-0.5) ([المرحلة 0](phases/phase-00-feasibility.md)) | `AC-D7` | `TEST-PR-05` (مشروط) | `DEC-04` |
+| `F-D8` | دقة الحالة مع الرمز: انتهاء الرمز ونقص الصلاحيات وتجاوز حدود الطلبات والبيانات غير المتاحة تُعرض صريحة، ولا يُعرض تعذّر الوصول نجاحًا للفحوص، وكل نتيجة مربوطة بالمستودع والفرع والالتزام ووقت التحديث | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.5`](phases/phase-11-assist-layer.md#T-11.5) | [`T-0.5`](phases/phase-00-feasibility.md#T-0.5) ([المرحلة 0](phases/phase-00-feasibility.md))، [`T-11.1`](phases/phase-11-assist-layer.md#T-11.1) ([المرحلة 11](phases/phase-11-assist-layer.md)) | `AC-D8` | `TEST-PR-06` | `DEC-10` |
+| `F-D9` | تحليل فشل الفحص داخل قسم الفحوص نفسه عند توفر مفتاح المزوّد: السبب المقترح والإصلاح والخطوة التالية بالأدلة، بفصل المثبت عن الاحتمال وبيان ما نقص؛ ويبقى القسم عاملًا دون مفتاح | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.7`](phases/phase-11-assist-layer.md#T-11.7) | [`T-11.1`](phases/phase-11-assist-layer.md#T-11.1) ([المرحلة 11](phases/phase-11-assist-layer.md)) | `AC-D9` | `TEST-AI-03` | `DEC-10` |
 
 ## الوحدة (هـ): تجهيز المعلومات للنموذج أو الزميل
 
@@ -65,6 +68,10 @@
 | `F-E3` | قوالب مخصصة لتشخيص مشكلة، أو مراجعة تغيير، أو تسليم مهمة، أو استكمال عمل | [المرحلة 6](phases/phase-06-module-e.md) | [`T-6.2`](phases/phase-06-module-e.md#T-6.2) | — | `AC-E3` | `TEST-CTX-03` | — |
 | `F-E4` | معاينة المحتوى الكامل وتعديله قبل النسخ، وعدم إرسال أي شيء تلقائيًا إلى نموذج أو خدمة أخرى | [المرحلة 6](phases/phase-06-module-e.md) | [`T-6.2`](phases/phase-06-module-e.md#T-6.2) | — | `AC-E4` | `TEST-CTX-04` | — |
 | `F-E5` | تنبيه المستخدم إلى احتمال احتواء السجلات على بيانات خاصة، مع فحص تحذيري غير جازم (دون وعد بإزالة مضمونة للأسرار) | [المرحلة 6](phases/phase-06-module-e.md) | [`T-6.3`](phases/phase-06-module-e.md#T-6.3) | — | `AC-E5` | `TEST-PRIV-02` | — |
+| `F-E6` | طبقة سياق مشتركة واحدة للجمع والتنقيح والبناء بحسب الصفحة والمهمة، تخدم «نسخ البرومبت» والتحليل وحزمة السياق بعقد موحّد دون تكرار البنية في أي قسم | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.2`](phases/phase-11-assist-layer.md#T-11.2) | — | `AC-E6` | `TEST-CTX-05` | — |
+| `F-E7` | زر «نسخ البرومبت» صغير ومتناسق داخل القسم المناسب دون صندوق نص ولا نافذة معاينة إلزامية: يجمع ويجهّز وينسخ إلى الحافظة بحالات تحميل وفشل ونجاح، ولا يُظهر «تم النسخ» إلا بعد نجاح النسخ فعليًا، وينبّه مختصرًا عند محتوى خاص | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.3`](phases/phase-11-assist-layer.md#T-11.3) | [`T-0.5`](phases/phase-00-feasibility.md#T-0.5) ([المرحلة 0](phases/phase-00-feasibility.md)) | `AC-E7` | `TEST-CTX-06`، `TEST-CTX-07` | — |
+| `F-E8` | قوالب البرومبت الخمسة: فهم المشكلة، وتشخيص الخطأ، ومراجعة التغييرات، وتحديد الخطوة التالية، وتسليم المهمة لجلسة برمجة؛ تذكر المعلومات الناقصة صراحة بدل اختلاقها ولا تنسخ الصفحة كاملة بلا تمييز | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.4`](phases/phase-11-assist-layer.md#T-11.4) | — | `AC-E8` | `TEST-CTX-08` | — |
+| `F-E9` | طبقة مزوّد تحليل اختيارية: اختيار المزوّد وإضافة مفتاحه والتحقق من صلاحيته، ثم تحليل لا يبدأ إلا بطلب صريح عبر تجربة موافقة مختصرة تبيّن المحتوى المرسل والوجهة والتكلفة التقديرية، وتُعرض نتائجه بالأدلة بفصل المثبت عن الاحتمال | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.6`](phases/phase-11-assist-layer.md#T-11.6) | [`T-0.5`](phases/phase-00-feasibility.md#T-0.5) ([المرحلة 0](phases/phase-00-feasibility.md))، [`T-11.1`](phases/phase-11-assist-layer.md#T-11.1) ([المرحلة 11](phases/phase-11-assist-layer.md)) | `AC-E9` | `TEST-AI-01`، `TEST-AI-02`، `TEST-PRIV-04` | `DEC-09`، `DEC-10` |
 
 ## الوحدة (و): كتابة البلاغات والمراجعات
 
@@ -75,6 +82,8 @@
 | `F-F3` | بنك عبارات مراجعة بالعربية والإنجليزية مصنف بحسب الغرض (سؤال، اقتراح، ملاحظة بسيطة، إشادة) | [المرحلة 7](phases/phase-07-module-f.md) | [`T-7.3`](phases/phase-07-module-f.md#T-7.3) | — | `AC-F3` | `TEST-WRITE-03` | — |
 | `F-F4` | معاينة النص قبل إدراجه في الحقل، وعدم مسح مسودة المستخدم أو نشرها تلقائيًا | [المرحلة 7](phases/phase-07-module-f.md) | [`T-7.1`](phases/phase-07-module-f.md#T-7.1) | — | `AC-F4` | `TEST-WRITE-04` | — |
 | `F-F5` | الفصل التام في الواجهة والمنطق بين القوالب المحلية الثابتة وبين الترجمة أو الصياغة التي تتطلب نموذجًا | [المرحلة 7](phases/phase-07-module-f.md) | [`T-7.3`](phases/phase-07-module-f.md#T-7.3) | — | `AC-F5` | `TEST-WRITE-05` | — |
+| `F-F6` | مسار إنجاز تدريجي بنطاق أولي محدود: تجهيز تعديل، ومعاينة فرقه، ثم إنشاء الفرع وطلب الدمج بطلب صريح من المستخدم وموافقته على النطاق، دون تحويل مِجهَر إلى بيئة برمجة كاملة | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.8`](phases/phase-11-assist-layer.md#T-11.8) | — | `AC-F6` | `TEST-EXEC-01`، `TEST-EXEC-02` | `DEC-11` |
+| `F-F7` | ضوابط الأمان التنفيذي: فصل تام بين صلاحيات القراءة والتحليل وصلاحيات التعديل، ولا تنفيذ تلقائي لأي أمر يقترحه النموذج، ومعاملة محتوى الصفحات والسجلات والبرومبتات بيانات لا تعليمات تتحكم في الإضافة (حقن الأوامر) | [المرحلة 11](phases/phase-11-assist-layer.md) | [`T-11.9`](phases/phase-11-assist-layer.md#T-11.9) | — | `AC-F7` | `TEST-SEC-06`، `TEST-SEC-07` | — |
 
 ## الوحدة (ز): الملاحظات وحفظ موضع العمل
 
@@ -103,28 +112,33 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | [`T-0.1`](phases/phase-00-feasibility.md#T-0.1) | تجربة جدوى | [المرحلة 0](phases/phase-00-feasibility.md) | `F-A1`، `F-A2`، `F-A4`، `F-A5` | `AC-S1.1`، `AC-S1.2`، `AC-S1.3`، `AC-S1.4` | `TEST-SPIKE-01` |
 | [`T-0.2`](phases/phase-00-feasibility.md#T-0.2) | تجربة جدوى | [المرحلة 0](phases/phase-00-feasibility.md) | `F-C4`، `F-C5` | `AC-S2.1`، `AC-S2.2`، `AC-S2.3`، `AC-S2.4`، `AC-S2.5` | `TEST-SPIKE-02` |
-| [`T-0.3`](phases/phase-00-feasibility.md#T-0.3) | تجربة جدوى | [المرحلة 0](phases/phase-00-feasibility.md) | `F-D1`، `F-D2`، `F-D5` | `AC-S3.1`، `AC-S3.2`، `AC-S3.3` (إن كان DEC-04 معلقًا أو داعمًا وقت التجربة)، `AC-S3.4` | `TEST-SPIKE-03` |
+| [`T-0.3`](phases/phase-00-feasibility.md#T-0.3) | تجربة جدوى | [المرحلة 0](phases/phase-00-feasibility.md) | `F-D1`، `F-D2`، `F-D5`، `F-D7` | `AC-S3.1`، `AC-S3.2`، `AC-S3.3` (إن كان DEC-04 معلقًا أو داعمًا وقت التجربة)، `AC-S3.4` | `TEST-SPIKE-03` |
 | [`T-0.4`](phases/phase-00-feasibility.md#T-0.4) | تجربة جدوى | [المرحلة 0](phases/phase-00-feasibility.md) | `F-F2`، `F-G1`، `F-G3`، `F-H1`، `F-H2`، `F-H3` | `AC-S4.1`، `AC-S4.2`، `AC-S4.3`، `AC-S4.4` | `TEST-SPIKE-04` |
+| [`T-0.5`](phases/phase-00-feasibility.md#T-0.5) | تجربة جدوى | [المرحلة 0](phases/phase-00-feasibility.md) | `F-D7`، `F-D8`، `F-E7`، `F-E9` | `AC-S5.1`، `AC-S5.2`، `AC-S5.3` (ينطبق في: فرع دعم الرمز)، `AC-S5.4` | `TEST-SPIKE-05` |
 | [`T-1.1`](phases/phase-01-core.md#T-1.1) | بنية | [المرحلة 1](phases/phase-01-core.md) | كل المهام المعتمدة عليها | `AC-1.1` | `TEST-BUILD-01` |
 | [`T-1.2`](phases/phase-01-core.md#T-1.2) | بنية | [المرحلة 1](phases/phase-01-core.md) | كل المهام المعتمدة عليها | `AC-1.2` | `TEST-CORE-01`، `TEST-CORE-02`، `TEST-NAV-01` |
 | [`T-1.3`](phases/phase-01-core.md#T-1.3) | بنية | [المرحلة 1](phases/phase-01-core.md) | كل المهام المعتمدة عليها | `AC-1.3` | `TEST-CORE-03`، `TEST-CORE-04`، `TEST-STORAGE-02` |
 | [`T-1.4`](phases/phase-01-core.md#T-1.4) | بنية | [المرحلة 1](phases/phase-01-core.md) | كل المهام المعتمدة عليها | `AC-1.4` | `TEST-CORE-05`، `TEST-CORE-06` |
 | [`T-3.1`](phases/phase-03-module-b.md#T-3.1) | بيانات | [المرحلة 3](phases/phase-03-module-b.md) | `F-B1`، `F-B2`، `F-B3`، `F-B4` | `AC-3.1` | `TEST-GLOSS-05` |
-| [`T-5.5`](phases/phase-05-module-d.md#T-5.5) | تمكين | [المرحلة 5](phases/phase-05-module-d.md) | `F-D4`، `F-D5` | `AC-5.5` (فرع دعم الرمز)، `AC-5.5N` (فرع عدم دعم الرمز) | `TEST-SEC-01`، `TEST-SEC-02`، `TEST-SEC-03`، `TEST-SEC-04` |
+| [`T-5.5`](phases/phase-05-module-d.md#T-5.5) | تمكين | [المرحلة 5](phases/phase-05-module-d.md) | `F-D4`، `F-D5`، `F-D7` | `AC-D7` (فرع دعم الرمز)، `AC-5.5` (فرع دعم الرمز)، `AC-5.5N` (فرع عدم دعم الرمز) | `TEST-SEC-01`، `TEST-SEC-02`، `TEST-SEC-03`، `TEST-SEC-04`، `TEST-PR-05` |
+| [`T-11.1`](phases/phase-11-assist-layer.md#T-11.1) | تمكين | [المرحلة 11](phases/phase-11-assist-layer.md) | `F-D8`، `F-D9`، `F-E9` | `AC-11.1` | `TEST-CONN-01`، `TEST-CONN-02` |
 | [`T-10.1`](phases/phase-10-integration.md#T-10.1) | تكامل | [المرحلة 10](phases/phase-10-integration.md) | كل المهام المعتمدة عليها | `AC-10.1` | `TEST-NAV-01`، `TEST-PERF-01`، `TEST-A11Y-ALL`، `TEST-BROW-01` |
-| [`T-10.2`](phases/phase-10-integration.md#T-10.2) | تكامل | [المرحلة 10](phases/phase-10-integration.md) | كل المهام المعتمدة عليها | `AC-10.2` | `TEST-PKG-01` |
+| [`T-10.2`](phases/phase-10-integration.md#T-10.2) | تكامل | [المرحلة 10](phases/phase-10-integration.md) | كل المهام المعتمدة عليها | `AC-10.2`، `AC-10.3` | `TEST-PKG-01` |
 
 ## عناصر مشروطة بقرار
 
 | العنصر | النوع | ينطبق في | الحالة الآن |
 | :--- | :--- | :--- | :--- |
-| `AC-S3.3` | معيار قبول | إن كان DEC-04 معلقًا أو داعمًا وقت التجربة (`DEC-04`) | لا ينطبق |
-| `AC-5.5` | معيار قبول | فرع دعم الرمز (`DEC-04`) | لا ينطبق |
-| `AC-5.5N` | معيار قبول | فرع عدم دعم الرمز (`DEC-04`) | ينطبق |
-| `TEST-SEC-01` | اختبار | فرع دعم الرمز (`DEC-04`) | لا ينطبق |
-| `TEST-SEC-02` | اختبار | فرع دعم الرمز (`DEC-04`) | لا ينطبق |
-| `TEST-SEC-03` | اختبار | فرع دعم الرمز (`DEC-04`) | لا ينطبق |
-| `TEST-SEC-04` | اختبار | فرع عدم دعم الرمز (`DEC-04`) | مخطط (لم يُنفَّذ) |
+| `AC-S3.3` | معيار قبول | إن كان DEC-04 معلقًا أو داعمًا وقت التجربة (`DEC-04`) | ينطبق |
+| `AC-5.5` | معيار قبول | فرع دعم الرمز (`DEC-04`) | ينطبق |
+| `AC-5.5N` | معيار قبول | فرع عدم دعم الرمز (`DEC-04`) | لا ينطبق |
+| `AC-D7` | معيار قبول | فرع دعم الرمز (`DEC-04`) | ينطبق |
+| `AC-S5.3` | معيار قبول | ينطبق في: فرع دعم الرمز (`DEC-04`) | ينطبق |
+| `TEST-SEC-01` | اختبار | فرع دعم الرمز (`DEC-04`) | مخطط (لم يُنفَّذ) |
+| `TEST-SEC-02` | اختبار | فرع دعم الرمز (`DEC-04`) | مخطط (لم يُنفَّذ) |
+| `TEST-SEC-03` | اختبار | فرع دعم الرمز (`DEC-04`) | مخطط (لم يُنفَّذ) |
+| `TEST-SEC-04` | اختبار | فرع عدم دعم الرمز (`DEC-04`) | لا ينطبق |
+| `TEST-PR-05` | اختبار | فرع دعم الرمز (`DEC-04`) | مخطط (لم يُنفَّذ) |
 
 `AC-S3.3` ينطبق ما دام `DEC-04` معلقًا، فإن اعتُمد د-4 قبل `T-0.3` صار «لا ينطبق». والفرضيتان `HYP-07` و`HYP-09` تسقطان إن اعتُمد د-4.
 
@@ -148,7 +162,7 @@
 | `TEST-PERF-01` | قياس | [`T-10.1`](phases/phase-10-integration.md#T-10.1) | `AC-10.1` | — |
 | `TEST-A11Y-ALL` | آلي + يدوي | [`T-10.1`](phases/phase-10-integration.md#T-10.1) | `AC-10.1` | — |
 | `TEST-BROW-01` | تشغيل عبر المتصفحات | [`T-10.1`](phases/phase-10-integration.md#T-10.1) | `AC-10.1` | — |
-| `TEST-PKG-01` | آلي | [`T-10.2`](phases/phase-10-integration.md#T-10.2) | `AC-10.2` | — |
+| `TEST-PKG-01` | آلي | [`T-10.2`](phases/phase-10-integration.md#T-10.2) | `AC-10.2`، `AC-10.3` | — |
 | `TEST-RTL-01` | وحدة + e2e | [`T-2.1`](phases/phase-02-module-a.md#T-2.1) | `AC-A1` | `F-A1` |
 | `TEST-RTL-02` | وحدة + e2e | [`T-2.2`](phases/phase-02-module-a.md#T-2.2) | `AC-A2` | `F-A2` |
 | `TEST-RTL-03` | e2e | [`T-2.3`](phases/phase-02-module-a.md#T-2.3) | `AC-A3` | `F-A3` |
@@ -222,3 +236,20 @@
 | `TEST-COMM-04` | وحدة | [`T-9.4`](phases/phase-09-module-h.md#T-9.4) | `AC-H4` | `F-H4`، `F-H6` |
 | `TEST-COMM-05` | وحدة + e2e (دون اتصال) | [`T-9.5`](phases/phase-09-module-h.md#T-9.5) | `AC-H5` | `F-H5` |
 | `TEST-COMM-06` | وحدة + مراجعة شيفرة | [`T-9.4`](phases/phase-09-module-h.md#T-9.4) | `AC-H6` | `F-H4`، `F-H6` |
+| `TEST-SPIKE-05` | تجربة موثقة | [`T-0.5`](phases/phase-00-feasibility.md#T-0.5) | `AC-S5.1`، `AC-S5.2`، `AC-S5.3`، `AC-S5.4` | `F-D7`، `F-D8`، `F-E7`، `F-E9` |
+| `TEST-PR-05` | تكامل + تدقيق شبكة | [`T-5.5`](phases/phase-05-module-d.md#T-5.5) | `AC-D7` | `F-D7` |
+| `TEST-PR-06` | وحدة + تكامل | [`T-11.5`](phases/phase-11-assist-layer.md#T-11.5) | `AC-D8` | `F-D8` |
+| `TEST-CTX-05` | وحدة + مراجعة شيفرة (فحص ساكن) | [`T-11.2`](phases/phase-11-assist-layer.md#T-11.2) | `AC-E6` | `F-E6` |
+| `TEST-CTX-06` | تكامل + e2e | [`T-11.3`](phases/phase-11-assist-layer.md#T-11.3) | `AC-E7` | `F-E7` |
+| `TEST-CTX-07` | تدقيق شبكة + فحص بصري | [`T-11.3`](phases/phase-11-assist-layer.md#T-11.3) | `AC-E7` | `F-E7` |
+| `TEST-CTX-08` | وحدة | [`T-11.4`](phases/phase-11-assist-layer.md#T-11.4) | `AC-E8` | `F-E8` |
+| `TEST-CONN-01` | وحدة + تكامل | [`T-11.1`](phases/phase-11-assist-layer.md#T-11.1) | `AC-11.1` | `F-D8`، `F-D9`، `F-E9` |
+| `TEST-CONN-02` | تكامل + مراجعة شيفرة | [`T-11.1`](phases/phase-11-assist-layer.md#T-11.1) | `AC-11.1` | `F-D8`، `F-D9`، `F-E9` |
+| `TEST-AI-01` | تكامل + تدقيق شبكة | [`T-11.6`](phases/phase-11-assist-layer.md#T-11.6) | `AC-E9` | `F-E9` |
+| `TEST-AI-02` | وحدة + مراجعة شيفرة | [`T-11.6`](phases/phase-11-assist-layer.md#T-11.6) | `AC-E9` | `F-E9` |
+| `TEST-AI-03` | تكامل + e2e | [`T-11.7`](phases/phase-11-assist-layer.md#T-11.7) | `AC-D9` | `F-D9` |
+| `TEST-PRIV-04` | تدقيق شبكة + مراجعة شيفرة | [`T-11.6`](phases/phase-11-assist-layer.md#T-11.6) | `AC-E9` | `F-E9` |
+| `TEST-EXEC-01` | تكامل + تدقيق شبكة | [`T-11.8`](phases/phase-11-assist-layer.md#T-11.8) | `AC-F6` | `F-F6` |
+| `TEST-EXEC-02` | آلي + مراجعة شيفرة | [`T-11.8`](phases/phase-11-assist-layer.md#T-11.8) | `AC-F6` | `F-F6` |
+| `TEST-SEC-06` | مراجعة شيفرة (فحص ساكن) + آلي | [`T-11.9`](phases/phase-11-assist-layer.md#T-11.9) | `AC-F7` | `F-F7` |
+| `TEST-SEC-07` | تكامل + e2e | [`T-11.9`](phases/phase-11-assist-layer.md#T-11.9) | `AC-F7` | `F-F7` |

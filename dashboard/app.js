@@ -150,10 +150,10 @@
     var ready = plan.tasks.filter(function (t) { var k = D.taskState(plan, st, t).key; return k === 'ready' || k === 'ready_partial'; });
     var lv = D.levels(plan);
     var crit = D.criticalPath(plan);
-    var stats = [['8', 'وحدات'], [plan.features.length, 'ميزة فرعية'], [plan.tasks.length, 'مهمة'], [plan.acceptance.length, 'معيار قبول'], [plan.tests.length, 'اختبارًا معرَّفًا'], [plan.decisions.length, 'قرارات معلّقة']];
+    var stats = [['8', 'وحدات'], [plan.features.length, 'ميزة فرعية'], [plan.tasks.length, 'مهمة'], [plan.acceptance.length, 'معيار قبول'], [plan.tests.length, 'اختبارًا معرَّفًا'], [plan.decisions.filter(function (d) { return d.status !== 'approved'; }).length, 'قرارات معلّقة']];
     var h = '';
     h += '<section class="section"><div class="card hero"><h1>مِجهَر <bdi class="ltr">(Mijhar)</bdi>: إضافة متصفح عربية مساعدة فوق صفحات GitHub</h1>' +
-      '<p class="lead">طبقة تعمل داخل صفحات <bdi class="ltr">github.com</bdi> الحقيقية: اتجاه عربي وقراءة مريحة، وشرح المصطلحات والأزرار، وترجمة تقنية محلية تحفظ الكود، وفهم حالة طلبات الدمج والفحوص، وحزم سياق للنماذج والزملاء، ومساعدة في البلاغات والمراجعات، وملاحظات خاصة و«أكمل لاحقًا»، وإرشاد أول مساهمة. ثماني وحدات و47 ميزة كاملة دون تقليص.</p>' +
+      '<p class="lead">طبقة تعمل داخل صفحات <bdi class="ltr">github.com</bdi> الحقيقية: اتجاه عربي وقراءة مريحة، وشرح المصطلحات والأزرار، وترجمة تقنية محلية تحفظ الكود، وفهم حالة طلبات الدمج والفحوص، وحزم سياق للنماذج والزملاء، ومساعدة في البلاغات والمراجعات، وملاحظات خاصة و«أكمل لاحقًا»، وإرشاد أول مساهمة. وفوقها طبقة مساعدة: جمع السياق في برومبت يُنسخ بضغطة، وتحليل اختياري بمفتاح يملكه المستخدم، ومسار إنجاز تدريجي بطلب صريح. ثماني وحدات و56 ميزة كاملة دون تقليص.</p>' +
       '<p class="notice"><span aria-hidden="true">ⓘ</span><span><strong>مرحلة التخطيط:</strong> لم تبدأ برمجة الإضافة، ولم يُنفَّذ أي اختبار. كل رقم تقدّم هنا مشتق من الحالات المسجلة بأدلة، وهو صفر الآن.</span></p></div></section>';
     h += '<section class="section"><div class="grid grid--stats">' + stats.map(function (x) { return '<div class="card stat"><div class="stat__num">' + x[0] + '</div><p class="stat__label">' + x[1] + '</p></div>'; }).join('') + '</div></section>';
     h += '<section class="section grid grid--2">';

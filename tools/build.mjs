@@ -266,6 +266,7 @@ export function render({ plan, status, naming, mj, waves: mjWaves }, D) {
     for (const d of plan.decisions) {
       L.push(`<a id="${d.id}"></a>`, '', `### ${c(d.id)} — ${d.topic}`, '');
       L.push(`- **الحالة:** ${decState(d)}.`);
+      if (d.history) for (const h of d.history) L.push(`- **قرار سابق حلّ محله هذا القرار:** ${h.chosen}${h.chosenLabel ? ` — ${h.chosenLabel}` : ''} (${h.decidedOn}${h.decidedBy ? `، ${h.decidedBy}` : ''})؛ سببه وقتها: ${h.reason} **نُسخ في ${h.supersededOn} بـ${h.supersededBy}**، ويبقى مسجلًا هنا ولا يُحذف.`);
       L.push(`- **النطاق:** ${d.scope}`);
       L.push(`- **يلزم حسمه:** ${d.neededBy.point}${d.neededBy.phase ? ` (${pLink(d.neededBy.phase)})` : ''}. ${d.neededBy.note}`);
       L.push(`- **نوع الإيقاف:** ${D.GATE_LABELS[d.gate]}${d.carriers.length ? `؛ المهام الحاملة: ${d.carriers.map((t) => tLink(t)).join('، ')}` : ''}.`);
@@ -338,7 +339,7 @@ export function render({ plan, status, naming, mj, waves: mjWaves }, D) {
     L.push(table(['المُخرَج', 'الدليل'], [
       ['`EXECUTION_PLAN.md` محدَّث (الإصلاحات 14 إلى 18 في القسم 0.1)', 'يطابق `data/plan.json` في فحص `tools/check.mjs`'],
       ['`data/plan.json` و`data/status.json` و`data/naming.json`: مصدر البيانات الموحد', 'تُولَّد منه الملفات أدناه ولوحة المتابعة'],
-      ['`ROADMAP.md` و`phases/` (11 ملفًا) و`TRACEABILITY.md` و`DECISIONS.md` و`STATUS.md` و`NAMING.md`', 'مولَّدة؛ ويفشل الفحص إن اختلفت عن البيانات'],
+      [`\`ROADMAP.md\` و\`phases/\` (${plan.phases.length} ملفًا) و\`TRACEABILITY.md\` و\`DECISIONS.md\` و\`STATUS.md\` و\`NAMING.md\``, 'مولَّدة؛ ويفشل الفحص إن اختلفت عن البيانات'],
       ['لوحة المتابعة `dashboard/`', 'تقرأ `dashboard/data.js` المولَّد من البيانات نفسها'],
       [`اعتماد الاسم «${plan.meta.name.ar}» (\`${plan.meta.name.id}\`) في \`DEC-06\` وتطبيقه في الملفات (القسم 0.2 في الخطة)`, '`EV-04`؛ ولا يبقى المعرّف المؤقت إلا في سياق تاريخي'],
     ]), '');
@@ -377,8 +378,8 @@ export function render({ plan, status, naming, mj, waves: mjWaves }, D) {
 
     L.push('## الخطوة التالية', '');
     L.push(`1. ${MV ? MV.next.text : 'تجهيز نظام MJ.'}`);
-    L.push('2. حسم `DEC-04` قبل `MJ4` (تجارب الجدوى) أو قبل `MJ15` على الأبعد: يلزم فيه اختيار المالك لأنه يمس صلاحيات حساسة؛ معناه وأثره في ملف `MJ4`.');
-    L.push('3. القرارات المفوَّضة (`AD-14`): `DEC-02` عند بدء `MJ7`، و`DEC-05` عند بدء `MJ12`، و`DEC-03` عند بدء `MJ14`؛ تُحسم بناءً على تقارير تجارب الجدوى وتُسجَّل بسببها.');
+    L.push('2. القرارات المفوَّضة الباقية (`AD-14`): `DEC-02` عند بدء `MJ7`، و`DEC-05` عند بدء `MJ12`، و`DEC-03` عند بدء `MJ14`؛ تُحسم بناءً على تقارير تجارب الجدوى وتُسجَّل بسببها. و`DEC-07` (المقترحات الستة) بيد المالك ولا يوقف شيئًا.');
+    L.push('3. ما يحتاجه المالك لمراحل الطبقة المساعدة: رمز GitHub تجريبي للقراءة فقط ومستودع تجريبي لـ`T-0.5` في `MJ11` (ومفتاح مزوّد تجريبي إن أراد قياس مساره)، وصلاحية كتابة تجريبية لـ`TEST-EXEC-01` في `MJ22`؛ وقرار جعل مستودع مِجهَر عامًّا أو حجب رابطه قبل إغلاق `MJ23` (`AC-10.3`). وما لم يتوفر يُسجَّل «لم يُجرَ» بسببه ولا يُعدّ نجاحًا.');
     L.push(`4. اعتماد الاختصارات (\`DEC-08\`) في أي وقت قبل إغلاق التغليف. الاسم محسوم: «${plan.meta.name.ar}» (${plan.meta.name.latin})، ويبقى له قبل النشر ما في \`NAMING.md\`.`, '');
     out['STATUS.md'] = L.join('\n');
   }
@@ -424,7 +425,8 @@ export function render({ plan, status, naming, mj, waves: mjWaves }, D) {
   // ================= مناطق مولَّدة داخل EXECUTION_PLAN.md =================
   {
     const idx = [];
-    idx.push(`القرارات المطلوبة منك ${plan.decisions.length}، ولم يُعتمد أي خيار منها ولن يُنفَّذ قبل اختيارك. هذا فهرس فقط؛ الخيارات وأثر كل خيار والتوصية غير الملزمة وما يستمر حتى الحسم في [\`DECISIONS.md\`](DECISIONS.md)، وما يتوقف على كل قرار في جدول 6.12.`, '');
+    const nPend = plan.decisions.filter((d) => d.status !== 'approved').length;
+    idx.push(`القرارات ${plan.decisions.length}: ${plan.decisions.length - nPend} محسومة و${nPend} معلّقة، ولا يُنفَّذ خيار معلّق قبل اختيارك. هذا فهرس فقط؛ الخيارات وأثر كل خيار والتوصية غير الملزمة وما يستمر حتى الحسم في [\`DECISIONS.md\`](DECISIONS.md)، وما يتوقف على كل قرار في جدول 6.13.`, '');
     idx.push(table(['القرار', 'الموضوع', 'الحالة', 'يلزم حسمه', 'نوع الإيقاف', 'توصية غير ملزمة'], plan.decisions.map((d) => [c(d.id), d.topic, decState(d), d.neededBy.point, D.GATE_LABELS[d.gate], d.recommendation ? d.recommendation.option : '—'])));
     out['@decisions-index'] = idx.join('\n');
     const nm = [];

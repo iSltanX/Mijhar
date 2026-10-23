@@ -49,8 +49,10 @@ export function parseFeatureMatrix(md) {
   });
 }
 
+// أرقام الأقسام داخل القسم 6 بعد إضافة المرحلة 11 في 2026-10-23: المراحل 6.1 إلى 6.12، ثم مصفوفة
+// الاعتماديات 6.13، ثم الميزانيات 6.14.
 export function parseTasks(md) {
-  const sec = section(md, '## 6. ', '### 6.12 ');
+  const sec = section(md, '## 6. ', '### 6.13 ');
   const blocks = sec.split(/\n(?=#### `T-\d+\.\d+`)/).slice(1);
   return blocks.map((b) => {
     const lines = b.split('\n');
@@ -93,7 +95,7 @@ export function parseTasks(md) {
 }
 
 export function parseDependencyTable(md) {
-  const sec = section(md, '### 6.12 ', '### 6.13 ');
+  const sec = section(md, '### 6.13 ', '### 6.14 ');
   const rows = sec.split('\n').filter((l) => /^\| `T-\d+\.\d+` \| /.test(l));
   return rows.map((l) => {
     const c = cells(l);
@@ -102,7 +104,7 @@ export function parseDependencyTable(md) {
 }
 
 export function parseBlockerRegistry(md) {
-  const sec = section(md, '**سجل الموانع المسماة:**', '### 6.13 ');
+  const sec = section(md, '**سجل الموانع المسماة:**', '### 6.14 ');
   return sec.split('\n').filter((l) => /^\| `BLK-/.test(l)).map((l) => {
     const c = cells(l);
     return { id: ids(c[0], 'blk')[0], tasks: ids(c[1], 'task'), text: c[2], continues: c[3] };
@@ -110,7 +112,7 @@ export function parseBlockerRegistry(md) {
 }
 
 export function parseBudgets(md) {
-  const sec = section(md, '### 6.13 ', '## 7. ');
+  const sec = section(md, '### 6.14 ', '## 7. ');
   const pb = sec.split('\n').filter((l) => /^\| `PB-\d+` \|/.test(l)).map((l) => {
     const c = cells(l);
     return { id: c[0].replace(/`/g, ''), what: c[1], span: c[2], conditions: c[3], target: c[4].replace(/`/g, ''), tasks: ids(c[5], 'task'), tests: ids(c[6], 'test') };

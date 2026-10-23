@@ -3,7 +3,9 @@
 import * as P from './plan-md.mjs';
 
 const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
-const MODULE_SIZES = { A: 7, B: 7, C: 6, D: 6, E: 5, F: 5, G: 5, H: 6 };
+// أحجام الوحدات بعد توسيع النطاق في 2026-10-23 (`AD-23`): 47 ميزة الطلب الأصلي + 9 ميزات التوسيع في د وهـ وو.
+const MODULE_SIZES = { A: 7, B: 7, C: 6, D: 9, E: 9, F: 7, G: 5, H: 6 };
+const FEATURE_COUNT = Object.values(MODULE_SIZES).reduce((a, b) => a + b, 0);
 
 export function validatePlan(plan, status, D) {
   const errors = [];
@@ -20,7 +22,7 @@ export function validatePlan(plan, status, D) {
 
   // الوحدات والميزات
   if (plan.modules.filter((m) => m.code !== 'CORE').length !== 8) err('عدد الوحدات ليس 8');
-  if (plan.features.length !== 47) err(`عدد الميزات ${plan.features.length} وليس 47`);
+  if (plan.features.length !== FEATURE_COUNT) err(`عدد الميزات ${plan.features.length} وليس ${FEATURE_COUNT}`);
   for (const [code, n] of Object.entries(MODULE_SIZES)) {
     const got = plan.features.filter((f) => f.module === code).length;
     if (got !== n) err(`الوحدة ${code}: ${got} ميزة والمتوقع ${n}`);
@@ -205,7 +207,7 @@ export function crossCheck(plan, md) {
   const counts = P.parseCounts(md);
   const want = {
     'الوحدات': 8, 'الميزات الفرعية': plan.features.length,
-    'المهام (معرّفات `T-*` من `T-0.1` إلى `T-10.2`)': plan.tasks.length,
+    'المهام (معرّفات `T-*`)': plan.tasks.length,
     'معايير القبول `AC-*`': plan.acceptance.length, 'الاختبارات `TEST-*`': plan.tests.length,
     'ميزانيات الأداء `PB-*` / معاملات المنتج `PP-*`': `${plan.budgets.length} / ${plan.params.length}`,
     'الفرضيات التي لم تثبت `HYP-*`': plan.hypotheses.length, 'القرارات `DEC-*`': plan.decisions.length,

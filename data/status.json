@@ -68,6 +68,12 @@
       "date": "2026-10-23",
       "text": "أُغلقت الموجة B على الشجرة المجمّعة: النواة المنطقية (اكتشاف الصفحة ودورة الحياة والتخزين)، وتقنيع الرموز وبيانات القاموس (112 مدخلًا)، وتجارب الجدوى الأربع. نتائج التجارب: HYP-01 صحيحة بشرط؛ HYP-02 خاطئة لـEdge وصحيحة لـBrave؛ HYP-03 صحيحة بـ`wasm-unsafe-eval` وذاكرة نحو 1.3 GB؛ HYP-04 صحيحة بشروط؛ HYP-05 غير مثبتة (ترخيص النموذج مفتوح)؛ HYP-06 دُحضت في المتصفحات الأربعة (طلب unlimitedStorage وقت التشغيل لا يصح، وعلاج الامتلاء التصدير)؛ HYP-07 وHYP-09 ساقطتان بـDEC-04 (د-4)؛ HYP-08 نصفها خاطئ؛ HYP-10 صحيحة مع حالات فشل؛ HYP-11 موزَّعة بالقياس؛ HYP-12 جزئيًا خاطئة (اقتباس الرد يتأثر بإخفاء التشكيل)؛ HYP-13 صحيحة في المقيس؛ HYP-15 خاطئة في معظمها. وصيغة رمز التقنيع ⟦TYPE_INDEX⟧ تفشل في كل المحركات المقيسة (0 من 29 سليمًا)، و{0} و[[0]] سلمتا في Translator API وحده، وXQZ0 الأفضل في ONNX (24 من 29).",
       "how": "`evidence/wave-B/gate.md`؛ `evidence/T-0.1/report.md` إلى `evidence/T-0.4/report.md`؛ `evidence/T-1.3/browser-report.md`"
+    },
+    {
+      "id": "EV-11",
+      "date": "2026-10-23",
+      "text": "وسّع المالك نطاق المشروع بتوجيه مكتوب: مِجهَر أداة فهم وإنجاز لا ترجمة فقط. فأُضيفت 9 ميزات داخل الأقسام القائمة (الوحدات د وهـ وو) ومرحلة تنفيذية واحدة (P11) وتجربة جدوى خامسة (T-0.5) و10 مهام، وأُعيد حسم DEC-04 من د-4 (عدم دعم رمز GitHub) إلى د-5 (تخيير المستخدم بين ذاكرة الجلسة والقرص الصريح) مع حفظ القرار القديم بتاريخه وسببه، وحُسمت DEC-09 (مزوّد التحليل الأول) وDEC-10 (تخزين مفتاح المزوّد) وDEC-11 (نطاق مسار الإنجاز) بتفويض AD-14. وعُدِّلت AD-01 وAD-06 وAD-07 وAD-08 وAD-15 وأُضيفت AD-16 إلى AD-23. لم يُنفَّذ شيء من هذا التوسيع: تخطيط وتوثيق فقط.",
+      "how": "التوجيه في المحادثة؛ والتغيير في data/plan.json وEXECUTION_PLAN.md وDocs/MJ/stages/ وDocs/MJ/waves.json، ويفرضه node tools/check.mjs"
     }
   ],
   "deliverables": [],
@@ -574,6 +580,91 @@
       "note": ""
     },
     "TEST-COMM-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SPIKE-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PR-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PR-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-07": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CTX-08": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CONN-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-CONN-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-03": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PRIV-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-EXEC-01": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-EXEC-02": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SEC-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-SEC-07": {
       "status": "planned",
       "evidence": [],
       "note": ""
