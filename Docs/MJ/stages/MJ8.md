@@ -1,7 +1,7 @@
 ---
 id: MJ8
 title: بطاقة الشرح وحالة طلب الدمج والمقارنة
-status: planned
+status: active
 delivery: none
 wave: D
 order: 2
@@ -15,7 +15,7 @@ branch: mj/8-glossary-card-pr-status
 base: mj-D/base
 commit: —
 updated: 2026-10-23
-resume: لم تبدأ. تبدأ من الخطوة 1 في «المهام» بعد التحقق من الفرع والأساس.
+resume: بدأت. الشروط اجتازت والفرع أُنشئ من main و`npm ci` تم. التالي: `T-5.1` (مصنّف الحالات السبع) ثم `T-5.4` ثم `T-3.2`، وكل مهمة بسجلها واختباراتها.
 ---
 
 # MJ8 — بطاقة الشرح وحالة طلب الدمج والمقارنة
