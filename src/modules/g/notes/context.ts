@@ -1,11 +1,12 @@
 // سياق الوحدة (ز) في التخزين: مستودع الملاحظات وإعدادات الوحدة. يُفتح كسولًا عند أول استعمال في كل سياق (سكربت المحتوى
 // واللوحة والدرج)، ويُذاكَر فلا يُفتح مرتين؛ فلا يحتاج الربط تعديلًا في سكربت المحتوى ولا اللوحة المشتركين.
-// سكربت المحتوى (صفحة https) لا يرحّل ولا يستردّ؛ وصفحات الإضافة (اللوحة والإعدادات) ترحّل.
+// سكربت المحتوى (صفحة https) لا يرحّل ولا يستردّ؛ وصفحات الإضافة (اللوحة والإعدادات) ترحّل. والكتابة في الاثنين عبر الخلفية (VR-01).
 import { useEffect, useState } from 'preact/hooks';
 import type { SettingsStore } from '../../../core/settings';
-import { createSettingsRegistry, openSettings } from '../../../core/ui-host';
+import { createSettingsRegistry, extensionApi, openSettings } from '../../../core/ui-host';
 import { NotesRepository } from './repository';
 import { defineNotesSettings } from './settings';
+import { runtimeNotesWriter } from './writer';
 
 export interface NotesContext {
   readonly repository: NotesRepository;
@@ -18,7 +19,7 @@ const isExtensionPage = (): boolean => typeof location !== 'undefined' && /^(chr
 
 async function openDefault(): Promise<NotesContext> {
   const { store, settings } = await openSettings({ migrate: isExtensionPage(), registry: createSettingsRegistry(defineNotesSettings) });
-  return { repository: await NotesRepository.open(store), settings };
+  return { repository: await NotesRepository.open(store, { writer: runtimeNotesWriter(extensionApi().runtime) }), settings };
 }
 
 let provider: NotesContextProvider = openDefault;

@@ -17,7 +17,7 @@ import { readPrApi } from '../blockers/api-read';
 import type { ApiPrData } from '../blockers/api-read';
 import { explainBlockers, readDomEvidence } from '../blockers/explain';
 import { collapsedInfo, freshnessAlerts, isLiveChange, readFacts } from '../blockers/freshness';
-import { mergeApi } from '../blockers/merge';
+import { apiMatchesHead, mergeApi } from '../blockers/merge';
 import { BLOCKERS_CSS } from '../blockers/style';
 import { ApiPanel, BlockersView, FreshnessBadge } from '../blockers/view';
 import { PR_STATUS_MODULE_ID } from './ids';
@@ -246,12 +246,16 @@ class PrStatusController {
       const spot = (this.anchor = this.place());
       ctx.mutations.insert(spot.parent, this.surface.host, spot.before);
     }
+    // هوية الالتزام في كل رسم (VR-03): قراءة API لرأس غير الظاهر (ومنها رد متأخر بعد دفع التزام) لا تدخل الملخص ولا الموانع.
+    const matched = apiMatchesHead(summary, this.apiData);
+    const api = matched ? this.apiData : null;
     const merged = mergeApi(summary, this.apiData);
-    const report = explainBlockers(merged, readDomEvidence(ctx.document, ctx.selectors), this.apiData);
-    const apiRead = Boolean(this.apiData?.pull.available);
+    const report = explainBlockers(merged, readDomEvidence(ctx.document, ctx.selectors), api);
+    const apiRead = Boolean(api?.pull.available);
+    const mismatch = this.apiData?.pull.available && !matched ? { apiHead: this.apiData.pull.value.headSha, pageHead: summary.headSha } : null;
     const alerts = freshnessAlerts(
-      { now: deps.now(), domReadAt: this.domReadAt, apiReadAt: apiRead ? (this.apiData?.readAt ?? null) : null, liveUpdateAt: this.liveUpdateAt, staleMs: deps.staleMs() },
-      collapsedInfo(merged, apiRead ? this.apiData : null),
+      { now: deps.now(), domReadAt: this.domReadAt, apiReadAt: apiRead ? (api?.readAt ?? null) : null, liveUpdateAt: this.liveUpdateAt, staleMs: deps.staleMs() },
+      collapsedInfo(merged, apiRead ? api : null),
     );
     const canApi = Boolean(deps.api && ctx.page.owner && ctx.page.repo && ctx.page.number !== null);
     this.surface.render(
@@ -262,14 +266,14 @@ class PrStatusController {
           <FreshnessBadge
             sources={apiRead ? ['dom', 'api'] : ['dom']}
             domReadAt={this.domReadAt}
-            apiReadAt={apiRead ? (this.apiData?.readAt ?? null) : null}
+            apiReadAt={apiRead ? (api?.readAt ?? null) : null}
             alerts={alerts}
             onRefresh={() => this.explicitRefresh()}
             onApiRefresh={canApi && this.apiStatus?.granted ? () => this.readApi() : null}
           />
         }
         blockers={<BlockersView report={report} />}
-        footer={canApi ? <ApiPanel status={this.apiStatus} loading={this.apiLoading} data={this.apiData} onRead={() => this.readApi()} onOpenSettings={deps.openSettings} /> : null}
+        footer={canApi ? <ApiPanel status={this.apiStatus} loading={this.apiLoading} data={this.apiData} mismatch={mismatch} onRead={() => this.readApi()} onOpenSettings={deps.openSettings} /> : null}
       />,
     );
   }

@@ -143,6 +143,20 @@ describe('زر «ترجمة المحدد»', () => {
   });
 });
 
+// VR-21 (البند 1 من الجزء (ج) في MJ-AUDIT-011): التحديد يقبل محددات النص المرسوم المسجلة كلها لا .markdown-body وحدها.
+describe('زر «ترجمة المحدد» في نص مرسوم بغير .markdown-body', () => {
+  it('تحديد داخل .comment-body بلا .markdown-body يُظهر الزر', async () => {
+    const comment = document.createElement('div');
+    comment.className = 'comment-body';
+    comment.innerHTML = '<p>The release notes explain the new panel shortcut.</p>';
+    document.querySelector('main, body')!.append(comment);
+    live = await mountTranslate({ service: new FakeTranslationEngine() });
+    const node = comment.querySelector('p')!.firstChild!;
+    await select(node, 0, node, 30);
+    expect(button()?.textContent).toBe('ترجمة المحدد');
+  });
+});
+
 describe('ما لا يُعرض له زر', () => {
   it('نص عربي، أو خارج .markdown-body، أو تحديد مطوي أو أقصر من ثلاثة أحرف، أو والمحرك غائب', async () => {
     const engine = new FakeTranslationEngine();

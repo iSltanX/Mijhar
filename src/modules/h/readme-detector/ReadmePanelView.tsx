@@ -1,5 +1,6 @@
 // «README العربي» في لوحة المجتمع: فحص docs/ عند الطلب للمستودع المفتوح. الفحص السطحي (شجرة الجذر وروابط README) يعمل في صفحة
 // المستودع نفسها فيظهر شريطه هناك؛ واللوحة الأصلية لا ترى DOM الصفحة، فتتولى فحص docs/ الذي يحتاج صلاحية api.github.com الاختيارية.
+// زر الفحص مفتاحه المستودع (VR-11): تبديل المستودع يبدأ حالة جديدة، فلا تظهر نتيجة مستودع سابق ولا رد متأخر له.
 import { useMemo, useRef } from 'preact/hooks';
 import type { PanelViewProps } from '../../../sidepanel/views';
 import { documentPageSource, extensionTabs, repoSlug, tabsPageSource, useActivePage } from '../../../shared/page';
@@ -38,7 +39,7 @@ export function createReadmePanelView(options: ReadmePanelOptions = {}) {
             <p class="muted small">
               المستودع: <span class="ltr-inline mono">{slug}</span>. يظهر شريط الفحص السطحي في صفحة المستودع نفسها؛ وهنا فحص <span class="ltr-inline mono">docs/</span> عند طلبك.
             </p>
-            <DocsScanControl owner={page.owner} repo={page.repo} access={access} />
+            <DocsScanControl key={`${page.owner}/${page.repo}`} owner={page.owner} repo={page.repo} access={access} newTab />
           </div>
         ) : (
           <p class="empty" data-readme-empty="no-repo">

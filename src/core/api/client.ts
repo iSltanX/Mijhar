@@ -1,7 +1,8 @@
 // طبقة طلبات GitHub REST العامة بلا مصادقة (T-5.2). تعمل في الخلفية وفي صفحات الإضافة، وكل طلب يمر بـfetchApiGithub (البوابة الوحيدة
 // إلى api.github.com، T-1.4) فلا يخرج طلب دون الصلاحية الاختيارية الممنوحة بنقر صريح.
 //  - GET وحده، ولمسارات /repos/… و/rate_limit وحدها؛ ولا ترويسة Authorization أبدًا (الطلبات الموثَّقة طبقة أخرى في T-5.5).
-//  - ترويسات x-ratelimit-* تُقرأ من كل استجابة؛ وعند النفاد لا يُرسل شيء حتى reset (لا طلب يُهدر ولا يُفترض رقم).
+//  - ترويسات x-ratelimit-* تُقرأ من كل استجابة؛ وعند النفاد لا يُرسل شيء حتى reset (لا طلب يُهدر ولا يُفترض رقم)، وبعد رفض بموعد
+//    إعادة (retry-after) لا يُرسل شيء قبله من أي مستهلك للعميل (VR-07).
 //  - طلبات شرطية بـETag (If-None-Match) تقلل النقل؛ وهي تُحتسب من الحد الأساسي للطلبات العامة (VER-12، ومقيس في T-0.3)، فلا يُدّعى
 //    أنها توفّر الحد.
 //  - الفشل نتيجة مصنَّفة بسببها لا استثناء يتسرب، ولا يُعرض فشلٌ نجاحًا.
@@ -120,6 +121,7 @@ export class PublicApiClient {
     if (status === 429 || (status === 403 && rate?.remaining === 0)) {
       const retryAfter = Number(response.headers.get('retry-after'));
       const retryAt = Number.isFinite(retryAfter) && retryAfter > 0 ? readAt + retryAfter * 1000 : rate?.reset ? rate.reset * 1000 : null;
+      if (retryAt !== null) this.tracker.cooldown('core', retryAt);
       return fail('rate-limit', await messageOf(response, 'بلغ حد الطلبات'), status, retryAt);
     }
     if (status === 403) return fail('forbidden', await messageOf(response, 'رفض GitHub الطلب (403)'), status);

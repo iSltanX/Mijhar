@@ -39,9 +39,9 @@ export function stripWithOffsets(text: string): Stripped {
   return { stripped: out, offsets: offsets.slice(0, n + 1) };
 }
 
-/** مدى [start, end) من النص المجرد يقابله في الأصل، بحركات آخر حرف فيه. */
+/** مدى [start, end) من النص المجرد يقابله في الأصل، بحركات آخر حرف فيه؛ ومن أول العقدة يشمل حركاتها التي تسبق أول حرف (VR-14). */
 export function originalSlice(original: string, offsets: Uint32Array, start: number, end: number): string {
-  const from = offsets[Math.min(start, offsets.length - 1)] ?? 0;
+  const from = start === 0 ? 0 : (offsets[Math.min(start, offsets.length - 1)] ?? 0);
   const to = offsets[Math.min(end, offsets.length - 1)] ?? original.length;
   return original.slice(from, to);
 }
@@ -184,25 +184,28 @@ export class DiacriticsView {
     const SHOW_TEXT = doc.defaultView?.NodeFilter.SHOW_TEXT ?? 4;
     const common = range.commonAncestorContainer;
     const scope = common.nodeType === 3 ? (common.parentNode as Node) : common;
-    const originals: string[] = [];
+    // لكل عقدة يمسها المدى أصلها فيه؛ والعقدة التي أُخفيت حركاتها كلها (معروضها فارغ) داخل المدى تُنسخ حركاتها كاملة (VR-14).
+    const parts: string[] = [];
     const walker = doc.createTreeWalker(scope, SHOW_TEXT);
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
       if (!range.intersectsNode(node)) continue;
       const text = node as Text;
       const start = text === range.startContainer ? range.startOffset : 0;
       const end = text === range.endContainer ? range.endOffset : text.data.length;
-      if (end <= start) continue;
-      originals.push(this.original(text, start, end));
+      const marksOnly = text.data === '' ? this.entries.get(text)?.original : undefined;
+      parts.push(marksOnly ?? (end > start ? this.original(text, start, end) : ''));
     }
+    const originals = parts.filter((part) => part !== '');
     const fragment = range.cloneContents();
     const cloned: Text[] = [];
     const fw = doc.createTreeWalker(fragment, SHOW_TEXT);
-    for (let node = fw.nextNode(); node; node = fw.nextNode()) if ((node as Text).data.length) cloned.push(node as Text);
+    for (let node = fw.nextNode(); node; node = fw.nextNode()) cloned.push(node as Text);
     const plain = realign(shown, originals.join(''));
     let html: string;
-    if (cloned.length === originals.length) {
+    // الشظية تستنسخ عقد المدى النصية بترتيبها، فارغها وممتلئها، فتقابل parts عقدةً بعقدة.
+    if (cloned.length === parts.length) {
       cloned.forEach((node, i) => {
-        node.data = originals[i] as string;
+        node.data = parts[i] as string;
       });
       const box = doc.createElement('div');
       box.append(fragment);

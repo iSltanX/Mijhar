@@ -210,6 +210,48 @@ describe('التراجع عن آخر إدراج', () => {
     expect(undoInsertion(insertion)).toEqual({ status: 'modified', previous: 'Gone.' });
   });
 
+  // VR-02 (CODEX-MJ-002): لا يُزال إلا موضع يثبت أنه المُدرج نفسه (ما قبله أو ما بعده لم يتغير)؛ والتشابه النصي وحده ليس دليلًا.
+  it('كتلة مطابقة كانت في المسودة قبل الإدراج لا تُحذف إن عُدّل المُدرج نفسه (modified، والمسودة كما هي حرفيًا)', () => {
+    const block = '## Expected behavior\n\nIt works.';
+    draft(`Intro\n\n${block}\nTail`);
+    const insertion = insertBlock(field, block, 'append')!;
+    const at = field.value.lastIndexOf('It works.');
+    field.setRangeText('It changed.', at, at + 'It works.'.length);
+    const before = field.value;
+    expect(undoInsertion(insertion)).toEqual({ status: 'modified', previous: `Intro\n\n${block}\nTail` });
+    expect(field.value).toBe(before);
+  });
+
+  it('كتلة مطابقة سابقة وتعديل بعد المُدرج: يُزال المُدرج وحده وتبقى السابقة', () => {
+    const block = '## Expected behavior\n\nIt works.';
+    draft(`${block}\n\nMiddle.`, 0);
+    const insertion = insertBlock(field, block, 'append')!;
+    field.setRangeText(' EDITED', field.value.length, field.value.length, 'end');
+    expect(undoInsertion(insertion).status).toBe('removed');
+    expect(field.value.startsWith(`${block}\n\nMiddle.`)).toBe(true);
+    expect(field.value.split('Expected behavior')).toHaveLength(2);
+    expect(field.value.endsWith(' EDITED')).toBe(true);
+  });
+
+  it('كتلة مطابقة لاحقة وتعديل قبل المُدرج: يُزال المُدرج وحده من موضعه المزاح وتبقى اللاحقة', () => {
+    const block = '## Expected behavior\n\nIt works.';
+    draft(`Head.\n\n${block}`, 5);
+    const insertion = insertBlock(field, block, 'cursor')!;
+    field.setRangeText('PREFIX ', 0, 0, 'end');
+    expect(undoInsertion(insertion).status).toBe('removed');
+    expect(field.value).toBe(`PREFIX Head.\n\n${block}`);
+  });
+
+  it('تعديل قبل الكتلة وبعدها معًا: modified بلا حذف (تغيّر سلوك مقصود: كان removed)', () => {
+    draft('Intro.\n\nTail.', 6);
+    const insertion = insertBlock(field, BLOCK, 'cursor')!;
+    field.setRangeText('PREFIX ', 0, 0, 'end');
+    field.setRangeText(' EDITED', field.value.length, field.value.length, 'end');
+    const before = field.value;
+    expect(undoInsertion(insertion)).toEqual({ status: 'modified', previous: 'Intro.\n\nTail.' });
+    expect(field.value).toBe(before);
+  });
+
   it('التراجع يطلق input واحدًا بنوع deleteContentBackward (فيراه GitHub)', () => {
     draft('x', 1);
     const insertion = insertBlock(field, BLOCK, 'cursor')!;

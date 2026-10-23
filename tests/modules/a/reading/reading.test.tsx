@@ -157,6 +157,36 @@ describe('الميزة في صفحة GitHub', () => {
     expect(listeners.size).toBe(0);
   });
 
+  // VR-17 (الجزء (أ) من MJ-AUDIT-007): حاوية Markdown تُرسم بعد التركيب (تحميل كسول أو React) كان لا يظهر لها زر أبدًا.
+  it('حاوية تُرسم بعد التركيب: يظهر زر واحد فقط بعد وصولها ولا يتكرر، والإيقاف يزيله', async () => {
+    const dom = new JSDOM('<!doctype html><html><body><main id="m"><p>لا محتوى بعد</p></main></body></html>', { url: 'https://github.com/octo/demo/issues/1', pretendToBeVisual: true });
+    const doc = dom.window.document;
+    const fake = fakeApi();
+    const module = createModuleA({ features: [createReadingFeature({ api: () => fake.api })] });
+    const manager = new LifecycleManager({ registry: new ModuleRegistry([module]), detector: new PageDetector({ document: doc, settleMs: 5 }), document: doc, isEnabled: () => true });
+    manager.start();
+    const wait = () => new Promise((resolve) => setTimeout(resolve, 20));
+    const hosts = () => doc.querySelectorAll(`[${HOST_ATTR}="${READING_HOST_NAME}"]`);
+    await wait();
+    expect(hosts()).toHaveLength(0);
+    const late = doc.createElement('div');
+    late.className = 'markdown-body';
+    late.id = 'late';
+    late.innerHTML = '<p dir="auto">نصٌّ وصل متأخرًا</p>';
+    doc.getElementById('m')!.append(late);
+    await wait();
+    expect(hosts()).toHaveLength(1);
+    expect(hosts()[0]?.nextElementSibling?.id).toBe('late');
+    const another = late.cloneNode(true) as HTMLElement;
+    another.id = 'another';
+    doc.getElementById('m')!.append(another);
+    await wait();
+    expect(hosts()).toHaveLength(1);
+    manager.stop();
+    expect(hosts()).toHaveLength(0);
+    expect(fake.listeners.size).toBe(0);
+  });
+
   it('البندان ٤ و٥: نص DOM الذي يقرؤه اقتباس الرد بتشكيله، ولا تُمس الحقول ولا شيء في الصفحة غير الزر', async () => {
     const dom = new JSDOM(LIVE, { url: 'https://github.com/octo/demo/issues/1', pretendToBeVisual: true });
     const doc = dom.window.document;
@@ -208,6 +238,29 @@ describe('العارض: إخفاء التشكيل والنسخ', () => {
     const start = stripped.indexOf('المطور');
     expect(originalSlice('كَتَبَ المُطَوِّرُ', offsets, start, start + 6)).toBe('المُطَوِّرُ');
     expect(realign('كتب\nالمطور', 'كَتَبَ المُطَوِّرُ')).toBe('كَتَبَ\nالمُطَوِّرُ');
+  });
+
+  // VR-14 (الجزء (د) من MJ-AUDIT-007)، AC-A5 البند 1: حركة في أول العقدة، وعقدة من حركات وحدها، كانتا تسقطان من النسخ.
+  it('حركة في أول العقدة تبقى في المدى من أوله', () => {
+    const original = 'ِسمِ';
+    const { stripped, offsets } = stripWithOffsets(original);
+    expect(originalSlice(original, offsets, 0, stripped.length)).toBe(original);
+    expect(originalSlice(original, offsets, 1, stripped.length)).toBe('مِ');
+  });
+
+  it('نسخ فقرة فيها <strong>ب</strong>ِسمِ وعقدة من حركات وحدها: text/plain وtext/html بكل الحركات', () => {
+    const dom = new JSDOM('<!doctype html><html><body><article id="r"><p id="p"><strong>ب</strong>ِسمِ اللهِ <em>ّ</em>الرحمن</p></article></body></html>');
+    const doc = dom.window.document;
+    const article = doc.getElementById('r') as HTMLElement;
+    const before = article.querySelector('p')!.textContent!;
+    const view = new DiacriticsView(article);
+    view.hide();
+    expect(article.querySelector('em')!.textContent).toBe('');
+    const range = doc.createRange();
+    range.selectNodeContents(doc.getElementById('p')!);
+    const data = view.clipboard(range);
+    expect(data?.plain).toBe(before);
+    expect(data?.html).toBe('<strong>ب</strong>ِسمِ اللهِ <em>ّ</em>الرحمن');
   });
 
   it('05A: نسخ جزئي داخل عقدة يحمل الكلمة بحركاتها', () => {

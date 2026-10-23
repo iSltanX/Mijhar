@@ -173,21 +173,17 @@ export function collectBlocks(root: Element): CollectResult {
 }
 
 /**
- * يربط كل رمز مقنَّع بعنصره المحمي الأصلي. maskSegments حتمية، فالسجلات بترتيب الفهرس هي ترتيب ظهور المقاطع الصريحة، تتخللها رموز
- * اكتشفها المقنِّع في النصوص (مسارات وإشارات…) فلا عنصر أصليًا لها. المطابقة تقدمية بالترتيب على (النوع والقيمة)، فتبقى صحيحة لو تكرر النص نفسه
- * وروابطه مختلفة (كلمة «هنا» برابطين).
+ * يربط كل رمز مقنَّع بعنصره المحمي الأصلي. رموز المقاطع الصريحة (explicit) بترتيب الفهرس هي العناصر المحمية بترتيب ظهورها، فتُقرن بها
+ * بالموضع؛ وما اكتشفه المقنِّع في النصوص (مسارات وإشارات…) لا عنصر أصليًا له ولو طابق نصه رابطًا بعده (VR-12: «#7» نصًا قبل رابط «#7»).
+ * والتطابق في النوع والقيمة شرط إضافي: اختلافهما لا يربط شيئًا (يُعرض الرمز نصًا محميًا).
  */
 export function tokenNodes(block: Pick<TranslatableBlock, 'segments' | 'nodes'>, expected: ExpectedTokens): Map<string, ProtectedNode> {
   const out = new Map<string, ProtectedNode>();
-  const records = [...expected.values()].sort((a, b) => a.index - b.index);
-  let at = 0;
-  for (const node of block.nodes) {
-    while (at < records.length && !(records[at]!.type === node.type && records[at]!.original === node.value)) at += 1;
-    const record = records[at];
-    if (!record) break;
-    out.set(record.token, node);
-    at += 1;
-  }
+  const explicit = [...expected.values()].filter((r) => r.explicit).sort((a, b) => a.index - b.index);
+  block.nodes.forEach((node, i) => {
+    const record = explicit[i];
+    if (record && record.type === node.type && record.original === node.value) out.set(record.token, node);
+  });
   return out;
 }
 

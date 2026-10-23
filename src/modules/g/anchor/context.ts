@@ -1,10 +1,13 @@
-// مخزن المراسي في السياق: يُفتح كسولًا فوق مخزن «أكمل لاحقًا» نفسه ويُذاكَر، فلا يُفتح Store ثالث في سكربت المحتوى.
+// مخزن المراسي في السياق: يُفتح كسولًا فوق مخزن «أكمل لاحقًا» نفسه ويُذاكَر، فلا يُفتح Store ثالث في سكربت المحتوى. وحفظ المراسي
+// وتنظيفها عبر الخلفية (VR-01).
+import { extensionApi } from '../../../core/ui-host';
 import { laterContext } from '../bookmarks/context';
+import { runtimeNotesWriter } from '../notes/writer';
 import { AnchorStore } from './store';
 
 export type AnchorStoreProvider = () => Promise<AnchorStore>;
 
-const openDefault: AnchorStoreProvider = () => laterContext().then(({ store }) => AnchorStore.open(store));
+const openDefault: AnchorStoreProvider = () => laterContext().then(({ store }) => AnchorStore.open(store, { writer: runtimeNotesWriter(extensionApi().runtime) }));
 
 let provider: AnchorStoreProvider = openDefault;
 let cached: Promise<AnchorStore> | null = null;

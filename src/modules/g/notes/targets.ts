@@ -39,7 +39,12 @@ function diffLine(page: PageInfo): DiffLineTarget | null {
   return { level: 'line', view: 'diff', owner: page.owner, repo: page.repo, context, path: page.diffPath, side: page.diff.side, start: page.diff.start, end: page.diff.end };
 }
 
+// صفحة ملف معروف رابطها ومجهول فرعها ومسارها: اللوحة الأصلية لم تصل إلى سكربت المحتوى في التبويب (VR-10)، فلا تُقسم الرابط.
+const BRIDGE_REASON = 'فرع الملف ومساره لا يُعرفان من اللوحة الآن؛ أنشئها من بطاقة «ملاحظاتي» في الصفحة نفسها.';
+const unsplitBlob = (page: PageInfo): boolean => page.type === 'blob' && page.blobRest !== null && (page.ref === null || page.path === null);
+
 function lineReason(page: PageInfo): string {
+  if (unsplitBlob(page)) return BRIDGE_REASON;
   if (page.type === 'blob') return 'حدّد سطرًا أو نطاقًا بنقر رقم السطر (واضغط Shift لنطاق).';
   // تحديد موجود في الرابط لكن مسار ملفه لا يُعرف إلا من DOM الصفحة (اللوحة الأصلية لا تراه).
   if (page.diff !== null) return 'مسار ملف السطر لا يُعرف من اللوحة؛ أنشئ ملاحظة السطر من بطاقة «ملاحظاتي» في الصفحة نفسها.';
@@ -59,7 +64,7 @@ export function targetOptions(page: PageInfo): TargetOption[] {
     options.push(
       page.ref && page.path
         ? { level: 'file', target: { level: 'file', owner, repo, ref: page.ref, refKind: page.refKind, path: page.path }, reason: null }
-        : { level: 'file', target: null, reason: 'تعذّر تحديد مسار الملف في هذه الصفحة.' },
+        : { level: 'file', target: null, reason: unsplitBlob(page) ? BRIDGE_REASON : 'تعذّر تحديد مسار الملف في هذه الصفحة.' },
     );
   }
   if (page.type === 'blob' || page.diff !== null || page.type === 'pr-files' || page.type === 'commit') {

@@ -1,0 +1,10 @@
+$ npm test
+ Test Files  100 passed (100)
+      Tests  1711 passed | 2 skipped (1713)
+   Start at  23:57:43
+   Duration  20.35s (tests 67%, import 17%, environment 14%, transform 3%)
+exit: 0
+
+المتخطيان (مشروطان ببيئة):
+ ↓ tests/data/glossary/glossary.test.ts > النقل من المشروع السابق > إعادة النقل من ghsim-source تطابق entries.json وسجل ما أُزيل حرفيًا (GHSIM_SOURCE)
+ ↓ tests/modules/g/anchor/histories.test.ts > التواريخ التسعة كلها (MIJHAR_HISTORIES) > أعداد المحرك على كل ملف ومسافة تطابق T-0.4، والتجزئة لا تغيّرها في المراجعة التالية

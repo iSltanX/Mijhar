@@ -1,11 +1,13 @@
 // سياق «أكمل لاحقًا» في التخزين: مستودع الروابط ومستودع الملاحظات (للمركز الذي يجمعهما) والإعدادات. يُفتح كسولًا عند أول استعمال
-// في كل سياق ويُذاكَر، على نمط سياق الملاحظات. سكربت المحتوى (صفحة https) لا يرحّل؛ وصفحات الإضافة ترحّل.
+// في كل سياق ويُذاكَر، على نمط سياق الملاحظات. سكربت المحتوى (صفحة https) لا يرحّل؛ وصفحات الإضافة ترحّل. وكتابة الملاحظات
+// عبر الخلفية (VR-01).
 import { useEffect, useState } from 'preact/hooks';
 import type { SettingsStore } from '../../../core/settings';
 import type { Store } from '../../../core/storage';
-import { createSettingsRegistry, openSettings } from '../../../core/ui-host';
+import { createSettingsRegistry, extensionApi, openSettings } from '../../../core/ui-host';
 import { NotesRepository } from '../notes/repository';
 import { defineNotesSettings } from '../notes/settings';
+import { runtimeNotesWriter } from '../notes/writer';
 import { BookmarksRepository } from './repository';
 import { defineBookmarksSettings } from './settings';
 
@@ -26,7 +28,7 @@ async function openDefault(): Promise<LaterContext> {
     defineBookmarksSettings(r);
   });
   const { store, settings } = await openSettings({ migrate: isExtensionPage(), registry });
-  const [bookmarks, notes] = await Promise.all([BookmarksRepository.open(store), NotesRepository.open(store)]);
+  const [bookmarks, notes] = await Promise.all([BookmarksRepository.open(store), NotesRepository.open(store, { writer: runtimeNotesWriter(extensionApi().runtime) })]);
   return { store, settings, bookmarks, notes };
 }
 

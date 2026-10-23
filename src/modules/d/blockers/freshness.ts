@@ -1,6 +1,7 @@
 // شارة المصدر ووقت آخر قراءة وتنبيهات النقص والتقادم (T-5.2، F-D4، AC-D4). دوال نقية تأخذ الوقت مُدخلًا، فتُختبر بساعة متحكَّم بها.
 //  - المصدر: «DOM» أو «DOM + API» بحسب ما قُرئ فعلًا.
-//  - قائمة الفحوص المطوية جزئيًا: عدد الصفوف المقروءة أقل مما يعلنه الرمز المجمَّع لالتزام الرأس، أو check-runs أكثر من حد الصفحات.
+//  - قائمة الفحوص المطوية جزئيًا: عدد الصفوف المقروءة أقل مما يعلنه الرمز المجمَّع لالتزام الرأس، أو check-runs أو commit statuses
+//    أكثر من حد الصفحات.
 //  - التقادم: مضت عتبة PP-01 (5 دقائق افتراضًا، قابلة للضبط) على آخر قراءة دون تحديث حي.
 //  - التحديث الحي: تغيّرت قيمة كانت مقروءة بعد تعديل أجرته الصفحة نفسها؛ فتُعاد القراءة ويتجدد وقتها، وتُعلَن بيانات API الأقدم منه.
 import type { PrSummary } from '../pr-status/summary';
@@ -9,7 +10,7 @@ import type { ApiPrData } from './api-read';
 export interface CollapsedInfo {
   readonly read: number;
   readonly expected: number;
-  /** rollup: الرمز المجمَّع لالتزام الرأس يعلن العدد (label نصه)؛ api-pages: check-runs أكثر من حد الصفحات المقروءة. */
+  /** rollup: الرمز المجمَّع لالتزام الرأس يعلن العدد (label نصه)؛ api-pages: فحوص API أكثر من حد الصفحات المقروءة. */
   readonly basis: 'rollup' | 'api-pages';
   readonly label: string | null;
 }
@@ -31,8 +32,9 @@ export interface FreshnessState {
 
 export function collapsedInfo(summary: PrSummary, api: ApiPrData | null): CollapsedInfo | null {
   if (api?.checks.available && api.checks.value.partial) {
-    const total = api.checks.value.checkRunsTotal;
-    return { read: api.checks.value.items.length, expected: total ?? api.checks.value.items.length, basis: 'api-pages', label: null };
+    // كل مصدر بإجماليه (VR-06): check-runs المقروءة من إجماليها وcommit statuses من إجماليها، لا مقروء أحدهما من إجمالي الآخر.
+    const c = api.checks.value;
+    return { read: c.checkRunsRead + c.statusesRead, expected: (c.checkRunsTotal ?? c.checkRunsRead) + (c.statusesTotal ?? c.statusesRead), basis: 'api-pages', label: null };
   }
   // قائمة API كاملة: لا تُقارن صفوف DOM بالرمز المجمَّع (أعداد المصدرين لا تُجمع، T-0.3).
   if (api?.checks.available) return null;

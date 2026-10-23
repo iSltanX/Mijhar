@@ -237,6 +237,12 @@ export class Store {
     await this.enqueue(() => this.area.remove(dataKey(name)));
   }
 
+  /** يحذف عدة سجلات في استدعاء واحد للمنطقة (area.remove بقائمة المفاتيح)، فلا يبقى بعضها إن انقطع السياق بين حذفين. */
+  async removeMany(names: readonly string[]): Promise<void> {
+    for (const name of names) assertName(name);
+    await this.enqueue(() => this.area.remove(names.map(dataKey)));
+  }
+
   /** يشترك في تغيّر سجل من أي سياق (بما فيه هذا). يعيد دالة إلغاء الاشتراك. */
   subscribe<T = unknown>(name: string, callback: (value: T | undefined, oldValue: T | undefined) => void): () => void {
     assertName(name);

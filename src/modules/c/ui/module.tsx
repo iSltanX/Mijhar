@@ -92,7 +92,9 @@ class TranslateController {
     private readonly ctx: ModuleContext,
     private readonly options: TranslateModuleOptions,
   ) {
-    this.selection = options.selection === false ? null : new SelectionTranslator(ctx, () => this.service(), options.selection ?? {});
+    // التحديد يقبل كل محددات النص المرسوم المسجلة لا .markdown-body وحدها (VR-21).
+    const bodySelector = ctx.selectors.entry(TRANSLATE_SELECTOR_KEYS.body).candidates.join(', ');
+    this.selection = options.selection === false ? null : new SelectionTranslator(ctx, () => this.service(), { bodySelector, ...options.selection });
   }
 
   private service(): TranslationService | null {

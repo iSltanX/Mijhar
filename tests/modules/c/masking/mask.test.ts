@@ -53,6 +53,17 @@ describe('ما يُحمى', () => {
     expect(originals('Before\n~~~\nstill code\nmore', [])).toEqual(['~~~\nstill code\nmore']);
   });
 
+  // VR-13 (الجزء (ب) من MJ-AUDIT-005)، CommonMark §4.5: سياج اقتباس عكسي في نص معلوماته علامة اقتباس عكسي ليس سياجًا.
+  it('سطر يبدأ بشيفرة مضمّنة ثلاثية في السطر نفسه ليس سياجًا: لا يبتلع ما بعده، وتُحمى الشيفرة وحدها', () => {
+    const r = maskText('```npm test``` is fast\nNext line should be translated.', { terms: [] });
+    expect(r.masked).toContain('Next line should be translated.');
+    expect([...r.expectedTokens.values()].map((t) => [t.type, t.original])).toEqual([['CODE', '```npm test```']]);
+    // سلسلة الاقتباس الثلاثية بلا مغلق تبقى نصًا حرفيًا، و`x` بعدها شيفرة مضمّنة.
+    expect(originals('```js `x`\nstill text', [])).toEqual(['`x`']);
+    expect(originals('Before\n```js\nconst a = 1;\n```\nAfter', [])).toEqual(['```js\nconst a = 1;\n```']);
+    expect(originals('~~~ a`b\ncode\n~~~\nAfter', [])).toEqual(['~~~ a`b\ncode\n~~~']);
+  });
+
   it('علامة اقتباس عكسي غير مغلقة تبقى نصًا ولا تبتلع ما بعدها', () => {
     expect(originals('An odd ` mark and src/a.ts here', [])).toEqual(['src/a.ts']);
   });

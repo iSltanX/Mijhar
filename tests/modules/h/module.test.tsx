@@ -127,6 +127,48 @@ describe('شريط README العربي في صفحة المستودع', () => {
     expect(document.documentElement.outerHTML).toBe(before);
   });
 
+  // VR-09 (CODEX-MJ-007، وجزء الوحدة (ح) من البند 5 في MJ-AUDIT-003): إعادة رسم الصفحة لحاوية الشريط تزيل المضيف دون تنقل.
+  it('إعادة رسم حاوية الشريط ثلاث مرات (الجذر والمسار كما هما): مضيف واحد يعمل بلا مراقب زائد، والإيقاف يعيد الصفحة حرفيًا', async () => {
+    load('fixture-community-repo-arabic.html', 'https://github.com/octo/community');
+    const before = document.documentElement.outerHTML;
+    const live = new Set<MutationObserver>();
+    const Original = window.MutationObserver;
+    window.MutationObserver = class extends Original {
+      override observe(target: Node, options?: MutationObserverInit): void {
+        live.add(this);
+        super.observe(target, options);
+      }
+      override disconnect(): void {
+        live.delete(this);
+        super.disconnect();
+      }
+    };
+    try {
+      const { manager: running } = await start();
+      const observers = live.size;
+      const main = document.querySelector('main');
+      for (let i = 0; i < 3; i += 1) {
+        const parent = hosts()[0]!.parentElement!;
+        const clone = parent.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll(HOST_TAG).forEach((h) => h.remove());
+        await act(async () => {
+          parent.replaceChildren(...clone.childNodes);
+          await flush(250);
+        });
+        expect(main?.isConnected).toBe(true);
+        expect(hosts()).toHaveLength(1);
+        expect(inHost('[data-readme-state="found"]').textContent).toContain('يتوفر ملف تعريف باللغة العربية');
+      }
+      expect(document.querySelector('article.markdown-body')?.parentElement?.firstElementChild).toBe(hosts()[0]);
+      expect(live.size).toBe(observers);
+      act(() => running.stop());
+      expect(hosts()).toHaveLength(0);
+      expect(document.documentElement.outerHTML).toBe(before);
+    } finally {
+      window.MutationObserver = Original;
+    }
+  });
+
   it('صفحة تُرسم متأخرة: يظهر الشريط بعد وصول الشجرة لا قبلها', async () => {
     load('fixture-community-repo.html', 'https://github.com/octo/community');
     const table = document.querySelector('table[aria-labelledby="folders-and-files"]') as HTMLElement;

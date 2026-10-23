@@ -229,7 +229,9 @@ describe('TEST-NOTE-03F: فقدان الوصول', () => {
 });
 
 describe('حذف الملاحظة', () => {
-  it('حذفها من البطاقة يزيل مرساتها من التخزين، وحذفها من سياق آخر يُزيلها عند إعادة التثبيت التالية', async () => {
+  // VR-04: كان الحذف من سياق بلا متحكم يُبقي المرساة حتى تُفتح صفحة؛ صار الحذف نفسه يزيلها، ويبقى التنظيف عند الفتح استردادًا
+  // لمرساة يتيمة من نسخة سابقة.
+  it('حذفها من البطاقة أو من سياق آخر يزيل مرساتها من التخزين فورًا، والمرساة اليتيمة تُزال عند إعادة التثبيت التالية', async () => {
     const note = await createOnV1('private');
     expect(anchors.get(note.id)).toBeDefined();
     await click($('[data-action="delete"]'));
@@ -240,12 +242,20 @@ describe('حذف الملاحظة', () => {
     expect(Object.keys(await notes.store.readPrefix('anchors.'))).toEqual([]);
 
     const other = await createOnV1('private');
+    const orphan = anchors.get(other.id)!;
     act(() => manager?.stop());
     manager = null;
     await notes.repository.remove(other.id);
-    expect(anchors.get(other.id)).toBeDefined();
-    await open(codeViewHtml(V1));
+    await flush();
     expect(anchors.get(other.id)).toBeUndefined();
+    expect(Object.keys(await notes.store.readPrefix('anchors.'))).toEqual([]);
+
+    await notes.store.write('anchors.ghost', { ...orphan, noteId: 'ghost' });
+    await flush();
+    expect(anchors.get('ghost')).toBeDefined();
+    await open(codeViewHtml(V1));
+    expect(anchors.get('ghost')).toBeUndefined();
+    expect(Object.keys(await notes.store.readPrefix('anchors.'))).toEqual([]);
   });
 });
 

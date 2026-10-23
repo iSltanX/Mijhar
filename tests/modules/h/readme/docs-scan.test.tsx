@@ -8,6 +8,8 @@ import { SelectorsRegistry } from '../../../../src/core/detector';
 import { UNAVAILABLE_ACCESS, githubApiAccess } from '../../../../src/modules/h/api-access';
 import { DocsScanControl, MAX_SCAN_REQUESTS, README_SELECTORS, ReadmeBanner, SCOPE_STATEMENT, detectArabicReadme, extractReadmeScan, scanDocsFolder } from '../../../../src/modules/h/readme-detector';
 import type { ReadmeDetection } from '../../../../src/modules/h/readme-detector';
+import { createReadmePanelView } from '../../../../src/modules/h/readme-detector/ReadmePanelView';
+import { pageInfoFromUrl } from '../../../../src/shared/page';
 import { fakePermissions } from '../../../core/ui-host/helpers';
 import { ASSERTIVE_ABSENCE, fakeAccess, flush, loadFixture } from '../helpers';
 import type { Responder } from '../helpers';
@@ -219,5 +221,89 @@ describe('البوابة الفعلية githubApiAccess', () => {
   it('بلا واجهة صلاحيات: وصول غير متاح لا يحمل أي fetch', () => {
     expect(githubApiAccess(null).available).toBe(false);
     expect(githubApiAccess({ runtime: {} as never }).available).toBe(false);
+  });
+});
+
+// VR-11 (الجزء 1 من MJ-AUDIT-009) وVR-18 (الجزء 2): نتيجة فحص docs/ في اللوحة تخص المستودع الذي فُحص وحده، ورد متأخر لمستودع
+// سابق لا يظهر في غيره؛ وروابط النتيجة في اللوحة تُفتح في تبويب جديد كبقية روابط اللوحة، وفي شريط الصفحة كما كانت.
+describe('فحص docs/ في اللوحة عبر تبديل المستودع', () => {
+  const docsHit = (repo: string) => ({ body: [{ name: 'README.ar.md', path: 'docs/README.ar.md', type: 'file', html_url: `https://github.com/octo/${repo}/blob/main/docs/README.ar.md` }] });
+  const panel = async () => {
+    let current = pageInfoFromUrl('https://github.com/octo/one');
+    let notify: () => void = () => {};
+    const source = { read: async () => current, subscribe: (n: () => void) => ((notify = n), () => {}) };
+    const gates: Array<() => void> = [];
+    let slow = false;
+    const access = fakeAccess((path) => (path.includes('/contents/docs') ? docsHit(path.includes('/octo/one/') ? 'one' : 'two') : { status: 404, body: {} }));
+    const fetch = access.fetch;
+    access.fetch = async (p, i) => {
+      if (slow) await new Promise<void>((resolve) => gates.push(resolve));
+      return fetch(p, i);
+    };
+    const View = createReadmePanelView({ source: () => source, access: () => access });
+    const settle = async () => {
+      for (let i = 0; i < 4; i += 1) await act(async () => void (await flush(40)));
+    };
+    await act(async () => render(<View surface="native" settings={{} as never} />, container));
+    await settle();
+    return {
+      settle,
+      go: async (repo: string) => {
+        current = pageInfoFromUrl(`https://github.com/octo/${repo}`);
+        await act(async () => notify());
+        await settle();
+      },
+      slow: (on: boolean) => (slow = on),
+      release: async () => {
+        for (const resolve of gates.splice(0)) resolve();
+        await settle();
+      },
+      match: () => container.querySelector<HTMLAnchorElement>('[data-readme-match]'),
+    };
+  };
+
+  it('A ثم B: لا تظهر نتيجة A في B؛ وفحص A يكتمل بعد التبديل إلى B لا يظهر', async () => {
+    const p = await panel();
+    await click($('[data-action="scan-docs"]'));
+    expect(p.match()?.href).toBe('https://github.com/octo/one/blob/main/docs/README.ar.md');
+    await p.go('two');
+    expect(container.textContent).toContain('octo/two');
+    expect(p.match()).toBeNull();
+    await p.go('one');
+    p.slow(true);
+    await click($('[data-action="scan-docs"]'));
+    await p.go('two');
+    await p.release();
+    expect(container.textContent).toContain('octo/two');
+    expect(p.match()).toBeNull();
+    expect(container.querySelector('[data-scan-state]')).toBeNull();
+  });
+
+  it('A ← B ← A برد متأخر من A الأولى: لا يظهر شيء في نسخة A الجديدة', async () => {
+    const p = await panel();
+    p.slow(true);
+    await click($('[data-action="scan-docs"]'));
+    await p.go('two');
+    await p.go('one');
+    await p.release();
+    expect(p.match()).toBeNull();
+    expect(container.querySelector('[data-scan-state]')).toBeNull();
+    expect($<HTMLButtonElement>('[data-action="scan-docs"]').disabled).toBe(false);
+  });
+
+  it('روابط النتيجة في اللوحة تُفتح في تبويب جديد بـnoopener وnoreferrer، وفي شريط الصفحة بلا target', async () => {
+    const p = await panel();
+    await click($('[data-action="scan-docs"]'));
+    expect(p.match()?.getAttribute('target')).toBe('_blank');
+    expect(p.match()?.getAttribute('rel')).toBe('noopener noreferrer');
+    render(null, container);
+    await act(async () => render(<ReadmeBanner detection={detection('fixture-community-repo-arabic.html')} owner="octo" repo="community" />, container));
+    const banner = $<HTMLAnchorElement>('[data-readme-match]');
+    expect(banner.hasAttribute('target')).toBe(false);
+    expect(banner.hasAttribute('rel')).toBe(false);
+    render(null, container);
+    await act(async () => render(<DocsScanControl owner="octo" repo="community" access={fakeAccess(() => docsHit('community'))} />, container));
+    await click($('[data-action="scan-docs"]'));
+    expect($<HTMLAnchorElement>('[data-readme-match]').hasAttribute('target')).toBe(false);
   });
 });
