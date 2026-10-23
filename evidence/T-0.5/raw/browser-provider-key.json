@@ -1,0 +1,2098 @@
+{
+  "measuredAt": "2026-10-23T14:18:35.859Z",
+  "page": "https://github.com/octocat/Hello-World",
+  "providerKey": "أتاحه المالك (لا يُكتب هنا)",
+  "model": "claude-haiku-5-5",
+  "pasteboardChangeCountBefore": 227,
+  "runs": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "variant": "base",
+      "steps": {
+        "auto": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Failed to execute 'writeText' on 'Clipboard': Write permission denied."
+          },
+          "text": "mijhar-t05:auto:1792765117709",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": false
+          },
+          "clipboardApi": "function",
+          "at": 1792765117724,
+          "readBack": {
+            "text": "",
+            "via": "readText"
+          }
+        },
+        "write": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765117851",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765117863,
+          "readBack": {
+            "text": "mijhar-t05:write:1792765117851",
+            "via": "readText"
+          }
+        },
+        "exec": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec:1792765117998",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765117999,
+          "readBack": {
+            "text": "mijhar-t05:exec:1792765117998",
+            "via": "readText"
+          }
+        },
+        "exec-shadow": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec-shadow:1792765118066",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765118067,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765118066",
+            "via": "readText"
+          }
+        },
+        "late": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Failed to execute 'writeText' on 'Clipboard': Write permission denied."
+          },
+          "text": "mijhar-t05:late:1792765124116",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765124117,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765118066",
+            "via": "readText"
+          }
+        },
+        "writeBackgroundTab": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765125235",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765125248,
+          "note": "نقر Playwright على صفحة ليست في الأمام",
+          "readBack": {
+            "text": "mijhar-t05:write:1792765125235",
+            "via": "readText"
+          }
+        },
+        "writeUnfocused": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765125469",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765125479,
+          "note": "محاكاة التركيز معطَّلة (Emulation.setFocusEmulationEnabled = false) وصفحة أخرى في الأمام",
+          "readBack": {
+            "text": "mijhar-t05:write:1792765125469",
+            "via": "readText"
+          }
+        },
+        "background": {
+          "ok": false,
+          "context": "service-worker",
+          "clipboardApi": "undefined",
+          "at": 1792765125631
+        },
+        "extensionPage": {
+          "ok": true,
+          "text": "mijhar-t05:page:1792765125733",
+          "hasFocus": true,
+          "visibility": "visible",
+          "readBack": {
+            "text": "mijhar-t05:page:1792765125733",
+            "via": "readText"
+          }
+        }
+      },
+      "page": {
+        "url": "https://github.com/octocat/Hello-World",
+        "status": 200,
+        "permissionsPolicy": null
+      },
+      "storage": {
+        "write": {
+          "local": {
+            "written": true,
+            "setAccessLevel": "function"
+          },
+          "session": {
+            "written": true,
+            "setAccessLevel": "function"
+          }
+        },
+        "default": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "at": 1792765125882
+        },
+        "restrict": {
+          "local": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_CONTEXTS"
+          },
+          "session": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_CONTEXTS"
+          }
+        },
+        "afterRestrict": {
+          "local": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "at": 1792765125915
+        },
+        "open": {
+          "local": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_AND_UNTRUSTED_CONTEXTS"
+          },
+          "session": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_AND_UNTRUSTED_CONTEXTS"
+          }
+        },
+        "afterOpen": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": true,
+            "visible": true
+          },
+          "at": 1792765125948
+        },
+        "clear": {
+          "local": {
+            "cleared": true
+          },
+          "session": {
+            "cleared": true
+          }
+        }
+      },
+      "provider": {
+        "content": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "threw": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "status": 401,
+              "type": "cors",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "request-id": "موجود"
+              }
+            }
+          ],
+          "at": 1792765127056
+        },
+        "extensionPage": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        },
+        "background": [
+          {
+            "variant": "بلا ترويسة الوصول المباشر",
+            "status": 401,
+            "type": "basic",
+            "ms": 269,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          },
+          {
+            "variant": "مع anthropic-dangerous-direct-browser-access",
+            "status": 401,
+            "type": "basic",
+            "ms": 263,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": "*",
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          }
+        ],
+        "backgroundWithKey": [
+          [
+            {
+              "variant": "مفتاح صالح · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "ms": 351,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": null
+            },
+            {
+              "variant": "مفتاح صالح · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "ms": 834,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 13,
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                },
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard"
+              },
+              "inputTokens": null,
+              "model": "claude-haiku-5-5",
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "مفتاح صالح · بث",
+              "status": 200,
+              "type": "basic",
+              "ms": 1595,
+              "headers": {
+                "content-type": "text/event-stream; charset=utf-8",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "stream": true,
+              "firstChunkMs": 1596,
+              "eventTypes": {
+                "message_start": 1,
+                "content_block_start": 1,
+                "ping": 1,
+                "content_block_delta": 4,
+                "content_block_stop": 1,
+                "message_delta": 1,
+                "message_stop": 1
+              },
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 13,
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard",
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                }
+              }
+            }
+          ],
+          [
+            {
+              "variant": "عدّ الرموز",
+              "status": 200,
+              "type": "basic",
+              "ms": 276,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": 10,
+              "model": null,
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "قائمة المودلات",
+              "status": 200,
+              "type": "basic",
+              "ms": 308,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": [
+                "claude-haiku-5-5",
+                "claude-sonnet-5-5",
+                "claude-opus-5-5",
+                "claude-fable-5-1",
+                "claude-opus-5",
+                "claude-sonnet-5",
+                "claude-fable-5",
+                "claude-opus-4-8",
+                "claude-opus-4-7",
+                "claude-sonnet-4-6",
+                "claude-opus-4-6",
+                "claude-opus-4-5-20251101",
+                "claude-haiku-4-5-20251001",
+                "claude-sonnet-4-5-20250929"
+              ]
+            }
+          ]
+        ],
+        "extensionPageWithKey": {
+          "results": [
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "error": null,
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "pasteboardChangeCount": {
+        "before": 227,
+        "after": 227
+      },
+      "systemClipboardHoldsTestText": false
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "variant": "base",
+      "steps": {
+        "auto": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Failed to execute 'writeText' on 'Clipboard': Write permission denied."
+          },
+          "text": "mijhar-t05:auto:1792765135946",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": false
+          },
+          "clipboardApi": "function",
+          "at": 1792765136003,
+          "readBack": {
+            "text": "",
+            "via": "readText"
+          }
+        },
+        "write": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765136122",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765136132,
+          "readBack": {
+            "text": "mijhar-t05:write:1792765136122",
+            "via": "readText"
+          }
+        },
+        "exec": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec:1792765136268",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765136270,
+          "readBack": {
+            "text": "mijhar-t05:exec:1792765136268",
+            "via": "readText"
+          }
+        },
+        "exec-shadow": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec-shadow:1792765136301",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765136303,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765136301",
+            "via": "readText"
+          }
+        },
+        "late": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Failed to execute 'writeText' on 'Clipboard': Write permission denied."
+          },
+          "text": "mijhar-t05:late:1792765142337",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765142337,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765136301",
+            "via": "readText"
+          }
+        },
+        "writeBackgroundTab": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765143442",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765143456,
+          "note": "نقر Playwright على صفحة ليست في الأمام",
+          "readBack": {
+            "text": "mijhar-t05:write:1792765143442",
+            "via": "readText"
+          }
+        },
+        "writeUnfocused": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765143624",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765143634,
+          "note": "محاكاة التركيز معطَّلة (Emulation.setFocusEmulationEnabled = false) وصفحة أخرى في الأمام",
+          "readBack": {
+            "text": "mijhar-t05:write:1792765143624",
+            "via": "readText"
+          }
+        },
+        "background": {
+          "ok": false,
+          "context": "service-worker",
+          "clipboardApi": "undefined",
+          "at": 1792765143768
+        },
+        "extensionPage": {
+          "ok": true,
+          "text": "mijhar-t05:page:1792765143885",
+          "hasFocus": true,
+          "visibility": "visible",
+          "readBack": {
+            "text": "mijhar-t05:page:1792765143885",
+            "via": "readText"
+          }
+        }
+      },
+      "page": {
+        "url": "https://github.com/octocat/Hello-World",
+        "status": 200,
+        "permissionsPolicy": null
+      },
+      "storage": {
+        "write": {
+          "local": {
+            "written": true,
+            "setAccessLevel": "function"
+          },
+          "session": {
+            "written": true,
+            "setAccessLevel": "function"
+          }
+        },
+        "default": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "at": 1792765144051
+        },
+        "restrict": {
+          "local": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_CONTEXTS"
+          },
+          "session": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_CONTEXTS"
+          }
+        },
+        "afterRestrict": {
+          "local": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "at": 1792765144085
+        },
+        "open": {
+          "local": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_AND_UNTRUSTED_CONTEXTS"
+          },
+          "session": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_AND_UNTRUSTED_CONTEXTS"
+          }
+        },
+        "afterOpen": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": true,
+            "visible": true
+          },
+          "at": 1792765144118
+        },
+        "clear": {
+          "local": {
+            "cleared": true
+          },
+          "session": {
+            "cleared": true
+          }
+        }
+      },
+      "provider": {
+        "content": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "threw": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "status": 401,
+              "type": "cors",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "request-id": "موجود"
+              }
+            }
+          ],
+          "at": 1792765145179
+        },
+        "extensionPage": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        },
+        "background": [
+          {
+            "variant": "بلا ترويسة الوصول المباشر",
+            "status": 401,
+            "type": "basic",
+            "ms": 269,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          },
+          {
+            "variant": "مع anthropic-dangerous-direct-browser-access",
+            "status": 401,
+            "type": "basic",
+            "ms": 266,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": "*",
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          }
+        ],
+        "backgroundWithKey": [
+          [
+            {
+              "variant": "مفتاح صالح · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "ms": 648,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": null
+            },
+            {
+              "variant": "مفتاح صالح · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "ms": 866,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 13,
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                },
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard"
+              },
+              "inputTokens": null,
+              "model": "claude-haiku-5-5",
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "مفتاح صالح · بث",
+              "status": 200,
+              "type": "basic",
+              "ms": 952,
+              "headers": {
+                "content-type": "text/event-stream; charset=utf-8",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "stream": true,
+              "firstChunkMs": 954,
+              "eventTypes": {
+                "message_start": 1,
+                "content_block_start": 1,
+                "ping": 1,
+                "content_block_delta": 4,
+                "content_block_stop": 1,
+                "message_delta": 1,
+                "message_stop": 1
+              },
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 13,
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard",
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                }
+              }
+            }
+          ],
+          [
+            {
+              "variant": "عدّ الرموز",
+              "status": 200,
+              "type": "basic",
+              "ms": 277,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": 10,
+              "model": null,
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "قائمة المودلات",
+              "status": 200,
+              "type": "basic",
+              "ms": 299,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": [
+                "claude-haiku-5-5",
+                "claude-sonnet-5-5",
+                "claude-opus-5-5",
+                "claude-fable-5-1",
+                "claude-opus-5",
+                "claude-sonnet-5",
+                "claude-fable-5",
+                "claude-opus-4-8",
+                "claude-opus-4-7",
+                "claude-sonnet-4-6",
+                "claude-opus-4-6",
+                "claude-opus-4-5-20251101",
+                "claude-haiku-4-5-20251001",
+                "claude-sonnet-4-5-20250929"
+              ]
+            }
+          ]
+        ],
+        "extensionPageWithKey": {
+          "results": [
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "error": null,
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "pasteboardChangeCount": {
+        "before": 227,
+        "after": 227
+      },
+      "systemClipboardHoldsTestText": false
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "variant": "base",
+      "steps": {
+        "auto": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Failed to execute 'writeText' on 'Clipboard': Write permission denied."
+          },
+          "text": "mijhar-t05:auto:1792765154029",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": false
+          },
+          "clipboardApi": "function",
+          "at": 1792765154073,
+          "readBack": {
+            "text": "",
+            "via": "readText"
+          }
+        },
+        "write": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765154226",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765154230,
+          "readBack": {
+            "text": "mijhar-t05:write:1792765154226",
+            "via": "readText"
+          }
+        },
+        "exec": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec:1792765154367",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765154369,
+          "readBack": {
+            "text": "mijhar-t05:exec:1792765154367",
+            "via": "readText"
+          }
+        },
+        "exec-shadow": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec-shadow:1792765154415",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765154417,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765154415",
+            "via": "readText"
+          }
+        },
+        "late": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Failed to execute 'writeText' on 'Clipboard': Write permission denied."
+          },
+          "text": "mijhar-t05:late:1792765160483",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765160484,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765154415",
+            "via": "readText"
+          }
+        },
+        "writeBackgroundTab": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765161608",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765161623,
+          "note": "نقر Playwright على صفحة ليست في الأمام",
+          "readBack": {
+            "text": "mijhar-t05:write:1792765161608",
+            "via": "readText"
+          }
+        },
+        "writeUnfocused": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765161801",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765161812,
+          "note": "محاكاة التركيز معطَّلة (Emulation.setFocusEmulationEnabled = false) وصفحة أخرى في الأمام",
+          "readBack": {
+            "text": "mijhar-t05:write:1792765161801",
+            "via": "readText"
+          }
+        },
+        "background": {
+          "ok": false,
+          "context": "service-worker",
+          "clipboardApi": "undefined",
+          "at": 1792765161965
+        },
+        "extensionPage": {
+          "ok": true,
+          "text": "mijhar-t05:page:1792765162083",
+          "hasFocus": true,
+          "visibility": "visible",
+          "readBack": {
+            "text": "mijhar-t05:page:1792765162083",
+            "via": "readText"
+          }
+        }
+      },
+      "page": {
+        "url": "https://github.com/octocat/Hello-World",
+        "status": 200,
+        "permissionsPolicy": null
+      },
+      "storage": {
+        "write": {
+          "local": {
+            "written": true,
+            "setAccessLevel": "function"
+          },
+          "session": {
+            "written": true,
+            "setAccessLevel": "function"
+          }
+        },
+        "default": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "at": 1792765162232
+        },
+        "restrict": {
+          "local": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_CONTEXTS"
+          },
+          "session": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_CONTEXTS"
+          }
+        },
+        "afterRestrict": {
+          "local": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "Error",
+              "message": "Access to storage is not allowed from this context."
+            }
+          },
+          "at": 1792765162264
+        },
+        "open": {
+          "local": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_AND_UNTRUSTED_CONTEXTS"
+          },
+          "session": {
+            "setAccessLevel": "function",
+            "applied": "TRUSTED_AND_UNTRUSTED_CONTEXTS"
+          }
+        },
+        "afterOpen": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": true,
+            "visible": true
+          },
+          "at": 1792765162298
+        },
+        "clear": {
+          "local": {
+            "cleared": true
+          },
+          "session": {
+            "cleared": true
+          }
+        }
+      },
+      "provider": {
+        "content": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "threw": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "status": 401,
+              "type": "cors",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "request-id": "موجود"
+              }
+            }
+          ],
+          "at": 1792765163345
+        },
+        "extensionPage": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        },
+        "background": [
+          {
+            "variant": "بلا ترويسة الوصول المباشر",
+            "status": 401,
+            "type": "basic",
+            "ms": 255,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          },
+          {
+            "variant": "مع anthropic-dangerous-direct-browser-access",
+            "status": 401,
+            "type": "basic",
+            "ms": 275,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": "*",
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          }
+        ],
+        "backgroundWithKey": [
+          [
+            {
+              "variant": "مفتاح صالح · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "ms": 346,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": null
+            },
+            {
+              "variant": "مفتاح صالح · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "ms": 802,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 13,
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                },
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard"
+              },
+              "inputTokens": null,
+              "model": "claude-haiku-5-5",
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "مفتاح صالح · بث",
+              "status": 200,
+              "type": "basic",
+              "ms": 899,
+              "headers": {
+                "content-type": "text/event-stream; charset=utf-8",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "stream": true,
+              "firstChunkMs": 904,
+              "eventTypes": {
+                "message_start": 1,
+                "content_block_start": 1,
+                "ping": 1,
+                "content_block_delta": 4,
+                "content_block_stop": 1,
+                "message_delta": 1,
+                "message_stop": 1
+              },
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 16,
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard",
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                }
+              }
+            }
+          ],
+          [
+            {
+              "variant": "عدّ الرموز",
+              "status": 200,
+              "type": "basic",
+              "ms": 295,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": 10,
+              "model": null,
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "قائمة المودلات",
+              "status": 200,
+              "type": "basic",
+              "ms": 282,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": [
+                "claude-haiku-5-5",
+                "claude-sonnet-5-5",
+                "claude-opus-5-5",
+                "claude-fable-5-1",
+                "claude-opus-5",
+                "claude-sonnet-5",
+                "claude-fable-5",
+                "claude-opus-4-8",
+                "claude-opus-4-7",
+                "claude-sonnet-4-6",
+                "claude-opus-4-6",
+                "claude-opus-4-5-20251101",
+                "claude-haiku-4-5-20251001",
+                "claude-sonnet-4-5-20250929"
+              ]
+            }
+          ]
+        ],
+        "extensionPageWithKey": {
+          "results": [
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "error": null,
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "pasteboardChangeCount": {
+        "before": 227,
+        "after": 227
+      },
+      "systemClipboardHoldsTestText": false
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "variant": "base",
+      "steps": {
+        "auto": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Clipboard write was blocked due to lack of user activation."
+          },
+          "text": "mijhar-t05:auto:1792765172031",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": false
+          },
+          "clipboardApi": "function",
+          "at": 1792765172031,
+          "readBack": {
+            "error": "[Exception... \"Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsITransferable.getTransferData]\"  nsresult: \"0x80004005 (NS_ERROR_FAILURE)\"  location: \"JS frame :: [System Principal] :: <TOP_LEVEL> :: line 9\"  data: no]"
+          }
+        },
+        "write": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765182067",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765182074,
+          "readBack": {
+            "text": "mijhar-t05:write:1792765182067"
+          }
+        },
+        "exec": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec:1792765182135",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765182137,
+          "readBack": {
+            "text": "mijhar-t05:exec:1792765182135"
+          }
+        },
+        "exec-shadow": {
+          "ok": true,
+          "error": null,
+          "text": "mijhar-t05:exec-shadow:1792765182202",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765182203,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765182202"
+          }
+        },
+        "late": {
+          "ok": false,
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Clipboard write was blocked due to lack of user activation."
+          },
+          "text": "mijhar-t05:late:1792765188269",
+          "hasFocus": true,
+          "visibility": "visible",
+          "activation": {
+            "isActive": false,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765188270,
+          "readBack": {
+            "text": "mijhar-t05:exec-shadow:1792765182202"
+          }
+        },
+        "writeBackgroundTab": {
+          "ok": true,
+          "text": "mijhar-t05:write:1792765189353",
+          "hasFocus": false,
+          "visibility": "visible",
+          "activation": {
+            "isActive": true,
+            "hasBeenActive": true
+          },
+          "clipboardApi": "function",
+          "at": 1792765189353,
+          "note": "نقر WebDriver على تبويب لم يُجلب إلى الأمام (focus: false)",
+          "readBack": {
+            "text": "mijhar-t05:write:1792765189353"
+          }
+        },
+        "background": {
+          "ok": false,
+          "context": "background-page",
+          "clipboardApi": "function",
+          "error": {
+            "name": "NotAllowedError",
+            "message": "Clipboard write was blocked due to lack of user activation."
+          },
+          "text": "mijhar-t05:background:1792765189423",
+          "at": 1792765189425
+        },
+        "extensionPage": {
+          "ok": true,
+          "text": "mijhar-t05:page:1792765189520",
+          "hasFocus": true,
+          "visibility": "visible",
+          "readBack": {
+            "text": "mijhar-t05:page:1792765189520"
+          }
+        }
+      },
+      "page": {
+        "url": "https://github.com/octocat/Hello-World"
+      },
+      "storage": {
+        "write": {
+          "local": {
+            "written": true,
+            "setAccessLevel": "undefined"
+          },
+          "session": {
+            "written": true,
+            "setAccessLevel": "undefined"
+          }
+        },
+        "default": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "TypeError",
+              "message": "can't access property \"get\", api.storage[area] is undefined"
+            }
+          },
+          "at": 1792765189601
+        },
+        "restrict": {
+          "local": {
+            "setAccessLevel": "undefined"
+          },
+          "session": {
+            "setAccessLevel": "undefined"
+          }
+        },
+        "afterRestrict": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "TypeError",
+              "message": "can't access property \"get\", api.storage[area] is undefined"
+            }
+          },
+          "at": 1792765189669
+        },
+        "open": {
+          "local": {
+            "setAccessLevel": "undefined"
+          },
+          "session": {
+            "setAccessLevel": "undefined"
+          }
+        },
+        "afterOpen": {
+          "local": {
+            "ok": true,
+            "visible": true
+          },
+          "session": {
+            "ok": false,
+            "error": {
+              "name": "TypeError",
+              "message": "can't access property \"get\", api.storage[area] is undefined"
+            }
+          },
+          "at": 1792765189738
+        },
+        "clear": {
+          "local": {
+            "cleared": true
+          },
+          "session": {
+            "cleared": true
+          }
+        }
+      },
+      "provider": {
+        "content": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "threw": {
+                "name": "TypeError",
+                "message": "NetworkError when attempting to fetch resource."
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "threw": {
+                "name": "TypeError",
+                "message": "NetworkError when attempting to fetch resource."
+              }
+            }
+          ],
+          "at": 1792765189809
+        },
+        "extensionPage": {
+          "results": [
+            {
+              "variant": "بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مع anthropic-dangerous-direct-browser-access",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "invalid x-api-key"
+              },
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        },
+        "background": [
+          {
+            "variant": "بلا ترويسة الوصول المباشر",
+            "status": 401,
+            "type": "basic",
+            "ms": 253,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          },
+          {
+            "variant": "مع anthropic-dangerous-direct-browser-access",
+            "status": 401,
+            "type": "basic",
+            "ms": 249,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": "*",
+              "anthropic-ratelimit-requests-limit": null,
+              "anthropic-ratelimit-input-tokens-remaining": null,
+              "retry-after": null,
+              "request-id": "موجود"
+            },
+            "error": {
+              "type": "authentication_error",
+              "message": "invalid x-api-key"
+            },
+            "usage": null,
+            "inputTokens": null,
+            "model": null,
+            "models": null
+          }
+        ],
+        "backgroundWithKey": [
+          [
+            {
+              "variant": "مفتاح صالح · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "ms": 391,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": null
+            },
+            {
+              "variant": "مفتاح صالح · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "ms": 4420,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 16,
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                },
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard"
+              },
+              "inputTokens": null,
+              "model": "claude-haiku-5-5",
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "مفتاح صالح · بث",
+              "status": 200,
+              "type": "basic",
+              "ms": 811,
+              "headers": {
+                "content-type": "text/event-stream; charset=utf-8",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": "1000",
+                "anthropic-ratelimit-input-tokens-remaining": "2000000",
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "stream": true,
+              "firstChunkMs": 814,
+              "eventTypes": {
+                "message_start": 1,
+                "content_block_start": 1,
+                "ping": 1,
+                "content_block_delta": 4,
+                "content_block_stop": 1,
+                "message_delta": 1,
+                "message_stop": 1
+              },
+              "usage": {
+                "input_tokens": 10,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "output_tokens": 13,
+                "service_tier": "standard",
+                "inference_geo": "global",
+                "speed": "standard",
+                "output_tokens_details": {
+                  "thinking_tokens": 0
+                }
+              }
+            }
+          ],
+          [
+            {
+              "variant": "عدّ الرموز",
+              "status": 200,
+              "type": "basic",
+              "ms": 275,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": "*",
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": 10,
+              "model": null,
+              "models": null
+            }
+          ],
+          [
+            {
+              "variant": "قائمة المودلات",
+              "status": 200,
+              "type": "basic",
+              "ms": 289,
+              "headers": {
+                "content-type": "application/json",
+                "access-control-allow-origin": null,
+                "anthropic-ratelimit-requests-limit": null,
+                "anthropic-ratelimit-input-tokens-remaining": null,
+                "retry-after": null,
+                "request-id": "موجود"
+              },
+              "error": null,
+              "usage": null,
+              "inputTokens": null,
+              "model": null,
+              "models": [
+                "claude-haiku-5-5",
+                "claude-sonnet-5-5",
+                "claude-opus-5-5",
+                "claude-fable-5-1",
+                "claude-opus-5",
+                "claude-sonnet-5",
+                "claude-fable-5",
+                "claude-opus-4-8",
+                "claude-opus-4-7",
+                "claude-sonnet-4-6",
+                "claude-opus-4-6",
+                "claude-opus-4-5-20251101",
+                "claude-haiku-4-5-20251001",
+                "claude-sonnet-4-5-20250929"
+              ]
+            }
+          ]
+        ],
+        "extensionPageWithKey": {
+          "results": [
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · بلا ترويسة الوصول المباشر",
+              "status": 401,
+              "type": "basic",
+              "error": {
+                "type": "authentication_error",
+                "message": "CORS requests must set 'anthropic-dangerous-direct-browser-access' header"
+              },
+              "headers": {
+                "access-control-allow-origin": null,
+                "content-type": "application/json"
+              }
+            },
+            {
+              "variant": "مفتاح صالح · صفحة الإضافة · مع الترويسة",
+              "status": 200,
+              "type": "basic",
+              "error": null,
+              "headers": {
+                "access-control-allow-origin": "*",
+                "content-type": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "pasteboardChangeCount": {
+        "before": 227,
+        "after": 227
+      },
+      "systemClipboardHoldsTestText": false
+    }
+  ],
+  "pasteboardChangeCountAfter": 227
+}

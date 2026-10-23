@@ -1,0 +1,16 @@
+2026-10-20T11:02:40.1331234Z Current runner version: '2.320.0'
+2026-10-20T11:02:40.1731234Z Complete job name: verify-preview
+2026-10-20T11:02:40.2191234Z ##[group]Run ./scripts/verify-preview.sh
+2026-10-20T11:02:40.2711234Z ./scripts/verify-preview.sh
+2026-10-20T11:02:40.3301234Z shell: /usr/bin/bash -e {0}
+2026-10-20T11:02:40.3981234Z ##[endgroup]
+2026-10-20T11:02:40.4761234Z Checking 12 preview endpoints…
+2026-10-20T11:02:40.5641234Z ok   /health
+2026-10-20T11:02:40.6661234Z ok   /api/v1/settings
+2026-10-20T11:02:40.7821234Z FAIL /api/v1/reports — payload did not match snapshot (3 fields differ)
+2026-10-20T11:02:40.9141234Z ok   /api/v1/users
+2026-10-20T11:02:40.9521234Z FAIL /api/v1/export — payload did not match snapshot (1 field differs)
+2026-10-20T11:02:40.9961234Z Verification failed: 2 of 12 endpoints returned unexpected payloads
+2026-10-20T11:02:41.0461234Z ##[error]Process completed with exit code 1.
+2026-10-20T11:02:41.1031234Z Post job cleanup.
+2026-10-20T11:02:41.1691234Z Cleaning up orphan processes

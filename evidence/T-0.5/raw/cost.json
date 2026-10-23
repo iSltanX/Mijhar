@@ -1,0 +1,84 @@
+{
+  "measuredAt": "2026-10-23T14:20:31.909Z",
+  "model": "claude-haiku-5-5",
+  "price": {
+    "input": 0.1,
+    "output": 0.5,
+    "source": "evidence/T-0.5/raw/pricing.md (2026-10-23)"
+  },
+  "maxTokens": 64,
+  "payloads": [
+    {
+      "id": "ping",
+      "chars": 4,
+      "countStatus": 200,
+      "countError": null,
+      "countedInputTokens": 10,
+      "messageStatus": 200,
+      "messageError": null,
+      "responseModel": "claude-haiku-5-5",
+      "usage": {
+        "input_tokens": 10,
+        "output_tokens": 13,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "inputDiff": 0,
+      "inputDiffPercent": 0,
+      "stopReason": "end_turn",
+      "costUSD": {
+        "estimateInputOnly": 0.000001,
+        "estimateUpperBound": 0.000033,
+        "actual": 0.0000075
+      }
+    },
+    {
+      "id": "arabic-mixed",
+      "chars": 5821,
+      "countStatus": 200,
+      "countError": null,
+      "countedInputTokens": 3712,
+      "messageStatus": 200,
+      "messageError": null,
+      "responseModel": "claude-haiku-5-5",
+      "usage": {
+        "input_tokens": 3712,
+        "output_tokens": 64,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "inputDiff": 0,
+      "inputDiffPercent": 0,
+      "stopReason": "max_tokens",
+      "costUSD": {
+        "estimateInputOnly": 0.0003712,
+        "estimateUpperBound": 0.0004032,
+        "actual": 0.0004032
+      }
+    },
+    {
+      "id": "reference-log",
+      "chars": 57912,
+      "countStatus": 200,
+      "countError": null,
+      "countedInputTokens": 28923,
+      "messageStatus": 200,
+      "messageError": null,
+      "responseModel": "claude-haiku-5-5",
+      "usage": {
+        "input_tokens": 28923,
+        "output_tokens": 64,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "inputDiff": 0,
+      "inputDiffPercent": 0,
+      "stopReason": "max_tokens",
+      "costUSD": {
+        "estimateInputOnly": 0.0028923,
+        "estimateUpperBound": 0.0029243,
+        "actual": 0.0029243
+      }
+    }
+  ]
+}

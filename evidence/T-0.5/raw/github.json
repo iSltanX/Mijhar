@@ -1,0 +1,742 @@
+{
+  "measuredAt": "2026-10-23T14:25:31.682Z",
+  "repo": "مستودع المالك التجريبي (الاسم في التقرير)",
+  "tokens": {
+    "min": true,
+    "read": true
+  },
+  "unauthenticated": {
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 47,
+      "reset": 1792767982,
+      "used": 13
+    },
+    "search": {
+      "limit": 10,
+      "remaining": 10,
+      "reset": 1792765591,
+      "used": 0
+    },
+    "headers": {
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "47",
+      "x-ratelimit-used": "13",
+      "x-ratelimit-reset": "1792767982",
+      "x-ratelimit-resource": "core"
+    },
+    "publicRequest": {
+      "status": 200,
+      "headers": {
+        "x-ratelimit-limit": "60",
+        "x-ratelimit-remaining": "46",
+        "x-ratelimit-used": "14",
+        "x-ratelimit-reset": "1792767982",
+        "x-ratelimit-resource": "core"
+      }
+    }
+  },
+  "signals": {
+    "invalidToken": {
+      "status": 401,
+      "message": "Bad credentials",
+      "headers": {}
+    },
+    "invalidTokenOnPublic": {
+      "status": 401,
+      "message": "Bad credentials"
+    }
+  },
+  "discovered": {
+    "pr": 1,
+    "run": 39967574388,
+    "runConclusion": "failure",
+    "job": 120461363761,
+    "sha": "48ee3af…",
+    "base": "main"
+  },
+  "endpoints": [
+    {
+      "id": "repo",
+      "documented": "Metadata: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike",
+        "status": 404,
+        "ms": 340,
+        "at": "2026-10-23T14:25:35.209Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "45",
+          "x-ratelimit-used": "15",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/repos/repos#get-a-repository"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike",
+        "status": 404,
+        "ms": 411,
+        "at": "2026-10-23T14:25:35.621Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4969",
+          "x-ratelimit-used": "31",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "metadata=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/repos/repos#get-a-repository"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike",
+        "status": 200,
+        "ms": 502,
+        "at": "2026-10-23T14:25:36.124Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4968",
+          "x-ratelimit-used": "32",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "metadata=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    },
+    {
+      "id": "pull",
+      "documented": "Pull requests: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/pulls/1",
+        "status": 404,
+        "ms": 353,
+        "at": "2026-10-23T14:25:36.478Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "44",
+          "x-ratelimit-used": "16",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/pulls/pulls#get-a-pull-request"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/pulls/1",
+        "status": 404,
+        "ms": 475,
+        "at": "2026-10-23T14:25:36.953Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4967",
+          "x-ratelimit-used": "33",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "pull_requests=read; contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/pulls/pulls#get-a-pull-request"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/pulls/1",
+        "status": 200,
+        "ms": 529,
+        "at": "2026-10-23T14:25:37.483Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4966",
+          "x-ratelimit-used": "34",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "pull_requests=read; contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    },
+    {
+      "id": "check-runs",
+      "documented": "Checks: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/commits/48ee3af11aea71d34c646c760e5de9c2336f2936/check-runs?per_page=100",
+        "status": 404,
+        "ms": 448,
+        "at": "2026-10-23T14:25:37.976Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "43",
+          "x-ratelimit-used": "17",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/checks/runs#list-check-runs-for-a-git-reference"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/commits/48ee3af11aea71d34c646c760e5de9c2336f2936/check-runs?per_page=100",
+        "status": 404,
+        "ms": 444,
+        "at": "2026-10-23T14:25:38.420Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4965",
+          "x-ratelimit-used": "35",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "checks=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/checks/runs#list-check-runs-for-a-git-reference"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/commits/48ee3af11aea71d34c646c760e5de9c2336f2936/check-runs?per_page=100",
+        "status": 403,
+        "ms": 450,
+        "at": "2026-10-23T14:25:38.871Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4964",
+          "x-ratelimit-used": "36",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "checks=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": "Resource not accessible by personal access token",
+        "documentation": "https://docs.github.com/rest/checks/runs#list-check-runs-for-a-git-reference"
+      }
+    },
+    {
+      "id": "combined-status",
+      "documented": "Commit statuses: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/commits/48ee3af11aea71d34c646c760e5de9c2336f2936/status",
+        "status": 404,
+        "ms": 404,
+        "at": "2026-10-23T14:25:39.276Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "42",
+          "x-ratelimit-used": "18",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/commits/statuses#get-the-combined-status-for-a-specific-reference"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/commits/48ee3af11aea71d34c646c760e5de9c2336f2936/status",
+        "status": 404,
+        "ms": 879,
+        "at": "2026-10-23T14:25:40.155Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4963",
+          "x-ratelimit-used": "37",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "statuses=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/commits/statuses#get-the-combined-status-for-a-specific-reference"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/commits/48ee3af11aea71d34c646c760e5de9c2336f2936/status",
+        "status": 200,
+        "ms": 468,
+        "at": "2026-10-23T14:25:40.624Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4962",
+          "x-ratelimit-used": "38",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "statuses=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    },
+    {
+      "id": "branch",
+      "documented": "Contents: read (وحماية الفرع للقراءة: Administration: read بحسب التوثيق)",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/branches/main",
+        "status": 404,
+        "ms": 358,
+        "at": "2026-10-23T14:25:40.982Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "41",
+          "x-ratelimit-used": "19",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/branches/branches#get-a-branch"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/branches/main",
+        "status": 404,
+        "ms": 428,
+        "at": "2026-10-23T14:25:41.411Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4961",
+          "x-ratelimit-used": "39",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/branches/branches#get-a-branch"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/branches/main",
+        "status": 200,
+        "ms": 451,
+        "at": "2026-10-23T14:25:41.863Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4960",
+          "x-ratelimit-used": "40",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    },
+    {
+      "id": "job",
+      "documented": "Actions: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/jobs/120461363761",
+        "status": 404,
+        "ms": 300,
+        "at": "2026-10-23T14:25:42.164Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "40",
+          "x-ratelimit-used": "20",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/actions/workflow-jobs#get-a-job-for-a-workflow-run"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/jobs/120461363761",
+        "status": 404,
+        "ms": 364,
+        "at": "2026-10-23T14:25:42.529Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4986",
+          "x-ratelimit-used": "14",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "actions=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/actions/workflow-jobs#get-a-job-for-a-workflow-run"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/jobs/120461363761",
+        "status": 200,
+        "ms": 478,
+        "at": "2026-10-23T14:25:43.007Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4985",
+          "x-ratelimit-used": "15",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "actions=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    },
+    {
+      "id": "job-logs",
+      "documented": "Actions: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/jobs/120461363761/logs",
+        "status": 404,
+        "ms": 324,
+        "at": "2026-10-23T14:25:43.331Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "39",
+          "x-ratelimit-used": "21",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/actions/workflow-jobs#download-job-logs-for-a-workflow-run"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/jobs/120461363761/logs",
+        "status": 404,
+        "ms": 366,
+        "at": "2026-10-23T14:25:43.698Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4984",
+          "x-ratelimit-used": "16",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "actions=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/actions/workflow-jobs#download-job-logs-for-a-workflow-run"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/jobs/120461363761/logs",
+        "status": 302,
+        "ms": 501,
+        "at": "2026-10-23T14:25:44.200Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4983",
+          "x-ratelimit-used": "17",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core"
+        },
+        "redirect": {
+          "host": "productionresultssa8.blob.core.windows.net",
+          "params": [
+            "rsct",
+            "se",
+            "sig",
+            "ske",
+            "skoid",
+            "sks",
+            "skt",
+            "sktid",
+            "skv",
+            "sp",
+            "spr",
+            "sr",
+            "st",
+            "sv"
+          ],
+          "ttlSeconds": 605,
+          "follow": {
+            "status": 404,
+            "contentType": "application/xml",
+            "bytes": 215
+          }
+        }
+      }
+    },
+    {
+      "id": "run-logs",
+      "documented": "Actions: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/runs/39967574388/logs",
+        "status": 404,
+        "ms": 306,
+        "at": "2026-10-23T14:25:45.996Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "38",
+          "x-ratelimit-used": "22",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/actions/workflow-runs#download-workflow-run-logs"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/runs/39967574388/logs",
+        "status": 404,
+        "ms": 326,
+        "at": "2026-10-23T14:25:46.322Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4982",
+          "x-ratelimit-used": "18",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "actions=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/actions/workflow-runs#download-workflow-run-logs"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/actions/runs/39967574388/logs",
+        "status": 302,
+        "ms": 428,
+        "at": "2026-10-23T14:25:46.751Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4981",
+          "x-ratelimit-used": "19",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core"
+        },
+        "redirect": {
+          "host": "results-receiver.actions.githubusercontent.com",
+          "params": [
+            "filename",
+            "signature"
+          ],
+          "ttlSeconds": null,
+          "follow": {
+            "status": 200,
+            "contentType": "application/zip",
+            "bytes": 22
+          }
+        }
+      }
+    },
+    {
+      "id": "annotations",
+      "documented": "Checks: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/check-runs/120461363761/annotations",
+        "status": 404,
+        "ms": 355,
+        "at": "2026-10-23T14:25:47.776Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "37",
+          "x-ratelimit-used": "23",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/checks/runs#list-check-run-annotations"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/check-runs/120461363761/annotations",
+        "status": 404,
+        "ms": 372,
+        "at": "2026-10-23T14:25:48.148Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4980",
+          "x-ratelimit-used": "20",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "checks=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/checks/runs#list-check-run-annotations"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/check-runs/120461363761/annotations",
+        "status": 403,
+        "ms": 341,
+        "at": "2026-10-23T14:25:48.491Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4979",
+          "x-ratelimit-used": "21",
+          "x-ratelimit-reset": "1792768318",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "checks=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": "Resource not accessible by personal access token",
+        "documentation": "https://docs.github.com/rest/checks/runs#list-check-run-annotations"
+      }
+    },
+    {
+      "id": "contents",
+      "documented": "Contents: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/contents/README.md",
+        "status": 404,
+        "ms": 310,
+        "at": "2026-10-23T14:25:48.802Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "36",
+          "x-ratelimit-used": "24",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/repos/contents#get-repository-content"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/contents/README.md",
+        "status": 404,
+        "ms": 452,
+        "at": "2026-10-23T14:25:49.254Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4959",
+          "x-ratelimit-used": "41",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/repos/contents#get-repository-content"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/contents/README.md",
+        "status": 200,
+        "ms": 414,
+        "at": "2026-10-23T14:25:49.668Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4958",
+          "x-ratelimit-used": "42",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    },
+    {
+      "id": "compare",
+      "documented": "Contents: read",
+      "unauthenticated": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/compare/main...feature%2Ft05-pr",
+        "status": 404,
+        "ms": 358,
+        "at": "2026-10-23T14:25:50.026Z",
+        "headers": {
+          "x-ratelimit-limit": "60",
+          "x-ratelimit-remaining": "35",
+          "x-ratelimit-used": "25",
+          "x-ratelimit-reset": "1792767982",
+          "x-ratelimit-resource": "core"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/commits/commits#compare-two-commits"
+      },
+      "minToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/compare/main...feature%2Ft05-pr",
+        "status": 404,
+        "ms": 443,
+        "at": "2026-10-23T14:25:50.470Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4957",
+          "x-ratelimit-used": "43",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Not Found",
+        "documentation": "https://docs.github.com/rest/commits/commits#compare-two-commits"
+      },
+      "readToken": {
+        "path": "/repos/iSltanX/mijhar-t05-spike/compare/main...feature%2Ft05-pr",
+        "status": 200,
+        "ms": 644,
+        "at": "2026-10-23T14:25:51.115Z",
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "4956",
+          "x-ratelimit-used": "44",
+          "x-ratelimit-reset": "1792768532",
+          "x-ratelimit-resource": "core",
+          "x-accepted-github-permissions": "contents=read",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    },
+    {
+      "id": "search-issues",
+      "documented": "Issues: read أو Pull requests: read (مستودع خاص)",
+      "unauthenticated": {
+        "path": "/search/issues?q=repo%3AiSltanX%2Fmijhar-t05-spike%20is%3Apr&per_page=1",
+        "status": 422,
+        "ms": 338,
+        "at": "2026-10-23T14:25:51.455Z",
+        "headers": {
+          "x-ratelimit-limit": "10",
+          "x-ratelimit-remaining": "9",
+          "x-ratelimit-used": "1",
+          "x-ratelimit-reset": "1792765611",
+          "x-ratelimit-resource": "search"
+        },
+        "message": "Validation Failed",
+        "documentation": "https://docs.github.com/v3/search/"
+      },
+      "minToken": {
+        "path": "/search/issues?q=repo%3AiSltanX%2Fmijhar-t05-spike%20is%3Apr&per_page=1",
+        "status": 422,
+        "ms": 482,
+        "at": "2026-10-23T14:25:51.937Z",
+        "headers": {
+          "x-ratelimit-limit": "30",
+          "x-ratelimit-remaining": "29",
+          "x-ratelimit-used": "1",
+          "x-ratelimit-reset": "1792765611",
+          "x-ratelimit-resource": "search",
+          "x-accepted-github-permissions": "allows_permissionless_access=true",
+          "github-authentication-token-expiration": "2026-10-30 14:15:44 UTC"
+        },
+        "message": "Validation Failed",
+        "documentation": "https://docs.github.com/v3/search/"
+      },
+      "readToken": {
+        "path": "/search/issues?q=repo%3AiSltanX%2Fmijhar-t05-spike%20is%3Apr&per_page=1",
+        "status": 200,
+        "ms": 513,
+        "at": "2026-10-23T14:25:52.450Z",
+        "headers": {
+          "x-ratelimit-limit": "30",
+          "x-ratelimit-remaining": "28",
+          "x-ratelimit-used": "2",
+          "x-ratelimit-reset": "1792765611",
+          "x-ratelimit-resource": "search",
+          "x-accepted-github-permissions": "allows_permissionless_access=true",
+          "github-authentication-token-expiration": "2026-10-30 14:25:10 UTC"
+        },
+        "message": null,
+        "documentation": null
+      }
+    }
+  ],
+  "authenticated": {
+    "token": "read",
+    "rateLimit": {
+      "limit": 5000,
+      "used": 44,
+      "remaining": 4956,
+      "reset": 1792768532
+    },
+    "search": {
+      "limit": 30,
+      "used": 2,
+      "remaining": 28,
+      "reset": 1792765611
+    },
+    "tokenExpirationHeader": "2026-10-30 14:25:10 UTC"
+  }
+}

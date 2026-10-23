@@ -1,0 +1,22 @@
+# فحوص MJ11 الختامية بحسب الأثر — 2026-10-23T14:30Z
+
+## npx tsc --noEmit
+tsc: بلا أخطاء
+
+## npx vitest run (الطقم كاملًا مرة واحدة)
+ Test Files  69 passed (69)
+      Tests  1282 passed | 1 skipped (1283)
+
+## npm run build
+chromium: dist/chromium
+firefox: dist/firefox
+
+## npm run lint:firefox (web-ext lint)
+errors 0 · notices 0 · warnings 0
+
+## أحجام dist/chromium
+207692 dist/chromium/background.js
+860914 dist/chromium/content.js
+209990 dist/chromium/options.js
+218215 dist/chromium/reader.js
+397097 dist/chromium/sidepanel.js

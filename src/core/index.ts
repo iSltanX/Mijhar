@@ -6,3 +6,4 @@ export type { ExtensionModule, ModuleContext } from './registry';
 export * from './storage';
 export * from './settings';
 export * from './ui-host';
+export * from './api'; // MJ11 (T-5.2): طبقة GitHub REST العامة

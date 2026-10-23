@@ -1,5 +1,6 @@
 // بطاقة ملخص حالة طلب الدمج (T-5.1): تُرسم في جذر Shadow DOM. كل قيمة ناقصة تُعرض «غير متاح» بسببها، والتصنيفات السبعة
-// تُقال بالنص. لا تذكر البطاقة أن الطلب «جاهز للدمج»: نجاح الفحوص لا يعني جاهزية المشروع (يفسّر موانع الدمج T-5.2).
+// تُقال بالنص. لا تذكر البطاقة أن الطلب «جاهز للدمج»: نجاح الفحوص لا يعني جاهزية المشروع. ويضع T-5.2 فيها شارة المصدر والتقادم
+// (top) وموانع الدمج بأدلتها (blockers) ولوحة API العامة (footer).
 import type { ComponentChildren } from 'preact';
 import { CATEGORY_LABELS, CHECK_CATEGORIES } from './categories';
 import type { CheckCategory, CategoryCounts } from './categories';
@@ -73,6 +74,11 @@ export function ChecksView({ checks, loading }: { checks: ChecksSection; loading
   return (
     <section class="d-group" data-section="checks" aria-labelledby="mj-pr-checks">
       <h3 id="mj-pr-checks">الفحوص</h3>
+      {checks.source === 'api' && (
+        <p class="d-note" data-checks-source="api">
+          الصفوف من GitHub API العامة لالتزام الرأس (تميّز «محايد» وتشمل ما لا تعرضه الصفحة)، ومعها ما تعرضه الصفحة وحدها.
+        </p>
+      )}
       {checks.rollup.available && (
         <p class="d-note" data-rollup={checks.rollup.value.tone}>
           الرمز المجمَّع لآخر التزام ظاهر في المحادثة: <bdi dir="ltr">{checks.rollup.value.label}</bdi>
@@ -121,7 +127,18 @@ export function ChecksView({ checks, loading }: { checks: ChecksSection; loading
   );
 }
 
-export function PrStatusCard({ summary, loading = false }: { summary: PrSummary; loading?: boolean }) {
+export interface PrStatusCardProps {
+  readonly summary: PrSummary;
+  readonly loading?: boolean;
+  /** بعد الترويسة: شارة المصدر والتقادم (T-5.2). */
+  readonly top?: ComponentChildren;
+  /** قبل الفحوص: موانع الدمج بأدلتها (T-5.2). */
+  readonly blockers?: ComponentChildren;
+  /** قبل الملاحظة الختامية: لوحة API العامة (T-5.2). */
+  readonly footer?: ComponentChildren;
+}
+
+export function PrStatusCard({ summary, loading = false, top, blockers, footer }: PrStatusCardProps) {
   return (
     <section class="d-card" data-card="pr-status" aria-labelledby="mj-pr-title">
       <header>
@@ -134,6 +151,7 @@ export function PrStatusCard({ summary, loading = false }: { summary: PrSummary;
           )}
         </Val>
       </header>
+      {top}
       <dl class="d-grid">
         <div data-field="branches">
           <dt>الفرع المصدر ← الهدف</dt>
@@ -191,7 +209,9 @@ export function PrStatusCard({ summary, loading = false }: { summary: PrSummary;
           </dd>
         </div>
       </dl>
+      {blockers}
       <ChecksView checks={summary.checks} loading={loading} />
+      {footer}
       <p class="d-note">ملخص لما تعرضه الصفحة وقت قراءتها، وليس حكمًا بجاهزية الدمج؛ وما لم تعرضه الصفحة يظهر «{UNAVAILABLE_TEXT}» ولا يُخمَّن.</p>
     </section>
   );
