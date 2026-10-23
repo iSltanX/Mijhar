@@ -40,5 +40,5 @@ export const COMMUNITY_CSS = `
 .profile-card { display: flex; flex-direction: column; gap: var(--mijhar-space-8); margin: var(--mijhar-space-8) 0; }
 .profile-card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: var(--mijhar-space-4) var(--mijhar-space-12); }
 .profile-card dt { font-weight: 700; color: var(--mijhar-text-secondary); }
-.profile-card dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.profile-card dd { margin: 0; justify-self: start; white-space: pre-wrap; overflow-wrap: anywhere; }
 `;

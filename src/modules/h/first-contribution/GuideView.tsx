@@ -1,6 +1,6 @@
 // مرشد أول مساهمة في تبويب المجتمع (T-9.3، F-H3): ملخص ما ورد في ملفات المشروع كما ورد، وروابط وسوم المبتدئين بأعدادها المتاحة
 // فعلًا، وخارطة الطريق بشرح المصطلحات من القاموس. لا ينفذ إجراء نيابة عن المستخدم: روابط وقراءة نصوص فقط، وقراءة الملفات بنقر زرها.
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useMemo, useRef, useState } from 'preact/hooks';
 import type { PanelViewProps } from '../../../sidepanel/views';
 import { documentPageSource, extensionTabs, repoSlug, tabsPageSource, useActivePage } from '../../../shared/page';
 import type { PageSource } from '../../../shared/page';
@@ -169,14 +169,16 @@ const COUNT_FAILURE: Readonly<Record<string, string>> = {
 };
 
 function BeginnerLinks({ owner, repo, access }: { owner: string; repo: string; access: GithubApiAccess }) {
-  const [counts, setCounts] = useState<Readonly<Record<string, LabelCount>> | null>(null);
+  // الأعداد مفتاحها المستودع: تغيّر المستودع يخفيها دون تأثير جانبي متأخر (التأثيرات تعمل بعد الرسم فتسبقها نقرة سريعة).
+  const key = `${owner}/${repo}`;
+  const [loaded, setLoaded] = useState<{ key: string; counts: Readonly<Record<string, LabelCount>> } | null>(null);
   const [busy, setBusy] = useState(false);
-  useEffect(() => setCounts(null), [owner, repo]);
+  const counts = loaded?.key === key ? loaded.counts : null;
   const load = (): void => {
     setBusy(true);
     fetchLabelCounts(access, owner, repo).then(
       (list) => {
-        setCounts(Object.fromEntries(list.map((c) => [c.label, c])));
+        setLoaded({ key, counts: Object.fromEntries(list.map((c) => [c.label, c])) });
         setBusy(false);
       },
       () => setBusy(false),
@@ -228,8 +230,9 @@ export function createGuideView(options: GuideViewOptions = {}) {
     const access = useMemo(() => (options.access ?? (() => githubApiAccess()))(), []);
     const { page, ready } = useActivePage(source);
     const slug = page ? repoSlug(page) : null;
-    const [state, setState] = useState<{ slug: string; status: 'reading' | 'done'; read?: ProjectRead } | null>(null);
-    useEffect(() => setState(null), [slug]);
+    const [held, setState] = useState<{ slug: string; status: 'reading' | 'done'; read?: ProjectRead } | null>(null);
+    // نتيجة مستودع آخر لا تُعرض: المقارنة بالمفتاح لا بتأثير يعيد الضبط بعد الرسم.
+    const state = held?.slug === slug ? held : null;
 
     const read = (): void => {
       if (!page?.owner || !page.repo || !slug) return;

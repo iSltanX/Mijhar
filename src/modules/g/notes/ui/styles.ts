@@ -29,6 +29,7 @@ export const NOTES_CSS = `
 .notes .note-meta { display: flex; flex-wrap: wrap; gap: var(--mijhar-space-4) var(--mijhar-space-12); color: var(--mijhar-text-secondary); font-size: 12px; line-height: 16px; }
 .notes .note-actions { display: flex; flex-wrap: wrap; gap: var(--mijhar-space-6); }
 .notes .btn-small { min-height: 28px; padding: 0 var(--mijhar-space-8); font-size: 12px; }
+.notes a.btn { text-decoration: none; }
 .notes .anchor { display: inline-flex; align-items: center; padding: 0 var(--mijhar-space-8); border-radius: var(--mijhar-radius-full); font-weight: 700; background: var(--mijhar-bg-muted); color: var(--mijhar-text-secondary); }
 .notes .anchor[data-status="unanchored"] { background: var(--mijhar-bg-warning-subtle); color: var(--mijhar-text-warning); }
 .notes .anchor[data-status="unverified"] { background: var(--mijhar-bg-info-subtle); color: var(--mijhar-text-info); }

@@ -1,0 +1,11 @@
+$ npx vitest run tests/modules/h/readme tests/modules/h/module.test.tsx
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj9-a2de59
+
+
+ Test Files  3 passed (3)
+      Tests  71 passed (71)
+   Start at  15:31:46
+   Duration  1.62s (tests 64%, environment 20%, import 12%, transform 4%)
+
+exit: 0

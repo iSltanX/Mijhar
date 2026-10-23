@@ -261,7 +261,7 @@ describe('فحص الروابط بنقر صريح', () => {
   });
 
   it('مستودع نُقل: يظهر الرابط المقترح ولا يتغير حتى يؤكد المستخدم', async () => {
-    const access = fakeAccess((p) => ({ body: { full_name: 'moved/elsewhere', html_url: 'https://github.com/moved/elsewhere', archived: false, pushed_at: '2026-10-01T00:00:00Z' } }));
+    const access = fakeAccess(() => ({ body: { full_name: 'moved/elsewhere', html_url: 'https://github.com/moved/elsewhere', archived: false, pushed_at: '2026-10-01T00:00:00Z' } }));
     const { ctx } = await mount({ access });
     const target = ctx.repository.list().find((r) => r.url.startsWith('https://github.com/test-org'))!;
     await click($('[data-action="check-one"]', $(`[data-resource-id="${target.id}"]`)));

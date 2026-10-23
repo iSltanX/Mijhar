@@ -1,0 +1,11 @@
+$ npx vitest run tests/modules/h/discovery
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj9-a2de59
+
+
+ Test Files  4 passed (4)
+      Tests  70 passed (70)
+   Start at  15:31:50
+   Duration  479ms (import 38%, environment 34%, tests 23%, transform 5%, worker 1%)
+
+exit: 0

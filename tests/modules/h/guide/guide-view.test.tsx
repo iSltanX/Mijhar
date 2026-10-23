@@ -170,6 +170,27 @@ describe('المرشد على العينة المرجعية', () => {
     openSpy.mockRestore();
   });
 
+  it('تغيّر المستودع يخفي نتائج السابق دون تأثير متأخر، وعودته لا تعيدها قسرًا', async () => {
+    let href = 'https://github.com/octo/community';
+    const listeners = new Set<() => void>();
+    const live: PageSource = { read: async () => pageInfoFromUrl(href, 't'), subscribe: (n) => (listeners.add(n), () => void listeners.delete(n)) };
+    const net = recordingFetch(FILES);
+    const View = createGuideView({ source: () => live, fetchText: net.fetchText, access: () => fakeAccess(() => ({ body: {} })) });
+    await act(async () => render(<View settings={null as never} surface="native" />, container));
+    await settle();
+    await click($('[data-action="read-project"]'));
+    expect(container.querySelector('[data-guide-state="done"]')).not.toBeNull();
+    href = 'https://github.com/octo/other';
+    await act(async () => {
+      for (const l of listeners) l();
+      await flush(120);
+    });
+    await settle();
+    expect(container.querySelector('[data-guide-state]')).toBeNull();
+    expect($('[data-guide-repo]').textContent).toContain('octo/other');
+    expect(container.querySelector('[data-action="read-project"]')).not.toBeNull();
+  });
+
   it('خارج المستودعات: إرشاد، وخارطة الطريق تبقى', async () => {
     await mount({ href: 'https://github.com/' });
     expect(container.querySelector('[data-guide-empty="no-repo"]')).not.toBeNull();

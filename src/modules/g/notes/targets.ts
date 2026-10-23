@@ -39,6 +39,13 @@ function diffLine(page: PageInfo): DiffLineTarget | null {
   return { level: 'line', view: 'diff', owner: page.owner, repo: page.repo, context, path: page.diffPath, side: page.diff.side, start: page.diff.start, end: page.diff.end };
 }
 
+function lineReason(page: PageInfo): string {
+  if (page.type === 'blob') return 'حدّد سطرًا أو نطاقًا بنقر رقم السطر (واضغط Shift لنطاق).';
+  // تحديد موجود في الرابط لكن مسار ملفه لا يُعرف إلا من DOM الصفحة (اللوحة الأصلية لا تراه).
+  if (page.diff !== null) return 'مسار ملف السطر لا يُعرف من اللوحة؛ أنشئ ملاحظة السطر من بطاقة «ملاحظاتي» في الصفحة نفسها.';
+  return 'حدّد سطرًا في الفروق بنقر رقمه.';
+}
+
 /** مستويات الصفحة بأهدافها. الترتيب من الأعم إلى الأخص. */
 export function targetOptions(page: PageInfo): TargetOption[] {
   if (!isRepoPage(page)) return [];
@@ -57,11 +64,7 @@ export function targetOptions(page: PageInfo): TargetOption[] {
   }
   if (page.type === 'blob' || page.diff !== null || page.type === 'pr-files' || page.type === 'commit') {
     const target = page.type === 'blob' ? (page.lines ? blobLine(page, page.lines) : null) : diffLine(page);
-    options.push({
-      level: 'line',
-      target,
-      reason: target ? null : page.type === 'blob' ? 'حدّد سطرًا أو نطاقًا بنقر رقم السطر (واضغط Shift لنطاق).' : 'حدّد سطرًا في الفروق بنقر رقمه.',
-    });
+    options.push({ level: 'line', target, reason: target ? null : lineReason(page) });
   }
   return options;
 }

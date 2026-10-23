@@ -51,6 +51,11 @@ describe('targetOptions: مستويات كل صفحة', () => {
     const withPath = targetOptions(page(`${BASE}/pull/42/files#diff-ab12R5`, { diffPath: 'src/app.js' })).find((o) => o.level === 'line');
     expect(withPath?.target).toMatchObject({ view: 'diff', context: { kind: 'pr', number: 42 }, path: 'src/app.js', side: 'R', start: 5 });
   });
+  it('تحديد فروق في الرابط بلا مسار ملف (اللوحة): السبب يدل على بطاقة الصفحة', () => {
+    const line = targetOptions(page(`${BASE}/pull/42/files#diff-ab12R5`)).find((o) => o.level === 'line');
+    expect(line?.target).toBeNull();
+    expect(line?.reason).toMatch(/بطاقة «ملاحظاتي» في الصفحة نفسها/);
+  });
   it('فروق التزام: سياقه معرّف الالتزام', () => {
     const line = targetOptions(page(`${BASE}/commit/${SHA}#diff-ab12L9`, { diffPath: 'a.md' })).find((o) => o.level === 'line');
     expect(line?.target).toMatchObject({ view: 'diff', context: { kind: 'commit', sha: SHA }, side: 'L' });

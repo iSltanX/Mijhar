@@ -1,0 +1,11 @@
+$ npx vitest run tests/modules/g tests/shared
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj9-a2de59
+
+
+ Test Files  7 passed (7)
+      Tests  142 passed (142)
+   Start at  15:31:44
+   Duration  2.54s (tests 69%, environment 14%, import 9%, transform 8%)
+
+exit: 0
