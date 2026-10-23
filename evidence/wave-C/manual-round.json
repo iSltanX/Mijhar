@@ -1,0 +1,116 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "browserVersion": "156.0.8078.47",
+    "drawer": {
+      "open": true,
+      "rect": [
+        865,
+        0,
+        400,
+        631
+      ],
+      "topmostIsDrawer": true,
+      "visibility": "visible",
+      "closed": true
+    },
+    "native": {
+      "openResult": {
+        "opened": true
+      },
+      "panel": {
+        "inner": [
+          360,
+          639
+        ],
+        "visibility": "visible",
+        "ready": "true",
+        "tabs": [
+          "السياق",
+          "القاموس",
+          "ملاحظاتي",
+          "المجتمع",
+          "الإعدادات"
+        ]
+      },
+      "target": "page chrome-extension://nokcoclnbcgmefplloimmiibfackcdbl/sidepanel.html",
+      "screenshot": true
+    }
+  },
+  "edge": {
+    "label": "Edge",
+    "browserVersion": "155.0.4283.60",
+    "drawer": {
+      "open": true,
+      "rect": [
+        857,
+        0,
+        400,
+        643
+      ],
+      "topmostIsDrawer": true,
+      "visibility": "visible",
+      "closed": true
+    },
+    "native": {
+      "openResult": {
+        "opened": true
+      },
+      "panel": {
+        "inner": [
+          382,
+          645
+        ],
+        "visibility": "visible",
+        "ready": "true",
+        "tabs": [
+          "السياق",
+          "القاموس",
+          "ملاحظاتي",
+          "المجتمع",
+          "الإعدادات"
+        ]
+      },
+      "target": "page chrome-extension://ffblgfanckmbaeglmdgoimmhbnjdmpgf/sidepanel.html",
+      "screenshot": true
+    }
+  },
+  "brave": {
+    "label": "Brave",
+    "browserVersion": "156.0.8078.48",
+    "drawer": {
+      "open": true,
+      "rect": [
+        865,
+        0,
+        400,
+        637
+      ],
+      "topmostIsDrawer": true,
+      "visibility": "visible",
+      "closed": true
+    },
+    "native": {
+      "openResult": {
+        "opened": true
+      },
+      "panel": {
+        "inner": [
+          417,
+          693
+        ],
+        "visibility": "visible",
+        "ready": "true",
+        "tabs": [
+          "السياق",
+          "القاموس",
+          "ملاحظاتي",
+          "المجتمع",
+          "الإعدادات"
+        ]
+      },
+      "target": "page chrome-extension://ljglfgpbpccljbcnaembcadbhfdkkonh/sidepanel.html",
+      "screenshot": true
+    }
+  }
+}

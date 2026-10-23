@@ -1,0 +1,5 @@
+Chrome 156.0.8078.47: timer 0.004999995231628418ms isolated=true · PB-02 cold 1.563/1.935 warm 0.803/0.965 (30 كتلة) · PB-01 js-algorithm وحدة 0.180 إعداد 0.190 بقايا 0 مطابق true · shakkala.htm وحدة 0.090 إعداد 0.110 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+Edge 155.0.4283.60: timer 0.004999995231628418ms isolated=true · PB-02 cold 1.587/1.780 warm 0.800/0.980 (30 كتلة) · PB-01 js-algorithm وحدة 0.172 إعداد 0.207 بقايا 0 مطابق true · shakkala.htm وحدة 0.100 إعداد 0.120 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+Brave 156.0.8078.48: timer 0.004999995231628418ms isolated=true · PB-02 cold 1.563/1.785 warm 0.808/0.880 (30 كتلة) · PB-01 js-algorithm وحدة 0.152 إعداد 0.185 بقايا 0 مطابق true · shakkala.htm وحدة 0.085 إعداد 0.108 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+Firefox 158.0.1: timer 0.019999999999527063ms isolated=true · PB-02 cold 4.650/5.940 warm 0.930/1.400 (30 كتلة) · PB-01 js-algorithm وحدة 0.160 إعداد 0.270 بقايا 0 مطابق true · shakkala.htm وحدة 0.080 إعداد 0.160 بقايا 0 مطابق true · العينة 51/51 · فعّال 205/205
+node tests/modules/a/direction/browser/run.mjs  48.51s user 8.46s system 66% cpu 1:25.87 total

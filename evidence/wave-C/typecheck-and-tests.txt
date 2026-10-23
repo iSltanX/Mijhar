@@ -1,0 +1,36 @@
+$ npx tsc --noEmit
+exit: 0
+
+$ npx vitest run tests/core tests/modules/a
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+
+ Test Files  24 passed (24)
+      Tests  416 passed (416)
+   Start at  13:11:44
+   Duration  4.99s (tests 53%, import 30%, transform 8%, environment 8%)
+
+    Isolate  24 workers spawned · ~237ms startup each (spawn + environment, per file)
+             at least ~575ms faster with isolate: false — reuses workers across files instead of one per file
+
+
+$ npx vitest run   (الطقم كاملًا: vite.config.ts وtsconfig.json وregistry.ts مشتركة)
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+
+ Test Files  30 passed (30)
+      Tests  551 passed | 1 skipped (552)
+   Start at  13:11:54
+   Duration  4.74s (tests 60%, import 29%, environment 7%, transform 4%)
+
+    Isolate  30 workers spawned · ~222ms startup each (spawn + environment, per file)
+             at least ~730ms faster with isolate: false — reuses workers across files instead of one per file
+
+
+$ node scripts/glossary/validate.mjs
+روابط الوثائق: 112 · طوبقت على المصدر: 43 · لم تُطابَق: 69
+المعجم: 94 مصطلحًا · تبقى بالإنجليزية: 20
+النتيجة: اجتاز التحقق من المخطط لكل مدخل
+exit: 0

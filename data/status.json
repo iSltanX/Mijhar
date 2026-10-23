@@ -74,6 +74,12 @@
       "date": "2026-10-23",
       "text": "وسّع المالك نطاق المشروع بتوجيه مكتوب: مِجهَر أداة فهم وإنجاز لا ترجمة فقط. فأُضيفت 9 ميزات داخل الأقسام القائمة (الوحدات د وهـ وو) ومرحلة تنفيذية واحدة (P11) وتجربة جدوى خامسة (T-0.5) و10 مهام، وأُعيد حسم DEC-04 من د-4 (عدم دعم رمز GitHub) إلى د-5 (تخيير المستخدم بين ذاكرة الجلسة والقرص الصريح) مع حفظ القرار القديم بتاريخه وسببه، وحُسمت DEC-09 (مزوّد التحليل الأول) وDEC-10 (تخزين مفتاح المزوّد) وDEC-11 (نطاق مسار الإنجاز) بتفويض AD-14. وعُدِّلت AD-01 وAD-06 وAD-07 وAD-08 وAD-15 وأُضيفت AD-16 إلى AD-23. لم يُنفَّذ شيء من هذا التوسيع: تخطيط وتوثيق فقط.",
       "how": "التوجيه في المحادثة؛ والتغيير في data/plan.json وEXECUTION_PLAN.md وDocs/MJ/stages/ وDocs/MJ/waves.json، ويفرضه node tools/check.mjs"
+    },
+    {
+      "id": "EV-12",
+      "date": "2026-10-23",
+      "text": "أُغلقت الموجة C على الشجرة المجمّعة: مضيف الواجهات واللوحة الجانبية والدرج والإعدادات بصلاحية api.github.com الاختيارية (T-1.4)، واتجاه النص الموزون وحارس الاستعادة (T-2.1 وT-2.7). HYP-14 ثبتت: اللوحة الأصلية تعمل في Edge 155 وBrave 156 كما في Chrome 156، وظهرت معروضةً في نوافذ مرئية. وبعد الدمج صار سكربت المحتوى المشحون يركّب الوحدة (أ) الحقيقية: 26/26 كتلة rtl وإيقافها من مفتاحها يستعيد الصفحة حرفيًا في الأربعة، وصفر طلب إلى api.github.com. وافتراضي تفعيل الوحدات الثماني «مفعَّلة» قرار مفوَّض من MJ5 ينتظر إقرار المالك؛ وضغطة ⌥G الفعلية وقبول نافذة الصلاحية في عائلة Chromium لم يُجريا آليًا.",
+      "how": "`evidence/wave-C/gate.md`؛ `evidence/T-1.4/report.md`؛ `evidence/T-2.1/report.md`؛ `evidence/T-2.7/report.md`"
     }
   ],
   "deliverables": [],
@@ -169,14 +175,25 @@
       "note": "تجاوز الحصة بخطأ مفهوم بلا فقد: محاكاة (13 اختبارًا) وفعلي في Chrome وEdge وBrave؛ لم يُجرَ اختبار الخطأ في Firefox لأنه لا يُنتج خطأ حصة حتى 96 ميغابايت."
     },
     "TEST-CORE-05": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.4/report.md",
+        "evidence/T-1.4/browser-report.md",
+        "evidence/wave-C/ui-host/browser-report.md",
+        "evidence/wave-C/manual-round.json",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "عزل الأنماط في الاتجاهين على صفحة ضبط وصفحة معادية بـCSP style-src 'self': 0 اختلاف في 13 عنصرًا × 37 خاصية و0 تغيّر في أنماط الصفحة، في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1، وأُعيد على الشجرة المجمّعة للموجة C. الدرج يعمل في الأربعة، واللوحة الأصلية تُفتح بنقر حيث ثبت دعمها (HYP-14 ثبتت في Edge وBrave)، وظهرت معروضةً في نوافذ Chrome وEdge وBrave المرئية في الجولة اليدوية."
     },
     "TEST-CORE-06": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-1.4/report.md",
+        "evidence/T-1.4/browser-report.md",
+        "evidence/wave-C/ui-host/browser-report.md",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "المفاتيح الثمانية تركّب وتزيل وتُحفظ بعد إعادة التحميل في الأربعة (54 اختبار vitest ومعها تجارب المتصفحات)؛ صفر طلب إلى api.github.com قبل المنح من كل السياقات في الأربعة، وعلى الشجرة المجمّعة. المنح والسحب الفعليان قيسا في Firefox وحده؛ والمعالج والاختصار وإعادة ربطه قيست في الأربعة. لم يُجرَ آليًا في Chrome وEdge وBrave: الضغطة الفعلية لـ⌥G، وقبول نافذة الصلاحية ثم سحبها (لا تبلغهما CDP)؛ ينتظران جولة المالك بيده."
     },
     "TEST-PERF-01": {
       "status": "planned",
@@ -199,9 +216,14 @@
       "note": ""
     },
     "TEST-RTL-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.1/report.md",
+        "evidence/wave-C/direction-bench.txt",
+        "evidence/wave-C/integration.json",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "AC-A1 (أ)–(د) و(و): 85 اختبارًا في tests/modules/a/direction؛ العينة 51/51 و205/205 كتلة فعّالة في الأربعة؛ وعلى الشجرة المجمّعة داخل سكربت المحتوى المشحون 26/26 rtl و0 خطأ في الأربعة. PB-02 مقيس (البارد 1.26–4.65 ms)، والإغلاق الرقمي في T-10.1."
     },
     "TEST-RTL-02": {
       "status": "planned",
@@ -259,29 +281,49 @@
       "note": ""
     },
     "TEST-RTL-07": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.7/report.md",
+        "evidence/wave-C/integration.json",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "AC-A7 (١) و(٢) و(٥): 15 اختبارًا (خمس صفحات من أربعة مستودعات وصفحة ملف شخصي، وتنقل Turbo، وSettingsStore حقيقي)؛ وعلى الشجرة المجمّعة: إيقاف الوحدة من مفتاح modules.a.enabled يستعيد <main> حرفيًا بلا سمة ولا ورقة أنماط في الأربعة. لم تُجرَ صفحات github.com الحية."
     },
     "TEST-GUARD-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.7/report.md",
+        "evidence/T-2.7/vitest.txt",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "حارس ملكية الكتابة: نص خارجي مختلف؛ ضمن 43 اختبارًا لـTEST-GUARD-01 إلى 04 في tests/modules/a/guard، اجتازت على الشجرة المجمّعة للموجة C (551 في الطقم كاملًا)."
     },
     "TEST-GUARD-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.7/report.md",
+        "evidence/T-2.7/vitest.txt",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "حارس ملكية الكتابة: نص خارجي مساوٍ؛ ضمن 43 اختبارًا لـTEST-GUARD-01 إلى 04 في tests/modules/a/guard، اجتازت على الشجرة المجمّعة للموجة C (551 في الطقم كاملًا)."
     },
     "TEST-GUARD-03": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.7/report.md",
+        "evidence/T-2.7/vitest.txt",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "حارس ملكية الكتابة: التعطيل قبل تسليم السجلات (24 ترتيبًا)؛ ضمن 43 اختبارًا لـTEST-GUARD-01 إلى 04 في tests/modules/a/guard، اجتازت على الشجرة المجمّعة للموجة C (551 في الطقم كاملًا)."
     },
     "TEST-GUARD-04": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-2.7/report.md",
+        "evidence/T-2.7/vitest.txt",
+        "evidence/wave-C/gate.md"
+      ],
+      "note": "حارس ملكية الكتابة: الاستبدال والفصل والنقل وفصل الحاوية؛ ضمن 43 اختبارًا لـTEST-GUARD-01 إلى 04 في tests/modules/a/guard، اجتازت على الشجرة المجمّعة للموجة C (551 في الطقم كاملًا)."
     },
     "TEST-GLOSS-01": {
       "status": "planned",
