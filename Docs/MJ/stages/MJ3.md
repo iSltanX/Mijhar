@@ -1,7 +1,7 @@
 ---
 id: MJ3
 title: تقنيع الرموز وبيانات القاموس
-status: planned
+status: active
 delivery: none
 wave: B
 order: 2
@@ -15,7 +15,7 @@ branch: mj/3-masking-glossary-data
 base: mj-B/base
 commit: —
 updated: 2026-10-23
-resume: لم تبدأ. تبدأ من الخطوة 1 في «المهام» بعد التحقق من الفرع والأساس.
+resume: بدأت على الفرع mj/3-masking-glossary-data بعد اجتياز التحقق؛ تبدأ من T-4.2 (التقنيع والفاحص) ثم T-3.1 (القاموس).
 ---
 
 # MJ3 — تقنيع الرموز وبيانات القاموس
