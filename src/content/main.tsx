@@ -29,17 +29,10 @@ export function startContent(options: ContentOptions = {}): ContentHandle {
     ...(options.binding ? { binding: options.binding } : {}),
   });
 
-  let drawer: Drawer | null = null;
-  api.runtime.onMessage.addListener((message) => {
-    if (!isDrawerMessage(message)) return undefined;
-    void opened.then(() => drawer?.[message.action]());
-    return undefined;
-  });
-
   const ready = opened.then((handle) => {
     const { settings } = handle;
     const openOptions = () => void api.runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE });
-    drawer = new Drawer({
+    const drawer = new Drawer({
       document: doc,
       content: () => <PanelApp surface="drawer" settings={settings} sections={SETTINGS_SECTIONS} openOptions={openOptions} />,
     });
@@ -53,6 +46,11 @@ export function startContent(options: ContentOptions = {}): ContentHandle {
     manager.start();
     bindModuleToggles(settings, manager);
     return { opened: handle, manager, drawer };
+  });
+  // يُسجَّل في التقييم الأول نفسه؛ رسالة تصل قبل جاهزية الإعدادات تنتظرها.
+  api.runtime.onMessage.addListener((message) => {
+    if (isDrawerMessage(message)) void ready.then(({ drawer }) => drawer[message.action]());
+    return undefined;
   });
   ready.catch((error: unknown) => console.error('[mijhar] تعذّر بدء سكربت المحتوى', error));
   return { ready };

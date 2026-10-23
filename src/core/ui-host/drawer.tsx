@@ -51,6 +51,8 @@ const DRAWER_CSS = `
   padding: var(--mijhar-space-8) var(--mijhar-space-12); border-bottom: 1px solid var(--mijhar-border-default); background: var(--mijhar-bg-surface);
 }
 .drawer-header h1 { font-size: 18px; line-height: 28px; outline: none; }
+/* يُركَّز العنوان برمجيًا عند الفتح ليعلن قارئ الشاشة الدرج؛ ليس عنصر تفاعل فلا إطار له. */
+.mj-root .drawer-header h1:focus, .mj-root .drawer-header h1:focus-visible { box-shadow: none; outline: none; }
 .drawer-body { flex: 1 1 auto; overflow: auto; overscroll-behavior: contain; }
 `;
 

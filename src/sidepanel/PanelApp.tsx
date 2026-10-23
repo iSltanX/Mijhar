@@ -22,12 +22,12 @@ interface ContentTab extends TabItem {
 }
 
 export const CONTENT_TABS: readonly ContentTab[] = [
-  { id: 'context', title: 'السياق والفحوص', units: ['d', 'e'], empty: 'حالة طلب الدمج والفحوص وحزمة السياق للصفحة المفتوحة.' },
-  { id: 'glossary', title: 'القاموس والتعلّم', units: ['b'], empty: 'شرح مصطلحات GitHub وأزراره، والجولات الإرشادية.' },
-  { id: 'notes', title: 'ملاحظاتي وأكمل لاحقًا', units: ['g'], empty: 'ملاحظاتك الخاصة على المستودعات وقائمة «أكمل لاحقًا».' },
-  { id: 'community', title: 'المجتمع وأول مساهمة', units: ['h'], empty: 'README العربي ومرشد أول مساهمة والمحتوى العربي.' },
+  { id: 'context', title: 'السياق والفحوص', short: 'السياق', units: ['d', 'e'], empty: 'حالة طلب الدمج والفحوص وحزمة السياق للصفحة المفتوحة.' },
+  { id: 'glossary', title: 'القاموس والتعلّم', short: 'القاموس', units: ['b'], empty: 'شرح مصطلحات GitHub وأزراره، والجولات الإرشادية.' },
+  { id: 'notes', title: 'ملاحظاتي وأكمل لاحقًا', short: 'ملاحظاتي', units: ['g'], empty: 'ملاحظاتك الخاصة على المستودعات وقائمة «أكمل لاحقًا».' },
+  { id: 'community', title: 'المجتمع وأول مساهمة', short: 'المجتمع', units: ['h'], empty: 'README العربي ومرشد أول مساهمة والمحتوى العربي.' },
 ];
-export const SETTINGS_TAB: TabItem = { id: 'settings', title: 'الإعدادات والخصوصية' };
+export const SETTINGS_TAB: TabItem = { id: 'settings', title: 'الإعدادات والخصوصية', short: 'الإعدادات' };
 
 export interface PanelAppProps extends Omit<SettingsTabProps, 'surface'> {
   readonly surface: PanelSurface;
@@ -74,13 +74,15 @@ export function PanelApp(props: PanelAppProps) {
   const [selected, setSelected] = useState<string>(initialTab);
   const tabs: TabItem[] = [...CONTENT_TABS, SETTINGS_TAB];
   const current = CONTENT_TABS.find((t) => t.id === selected);
+  const heading = tabs.find((t) => t.id === selected)?.title;
   return (
     <div class="panel-app" data-surface={surface}>
       <Tabs idPrefix={`mj-${surface}`} label="أقسام مِجهَر" tabs={tabs} selected={selected} onSelect={setSelected}>
+        <h2 class="panel-title">{heading}</h2>
         {current ? (
           <ContentPanel tab={current} views={views} settings={settings} surface={surface} />
         ) : (
-          <SettingsTab settings={settings} surface={surface} {...settingsProps} />
+          <SettingsTab settings={settings} surface={surface} level={3} {...settingsProps} />
         )}
       </Tabs>
     </div>

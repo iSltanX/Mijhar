@@ -91,9 +91,12 @@ describe('محتوى الدرج الحقيقي (PanelApp في الدرج)', () =
     act(() => drawer!.open());
     const shadow = drawer.host!.shadowRoot!;
     const tabs = [...shadow.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-    expect(tabs.map((t) => t.textContent)).toEqual(['السياق والفحوص', 'القاموس والتعلّم', 'ملاحظاتي وأكمل لاحقًا', 'المجتمع وأول مساهمة', 'الإعدادات والخصوصية']);
+    // الاسم المقروء كامل كما في EXECUTION_PLAN.md ‏5، والمكتوب على التبويب مختصر ليتسع في عرض الدرج.
+    expect(tabs.map((t) => t.getAttribute('aria-label'))).toEqual(['السياق والفحوص', 'القاموس والتعلّم', 'ملاحظاتي وأكمل لاحقًا', 'المجتمع وأول مساهمة', 'الإعدادات والخصوصية']);
+    expect(tabs.map((t) => t.textContent)).toEqual(['السياق', 'القاموس', 'ملاحظاتي', 'المجتمع', 'الإعدادات']);
     for (const tab of tabs) {
       act(() => tab.click());
+      expect(shadow.querySelector('[role="tabpanel"] > h2.panel-title')?.textContent).toBe(tab.getAttribute('aria-label'));
       const fields = [...shadow.querySelectorAll('input, textarea, [contenteditable]')].filter((el) => !(el instanceof HTMLInputElement && ['checkbox', 'radio'].includes(el.type)));
       expect(fields, tab.textContent ?? '').toEqual([]);
     }

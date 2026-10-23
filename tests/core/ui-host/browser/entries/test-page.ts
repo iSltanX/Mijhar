@@ -41,7 +41,7 @@ document.getElementById('grant')!.addEventListener('click', () => {
     return views.map((w) => ({
       url: w.location.href,
       ready: w.document.getElementById('app')?.getAttribute('data-ready') ?? null,
-      tabs: [...w.document.querySelectorAll('[role="tab"]')].map((t) => t.textContent),
+      tabs: [...w.document.querySelectorAll('[role="tab"]')].map((t) => t.getAttribute('aria-label') ?? t.textContent),
     }));
   },
   async sidebarOpen() {

@@ -125,6 +125,12 @@ async function chromiumRun(key) {
       const fields = [...shadow.querySelectorAll('input, textarea, [contenteditable]')].filter((el) => !['checkbox', 'radio'].includes(el.type));
       return { toggles: shadow.querySelectorAll('[data-section="units"] input[role="switch"]').length, textFields: fields.length, grantButton: Boolean(shadow.querySelector('[data-action="grant"]')), openOptions: Boolean(shadow.querySelector('[data-action="open-options"]')) };
     });
+    // مفتاح من تبويب الإعدادات داخل الدرج: كتابة سكربت المحتوى إلى التخزين، فتُزال الوحدة (ح) وتعود.
+    const drawerToggle = () => gh.evaluate(() => document.querySelector('mijhar-host[data-mijhar-host="drawer"]').shadowRoot.querySelector('label[for="mj-unit-h"]').click());
+    await drawerToggle();
+    drawer.toggleFromDrawerOff = Boolean(await waitUntil(async () => !(await gh.evaluate(mountedUnits)).includes('h'), 5000, 25));
+    await drawerToggle();
+    drawer.toggleFromDrawerOn = Boolean(await waitUntil(async () => (await gh.evaluate(mountedUnits)).includes('h'), 5000, 25));
     await gh.evaluate(() => document.querySelector('mijhar-host[data-mijhar-host="drawer"]').shadowRoot.querySelector('button[aria-label="إغلاق الدرج"]').click());
     drawer.closeButton = Boolean(await waitUntil(async () => (await gh.evaluate(contentState)).drawer === 'closed', 3000));
     result.steps.drawer = drawer;
@@ -186,7 +192,7 @@ async function chromiumRun(key) {
     const panelTab = await context.newPage();
     await panelTab.goto(`${origin}/sidepanel.html`);
     await panelTab.waitForSelector('#app[data-ready="true"]');
-    native.panelPageTabs = await panelTab.$$eval('[role="tab"]', (els) => els.map((e) => e.textContent));
+    native.panelPageTabs = await panelTab.$$eval('[role="tab"]', (els) => els.map((e) => e.getAttribute('aria-label') ?? e.textContent));
     await panelTab.click('[role="tab"]:nth-child(5)');
     native.panelSettings = { toggles: await panelTab.locator('[data-section="units"] input[role="switch"]').count(), permissionSection: await panelTab.locator('[data-section="permission"] [data-permission-state]').count(), shortcut: await panelTab.locator('[data-section="shortcut"] kbd').textContent().catch(() => null) };
     await panelTab.close();

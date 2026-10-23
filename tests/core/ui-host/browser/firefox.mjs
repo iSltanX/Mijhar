@@ -292,6 +292,12 @@ export async function firefoxRun({ outDir }) {
       const fields = [...shadow.querySelectorAll('input, textarea, [contenteditable]')].filter((el) => !['checkbox', 'radio'].includes(el.type));
       return { toggles: shadow.querySelectorAll('[data-section="units"] input[role="switch"]').length, textFields: fields.length, grantButton: Boolean(shadow.querySelector('[data-action="grant"]')), openOptions: Boolean(shadow.querySelector('[data-action="open-options"]')) };
     });
+    // مفتاح من تبويب الإعدادات داخل الدرج: كتابة سكربت المحتوى إلى التخزين، فتُزال الوحدة (ح) وتعود.
+    const drawerToggle = () => run(() => document.querySelector('mijhar-host[data-mijhar-host="drawer"]').shadowRoot.querySelector('label[for="mj-unit-h"]').click());
+    await drawerToggle();
+    drawer.toggleFromDrawerOff = Boolean(await waitUntil(async () => !(await run(mountedUnits)).includes('h'), 5000, 50));
+    await drawerToggle();
+    drawer.toggleFromDrawerOn = Boolean(await waitUntil(async () => (await run(mountedUnits)).includes('h'), 5000, 50));
     await run(() => document.querySelector('mijhar-host[data-mijhar-host="drawer"]').shadowRoot.querySelector('button[aria-label="إغلاق الدرج"]').click());
     drawer.closeButton = Boolean(await waitUntil(async () => (await run(contentState)).drawer === 'closed', 3000, 100));
     result.steps.drawer = drawer;

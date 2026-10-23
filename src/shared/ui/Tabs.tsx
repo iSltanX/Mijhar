@@ -5,7 +5,10 @@ import { useRef } from 'preact/hooks';
 
 export interface TabItem {
   readonly id: string;
+  /** الاسم الكامل: اسم التبويب المقروء وعنوان لوحته. */
   readonly title: string;
+  /** ما يُكتب على التبويب حين لا يتسع الاسم الكامل. */
+  readonly short?: string;
 }
 
 export interface TabsProps {
@@ -49,9 +52,10 @@ export function Tabs({ idPrefix, label, tabs, selected, onSelect, children }: Ta
             aria-selected={tab.id === selected ? 'true' : 'false'}
             aria-controls={`${idPrefix}-panel-${tab.id}`}
             tabIndex={tab.id === selected ? 0 : -1}
+            {...(tab.short ? { 'aria-label': tab.title, title: tab.title } : {})}
             onClick={() => onSelect(tab.id)}
           >
-            {tab.title}
+            {tab.short ?? tab.title}
           </button>
         ))}
       </div>

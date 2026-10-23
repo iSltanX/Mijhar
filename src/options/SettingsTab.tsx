@@ -1,7 +1,9 @@
 // تبويب «الإعدادات والخصوصية»: يظهر في صفحة الإعدادات وفي اللوحة الجانبية الأصلية وفي الدرج.
 // صفحات الإضافة (options وnative) تملك تدفق صلاحية api.github.com والاختصار؛ والدرج المحقون في صفحة GitHub لا
 // يستطيع طلب صلاحية ولا يعرض حقل سرّ، فيعرض المفاتيح وزرًّا يفتح صفحة الإعدادات.
-import { useEffect, useState } from 'preact/hooks';
+import type { ComponentChildren } from 'preact';
+import { createContext } from 'preact';
+import { useContext, useEffect, useState } from 'preact/hooks';
 import type { SettingsStore } from '../core/settings';
 import { moduleEnabledKey } from '../core/settings';
 import type { CommandInfo } from '../core/ui-host/browser-api';
@@ -29,6 +31,15 @@ export interface SettingsTabProps {
   /** الدرج: يفتح صفحة الإعدادات. */
   readonly openOptions?: () => void;
   readonly sections?: readonly SettingsSection[];
+  /** مستوى عناوين الأقسام: 2 في صفحة الإعدادات (تحت عنوانها)، و3 في اللوحة (تحت عنوان التبويب). */
+  readonly level?: 2 | 3;
+}
+
+const LevelContext = createContext<2 | 3>(2);
+
+function Heading({ id, children }: { id?: string; children: ComponentChildren }) {
+  const level = useContext(LevelContext);
+  return level === 2 ? <h2 id={id}>{children}</h2> : <h3 id={id}>{children}</h3>;
 }
 
 const describeError = (error: unknown): string => (error instanceof Error ? error.message : String(error));
@@ -66,7 +77,7 @@ function UnitsSection({ settings }: { settings: SettingsStore }) {
   const [error, setError] = useState<string | null>(null);
   return (
     <section class="section" aria-labelledby="mj-units-title" data-section="units">
-      <h2 id="mj-units-title">الوحدات</h2>
+      <Heading id="mj-units-title">الوحدات</Heading>
       <p class="muted">أوقف أي وحدة فتُزال آثارها من الصفحات المفتوحة فورًا، وشغّلها فتعود. يُحفظ اختيارك في هذا المتصفح.</p>
       {error && (
         <p class="notice" data-tone="danger" role="alert">
@@ -92,7 +103,7 @@ function SurfaceSection({ settings }: { settings: SettingsStore }) {
   const [error, setError] = useState<string | null>(null);
   return (
     <section class="section" aria-labelledby="mj-surface-title" data-section="surface">
-      <h2 id="mj-surface-title">مكان اللوحة</h2>
+      <Heading id="mj-surface-title">مكان اللوحة</Heading>
       <div role="radiogroup" aria-labelledby="mj-surface-title">
         {SURFACE_CHOICES.map((choice) => (
           <label class="choice" key={choice.value}>
@@ -154,7 +165,7 @@ function PermissionSection({ permission, openOptions }: { permission?: ApiGithub
   if (!permission) {
     return (
       <section class="section" aria-labelledby="mj-permission-title" data-section="permission">
-        <h2 id="mj-permission-title">الوصول إلى GitHub API (اختياري)</h2>
+        <Heading id="mj-permission-title">الوصول إلى GitHub API (اختياري)</Heading>
         {intro}
         <p class="muted">تُمنح هذه الصلاحية وتُسحب من صفحة الإعدادات.</p>
         {openOptions && (
@@ -196,7 +207,7 @@ function PermissionSection({ permission, openOptions }: { permission?: ApiGithub
   const label = { checking: 'جارٍ التحقق…', granted: 'ممنوحة', denied: 'غير ممنوحة' }[state];
   return (
     <section class="section" aria-labelledby="mj-permission-title" data-section="permission">
-      <h2 id="mj-permission-title">الوصول إلى GitHub API (اختياري)</h2>
+      <Heading id="mj-permission-title">الوصول إلى GitHub API (اختياري)</Heading>
       {intro}
       <div class="row">
         <span class="status" data-state={state === 'checking' ? 'pending' : state} data-permission-state={state} role="status">
@@ -243,7 +254,7 @@ function ShortcutSection({ shortcuts }: { shortcuts: ShortcutsCapability }) {
   }, [shortcuts]);
   return (
     <section class="section" aria-labelledby="mj-shortcut-title" data-section="shortcut">
-      <h2 id="mj-shortcut-title">اختصار لوحة المفاتيح</h2>
+      <Heading id="mj-shortcut-title">اختصار لوحة المفاتيح</Heading>
       <p data-shortcut={shortcut ?? ''}>
         {shortcut === undefined ? (
           'جارٍ القراءة…'
@@ -268,7 +279,7 @@ function ShortcutSection({ shortcuts }: { shortcuts: ShortcutsCapability }) {
 function PrivacySection() {
   return (
     <section class="section" aria-labelledby="mj-privacy-title" data-section="privacy">
-      <h2 id="mj-privacy-title">الخصوصية</h2>
+      <Heading id="mj-privacy-title">الخصوصية</Heading>
       <p class="muted">
         يعمل مِجهَر على صفحات <Ltr className="mono">github.com</Ltr> وحدها، ويعالج ما تعرضه محليًا في متصفحك. إعداداتك محفوظة في هذا المتصفح، ولا
         تُرسل إلى أي خدمة.
@@ -284,7 +295,7 @@ function ModuleSections({ settings, surface, sections }: { settings: SettingsSto
         const Component = section.component;
         return (
           <section class="section" key={section.id} data-section={`module-${section.id}`} aria-label={section.title}>
-            <h2>{section.title}</h2>
+            <Heading>{section.title}</Heading>
             <Component settings={settings} surface={surface} unitEnabled={settings.isModuleEnabled(section.unit)} />
           </section>
         );
@@ -296,13 +307,15 @@ function ModuleSections({ settings, surface, sections }: { settings: SettingsSto
 export function SettingsTab(props: SettingsTabProps) {
   const { settings, surface } = props;
   return (
-    <div class="settings" data-surface={surface}>
-      <UnitsSection settings={settings} />
-      <SurfaceSection settings={settings} />
-      {props.sections && <ModuleSections settings={settings} surface={surface} sections={props.sections} />}
-      <PermissionSection {...(props.permission ? { permission: props.permission } : {})} {...(props.openOptions ? { openOptions: props.openOptions } : {})} />
-      {props.shortcuts && <ShortcutSection shortcuts={props.shortcuts} />}
-      <PrivacySection />
-    </div>
+    <LevelContext.Provider value={props.level ?? 2}>
+      <div class="settings" data-surface={surface}>
+        <UnitsSection settings={settings} />
+        <SurfaceSection settings={settings} />
+        {props.sections && <ModuleSections settings={settings} surface={surface} sections={props.sections} />}
+        <PermissionSection {...(props.permission ? { permission: props.permission } : {})} {...(props.openOptions ? { openOptions: props.openOptions } : {})} />
+        {props.shortcuts && <ShortcutSection shortcuts={props.shortcuts} />}
+        <PrivacySection />
+      </div>
+    </LevelContext.Provider>
   );
 }
