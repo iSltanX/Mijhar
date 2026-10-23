@@ -6,7 +6,7 @@ import { JSDOM } from 'jsdom';
 import { describe, expect, it } from 'vitest';
 import { LifecycleManager, ModuleRegistry, PageDetector } from '../../../../src/core';
 import { HOST_ATTR } from '../../../../src/core/ui-host/shadow';
-import { EDITOR_FEATURE, EDITOR_HOST_NAME, UNSUPPORTED_EDITORS, fieldForToolbar } from '../../../../src/modules/a/editor';
+import { EDITOR_FEATURE, EDITOR_HOST_NAME, UNSUPPORTED_EDITORS, createEditorFeature, fieldForToolbar } from '../../../../src/modules/a/editor';
 import { createModuleA } from '../../../../src/modules/a/scope';
 import { insertIntoField, nextDirection, setFieldDirection } from '../../../../src/shared/fields';
 
@@ -22,14 +22,14 @@ const PAGE = `<!doctype html><html lang="en"><head><title>issue</title></head><b
   <div class="cm-editor"><markdown-toolbar for="cm"></markdown-toolbar><div class="cm-content" id="cm" contenteditable="true"></div></div>
 </div></main></body></html>`;
 
-function mount() {
+function mount(feature = EDITOR_FEATURE) {
   const dom = new JSDOM(PAGE, { url: 'https://github.com/octo/demo/issues/1', pretendToBeVisual: true });
   const doc = dom.window.document;
   const field = doc.getElementById('comment-body') as HTMLTextAreaElement;
   field.value = CONTENT;
   field.setSelectionRange(120, 160, 'backward');
   const detector = new PageDetector({ document: doc, settleMs: 5 });
-  const manager = new LifecycleManager({ registry: new ModuleRegistry([createModuleA({ features: [EDITOR_FEATURE] })]), detector, document: doc, isEnabled: () => true });
+  const manager = new LifecycleManager({ registry: new ModuleRegistry([createModuleA({ features: [feature] })]), detector, document: doc, isEnabled: () => true });
   manager.start();
   return { dom, doc, field, manager };
 }
@@ -79,6 +79,14 @@ describe('TEST-RTL-04: زر تبديل الاتجاه', () => {
     expect(field.hasAttribute('dir')).toBe(false);
     expect(doc.querySelector(`[${HOST_ATTR}]`)).toBeNull();
     expect(field.value).toBe(CONTENT);
+  });
+
+  it('Firefox غير مدعوم: لا زر (تغيّر الاتجاه يُفقد سجل التراجع فيه)، والحقل لا يُمس', () => {
+    const { doc, field, manager } = mount(createEditorFeature({ target: 'firefox' }));
+    expect(buttons(doc)).toEqual([]);
+    expect(field.hasAttribute('dir')).toBe(false);
+    expect(UNSUPPORTED_EDITORS.find((e) => e.browsers?.includes('firefox'))?.selector).toBe('textarea');
+    manager.stop();
   });
 
   it('حقل يضيفه GitHub بعد التركيب يُضاف له الزر', async () => {

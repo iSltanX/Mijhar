@@ -1,6 +1,8 @@
 // TEST-RTL-06 (AC-A6) على jsdom: شكل الأرقام في النثر العربي الخالص وحده بمجموعة الحالات المعرّفة هنا (تُضاف إلى
 // fixture-mixed-rtl-readme.html)، وثبات نص <relative-time>، وإعادة النص عند الإيقاف بحارس الملكية، وتحديث GitHub الحي.
 // التلميح الهجري في hijri.test.ts، والقياس في المتصفحات الأربعة (Intl وPB-01) في tests/modules/a/browser/run.mjs.
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { LifecycleManager, ModuleRegistry, PageDetector } from '../../../../src/core';
 import { DIGITS_FEATURE, isPureArabicProse, toEasternDigits } from '../../../../src/modules/a/digits';
@@ -8,29 +10,14 @@ import { DIRECTION_FEATURE } from '../../../../src/modules/a/direction';
 import { ISOLATION_FEATURE } from '../../../../src/modules/a/isolation';
 import { createModuleA } from '../../../../src/modules/a/scope';
 import type { FeatureStopReport, ModuleAFeature } from '../../../../src/modules/a/scope';
+import { ROOT } from '../../../setup/paths';
 import { loadFixture } from '../direction/helpers';
 
 const deliver = (): Promise<void> => new Promise((resolve) => setTimeout(resolve, 0));
 
-// الحالات المعرّفة: [المعرّف، HTML يُدرج، النص المتوقع بعد التفعيل مع الاتجاه والعزل كما في الإضافة].
-export const DIGIT_CASES: ReadonlyArray<readonly [string, string, string]> = [
-  ['prose', '<p dir="auto">في المستودع 12 ملفًا و3 مجلدات.</p>', 'في المستودع ١٢ ملفًا و٣ مجلدات.'],
-  ['prose-list', '<ul><li>الخطوة 2 من 5</li></ul>', 'الخطوة ٢ من ٥'],
-  ['prose-table', '<table><tbody><tr><td>عدد المساهمين 42</td></tr></tbody></table>', 'عدد المساهمين ٤٢'],
-  ['code-inline', '<p dir="auto">شغّل <code>node 22</code> ثم انتظر 5 ثوانٍ</p>', 'شغّل node 22 ثم انتظر ٥ ثوانٍ'],
-  ['code-block', '<pre><code>// انتظر 5 ثوانٍ\nsleep 5</code></pre>', '// انتظر 5 ثوانٍ\nsleep 5'],
-  // العزل يغلّف المرجع والإصدار فيصير ما حولهما عقد نثر خالصة تُحوَّل، ويبقى المرجع والإصدار.
-  ['issue-ref', '<p dir="auto">راجع #452 قبل 3 أيام</p>', 'راجع #452 قبل ٣ أيام'],
-  ['version', '<p dir="auto">الإصدار v1.2.3 صدر قبل 3 أيام</p>', 'الإصدار v1.2.3 صدر قبل ٣ أيام'],
-  ['sha', '<p dir="auto">الالتزام a1b2c3d أصلح 2 خطأ</p>', 'الالتزام a1b2c3d أصلح 2 خطأ'],
-  ['iso-date', '<p dir="auto">صدر في 2026-10-22 بعد 3 أيام</p>', 'صدر في 2026-10-22 بعد ٣ أيام'],
-  ['percent', '<p dir="auto">اكتمل 75% من العمل في 4 أيام</p>', 'اكتمل 75% من العمل في ٤ أيام'],
-  ['decimal', '<p dir="auto">النسخة 3.5 أسرع</p>', 'النسخة 3.5 أسرع'],
-  ['relative-time', '<p dir="auto">نُشر <relative-time datetime="2026-10-20T10:00:00Z">منذ 3 أيام</relative-time> فقط</p>', 'نُشر منذ 3 أيام فقط'],
-  ['link', '<p dir="auto">انظر <a href="#v2">الفصل 2</a> أولًا</p>', 'انظر الفصل 2 أولًا'],
-  ['english', '<p dir="auto">Version 2 is out in 3 days</p>', 'Version 2 is out in 3 days'],
-  ['kbd', '<p dir="auto">اضغط <kbd>F5</kbd> مرة 1</p>', 'اضغط F5 مرة ١'],
-];
+// الحالات المعرّفة في tests/modules/a/cases.json (مصدر واحد مع القياس في المتصفحات): [المعرّف، HTML يُدرج، النص المتوقع بعد
+// التفعيل مع الاتجاه والعزل كما في الإضافة]. العزل يغلّف المرجع والإصدار فيصير ما حولهما عقد نثر خالصة تُحوَّل، ويبقيان.
+const DIGIT_CASES: ReadonlyArray<readonly [string, string, string]> = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests/modules/a/cases.json'), 'utf8')).digits;
 
 // خارج حاويات Markdown: أرقام الأسطر وشريط اللغات وعناوين React تبقى.
 const OUTSIDE = [

@@ -1,1 +1,2 @@
-export { EDITOR_FEATURE, EDITOR_FEATURE_ID, EDITOR_HOST_NAME, EDITOR_SELECTORS, EDITOR_SELECTOR_KEYS, UNSUPPORTED_EDITORS, fieldForToolbar } from './feature';
+export { createEditorFeature, EDITOR_FEATURE, EDITOR_FEATURE_ID, EDITOR_HOST_NAME, EDITOR_SELECTORS, EDITOR_SELECTOR_KEYS, UNSUPPORTED_EDITORS, fieldForToolbar } from './feature';
+export type { EditorFeatureOptions, EditorTarget } from './feature';

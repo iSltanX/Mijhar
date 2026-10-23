@@ -1,8 +1,9 @@
 // ميزة «زر تبديل اتجاه الكتابة» (T-2.4، F-A4): زر صغير معزول (Shadow DOM) في آخر شريط أدوات Markdown (<markdown-toolbar>) يبدّل
 // dir حقل النص المرتبط به بالدورة rtl ← ltr ← auto. لا يمس value ولا يضع مستمعًا على الحقل، ويحفظ التحديد واتجاهه والتمرير
 // (shared/fields). سمة dir تُكتب عبر سجل الميزة فيعيد الإيقاف قيمتها الأصلية، ويُزال الزر.
-// المحررات المدعومة: textarea يربطه شريط الأدوات بسمة for (محرر React الجديد والتقليدي، T-0.1). غير المدعوم يُسرد في
-// UNSUPPORTED_EDITORS ولا يظهر له زر.
+// المحررات المدعومة: textarea يربطه شريط الأدوات بسمة for (محرر React الجديد والتقليدي، T-0.1) في عائلة Chromium. غير المدعوم
+// يُسرد في UNSUPPORTED_EDITORS ولا يظهر له زر (AC-A4): ومنه كل حقل في Firefox، لأن تغيّر اتجاه الحقل فعلًا يعيد بناء محرره الداخلي
+// فيُفقد سجل التراجع (MJ7: evidence/T-2.4/editor-undo.json).
 import type { SelectorEntry } from '../../../core';
 import { createShadowHost } from '../../../core/ui-host/shadow';
 import { fieldDirection, nextDirection, setFieldDirection } from '../../../shared/fields';
@@ -21,12 +22,20 @@ export const EDITOR_SELECTORS: readonly SelectorEntry[] = [
   },
 ];
 
-/** محررات لا يظهر لها الزر، بسبب كل منها (T-0.1، AC-S1.2). */
-export const UNSUPPORTED_EDITORS: ReadonlyArray<{ readonly editor: string; readonly selector: string; readonly reason: string }> = [
+export type EditorTarget = 'chromium' | 'firefox';
+
+/** محررات لا يظهر لها الزر، بسبب كل منها (T-0.1، AC-S1.2، وقياس MJ7). browsers: حيث ينطبق، أو كل المتصفحات إن غاب. */
+export const UNSUPPORTED_EDITORS: ReadonlyArray<{ readonly editor: string; readonly selector: string; readonly reason: string; readonly browsers?: readonly EditorTarget[] }> = [
   {
     editor: 'محرر الملفات (CodeMirror 6)',
     selector: '.cm-editor .cm-content',
     reason: 'GitHub يضع dir="auto" على كل سطر .cm-line، فاتجاه كل سطر من نصه ولا أثر لسمة الحاوية (T-0.1: 20 تبديلًا بلا أثر).',
+  },
+  {
+    editor: 'كل حقول الكتابة في Firefox',
+    selector: 'textarea',
+    reason: 'تغيّر اتجاه الحقل فعلًا (بسمة dir أو بـCSS) يعيد بناء محرره الداخلي فيُفقد سجل التراجع: بعد تبديل واحد لا يتراجع ⌘Z عن كتابة سابقة (MJ7، Firefox 158).',
+    browsers: ['firefox'],
   },
 ];
 
@@ -56,58 +65,70 @@ export function fieldForToolbar(toolbar: Element): TextField | null {
   return null;
 }
 
-export const EDITOR_FEATURE: ModuleAFeature = {
-  id: EDITOR_FEATURE_ID,
-  title: 'زر تبديل اتجاه الكتابة في المحرر',
-  defaults: { enabled: true, scope: 'all', repos: [] },
-  selectors: EDITOR_SELECTORS,
-  mount(ctx) {
-    const doc = ctx.document;
-    const attached = new WeakSet<Element>();
-    const toolbarSelector = ctx.selectors.entry(EDITOR_SELECTOR_KEYS.toolbar).candidates.join(', ');
-    const write = (field: TextField, value: FieldDirection): void => ctx.mutations.setAttribute(field, 'dir', value);
+export interface EditorFeatureOptions {
+  /** المتصفح الهدف؛ الافتراضي هدف البناء (__TARGET__). */
+  readonly target?: EditorTarget;
+}
 
-    const attach = (toolbar: Element): void => {
-      if (attached.has(toolbar) || ctx.signal.aborted) return;
-      const field = fieldForToolbar(toolbar);
-      if (!field || field.closest('.cm-editor')) return;
-      attached.add(toolbar);
-      const { host, root } = createShadowHost(doc, { name: EDITOR_HOST_NAME, styles: BUTTON_CSS });
-      host.setAttribute('data-display', 'inline');
-      const button = doc.createElement('button');
-      button.type = 'button';
-      button.className = 'btn toggle';
-      const render = (): void => {
-        const current = fieldDirection(field);
-        const label = LABELS[current ?? 'none'];
-        const next = LABELS[nextDirection(current)];
-        button.textContent = label.short;
-        const text = `اتجاه الكتابة في الحقل: ${label.long}. التبديل إلى: ${next.long}`;
-        button.setAttribute('aria-label', text);
-        button.title = text;
-      };
-      // الضغط لا ينقل التركيز من الحقل، فيبقى المؤشر والتحديد حيث هما. المستمع على زر الإضافة نفسه لا على GitHub.
-      button.addEventListener('mousedown', (event) => event.preventDefault());
-      button.addEventListener('click', () => {
-        if (ctx.signal.aborted || !field.isConnected) return;
-        setFieldDirection(field, nextDirection(fieldDirection(field)), write);
+export function createEditorFeature(options: EditorFeatureOptions = {}): ModuleAFeature {
+  const target = options.target ?? __TARGET__;
+  return {
+    id: EDITOR_FEATURE_ID,
+    title: 'زر تبديل اتجاه الكتابة في المحرر',
+    defaults: { enabled: true, scope: 'all', repos: [] },
+    selectors: EDITOR_SELECTORS,
+    mount(ctx) {
+      // لا زر حيث يثبت أن الحقل لا يتحمل التبديل (AC-A4): الزر لا يُعرض بدل المخاطرة بسجل التراجع.
+      if (UNSUPPORTED_EDITORS.some((e) => e.selector === 'textarea' && e.browsers?.includes(target))) return;
+      const doc = ctx.document;
+      const attached = new WeakSet<Element>();
+      const toolbarSelector = ctx.selectors.entry(EDITOR_SELECTOR_KEYS.toolbar).candidates.join(', ');
+      const write = (field: TextField, value: FieldDirection): void => ctx.mutations.setAttribute(field, 'dir', value);
+
+      const attach = (toolbar: Element): void => {
+        if (attached.has(toolbar) || ctx.signal.aborted) return;
+        const field = fieldForToolbar(toolbar);
+        if (!field || field.closest('.cm-editor')) return;
+        attached.add(toolbar);
+        const { host, root } = createShadowHost(doc, { name: EDITOR_HOST_NAME, styles: BUTTON_CSS });
+        host.setAttribute('data-display', 'inline');
+        const button = doc.createElement('button');
+        button.type = 'button';
+        button.className = 'btn toggle';
+        const render = (): void => {
+          const current = fieldDirection(field);
+          const label = LABELS[current ?? 'none'];
+          const next = LABELS[nextDirection(current)];
+          button.textContent = label.short;
+          const text = `اتجاه الكتابة في الحقل: ${label.long}. التبديل إلى: ${next.long}`;
+          button.setAttribute('aria-label', text);
+          button.title = text;
+        };
+        // الضغط لا ينقل التركيز من الحقل، فيبقى المؤشر والتحديد حيث هما. المستمع على زر الإضافة نفسه لا على GitHub.
+        button.addEventListener('mousedown', (event) => event.preventDefault());
+        button.addEventListener('click', () => {
+          if (ctx.signal.aborted || !field.isConnected) return;
+          setFieldDirection(field, nextDirection(fieldDirection(field)), write);
+          render();
+        });
         render();
-      });
-      render();
-      root.append(button);
-      ctx.mutations.insert(toolbar, host);
-    };
+        root.append(button);
+        ctx.mutations.insert(toolbar, host);
+      };
 
-    const scan = (root: ParentNode): void => {
-      if ((root as Element).matches?.(toolbarSelector)) attach(root as Element);
-      for (const toolbar of root.querySelectorAll(toolbarSelector)) attach(toolbar);
-    };
-    for (const toolbar of ctx.selectors.resolveAll(doc, EDITOR_SELECTOR_KEYS.toolbar)) attach(toolbar);
-    const body = doc.body;
-    if (body) {
-      ctx.observe(body, { childList: true, subtree: true }, (records) => {
-        for (const record of records) for (const added of record.addedNodes) if (added.nodeType === 1) scan(added as Element);
-      });
-    }
-  },
-};
+      const scan = (root: ParentNode): void => {
+        if ((root as Element).matches?.(toolbarSelector)) attach(root as Element);
+        for (const toolbar of root.querySelectorAll(toolbarSelector)) attach(toolbar);
+      };
+      for (const toolbar of ctx.selectors.resolveAll(doc, EDITOR_SELECTOR_KEYS.toolbar)) attach(toolbar);
+      const body = doc.body;
+      if (body) {
+        ctx.observe(body, { childList: true, subtree: true }, (records) => {
+          for (const record of records) for (const added of record.addedNodes) if (added.nodeType === 1) scan(added as Element);
+        });
+      }
+    },
+  };
+}
+
+export const EDITOR_FEATURE: ModuleAFeature = createEditorFeature();

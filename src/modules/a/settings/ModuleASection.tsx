@@ -242,7 +242,7 @@ export function ModuleASection({ settings, unitEnabled }: SettingsSectionProps) 
       <HijriGroup settings={settings} />
       <ReadingGroup settings={settings} />
       <p class="muted small" data-unsupported-editors>
-        لا يظهر زر الاتجاه في: {UNSUPPORTED_EDITORS.map((e) => `${e.editor} (${e.reason})`).join('؛ ')}
+        لا يظهر زر الاتجاه في: {UNSUPPORTED_EDITORS.map((e) => `${e.editor}: ${e.reason}`).join('؛ ')}
       </p>
     </div>
   );

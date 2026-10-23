@@ -1,0 +1,124 @@
+{
+  "measuredAt": "2026-10-23T12:10:19.791Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "fixture": "fixtures/spikes/fixture-editor.html",
+  "variants": [
+    "none",
+    "dir-same",
+    "dir-once",
+    "toggle-20",
+    "style-once"
+  ],
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "undone": {
+        "none": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-same": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-once": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "toggle-20": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "style-once": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "undone": {
+        "none": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-same": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-once": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "toggle-20": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "style-once": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "undone": {
+        "none": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-same": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-once": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "toggle-20": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "style-once": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "undone": {
+        "none": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-same": {
+          "shortcut": "تراجع",
+          "command": "تراجع"
+        },
+        "dir-once": {
+          "shortcut": "لم يتراجع",
+          "command": "لم يتراجع"
+        },
+        "toggle-20": {
+          "shortcut": "لم يتراجع",
+          "command": "لم يتراجع"
+        },
+        "style-once": {
+          "shortcut": "لم يتراجع",
+          "command": "لم يتراجع"
+        }
+      }
+    }
+  ]
+}

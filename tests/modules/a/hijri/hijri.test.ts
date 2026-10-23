@@ -1,21 +1,20 @@
 // TEST-RTL-06 (AC-A6) على Node وjsdom: التلميح الهجري يطابق Intl.DateTimeFormat بتقويم أم القرى على تواريخ مرجعية مع تعديل ±1 و±2،
 // ونص <relative-time> وسماته لا تتغير، والتلميح عنصر واحد يُزال بإيقاف الميزة. مطابقة Intl وتوفر التقويم في كل متصفح في
 // tests/modules/a/browser/run.mjs.
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { LifecycleManager, ModuleRegistry, PageDetector } from '../../../../src/core';
 import { HOST_ATTR } from '../../../../src/core/ui-host/shadow';
 import { DEFAULT_HIJRI_OPTIONS, HIJRI_FEATURE, HIJRI_HOST_NAME, availableCalendar, hijriDate, isHijriOptions, offsetLabel } from '../../../../src/modules/a/hijri';
 import { createModuleA } from '../../../../src/modules/a/scope';
+import { ROOT } from '../../../setup/paths';
 import { loadFixture } from '../direction/helpers';
 
-/** تواريخ مرجعية (ظهرًا بالتوقيت العالمي فلا تعبر منتصف الليل في منطقة زمنية معقولة) ومقابلها في تقويم أم القرى. */
-export const REFERENCE_DATES: ReadonlyArray<readonly [string, string]> = [
-  ['2024-03-11T12:00:00Z', 'الاثنين، 1 رمضان 1445 هـ'],
-  ['2025-03-01T12:00:00Z', 'السبت، 1 رمضان 1446 هـ'],
-  ['2025-06-06T12:00:00Z', 'الجمعة، 10 ذو الحجة 1446 هـ'],
-  ['2026-10-23T12:00:00Z', 'الجمعة، 12 جمادى الأولى 1448 هـ'],
-];
-const OFFSETS = [-2, -1, 0, 1, 2] as const;
+/** تواريخ مرجعية (ظهرًا بالتوقيت العالمي فلا تعبر منتصف الليل في منطقة زمنية معقولة) ومقابلها في تقويم أم القرى (cases.json). */
+const CASES = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests/modules/a/cases.json'), 'utf8'));
+const REFERENCE_DATES: ReadonlyArray<readonly [string, string]> = CASES.referenceDates;
+const OFFSETS: readonly number[] = CASES.offsets;
 const DAY = 86_400_000;
 
 describe('hijriDate', () => {
