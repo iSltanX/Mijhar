@@ -1,6 +1,7 @@
 // واجهة الوحدة (ز) في تبويب «ملاحظاتي وأكمل لاحقًا» من اللوحة الأصلية والدرج: مساحة العمل نفسها على الصفحة المفتوحة.
 // الدرج يرى DOM الصفحة (مصدر المستند)، واللوحة الأصلية ترى رابط التبويب النشط وحده (مصدر التبويبات).
 import { useMemo } from 'preact/hooks';
+import { NativeOnlyNotice } from '../../../shared/ui/NativeOnlyNotice';
 import type { PanelView, PanelViewProps } from '../../../sidepanel/views';
 import { documentPageSource, extensionTabs, pageInfoFromUrl, repoSlug, tabsPageSource, useActivePage } from '../../../shared/page';
 import type { PageSource } from '../../../shared/page';
@@ -70,4 +71,11 @@ export function createNotesView(options: NotesViewOptions = {}) {
 
 export const NotesView = createNotesView();
 
-export const NOTES_PANEL_VIEW: PanelView = { id: 'g-notes', tab: 'notes', unit: 'g', title: 'ملاحظاتي', component: NotesView };
+// الدرج المحقون لا يعرض حقول كتابة: التحرير في اللوحة الأصلية، وفي الدرج رسالة تدل عليه (والبطاقة في الصفحة نفسها تبقى).
+export const NOTES_PANEL_VIEW: PanelView = { id: 'g-notes', tab: 'notes', unit: 'g', title: 'ملاحظاتي', surfaces: ['native'], component: NotesView };
+
+function NotesDrawerNotice() {
+  return <NativeOnlyNotice feature="ملاحظاتي" extra="ملاحظاتك على الصفحة المفتوحة تظهر وتُحرَّر أيضًا في بطاقة «ملاحظاتي» أعلى الصفحة نفسها." />;
+}
+
+export const NOTES_DRAWER_VIEW: PanelView = { id: 'g-notes-drawer', tab: 'notes', unit: 'g', title: 'ملاحظاتي', surfaces: ['drawer'], component: NotesDrawerNotice };

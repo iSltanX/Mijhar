@@ -24,6 +24,6 @@ export {
   noteRecordName,
 } from './types';
 export type { AnchorStatus, Note, NoteDraft, NoteLevel, NotePatch, NoteTarget } from './types';
-export { NOTES_PANEL_VIEW, NotesView, createNotesView } from './view';
+export { NOTES_DRAWER_VIEW, NOTES_PANEL_VIEW, NotesView, createNotesView } from './view';
 export { NotesWorkspace, useNotes } from './ui/NotesWorkspace';
 export { PageCard } from './ui/PageCard';

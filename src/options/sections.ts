@@ -7,6 +7,7 @@ import type { FunctionComponent } from 'preact';
 import type { SettingsRegistry, SettingsStore } from '../core/settings';
 import type { UnitId } from '../core/ui-host/units';
 import { NOTES_SETTINGS_SECTION } from '../modules/g/notes/section';
+import { COMMUNITY_SETTINGS_SECTION } from '../modules/h/section';
 
 export type SettingsSurface = 'options' | 'native' | 'drawer';
 
@@ -33,6 +34,7 @@ export const DEFAULT_SECTION_SURFACES: readonly SettingsSurface[] = ['options', 
 // سطر واحد لكل قسم، تضيفه مرحلته.
 export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
   NOTES_SETTINGS_SECTION, // MJ9 (T-8.1): الملاحظات الخاصة
+  COMMUNITY_SETTINGS_SECTION, // MJ9 (T-9.1، T-9.4): المجتمع وأول مساهمة
 ];
 
 export const sectionsFor = (surface: SettingsSurface, sections: readonly SettingsSection[] = SETTINGS_SECTIONS): SettingsSection[] =>

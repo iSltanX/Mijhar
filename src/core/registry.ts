@@ -7,6 +7,7 @@ import type { Confidence, PageState, PageType, SelectorEntry, SelectorsRegistry 
 import type { MutationRecorder } from './lifecycle/mutation-registry';
 import { MODULE_A } from '../modules/a/scope/module';
 import { MODULE_G } from '../modules/g/notes/module';
+import { MODULE_H } from '../modules/h/module';
 
 /** ما تراه الوحدة من النواة وقت التركيب. كل ما ينشئه عبره يُزال بإيقافها. */
 export interface ModuleContext {
@@ -86,6 +87,7 @@ export class ModuleRegistry {
 export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   MODULE_A, // MJ6 (T-2.1، T-2.7): الوحدة (أ)
   MODULE_G, // MJ9 (T-8.1): الوحدة (ز) الملاحظات الخاصة
+  MODULE_H, // MJ9 (T-9.1، T-9.4): الوحدة (ح) شريط README العربي وبطاقة الملف الشخصي
 ];
 
 export function createModuleRegistry(modules: readonly ExtensionModule[] = BUILTIN_MODULES): ModuleRegistry {

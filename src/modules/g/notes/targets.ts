@@ -1,7 +1,6 @@
 // ما تعرضه الصفحة المفتوحة من مستويات الملاحظات: أي مستوى يمكن إنشاء ملاحظة عليه الآن (وهدفها)، وأي الملاحظات المحفوظة تخص هذه
 // الصفحة. المطابقة بالمعرّفات لا بالرابط: الهاش والنص بعد ? لا يغيّران الهدف.
 import type { LineRange, PageInfo } from '../../../shared/page';
-import { repoSlug } from '../../../shared/page';
 import type { BlobLineTarget, DiffLineTarget, Note, NoteLevel, NoteTarget } from './types';
 
 export const THREAD_PAGES = ['issue', 'pr', 'pr-files', 'pr-commits', 'pr-checks'] as const;
@@ -134,4 +133,3 @@ export function defaultLevel(options: readonly TargetOption[]): NoteLevel {
   return 'repo';
 }
 
-export const pageSlug = repoSlug;
