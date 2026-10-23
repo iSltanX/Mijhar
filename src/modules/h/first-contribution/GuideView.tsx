@@ -283,7 +283,7 @@ export function createGuideView(options: GuideViewOptions = {}) {
                 </div>
               )}
             </div>
-            <BeginnerLinks owner={page.owner} repo={page.repo} access={access} />
+            <BeginnerLinks key={slug} owner={page.owner} repo={page.repo} access={access} />
           </>
         )}
         <div class="block" data-section="roadmap">

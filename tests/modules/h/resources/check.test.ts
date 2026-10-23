@@ -104,14 +104,12 @@ describe('checkResources', () => {
     expect(report.outcomes.get('octo-demo')).toEqual({ kind: 'failed', reason: 'unexpected' });
   });
 
-  it('تدقيق الشبكة: GET إلى /repos/<owner>/<repo> فقط بلا جسم ولا ترويسات غير Accept', async () => {
+  // الوصول يقبل مسار القراءة وحده (لا ترويسات ولا جسم ولا اعتماد): الطلب والترويسات تبنيها طبقة الخلفية (اختبارها في background-api.test.ts).
+  it('تدقيق الشبكة: قراءات /repos/<owner>/<repo> فقط، ولا واجهة لترويسات أو جسم', async () => {
     const access = fakeAccess(() => repoInfo());
     await checkResources(access, [gh('a/b'), gh('c/d'), external('x')], { today: TODAY });
-    for (const { path, init } of access.requests) {
-      expect(path).toMatch(/^\/repos\/[^/]+\/[^/]+$/);
-      expect(init?.method ?? 'GET').toBe('GET');
-      expect(init?.body).toBeUndefined();
-      expect(Object.keys((init?.headers ?? {}) as Record<string, string>)).toEqual(['Accept']);
-    }
+    expect(access.requests.map((r) => r.path)).toEqual(['/repos/a/b', '/repos/c/d']);
+    expect(access.get.length).toBe(1);
+    for (const request of access.requests) expect(Object.keys(request)).toEqual(['path']);
   });
 });

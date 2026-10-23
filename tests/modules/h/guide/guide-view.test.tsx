@@ -191,6 +191,52 @@ describe('المرشد على العينة المرجعية', () => {
     expect(container.querySelector('[data-action="read-project"]')).not.toBeNull();
   });
 
+  // AD-24: القراءة عبر الخلفية غير مقطوعة بالتنقل (لا إلغاء عبر الرسائل)، فتُربط النتيجة بالمستودع الذي طُلبت له ولا تظهر في غيره.
+  it('أعداد الوسوم: رد متأخر لمستودع سابق لا يظهر في غيره ولا في عودته، ولا يعطّل زر الجديد', async () => {
+    let href = 'https://github.com/octo/one';
+    const listeners = new Set<() => void>();
+    const live: PageSource = { read: async () => pageInfoFromUrl(href, 't'), subscribe: (n) => (listeners.add(n), () => void listeners.delete(n)) };
+    const gates: Array<() => void> = [];
+    let slow = true;
+    const access = fakeAccess((p) => ({ body: { total_count: decodeURIComponent(p).includes('octo/one') ? 11 : 22 } }));
+    const get = access.get;
+    access.get = (async (p: string) => {
+      if (slow) await new Promise<void>((resolve) => gates.push(resolve));
+      return get(p);
+    }) as typeof access.get;
+    const View = createGuideView({ source: () => live, fetchText: recordingFetch(FILES).fetchText, access: () => access });
+    await act(async () => render(<View settings={null as never} surface="native" />, container));
+    await settle();
+    await act(async () => {
+      $('[data-action="load-counts"]').click();
+      await flush(10);
+    });
+    const go = async (repo: string) => {
+      href = `https://github.com/octo/${repo}`;
+      await act(async () => {
+        for (const l of listeners) l();
+        await flush(120);
+      });
+      await settle();
+    };
+    await go('two');
+    expect($('[data-guide-repo]').textContent).toContain('octo/two');
+    expect($<HTMLButtonElement>('[data-action="load-counts"]').disabled).toBe(false);
+    await go('one');
+    for (let i = 0; i < 3; i += 1) {
+      for (const resolve of gates.splice(0)) resolve();
+      await settle();
+    }
+    expect(container.querySelector('[data-count]')).toBeNull();
+    expect(container.querySelector('[data-count-unavailable]')).toBeNull();
+    expect($<HTMLButtonElement>('[data-action="load-counts"]').disabled).toBe(false);
+
+    slow = false;
+    await go('two');
+    await click($('[data-action="load-counts"]'));
+    expect($('[data-label="good first issue"] [data-count]').getAttribute('data-count')).toBe('22');
+  });
+
   it('خارج المستودعات: إرشاد، وخارطة الطريق تبقى', async () => {
     await mount({ href: 'https://github.com/' });
     expect(container.querySelector('[data-guide-empty="no-repo"]')).not.toBeNull();

@@ -20,12 +20,12 @@ const permissions = (granted: boolean): PermissionsApi & { granted: boolean } =>
   return p;
 };
 
-const rateHeaders = (remaining: number, reset = 2_000_000, limit = 60): Record<string, string> => ({
+const rateHeaders = (remaining: number, reset = 2_000_000, limit = 60, resource = 'core'): Record<string, string> => ({
   'x-ratelimit-limit': String(limit),
   'x-ratelimit-remaining': String(remaining),
   'x-ratelimit-used': String(limit - remaining),
   'x-ratelimit-reset': String(reset),
-  'x-ratelimit-resource': 'core',
+  'x-ratelimit-resource': resource,
 });
 
 type Reply = { status: number; body?: unknown; headers?: Record<string, string> };
@@ -151,7 +151,59 @@ describe('حدود الطلبات من x-ratelimit-*', () => {
   });
 });
 
+// AD-24: قراءات الوحدة (ح) للأعداد تمر بالطبقة نفسها، فمسار البحث المحصور بمستودع واحد مقبول وغيره لا، وحده مورد مستقل (search).
+describe('مسار البحث ومورده (AD-24)', () => {
+  const q = (text: string): string => `/search/issues?q=${encodeURIComponent(text)}&per_page=1`;
+
+  it('بحث المشكلات المحصور بمستودع واحد مقبول، وكل بحث آخر مرفوض بلا طلب', async () => {
+    for (const ok of [q('repo:octo/community is:issue is:open label:"good first issue"'), q('repo:o/r.js is:issue is:open label:"help wanted"'), '/search/issues?q=repo%3Ao%2Fr']) expect(isPublicPath(ok), ok).toBe(true);
+    const net = fakeFetch(() => ({ status: 200, body: {} }));
+    const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn });
+    for (const bad of ['/search/issues', '/search/issues?q=user%3Aoctocat', '/search/issues?q=is%3Aissue', '/search/code?q=repo%3Ao%2Fr', '/search/repositories?q=repo%3Ao%2Fr', '/search/issues?q=repo%3Ao%2Fr&sort=updated&access_token=x', '/search/../user', '/search/issues?q=repo%3Ao%2Fr/../x']) {
+      expect(isPublicPath(bad), bad).toBe(false);
+      expect(await client.get(bad)).toMatchObject({ ok: false, failure: 'invalid-path' });
+    }
+    expect(net.calls).toHaveLength(0);
+  });
+
+  it('حد البحث ومهلته مستقلان عن core: نفاد أحدهما لا يمنع الآخر', async () => {
+    let now = 1_000_000;
+    const net = fakeFetch((call) => (call.url.includes('/search/') ? { status: 403, body: { message: 'rate limit' }, headers: rateHeaders(0, 1_060, 10, 'search') } : { status: 200, body: {}, headers: rateHeaders(50) }));
+    const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn, now: () => now });
+    const search = q('repo:o/r is:issue is:open label:"documentation"');
+    expect(await client.get(search)).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 1_060_000 });
+    expect(await client.get(search)).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 1_060_000 });
+    expect(net.calls).toHaveLength(1);
+    expect((await client.get('/repos/o/r')).ok).toBe(true);
+    expect(net.calls).toHaveLength(2);
+    now = 1_060_001;
+    expect(await client.get(search)).toMatchObject({ ok: false, failure: 'rate-limit' });
+    expect(net.calls).toHaveLength(3);
+  });
+
+  it('429 بـretry-after على البحث يضع مهلة للبحث وحده', async () => {
+    const net = fakeFetch((call) => (call.url.includes('/search/') ? { status: 429, body: {}, headers: { 'retry-after': '30' } } : { status: 200, body: {} }));
+    const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn, now: () => 5_000 });
+    expect(await client.get(q('repo:o/r is:issue'))).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 35_000 });
+    expect(await client.get(q('repo:o/r is:issue'))).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: 35_000 });
+    expect((await client.get('/repos/o/r')).ok).toBe(true);
+    expect(net.calls).toHaveLength(2);
+  });
+});
+
 describe('الطلبات الشرطية بـETag', () => {
+  // مفتاح النسخة المحفوظة هو المسار كاملًا، ومنه معرّف الالتزام: نتيجة التزام لا تُعاد لالتزام آخر (head SHA) ولا ETag له.
+  it('نسخة التزام لا يستلمها التزام آخر ولا ETag الأول يُرسل له', async () => {
+    const A = 'a'.repeat(40);
+    const B = 'b'.repeat(40);
+    const net = fakeFetch((call) => (call.url.includes(A) ? { status: 200, body: { sha: 'A' }, headers: { etag: '"A"' } } : { status: 200, body: { sha: 'B' }, headers: { etag: '"B"' } }));
+    const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn });
+    await client.get(`/repos/o/r/commits/${A}/status`);
+    const other = await client.get<{ sha: string }>(`/repos/o/r/commits/${B}/status`);
+    expect(headerOf(net.calls[1], 'if-none-match')).toBeNull();
+    expect(other).toMatchObject({ ok: true, data: { sha: 'B' }, fromCache: false });
+  });
+
   it('الطلب الثاني يحمل If-None-Match، و304 يعيد النسخة المحفوظة موسومة fromCache', async () => {
     const net = fakeFetch((call, i) => (i === 0 ? { status: 200, body: { v: 1 }, headers: { ...rateHeaders(10), etag: 'W/"abc"' } } : { status: 304, headers: { ...rateHeaders(9), etag: 'W/"abc"' } }));
     const client = new PublicApiClient({ permissions: permissions(true), fetch: net.fn });

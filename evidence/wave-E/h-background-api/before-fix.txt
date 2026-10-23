@@ -1,0 +1,47 @@
+# اختبارات الوحدات قبل الإصلاح (على الشيفرة غير المعدّلة)
+
+بعد كتابة الاختبارات وقبل أي تعديل في src/: شُغّل npx vitest run tests/modules/h tests/core/api فسقط 39 اختبارًا من 326.
+```text
+ × tests/modules/h/guide/guide-view.test.tsx > المرشد على العينة المرجعية > وسوم المبتدئين: روابط بصياغة صحيحة، والعدد بعد النقر وبالصلاحية فقط 80ms
+ × tests/core/api/client.test.ts > مسار البحث ومورده (AD-24) > بحث المشكلات المحصور بمستودع واحد مقبول، وكل بحث آخر مرفوض بلا طلب 5ms
+ × tests/core/api/client.test.ts > مسار البحث ومورده (AD-24) > حد البحث ومهلته مستقلان عن core: نفاد أحدهما لا يمنع الآخر 2ms
+ × tests/core/api/client.test.ts > مسار البحث ومورده (AD-24) > 429 بـretry-after على البحث يضع مهلة للبحث وحده 0ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > النقر: طلب الصلاحية أولًا ثم قراءة docs/، ويُعثر على README عربي في docs 
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > مجلد لغة ar داخل docs: يُفتح بطلب ثانٍ ويُعثر على README فيه 2ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > قراءة docs/ كاملة بلا ملف عربي: لا جزم بغياب التوثيق العربي 29ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > بلوغ حد الطلبات (403 وx-ratelimit-remaining: 0): لم يكتمل 23ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > 404: لم يكتمل ولا جزم 0ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > 429: لم يكتمل ولا جزم 0ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > 500: لم يكتمل ولا جزم 0ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > ردّ غير مصفوفة (docs ملف): لم يكتمل ولا جزم 0ms
+ × tests/modules/h/readme/docs-scan.test.tsx > زر فحص docs/: لا طلب إلا بنقر وبعد الصلاحية > حد الطلبات الثلاثة: مجلدات لغة أكثر مما يتسع له الحد تعلن عدم الا
+ × tests/modules/h/background-api.test.ts > الصلاحيات: الطلب في الصفحة والتحقق في الخلفية > المنح بنقر: الطلب من الصفحة، وقراءة واحدة من الخلفية إلى api.gi
+ × tests/modules/h/background-api.test.ts > الصلاحيات: الطلب في الصفحة والتحقق في الخلفية > سحب الصلاحية بعد المنح: الخلفية ترفض قبل أي طلب شبكة ولو بقي�
+ × tests/modules/h/background-api.test.ts > الصلاحيات: الطلب في الصفحة والتحقق في الخلفية > السياق بلا واجهة صلاحيات (الصفحة والدرج) يبقى غير متاح: لا رس
+ × tests/modules/h/guide/guide-view.test.tsx > المرشد على العينة المرجعية > أعداد الوسوم: رد متأخر لمستودع سابق لا يظهر في غيره ولا في عودته، ولا يعطّل زر
+ × tests/modules/h/background-api.test.ts > حدود الطلبات وRetry-After مشتركة بين السياقات > 429 بـRetry-After لفحص اللوحة: لا طلب ثانٍ من اللوحة ولا من سكربت المحتو�
+ × tests/modules/h/background-api.test.ts > حدود الطلبات وRetry-After مشتركة بين السياقات > الاتجاه المعاكس: رفض الوحدة (د) بحد ثانوي يوقف فحص اللوحة بلا طلب 5
+ × tests/modules/h/readme/docs-scan.test.tsx > فحص docs/ في اللوحة عبر تبديل المستودع > A ثم B: لا تظهر نتيجة A في B؛ وفحص A يكتمل بعد التبديل إلى B لا يظهر 187ms
+ × tests/modules/h/resources/resources-view.test.tsx > فحص الروابط بنقر صريح > لا طلب قبل النقر؛ والنقر على «تحقق الآن» لمورد GitHub: الصلاحية ثم GET واحد، ويُحدَ
+ × tests/modules/h/readme/docs-scan.test.tsx > فحص docs/ في اللوحة عبر تبديل المستودع > روابط النتيجة في اللوحة تُفتح في تبويب جديد بـnoopener وnoreferrer، وفي شريط 
+ × tests/modules/h/resources/resources-view.test.tsx > فحص الروابط بنقر صريح > فحص الكل: روابط GitHub وحدها بسقف عشرين، ولا طلب للخارجية، ويُعلن ما بقي 76ms
+ × tests/modules/h/resources/resources-view.test.tsx > فحص الروابط بنقر صريح > مستودع نُقل: يظهر الرابط المقترح ولا يتغير حتى يؤكد المستخدم 83ms
+ × tests/modules/h/background-api.test.ts > حدود الطلبات وRetry-After مشتركة بين السياقات > مورد البحث منفصل عن core: نفاد البحث لا يمنع فحص docs/، ونفاد core لا يمن
+ × tests/modules/h/background-api.test.ts > حدود الطلبات وRetry-After مشتركة بين السياقات > ETag مشترك: القراءة الثانية لـdocs/ شرطية (If-None-Match) وتُجاب من نسخة الخ�
+ × tests/modules/h/guide/sources.test.ts > fetchLabelCounts > طلب الصلاحية أولًا ثم ثلاثة طلبات بحث بالاستعلامات الصحيحة 5ms
+ × tests/modules/h/guide/sources.test.ts > fetchLabelCounts > حد الطلبات في وسم يوقف ما بعده دون إرسال، ويبقي ما جُلب 1ms
+ × tests/modules/h/resources/check.test.ts > checkResources > الصلاحية أولًا ثم GET /repos/<owner>/<repo>؛ وغير المؤرشف نشط بتاريخ اليوم وآخر دفع والترخيص 9ms
+ × tests/modules/h/resources/check.test.ts > checkResources > مستودع مؤرشف 3ms
+ × tests/modules/h/resources/check.test.ts > checkResources > مستودع نُقل أو أُعيدت تسميته: يُقترح الرابط الجديد ولا يُطبَّق 2ms
+ × tests/modules/h/resources/check.test.ts > checkResources > اختلاف حالة الأحرف في الاسم ليس نقلًا 1ms
+ × tests/modules/h/resources/check.test.ts > checkResources > 404: تعذّر الوصول، بصياغة لا تجزم بالحذف ولا تمس تاريخ التحقق السابق 0ms
+ × tests/modules/h/resources/check.test.ts > checkResources > الروابط الخارجية: لا طلب لها، وتبقى لمراجعة بشرية 0ms
+ × tests/modules/h/resources/check.test.ts > checkResources > حد الطلبات يوقف الباقي ويبقي ما أُنجز 0ms
+ × tests/modules/h/resources/check.test.ts > checkResources > سقف الطلبات في النقرة الواحدة 1ms
+ × tests/modules/h/resources/check.test.ts > checkResources > ردّ بلا حقل archived: فشل غير متوقع لا حالة مختلقة 0ms
+ × tests/modules/h/resources/check.test.ts > checkResources > تدقيق الشبكة: قراءات /repos/<owner>/<repo> فقط، ولا واجهة لترويسات أو جسم 0ms
+ × tests/modules/h/background-api.test.ts > لا رمز ولا ترويسة تعبر إلى الصفحة > الرسائل من اللوحة تحمل العملية والمسار وحدهما، والرد بلا ترويسات ولا Autho
+⎯⎯⎯⎯⎯⎯ Failed Tests 39 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  7 failed | 13 passed (20)
+      Tests  39 failed | 287 passed (326)
+```

@@ -1,8 +1,9 @@
 // طبقة طلبات GitHub REST العامة بلا مصادقة (T-5.2). تعمل في الخلفية وفي صفحات الإضافة، وكل طلب يمر بـfetchApiGithub (البوابة الوحيدة
 // إلى api.github.com، T-1.4) فلا يخرج طلب دون الصلاحية الاختيارية الممنوحة بنقر صريح.
-//  - GET وحده، ولمسارات /repos/… و/rate_limit وحدها؛ ولا ترويسة Authorization أبدًا (الطلبات الموثَّقة طبقة أخرى في T-5.5).
+//  - GET وحده، ولمسارات /repos/… و/rate_limit وبحث المشكلات المحصور بمستودع واحد (/search/issues?q=repo:…) وحدها؛ ولا ترويسة Authorization
+//    أبدًا هنا (الطلبات الموثَّقة طبقة أخرى في T-5.5، وأي رمز يبقى في الخلفية فلا يعبر الرسائل إلى صفحة أو سكربت محتوى، AD-24).
 //  - ترويسات x-ratelimit-* تُقرأ من كل استجابة؛ وعند النفاد لا يُرسل شيء حتى reset (لا طلب يُهدر ولا يُفترض رقم)، وبعد رفض بموعد
-//    إعادة (retry-after) لا يُرسل شيء قبله من أي مستهلك للعميل (VR-07).
+//    إعادة (retry-after) لا يُرسل شيء قبله من أي مستهلك للعميل (VR-07). والحد لكل مورد: core للمسارات، وsearch للبحث (حد مستقل).
 //  - طلبات شرطية بـETag (If-None-Match) تقلل النقل؛ وهي تُحتسب من الحد الأساسي للطلبات العامة (VER-12، ومقيس في T-0.3)، فلا يُدّعى
 //    أنها توفّر الحد.
 //  - الفشل نتيجة مصنَّفة بسببها لا استثناء يتسرب، ولا يُعرض فشلٌ نجاحًا.
@@ -56,9 +57,14 @@ export interface PublicApiClientOptions {
 }
 
 const PATH = /^\/(?:repos\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.%~@:+-]+)*|rate_limit)(?:\?[A-Za-z0-9_.%=&,:-]*)?$/;
+// بحث المشكلات المحصور بمستودع واحد وحده (أعداد وسوم المبتدئين في الوحدة (ح)): q يبدأ بـrepo:<owner>/<repo> مرمَّزًا، وبعده عبارات البحث، ثم per_page.
+const SEARCH_PATH = /^\/search\/issues\?q=repo%3A[A-Za-z0-9_.-]+%2F[A-Za-z0-9_.-]+(?:%20[A-Za-z0-9_.%-]+)*(?:&per_page=\d{1,3})?$/;
 
-/** هل المسار مما تقبله الطبقة العامة: /repos/<owner>/<repo>/… أو /rate_limit، بلا أصل ولا مقاطع «..». */
-export const isPublicPath = (path: string): boolean => PATH.test(path) && !path.split(/[/?]/).includes('..');
+/** هل المسار مما تقبله الطبقة العامة: /repos/<owner>/<repo>/… أو /rate_limit أو بحث مشكلات مستودع واحد، بلا أصل ولا مقاطع «..». */
+export const isPublicPath = (path: string): boolean => (PATH.test(path) || SEARCH_PATH.test(path)) && !path.split(/[/?]/).includes('..');
+
+/** مورد الحد الذي يُحتسب عليه المسار (x-ratelimit-resource): البحث مستقل عن core. */
+const resourceOf = (path: string): string => (path.startsWith('/search/') ? 'search' : 'core');
 
 interface Cached {
   readonly etag: string;
@@ -95,7 +101,8 @@ export class PublicApiClient {
       rate: this.rate(),
     });
     if (!isPublicPath(path)) return fail('invalid-path', `مسار غير مقبول في الطبقة العامة: ${path}`);
-    const blocked = path === '/rate_limit' ? null : this.tracker.blockedUntil('core', now);
+    const resource = resourceOf(path);
+    const blocked = path === '/rate_limit' ? null : this.tracker.blockedUntil(resource, now);
     if (blocked !== null) return fail('rate-limit', 'بلغ حد الطلبات العامة؛ لم يُرسل الطلب', 403, blocked);
 
     const cached = this.cache.get(path);
@@ -121,7 +128,7 @@ export class PublicApiClient {
     if (status === 429 || (status === 403 && rate?.remaining === 0)) {
       const retryAfter = Number(response.headers.get('retry-after'));
       const retryAt = Number.isFinite(retryAfter) && retryAfter > 0 ? readAt + retryAfter * 1000 : rate?.reset ? rate.reset * 1000 : null;
-      if (retryAt !== null) this.tracker.cooldown('core', retryAt);
+      if (retryAt !== null) this.tracker.cooldown(resource, retryAt);
       return fail('rate-limit', await messageOf(response, 'بلغ حد الطلبات'), status, retryAt);
     }
     if (status === 403) return fail('forbidden', await messageOf(response, 'رفض GitHub الطلب (403)'), status);
