@@ -1,7 +1,7 @@
 ---
 id: MJ7
 title: بقية الوحدة (أ): العزل والخطوط والتبديل والقراءة والتاريخ
-status: planned
+status: active
 delivery: none
 wave: D
 order: 1
@@ -15,7 +15,7 @@ branch: mj/7-module-a-rest
 base: mj-D/base
 commit: —
 updated: 2026-10-23
-resume: لم تبدأ. في أول خطوة: حسم `DEC-02` بالتفويض من `evidence/T-0.1/` وتسجيله في `data/plan.json` ثم `node tools/build.mjs --sync`.
+resume: بدأت. حُسم `DEC-02` بأ-2 (العارض المعزول وحده) وسُجّل في `data/plan.json`. التالي: `T-2.2` ثم `T-2.6` ثم `T-2.4` ثم `T-2.3` ثم `T-2.5`.
 ---
 
 # MJ7 — بقية الوحدة (أ): العزل والخطوط والتبديل والقراءة والتاريخ
