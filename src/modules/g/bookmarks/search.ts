@@ -33,7 +33,7 @@ export interface CenterEntry {
 export function normalizeForSearch(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[ً-ٰٟۖ-ۭـ]/g, '')
+    .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g, '')
     .replace(/[أإآٱ]/g, 'ا')
     .replace(/ى/g, 'ي')
     .replace(/ة/g, 'ه')
@@ -132,7 +132,8 @@ function compare(sort: CenterSort): (a: CenterEntry, b: CenterEntry) => number {
     case 'updated':
       return (a, b) => b.updatedAt.localeCompare(a.updatedAt) || tie(a, b);
     case 'repo':
-      return (a, b) => (a.repoKey ?? '￿').localeCompare(b.repoKey ?? '￿') || tie(a, b);
+      // بلا مستودع آخرًا. لا محرف حارس مثل U+FFFF: يُكتب حرفيًا في الحزمة فيرفض Chromium سكربت المحتوى «ليس UTF-8».
+      return (a, b) => (a.repoKey === b.repoKey ? 0 : a.repoKey === null ? 1 : b.repoKey === null ? -1 : a.repoKey.localeCompare(b.repoKey)) || tie(a, b);
     case 'status':
       return (a, b) => (a.status === null ? 9 : STATUS_RANK[a.status]) - (b.status === null ? 9 : STATUS_RANK[b.status]) || tie(a, b);
   }

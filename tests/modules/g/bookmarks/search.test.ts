@@ -96,8 +96,11 @@ describe('الفرز (TEST-NOTE-02)', () => {
     for (let i = 1; i < oldest.length; i += 1) expect(oldest[i - 1]!.date <= oldest[i]!.date).toBe(true);
     const updated = queryCenter(index, { sort: 'updated' });
     for (let i = 1; i < updated.length; i += 1) expect(updated[i - 1]!.updatedAt >= updated[i]!.updatedAt).toBe(true);
-    const byRepo = queryCenter(index, { sort: 'repo' }).map((e) => e.repoKey ?? '￿');
+    const byRepo = queryCenter(index, { sort: 'repo' }).map((e) => e.repoKey as string);
+    expect(byRepo.every(Boolean)).toBe(true);
     expect([...byRepo]).toEqual([...byRepo].sort((a, b) => a.localeCompare(b)));
+    const withPage = buildIndex([], [{ ...set.bookmarks[0]!, id: 'page', owner: null, repo: null, level: 'page' }, set.bookmarks[1]!]);
+    expect(queryCenter(withPage, { sort: 'repo' }).map((e) => e.id)).toEqual([set.bookmarks[1]!.id, 'page']);
     const byStatus = queryCenter(index, { kind: 'bookmark', sort: 'status' }).map((e) => e.status);
     const order = ['reading', 'review', 'awaiting', 'done'];
     for (let i = 1; i < byStatus.length; i += 1) expect(order.indexOf(byStatus[i - 1]!) <= order.indexOf(byStatus[i]!)).toBe(true);
