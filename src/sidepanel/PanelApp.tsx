@@ -1,11 +1,11 @@
 // تطبيق اللوحة: التبويبات الخمسة من المستوى 3 (EXECUTION_PLAN.md ‏5). يُرسم كما هو في اللوحة الجانبية الأصلية وفي
 // الدرج داخل الصفحة؛ ويستقبل واجهات الوحدات من PANEL_VIEWS ولا يعرف أيًّا منها بعينه.
 import type { ComponentChildren } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import type { SettingsStore } from '../core/settings';
 import { moduleEnabledKey } from '../core/settings';
-import { UNITS } from '../core/ui-host/units';
-import type { UnitId } from '../core/ui-host/units';
+import { PANEL_REQUEST_KEY, UNITS, isFreshPanelRequest } from '../core/ui-host/units';
+import type { PanelRequest, UnitId } from '../core/ui-host/units';
 import { Tabs } from '../shared/ui';
 import type { TabItem } from '../shared/ui';
 import { useSetting } from '../shared/ui/useSetting';
@@ -72,6 +72,14 @@ function ContentPanel({ tab, views, settings, surface }: { tab: ContentTab; view
 export function PanelApp(props: PanelAppProps) {
   const { surface, settings, views = PANEL_VIEWS, initialTab = 'context', ...settingsProps } = props;
   const [selected, setSelected] = useState<string>(initialTab);
+  // طلب تبويب من خارج اللوحة (أمر فتح القاموس Alt+K): يُطبَّق مرة لكل طلب، سواء فُتحت اللوحة به أو كانت مفتوحة.
+  const request = useSetting<PanelRequest | null>(settings, PANEL_REQUEST_KEY);
+  const applied = useRef(0);
+  useEffect(() => {
+    if (!isFreshPanelRequest(request) || applied.current === request.at) return;
+    applied.current = request.at;
+    if (request.tab === SETTINGS_TAB.id || CONTENT_TABS.some((t) => t.id === request.tab)) setSelected(request.tab);
+  }, [request]);
   const tabs: TabItem[] = [...CONTENT_TABS, SETTINGS_TAB];
   const current = CONTENT_TABS.find((t) => t.id === selected);
   const heading = tabs.find((t) => t.id === selected)?.title;

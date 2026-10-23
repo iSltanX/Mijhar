@@ -131,8 +131,8 @@ describe('اللوحة', () => {
 
 describe('أقسام الإعدادات', () => {
   it('قسما (ب) و(د) مسجَّلان وبمفاتيح الوحدات البرمجية مفعَّلة افتراضيًا', async () => {
-    // السجل مشترك بين المراحل: يُقاس قسما (ب) و(د) وحدهما، لا أقسام الوحدات الأخرى المدمجة معهما.
-    expect(SETTINGS_SECTIONS.filter((s) => s.unit === 'b' || s.unit === 'd').map((s) => [s.id, s.unit])).toEqual([['b-card', 'b'], ['d-status', 'd']]);
+    // السجل مشترك بين المراحل: يُقاس قسما (ب) و(د) وحدهما، لا أقسام الوحدات الأخرى المدمجة معهما. قسم البحث (b-search) أضافته MJ10 (T-3.4).
+    expect(SETTINGS_SECTIONS.filter((s) => s.unit === 'b' || s.unit === 'd').map((s) => [s.id, s.unit])).toEqual([['b-card', 'b'], ['b-search', 'b'], ['d-status', 'd']]);
     const settings = await open();
     for (const id of ['b.card', 'd.pr-status', 'd.compare']) {
       expect(settings.registry.has(`modules.${id}.enabled`), id).toBe(true);

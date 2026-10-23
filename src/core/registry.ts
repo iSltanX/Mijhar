@@ -7,6 +7,7 @@ import type { Confidence, PageState, PageType, SelectorEntry, SelectorsRegistry 
 import type { MutationRecorder } from './lifecycle/mutation-registry';
 import { MODULE_A } from '../modules/a/scope/module';
 import { CARD_MODULE } from '../modules/b/card/module';
+import { SEARCH_MODULE } from '../modules/b/search/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
 import { MODULE_G } from '../modules/g/notes/module';
@@ -90,6 +91,7 @@ export class ModuleRegistry {
 export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   MODULE_A, // MJ6 (T-2.1، T-2.7): الوحدة (أ)
   CARD_MODULE, // MJ8 (T-3.2): الوحدة (ب): بطاقة الشرح
+  SEARCH_MODULE, // MJ10 (T-3.4): الوحدة (ب): البحث في القاموس وإبراز الموضع
   PR_STATUS_MODULE, // MJ8 (T-5.1): الوحدة (د): ملخص حالة طلب الدمج
   COMPARE_MODULE, // MJ8 (T-5.4): الوحدة (د): ملخص المقارنة
   MODULE_G, // MJ9 (T-8.1): الوحدة (ز) الملاحظات الخاصة

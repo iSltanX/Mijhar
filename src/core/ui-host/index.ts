@@ -28,9 +28,14 @@ export {
   createSettingsRegistry,
   DEFAULT_SURFACE,
   defineCoreSettings,
+  isFreshPanelRequest,
   isModuleEnabled,
+  isPanelRequest,
   isSurface,
   isUnitId,
+  PANEL_REQUEST_FRESH_MS,
+  PANEL_REQUEST_KEY,
+  requestPanelTab,
   SURFACE_KEY,
   SURFACES,
   UNIT_DEFAULT_ENABLED,
@@ -38,4 +43,4 @@ export {
   UNITS,
   unitOf,
 } from './units';
-export type { Surface, UnitId, UnitInfo } from './units';
+export type { PanelRequest, Surface, UnitId, UnitInfo } from './units';

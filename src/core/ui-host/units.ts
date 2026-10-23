@@ -40,6 +40,22 @@ export type Surface = (typeof SURFACES)[number];
 export const DEFAULT_SURFACE: Surface = 'native';
 export const isSurface = (value: unknown): value is Surface => typeof value === 'string' && (SURFACES as readonly string[]).includes(value);
 
+/**
+ * طلب من خارج اللوحة أن تُظهر تبويبًا بعينه (مثل أمر فتح القاموس Alt+K من الخلفية): قيمة {tab, at}. تكتبه الخلفية، فتقرؤه اللوحة المفتوحة حديثًا
+ * وتلاحظ تغيّره إن كانت مفتوحة، وهو في storage فيبلغ الدرج داخل الصفحة أيضًا. يُعدّ حديثًا مدة PANEL_REQUEST_FRESH_MS ثم يُهمل.
+ */
+export const PANEL_REQUEST_KEY = 'ui.panelRequest';
+export const PANEL_REQUEST_FRESH_MS = 15_000;
+export type PanelRequest = {
+  readonly tab: string;
+  /** وقت الطلب بالمللي ثانية (Date.now()). */
+  readonly at: number;
+};
+export const isPanelRequest = (value: unknown): value is PanelRequest | null =>
+  value === null || (typeof value === 'object' && typeof (value as PanelRequest).tab === 'string' && Number.isFinite((value as PanelRequest).at));
+export const isFreshPanelRequest = (request: PanelRequest | null, now: number = Date.now()): request is PanelRequest =>
+  request !== null && now - request.at >= 0 && now - request.at <= PANEL_REQUEST_FRESH_MS;
+
 export const isUnitId = (value: unknown): value is UnitId => typeof value === 'string' && (UNIT_IDS as readonly string[]).includes(value);
 
 /** حرف الوحدة من معرّف ExtensionModule، أو undefined إن لم يتبع الاصطلاح. */
@@ -52,6 +68,7 @@ export function unitOf(moduleId: string): UnitId | undefined {
 export function defineCoreSettings(registry: SettingsRegistry): SettingsRegistry {
   for (const unit of UNITS) registry.defineModuleToggle(unit.id, UNIT_DEFAULT_ENABLED, `الوحدة (${unit.letter}): ${unit.title}`);
   registry.define<Surface>({ key: SURFACE_KEY, default: DEFAULT_SURFACE, validate: isSurface, description: 'مكان اللوحة' });
+  registry.define<PanelRequest | null>({ key: PANEL_REQUEST_KEY, default: null, validate: isPanelRequest, description: 'طلب إظهار تبويب في اللوحة (يكتبه أمر فتح القاموس)' });
   return registry;
 }
 
@@ -59,6 +76,11 @@ export function createSettingsRegistry(extend?: (registry: SettingsRegistry) => 
   const registry = defineCoreSettings(new SettingsRegistry());
   extend?.(registry);
   return registry;
+}
+
+/** يطلب من اللوحة (المفتوحة أو التي ستُفتح) إظهار التبويب. */
+export function requestPanelTab(settings: SettingsStore, tab: string, now: number = Date.now()): Promise<void> {
+  return settings.set(PANEL_REQUEST_KEY, { tab, at: now });
 }
 
 /** هل تُركَّب الوحدة البرمجية moduleId: مفتاح وحدتها، ثم مفتاحها الخاص إن عُرِّف. */
