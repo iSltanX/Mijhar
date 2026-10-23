@@ -1,0 +1,513 @@
+{
+  "measuredAt": "2026-10-23T05:53:39.382Z",
+  "repos": [
+    {
+      "repo": "trekhleb/javascript-algorithms",
+      "size": "صغير",
+      "home": {
+        "items": 36,
+        "totalCount": 36,
+        "truncatedByCount": false,
+        "truncationMessage": null,
+        "readmeShown": null,
+        "arabicByName": [
+          "README.ar-AR.md"
+        ],
+        "arabicByLink": [
+          "/trekhleb/javascript-algorithms/blob/master/README.ar-AR.md"
+        ],
+        "contributingLinks": [
+          "#contributing-ov-file",
+          "/trekhleb/javascript-algorithms/blob/master/CONTRIBUTING.md"
+        ],
+        "overviewTabs": [
+          {
+            "text": "Readme",
+            "href": "#readme-ov-file"
+          },
+          {
+            "text": "MIT license",
+            "href": "#MIT-1-ov-file"
+          },
+          {
+            "text": "Code of conduct",
+            "href": "/trekhleb/javascript-algorithms#coc-ov-file"
+          },
+          {
+            "text": "Contributing",
+            "href": "#contributing-ov-file"
+          }
+        ],
+        "templateFiles": [],
+        "hasDotGithub": false
+      },
+      "dotGithub": {
+        "items": 1,
+        "templateFiles": [],
+        "contributing": []
+      },
+      "reads": [
+        {
+          "path": "/trekhleb/javascript-algorithms/raw/HEAD/README.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 25677,
+          "ms": 974,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/trekhleb/javascript-algorithms/raw/HEAD/CONTRIBUTING.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 1117,
+          "ms": 625,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/trekhleb/javascript-algorithms/raw/HEAD/.github/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266602,
+          "ms": 381,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/trekhleb/javascript-algorithms/raw/HEAD/README.ar-AR.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 20324,
+          "ms": 631,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 5299
+        }
+      ]
+    },
+    {
+      "repo": "jlevy/the-art-of-command-line",
+      "size": "صغير",
+      "home": {
+        "items": 23,
+        "totalCount": 23,
+        "truncatedByCount": false,
+        "truncationMessage": null,
+        "readmeShown": null,
+        "arabicByName": [],
+        "arabicByLink": [],
+        "contributingLinks": [
+          "#contributing-ov-file",
+          "/jlevy/the-art-of-command-line/blob/master/CONTRIBUTING.md"
+        ],
+        "overviewTabs": [
+          {
+            "text": "Readme",
+            "href": "#readme-ov-file"
+          },
+          {
+            "text": "Contributing",
+            "href": "#contributing-ov-file"
+          }
+        ],
+        "templateFiles": [],
+        "hasDotGithub": false
+      },
+      "dotGithub": {
+        "items": 0,
+        "templateFiles": [],
+        "contributing": []
+      },
+      "reads": [
+        {
+          "path": "/jlevy/the-art-of-command-line/raw/HEAD/README.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 40804,
+          "ms": 723,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/jlevy/the-art-of-command-line/raw/HEAD/CONTRIBUTING.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 4764,
+          "ms": 635,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/jlevy/the-art-of-command-line/raw/HEAD/.github/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266589,
+          "ms": 466,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        }
+      ]
+    },
+    {
+      "repo": "EbookFoundation/free-programming-books",
+      "size": "متوسط",
+      "home": {
+        "items": 14,
+        "totalCount": 14,
+        "truncatedByCount": false,
+        "truncationMessage": null,
+        "readmeShown": null,
+        "arabicByName": [],
+        "arabicByLink": [
+          "/EbookFoundation/free-programming-books/blob/main/books/free-programming-books-ar.md",
+          "/EbookFoundation/free-programming-books/blob/main/courses/free-courses-ar.md",
+          "/EbookFoundation/free-programming-books/blob/main/casts/free-podcasts-screencasts-ar.md"
+        ],
+        "contributingLinks": [
+          "#contributing-ov-file",
+          "/EbookFoundation/free-programming-books/blob/main/docs/CONTRIBUTING.md",
+          "/EbookFoundation/free-programming-books/blob/main/docs/CONTRIBUTING.md#help-out-by-contributing-a-translation"
+        ],
+        "overviewTabs": [
+          {
+            "text": "Readme",
+            "href": "#readme-ov-file"
+          },
+          {
+            "text": "CC-BY-4.0 license",
+            "href": "#CC-BY-4.0-1-ov-file"
+          },
+          {
+            "text": "Code of conduct",
+            "href": "/EbookFoundation/free-programming-books#coc-ov-file"
+          },
+          {
+            "text": "Contributing",
+            "href": "#contributing-ov-file"
+          }
+        ],
+        "templateFiles": [],
+        "hasDotGithub": true
+      },
+      "dotGithub": {
+        "items": 4,
+        "templateFiles": [
+          "PULL_REQUEST_TEMPLATE.md"
+        ],
+        "contributing": []
+      },
+      "reads": [
+        {
+          "path": "/EbookFoundation/free-programming-books/raw/HEAD/README.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 15333,
+          "ms": 614,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 65
+        },
+        {
+          "path": "/EbookFoundation/free-programming-books/raw/HEAD/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266603,
+          "ms": 366,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/EbookFoundation/free-programming-books/raw/HEAD/.github/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266709,
+          "ms": 371,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        }
+      ]
+    },
+    {
+      "repo": "pallets/flask",
+      "size": "صغير",
+      "home": {
+        "items": 15,
+        "totalCount": 15,
+        "truncatedByCount": false,
+        "truncationMessage": null,
+        "readmeShown": null,
+        "arabicByName": [],
+        "arabicByLink": [],
+        "contributingLinks": [
+          "#contributing-ov-file",
+          "#contributing",
+          "https://palletsprojects.com/contributing/"
+        ],
+        "overviewTabs": [
+          {
+            "text": "Readme",
+            "href": "#readme-ov-file"
+          },
+          {
+            "text": "BSD-3-Clause license",
+            "href": "#BSD-3-Clause-1-ov-file"
+          },
+          {
+            "text": "Code of conduct",
+            "href": "/pallets/flask#coc-ov-file"
+          },
+          {
+            "text": "Contributing",
+            "href": "#contributing-ov-file"
+          },
+          {
+            "text": "Security policy",
+            "href": "#security-ov-file"
+          }
+        ],
+        "templateFiles": [],
+        "hasDotGithub": true
+      },
+      "dotGithub": {
+        "items": 3,
+        "templateFiles": [
+          "ISSUE_TEMPLATE",
+          "pull_request_template.md"
+        ],
+        "contributing": []
+      },
+      "reads": [
+        {
+          "path": "/pallets/flask/raw/HEAD/README.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 1639,
+          "ms": 655,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/pallets/flask/raw/HEAD/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266269,
+          "ms": 763,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/pallets/flask/raw/HEAD/.github/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266375,
+          "ms": 378,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        }
+      ]
+    },
+    {
+      "repo": "nodejs/node",
+      "size": "كبير",
+      "home": {
+        "items": 51,
+        "totalCount": 51,
+        "truncatedByCount": false,
+        "truncationMessage": null,
+        "readmeShown": null,
+        "arabicByName": [],
+        "arabicByLink": [],
+        "contributingLinks": [
+          "#contributing-ov-file",
+          "/nodejs/node/blob/main/CONTRIBUTING.md",
+          "#contributing-to-nodejs",
+          "/nodejs/node/blob/main/doc/contributing/strategic-initiatives.md",
+          "/nodejs/node/blob/main/doc/contributing/technical-values.md"
+        ],
+        "overviewTabs": [
+          {
+            "text": "Readme",
+            "href": "#readme-ov-file"
+          },
+          {
+            "text": "License",
+            "href": "#License-1-ov-file"
+          },
+          {
+            "text": "Code of conduct",
+            "href": "/nodejs/node#coc-ov-file"
+          },
+          {
+            "text": "Contributing",
+            "href": "#contributing-ov-file"
+          },
+          {
+            "text": "Security policy",
+            "href": "#security-ov-file"
+          }
+        ],
+        "templateFiles": [],
+        "hasDotGithub": true
+      },
+      "dotGithub": {
+        "items": 9,
+        "templateFiles": [
+          "ISSUE_TEMPLATE",
+          "PULL_REQUEST_TEMPLATE.md"
+        ],
+        "contributing": []
+      },
+      "reads": [
+        {
+          "path": "/nodejs/node/raw/HEAD/README.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 42604,
+          "ms": 649,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/nodejs/node/raw/HEAD/CONTRIBUTING.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 4654,
+          "ms": 646,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/nodejs/node/raw/HEAD/.github/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266349,
+          "ms": 388,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        }
+      ]
+    },
+    {
+      "repo": "kubernetes/kubernetes",
+      "size": "كبير",
+      "home": {
+        "items": 36,
+        "totalCount": 36,
+        "truncatedByCount": false,
+        "truncationMessage": null,
+        "readmeShown": null,
+        "arabicByName": [],
+        "arabicByLink": [],
+        "contributingLinks": [
+          "#contributing-ov-file",
+          "/kubernetes/kubernetes/blob/master/CONTRIBUTING.md"
+        ],
+        "overviewTabs": [
+          {
+            "text": "Readme",
+            "href": "#readme-ov-file"
+          },
+          {
+            "text": "Apache-2.0 license",
+            "href": "#Apache-2.0-1-ov-file"
+          },
+          {
+            "text": "Code of conduct",
+            "href": "/kubernetes/kubernetes#coc-ov-file"
+          },
+          {
+            "text": "Contributing",
+            "href": "#contributing-ov-file"
+          },
+          {
+            "text": "Security policy",
+            "href": "#security-ov-file"
+          }
+        ],
+        "templateFiles": [],
+        "hasDotGithub": true
+      },
+      "dotGithub": {
+        "items": 4,
+        "templateFiles": [
+          "ISSUE_TEMPLATE",
+          "PULL_REQUEST_TEMPLATE.md"
+        ],
+        "contributing": []
+      },
+      "reads": [
+        {
+          "path": "/kubernetes/kubernetes/raw/HEAD/README.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 4236,
+          "ms": 648,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/kubernetes/kubernetes/raw/HEAD/CONTRIBUTING.md",
+          "status": 200,
+          "finalHost": "raw.githubusercontent.com",
+          "redirected": true,
+          "bytes": 525,
+          "ms": 635,
+          "contentType": "text/plain; charset=utf-8",
+          "arabicChars": 0
+        },
+        {
+          "path": "/kubernetes/kubernetes/raw/HEAD/.github/CONTRIBUTING.md",
+          "status": 404,
+          "finalHost": "github.com",
+          "redirected": false,
+          "bytes": 266481,
+          "ms": 372,
+          "contentType": "text/html; charset=utf-8",
+          "arabicChars": 0
+        }
+      ]
+    }
+  ],
+  "dirs": [
+    {
+      "dir": "nodejs/node/tree/main/test/parallel",
+      "items": 1000,
+      "totalCount": 5108,
+      "truncatedByCount": true,
+      "truncationMessage": "Sorry, we had to truncate this directory to 1,000 files. 4,108 entries were omitted from the list. Latest commit info may be omitted.",
+      "arabicByName": []
+    },
+    {
+      "dir": "kubernetes/kubernetes/tree/master/pkg",
+      "items": 32,
+      "totalCount": 32,
+      "truncatedByCount": false,
+      "truncationMessage": null,
+      "arabicByName": []
+    },
+    {
+      "dir": "EbookFoundation/free-programming-books/tree/main/books",
+      "items": 48,
+      "totalCount": 48,
+      "truncatedByCount": false,
+      "truncationMessage": null,
+      "arabicByName": []
+    }
+  ]
+}

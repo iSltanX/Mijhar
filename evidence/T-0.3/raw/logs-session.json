@@ -1,0 +1,85 @@
+{
+  "note": "قياسات في جلسة المالك المسجّلة في متصفح Claude المدمج (Chromium)، قراءة فقط، بلا رمز وصول. لا يُحفظ التوقيع sig.",
+  "measuredAt": "2026-10-23T05:43Z..05:53Z",
+  "jobPage": {
+    "url": "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+    "loggedIn": true,
+    "phrasesLoggedOut": [
+      "Sign in to view logs"
+    ],
+    "phrasesLoggedIn": [],
+    "stepConclusionsFromDom": "success,success,success,success,skipped,skipped,skipped,success,success,success,success,skipped,success,failure,skipped,skipped,skipped,skipped,success,success"
+  },
+  "stepLogSameOrigin": {
+    "request": "GET /microsoft/vscode/commit/<sha>/checks/120256773911/logs/14 (X-Requested-With)",
+    "status": 200,
+    "contentType": "text/plain",
+    "bytes": 313447
+  },
+  "rawLogs": {
+    "request": "GET /microsoft/vscode/commit/<sha>/checks/120256773911/logs",
+    "redirectManual": {
+      "type": "opaqueredirect",
+      "status": 0
+    },
+    "follow": {
+      "status": 200,
+      "host": "productionresultssa0.blob.core.windows.net",
+      "paramNames": [
+        "rsct",
+        "se",
+        "sig",
+        "ske",
+        "skoid",
+        "sks",
+        "skt",
+        "sktid",
+        "skv",
+        "sp",
+        "spr",
+        "sr",
+        "st",
+        "sv"
+      ],
+      "st": "2026-10-23T05:43:05Z",
+      "se": "2026-10-23T05:53:10Z",
+      "bytes": 358445,
+      "corsReadable": true
+    }
+  },
+  "signedUrlTTL": [
+    {
+      "label": "now",
+      "afterSec": 0,
+      "toExpirySec": 589,
+      "status": 200,
+      "bytes": 358445
+    },
+    {
+      "label": "+65s",
+      "afterSec": 65,
+      "toExpirySec": 524,
+      "status": 200,
+      "bytes": 358445
+    },
+    {
+      "label": "expiry-30s",
+      "afterSec": 561,
+      "toExpirySec": 28,
+      "status": 200,
+      "bytes": 358445
+    },
+    {
+      "label": "expiry+20s",
+      "afterSec": 609,
+      "toExpirySec": -20,
+      "status": 403,
+      "body": "<Error><Code>AuthenticationFailed</Code>…"
+    }
+  ],
+  "loggedOutChecks": {
+    "uiStepLog": 404,
+    "uiRawLogs_commitChecksPath": 404,
+    "uiRawLogs_actionsPath": 404
+  }
+}

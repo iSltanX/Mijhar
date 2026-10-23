@@ -1,0 +1,184 @@
+{
+  "method": "نص السطر بعد حذف المسافات الختامية + سياق ±2 (أربعة أسطر)؛ الأسطر الفارغة مستبعدة من المراسي",
+  "maxRevisionsPerFile": 40,
+  "results": [
+    {
+      "repo": "flask",
+      "path": "src/flask/app.py",
+      "revisions": 46,
+      "head": "329c32b916",
+      "gaps": {
+        "1": {
+          "label": "التالية",
+          "pairs": 39,
+          "counts": {
+            "A": 18748,
+            "B": 30687,
+            "C": 60,
+            "D": 4035,
+            "D_textUnique": 1429,
+            "D_textMulti": 574,
+            "D_textGone": 2032
+          },
+          "byKind": {
+            "normal": {
+              "A": 17653,
+              "B": 28894,
+              "C": 60,
+              "D": 3749
+            },
+            "short": {
+              "A": 1095,
+              "B": 1793,
+              "C": 0,
+              "D": 286
+            }
+          }
+        },
+        "5": {
+          "label": "الخامسة بعدها",
+          "pairs": 35,
+          "counts": {
+            "A": 5357,
+            "B": 35705,
+            "C": 53,
+            "D": 7181,
+            "D_textUnique": 2137,
+            "D_textMulti": 847,
+            "D_textGone": 4197
+          },
+          "byKind": {
+            "normal": {
+              "A": 5121,
+              "B": 33649,
+              "C": 53,
+              "D": 6582
+            },
+            "short": {
+              "A": 236,
+              "B": 2056,
+              "C": 0,
+              "D": 599
+            }
+          }
+        },
+        "head": {
+          "label": "رأس الفرع",
+          "pairs": 39,
+          "counts": {
+            "A": 1249,
+            "B": 31743,
+            "C": 56,
+            "D": 20482,
+            "D_textUnique": 6448,
+            "D_textMulti": 2513,
+            "D_textGone": 11521
+          },
+          "byKind": {
+            "normal": {
+              "A": 1201,
+              "B": 30097,
+              "C": 56,
+              "D": 19002
+            },
+            "short": {
+              "A": 48,
+              "B": 1646,
+              "C": 0,
+              "D": 1480
+            }
+          }
+        }
+      }
+    },
+    {
+      "repo": "flask",
+      "path": "README.md",
+      "revisions": 10,
+      "head": "85cc710464",
+      "gaps": {
+        "1": {
+          "label": "التالية",
+          "pairs": 7,
+          "counts": {
+            "A": 148,
+            "B": 67,
+            "C": 0,
+            "D": 36,
+            "D_textUnique": 14,
+            "D_textMulti": 3,
+            "D_textGone": 19
+          },
+          "byKind": {
+            "normal": {
+              "A": 136,
+              "B": 59,
+              "C": 0,
+              "D": 33
+            },
+            "short": {
+              "A": 12,
+              "B": 8,
+              "C": 0,
+              "D": 3
+            }
+          }
+        },
+        "5": {
+          "label": "الخامسة بعدها",
+          "pairs": 4,
+          "counts": {
+            "A": 7,
+            "B": 59,
+            "C": 0,
+            "D": 76,
+            "D_textUnique": 22,
+            "D_textMulti": 4,
+            "D_textGone": 50
+          },
+          "byKind": {
+            "normal": {
+              "A": 7,
+              "B": 52,
+              "C": 0,
+              "D": 72
+            },
+            "short": {
+              "A": 0,
+              "B": 7,
+              "C": 0,
+              "D": 4
+            }
+          }
+        },
+        "head": {
+          "label": "رأس الفرع",
+          "pairs": 8,
+          "counts": {
+            "A": 37,
+            "B": 167,
+            "C": 0,
+            "D": 82,
+            "D_textUnique": 27,
+            "D_textMulti": 4,
+            "D_textGone": 51
+          },
+          "byKind": {
+            "normal": {
+              "A": 34,
+              "B": 151,
+              "C": 0,
+              "D": 78
+            },
+            "short": {
+              "A": 3,
+              "B": 16,
+              "C": 0,
+              "D": 4
+            }
+          }
+        }
+      }
+    }
+  ]
+}

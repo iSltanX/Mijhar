@@ -1,0 +1,184 @@
+{
+  "method": "نص السطر بعد حذف المسافات الختامية + سياق ±2 (أربعة أسطر)؛ الأسطر الفارغة مستبعدة من المراسي",
+  "maxRevisionsPerFile": 40,
+  "results": [
+    {
+      "repo": "requests",
+      "path": "src/requests/sessions.py",
+      "revisions": 46,
+      "head": "661970d171",
+      "gaps": {
+        "1": {
+          "label": "التالية",
+          "pairs": 39,
+          "counts": {
+            "A": 14590,
+            "B": 9405,
+            "C": 374,
+            "D": 873,
+            "D_textUnique": 454,
+            "D_textMulti": 81,
+            "D_textGone": 338
+          },
+          "byKind": {
+            "short": {
+              "A": 850,
+              "B": 591,
+              "C": 40,
+              "D": 49
+            },
+            "normal": {
+              "A": 13740,
+              "B": 8814,
+              "C": 334,
+              "D": 824
+            }
+          }
+        },
+        "5": {
+          "label": "الخامسة بعدها",
+          "pairs": 35,
+          "counts": {
+            "A": 4207,
+            "B": 14279,
+            "C": 564,
+            "D": 3167,
+            "D_textUnique": 1721,
+            "D_textMulti": 289,
+            "D_textGone": 1157
+          },
+          "byKind": {
+            "short": {
+              "A": 248,
+              "B": 841,
+              "C": 56,
+              "D": 205
+            },
+            "normal": {
+              "A": 3959,
+              "B": 13438,
+              "C": 508,
+              "D": 2962
+            }
+          }
+        },
+        "head": {
+          "label": "رأس الفرع",
+          "pairs": 39,
+          "counts": {
+            "A": 3256,
+            "B": 9838,
+            "C": 592,
+            "D": 11556,
+            "D_textUnique": 5986,
+            "D_textMulti": 1075,
+            "D_textGone": 4495
+          },
+          "byKind": {
+            "short": {
+              "A": 191,
+              "B": 532,
+              "C": 24,
+              "D": 783
+            },
+            "normal": {
+              "A": 3065,
+              "B": 9306,
+              "C": 568,
+              "D": 10773
+            }
+          }
+        }
+      }
+    },
+    {
+      "repo": "requests",
+      "path": "src/requests/models.py",
+      "revisions": 46,
+      "head": "6f66281a1d",
+      "gaps": {
+        "1": {
+          "label": "التالية",
+          "pairs": 39,
+          "counts": {
+            "A": 19391,
+            "B": 12438,
+            "C": 262,
+            "D": 1031,
+            "D_textUnique": 571,
+            "D_textMulti": 123,
+            "D_textGone": 337
+          },
+          "byKind": {
+            "short": {
+              "A": 864,
+              "B": 473,
+              "C": 38,
+              "D": 39
+            },
+            "normal": {
+              "A": 18527,
+              "B": 11965,
+              "C": 224,
+              "D": 992
+            }
+          }
+        },
+        "5": {
+          "label": "الخامسة بعدها",
+          "pairs": 35,
+          "counts": {
+            "A": 5244,
+            "B": 19265,
+            "C": 408,
+            "D": 4256,
+            "D_textUnique": 2277,
+            "D_textMulti": 524,
+            "D_textGone": 1455
+          },
+          "byKind": {
+            "short": {
+              "A": 292,
+              "B": 712,
+              "C": 64,
+              "D": 170
+            },
+            "normal": {
+              "A": 4952,
+              "B": 18553,
+              "C": 344,
+              "D": 4086
+            }
+          }
+        },
+        "head": {
+          "label": "رأس الفرع",
+          "pairs": 39,
+          "counts": {
+            "A": 674,
+            "B": 17693,
+            "C": 462,
+            "D": 14293,
+            "D_textUnique": 7024,
+            "D_textMulti": 1778,
+            "D_textGone": 5491
+          },
+          "byKind": {
+            "short": {
+              "A": 85,
+              "B": 746,
+              "C": 78,
+              "D": 505
+            },
+            "normal": {
+              "A": 589,
+              "B": 16947,
+              "C": 384,
+              "D": 13788
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "note": "صندوق الدمج في جلسة مسجّلة (Chromium المدمج)، قراءة فقط. لغير المسجّل لا يظهر صندوق الدمج إطلاقًا (status.json: phrases).",
+  "kubernetes/kubernetes#141306": {
+    "testid": "mergebox-partial",
+    "headings": [
+      "Merge info",
+      "Checks awaiting conflict resolution",
+      "failing checks",
+      "successful checks"
+    ],
+    "summary": "2 failing, 19 successful checks",
+    "conflicts": "This branch has conflicts that must be resolved",
+    "rows": [
+      {
+        "svg": "octicon-x-circle-fill",
+        "text": "pull-kubernetes-linter-hints — Job failed."
+      },
+      {
+        "svg": "octicon-x-circle-fill",
+        "text": "tide — Not mergeable. PR has a merge conflict."
+      },
+      {
+        "svg": "octicon-check",
+        "text": "EasyCLA — … Required"
+      }
+    ],
+    "requiredBadges": true
+  },
+  "microsoft/vscode#343703": {
+    "headings": [
+      "Merge info",
+      "Review required",
+      "Some checks were not successful",
+      "failing checks",
+      "pending checks",
+      "in progress checks",
+      "skipped checks",
+      "successful checks"
+    ],
+    "svgKinds": {
+      "octicon-check": 25,
+      "octicon-dot-fill": 15,
+      "octicon-skip": 9,
+      "octicon-x-circle-fill": 7,
+      "spinner": 3
+    },
+    "required": 29,
+    "expectedRows": "Linux / Browser — Expected — Waiting for status to be reported — Required (octicon-dot-fill)",
+    "neutralDistinct": false
+  }
+}
