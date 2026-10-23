@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+  عينة T-7.2 (TEST-WRITE-02): صفحة بلاغ جديد بنموذج Issue Form (bug_report.yml). حقولها: Version (نصي إلزامي) وSteps to reproduce وExpected behavior (منطقتا نص إلزاميتان) وBrowser (قائمة)
+  وTerms (مربع موافقة إلزامي). بنية مقيسة على أنواع الحقول في evidence/T-0.4 (IssueFormElementInput/Textarea/Dropdown/Checkboxes). مكتوبة لهذه المرحلة؛ ليست لقطة حية.
+-->
+<html lang="en" data-color-mode="auto">
+<head><meta charset="utf-8"><title>New Issue · octo/demo</title></head>
+<body class="logged-in env-production page-responsive">
+<main id="js-repo-pjax-container">
+  <form id="new-issue-form" action="/octo/demo/issues" method="post">
+    <input type="text" name="issue[title]" aria-label="Title" value="[Bug]: ">
+    <div class="form-group" id="g-version">
+      <label for="issue_form_version">Version <span aria-hidden="true">*</span></label>
+      <input type="text" id="issue_form_version" name="issue_form[version]" required placeholder="e.g. 2.0.1" aria-describedby="version-hint" value="2.0.1">
+      <span id="version-hint">The version you are running</span>
+    </div>
+    <div class="form-group" id="g-steps">
+      <label for="issue_form_steps">Steps to reproduce <span aria-hidden="true">*</span></label>
+      <markdown-toolbar for="issue_form_steps"><div class="toolbar-group"><button type="button" data-md-button aria-label="Bold">B</button></div></markdown-toolbar>
+      <textarea id="issue_form_steps" name="issue_form[steps]" required placeholder="1. Open the page"></textarea>
+    </div>
+    <div class="form-group" id="g-expected">
+      <label for="issue_form_expected">Expected behavior <span aria-hidden="true">*</span></label>
+      <markdown-toolbar for="issue_form_expected"><div class="toolbar-group"><button type="button" data-md-button aria-label="Bold">B</button></div></markdown-toolbar>
+      <textarea id="issue_form_expected" name="issue_form[expected]" required>It should open the sidebar.</textarea>
+    </div>
+    <div class="form-group" id="g-browser">
+      <label for="issue_form_browser">Browser</label>
+      <select id="issue_form_browser" name="issue_form[browser]"><option value="Chrome">Chrome</option><option value="Firefox" selected>Firefox</option><option value="Safari">Safari</option><option value="Edge">Edge</option></select>
+    </div>
+    <fieldset id="g-terms">
+      <legend>Terms *</legend>
+      <label><input type="checkbox" id="issue_form_terms" name="issue_form[terms][]" required> I agree to follow the code of conduct</label>
+    </fieldset>
+    <details-menu role="menu" id="labels-menu"><label><input type="checkbox" name="issue[labels][]" value="bug"> bug</label><label><input type="checkbox" name="issue[labels][]" value="docs"> docs</label></details-menu>
+    <button type="submit" id="submit-issue">Submit new issue</button>
+  </form>
+</main>
+</body>
+</html>

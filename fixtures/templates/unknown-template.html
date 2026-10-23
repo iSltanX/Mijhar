@@ -1,0 +1,19 @@
+<!doctype html>
+<!--
+  عينة T-7.2 (TEST-WRITE-02): صفحة بلاغ جديد بنموذج حقوله بلا تسميات يُعتمد عليها (هيكل غير معروف). لا يعرف المساعد أي الحقول هو؛ فلا يلمس الصفحة ويعرض معاينة للنسخ اليدوي.
+  مكتوبة لهذه المرحلة؛ ليست لقطة حية.
+-->
+<html lang="en" data-color-mode="auto">
+<head><meta charset="utf-8"><title>New Issue · octo/demo</title></head>
+<body class="logged-in env-production">
+<main id="js-repo-pjax-container">
+  <form id="custom-form" action="/octo/demo/issues" method="post">
+    <input type="text" name="issue[title]" aria-label="Title" value="Custom form">
+    <div class="x"><markdown-toolbar for="field_a"><div><button type="button" aria-label="Bold">B</button></div></markdown-toolbar><textarea id="field_a" name="a" aria-label="Markdown value">draft A</textarea></div>
+    <div class="x"><textarea id="field_b" name="b" aria-label="Markdown value">draft B</textarea></div>
+    <div class="x"><input type="text" id="field_c" name="c" required></div>
+    <button type="submit" id="submit-custom">Submit new issue</button>
+  </form>
+</main>
+</body>
+</html>

@@ -9,13 +9,16 @@ import type { ShadowParts } from '../../../core/ui-host/shadow';
 import type { TextField } from '../../../shared/fields';
 import { COMPOSER_SELECTORS, COMPOSER_SELECTOR_KEYS, fieldForToolbar, isSupportedField } from './fields';
 import { COMPOSER_MODULE_ID } from './ids';
-import { insertBlock, undoInsertion } from './insert';
+import { insertBlock } from './insert';
 import type { InsertMode, Insertion } from './insert';
 import { ComposerPanel } from './panel';
 import type { PanelState, PanelStatus } from './panel';
 import { BAR_HOST_CSS, BUTTON_CSS, PANEL_CSS, PANEL_HOST_CSS } from './styles';
-import { EMPTY_FIELDS, compose } from './template';
+import { EMPTY_FIELDS } from './template';
 import type { ComposerKind } from './template';
+import { applyEdits, undoGroup } from '../template/apply';
+import { detectTemplate } from '../template/detect';
+import type { Output } from '../template/output';
 
 export { COMPOSER_MODULE_ID };
 export const COMPOSER_BUTTON_HOST = 'f.composer.button';
@@ -50,7 +53,8 @@ class ComposerController {
   private readonly sessions = new WeakMap<TextField, Session>();
   private panel: ShadowParts | null = null;
   private current: TextField | null = null;
-  private last: Insertion | null = null;
+  /** إدراجات آخر عملية (إدراج واحد، أو عدة إدراجات تحت عناوين قالب) بترتيب تنفيذها، للتراجع عنها معًا. */
+  private last: readonly Insertion[] | null = null;
   private status: PanelStatus | null = null;
   private timer: ReturnType<typeof setTimeout> | null = null;
 
@@ -151,7 +155,7 @@ class ComposerController {
   private open(field: TextField): void {
     if (this.ctx.signal.aborted) return;
     this.current = field;
-    if (this.last && this.last.field !== field) this.last = null;
+    if (this.last?.[0] && this.last[0].field !== field) this.last = null;
     this.status = null;
     if (!this.panel) {
       const parts = createShadowHost(this.ctx.document, { name: COMPOSER_PANEL_HOST, hostCss: PANEL_HOST_CSS, styles: PANEL_CSS, label: 'مساعد كتابة البلاغات والمراجعات' });
@@ -188,10 +192,13 @@ class ComposerController {
           session.state = next;
           this.paint();
         }}
-        draftLength={field.value.length}
-        canUndo={this.last !== null && this.last.field === field}
+        draft={field.value}
+        template={detectTemplate(field, this.ctx.page.type)}
+        canUndo={this.last !== null && this.last[0]?.field === field}
         status={this.status}
-        onInsert={(mode) => this.insert(field, session, mode)}
+        onInsert={(mode, output) => this.insert(field, mode, output)}
+        onCopy={(text) => void this.copyText(text)}
+        onInsertText={(text, mode) => this.insertText(field, text, mode)}
         onUndo={() => this.undo()}
         onCopyPrevious={() => void this.copyPrevious()}
         onClose={() => this.close()}
@@ -205,24 +212,45 @@ class ComposerController {
     this.paint();
   }
 
-  private insert(field: TextField, session: Session, mode: InsertMode): void {
+  private insert(field: TextField, mode: InsertMode, output: Output): void {
     if (!field.isConnected) {
       this.say({ tone: 'warn', text: 'حقل الكتابة لم يعد في الصفحة؛ أعد فتح المساعد من الحقل الجديد.' });
       return;
     }
-    const { text } = compose(session.state.fields, { kind: session.state.kind, language: session.state.language });
+    if (output.kind === 'copy') return; // هيكل القالب غير معروف: لا إدراج في حقول الصفحة (يُنسخ يدويًا).
+    if (output.kind === 'edits') {
+      const done = applyEdits(field, output.plan.edits);
+      if (!done.length) return;
+      this.last = done;
+      const under = output.plan.mapped.length;
+      const loose = output.plan.appended.length;
+      this.say({
+        tone: 'ok',
+        text: `أُدرج ${under ? `${under} تحت عناوين القالب` : ''}${under && loose ? ' و' : ''}${loose ? `${loose} في آخر المسودة` : ''}. بقيت ترويسات القالب وقوائم التحقق كما هي، ولم يُرسل شيء؛ يمكنك التراجع.`,
+      });
+      return;
+    }
+    this.insertText(field, output.text, mode);
+  }
+
+  private insertText(field: TextField, text: string, mode: InsertMode): void {
+    if (!field.isConnected) {
+      this.say({ tone: 'warn', text: 'حقل الكتابة لم يعد في الصفحة؛ أعد فتح المساعد من الحقل الجديد.' });
+      return;
+    }
     const insertion = insertBlock(field, text, mode);
     if (!insertion) return;
-    this.last = insertion;
+    this.last = [insertion];
     const where = mode === 'append' ? 'أُلحق في نهاية المسودة' : 'أُدرج عند المؤشر';
     this.say({ tone: 'ok', text: `${where} (${insertion.inserted.trim().length} حرفًا). لم يُمسح شيء من مسودتك، ولم يُرسل شيء؛ يمكنك التراجع.` });
   }
 
   private undo(): void {
-    const insertion = this.last;
-    if (!insertion) return;
-    const result = undoInsertion(insertion);
+    const insertions = this.last;
+    if (!insertions?.length) return;
+    const result = undoGroup(insertions);
     if (result.status === 'modified') {
+      this.last = insertions.slice(0, result.remaining);
       this.say({ tone: 'warn', text: 'تعذّر التراجع تلقائيًا لأن النص المُدرج تغيّر أو لم يعد في الحقل. استعمل Ctrl+Z أو ⌘+Z في الحقل، أو انسخ المسودة السابقة.', copyPrevious: true });
       return;
     }
@@ -233,8 +261,18 @@ class ComposerController {
     });
   }
 
+  /** نسخ يدوي لنص المعاينة حين لا يُدرج المساعد في الصفحة (قالب غير معروف الهيكل). لا يمس حقول الصفحة. */
+  private async copyText(text: string): Promise<void> {
+    try {
+      await this.ctx.document.defaultView?.navigator.clipboard.writeText(text);
+      this.say({ tone: 'ok', text: 'نُسخ النص إلى الحافظة. الصقه في الحقل الذي تريده بنفسك؛ لم يُمس شيء في الصفحة.' });
+    } catch {
+      this.say({ tone: 'warn', text: 'تعذّر النسخ تلقائيًا من هذه الصفحة؛ حدّد النص في المعاينة بنفسك وانسخه (Ctrl+C أو ⌘+C).' });
+    }
+  }
+
   private async copyPrevious(): Promise<void> {
-    const text = this.last?.snapshot.value;
+    const text = this.last?.[0]?.snapshot.value;
     if (text === undefined) return;
     try {
       await this.ctx.document.defaultView?.navigator.clipboard.writeText(text);

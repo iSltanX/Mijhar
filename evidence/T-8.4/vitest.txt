@@ -1,0 +1,71 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj13-509a66
+
+ ✓ tests/modules/g/notes/single-writer.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (AD-25) > فتح NotesRepository وAnchorStore خارج الوسيط يمرّر writer (runtimeNotesWriter) 2ms
+ ✓ tests/modules/g/notes/single-writer.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (AD-25) > لا ملف خارج الكتّاب المباشرين يكتب سجلات الملاحظات أو المراسي بأسمائها (write وupdate وremove وremoveMany) 1ms
+ ✓ tests/modules/g/notes/single-writer.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (AD-25) > الاستيراد والاستعادة من نسخة احتياطية (importData وrestoreBackup) لا يُستدعيان خارج المخزن والخلفية 1ms
+ ✓ tests/modules/g/notes/single-writer.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (AD-25) > الخلفية تستقبل رسائل الكتابة وتُجيب بها، وهي وحدها التي تبني الوسيط 1ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > ضابط: على المسار المباشر بمخزنين تضيع إحدى الكتابتين المتزامنتين (المنطقة تفرض التداخل) 20ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > تعديل النص من اللوحة وحالة المرساة من الصفحة معًا يبقيان كلاهما 26ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > حذف يتداخل مع تعديل بدأ قبله يبقي الملاحظة محذوفة، حتى بعد إعادة فتح التخزين 27ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > تعديل يصل بعد الحذف يفشل ولا يعيد الملاحظة 18ms
+ ✓ tests/modules/g/export/data-ops.test.ts > التصدير (AC-G4) > JSON كامل يحمل كل عناصر المجموعة بترتيب حتمي، وبلا ملح ما لم يُطلب 23ms
+ ✓ tests/modules/g/export/data-ops.test.ts > التصدير (AC-G4) > تصدير مستودع محدد: ملاحظاته وروابطه ومراسي ملاحظاته وحدها 17ms
+ ✓ tests/modules/g/export/data-ops.test.ts > التصدير (AC-G4) > Markdown مقروء: مجموعات بالمستودع وأقسام الملاحظات و«أكمل لاحقًا»، وبلا ملح ولا بصمات 17ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يقبل ملفًا سليمًا نصًّا أو كائنًا 4ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: نص ليس JSON 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: ليس كائنًا 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: صيغة غير معروفة 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: إصدار أحدث 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: إصدار غير صالح 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: حقل غير معروف 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: قائمة مفقودة 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: ملاحظة بهدف خارج المخطط 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: معرّف مكرر 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: رابط خارج github.com 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: مرساة بلا ملاحظة 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > يرفض: ملح غير صالح 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الفحص الصارم لملف الاستيراد (AC-G4) > ملف تالف يُرفض في الخلفية دون المساس بالبيانات الحالية ودون نسخة احتياطية 32ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > حفظ مرساة بعد حذف ملاحظتها يُرفض ولا يُكتب 19ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > تعديل ملاحظة غير موجودة يفشل ولا ينشئ شيئًا 14ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > الخلفية تتحقق من شكل الرسالة ولا تقبل سجلًا محسوبًا عند المرسل 16ms
+ ✓ tests/modules/g/notes/broker.test.ts > الخلفية كاتب وحيد للملاحظات والمراسي (VR-01) > خلفية غير متاحة: تفشل العملية ظاهرًا ولا يُكتب شيء محليًا 7ms
+ ✓ tests/modules/g/notes/broker.test.ts > حذف الملاحظة يزيل مرساتها (VR-04) > الحذف عبر الوسيط من سياق بلا متحكم مرساة يزيل الملاحظة ومرساتها، حتى بعد إعادة فتح التخزين 26ms
+ ✓ tests/modules/g/notes/broker.test.ts > حذف الملاحظة يزيل مرساتها (VR-04) > المسار المباشر يحذف السجلين في استدعاء واحد للمنطقة 1ms
+ ✓ tests/modules/g/notes/broker.test.ts > حذف الملاحظة يزيل مرساتها (VR-04) > الخلفية تنظّف المراسي اليتيمة مرة بعد فتح التخزين، وتجيب رسائل الكتابة بـsendResponse وتعيد true 8ms
+ ✓ tests/modules/g/export/privacy.test.tsx > التنبيه ومكان التخزين (AC-G4/AC-G5) > مسجَّلان في اللوحة (تبويب ملاحظاتي) وفي أقسام الإعدادات 3ms
+ ✓ tests/modules/g/export/privacy.test.tsx > التنبيه ومكان التخزين (AC-G4/AC-G5) > واجهة الوحدة في اللوحة الأصلية: التنبيه ومكان التخزين وأدوات التصدير 85ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الاستيراد: الدمج والاستبدال والنسخة الاحتياطية (AC-G4) > تصدير ثم استيراد (استبدال) في تخزين فارغ يعيد كل عناصر المجموعة كما كانت 37ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الاستيراد: الدمج والاستبدال والنسخة الاحتياطية (AC-G4) > المعاينة (planImport من القراءة) تطابق ما تكتبه الخلفية فعلًا 40ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الاستيراد: الدمج والاستبدال والنسخة الاحتياطية (AC-G4) > الدمج لا يمسح الحالي ويُبقي الأحدث تعديلًا من الجهتين 2ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الاستيراد: الدمج والاستبدال والنسخة الاحتياطية (AC-G4) > الاستبدال يحذف ما ليس في الملف ويأخذ نسخة احتياطية في الخلفية يمكن استعادتها 5ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الاستيراد: الدمج والاستبدال والنسخة الاحتياطية (AC-G4) > الملح: يُتبنّى حين يغيب محليًا، ويبقى المحلي في الدمج عند الاختلاف ويُستبدل في الاستبدال، والاستعادة ترجع الحال بدقة 0ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الاستيراد: الدمج والاستبدال والنسخة الاحتياطية (AC-G4) > فشل منتصف الاستيراد (حصة أو انقطاع) يُرجع البيانات كما كانت ويبلّغ بذلك 2ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الحذف المفرد والمستودعي والكلي (AC-G4) > حذف ملاحظة يزيل سجلها ومرساتها معًا، وحذف رابط يزيل سجله 34ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الحذف المفرد والمستودعي والكلي (AC-G4) > حذف مستودع يزيل ملاحظاته ومراسيه وروابطه وحدها 34ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الحذف المفرد والمستودعي والكلي (AC-G4) > المسح الكلي يزيل كل سجل تحت البادئات الثلاث حتى غير الصالح، ويحذف النسخة الاحتياطية فلا يبقى نص خلفه 54ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الحذف المفرد والمستودعي والكلي (AC-G4) > حذف مستودع ينقّي النسخة الاحتياطية من سجلاته ويُبقي غيره قابلًا للاستعادة 6ms
+ ✓ tests/modules/g/export/privacy.test.tsx > التنبيه ومكان التخزين (AC-G4/AC-G5) > واجهة الوحدة في الدرج: التنبيه ومكان التخزين بلا حقول إدخال 58ms
+ ✓ tests/modules/g/export/privacy.test.tsx > التنبيه ومكان التخزين (AC-G4/AC-G5) > الإعدادات (options): التنبيه ومكان التخزين دائمًا؛ وأدوات الملف في صفحة الإعدادات وحدها 57ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > التصدير > JSON كامل وMarkdown لكل المستودعات، والملح لا يدخل ما لم يُختر 227ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الكتابة في الوسيط وحده (AD-25): تزامن مع تعديل من صفحة > استبدال من اللوحة أثناء تعديل وحذف من الصفحة: لا ضياع تعديل ولا عودة ملاحظة محذوفة، والنسخة الاحتياطية في الخلفية 112ms
+ ✓ tests/modules/g/export/data-ops.test.ts > الكتابة في الوسيط وحده (AD-25): تزامن مع تعديل من صفحة > حذف يصل قبل تعديل بدأ لاحقًا يفشل التعديل ولا يعيد الملاحظة 30ms
+ ✓ tests/modules/g/export/privacy.test.tsx > التنبيه ومكان التخزين (AC-G4/AC-G5) > الإعدادات (native): التنبيه ومكان التخزين دائمًا؛ وأدوات الملف في صفحة الإعدادات وحدها 51ms
+ ✓ tests/modules/g/export/privacy.test.tsx > التنبيه ومكان التخزين (AC-G4/AC-G5) > الوحدة (ز) موقوفة: التنبيه يبقى ويُعلن أن البيانات المحفوظة تبقى 52ms
+ ✓ tests/modules/g/export/privacy.test.tsx > التنبيه ومكان التخزين (AC-G4/AC-G5) > تبويب ملاحظاتي في اللوحة الكاملة يعرض التنبيه (تكامل PanelApp) 57ms
+ ✓ tests/modules/g/export/privacy.test.tsx > لا طلب شبكي ولا حساب (AC-G5) > إنشاء ملاحظة والبحث في ملاحظاتك وروابطك وتصديرها JSON وMarkdown وعرض مركز البحث: صفر طلبات 55ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > التصدير > مستودع محدد: يُصدَّر ما يخصه وحده 158ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > التصدير > تخزين فارغ: أزرار التصدير والحذف معطّلة 39ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > الاستيراد > ملف تالف يُرفض بأسبابه دون مساس بالبيانات ودون نسخة احتياطية 150ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > الاستيراد > دمج: معاينة بالأعداد ثم استيراد بلا تأكيد إضافي، وتظهر النسخة الاحتياطية بعده 150ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > الاستيراد > استبدال يتطلب تأكيدًا صريحًا، ثم استعادة بتأكيد ترجع الحال كما كانت 293ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > الاستيراد > تعذّر الخلفية يُظهر الفشل ولا يكتب محليًا 195ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > الحذف > مستودع: عدّاد وتأكيد نهائي ثم حذف ما يخصه وحده 170ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > الحذف > إلغاء التأكيد لا يحذف، والمسح الكلي يتطلب علامة تأكيد 346ms
+ ✓ tests/modules/g/export/data-tools.test.tsx > لا شبكة (AC-G5) > التصدير والاستيراد والحذف كلها بلا طلب شبكي 262ms
+
+ Test Files  5 passed (5)
+      Tests  62 passed (62)
+   Start at  01:44:19
+   Duration  2.50s (tests 69%, environment 11%, transform 10%, import 10%)
+

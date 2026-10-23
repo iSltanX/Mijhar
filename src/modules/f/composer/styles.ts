@@ -50,5 +50,26 @@ export const PANEL_CSS = `
 .status[data-tone="ok"] { background: var(--mijhar-bg-success-subtle); color: var(--mijhar-text-success); }
 .status[data-tone="warn"] { background: var(--mijhar-bg-warning-subtle); color: var(--mijhar-text-warning); }
 .panel .note { font-size: 12px; color: var(--mijhar-text-secondary); }
+/* حارس القالب (T-7.2) */
+.template-block { display: flex; flex-direction: column; gap: var(--mijhar-space-6); padding: var(--mijhar-space-8); border: 1px solid var(--mijhar-border-muted); border-radius: var(--mijhar-radius-6); background: var(--mijhar-bg-subtle); }
+.template-block .mapping { margin: 0; padding-inline-start: var(--mijhar-space-16); font-size: 12px; color: var(--mijhar-text-secondary); }
+.template-block .required { color: var(--mijhar-text-danger); font-weight: 700; }
+.form-overview summary { cursor: pointer; font-size: 12px; color: var(--mijhar-text-secondary); }
+.form-overview ul { margin: var(--mijhar-space-4) 0 0; padding-inline-start: var(--mijhar-space-16); font-size: 12px; }
+.form-overview li[data-current="true"] { font-weight: 700; }
+/* بنك العبارات (T-7.3) */
+.phrasebank { display: flex; flex-direction: column; gap: var(--mijhar-space-6); padding-top: var(--mijhar-space-8); border-top: 1px solid var(--mijhar-border-muted); }
+.phrasebank h3 { font-size: 13px; }
+.phrase-tabs, .phrase-list { display: flex; flex-wrap: wrap; gap: var(--mijhar-space-6); }
+.phrase-list { list-style: none; margin: 0; padding: 0; }
+.chip-btn, .phrase-btn { min-height: 28px; padding: 0 var(--mijhar-space-8); font-size: 12px; }
+.chip-btn[aria-pressed="true"], .phrase-btn[aria-pressed="true"] { background: var(--mijhar-bg-selected); color: var(--mijhar-text-brand); border-color: var(--mijhar-border-brand); font-weight: 700; }
+.panel .choice { display: inline-flex; align-items: center; gap: var(--mijhar-space-6); }
+/* القسم الاختياري «ترجمة مسودتي» (T-7.3): منفصل بصريًا عن القسم الثابت، ولا يضغطه حين يطول */
+.translate-section { flex: 0 0 auto; display: flex; flex-direction: column; gap: var(--mijhar-space-6); max-height: 40vh; overflow: auto; padding: var(--mijhar-space-8); border: 1px solid var(--mijhar-border-default); border-radius: var(--mijhar-radius-6); background: var(--mijhar-bg-subtle); }
+.translate-section h3 { font-size: 13px; }
+.translate-section h4 { font-size: 12px; margin: 0; }
+.translated-text { margin: 0; padding: var(--mijhar-space-8); overflow-wrap: anywhere; white-space: pre-wrap; background: var(--mijhar-bg-surface); border: 1px solid var(--mijhar-border-muted); border-radius: var(--mijhar-radius-6); }
+.protected { direction: ltr; unicode-bidi: isolate; font-family: var(--mijhar-font-mono); }
 @media (pointer: coarse), (hover: none) { .panel .btn { min-height: 44px; } }
 `;

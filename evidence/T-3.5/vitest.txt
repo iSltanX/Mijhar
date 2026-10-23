@@ -1,0 +1,48 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj13-509a66
+
+ ✓ tests/modules/b/tours/tours.test.tsx > بيانات الجولات (F-B7) > خمس عشرة جولة محوَّلة من المسارات الخمسة عشر بالمعرّفات نفسها وبترتيبها 2ms
+ ✓ tests/modules/b/tours/tours.test.tsx > بيانات الجولات (F-B7) > كل مدخل تشير إليه خطوة موجود في القاموس بتوقيع عنصر، وكل خطوة بلا مدخل شرح بصري أو نصي بحت 1ms
+ ✓ tests/modules/b/tours/tours.test.tsx > بيانات الجولات (F-B7) > الجولات الحساسة ستٌّ، كل خطوة فيها شرح بصري؛ وكل خطوة تخص صفحة إعدادات شرح بصري 0ms
+ ✓ tests/modules/b/tours/tours.test.tsx > بيانات الجولات (F-B7) > خطوة الشرح البصري لا تلمس DOM إطلاقًا (مستند يرمي عند أي وصول) 0ms
+ ✓ tests/modules/b/tours/tours.test.tsx > روابط فتح الصفحة (بنقر المستخدم) > يحل القوالب بقيم الصفحة، ولا يخمّن عند نقصها 0ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولة على صفحة المستودع > قبل البدء لا أثر في الصفحة: لا مضيف ولا تعديل 36ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولة على صفحة المستودع > تبدأ فتبرز عنصر الخطوة وتشرحه، وتتقدم بزر التالي حتى تنتهي فتزول الطبقات وتعود الصفحة حرفيًا 177ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولة على صفحة المستودع > Esc وزر × ينهيان الجولة 94ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولة على صفحة المستودع > حذف عنصر الخطوة يعرض بطاقة تشرح سبب غيابه بدل التخمين ولا يُبرز شيئًا 95ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولة على صفحة المستودع > عنصر يوجد في صفحة أخرى: البطاقة تذكر الصفحة وصلاحية العنصر من القاموس 96ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولة على صفحة المستودع > الجولة تبقى بعد تنقل Turbo: تعيد الوحدة تركيبها بالحالة نفسها على الصفحة الجديدة 75ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولة على صفحة المستودع > ظهور العنصر بعد التحميل (React) يحدّد الخطوة بعد هدوء التعديلات 120ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولات الحساسة: شرح بصري فقط > privacy-settings: شريط بصري بلا إبراز ولا قراءة للصفحة ولا لمس لعناصرها 63ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولات الحساسة: شرح بصري فقط > secure-2fa: شريط بصري بلا إبراز ولا قراءة للصفحة ولا لمس لعناصرها 56ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولات الحساسة: شرح بصري فقط > add-ssh: شريط بصري بلا إبراز ولا قراءة للصفحة ولا لمس لعناصرها 58ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولات الحساسة: شرح بصري فقط > protect-branch: شريط بصري بلا إبراز ولا قراءة للصفحة ولا لمس لعناصرها 59ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولات الحساسة: شرح بصري فقط > public-vs-private: شريط بصري بلا إبراز ولا قراءة للصفحة ولا لمس لعناصرها 57ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الجولات الحساسة: شرح بصري فقط > delete-repo-safely: شريط بصري بلا إبراز ولا قراءة للصفحة ولا لمس لعناصرها 61ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > profile-intro: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 270ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > open-repo: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 256ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > commit-branch-tag-release: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 256ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > create-repo: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 120ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > upload-file: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 66ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > understand-pr: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 133ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > understand-actions: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 118ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > publish-release: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 61ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > privacy-settings: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 58ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > secure-2fa: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 57ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > add-ssh: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 58ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > protect-branch: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 58ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > public-vs-private: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 58ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > delete-repo-safely: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 56ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > top-navigation: تُشغَّل خطواتها كلها على صفحاتها ولا يقع نقر ولا حدث ولا تركيز على عنصر GitHub 258ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > ضابط: العدّاد يلتقط نقرة اصطناعية على عنصر من الصفحة ولا يلتقط نقرة على زر الشريط (فصفره في الجولات ذو معنى) 69ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قفل الأمان (AC-B7): صفر نقرات وأحداث اصطناعية على عناصر GitHub في كل جولة > الجولات الحية تجد عناصرها فعلًا على العينات (لا يكتفي الاختبار بالغياب) 49ms
+ ✓ tests/modules/b/tours/tours.test.tsx > رسائل اللوحة > start وnext وprev وstatus وstop عبر الرسالة، والرسائل الغريبة تُتجاهل 77ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قائمة الجولات في اللوحة > تعرض الجولات الخمس عشرة وشارة «شرح بصري فقط» للستّ، وزر البدء يرسل إلى الجسر ويعرض الحالة 41ms
+ ✓ tests/modules/b/tours/tours.test.tsx > قائمة الجولات في اللوحة > خارج صفحة GitHub: تُعلن ذلك ولا تفعل شيئًا 27ms
+ ✓ tests/modules/b/tours/tours.test.tsx > الشيفرة نفسها لا تحوي نداءً إلى النقر أو الإرسال أو إطلاق الأحداث > src/modules/b/tours بلا click() وdispatchEvent وsubmit وrequestSubmit وبناء أحداث اصطناعية 2ms
+
+ Test Files  1 passed (1)
+      Tests  39 passed (39)
+   Start at  01:44:09
+   Duration  4.07s (tests 81%, environment 14%, transform 4%, import 2%)
+

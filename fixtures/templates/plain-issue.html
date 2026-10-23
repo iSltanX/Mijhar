@@ -1,0 +1,16 @@
+<!doctype html>
+<!-- عينة T-7.2: صفحة بلاغ جديد عادية بلا قالب (عنوان ووصف وقائمة تسميات جانبية بمربعات اختيار). لا حارس قالب: يعمل المساعد كما في T-7.1. مكتوبة لهذه المرحلة؛ ليست لقطة حية. -->
+<html lang="en" data-color-mode="auto">
+<head><meta charset="utf-8"><title>New Issue · octo/demo</title></head>
+<body class="logged-in env-production">
+<main id="js-repo-pjax-container">
+  <form id="plain-form" action="/octo/demo/issues" method="post">
+    <input type="text" name="issue[title]" aria-label="Title" value="">
+    <markdown-toolbar for="issue_body"><div class="toolbar-group"><button type="button" data-md-button aria-label="Bold">B</button></div></markdown-toolbar>
+    <textarea id="issue_body" name="issue[body]" aria-label="Markdown value"></textarea>
+    <details-menu role="menu"><label><input type="checkbox" name="issue[labels][]" value="bug"> bug</label><label><input type="checkbox" name="issue[labels][]" value="docs"> docs</label></details-menu>
+    <button type="submit" id="submit-issue">Submit new issue</button>
+  </form>
+</main>
+</body>
+</html>

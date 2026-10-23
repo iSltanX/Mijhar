@@ -1,0 +1,28 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj13-509a66
+
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > بيانات البنك > الأصناف الأربعة بالعربية والإنجليزية، في كل صنف ثلاث عبارات فأكثر بنصين غير فارغين 2ms
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > بيانات البنك > عبارات الاقتراح تحمل كتلة suggestion مغلقة بنص بديل يملؤه المستخدم، وغيرها لا كتلة كود فيها 1ms
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > بيانات البنك > selectPhrase تعيد النص بلغته، وfindPhrase تعيد undefined لغير الموجود 0ms
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > الإدراج عبر المعاينة فقط (AC-F3) > اختيار عبارة يعرضها في المعاينة ولا يمس الحقل ولا يطلق أي حدث input 130ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > الفصل البصري والبرمجي > قسمان شقيقان داخل اللوحة: الثابت والاختياري، ولا يحتوي أحدهما الآخر 147ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > الفصل البصري والبرمجي > القسم الثابت لا يستورد خدمة الترجمة ولا تقنيع الرموز في أي ملف من ملفاته 1ms
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > الإدراج عبر المعاينة فقط (AC-F3) > اللغة الإنجليزية، ثم الإدراج عند المؤشر بفواصل الفقرات، ثم التراجع يعيد المسودة حرفيًا 96ms
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > الإدراج عبر المعاينة فقط (AC-F3) > كتلة suggestion تُدرج كاملة بسياجها، مع بيان أنها تعمل في تعليق مراجعة على سطر 77ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > غياب أي محرك ترجمة > القسم الاختياري يعرض «المحرك غير متاح» ولا زر ترجمة، والقسم الثابت يعمل كاملًا بلا شبكة 123ms
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > الإدراج عبر المعاينة فقط (AC-F3) > زر «ألغِ العبارة» يعيد المعاينة إلى تنظيم الحقول، والنقر على العبارة نفسها يلغي اختيارها 83ms
+ ✓ tests/modules/f/phrasebank/phrasebank.test.tsx > الإدراج عبر المعاينة فقط (AC-F3) > لا زر إدراج على العبارة نفسها: عناصر القائمة أزرار اختيار وحدها 56ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > غياب أي محرك ترجمة > القسم الثابت متطابق حرفيًا (DOM) سواء غاب المحرك أو حضر جاهزًا أو كان غير متاح 318ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > غياب أي محرك ترجمة > ظهور المحرك أو زواله والمساعد مفتوح يغيّر القسم الاختياري وحده 180ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > المحرك غير متاح بسبب > يعرض السبب صراحةً ولا زر ترجمة 104ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > محرك جاهز: ترجمة بنقر صريح مع تقنيع ومراجعة يدوية > لا استدعاء للمحرك قبل النقر، حتى مع استعمال القسم الثابت كله 122ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > محرك جاهز: ترجمة بنقر صريح مع تقنيع ومراجعة يدوية > المسودة تُقنَّع قبل المحرك (الكود والمسار والرابط لا يبلغانه)، والإدراج معطَّل حتى تؤكد المراجعة، ثم يُدرج بلا مسح المسودة ويُتراجع عنه 167ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > محرك جاهز: ترجمة بنقر صريح مع تقنيع ومراجعة يدوية > محرك يخلّ بالرموز ← يبقى الأصل مع تنبيه ولا يُعرض نص مشوَّه ولا يُدرج شيء 142ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > محرك جاهز: ترجمة بنقر صريح مع تقنيع ومراجعة يدوية > تعطل المحرك يُعرض خطأً صريحًا، والإلغاء أثناء الترجمة يوقفها بلا إدراج 510ms
+ ✓ tests/modules/f/phrasebank/separation.test.tsx > محرك جاهز: ترجمة بنقر صريح مع تقنيع ومراجعة يدوية > مسودة فارغة ← زر الترجمة معطَّل ولا استدعاء 107ms
+
+ Test Files  2 passed (2)
+      Tests  19 passed (19)
+   Start at  01:44:16
+   Duration  2.39s (tests 75%, environment 15%, transform 5%, import 5%)
+

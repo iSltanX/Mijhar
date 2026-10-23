@@ -8,6 +8,7 @@ import type { MutationRecorder } from './lifecycle/mutation-registry';
 import { MODULE_A } from '../modules/a/scope/module';
 import { CARD_MODULE } from '../modules/b/card/module';
 import { SEARCH_MODULE } from '../modules/b/search/module';
+import { TOURS_MODULE } from '../modules/b/tours/module';
 import { TRANSLATE_MODULE } from '../modules/c/ui/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
 import { LOG_MODULE } from '../modules/d/log-parser/module';
@@ -104,6 +105,7 @@ export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   MODULE_G, // MJ9 (T-8.1): الوحدة (ز) الملاحظات الخاصة
   MODULE_H, // MJ9 (T-9.1، T-9.4): الوحدة (ح) شريط README العربي وبطاقة الملف الشخصي
   BOOKMARKS_MODULE, // MJ12 (T-8.2): الوحدة (ز) زر «أكمل لاحقًا»
+  TOURS_MODULE, // MJ13 (T-3.5): الوحدة (ب): الجولات الإرشادية القرائية الآمنة
 ];
 
 export function createModuleRegistry(modules: readonly ExtensionModule[] = BUILTIN_MODULES): ModuleRegistry {
