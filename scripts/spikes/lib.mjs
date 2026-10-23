@@ -179,7 +179,8 @@ export function writeJson(file, data) {
 }
 
 // خادم ملفات ثابت محلي لعينات fixtures (المنفذ عشوائي).
-export async function serveDir(dir) {
+// isolate: ترويستا COOP/COEP لعزل الأصل (crossOriginIsolated) فترتفع دقة performance.now().
+export async function serveDir(dir, { isolate = false } = {}) {
   const http = await import('node:http');
   const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css', '.json': 'application/json', '.wasm': 'application/wasm', '.onnx': 'application/octet-stream' };
   const server = http.createServer((req, res) => {
@@ -189,7 +190,9 @@ export async function serveDir(dir) {
       res.writeHead(404).end('not found');
       return;
     }
-    res.writeHead(200, { 'content-type': types[path.extname(file)] ?? 'application/octet-stream', 'cache-control': 'no-store' });
+    const headers = { 'content-type': types[path.extname(file)] ?? 'application/octet-stream', 'cache-control': 'no-store' };
+    if (isolate) Object.assign(headers, { 'cross-origin-opener-policy': 'same-origin', 'cross-origin-embedder-policy': 'credentialless' });
+    res.writeHead(200, headers);
     fs.createReadStream(file).pipe(res);
   });
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
