@@ -58,6 +58,7 @@ function extensionDir(family, variant) {
 const providerHeaders = (key, direct) => ({ 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json', ...(direct ? { 'anthropic-dangerous-direct-browser-access': 'true' } : {}) });
 const PING = { model: MODEL, max_tokens: 16, messages: [{ role: 'user', content: 'ping' }] };
 const invalidProbe = { url: PROVIDER, body: PING, variants: [{ name: 'بلا ترويسة الوصول المباشر', headers: providerHeaders(INVALID_KEY, false) }, { name: 'مع anthropic-dangerous-direct-browser-access', headers: providerHeaders(INVALID_KEY, true) }] };
+const realPageProbe = realKey ? { url: PROVIDER, body: PING, variants: [{ name: 'مفتاح صالح · صفحة الإضافة · بلا ترويسة الوصول المباشر', headers: providerHeaders(realKey, false) }, { name: 'مفتاح صالح · صفحة الإضافة · مع الترويسة', headers: providerHeaders(realKey, true) }] } : null;
 const realProbes = realKey
   ? [
       { url: PROVIDER, body: PING, variants: [{ name: 'مفتاح صالح · بلا ترويسة الوصول المباشر', headers: providerHeaders(realKey, false) }, { name: 'مفتاح صالح · مع الترويسة', headers: providerHeaders(realKey, true) }] },
@@ -162,9 +163,15 @@ async function chromiumRun(key, variant) {
       await ext.click('#provider');
       r.provider.extensionPage = await waitFor(() => ext.evaluate(() => JSON.parse(document.body.getAttribute('data-results') ?? '{}').provider), 15000);
       r.provider.background = await bg({ t05: 'provider', probe: invalidProbe });
-      // بمفتاح صالح (إن أُتيح): الخلفية وحدها.
+      // بمفتاح صالح (إن أُتيح): الخلفية، وصفحة الإضافة (لا سكربت المحتوى: لا يصل إليه سرّ في الخطة).
       r.provider.backgroundWithKey = [];
       for (const probe of realProbes) r.provider.backgroundWithKey.push(await bg({ t05: 'provider', probe }));
+      if (realPageProbe) {
+        await ext.evaluate(() => document.body.removeAttribute('data-results'));
+        await ext.evaluate((probe) => document.body.setAttribute('data-provider-probe', JSON.stringify(probe)), realPageProbe);
+        await ext.click('#provider');
+        r.provider.extensionPageWithKey = await waitFor(() => ext.evaluate(() => JSON.parse(document.body.getAttribute('data-results') ?? '{}').provider), 20000);
+      }
     }
   } catch (error) {
     r.error = String(error?.stack ?? error).split('\n').slice(0, 3).join(' | ');
@@ -295,6 +302,12 @@ async function firefoxRun(variant) {
       r.provider.background = await bg({ t05: 'provider', probe: invalidProbe });
       r.provider.backgroundWithKey = [];
       for (const probe of realProbes) r.provider.backgroundWithKey.push(await bg({ t05: 'provider', probe }));
+      if (realPageProbe) {
+        await switchTo('ext');
+        await ff.exec(`document.body.removeAttribute('data-results'); document.body.setAttribute('data-provider-probe', arguments[0]);`, [JSON.stringify(realPageProbe)]);
+        await clickLight('#provider');
+        r.provider.extensionPageWithKey = await waitFor(() => ff.exec(`return JSON.parse(document.body.getAttribute('data-results') ?? '{}').provider;`), 20000);
+      }
     }
   } catch (error) {
     r.error = String(error?.stack ?? error).split('\n').slice(0, 3).join(' | ');

@@ -19,6 +19,11 @@ const readToken = (name) => {
   return file && fs.existsSync(file) ? fs.readFileSync(file, 'utf8').trim() : null;
 };
 const TOKENS = { min: readToken('T05_TOKEN_FILE_MIN'), read: readToken('T05_TOKEN_FILE_READ') };
+// رمز القراءة المطابق للرمز الأدنى ليس رمز قراءة: يُعامل غائبًا ويُعلَن.
+const identicalTokens = Boolean(TOKENS.min && TOKENS.read && TOKENS.min === TOKENS.read);
+if (identicalTokens) TOKENS.read = null;
+// معرّفات الموارد تُعطى صراحة (من gh بحساب المالك) حين لا يتاح رمز القراءة لاكتشافها.
+const GIVEN = { pr: process.env.T05_PR, sha: process.env.T05_SHA, base: process.env.T05_BASE, head: process.env.T05_HEAD, run: process.env.T05_RUN, job: process.env.T05_JOB };
 const REPO = process.env.T05_REPO ?? null;
 // رمز بصيغة صحيحة ومحتوى مختلَق: لقياس إشارة الرمز غير الصالح/الملغى دون رمز حقيقي.
 const FAKE = 'github_pat_11AAAAAAA0mijharT05invalidTokenForSignalProbe_0000000000000000000000000000000000';
@@ -82,17 +87,28 @@ const badRepo = await call('/repos/octocat/Hello-World', FAKE);
 result.signals.invalidTokenOnPublic = { status: badRepo.status, message: badRepo.message };
 
 // 3. الموثَّق على المستودع التجريبي.
-if (!REPO || !TOKENS.read) {
-  result.authenticated = { notRun: 'لم يُجرَ: لم يُتح مستودع تجريبي خاص ورمز قراءة دقيق الحبيبات (T05_REPO وT05_TOKEN_FILE_READ)' };
+if (identicalTokens) result.readTokenNotRun = 'لم يُجرَ: ملف رمز القراءة مطابق لملف الرمز الأدنى (لم يُحفظ رمز القراءة)، فلا يُثبت قبول أقل صلاحية مرشحة';
+if (!REPO || (!TOKENS.read && !TOKENS.min)) {
+  result.authenticated = { notRun: 'لم يُجرَ: لم يُتح مستودع تجريبي خاص ورمز دقيق الحبيبات (T05_REPO وT05_TOKEN_FILE_*)' };
 } else {
   const base = `/repos/${REPO}`;
-  // اكتشاف PR وتشغيل فاشل ومهمته بالرمز الكامل للقراءة.
-  const pulls = await call(`${base}/pulls?state=all&per_page=1`, TOKENS.read);
-  const pr = Array.isArray(pulls.body) ? pulls.body[0] : null;
-  const runs = await call(`${base}/actions/runs?per_page=5`, TOKENS.read);
-  const run = (runs.body?.workflow_runs ?? []).find((r) => r.conclusion === 'failure') ?? runs.body?.workflow_runs?.[0] ?? null;
-  const jobs = run ? await call(`${base}/actions/runs/${run.id}/jobs`, TOKENS.read) : null;
-  const job = jobs?.body?.jobs?.[0] ?? null;
+  // اكتشاف PR وتشغيل فاشل ومهمته بالرمز الكامل للقراءة، أو من المعرّفات المعطاة.
+  let pr = null;
+  let run = null;
+  let job = null;
+  if (TOKENS.read) {
+    const pulls = await call(`${base}/pulls?state=all&per_page=1`, TOKENS.read);
+    pr = Array.isArray(pulls.body) ? pulls.body[0] : null;
+    const runs = await call(`${base}/actions/runs?per_page=5`, TOKENS.read);
+    run = (runs.body?.workflow_runs ?? []).find((r) => r.conclusion === 'failure') ?? runs.body?.workflow_runs?.[0] ?? null;
+    const jobs = run ? await call(`${base}/actions/runs/${run.id}/jobs`, TOKENS.read) : null;
+    job = jobs?.body?.jobs?.[0] ?? null;
+  } else if (GIVEN.pr) {
+    pr = { number: Number(GIVEN.pr), head: { sha: GIVEN.sha, ref: GIVEN.head }, base: { ref: GIVEN.base } };
+    run = GIVEN.run ? { id: Number(GIVEN.run), head_sha: GIVEN.sha, conclusion: 'failure' } : null;
+    job = GIVEN.job ? { id: Number(GIVEN.job) } : null;
+    result.discoveredBy = 'معرّفات معطاة من gh بحساب المالك (لا رمز قراءة)';
+  }
   const sha = pr?.head?.sha ?? run?.head_sha ?? null;
   const baseRef = pr?.base?.ref ?? 'main';
   result.discovered = { pr: pr?.number ?? null, run: run?.id ?? null, runConclusion: run?.conclusion ?? null, job: job?.id ?? null, sha: sha ? `${sha.slice(0, 7)}…` : null, base: baseRef };
@@ -119,12 +135,13 @@ if (!REPO || !TOKENS.read) {
     const row = { id: e.id, documented: e.documented };
     row.unauthenticated = await call(e.path, null, { manual: e.manual });
     if (TOKENS.min) row.minToken = await call(e.path, TOKENS.min, { manual: e.manual });
-    row.readToken = await call(e.path, TOKENS.read, { manual: e.manual, follow: e.manual });
+    if (TOKENS.read) row.readToken = await call(e.path, TOKENS.read, { manual: e.manual, follow: e.manual });
+    else row.readToken = { notRun: 'لم يُجرَ: لا رمز قراءة' };
     for (const k of ['unauthenticated', 'minToken', 'readToken']) if (row[k]) delete row[k].body;
     result.endpoints.push(row);
   }
-  const authLimit = await call('/rate_limit', TOKENS.read);
-  result.authenticated = { rateLimit: authLimit.body?.resources?.core ?? null, search: authLimit.body?.resources?.search ?? null, tokenExpirationHeader: authLimit.headers['github-authentication-token-expiration'] ?? null };
+  const authLimit = await call('/rate_limit', TOKENS.read ?? TOKENS.min);
+  result.authenticated = { token: TOKENS.read ? 'read' : 'min', rateLimit: authLimit.body?.resources?.core ?? null, search: authLimit.body?.resources?.search ?? null, tokenExpirationHeader: authLimit.headers['github-authentication-token-expiration'] ?? null };
 }
 if (!TOKENS.min) result.minTokenNotRun = 'لم يُجرَ: لم يُتح رمز بصلاحية Metadata وحدها (T05_TOKEN_FILE_MIN)، فلا يُثبت رفض أقل صلاحية';
 
