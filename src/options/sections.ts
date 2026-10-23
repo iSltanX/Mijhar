@@ -13,6 +13,7 @@ import { TRANSLATE_SECTION } from '../modules/c/ui/section';
 import { PR_STATUS_SECTION } from '../modules/d/pr-status/section';
 import { COMPOSER_SECTION } from '../modules/f/composer/section';
 import { LATER_SETTINGS_SECTION } from '../modules/g/bookmarks/section';
+import { EXPORT_SETTINGS_SECTION } from '../modules/g/export/section';
 import { NOTES_SETTINGS_SECTION } from '../modules/g/notes/section';
 import { COMMUNITY_SETTINGS_SECTION } from '../modules/h/section';
 
@@ -49,6 +50,7 @@ export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
   NOTES_SETTINGS_SECTION, // MJ9 (T-8.1): الملاحظات الخاصة
   COMMUNITY_SETTINGS_SECTION, // MJ9 (T-9.1، T-9.4): المجتمع وأول مساهمة
   LATER_SETTINGS_SECTION, // MJ12 (T-8.2، T-8.3): أكمل لاحقًا وخصوصية الأسطر (DEC-05)
+  EXPORT_SETTINGS_SECTION, // MJ13 (T-8.4): التخزين المحلي والتصدير وتنبيه الجهاز المشترك
 ];
 
 export const sectionsFor = (surface: SettingsSurface, sections: readonly SettingsSection[] = SETTINGS_SECTIONS): SettingsSection[] =>
