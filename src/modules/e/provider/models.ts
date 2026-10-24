@@ -1,37 +1,30 @@
-// المودلات المتوافقة مع التحليل (T-11.10، AC-E10 (٤)، DEC-13 ن-3): ما أعلنت واجهة المزوّد الرسمية توافقه، أو ما ثبت بفحص صريح بدأه المستخدم؛ وما
-// سواهما لا يُعرض خيارًا ولا يُرسل إليه تحليل. لا قائمة مودلات ولا اسم ولا نمط اسم هنا: كل شيء من قائمة المزوّد وقت التشغيل (AC-E9 (٣)).
-// ومزوّد بلا مودل متوافق يُعرض بلا خيار تحليل معلَّلًا (BLK-MODEL-COMPAT)، ولا يُخمَّن مودل.
-import type { ModelsList, ProviderModel } from './types';
+// النماذج (T-11.10، AC-E10 (٤)، DEC-13 ن-5): معرّف النموذج يكتبه المستخدم لكل مزوّد ويُستعمل كما هو وإن لم يكن في قائمة المزوّد؛ والقائمة (من واجهة
+// المزوّد الرسمية وقت التشغيل) مساعدة لا شرط، والاختبار اختياري لا شرط. لا قائمة نماذج ولا اسم ولا نمط اسم هنا (AC-E9 (٣))؛ والحقل الفارغ لا تحليل
+// معه ولا يُخمَّن نموذج (BLK-MODEL-COMPAT).
+import type { ModelTest, ModelsList, ProviderFailure, ProviderModel } from './types';
 
 export const isModelId = (value: unknown): value is string => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:@-]{0,127}$/.test(value);
 
-/** مودل يصلح للتحليل الآن: متوافق (معلن أو مفحوص) وغير متقاعد. */
-export const isUsable = (m: ProviderModel): boolean => (m.compatibility === 'declared' || m.compatibility === 'checked') && m.lifecycle !== 'retired';
-
-/** المودلات المتوافقة بترتيب المزوّد نفسه. */
-export const compatibleModels = (list: Pick<ModelsList, 'models'> | null): ProviderModel[] => (list ? list.models.filter(isUsable) : []);
-
-/** ما لم يُعلن توافقه ولم يثبت بعد (يُعرض للفحص الصريح وحده إن دعمه المحوّل). */
-export const uncheckedModels = (list: Pick<ModelsList, 'models'> | null): ProviderModel[] => (list ? list.models.filter((m) => m.compatibility === 'unknown' && m.lifecycle !== 'retired') : []);
+/** نماذج القائمة التي تُعرض للمساعدة: ما لم يتقاعد، بترتيب المزوّد نفسه. */
+export const listedModels = (list: Pick<ModelsList, 'models'> | null): ProviderModel[] => (list ? list.models.filter((m) => m.lifecycle !== 'retired') : []);
 
 /**
- * المودل الافتراضي من قائمة المزوّد نفسها: أول مودل متوافق نشط بترتيب المزوّد (الأحدث أولًا حيث يعلن ذلك)، وإلا أول متوافق؛ ولا يُفضَّل مودل
- * باسمه ولا فئته (AC-E10 (٤)).
+ * النموذج المقترح في حقل فارغ بعد التحقق: أول نموذج أعلنت واجهة المزوّد الرسمية توافقه مع التحليل ولم يُعلَن إيقافه، بترتيب المزوّد؛ ولا يُفضَّل نموذج
+ * باسمه ولا فئته. اقتراح يجوز ولا يُفرض (DEC-13 ن-5)، وحيث لا تعلن الواجهة توافقًا لا اقتراح.
  */
 export function defaultModel(list: Pick<ModelsList, 'models'>): ProviderModel | null {
-  const usable = compatibleModels(list);
-  return usable.find((m) => m.lifecycle === null || m.lifecycle === 'active') ?? usable[0] ?? null;
+  const declared = listedModels(list).filter((m) => m.compatibility === 'declared');
+  return declared.find((m) => m.lifecycle === null || m.lifecycle === 'active') ?? declared[0] ?? null;
 }
 
-/** قائمة جديدة من المزوّد مع ما ثبت توافقه بفحص صريح في القائمة السابقة (فلا يُعاد الفحص بعد كل تحقق). */
-export function keepChecked(fresh: ModelsList, previous: ModelsList | null): ModelsList {
-  const checked = new Set(previous?.models.filter((m) => m.compatibility === 'checked').map((m) => m.id) ?? []);
-  if (!checked.size) return fresh;
-  return { ...fresh, models: fresh.models.map((m) => (m.compatibility === 'unknown' && checked.has(m.id) ? { ...m, compatibility: 'checked' as const } : m)) };
+/**
+ * ما يعنيه فشل الاختبار: rejected = رفض المزوّد النموذج نفسه (غير موجود أو غير متاح للمفتاح أو لا يقبله الطلب)؛ inconclusive = لم يُحسم (الشبكة
+ * والمصادقة والصلاحية وحد الطلبات وتعطل الخدمة)، فليس حكمًا على النموذج ولا «عدم توافق».
+ */
+export function testVerdict(failure: ProviderFailure): Exclude<ModelTest['verdict'], 'accepted'> {
+  return failure === 'not-found' || failure === 'invalid' || failure === 'incompatible' ? 'rejected' : 'inconclusive';
 }
 
-/** القائمة بعد فحص صريح ناجح لمودل. */
-export const markChecked = (list: ModelsList, model: string): ModelsList => ({
-  ...list,
-  models: list.models.map((m) => (m.id === model && m.compatibility === 'unknown' ? { ...m, compatibility: 'checked' as const } : m)),
-});
+/** نتيجة اختبار تخص هذا النموذج بمفتاح المزوّد الحالي وحدهما، وإلا null: لا تنتقل نتيجة إلى نموذج آخر ولا إلى مفتاح استُبدل. */
+export const testFor = (test: ModelTest | null, model: string, keySavedAt: number | null): ModelTest | null =>
+  test && model && test.model === model && keySavedAt !== null && test.keySavedAt === keySavedAt ? test : null;

@@ -1,13 +1,14 @@
 // رسائل طبقة المزوّد بين الخلفية وصفحاتها وسكربت المحتوى (T-11.6، T-11.10). لا سرّ يعبرها: مفتاح كل مزوّد يُقرأ في الخلفية وحدها من مخزنه لكل طلب،
 // والرد بلا المفتاح.
 //  - status: مزوّد بعينه (أو المختار) ووجهته وصلاحيتاه وحالة مفتاحه ومودله وقائمة مودلاته بمصدرها ووقت قراءتها، وحالة مفاتيح بقية المزوّدين (لا طلب شبكة).
-//  - verify: طلب التحقق المعلن (قائمة المودلات) لمزوّد بعينه من صفحة الإعدادات بنقر المستخدم.
-//  - probe: فحص التوافق الصريح لمودل لم تعلن واجهة مزوّده توافقه (DEC-13 ن-3)، بنقر المستخدم وبلا محتوى من الصفحات.
+//  - verify: طلب التحقق المعلن (قائمة النماذج) لمزوّد بعينه من صفحة الإعدادات بنقر المستخدم: «احفظ وتحقق» و«تحقق من المفتاح»، وزر + بجانب حقل
+//    النموذج حين لا قائمة مقروءة (الطلب نفسه، بلا اقتراح في الحقل).
+//  - probe: «اختبر النموذج» الاختياري للنموذج المكتوب (DEC-13 ن-5)، بنقر المستخدم وبنص ثابت بلا محتوى من الصفحات؛ ليس شرطًا للحفظ ولا للتحليل.
 //  - analyze: طلب تحليل واحد بعد موافقة المستخدم بنقرة موثوقة في القسم (AD-27)، بالمحتوى المنقّح والمزوّد والمودل التي رآها.
 //  - cancel: إيقاف طلب جارٍ.
 import type { ExtensionApi } from '../../../core/ui-host/browser-api';
 import type { ConnectionStatus, Health } from '../../../core/connections/health';
-import type { AnalysisReply, ModelsList, ProviderFailure, ProviderInfo, ProviderResult } from './types';
+import type { AnalysisReply, ModelTest, ModelsList, ProviderFailure, ProviderInfo, ProviderResult } from './types';
 
 export const PROVIDER_MESSAGE = 'mijhar/provider';
 
@@ -30,7 +31,7 @@ type Message<T> = { readonly type: typeof PROVIDER_MESSAGE } & T;
 
 export type ProviderRequest =
   | Message<{ readonly op: 'status'; readonly provider?: string }>
-  | Message<{ readonly op: 'verify'; readonly provider: string }>
+  | Message<{ readonly op: 'verify'; readonly provider: string; readonly suggest?: boolean }>
   | Message<{ readonly op: 'probe'; readonly provider: string; readonly model: string }>
   | Message<{ readonly op: 'analyze' } & AnalyzeInput>
   | Message<{ readonly op: 'cancel'; readonly requestId: string }>;
@@ -58,11 +59,14 @@ export interface ProviderStatus {
   readonly contentPermission: boolean | null;
   /** حالة مفتاحه من سجل الاتصالات (بلا المفتاح)، أو null إن تعذّرت قراءتها. */
   readonly key: ConnectionStatus | null;
-  /** المودل المتوافق الذي يُرسل إليه الآن، أو null حين لم تُقرأ القائمة أو لم يثبت توافق مودل (BLK-MODEL-COMPAT). */
+  /** النموذج الذي يُرسل إليه التحليل الآن: ما في حقل النموذج كما هو وإن لم يكن في القائمة (DEC-13 ن-5)، أو null حين يكون الحقل فارغًا (BLK-MODEL-COMPAT). */
   readonly model: { readonly id: string; readonly displayName: string } | null;
-  /** اختيار المستخدم لهذا المزوّد ('' = الافتراضي من القائمة). */
+  /** ما في حقل النموذج لهذا المزوّد ('' = فارغ). */
   readonly choice: string;
+  /** قائمة نماذجه المقروءة في الجلسة (للمساعدة بزر +)، أو null. */
   readonly models: ModelsList | null;
+  /** نتيجة آخر «اختبر النموذج» إن كانت للنموذج الذي في الحقل وبالمفتاح المحفوظ الآن، وإلا null. */
+  readonly test: ModelTest | null;
   /** لا يُرسل طلب تحليل قبله (ms) كما أعلنه المزوّد، أو null. */
   readonly retryAt: number | null;
   /** كل المزوّدين في السجل بحالة مفاتيحهم، بترتيب السجل. */
@@ -78,7 +82,8 @@ export interface AnalysisOutcome extends AnalysisReply {
 }
 
 export type VerifyResponse = ProviderResult<ModelsList>;
-export type ProbeResponse = ProviderResult<ModelsList>;
+/** نتيجة الاختبار حين أُرسل طلبه (قبول أو رفض أو لم يُحسم)؛ وفشل محلي حين لم يُرسل شيء (لا مفتاح، موعد إعادة معلن، صلاحية…). */
+export type ProbeResponse = { readonly ok: true; readonly data: ModelTest } | Extract<ProviderResult<never>, { ok: false }>;
 export type AnalyzeResponse = ProviderResult<AnalysisOutcome>;
 
 const OPS: readonly ProviderOp[] = ['status', 'verify', 'probe', 'analyze', 'cancel'];
@@ -89,7 +94,8 @@ export const isProviderRequest = (message: unknown): message is ProviderRequest 
 export interface ProviderPort {
   /** حالة مزوّد بعينه، أو المختار إن لم يُذكر. */
   status(provider?: string): Promise<ProviderStatus | null>;
-  verify(provider: string): Promise<VerifyResponse>;
+  /** suggest=false: جلب القائمة لزر + دون اقتراح نموذج في الحقل الفارغ. */
+  verify(provider: string, options?: { readonly suggest?: boolean }): Promise<VerifyResponse>;
   probe(provider: string, model: string): Promise<ProbeResponse>;
   analyze(input: AnalyzeInput): Promise<AnalyzeResponse>;
   cancel(requestId: string): Promise<void>;
@@ -109,7 +115,8 @@ export function runtimeProviderPort(runtime: Pick<ExtensionApi['runtime'], 'send
   };
   return {
     status: (provider) => send<ProviderStatus | null>({ type: PROVIDER_MESSAGE, op: 'status', ...(provider ? { provider } : {}) }, null),
-    verify: (provider) => send<VerifyResponse>({ type: PROVIDER_MESSAGE, op: 'verify', provider }, unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة')),
+    verify: (provider, options) =>
+      send<VerifyResponse>({ type: PROVIDER_MESSAGE, op: 'verify', provider, ...(options?.suggest === false ? { suggest: false } : {}) }, unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة')),
     probe: (provider, model) => send<ProbeResponse>({ type: PROVIDER_MESSAGE, op: 'probe', provider, model }, unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة')),
     analyze: (input) => send<AnalyzeResponse>({ type: PROVIDER_MESSAGE, op: 'analyze', ...input }, unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة؛ لم يُرسل شيء')),
     cancel: async (requestId) => {

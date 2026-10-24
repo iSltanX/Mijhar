@@ -46,7 +46,7 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
   }, []);
   const { consent } = prepared;
   const ready = destination.model !== null && destination.permission && !blocked;
-  const model = destination.model ? destination.model.displayName : 'مودل لم يُحدَّد بعد';
+  const model = destination.model ? destination.model.displayName : 'نموذج لم يُحدَّد بعد';
   // يتغير المفتاح مع المحتوى أو الوجهة فيُعاد التركيز إلى العنوان عند إعادة العرض.
   useEffect(() => {
     if (changed) title.current?.focus();
@@ -61,7 +61,7 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
       </header>
       <p class="mj-consent-lead" id="mj-consent-lead" data-consent-lead="">
         سيُرسَل المحتوى الموضّح أدناه، بعد تنقيحه في متصفحك، إلى <strong>{destination.provider}</strong> (<Ltr className="mono">{destination.host}</Ltr>) عبر
-        مفتاحك ليحلّله المودل <Ltr>{model}</Ltr>. لا يُرسل شيء قبل أن تختار «إرسال للتحليل».
+        مفتاحك ليحلّله النموذج <Ltr>{model}</Ltr>. لا يُرسل شيء قبل أن تختار «إرسال للتحليل».
       </p>
       {changed && (
         <p class="mj-note" data-tone="warning" role="alert" data-consent-changed="">
@@ -115,7 +115,7 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
                 )}
               </>
             ) : (
-              <>لم يُحدَّد مودل متوافق بعد: تحقق من المفتاح في بطاقة «مزوّد التحليل» لتُقرأ قائمة المودلات من المزوّد، أو اختر مودلًا متوافقًا.</>
+              <>حقل النموذج فارغ: اكتب معرّف النموذج أو اختره بزر + في بطاقة «مزوّد التحليل» في الإعدادات.</>
             )}
           </dd>
         </div>
@@ -125,7 +125,7 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
           {shown ? 'أخفِ ما سيُرسل' : 'اعرض ما سيُرسل'}
         </button>
         <button type="button" class="mj-link" data-action="consent-settings" onClick={onSettings}>
-          غيّر المودل
+          غيّر النموذج
         </button>
       </div>
       {shown && (

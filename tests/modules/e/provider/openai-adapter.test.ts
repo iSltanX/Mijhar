@@ -6,7 +6,7 @@ import { OPENAI_ADAPTER } from '../../../../src/modules/e/provider/adapters/open
 import { checkKey } from '../../../../src/modules/e/provider/catalog';
 import { OPENAI } from '../../../../src/modules/e/provider/descriptors/openai';
 import { ProviderPermissionError, bindKey, gatedFetch } from '../../../../src/modules/e/provider/gate';
-import { compatibleModels, defaultModel, uncheckedModels } from '../../../../src/modules/e/provider/models';
+import { defaultModel, listedModels } from '../../../../src/modules/e/provider/models';
 import { parseAnalysis } from '../../../../src/modules/e/provider/result';
 import { fakePermissions } from '../../../core/ui-host/helpers';
 import { fakeOpenAiKey, openAiMock, structuredReply } from './fixture-provider-mock';
@@ -53,7 +53,7 @@ describe('قراءة المودلات: طلب التحقق المعلن', () => 
     expect(Object.keys(req?.headers ?? {}).sort()).toEqual(['authorization']);
   });
 
-  it('DEC-13 ن-3 وHYP-22: لا تعلن القائمة توافقًا، فكل مودل «unknown» ولا يُستنتج من اسمه؛ والمتقاعد لا يُعرض والمعلن إيقافه يبقى', async () => {
+  it('DEC-13 ن-5 وHYP-22: لا تعلن القائمة توافقًا، فكل مودل «unknown» ولا يُستنتج من اسمه؛ والمتقاعد لا يُعرض والمعلن إيقافه يبقى', async () => {
     const { c } = call();
     const r = await OPENAI_ADAPTER.listModels(c);
     if (!r.ok) throw new Error('فشل');
@@ -64,10 +64,9 @@ describe('قراءة المودلات: طلب التحقق المعلن', () => 
     ]);
     expect(r.data).toMatchObject({ provider: 'openai', source: 'https://api.openai.com/v1/models', readAt: NOW, partial: false });
     expect(r.data.models[0]?.createdAt).toBe(new Date((1_800_000_000 - 10 * 86_400) * 1000).toISOString());
-    // لا مودل متوافق قبل فحص صريح (BLK-MODEL-COMPAT): لا افتراضي ولا خيار.
-    expect(compatibleModels(r.data)).toEqual([]);
+    // DEC-13 ن-5: لا توافق معلن فلا اقتراح في الحقل الفارغ؛ والقائمة كلها (ما لم يتقاعد) تُعرض بزر + للمساعدة.
     expect(defaultModel(r.data)).toBeNull();
-    expect(uncheckedModels(r.data).map((m) => m.id)).toEqual(['mock-chat-2', 'mock-embed-1', 'mock-sunset-1']);
+    expect(listedModels(r.data).map((m) => m.id)).toEqual(['mock-chat-2', 'mock-embed-1', 'mock-sunset-1']);
   });
 
   it('جسم ناجح بلا data فشل «http» لا نجاح فارغ', async () => {
@@ -77,7 +76,7 @@ describe('قراءة المودلات: طلب التحقق المعلن', () => 
   });
 });
 
-describe('الفحص الصريح للتوافق (probe)', () => {
+describe('«اختبر النموذج» الاختياري (probe، DEC-13 ن-5)', () => {
   it('POST /v1/responses بنص «ping» وحده وحد مخرجات 16 وstore=false؛ لا نظام ولا برومبت ولا شيء من الصفحات', async () => {
     const { c, mock } = call();
     expect(await OPENAI_ADAPTER.probe?.(c, 'mock-chat-2')).toEqual({ ok: true, status: 200, data: true });

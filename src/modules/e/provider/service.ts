@@ -2,9 +2,11 @@
 // رسالة ولا يصل سكربت المحتوى؛ ولا تقرأ رمز GitHub ولا أي سرّ آخر (AC-E9 (٤)، AD-19).
 //  - لكل مزوّد مخزن مفتاحه المستقل (DEC-10 ح-4) ومودله وحالة صحته وقائمة مودلاته وموعد إعادة المحاولة الذي أعلنه؛ وطلب مزوّد لا يقرأ إلا مخزن مزوّده،
 //    والبوابة (bindKey) ترفض مفتاحًا ليس له، فلا يُرسل مفتاح إلى مضيف غير مزوّده (AC-E10 (٢)).
-//  - لا طلب إلا بفعل صريح: «تحقق» لمزوّد من صفحة الإعدادات (قائمة مودلاته، الطلب المعلن)، و«افحص التوافق» لمودل لم تعلن واجهته توافقه، و«أرسل
-//    وحلّل» من موافقة القسم. وstatus لا يطلب شيئًا. والتحقق والفحص (طلبان بالمفتاح لا يبدؤهما قسم) يُقبلان من صفحات الإضافة وحدها، لا من سكربت
-//    المحتوى (الخلفية تحدد ذلك من sender لا من الرسالة).
+//  - لا طلب إلا بفعل صريح: «تحقق» لمزوّد من صفحة الإعدادات (قائمة نماذجه، الطلب المعلن؛ وزر + يرسل الطلب نفسه)، و«اختبر النموذج» الاختياري للنموذج
+//    المكتوب، و«أرسل وحلّل» من موافقة القسم. وstatus لا يطلب شيئًا. والتحقق والاختبار (طلبان بالمفتاح لا يبدؤهما قسم) يُقبلان من صفحات الإضافة وحدها،
+//    لا من سكربت المحتوى (الخلفية تحدد ذلك من sender لا من الرسالة).
+//  - النموذج (DEC-13 ن-5): ما في حقله لكل مزوّد يُرسل إليه التحليل كما هو وإن لم يكن في القائمة، والقائمة والاختبار لا يشترطان شيئًا؛ والحقل الفارغ لا
+//    تحليل معه. ونتيجة الاختبار مقرونة بمزوّدها ونموذجها ووقت حفظ المفتاح، فلا تُعرض لنموذج آخر ولا بعد استبدال المفتاح.
 //  - طلب واحد جارٍ لكل قسم في التبويب، وطلب تحليل واحد لكل رسالة، ولا إعادة محاولة تلقائية ولا تحويل إلى مزوّد آخر عند الفشل؛ وموعد إعادة
 //    المحاولة الذي يعلنه المزوّد يُحترم فلا يُرسل قبله شيء إليه؛ ومفتاح رفضه المزوّد (401) لا يُرسل به ثانية حتى يُستبدل أو يُتحقق منه. ولا سقف
 //    إنفاق ولا ميزانية ولا حصة تفرضها الإضافة (AD-31): إدارة الإنفاق للمستخدم عند المزوّد.
@@ -17,12 +19,12 @@ import type { SettingsStore } from '../../../core/settings';
 import { providerInfo } from './catalog';
 import { bindKey, gatedFetch, redactKey } from './gate';
 import type { ProviderSecret } from './gate';
-import { compatibleModels, defaultModel, isModelId, keepChecked, markChecked } from './models';
+import { defaultModel, isModelId, testFor, testVerdict } from './models';
 import { createProviderRegistry } from './registry';
 import type { ProviderRegistry } from './registry';
 import { PROVIDER_ID_KEY, modelSettingKey } from './settings';
 import type { AnalyzeInput, AnalyzeResponse, ProbeResponse, ProviderRequest, ProviderStatus, ProviderSummary, VerifyResponse } from './port';
-import type { ModelsList, ProviderAdapter, ProviderFailure, ProviderResult } from './types';
+import type { ModelTest, ModelsList, ProviderAdapter, ProviderFailure, ProviderResult } from './types';
 
 /** حد طول الرد المطلوب في واجهة الرسائل (إلزامي فيها)، مقصورًا على ما يعلنه المودل؛ ليس سقف إنفاق (AD-31). */
 export const ANALYSIS_OUTPUT_TOKENS = 4096;
@@ -30,16 +32,28 @@ export const ANALYSIS_OUTPUT_TOKENS = 4096;
 export const ANALYSIS_TIMEOUT_MS = 180_000;
 
 export const MODELS_CACHE_KEY = 'mijhar.provider.models';
+/** آخر «اختبر النموذج» لكل مزوّد (DEC-13 ن-5)، في ذاكرة الجلسة مع القوائم. */
+export const MODEL_TESTS_KEY = 'mijhar.provider.tests';
 
-/** قائمة المودلات المقروءة لكل مزوّد. */
+/** قائمة النماذج المقروءة لكل مزوّد، وآخر اختبار نموذج لكل مزوّد. */
 export interface ModelsCache {
   load(provider: string): Promise<ModelsList | null>;
   save(list: ModelsList): Promise<void>;
+  loadTest(provider: string): Promise<ModelTest | null>;
+  saveTest(test: ModelTest): Promise<void>;
 }
 
-export function memoryModelsCache(): ModelsCache & { lists: Map<string, ModelsList> } {
+export function memoryModelsCache(): ModelsCache & { lists: Map<string, ModelsList>; tests: Map<string, ModelTest> } {
   const lists = new Map<string, ModelsList>();
-  return { lists, load: async (p) => lists.get(p) ?? null, save: async (l) => void lists.set(l.provider, l) };
+  const tests = new Map<string, ModelTest>();
+  return {
+    lists,
+    tests,
+    load: async (p) => lists.get(p) ?? null,
+    save: async (l) => void lists.set(l.provider, l),
+    loadTest: async (p) => tests.get(p) ?? null,
+    saveTest: async (t) => void tests.set(t.provider, t),
+  };
 }
 
 const isList = (value: unknown): value is ModelsList => {
@@ -47,21 +61,37 @@ const isList = (value: unknown): value is ModelsList => {
   return typeof v === 'object' && v !== null && typeof v.provider === 'string' && Array.isArray(v.models) && typeof v.readAt === 'number' && typeof v.source === 'string';
 };
 
-/** قائمة محفوظة قبل T-11.10 بلا حقل التوافق: مودلات مزوّد يعلن توافقها كلها، فتُقرأ «معلنة» حتى تُقرأ القائمة من جديد. */
-const withCompatibility = (list: ModelsList): ModelsList => ({ ...list, models: list.models.map((m) => (m.compatibility ? m : { ...m, compatibility: 'declared' as const })) });
+/** قائمة محفوظة قبل T-11.10 بلا حقل التوافق: نماذج مزوّد يعلن توافقها كلها، فتُقرأ «معلنة» حتى تُقرأ القائمة من جديد؛ وما سوى «معلنة» غير معلن. */
+const withCompatibility = (list: ModelsList): ModelsList => ({
+  ...list,
+  models: list.models.map((m) => ({ ...m, compatibility: m.compatibility === undefined || m.compatibility === 'declared' ? ('declared' as const) : ('unknown' as const) })),
+});
+
+const VERDICTS: readonly ModelTest['verdict'][] = ['accepted', 'rejected', 'inconclusive'];
+const isTest = (value: unknown): value is ModelTest => {
+  const v = value as Partial<ModelTest> | null;
+  return typeof v === 'object' && v !== null && typeof v.provider === 'string' && isModelId(v.model) && typeof v.keySavedAt === 'number' && VERDICTS.includes(v.verdict as ModelTest['verdict']) && typeof v.at === 'number';
+};
 
 export function sessionModelsCache(session: SessionStorageLike): ModelsCache {
-  const read = async (): Promise<Record<string, unknown>> => {
-    const value = (await session.get(MODELS_CACHE_KEY))[MODELS_CACHE_KEY];
+  const read = async (key: string): Promise<Record<string, unknown>> => {
+    const value = (await session.get(key))[key];
     return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
   };
   return {
     async load(provider) {
-      const list = (await read())[provider];
+      const list = (await read(MODELS_CACHE_KEY))[provider];
       return isList(list) ? withCompatibility(list) : null;
     },
     async save(list) {
-      await session.set({ [MODELS_CACHE_KEY]: { ...(await read()), [list.provider]: list } });
+      await session.set({ [MODELS_CACHE_KEY]: { ...(await read(MODELS_CACHE_KEY)), [list.provider]: list } });
+    },
+    async loadTest(provider) {
+      const test = (await read(MODEL_TESTS_KEY))[provider];
+      return isTest(test) && test.provider === provider ? test : null;
+    },
+    async saveTest(test) {
+      await session.set({ [MODEL_TESTS_KEY]: { ...(await read(MODEL_TESTS_KEY)), [test.provider]: test } });
     },
   };
 }
@@ -178,13 +208,15 @@ export class ProviderService {
     if (!adapter) return null;
     const d = adapter.descriptor;
     const content = this.options.contentPermission ?? null;
-    const [hostPermission, contentPermission, key, models, choice, providers] = await Promise.all([
+    const [hostPermission, contentPermission, key, models, choice, providers, test, keySavedAt] = await Promise.all([
       this.contains({ origins: [d.origin] }),
       content ? this.contains(content) : Promise.resolve(null),
       this.options.connections.keyStatus(d.id).catch(() => null),
       this.cache.load(d.id).catch(() => null),
       this.choice(d.id),
       this.summaries(),
+      this.cache.loadTest(d.id).catch(() => null),
+      this.keySavedAt(adapter),
     ]);
     return {
       provider: providerInfo(d),
@@ -196,24 +228,25 @@ export class ProviderService {
       model: this.modelOf(models, choice),
       choice,
       models,
+      test: testFor(test, choice, keySavedAt),
       retryAt: this.cooldown(d.id),
       providers,
     };
   }
 
   /**
-   * المودل الذي يُرسل إليه: اختيار المستخدم إن كان متوافقًا أو لم تُقرأ القائمة في هذه الجلسة (يبقى باسمه)، وإلا الافتراضي المتوافق من القائمة؛ واختيار
-   * في القائمة لم يثبت توافقه لا يُرسل إليه (BLK-MODEL-COMPAT).
+   * النموذج الذي يُرسل إليه (DEC-13 ن-5): ما في حقله كما هو، في القائمة أو خارجها، اختُبر أو لم يُختبر؛ واسمه المعروض من القائمة إن وُجد فيها. والحقل
+   * الفارغ لا نموذج معه فلا تحليل (BLK-MODEL-COMPAT)، ولا يُخمَّن نموذج.
    */
   private modelOf(models: ModelsList | null, choice: string): ProviderStatus['model'] {
-    if (choice) {
-      if (!models) return { id: choice, displayName: choice };
-      const found = models.models.find((m) => m.id === choice);
-      if (!found) return { id: choice, displayName: choice };
-      return compatibleModels(models).includes(found) ? { id: found.id, displayName: found.displayName } : null;
-    }
-    const fallback = models ? defaultModel(models) : null;
-    return fallback ? { id: fallback.id, displayName: fallback.displayName } : null;
+    if (!choice) return null;
+    return { id: choice, displayName: models?.models.find((m) => m.id === choice)?.displayName ?? choice };
+  }
+
+  /** وقت حفظ مفتاح المزوّد الحالي (يقرن نتيجة الاختبار بالمفتاح الذي اختُبر به)، أو null. */
+  private async keySavedAt(adapter: ProviderAdapter): Promise<number | null> {
+    const info = await this.options.keys(adapter.descriptor.id)?.info().catch(() => null);
+    return info ? info.savedAt : null;
   }
 
   private summaries(): Promise<ProviderSummary[]> {
@@ -254,8 +287,11 @@ export class ProviderService {
     return this.cache.save(list).catch((error: unknown) => this.options.onError?.(error));
   }
 
-  /** طلب التحقق المعلن لمزوّد: قائمة مودلاته بمفتاحه المحفوظ. يسجّل صحته ويحفظ القائمة، ويثبّت مودله الافتراضي المتوافق إن لم يُختر مودل. */
-  async verify(id: string): Promise<VerifyResponse> {
+  /**
+   * طلب التحقق المعلن لمزوّد: قائمة نماذجه بمفتاحه المحفوظ. يسجّل صحته ويحفظ القائمة؛ ومع suggest يقترح في حقل النموذج الفارغ أول نموذج أعلنت واجهته
+   * توافقه (يجوز ولا يُفرض، DEC-13 ن-5). وزر + يرسله بلا اقتراح.
+   */
+  async verify(id: string, suggest = true): Promise<VerifyResponse> {
     const adapter = this.registry.byId(id);
     if (!adapter) return local('invalid-request', 'مزوّد غير معروف؛ لم يُرسل شيء.');
     const got = await this.secret(adapter);
@@ -264,9 +300,9 @@ export class ProviderService {
     this.note(adapter, result);
     await this.observe(adapter, providerVerdict(result, 'verify', adapter.descriptor.host));
     if (!result.ok) return result;
-    const list = keepChecked(result.data, await this.cache.load(adapter.descriptor.id).catch(() => null));
+    const list = result.data;
     await this.save(list);
-    if (!(await this.choice(adapter.descriptor.id))) {
+    if (suggest && !(await this.choice(adapter.descriptor.id))) {
       const fallback = defaultModel(list);
       if (fallback) await (await this.options.settings()).set(modelSettingKey(adapter.descriptor.id), fallback.id).catch((error: unknown) => this.options.onError?.(error));
     }
@@ -274,26 +310,34 @@ export class ProviderService {
   }
 
   /**
-   * فحص التوافق الصريح (DEC-13 ن-3) لمودل في قائمة المزوّد لم تعلن واجهته توافقه: طلب المحوّل المعلن بلا محتوى من الصفحات، بنقر المستخدم. نجاحه
-   * يجعل المودل «مفحوصًا» في القائمة المحفوظة فيصير خيارًا للتحليل؛ وفشله لا يغيّر شيئًا. لا فحص لمزوّد لا يدعمه ولا لمودل خارج قائمته.
+   * «اختبر النموذج» الاختياري (DEC-13 ن-5) للنموذج المكتوب، في القائمة أو خارجها: طلب المحوّل المعلن بنص ثابت بلا محتوى من الصفحات، بنقر المستخدم.
+   * نتيجته تُحفظ مقرونة بالنموذج ووقت حفظ المفتاح وتُعرض وحدها، ولا تمنع الحفظ ولا التحليل ولا تغيّر الحقل؛ وفشل الشبكة أو المصادقة أو حد الطلبات «لم
+   * يُحسم» لا رفض. لا اختبار لمزوّد لا يدعمه محوّله، ولا طلب حين لم يُرسل شيء (لا مفتاح، موعد إعادة معلن، صلاحية غير ممنوحة).
    */
   async probe(id: string, model: string): Promise<ProbeResponse> {
     const adapter = this.registry.byId(id);
-    if (!adapter?.probe || !isModelId(model)) return local('invalid-request', 'لا فحص توافق صريح لهذا المزوّد أو المودل؛ لم يُرسل شيء.');
-    const list = await this.cache.load(adapter.descriptor.id).catch(() => null);
-    const entry = list?.models.find((m) => m.id === model);
-    if (!list || !entry || entry.compatibility !== 'unknown') return local('invalid-request', 'المودل ليس في قائمة المزوّد المقروءة أو حُسم توافقه؛ لم يُرسل شيء.');
+    if (!adapter?.probe || !isModelId(model)) return local('invalid-request', 'لا اختبار نموذج لهذا المزوّد، أو المعرّف غير صالح؛ لم يُرسل شيء.');
     const wait = this.cooldown(adapter.descriptor.id);
     if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
+    const keySavedAt = await this.keySavedAt(adapter);
     const result = await adapter.probe(this.call(adapter, got), model);
     this.note(adapter, result);
     await this.observe(adapter, providerVerdict(result, 'usage', adapter.descriptor.host));
-    if (!result.ok) return { ...result, message: redactKey(result.message, got.token) };
-    const updated = markChecked(list, model);
-    await this.save(updated);
-    return { ok: true, status: result.status, data: updated };
+    // صلاحية المضيف غير ممنوحة: البوابة رفضت قبل أي طلب، فلا نتيجة اختبار.
+    if (!result.ok && result.failure === 'permission') return { ...result, message: redactKey(result.message, got.token) };
+    const test: ModelTest = {
+      provider: adapter.descriptor.id,
+      model,
+      keySavedAt: keySavedAt ?? 0,
+      verdict: result.ok ? 'accepted' : testVerdict(result.failure),
+      status: result.status,
+      message: result.ok ? '' : redactKey(result.message, got.token),
+      at: this.now(),
+    };
+    if (keySavedAt !== null) await this.cache.saveTest(test).catch((error: unknown) => this.options.onError?.(error));
+    return { ok: true, data: test };
   }
 
   /** طلب تحليل واحد بعد موافقة المستخدم. لا يُرسل شيئًا إن غاب شرط، ويعلن السبب. */
@@ -325,7 +369,7 @@ export class ProviderService {
       const wait = this.cooldown(d.id);
       if (wait !== null) return local('cooldown', `أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.`, wait);
       const status = await this.status(d.id);
-      if (!status?.model || status.model.id !== input.model) return local('model-changed', 'تغيّر المودل أو لم يثبت توافقه بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
+      if (!status?.model || status.model.id !== input.model) return local('model-changed', 'تغيّر النموذج في حقله أو صار فارغًا بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
       if (status.key?.health === 'expired') return local('expired-key', `رفض ${d.title} المفتاح المحفوظ من قبل (401)؛ لم يُرسل شيء. استبدله أو تحقق منه من الإعدادات.`);
       if (!status.permission) {
         return local(
@@ -371,9 +415,9 @@ export class ProviderService {
         case 'status':
           return await this.status(typeof request.provider === 'string' ? request.provider : undefined);
         case 'verify':
-          return extensionPage ? await this.verify(String(request.provider)) : local('invalid-request', 'التحقق من المفتاح من صفحة الإعدادات وحدها؛ لم يُرسل شيء.');
+          return extensionPage ? await this.verify(String(request.provider), request.suggest !== false) : local('invalid-request', 'التحقق من المفتاح من صفحة الإعدادات وحدها؛ لم يُرسل شيء.');
         case 'probe':
-          return extensionPage ? await this.probe(String(request.provider), String(request.model)) : local('invalid-request', 'فحص التوافق من صفحة الإعدادات وحدها؛ لم يُرسل شيء.');
+          return extensionPage ? await this.probe(String(request.provider), String(request.model)) : local('invalid-request', 'اختبار النموذج من صفحة الإعدادات وحدها؛ لم يُرسل شيء.');
         case 'analyze':
           return await this.analyze(request, tab);
         case 'cancel':

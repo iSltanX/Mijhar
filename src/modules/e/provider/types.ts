@@ -40,7 +40,7 @@ export interface ProviderDescriptor {
   readonly keyFormat: KeyFormat;
   /** وصف طلب التحقق المعلن قبل الحفظ (AC-E9 (١)). */
   readonly verifyRequest: string;
-  /** وصف طلب فحص التوافق الصريح حين لا تعلن واجهة المزوّد توافق مودل (DEC-13 ن-3)، أو null حين لا يدعمه المحوّل. */
+  /** وصف طلب «اختبر النموذج» الاختياري للنموذج المكتوب (DEC-13 ن-5): نص ثابت لا يحمل شيئًا من الصفحات؛ أو null حين لا يدعمه المحوّل فلا يظهر الاختبار. */
   readonly probeRequest: string | null;
   readonly policy: ProviderPolicy;
 }
@@ -49,10 +49,27 @@ export interface ProviderDescriptor {
 export type ProviderInfo = Omit<ProviderDescriptor, 'keyFormat'>;
 
 /**
- * توافق المودل مع التحليل (DEC-13 ن-3): declared = أعلنته واجهة المزوّد الرسمية؛ checked = ثبت بفحص صريح بدأه المستخدم؛ unknown = لم تعلنه
- * الواجهة ولم يثبت، فلا يُعرض خيارًا للتحليل. لا يُستنتج التوافق من اسم المودل ولا معرّفه.
+ * توافق النموذج مع التحليل كما تعلنه قائمة المزوّد (DEC-13 ن-5): declared = أعلنته واجهته الرسمية؛ unknown = لم تعلنه. علامة للاقتراح في الحقل
+ * الفارغ وحدها، لا شرط للإرسال؛ ولا يُستنتج من اسم النموذج ولا معرّفه.
  */
-export type ModelCompatibility = 'declared' | 'checked' | 'unknown';
+export type ModelCompatibility = 'declared' | 'unknown';
+
+/**
+ * نتيجة «اختبر النموذج» الاختياري (DEC-13 ن-5) مقرونة بمزوّدها ونموذجها ووقت حفظ المفتاح الذي اختُبر به، فلا تُعرض لنموذج آخر ولا بعد استبدال
+ * المفتاح. accepted = قبِل المزوّد النموذج؛ rejected = رفضه بعينه؛ inconclusive = لم يُحسم (شبكة أو مصادقة أو حد طلبات…) فليس حكمًا على النموذج.
+ * ولا تمنع أيٌّ منها الحفظ ولا التحليل.
+ */
+export interface ModelTest {
+  readonly provider: string;
+  readonly model: string;
+  readonly keySavedAt: number;
+  readonly verdict: 'accepted' | 'rejected' | 'inconclusive';
+  /** رمز الاستجابة إن صدر طلب، وإلا null. */
+  readonly status: number | null;
+  /** سبب المزوّد منقّحًا من المفتاح (فارغ عند القبول). */
+  readonly message: string;
+  readonly at: number;
+}
 
 /** مودل كما تعيده نقطة المودلات لدى المزوّد وقت التشغيل؛ لا يُثبَّت مودل في الشيفرة. */
 export interface ProviderModel {
@@ -160,6 +177,6 @@ export interface ProviderAdapter {
   /** قائمة المودلات وقت التشغيل بتوافق كلٍّ منها كما تعلنه الواجهة الرسمية؛ وهي طلب التحقق المعلن نفسه. */
   listModels(call: ProviderCall): Promise<ProviderResult<ModelsList>>;
   analyze(call: ProviderCall, request: AnalysisRequest): Promise<ProviderResult<AnalysisReply>>;
-  /** فحص التوافق الصريح لمودل لم تعلن الواجهة توافقه، بطلب معلن بلا محتوى من الصفحات يبدؤه المستخدم (DEC-13 ن-3). غيابه: لا فحص. */
+  /** «اختبر النموذج» الاختياري للنموذج المكتوب، بطلب معلن بنص ثابت بلا محتوى من الصفحات يبدؤه المستخدم (DEC-13 ن-5). غيابه: لا اختبار. */
   probe?(call: ProviderCall, model: string): Promise<ProviderResult<true>>;
 }

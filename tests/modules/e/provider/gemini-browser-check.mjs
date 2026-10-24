@@ -4,8 +4,8 @@
 // (tests/modules/d/token/browser/drivers.mjs). لا شبكة خارجية. الرمز والمفتاحان مختلَقة بصيغ حقيقية تُركَّب وقت التشغيل ولا تُكتب في أي دليل.
 //   1. بطاقة «مزوّد التحليل» الموحّدة فيها Anthropic وGoogle Gemini؛ باختيار Gemini: اسمه ومضيفه وطلب التحقق المعلن قبل الحفظ؛ ولا طلب قبل الحفظ.
 //   2. حفظ مفتاح Gemini: الطلب الوحيد بعده هو التحقق المعلن GET /v1beta/models من الخلفية، والمفتاح في ترويسة x-goog-api-key لا في العنوان؛ والمرشَّحون
-//      بـsupportedGenerationMethods وحدهم (DEC-13 ن-4): لا مودل خيارًا للتحليل قبل الفحص الصريح، وكلٌّ منهم بزر «افحص التوافق».
-//   2ب. الفحص الصريح بنقرة: طلب POST واحد من الخلفية بنص «ping» وحده بلا محتوى؛ نجاحه يجعل المودل خيارًا، وفشله (404 «لم يعد متاحًا») لا يجعله.
+//      بـsupportedGenerationMethods وحدهم يُعرضون بزر + للمساعدة (DEC-13 ن-5): لا اقتراح، والحقل الفارغ معلَّل، ولا زر فحص لكل نموذج.
+//   2ب. «اختبر النموذج» الاختياري بنقرة: طلب POST واحد من الخلفية بنص «ping» وحده بلا محتوى؛ «قبِل» أو «رفض» (404 «لم يعد متاحًا») للنموذج المكتوب، ولا يغيّر الحقل.
 //   3. حفظ مفتاح Anthropic ثم التبديل إلى Gemini: كلٌّ إلى مضيفه بمفتاحه، لا مفتاح مزوّد عند آخر ولا رمز GitHub عند أيٍّ منهما.
 //   4. صفحة مهمة Actions: الموافقة تذكر Google Gemini ومضيفه ومودله؛ ولا طلب تحليل قبلها أو بنقرة برمجية؛ ونقرة حقيقية تُصدر طلب generateContent واحدًا.
 //   5. حجب الأمان في الرد: يُعرض سببًا لا تحليلًا، وطلب واحد بلا إعادة تلقائية ولا تحويل إلى مزوّد آخر.
@@ -97,12 +97,15 @@ const READ_CARD = `
     key: c.querySelector('[data-key-state]')?.getAttribute('data-key-state') ?? null,
     host: c.querySelector('[data-provider-meta]')?.textContent ?? '',
     announce: c.querySelector('[data-verify-request]')?.textContent ?? '',
-    models: [...(c.querySelector('[data-model-select]')?.options ?? [])].map((o) => o.value).filter(Boolean),
-    candidates: [...c.querySelectorAll('[data-action="model-probe"]')].map((b) => b.getAttribute('data-model')),
+    // DEC-13 ن-5: حقل النموذج اليدوي وقائمة زر + حين تُفتح ونتيجة «اختبر النموذج»، ولا زر فحص لكل نموذج.
+    model: c.querySelector('[data-model-input]')?.value ?? null,
+    listed: [...c.querySelectorAll('[role="listbox"] [role="option"]')].map((o) => o.getAttribute('data-model')),
+    probeButtons: c.querySelectorAll('[data-action="model-probe"]').length,
+    testTitle: c.querySelector('[data-action="model-test"]')?.getAttribute('title') ?? '',
+    test: c.querySelector('[data-model-test]')?.getAttribute('data-model-test') ?? null,
     blocked: Boolean(c.querySelector('[data-model-blocked]')),
-    probeNote: c.querySelector('[data-model-probe]')?.textContent ?? '',
     text: c.textContent ?? '',
-    source: c.querySelector('[data-models-source]')?.textContent ?? '',
+    source: c.querySelector('[data-list-source]')?.textContent ?? '',
     others: c.querySelector('[data-other-providers]')?.textContent ?? '',
     cards: document.querySelectorAll('[data-provider-card]').length,
   };
@@ -126,7 +129,7 @@ async function scenario(d, target, checks, network) {
 
   // 1. البطاقة.
   const start = await until((c) => c.health !== 'checking');
-  check('AC-E10 (٣) وAC-E12: بطاقة «مزوّد التحليل» واحدة، وقائمتها فيها Anthropic وGoogle Gemini المدموجان', start?.cards === 1 && start.providers.join(',') === 'anthropic,gemini', start);
+  check('AC-E10 (٣) وAC-E12: بطاقة «مزوّد التحليل» واحدة، وقائمتها فيها Anthropic وOpenAI وGoogle Gemini المدموجة (الموجة L)', start?.cards === 1 && start.providers.join(',') === 'anthropic,openai,gemini', start);
   await d.options(SELECT('gemini'));
   const picked = await until((c) => c.provider === 'gemini' && c.key === 'none');
   check('اختيار Google Gemini: مفتاحه «لا مفتاح»، ومضيفه، وطلب التحقق المعلن قبل الحفظ يذكر الطلب والمضيف ولا يحمل شيئًا من الصفحات', Boolean(picked) && picked.head === 'مفتاح Google Gemini' && picked.host.includes(HOST) && picked.announce.includes(`GET https://${HOST}/v1beta/models`) && picked.announce.includes('لا تبدأ أي تحليل') && !picked.announce.includes(KEY), picked);
@@ -138,7 +141,7 @@ async function scenario(d, target, checks, network) {
   await waitUntil(() => d.options(`return document.querySelector('[data-connection="github-token"] [data-health]')?.getAttribute('data-health') === 'healthy' || null;`), 10000);
   await d.fill('#mj-key-input', KEY);
   await d.click('[data-action="key-save"]');
-  const healthy = await until((c) => c.provider === 'gemini' && c.health === 'healthy' && c.candidates.length > 0);
+  const healthy = await until((c) => c.provider === 'gemini' && c.health === 'healthy' && c.blocked);
   if (target === 'firefox') {
     const perms = await d.options(`return { all: JSON.parse(globalThis_.JSON.stringify(await globalThis_.browser.permissions.getAll())), shown: document.querySelector('[data-provider-permission]')?.getAttribute('data-provider-permission') ?? null };`);
     check('Firefox (AD-15): نقرة الحفظ منحت موافقة «مشاركة محتوى المواقع» (websiteContent) مع المضيف، والبطاقة «ممنوحتان»', perms?.all?.data_collection?.includes('websiteContent') && perms.shown === 'granted', perms);
@@ -147,20 +150,31 @@ async function scenario(d, target, checks, network) {
   const [verify] = gemini();
   check('AC-E12 (٢): بعد حفظ المفتاح طلب واحد إلى Gemini هو التحقق المعلن GET /v1beta/models من الخلفية، ولا تحليل', gemini().length === 1 && verify?.method === 'GET' && verify.path === '/v1beta/models' && verify.query === '?pageSize=1000' && verify.from === 'background', gemini().map((r) => ({ m: r.method, p: r.path, q: r.query, from: r.from })));
   check('AC-E12 (٤): المفتاح في ترويسة x-goog-api-key وحدها لا في العنوان ولا الجسم؛ ولا Authorization ولا رمز GitHub ولا مفتاح Anthropic', verify?.headers['x-goog-api-key'] === KEY && !JSON.stringify([verify.path, verify.query, verify.body]).includes(KEY) && !verify.headers.authorization && !verify.headers['x-api-key'] && !JSON.stringify(verify).includes(TOKEN) && !JSON.stringify(verify).includes(A_KEY), { key: verify?.headers['x-goog-api-key'] === KEY ? 'ok' : 'other', auth: Boolean(verify?.headers.authorization) });
-  check('AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله', Boolean(healthy) && healthy.candidates.join(',') === 'mock-gem-2,mock-gem-flash' && healthy.models.length === 0 && healthy.blocked && healthy.probeNote.includes('«ping» وحده') && healthy.source.includes(`${HOST}/v1beta/models`), healthy && { candidates: healthy.candidates, models: healthy.models, blocked: healthy.blocked, source: healthy.source });
+  check('AC-E12 (٣) وDEC-13 ن-5: الإعلان لا يضمن توافر النموذج للمفتاح فلا اقتراح، والحقل فارغ معلَّلًا (BLK-MODEL-COMPAT)؛ ولا زر فحص لكل نموذج، و«اختبر النموذج» واحد يعلن طلبه (ping وحده)', Boolean(healthy) && healthy.model === '' && healthy.probeButtons === 0 && healthy.testTitle.includes('ping'), healthy);
   check('لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق', gemini().length === 1 && pings().length === 0, gemini().length);
+  await d.click('[data-provider-card] [data-action="model-list"]');
+  const listed = await until((c) => c.listed.length > 0);
+  check('زر + بنقرة فعلية يعرض المرشَّحين بـsupportedGenerationMethods وحدهم (بلا نموذج التضمين) من القائمة المقروءة، بلا طلب جديد', Boolean(listed) && listed.listed.join(',') === 'mock-gem-2,mock-gem-flash' && listed.source.includes('Google Gemini') && gemini().length === 1, listed);
+  await d.click('[data-provider-card] [role="option"][data-model="mock-gem-2"]');
+  const chosen = await until((c) => c.model === 'mock-gem-2' && c.listed.length === 0 && !c.blocked);
+  check('الاختيار يملأ الحقل ويغلق القائمة', Boolean(chosen), chosen);
 
-  // 2ب. الفحص الصريح بنقرتين: الناجح ثم الفاشل.
-  await d.click('[data-action="model-probe"][data-model="mock-gem-2"]');
-  const probed = await until((c) => c.provider === 'gemini' && c.models.includes('mock-gem-2'));
+  // 2ب. «اختبر النموذج» الاختياري بنقرة فعلية: المقبول ثم المرفوض؛ والرفض لا يغيّر الحقل ولا يمنع الحفظ.
+  await d.click('[data-provider-card] [data-action="model-test"]');
+  const probed = await until((c) => c.test === 'accepted');
   const [ping] = pings();
-  check('الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا', Boolean(probed) && pings().length === 1 && ping.path === '/v1beta/models/mock-gem-2:generateContent' && ping.from === 'background' && ping.headers['x-goog-api-key'] === KEY && JSON.stringify(JSON.parse(ping.body)) === JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 64 } }) && !ping.body.includes('exit code') && !ping.body.includes(TOKEN), { probed: probed && probed.models, ping: ping && { path: ping.path, from: ping.from } });
-  await d.click('[data-action="model-probe"][data-model="mock-gem-flash"]');
-  const failedProbe = await waitUntil(async () => {
-    const c = await card();
-    return c && pings().length === 2 && c.text.includes('لم يثبت توافق mock-gem-flash') ? c : null;
-  }, 12000);
-  check('الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد', Boolean(failedProbe) && failedProbe.text.includes('no longer available') && failedProbe.models.join(',') === 'mock-gem-2' && failedProbe.candidates.join(',') === 'mock-gem-flash', failedProbe && { models: failedProbe.models, candidates: failedProbe.candidates });
+  check('الاختبار المقبول: طلب POST واحد من الخلفية إلى generateContent للنموذج بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها', Boolean(probed) && pings().length === 1 && ping.path === '/v1beta/models/mock-gem-2:generateContent' && ping.from === 'background' && ping.headers['x-goog-api-key'] === KEY && !ping.body.includes('systemInstruction') && !ping.body.includes(KEY), { probed, ping: ping && { path: ping.path, from: ping.from } });
+  // Element Clear في Marionette لا يرسل حدث input فيعيد الحقل المتحكَّم به قيمته: يُفرَّغ أولًا بحدث input ثم يُكتب بلوحة المفاتيح.
+  await d.options(`const f = document.querySelector('[data-provider-card] [data-model-input]'); f.value = ''; f.dispatchEvent(new Event('input', { bubbles: true })); return true;`);
+  await d.fill('[data-provider-card] [data-model-input]', 'mock-gem-flash');
+  await d.click('#mj-conn-provider-key-title');
+  await d.click('[data-provider-card] [data-action="model-test"]');
+  const failedProbe = await until((c) => c.test === 'rejected');
+  check('الاختبار المرفوض (404 «لم يعد متاحًا للمستخدمين الجدد»): «رفض» بسببه، والحقل باقٍ كما كُتب ولا يمنع الحفظ ولا التحليل', Boolean(failedProbe) && pings().length === 2 && failedProbe.text.includes('no longer available') && failedProbe.text.includes('لا يمنع ذلك الحفظ ولا التحليل') && failedProbe.model === 'mock-gem-flash' && !failedProbe.blocked, failedProbe && { text: failedProbe.text.slice(0, 300), model: failedProbe.model });
+  await d.click('[data-provider-card] [data-action="model-list"]');
+  await until((c) => c.listed.length > 0);
+  await d.click('[data-provider-card] [role="option"][data-model="mock-gem-2"]');
+  await until((c) => c.model === 'mock-gem-2' && c.listed.length === 0);
 
   // 3. مفتاح Anthropic وتبديل المزوّد.
   await d.options(SELECT('anthropic'));
@@ -171,8 +185,8 @@ async function scenario(d, target, checks, network) {
   await sleep(600);
   check('كل مفتاح إلى مضيفه: طلب Anthropic واحد بمفتاحه (x-api-key) إلى مضيفه، ولم يصل Gemini طلب جديد', on(ANTHROPIC_HOST).length === 1 && on(ANTHROPIC_HOST)[0].headers['x-api-key'] === A_KEY && !on(ANTHROPIC_HOST)[0].headers['x-goog-api-key'] && gemini().length === 3, { anthropic: on(ANTHROPIC_HOST).length, gemini: gemini().length });
   await d.options(SELECT('gemini'));
-  const back = await until((c) => c.provider === 'gemini' && c.health === 'healthy' && c.models.includes('mock-gem-2'));
-  check('العودة إلى Gemini: مفتاحه «سليم» ومودلاته كما هي، وملخص المزوّدين يذكر Anthropic سليمًا؛ والتبديل لا يرسل شيئًا', Boolean(back) && back.models.join(',') === 'mock-gem-2' && back.others.includes('Anthropic') && gemini().length === 3 && on(ANTHROPIC_HOST).length === 1, back && { models: back.models, others: back.others, health: back.health, g: gemini().length, a: on(ANTHROPIC_HOST).length });
+  const back = await until((c) => c.provider === 'gemini' && c.health === 'healthy' && c.model === 'mock-gem-2');
+  check('العودة إلى Gemini: مفتاحه «سليم» ونموذجه في حقله كما هو، وملخص المزوّدين يذكر Anthropic سليمًا؛ والتبديل لا يرسل شيئًا', Boolean(back) && back.model === 'mock-gem-2' && back.others.includes('Anthropic') && gemini().length === 3 && on(ANTHROPIC_HOST).length === 1, back && { model: back.model, others: back.others, health: back.health, g: gemini().length, a: on(ANTHROPIC_HOST).length });
 
   // 4. صفحة الفحوص.
   await d.openGithub(JOB_URL);

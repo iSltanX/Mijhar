@@ -3,8 +3,8 @@
 // المفتاح يُقرأ من ملف خارج المستودع (GEMINI_KEY_FILE) ولا يُطبع ولا يُكتب في أي ناتج (يُفحص آليًا). صفحة GitHub محلية (عينة عامة محفوظة: مهمة Actions فاشلة في
 // microsoft/vscode، بلا محتوى خاص)، ومضيف Gemini حقيقي: طلبات الإضافة إليه تمرّ بوكيل Node يعيد إرسالها كما هي إلى Google ويعيد ردها (فتبقى مسجَّلة بمصدرها).
 //   1. حفظ المفتاح بالواجهة ← التحقق المعلن (GET /v1beta/models) ← قراءة المودلات المتوافقة بالفعل من Google.
-//   1ب. الفحص الصريح (DEC-13 ن-4): لا مودل خيارًا قبله؛ يُفحص بنقرة المودل المطلوب (GEMINI_MODEL) ويُفحص قبله مودل اختياري (GEMINI_STALE_MODEL) قد لا يكون متاحًا لمفتاحه.
-//   2. تحليل واحد بعد موافقة بنقرة حقيقية، على العينة العامة، بالمودل الذي ثبت توافقه ← الرد يُفسَّر ويُعرض.
+//   1ب. DEC-13 ن-5: زر + يعرض القائمة للمساعدة؛ ويُكتب النموذج المطلوب (GEMINI_MODEL) يدويًا في الحقل ويُختبر اختياريًا بنقرة، وقبله نموذج اختياري (GEMINI_STALE_MODEL) قد لا يكون متاحًا لمفتاحه.
+//   2. تحليل واحد بعد موافقة بنقرة حقيقية، على العينة العامة، بالنموذج الذي في الحقل ← الرد يُفسَّر ويُعرض.
 // ما يخرج إلى Google: طلب التحقق، وطلب التحليل بالمحتوى المنقّح للعينة العامة وحدها. ولا يُحفظ نص الطلب؛ ويُحفظ ما يظهر في الواجهة من رد على العينة.
 // الاستعمال: GEMINI_KEY_FILE=/path/to/key node tests/modules/e/provider/gemini-real-check.mjs [--out-dir evidence/T-11.12]
 import fs from 'node:fs';
@@ -68,10 +68,13 @@ const READ_CARD = `
     health: c.querySelector('[data-provider-key]')?.getAttribute('data-health') ?? null,
     key: c.querySelector('[data-key-state]')?.getAttribute('data-key-state') ?? null,
     checkText: c.querySelector('[data-key-check]')?.textContent ?? '',
-    models: [...(c.querySelector('[data-model-select]')?.options ?? [])].map((o) => o.value).filter(Boolean),
-    candidates: [...c.querySelectorAll('[data-action="model-probe"]')].map((b) => b.getAttribute('data-model')),
+    // DEC-13 ن-5: حقل النموذج اليدوي، وقائمة زر + حين تُفتح، ونتيجة «اختبر النموذج».
+    model: c.querySelector('[data-model-input]')?.value ?? null,
+    listed: [...c.querySelectorAll('[role="listbox"] [role="option"]')].map((o) => o.getAttribute('data-model')),
+    test: c.querySelector('[data-model-test]')?.getAttribute('data-model-test') ?? null,
+    testText: c.querySelector('[data-model-test]')?.textContent ?? '',
     blocked: Boolean(c.querySelector('[data-model-blocked]')),
-    source: c.querySelector('[data-models-source]')?.textContent ?? '',
+    source: c.querySelector('[data-list-source]')?.textContent ?? '',
     text: (document.querySelector('[data-connection="provider-key"]')?.textContent ?? ''),
   };
 `;
@@ -96,27 +99,30 @@ try {
   await d.click('[data-action="key-save"]');
   const after = await until((c) => c.provider === 'gemini' && !['none', 'unverified', 'checking'].includes(c.health) && c.key !== 'none', 40000);
   const last = after ?? (await card());
-  result.steps.verify = { card: last && { health: last.health, key: last.key, models: last.models, source: last.source, text: last.health === 'healthy' ? undefined : last.text }, requests: real.filter((r) => r.method === 'GET') };
-  if (after?.health === 'healthy' && after.candidates.length) {
-    result.steps.beforeProbe = { usableModels: after.models.length, blockedNotice: after.blocked, candidates: after.candidates.length };
-    // الفحص الصريح بنقرة: مودل اختياري قد لا يكون متاحًا لمفتاحه، ثم المودل المطلوب.
+  result.steps.verify = { card: last && { health: last.health, key: last.key, model: last.model, blocked: last.blocked, text: last.health === 'healthy' ? undefined : last.text }, requests: real.filter((r) => r.method === 'GET') };
+  if (after?.health === 'healthy' && process.env.GEMINI_MODEL) {
+    // زر + بنقرة فعلية: القائمة المقروءة للمساعدة (بلا طلب جديد)، ثم تُغلق.
+    await d.click('[data-provider-card] [data-action="model-list"]');
+    const listed = await until((c) => c.listed.length > 0, 10000);
+    result.steps.list = { count: listed?.listed.length ?? 0, source: listed?.source ?? '' };
+    await d.click('[data-provider-card] [data-action="model-list"]');
+    // «اختبر النموذج» الاختياري بنقرة للنموذج المكتوب يدويًا: نموذج اختياري قد لا يكون متاحًا لمفتاحه، ثم النموذج المطلوب.
     result.steps.probes = [];
-    const probeClick = async (model, expectOk) => {
-      if (!after.candidates.includes(model)) return { model, notRun: 'ليس في قائمة المرشَّحين' };
+    const testTyped = async (model) => {
+      // Element Clear في Marionette لا يرسل حدث input فيعيد الحقل المتحكَّم به قيمته: يُفرَّغ أولًا بحدث input ثم يُكتب بلوحة المفاتيح.
+      await d.options(`const f = document.querySelector('[data-provider-card] [data-model-input]'); f.value = ''; f.dispatchEvent(new Event('input', { bubbles: true })); return true;`);
+      await d.fill('[data-provider-card] [data-model-input]', model);
+      await d.click('#mj-conn-provider-key-title');
       const before = real.length;
-      await d.click(`[data-action="model-probe"][data-model="${model}"]`);
-      const card2 = await until((c) => (expectOk ? c.models.includes(model) : c.text.includes(`لم يثبت توافق ${model}`)) || (!expectOk && c.models.includes(model)), 40000);
+      await d.click('[data-provider-card] [data-action="model-test"]');
+      const card2 = await until((c) => c.model === model && c.test && c.test !== 'running', 40000);
       const req = real.slice(before).find((r) => r.method === 'POST');
-      return { model, status: req?.status ?? null, error: req?.error ?? null, becameOption: Boolean(card2?.models.includes(model)) };
+      return { model, verdict: card2?.test ?? null, status: req?.status ?? null, error: req?.error ?? null, fieldKept: card2?.model === model };
     };
-    if (process.env.GEMINI_STALE_MODEL) result.steps.probes.push(await probeClick(process.env.GEMINI_STALE_MODEL, false));
-    if (process.env.GEMINI_MODEL) {
-      result.chosenModel = process.env.GEMINI_MODEL;
-      result.steps.probes.push(await probeClick(process.env.GEMINI_MODEL, true));
-      await sleep(400);
-      await d.options(`const s = document.querySelector('[data-provider-card] [data-model-select]'); s.value = ${JSON.stringify(process.env.GEMINI_MODEL)}; s.dispatchEvent(new Event('input', { bubbles: true })); s.dispatchEvent(new Event('change', { bubbles: true })); return s.value;`);
-      await sleep(500);
-    }
+    if (process.env.GEMINI_STALE_MODEL) result.steps.probes.push(await testTyped(process.env.GEMINI_STALE_MODEL));
+    result.chosenModel = process.env.GEMINI_MODEL;
+    result.steps.probes.push(await testTyped(process.env.GEMINI_MODEL));
+    await sleep(500);
     await d.openGithub(JOB_URL);
     await waitUntil(() => d.github(`return Boolean(${IN_LOG('[data-action="analysis-open"]')}) || null;`), 20000);
     await d.clickShadow(LOG, '[data-action="analysis-open"]');
@@ -126,7 +132,7 @@ try {
     const outcome = await waitUntil(() => d.github(`const l = ${IN_LOG('[data-layer="possibility"]')}; const r = l?.querySelector('[data-analysis="result"]'); const f = l?.querySelector('[data-analysis="failed"]'); return r ? { kind: 'result', text: r.textContent, meta: r.querySelector('[data-analysis-meta]')?.textContent ?? '' } : f ? { kind: 'failed', text: f.textContent } : null;`), 120000);
     result.steps.analysis = { outcome, requests: real.filter((r) => r.method === 'POST').slice(-1) };
   } else {
-    result.steps.analysis = { notRun: 'لم يُجرَ: التحقق لم ينجح أو لم تُقرأ مودلات متوافقة' };
+    result.steps.analysis = { notRun: 'لم يُجرَ: التحقق لم ينجح أو لا نموذج مطلوب (GEMINI_MODEL)' };
   }
   await sleep(500);
   result.extensionErrors = await session.extensionErrors();
@@ -147,7 +153,7 @@ if (out.includes(KEY)) {
 }
 const verified = result.steps.verify?.card?.health === 'healthy';
 const analysed = result.steps.analysis?.outcome?.kind === 'result';
-console.log(`التحقق: ${verified ? 'سليم' : 'لم ينجح'} · المرشَّحون: ${result.steps.beforeProbe?.candidates ?? 0} · الفحوص: ${(result.steps.probes ?? []).map((p) => `${p.model}=${p.status ?? p.notRun}`).join(',')} · التحليل: ${analysed ? 'نجح' : result.steps.analysis?.outcome?.kind ?? 'لم يُجرَ'}${result.error ? ` · خطأ: ${result.error}` : ''}`);
+console.log(`التحقق: ${verified ? 'سليم' : 'لم ينجح'} · القائمة: ${result.steps.list?.count ?? 0} · الاختبارات: ${(result.steps.probes ?? []).map((p) => `${p.model}=${p.verdict}/${p.status}`).join(',')} · التحليل: ${analysed ? 'نجح' : result.steps.analysis?.outcome?.kind ?? 'لم يُجرَ'}${result.error ? ` · خطأ: ${result.error}` : ''}`);
 if (outDir) {
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'real-connection.json'), out);

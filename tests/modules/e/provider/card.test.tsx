@@ -4,7 +4,9 @@
 // الأصلية في evidence/T-11.10.
 //  - بطاقة واحدة فيها قائمة المزوّد ومفتاح المختار وحالته وموضع حفظه وأزراره ومودله وقواعده، ولا قسم «إعدادات التحليل» منفصل.
 //  - تغيير المزوّد يعرض مفتاحه ومودلاته وحالته هو، ولا يقرأ مخزن غيره ولا يكتبه؛ والحفظ في مخزن المختار وحده بصلاحية مضيفه في النقرة نفسها.
-//  - المتوافق وحده في قائمة المودل، وBLK-MODEL-COMPAT معلَّلًا، والفحص الصريح بنقر المستخدم.
+//  - DEC-13 ن-5 (Model field، O-28): حقل النموذج اليدوي هو الأساس ويُحفظ لمزوّده وإن لم يكن في القائمة؛ وزر + بنقرة موثوقة يعرض القائمة أو يجلبها
+//    بطلب التحقق نفسه، والاختيار يملأ الحقل ويغلقها، وتعذّر الجلب لا يعطّل الحقل؛ و«اختبر النموذج» اختياري للنموذج المكتوب حيث يدعمه المحوّل،
+//    ونتيجته (قبول أو رفض أو لم يُحسم) للنموذج المكتوب وحده؛ والحقل الفارغ وحده BLK-MODEL-COMPAT.
 //  - Firefox: الموافقة الواحدة تُطلب مع مضيف المختار، وسحب المضيف يخصه وسحب الموافقة يخص الكل؛ والبطاقة تذكر تسمية Firefox «مطوِّر الامتداد».
 import { render } from 'preact';
 import { act } from 'preact/test-utils';
@@ -13,11 +15,12 @@ import { MemoryStorageArea, SettingsStore, Store, createSettingsRegistry } from 
 import { SecretStore } from '../../../../src/core/connections/secrets';
 import type { ConnectionStatus } from '../../../../src/core/connections/health';
 import { PROVIDER_ID_KEY, defineProviderSettings, modelSettingKey, providerInfo } from '../../../../src/modules/e/provider';
-import type { ModelsList, ProviderDescriptor, ProviderModel, ProviderPort, ProviderStatus } from '../../../../src/modules/e/provider';
+import type { ModelTest, ModelsList, ProviderDescriptor, ProviderModel, ProviderPort, ProviderStatus } from '../../../../src/modules/e/provider';
 import { ANTHROPIC } from '../../../../src/modules/e/provider/descriptors/anthropic';
 import { ProviderCard } from '../../../../src/modules/e/provider/ProviderCard';
 import { SETTINGS_SECTIONS } from '../../../../src/options/sections';
 import { fakePermissions } from '../../../core/ui-host/helpers';
+import { trustedClick } from '../../../shared/trusted-click';
 import { memoryArea } from '../../d/token/helpers';
 import { fakeKey, fakeMockKey, mockDescriptor } from './fixture-provider-mock';
 
@@ -56,10 +59,18 @@ const $ = <E extends Element = HTMLElement>(sel: string): E => {
   return el;
 };
 
-async function setup({ firefox = false, granted = [] as string[], answer = true, collected = [] as string[] } = {}) {
+/** ما يردّ به المزوّد الوهمي على «اختبر النموذج» لكل معرّف (والباقي يُقبل). */
+const TEST_REPLIES: Readonly<Record<string, Pick<ModelTest, 'verdict' | 'status' | 'message'>>> = {
+  'c-gone': { verdict: 'rejected', status: 404, message: 'غير متاح لمفتاحك.' },
+  'c-busy': { verdict: 'inconclusive', status: 429, message: 'تجاوز المفتاح حد الطلبات' },
+};
+
+async function setup({ firefox = false, granted = [] as string[], answer = true, collected = [] as string[], listFails = false } = {}) {
   const area = new MemoryStorageArea();
   const settings = await SettingsStore.open(await Store.open({ area, changes: area, locks: null }), createSettingsRegistry((r) => defineProviderSettings(r, DESCRIPTORS)));
-  const stores = new Map(DESCRIPTORS.map((d) => [d.id, new SecretStore({ session: memoryArea(), disk: memoryArea(), now: () => NOW })]));
+  // كل حفظ بوقته (بالملّي ثانية)، فيُعرف استبدال المفتاح.
+  let tick = 0;
+  const stores = new Map(DESCRIPTORS.map((d) => [d.id, new SecretStore({ session: memoryArea(), disk: memoryArea(), now: () => NOW + (tick += 1) })]));
   const touched: string[] = [];
   // ما تقرؤه الخلفية الوهمية (حالة كل مزوّد في الملخص) لا يُحسب: المقيس ما تمسه البطاقة نفسها.
   const backgroundInfo = new Map(DESCRIPTORS.map((d) => [d.id, SecretStore.prototype.info.bind(stores.get(d.id) as SecretStore)]));
@@ -84,15 +95,17 @@ async function setup({ firefox = false, granted = [] as string[], answer = true,
     return true;
   });
   const lists = new Map<string, ModelsList>();
+  const tests = new Map<string, ModelTest>();
   const health = new Map<string, ConnectionStatus['health']>();
+  const fail = { list: listFails };
   const statusOf = async (id: string): Promise<ProviderStatus> => {
     const d = DESCRIPTORS.find((x) => x.id === id) as ProviderDescriptor;
     const info = await backgroundInfo.get(id)?.();
     const key: ConnectionStatus = { id: 'provider-key', provider: id, place: info?.place ?? null, savedAt: info?.savedAt ?? null, health: info ? (health.get(id) ?? 'unverified') : 'none', checkedAt: null, detail: {} };
     const models = lists.get(id) ?? null;
     const choice = settings.get<string>(modelSettingKey(id));
-    const usable = models?.models.filter((m) => m.compatibility !== 'unknown') ?? [];
-    const picked = usable.find((m) => m.id === choice) ?? usable[0] ?? null;
+    // كالخلفية (DEC-13 ن-5): ما في الحقل كما هو، ونتيجة الاختبار للنموذج المكتوب وبالمفتاح الحالي وحدهما.
+    const test = tests.get(id);
     return {
       provider: providerInfo(d),
       selected: settings.get(PROVIDER_ID_KEY) === id,
@@ -100,28 +113,34 @@ async function setup({ firefox = false, granted = [] as string[], answer = true,
       hostPermission: perms.granted.has(d.origin),
       contentPermission: firefox ? perms.collected.has('websiteContent') : null,
       key,
-      model: picked ? { id: picked.id, displayName: picked.displayName } : null,
+      model: choice ? { id: choice, displayName: models?.models.find((m) => m.id === choice)?.displayName ?? choice } : null,
       choice,
       models,
+      test: test && test.model === choice && test.keySavedAt === info?.savedAt ? test : null,
       retryAt: null,
       providers: await Promise.all(DESCRIPTORS.map(async (x) => ({ id: x.id, title: x.title, host: x.host, health: (await backgroundInfo.get(x.id)?.()) ? (health.get(x.id) ?? 'unverified') : ('none' as const) }))),
     };
   };
   const port: ProviderPort = {
     status: vi.fn(async (id?: string) => statusOf(id ?? settings.get<string>(PROVIDER_ID_KEY))),
-    verify: vi.fn(async (id: string) => {
-      order.push(`verify:${id}`);
+    verify: vi.fn(async (id: string, options?: { suggest?: boolean }) => {
+      order.push(`verify:${id}${options?.suggest === false ? ':list' : ''}`);
+      if (fail.list) return { ok: false as const, failure: 'network' as const, status: null, message: 'لا اتصال', retryAt: null };
       const list: ModelsList = { provider: id, models: LISTS[id] ?? [], readAt: NOW, source: `https://${DESCRIPTORS.find((d) => d.id === id)?.host}/models`, partial: false };
       lists.set(id, list);
       health.set(id, 'healthy');
+      // اقتراح الخلفية في الحقل الفارغ: أول نموذج معلن التوافق، ولا اقتراح لزر +.
+      const first = list.models.find((m) => m.compatibility === 'declared');
+      if (options?.suggest !== false && !settings.get<string>(modelSettingKey(id)) && first) await settings.set(modelSettingKey(id), first.id);
       return { ok: true as const, status: 200, data: list };
     }),
     probe: vi.fn(async (id: string, m: string) => {
       order.push(`probe:${id}:${m}`);
-      const list = lists.get(id) as ModelsList;
-      const updated = { ...list, models: list.models.map((x) => (x.id === m ? { ...x, compatibility: 'checked' as const } : x)) };
-      lists.set(id, updated);
-      return { ok: true as const, status: 200, data: updated };
+      const info = await backgroundInfo.get(id)?.();
+      const reply = TEST_REPLIES[m] ?? { verdict: 'accepted' as const, status: 200, message: '' };
+      const test: ModelTest = { provider: id, model: m, keySavedAt: info?.savedAt ?? 0, ...reply, at: NOW };
+      tests.set(id, test);
+      return { ok: true as const, data: test };
     }),
     analyze: vi.fn(),
     cancel: vi.fn(),
@@ -138,19 +157,34 @@ async function setup({ firefox = false, granted = [] as string[], answer = true,
     $<HTMLInputElement>('#mj-key-input').value = value;
     act(() => void $<HTMLFormElement>('[data-key-form]').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })));
   };
-  return { settings, stores, perms, port, order, touched, choose, submit, lists };
+  /** يكتب في حقل النموذج ثم يغادره (فيُحفظ كما عند مغادرة الحقل). */
+  const type = async (value: string) => {
+    const field = $<HTMLInputElement>('[data-model-input]');
+    field.value = value;
+    act(() => void field.dispatchEvent(new Event('input', { bubbles: true })));
+    // كالمتصفح: blur ثم focusout (preact/compat يربط onBlur بالثاني).
+    act(() => {
+      field.dispatchEvent(new FocusEvent('blur'));
+      field.dispatchEvent(new FocusEvent('focusout', { bubbles: true }));
+    });
+    await flush();
+  };
+  return { settings, stores, perms, port, order, touched, choose, submit, type, lists, tests, fail };
 }
 
 describe('AC-E10 (٣): بطاقة واحدة لا بطاقة لكل مزوّد', () => {
-  it('قائمة المزوّد ومفتاح المختار وحالته وموضع حفظه وأزراره ومودله ومصدره والقواعد في بطاقة واحدة؛ ولا قسم «إعدادات التحليل» منفصل', async () => {
-    await setup();
+  it('قائمة المزوّد بحالة مفتاح كلٍّ منهم، ومفتاح المختار وحالته وموضع حفظه وأزراره وحقل النموذج وزر + والقواعد في بطاقة واحدة؛ ولا قسم «إعدادات التحليل» منفصل', async () => {
+    const s = await setup();
+    await s.stores.get('mock-b')?.save(fakeMockKey('mock-b'), 'session');
+    await s.choose('mock-c');
+    await s.choose('anthropic');
     expect(container.querySelectorAll('[data-provider-card]')).toHaveLength(1);
     expect([...$<HTMLSelectElement>('[data-provider-select]').options].map((o) => [o.value, o.textContent])).toEqual([
-      ['anthropic', 'Anthropic'],
-      ['mock-b', 'Mock B'],
-      ['mock-c', 'Mock C'],
+      ['anthropic', 'Anthropic — المفتاح: لم يُضف'],
+      ['mock-b', 'Mock B — المفتاح: غير متحقق منه'],
+      ['mock-c', 'Mock C — المفتاح: لم يُضف'],
     ]);
-    for (const sel of ['[data-provider-key]', '[data-key-state]', '[data-key-form] input[name="mj-key-place"]', '[data-action="key-save"]', '[data-model-select]', '[data-models-source]', '[data-provider-rules]']) {
+    for (const sel of ['[data-provider-key]', '[data-key-state]', '[data-key-form] input[name="mj-key-place"]', '[data-action="key-save"]', '[data-model-input]', '[data-action="model-list"]', '[data-provider-rules]']) {
       expect(container.querySelector(sel), sel).not.toBeNull();
     }
     expect($('h3').textContent).toBe('مزوّد التحليل');
@@ -184,9 +218,16 @@ describe('AC-E10 (٢) و(٣): تغيير المزوّد يعرض ما يخصه �
     expect($('[data-key-state]').textContent).toBe('لا مفتاح محفوظ لـMock B');
     expect($('[data-provider-meta]').textContent).toContain('api.mock-b.test');
     expect($('[data-verify-request]').textContent).toContain('https://api.mock-b.test/models');
-    expect($<HTMLSelectElement>('[data-model-select]').disabled).toBe(true);
-    expect($('[data-model-select]').textContent).toContain('لم تُقرأ قائمة مودلات Mock B بعد');
-    expect($('[data-model-select]').getAttribute('data-setting')).toBe('e.provider.model.mock-b');
+    // O-24: الحقل يعمل بلا مفتاح، وزر + معطّل بسببه في النص المساعد، ولا اختبار لمزوّد لا يدعمه محوّله.
+    const field = $<HTMLInputElement>('[data-model-input]');
+    expect(field.disabled).toBe(false);
+    expect(field.value).toBe('');
+    expect(field.getAttribute('data-setting')).toBe('e.provider.model.mock-b');
+    expect($('[data-action="model-list"]').getAttribute('aria-disabled')).toBe('true');
+    expect($('[data-action="model-list"]').getAttribute('aria-label')).toBe('اعرض نماذج Mock B للاختيار');
+    expect($('[data-model-help]').textContent).toBe('يمكنك كتابة المعرّف الآن؛ وتظهر قائمة Mock B بعد إضافة مفتاحه والتحقق منه.');
+    expect($('[data-model-blocked]').textContent).toContain('حقل النموذج فارغ: لا تحليل عند Mock B');
+    expect(container.querySelector('[data-action="model-test"]')).toBeNull();
     expect(s.touched.filter((t) => !t.endsWith(':mock-b'))).toEqual([]);
     expect((await s.stores.get('anthropic')?.read())?.token).toBeDefined();
   });
@@ -211,25 +252,28 @@ describe('AC-E10 (٢) و(٣): تغيير المزوّد يعرض ما يخصه �
     expect($('[data-key-message]').textContent).toContain('قبِل Mock B المفتاح');
   });
 
-  it('المودل المتوافق وحده خيار، ومودل كل مزوّد في مفتاحه؛ والتبديل يعرض مودلات المختار', async () => {
-    const s = await setup({ granted: [ANTHROPIC.origin, B.origin] });
+  it('حقل النموذج لكل مزوّد في مفتاحه، والاقتراح بعد التحقق من المعلن توافقه وحده؛ والتبديل يعرض حقل المختار', async () => {
+    const s = await setup({ granted: [ANTHROPIC.origin, B.origin, C.origin] });
     await s.submit(fakeKey('A'));
     await flush();
-    expect([...$<HTMLSelectElement>('[data-model-select]').options].map((o) => o.value)).toEqual(['a-model-1', 'a-model-2']);
+    expect($<HTMLInputElement>('[data-model-input]').value).toBe('a-model-1');
     await s.choose('mock-b');
     await s.submit(fakeMockKey('mock-b'));
     await flush();
-    // b-model-2 لم تعلن الواجهة توافقه: لا يظهر خيارًا.
-    expect([...$<HTMLSelectElement>('[data-model-select]').options].map((o) => o.value)).toEqual(['b-model-1']);
-    expect($('[data-models-source]').textContent).toContain('(1 من 2)');
-    const select = $<HTMLSelectElement>('[data-model-select]');
-    select.value = 'b-model-1';
-    act(() => void select.dispatchEvent(new Event('change', { bubbles: true })));
+    expect($<HTMLInputElement>('[data-model-input]').value).toBe('b-model-1');
+    await s.type('my-new-model-2027');
+    expect(s.settings.get(modelSettingKey('mock-b'))).toBe('my-new-model-2027');
+    expect(s.settings.get(modelSettingKey('anthropic'))).toBe('a-model-1');
+    // C لا تعلن واجهته توافقًا: لا اقتراح، والحقل فارغ معلَّلًا ولا يُخمَّن نموذج.
+    await s.choose('mock-c');
+    await s.submit(fakeMockKey('mock-c'));
     await flush();
-    expect(s.settings.get(modelSettingKey('mock-b'))).toBe('b-model-1');
-    expect(s.settings.get(modelSettingKey('anthropic'))).toBe('');
+    expect($<HTMLInputElement>('[data-model-input]').value).toBe('');
+    expect($('[data-model-blocked]').textContent).toContain('ولا يُخمَّن نموذج');
     await s.choose('anthropic');
-    expect([...$<HTMLSelectElement>('[data-model-select]').options].map((o) => o.value)).toEqual(['a-model-1', 'a-model-2']);
+    expect($<HTMLInputElement>('[data-model-input]').value).toBe('a-model-1');
+    await s.choose('mock-b');
+    expect($<HTMLInputElement>('[data-model-input]').value).toBe('my-new-model-2027');
   });
 
   it('مسح مفتاح المختار يخصه: مخزنه وحده، والتأكيد يسرد ما يتعطل وما يبقى ومنه مفاتيح المزوّدين الآخرين', async () => {
@@ -248,32 +292,165 @@ describe('AC-E10 (٢) و(٣): تغيير المزوّد يعرض ما يخصه �
   });
 });
 
-describe('AC-E10 (٤): BLK-MODEL-COMPAT والفحص الصريح', () => {
-  it('مزوّد لم تعلن واجهته توافق مودل: بلا خيار تحليل معلَّلًا، والفحص الصريح بنقرة لكل مودل يجعله خيارًا', async () => {
+describe('AC-E10 (٤) وDEC-13 ن-5: حقل النموذج اليدوي وزر + والاختبار الاختياري (Model field، O-28)', () => {
+  it('معرّف يُكتب يدويًا وليس في القائمة يُحفظ ويصير النموذج المرسل إليه بلا طلب عند الكتابة؛ والمعرّف غير الصالح لا يُحفظ', async () => {
     const s = await setup({ granted: [C.origin] });
     await s.choose('mock-c');
     await s.submit(fakeMockKey('mock-c'));
     await flush();
-    expect($<HTMLSelectElement>('[data-model-select]').disabled).toBe(true);
-    expect($('[data-model-select]').textContent).toContain('لا مودل متوافقًا مع التحليل في قائمة Mock C');
-    expect($('[data-model-blocked]').textContent).toContain('ولا يُخمَّن مودل');
-    expect($('[data-model-probe]').textContent).toContain('https://api.mock-c.test/probe');
-    const probes = [...container.querySelectorAll<HTMLButtonElement>('[data-action="model-probe"]')];
-    expect(probes.map((b) => b.getAttribute('data-model'))).toEqual(['c-model-x', 'c-model-y']);
-    act(() => probes[0]?.click());
-    await flush();
-    expect(s.order.at(-1)).toBe('probe:mock-c:c-model-x');
-    expect([...$<HTMLSelectElement>('[data-model-select]').options].map((o) => o.value)).toEqual(['c-model-x']);
+    const before = s.order.length;
+    await s.type('c-model-from-tomorrow');
+    expect(s.settings.get(modelSettingKey('mock-c'))).toBe('c-model-from-tomorrow');
+    expect((await s.port.status('mock-c'))?.model?.id).toBe('c-model-from-tomorrow');
     expect(container.querySelector('[data-model-blocked]')).toBeNull();
-    expect([...container.querySelectorAll('[data-action="model-probe"]')].map((b) => b.getAttribute('data-model'))).toEqual(['c-model-y']);
+    await s.type('not a model/id');
+    expect($('[data-model-help]').getAttribute('data-model-help')).toBe('invalid');
+    expect($<HTMLInputElement>('[data-model-input]').getAttribute('aria-invalid')).toBe('true');
+    expect(s.settings.get(modelSettingKey('mock-c'))).toBe('c-model-from-tomorrow');
+    await s.type('');
+    expect(s.settings.get(modelSettingKey('mock-c'))).toBe('');
+    expect($('[data-model-blocked]')).not.toBeNull();
+    // لا طلب عند الكتابة.
+    expect(s.order.slice(before)).toEqual([]);
   });
 
-  it('لا فحص صريح لمزوّد لا يدعمه محوّله، ولو بقي فيه مودل لم يُعلن توافقه', async () => {
+  it('زر + بنقرة موثوقة يعرض القائمة المقروءة بوقتها، والاختيار يملأ الحقل ويغلقها ويعيد التركيز؛ وEsc والنقر خارجها يغلقانها؛ والنقرة البرمجية لا تفعل شيئًا', async () => {
     const s = await setup({ granted: [B.origin] });
     await s.choose('mock-b');
     await s.submit(fakeMockKey('mock-b'));
     await flush();
-    expect(container.querySelector('[data-model-probe]')).toBeNull();
+    const plus = $<HTMLButtonElement>('[data-action="model-list"]');
+    act(() => plus.click());
+    await flush();
+    expect(plus.getAttribute('aria-expanded')).toBe('false');
+    const sent = s.order.length;
+    act(() => trustedClick(plus));
+    await flush();
+    // القائمة مقروءة في الجلسة: لا طلب جديد.
+    expect(s.order.length).toBe(sent);
+    expect(plus.getAttribute('aria-expanded')).toBe('true');
+    expect($('[data-model-list]').getAttribute('data-model-list')).toBe('list');
+    expect($('[data-list-source]').textContent).toContain('من قائمة Mock B · قُرئت');
+    const listbox = $('[role="listbox"]');
+    expect(plus.getAttribute('aria-controls')).toBe(listbox.id);
+    expect([...listbox.querySelectorAll('[role="option"]')].map((o) => o.getAttribute('data-model'))).toEqual(['b-model-1', 'b-model-2']);
+    act(() => ($('[role="option"][data-model="b-model-2"]') as HTMLElement).click());
+    await flush();
+    expect(s.settings.get(modelSettingKey('mock-b'))).toBe('b-model-2');
+    expect($<HTMLInputElement>('[data-model-input]').value).toBe('b-model-2');
+    expect(container.querySelector('[data-model-list]')).toBeNull();
+    expect(document.activeElement).toBe($('[data-model-input]'));
+    // Esc يغلقها، والأسهم وEnter تختار.
+    act(() => trustedClick(plus));
+    await flush();
+    const field = $<HTMLInputElement>('[data-model-input]');
+    act(() => void field.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true })));
+    await flush();
+    expect(field.getAttribute('aria-activedescendant')).toBe($('[role="option"][data-model="b-model-1"]').id);
+    act(() => void field.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })));
+    await flush();
+    expect(s.settings.get(modelSettingKey('mock-b'))).toBe('b-model-1');
+    expect(container.querySelector('[data-model-list]')).toBeNull();
+    act(() => trustedClick(plus));
+    await flush();
+    act(() => void field.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })));
+    await flush();
+    expect(container.querySelector('[data-model-list]')).toBeNull();
+    act(() => trustedClick(plus));
+    await flush();
+    act(() => void document.body.dispatchEvent(new Event('pointerdown', { bubbles: true, composed: true })));
+    await flush();
+    expect(container.querySelector('[data-model-list]')).toBeNull();
+  });
+
+  it('زر + بلا قائمة مقروءة يرسل طلب التحقق المعلن نفسه بلا اقتراح؛ وتعذّر الجلب معلن بإعادة المحاولة والحقل يعمل ويُحفظ', async () => {
+    const s = await setup({ granted: [C.origin], listFails: true });
+    await s.stores.get('mock-c')?.save(fakeMockKey('mock-c'), 'session');
+    await s.choose('mock-c');
+    const plus = $<HTMLButtonElement>('[data-action="model-list"]');
+    expect(plus.getAttribute('aria-disabled')).toBeNull();
+    act(() => trustedClick(plus));
+    expect($('[data-model-list]').getAttribute('data-model-list')).toBe('loading');
+    expect($('[data-list-state="loading"]').textContent).toContain('يجلب قائمة النماذج من Mock C…');
+    await flush();
+    expect(s.order).toEqual(['verify:mock-c:list']);
+    expect($('[data-list-state="failed"]').textContent).toContain('تعذّر جلب القائمة (لا اتصال). الحقل يعمل كما هو.');
+    expect($('[data-list-state="failed"]').closest('[aria-live="polite"]')).not.toBeNull();
+    await s.type('c-model-typed');
+    expect(s.settings.get(modelSettingKey('mock-c'))).toBe('c-model-typed');
+    s.fail.list = false;
+    act(() => trustedClick($('[data-action="model-list-retry"]')));
+    await flush();
+    expect(s.order.filter((o) => o.startsWith('verify'))).toEqual(['verify:mock-c:list', 'verify:mock-c:list']);
+    expect($('[data-model-list]').getAttribute('data-model-list')).toBe('list');
+    // جلب القائمة بزر + لا يقترح نموذجًا ولا يغيّر الحقل.
+    expect(s.settings.get(modelSettingKey('mock-c'))).toBe('c-model-typed');
+  });
+
+  it('قائمة خالية: «لم يُعِد المزوّد نماذج لمفتاحك»، والحقل يعمل', async () => {
+    const s = await setup({ granted: [C.origin] });
+    await s.stores.get('mock-c')?.save(fakeMockKey('mock-c'), 'session');
+    await s.choose('mock-c');
+    s.lists.set('mock-c', { provider: 'mock-c', models: [], readAt: NOW, source: 'https://api.mock-c.test/models', partial: false });
+    await s.choose('mock-b');
+    await s.choose('mock-c');
+    act(() => trustedClick($('[data-action="model-list"]')));
+    await flush();
+    expect($('[data-list-state="empty"]').textContent).toBe('لم يُعِد Mock C نماذج لمفتاحك. اكتب المعرّف بنفسك.');
+    expect($<HTMLInputElement>('[data-model-input]').disabled).toBe(false);
+  });
+
+  it('«اختبر النموذج» واحد للنموذج المكتوب حيث يدعمه المحوّل، بنقرة موثوقة؛ ونتيجته قبول أو رفض أو لم يُحسم للنموذج المكتوب وحده، ولا تمنع شيئًا', async () => {
+    const s = await setup({ granted: [C.origin] });
+    await s.choose('mock-c');
+    await s.submit(fakeMockKey('mock-c'));
+    await flush();
+    expect(container.querySelectorAll('[data-action="model-test"]')).toHaveLength(1);
+    const test = $<HTMLButtonElement>('[data-action="model-test"]');
+    expect(test.disabled).toBe(true);
+    expect(test.getAttribute('title')).toContain('https://api.mock-c.test/probe');
+    await s.type('c-model-from-tomorrow');
+    expect(test.disabled).toBe(false);
+    act(() => test.click());
+    await flush();
+    expect(s.order.filter((o) => o.startsWith('probe'))).toEqual([]);
+    act(() => trustedClick(test));
+    await flush();
+    expect(s.order.filter((o) => o.startsWith('probe'))).toEqual(['probe:mock-c:c-model-from-tomorrow']);
+    expect($('[data-model-test]').getAttribute('data-model-test')).toBe('accepted');
+    expect($('[data-model-test]').textContent).toContain('قبِل Mock C النموذج في الاختبار');
+    await s.type('c-gone');
+    expect(container.querySelector('[data-model-test]')).toBeNull();
+    act(() => trustedClick($('[data-action="model-test"]')));
+    await flush();
+    expect($('[data-model-test]').getAttribute('data-model-test')).toBe('rejected');
+    expect($('[data-model-test]').textContent).toBe('رفض Mock C النموذج: غير متاح لمفتاحك. لا يمنع ذلك الحفظ ولا التحليل.');
+    expect(s.settings.get(modelSettingKey('mock-c'))).toBe('c-gone');
+    await s.type('c-busy');
+    act(() => trustedClick($('[data-action="model-test"]')));
+    await flush();
+    expect($('[data-model-test]').getAttribute('data-model-test')).toBe('inconclusive');
+    expect($('[data-model-test]').textContent).toContain('لم يُحسم الاختبار: تجاوز المفتاح حد الطلبات. ليس حكمًا على النموذج');
+    // نتيجة مزوّد لا تُعرض لغيره، ولا بعد استبدال مفتاحه.
+    await s.choose('mock-b');
+    expect(container.querySelector('[data-model-test]')).toBeNull();
+    await s.choose('mock-c');
+    expect($('[data-model-test]').getAttribute('data-model-test')).toBe('inconclusive');
+    await s.stores.get('mock-c')?.save(fakeMockKey('mock-c', 'z'), 'session');
+    await s.choose('mock-b');
+    await s.choose('mock-c');
+    expect(container.querySelector('[data-model-test]')).toBeNull();
+  });
+
+  it('لا اختبار لمزوّد لا يدعمه محوّله، ولا زر لكل نموذج في القائمة', async () => {
+    const s = await setup({ granted: [B.origin] });
+    await s.choose('mock-b');
+    await s.submit(fakeMockKey('mock-b'));
+    await flush();
+    expect(container.querySelector('[data-action="model-test"]')).toBeNull();
+    act(() => trustedClick($('[data-action="model-list"]')));
+    await flush();
+    expect(container.querySelectorAll('[role="option"] button')).toHaveLength(0);
   });
 });
 

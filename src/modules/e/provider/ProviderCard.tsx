@@ -1,6 +1,6 @@
 // بطاقة «مزوّد التحليل» الموحّدة في سجل الاتصالات (T-11.10، AC-E10 (٢) و(٣) و(٤) و(٦)، الإطارات O-23 وO-24 وO-25 وO-27؛ DEC-10 ح-4). تحل محل بطاقة
-// «مفتاح مزوّد التحليل» وقسم «إعدادات التحليل» المنفصلين (MJ21): قائمة المزوّد، ومفتاح المختار وحالته وموضع حفظه وأزراره وصلاحية مضيفه، وقائمة مودله
-// المتوافق بمصدرها ووقت قراءتها، وقواعد الموافقة والوجهة. لا صفحة ولا بطاقة لكل مزوّد؛ وتغيير المزوّد يعرض مفتاحه ومودلاته وحالته هو، ولا يمسح مفتاح
+// «مفتاح مزوّد التحليل» وقسم «إعدادات التحليل» المنفصلين (MJ21): قائمة المزوّد بحالة مفتاح كلٍّ منهم، ومفتاح المختار وحالته وموضع حفظه وأزراره
+// وصلاحية مضيفه، وحقل «النموذج» (ModelField.tsx، O-28)، وقواعد الموافقة والوجهة. لا صفحة ولا بطاقة لكل مزوّد؛ وتغيير المزوّد يعرض مفتاحه ومودلاته وحالته هو، ولا يمسح مفتاح
 // غيره ولا يقرؤه. في صفحة الإعدادات وحدها: تمرّرها صفحة الإعدادات إلى سجل الاتصالات، فلا تصل شيفرتها سكربت المحتوى ولا اللوحة.
 //  - القائمة من السجل الوصفي (لا تعرض إلا مزوّدًا دُمج محوّله)، والصيغة تُفحص محليًا من وصف المزوّد قبل أي طلب.
 //  - الحقل غير متحكَّم به: المفتاح لا يدخل حالة المكوّن، ويُقرأ من الحقل عند الحفظ ثم يُفرَّغ، ولا يُعرض بعد الحفظ ولا جزء منه.
@@ -8,8 +8,8 @@
 //    الطلب الوحيد بعدها طلب التحقق المعلن لذلك المزوّد (قائمة مودلاته، بلا محتوى).
 //  - صلاحية مضيف المزوّد الاختيارية تُطلب في نقرة الحفظ نفسها قبل أي await (VER-05)، وإن رُفضت حُفظ المفتاح «غير متحقق منه» ولم يُرسل شيء. وفي Firefox
 //    تُطلب معها في الطلب نفسه موافقة مشاركة محتوى المواقع (websiteContent، AD-15) الواحدة لكل المزوّدين؛ وسحب المضيف يخص مزوّده، وسحب الموافقة يخصهم كلهم.
-//  - المودلات المتوافقة وحدها خيارات (DEC-13 ن-3)؛ ومزوّد بلا مودل متوافق يُعرض بلا خيار تحليل معلَّلًا (BLK-MODEL-COMPAT)، ويُعرض لما لم تعلن واجهته
-//    توافقه فحص صريح يبدؤه المستخدم إن دعمه المحوّل.
+//  - النموذج (DEC-13 ن-5): معرّف يكتبه المستخدم لكل مزوّد ويُرسل إليه التحليل كما هو، وزر + يعرض قائمة المزوّد للمساعدة فقط، و«اختبر النموذج» اختياري
+//    حيث يدعمه المحوّل؛ والحقل الفارغ وحده يُبقي المزوّد بلا تحليل معلَّلًا (BLK-MODEL-COMPAT)، ولا يُخمَّن نموذج.
 //  - لا سعر ولا تكلفة ولا حد إنفاق ولا رابط أسعار (AD-31).
 import type { ComponentChild } from 'preact';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
@@ -28,7 +28,8 @@ import { useStyles } from '../../../shared/ui/useStyles';
 import { PROVIDER_DESCRIPTORS, checkKey } from './catalog';
 import { ProviderHostPermission, isGranted } from './gate';
 import type { HostPermissionState } from './gate';
-import { compatibleModels, uncheckedModels } from './models';
+import { MODEL_FIELD_CSS, ModelField } from './ModelField';
+import type { FieldOutcome } from './ModelField';
 import type { ProviderPort, ProviderStatus } from './port';
 import { PROVIDER_ID_KEY, modelSettingKey } from './settings';
 import type { ProviderDescriptor } from './types';
@@ -67,7 +68,6 @@ const CARD_CSS = `
 }
 .mj-root .key-input:focus-visible { outline: none; border-color: var(--mijhar-border-focus); box-shadow: var(--mijhar-focus-ring); }
 .mj-root .choice input:disabled + .label { color: var(--mijhar-text-disabled); }
-.mj-root .model-probe { margin: 0; padding-inline-start: var(--mijhar-space-24); display: flex; flex-direction: column; gap: var(--mijhar-space-4); max-height: 16rem; overflow-y: auto; }
 `;
 
 const PLACE_TEXT: Readonly<Record<SecretPlace, string>> = { session: 'ذاكرة الجلسة', disk: 'القرص في هذا المتصفح' };
@@ -75,12 +75,15 @@ const TONE_ATTR: Readonly<Record<HealthTone, string | undefined>> = { danger: 'd
 
 type Message = { readonly tone: 'danger' | 'info' | 'success'; readonly text: string };
 
-const modelLabel = (m: { id: string; displayName: string }): string => (m.displayName === m.id ? m.id : `${m.displayName} (${m.id})`);
+/** حالة مفتاح مزوّد كما تذكرها قائمة المزوّد («المفتاح: سليم»). */
+const keyLabel = (health: ProviderStatus['providers'][number]['health'] | undefined): string =>
+  health === undefined || health === null ? 'غير معروف' : health === 'none' ? 'لم يُضف' : HEALTH_LABEL[health];
 
 export function ProviderCard({ settings, port, stores, permissions, target, status, onChange, now = () => Date.now(), descriptors = PROVIDER_DESCRIPTORS }: ProviderCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   useStyles(ref, 'core-connections', CONNECTIONS_CSS);
   useStyles(ref, 'e-provider-card', CARD_CSS);
+  useStyles(ref, 'e-provider-model-field', MODEL_FIELD_CSS);
   const chosen = useSetting<string>(settings, PROVIDER_ID_KEY);
   const descriptor = descriptors.find((d) => d.id === chosen) ?? descriptors[0];
   if (!descriptor) throw new Error('سجل المزوّدين فارغ');
@@ -88,14 +91,18 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
   const store = useMemo(() => stores(id), [stores, id]);
   const permission = useMemo(() => new ProviderHostPermission(permissions, descriptor.origin, target === 'firefox' ? ['websiteContent'] : []), [permissions, descriptor.origin, target]);
   const modelKey = modelSettingKey(id);
-  const choice = useSetting<string>(settings, modelKey);
+  // useSetting يتبع التغيّر ويعيد الرسم؛ والقيمة تُقرأ من المخزن مباشرة فلا يُرسم إطار بحقل المزوّد السابق بعد التبديل.
+  const subscribed = useSetting<string>(settings, modelKey);
+  const choice = settings.get<string>(modelKey) ?? subscribed ?? '';
 
   const input = useRef<HTMLInputElement>(null);
   const [info, setInfo] = useState<SecretInfo | null | undefined>(undefined);
   const [place, setPlace] = useState<SecretPlace>('session');
   const [busy, setBusy] = useState(false);
   const [granted, setGranted] = useState<HostPermissionState | null>(null);
-  const [provider, setProvider] = useState<ProviderStatus | null | undefined>(undefined);
+  const [providerState, setProvider] = useState<ProviderStatus | null | undefined>(undefined);
+  // حالة قُرئت لمزوّد آخر قبل التبديل لا تُعرض لهذا المزوّد (مفتاحه ونتيجة اختباره وقائمته له وحده).
+  const provider = providerState && providerState.provider.id !== id ? undefined : providerState;
   const [message, setMessage] = useState<Message | null>(null);
   const [confirming, setConfirming] = useState(false);
 
@@ -142,10 +149,9 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
     const result = await port.verify(id);
     await readStatus();
     if (result.ok) {
-      const usable = compatibleModels(result.data).length;
       setMessage({
         tone: 'success',
-        text: `قبِل ${descriptor.title} المفتاح وقُرئت ${result.data.models.length} مودلات متاحة له، منها ${usable} متوافقة مع التحليل. لم يبدأ أي تحليل ولم يُرسل شيء من صفحاتك.`,
+        text: `قبِل ${descriptor.title} المفتاح وقُرئت قائمة نماذجه (${result.data.models.length})؛ تعرضها بزر + بجانب حقل النموذج للمساعدة. لم يبدأ أي تحليل ولم يُرسل شيء من صفحاتك.`,
       });
     } else setMessage({ tone: 'danger', text: `لم يُتحقق من المفتاح: ${result.message}` });
     onChange?.();
@@ -236,22 +242,31 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
       });
   };
 
-  const probe = (model: string) => {
-    setBusy(true);
-    setMessage(null);
-    port
-      .probe(id, model)
-      .then(async (result) => {
+  /** يطلب صلاحية المضيف في النقرة نفسها قبل أي await (VER-05)، ثم يرسل الطلب المعلن؛ ورفضها لا يرسل شيئًا. */
+  const withPermission = (send: () => Promise<FieldOutcome>): Promise<FieldOutcome> =>
+    askPermission().then(
+      async (ok) => {
+        await readPermission();
+        if (!ok) return { ok: false, message: `لم تُمنح ${grantName}، فلم يُرسل شيء` };
+        const outcome = await send();
         await readStatus();
-        setMessage(
-          result.ok
-            ? { tone: 'success', text: `ثبت توافق ${model} مع التحليل بالفحص الصريح، فصار خيارًا في قائمة المودل. لم يُرسل شيء من صفحاتك.` }
-            : { tone: 'danger', text: `لم يثبت توافق ${model}: ${result.message}` },
-        );
         onChange?.();
-      })
-      .finally(() => setBusy(false));
-  };
+        return outcome;
+      },
+      () => ({ ok: false, message: 'تعذّر طلب الصلاحية' }),
+    );
+
+  /** زر + و«حدّث القائمة» و«أعد المحاولة»: طلب التحقق المعلن نفسه (قائمة النماذج) بلا اقتراح في الحقل. */
+  const fetchList = (): Promise<FieldOutcome> => withPermission(async () => {
+    const result = await port.verify(id, { suggest: false });
+    return result.ok ? { ok: true } : { ok: false, message: result.message };
+  });
+
+  /** «اختبر النموذج» للنموذج المكتوب؛ والنتيجة (قبول أو رفض أو لم يُحسم) تصل مع حالة المزوّد مقرونة بالنموذج والمفتاح. */
+  const runTest = (model: string): Promise<FieldOutcome> => withPermission(async () => {
+    const result = await port.probe(id, model);
+    return result.ok ? { ok: true } : { ok: false, message: result.message };
+  });
 
   const pick = (value: string) => {
     setMessage(null);
@@ -277,13 +292,8 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
   const badge = info === undefined || provider === undefined ? 'checking' : (key?.health ?? (info ? 'unverified' : 'none'));
   const dependents = dependentsOf('provider-key');
   const permissionState = granted === null ? 'checking' : isGranted(granted) ? 'granted' : 'denied';
-  const models = provider?.models ?? null;
-  const usable = compatibleModels(models);
-  const unchecked = descriptor.probeRequest ? uncheckedModels(models) : [];
-  const current = provider?.model ?? null;
-  // المودل المختار قد لا يكون في القائمة المقروءة الآن (لم تُقرأ في هذه الجلسة): يبقى خيارًا باسمه.
-  const options = current && !usable.some((m) => m.id === current.id) ? [current, ...usable] : usable;
-  const blocked = models !== null && usable.length === 0;
+  const blocked = provider !== undefined && !choice;
+  const health = new Map((provider?.providers ?? []).map((p) => [p.id, p.health]));
   const others = (provider?.providers ?? []).filter((p) => p.id !== id);
 
   const permissionText = (): ComponentChild => {
@@ -312,8 +322,8 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
         </label>
         <select id="mj-provider-select" data-setting={PROVIDER_ID_KEY} data-provider-select="" value={id} disabled={busy} onChange={(event) => switchTo((event.currentTarget as HTMLSelectElement).value)}>
           {descriptors.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.title}
+            <option key={d.id} value={d.id} data-key-health={health.get(d.id) ?? undefined}>
+              {provider ? `${d.title} — المفتاح: ${keyLabel(health.get(d.id))}` : d.title}
             </option>
           ))}
         </select>
@@ -438,54 +448,24 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
         )}
       </div>
 
-      <div class="field">
-        <label class="label" for="mj-provider-model">
-          <strong>المودل</strong>
-        </label>
-        <select id="mj-provider-model" data-setting={modelKey} data-model-select="" disabled={!options.length || busy} value={choice || current?.id || ''} onChange={(event) => pick((event.currentTarget as HTMLSelectElement).value)}>
-          {!options.length && <option value="">{models ? `لا مودل متوافقًا مع التحليل في قائمة ${descriptor.title}` : `لم تُقرأ قائمة مودلات ${descriptor.title} بعد`}</option>}
-          {options.map((m) => (
-            <option key={m.id} value={m.id}>
-              {modelLabel(m)}
-            </option>
-          ))}
-        </select>
-        <p class="muted small" data-models-source={models ? 'read' : provider === undefined ? 'checking' : 'none'}>
-          {models ? (
-            <>
-              من قائمة {descriptor.title} (<Ltr className="mono">{models.source}</Ltr>) كما قُرئت <Ltr>{utcText(models.readAt)}</Ltr>؛ تُعرض المودلات المتوافقة مع التحليل
-              وحدها ({usable.length} من {models.models.length})، وتُحدَّث عند كل تحقق من المفتاح{models.partial ? '، وأعلن المزوّد مودلات أخرى لم تُقرأ' : ''}.
-            </>
-          ) : provider === undefined ? (
-            'جارٍ القراءة…'
-          ) : (
-            `تُقرأ من ${descriptor.title} بعد إضافة مفتاحه والتحقق منه، ويُعرض منها ما يثبت توافقه مع التحليل وحده؛ ولا قائمة مودلات ثابتة في مِجهَر نفسه.`
-          )}
+      <ModelField
+        key={id}
+        descriptor={descriptor}
+        settingKey={modelKey}
+        value={choice}
+        onCommit={pick}
+        hasKey={Boolean(info)}
+        list={provider?.models ?? null}
+        test={provider?.test ?? null}
+        busy={busy}
+        fetchList={fetchList}
+        runTest={runTest}
+      />
+      {blocked && (
+        <p class="notice" data-tone="warning" data-model-blocked="">
+          حقل النموذج فارغ: لا تحليل عند {descriptor.title} حتى تكتب معرّف نموذج أو تختاره بزر +؛ ولا يُخمَّن نموذج.
         </p>
-        {blocked && (
-          <p class="notice" data-tone="warning" data-model-blocked="">
-            لم يثبت توافق مودل من قائمة {descriptor.title} مع التحليل (لا إعلان من واجهته ولا فحص صريح ناجح)؛ فلا خيار تحليل لهذا المزوّد الآن، ولا يُرسل إليه شيء، ولا
-            يُخمَّن مودل.
-          </p>
-        )}
-        {unchecked.length > 0 && (
-          <div class="notice" data-model-probe="">
-            <span>
-              مودلات في قائمة {descriptor.title} لم يثبت توافقها مع التحليل بعد (لم تعلنه واجهته، أو أعلنته ولا تضمن توافرها لمفتاحك): يُفحص كلٌّ منها بطلب تبدؤه أنت ({descriptor.probeRequest})، ولا يصير خيارًا قبل نجاحه.
-            </span>
-            <ul class="model-probe">
-              {unchecked.map((m) => (
-                <li key={m.id}>
-                  <Ltr className="mono">{modelLabel(m)}</Ltr>{' '}
-                  <button type="button" class="btn" data-action="model-probe" data-model={m.id} disabled={busy || !info} onClick={() => probe(m.id)}>
-                    افحص التوافق
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
+      )}
 
       <dl class="conn-meta provider-rules" data-provider-rules="">
         <dt>الموافقة</dt>

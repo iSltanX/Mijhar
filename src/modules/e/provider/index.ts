@@ -8,13 +8,14 @@ export type { AnalysisSpec, ConsentSummary, PreparedAnalysis } from './request';
 export { parseAnalysis } from './result';
 export type { EvidenceQuote, Finding, ParsedAnalysis } from './result';
 export { PROVIDER_DESCRIPTORS, checkKey, descriptorById, providerHosts, providerInfo, providerNames } from './catalog';
-export { compatibleModels, defaultModel, isModelId, uncheckedModels } from './models';
+export { defaultModel, isModelId, listedModels, testFor, testVerdict } from './models';
 export { PROVIDER_ID_KEY, PROVIDER_MODEL_KEY, defineProviderSettings, isProviderId, modelSettingKey } from './settings';
 export type {
   AnalysisReply,
   AnalysisRequest,
   KeyFormat,
   ModelCompatibility,
+  ModelTest,
   ModelsList,
   ProviderAdapter,
   ProviderCall,

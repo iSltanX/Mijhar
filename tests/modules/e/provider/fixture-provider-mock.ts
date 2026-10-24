@@ -418,6 +418,8 @@ export function geminiMock(scenario: GeminiScenario = {}) {
         if (probeOutcome !== 'ok') return fail(probeOutcome);
         return reply(200, { candidates: [{ content: { role: 'model', parts: [{ text: 'pong' }] }, finishReason: 'STOP' }], modelVersion: match[1] });
       }
+      // مودل لم يعد متاحًا لمفتاح المستخدم يُرفض في التحليل كما في الفحص (DEC-13 ن-5: يُرسل إليه ما في الحقل ويُعرض رفضه).
+      if (scenario.probeFails?.includes(match[1] ?? '')) return reply(404, gerror(404, 'NOT_FOUND', `This model models/${match[1]} is no longer available to new users.${echo}`));
       const outcome = scenario.analyze ?? 'ok';
       if (outcome === 'prompt-blocked') return reply(200, { promptFeedback: { blockReason: 'SAFETY', safetyRatings: [] }, usageMetadata: { promptTokenCount: 10 } });
       if (outcome === 'reply-blocked') return reply(200, { candidates: [{ content: { role: 'model', parts: [{ text: '{"summary":"مقطوع' }] }, finishReason: 'SAFETY' }], modelVersion: match[1] });

@@ -97,8 +97,10 @@ const READ_CARD = `
     health: c.querySelector('[data-provider-key]')?.getAttribute('data-health') ?? null,
     key: c.querySelector('[data-key-state]')?.getAttribute('data-key-state') ?? null,
     host: c.querySelector('[data-provider-meta]')?.textContent ?? '',
-    models: [...(c.querySelector('[data-model-select]')?.options ?? [])].map((o) => o.value).filter(Boolean),
-    modelsDisabled: c.querySelector('[data-model-select]')?.disabled ?? null,
+    // DEC-13 ن-5: حقل النموذج اليدوي (ما يُرسل إليه)، وزر + معطّل بلا مفتاح، والقائمة حين تُفتح.
+    model: c.querySelector('[data-model-input]')?.value ?? null,
+    listDisabled: c.querySelector('[data-action="model-list"]')?.getAttribute('aria-disabled') === 'true',
+    listed: [...c.querySelectorAll('[role="listbox"] [role="option"]')].map((o) => o.getAttribute('data-model')),
     others: c.querySelector('[data-other-providers]')?.textContent ?? '',
     busy: c.querySelector('[data-action="key-save"]')?.disabled ?? null,
   };
@@ -124,19 +126,22 @@ async function scenario(session, checks) {
   check('القائمة فيها Anthropic أولًا ومحوّل وهمي مدموج في بناء المحاكاة آخرًا، والمختار Anthropic', start?.providers[0] === 'anthropic' && start.providers.at(-1) === 'mock-b' && start.provider === 'anthropic', start);
   await d.fill('#mj-key-input', A_KEY);
   await d.click('[data-action="key-save"]');
-  const aHealthy = await until((c) => c.provider === 'anthropic' && c.health === 'healthy' && c.models.length > 0);
+  const aHealthy = await until((c) => c.provider === 'anthropic' && c.health === 'healthy' && Boolean(c.model));
   check('Anthropic: مفتاحه «سليم» بطلب تحققه ومودلاته من قائمته', Boolean(aHealthy) && requests('api.anthropic.com').length === 1, { card: aHealthy, requests: requests('api.anthropic.com').length });
 
   // 2.
   await page.selectOption('#mj-provider-select', 'mock-b');
   const switched = await until((c) => c.provider === 'mock-b' && c.key === 'none');
-  check('التبديل إلى Mock B: مفتاحه «لا مفتاح» ومضيفه وقائمة مودله غير المقروءة، ومفتاح Anthropic باقٍ «سليم» في ملخص المزوّدين', Boolean(switched) && switched.head === 'مفتاح Mock B' && switched.health === 'none' && switched.host.includes(SIM_HOST) && switched.modelsDisabled === true && switched.others.includes('Anthropic — مفتاح سليم'), switched);
+  check('التبديل إلى Mock B: مفتاحه «لا مفتاح» ومضيفه، وحقل نموذجه فارغ يعمل وزر + معطّل بلا مفتاحه، ومفتاح Anthropic باقٍ «سليم» في ملخص المزوّدين', Boolean(switched) && switched.head === 'مفتاح Mock B' && switched.health === 'none' && switched.host.includes(SIM_HOST) && switched.model === '' && switched.listDisabled === true && switched.others.includes('Anthropic — مفتاح سليم'), switched);
   check('التبديل لا يرسل شيئًا', requests(SIM_HOST).length === 0 && requests('api.anthropic.com').length === 1, network.extra.length);
   await d.fill('#mj-key-input', B_KEY);
   await d.click('[data-action="key-save"]');
-  const bHealthy = await until((c) => c.provider === 'mock-b' && c.health === 'healthy' && c.models.length > 0);
+  const bHealthy0 = await until((c) => c.provider === 'mock-b' && c.health === 'healthy' && Boolean(c.model));
+  await d.click('[data-provider-card] [data-action="model-list"]');
+  const bHealthy = await until((c) => c.provider === 'mock-b' && c.listed.length > 0);
+  await d.click('[data-provider-card] [data-action="model-list"]');
   const bVerify = requests(SIM_HOST);
-  check('Mock B: طلب تحققه إلى مضيفه بمفتاحه وحده، ومفتاحه «سليم»، ومودلاته هو (المعلنة التوافق) لا مودلات Anthropic', Boolean(bHealthy) && bHealthy.models.join(',') === 'b-model-2,b-model-1' && bVerify.length === 1 && bVerify[0].headers['x-mock-key'] === B_KEY && !bVerify[0].headers['x-api-key'] && bVerify[0].from === 'background', { card: bHealthy, verify: bVerify.map((r) => ({ path: r.path, from: r.from, key: r.headers['x-mock-key'] === B_KEY ? 'B' : 'other' })) });
+  check('Mock B: طلب تحققه إلى مضيفه بمفتاحه وحده، ومفتاحه «سليم»، والحقل مقترح من قائمته هو وزر + يعرض نماذجه هو لا نماذج Anthropic', Boolean(bHealthy0) && bHealthy0.model === 'b-model-2' && Boolean(bHealthy) && bHealthy.listed.join(',') === 'b-model-2,b-model-1' && bVerify.length === 1 && bVerify[0].headers['x-mock-key'] === B_KEY && !bVerify[0].headers['x-api-key'] && bVerify[0].from === 'background', { card: bHealthy, verify: bVerify.map((r) => ({ path: r.path, from: r.from, key: r.headers['x-mock-key'] === B_KEY ? 'B' : 'other' })) });
 
   // لقطتا البطاقة الموحّدة (O-23 فاتحًا وO-27 داكنًا) للمراجعة البصرية.
   if (outDir) {
@@ -173,7 +178,7 @@ async function scenario(session, checks) {
   check('حذف مفتاح Mock B يخصه: مفتاحه غائب ومفتاح Anthropic باقٍ في مفتاح الجلسة التاريخي', Boolean(cleared) && session1.includes('mijhar.secret.providerKey') && !session1.includes('mijhar.secret.providerKey.mock-b'), session1);
   await page.selectOption('#mj-provider-select', 'anthropic');
   const back = await until((c) => c.provider === 'anthropic' && c.health === 'healthy');
-  check('العودة إلى Anthropic: مفتاحه «سليم» ومودلاته كما هي، وMock B «لا مفتاح» في الملخص', Boolean(back) && back.models.includes('mock-sonnet-2') && back.others.includes('Mock B — لا مفتاح'), back);
+  check('العودة إلى Anthropic: مفتاحه «سليم» ونموذجه في حقله كما هو، وMock B «لا مفتاح» في الملخص', Boolean(back) && back.model === 'mock-sonnet-2' && back.others.includes('Mock B — لا مفتاح'), back);
 
   // 5.
   const crossed = network.extra.filter((r) => (r.host === SIM_HOST ? JSON.stringify(r).includes(A_KEY) || Boolean(r.headers['x-api-key']) : JSON.stringify(r).includes(B_KEY) || Boolean(r.headers['x-mock-key'])));

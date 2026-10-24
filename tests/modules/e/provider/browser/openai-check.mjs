@@ -2,10 +2,10 @@
 // TEST-AI-07 وTEST-PRIV-05 وAC-E11 (٢) إلى (٥) في المتصفحات الحقيقية على الحزمة المشحونة (dist/<target> من npm run build) — **محاكاة**: مضيف OpenAI وهمي محلي
 // (api.openai.com يُخدم عبر route لا شبكة خارجية، بمفتاح مختلَق يُولَّد وقت التشغيل ولا يُكتب في أي دليل) بمشغّلي MJ15 (tests/modules/d/token/browser/drivers.mjs):
 //   1. بطاقة «مزوّد التحليل»: OpenAI في القائمة بجانب Anthropic؛ وباختياره لا مفتاح له ولا طلب إليه.
-//   2. حفظ رمز GitHub ثم مفتاح OpenAI بالواجهة: الطلب الوحيد بعد المفتاح GET /v1/models من الخلفية بترويسة Authorization وحدها؛ والمودلات كلها غير معلنة
-//      التوافق (HYP-22): «لا خيار تحليل» معلَّلًا وأزرار «افحص التوافق»، ولا مودل مخمَّن.
-//   3. «افحص التوافق» لمودل بنقر المستخدم: POST /v1/responses بـ«ping» وحده (بلا شيء من الصفحات)، فيصير خيارًا في قائمة المودل.
-//   4. صفحة مهمة Actions: الموافقة تذكر OpenAI ومضيفه والمودل المفحوص، والإرسال بنقرة حقيقية طلب واحد إلى api.openai.com من الخلفية؛ والنتيجة موسومة.
+//   2. حفظ رمز GitHub ثم مفتاح OpenAI بالواجهة: الطلب الوحيد بعد المفتاح GET /v1/models من الخلفية بترويسة Authorization وحدها؛ والنماذج كلها غير معلنة
+//      التوافق (HYP-22): لا اقتراح في الحقل، والحقل الفارغ معلَّل، ولا نموذج مخمَّن.
+//   3. DEC-13 ن-5: زر + يعرض القائمة للمساعدة والاختيار يملأ الحقل ويغلقها؛ و«اختبر النموذج» الاختياري بنقرة: POST /v1/responses بـ«ping» وحده.
+//   4. صفحة مهمة Actions: الموافقة تذكر OpenAI ومضيفه والنموذج الذي في الحقل، والإرسال بنقرة حقيقية طلب واحد إلى api.openai.com من الخلفية؛ والنتيجة موسومة.
 //   5. تدقيق الشبكة: كل طلب إلى api.openai.com وحده، من الخلفية، بـAuthorization: Bearer <مفتاح OpenAI> وحده؛ لا x-api-key ولا رمز GitHub ولا مفتاح Anthropic؛
 //      ولا طلب إلى api.anthropic.com؛ ولا مفتاح في طلب إلى GitHub ولا في DOM ولا الكونسول ولا الناتج.
 // صلاحيتا api.github.com وapi.openai.com ممنوحتان في نسخة مشتقة (نافذة الإذن لا تُقبل آليًا)؛ وفي Firefox موافقة websiteContent تُطلب بنقرة الحفظ كما في الحزمة.
@@ -78,7 +78,7 @@ async function scenario(d, target, checks, network) {
 
   // 1. البطاقة: OpenAI في القائمة؛ واختياره لا يرسل شيئًا.
   const card = await waitUntil(() => d.options(`const c = document.querySelector('[data-connection="provider-key"]'); const g = c?.querySelector('[data-provider-permission]')?.getAttribute('data-provider-permission'); return c && g && g !== 'checking' ? { providers: [...(c.querySelector('[data-provider-select]')?.options ?? [])].map((o) => o.value), cards: document.querySelectorAll('[data-provider-card]').length } : null;`), 10000);
-  check('AC-E11: OpenAI في قائمة المزوّد بعد Anthropic، في بطاقة «مزوّد التحليل» الواحدة', card?.providers.join(',') === 'anthropic,openai' && card.cards === 1, card);
+  check('AC-E11: OpenAI في قائمة المزوّد بعد Anthropic (ثم Google Gemini، الموجة L)، في بطاقة «مزوّد التحليل» الواحدة', card?.providers.join(',') === 'anthropic,openai,gemini' && card.cards === 1, card);
   await d.options(`const s = document.querySelector('[data-provider-select]'); s.value = 'openai'; s.dispatchEvent(new Event('change', { bubbles: true })); return true;`);
   const switched = await waitUntil(() => d.options(`const c = document.querySelector('[data-provider-card]'); const s = document.querySelector('[data-provider-select]'); return s?.value === 'openai' && c?.textContent?.includes('api.openai.com') ? { announce: c.querySelector('[data-verify-request]')?.textContent ?? '', placeholder: document.querySelector('#mj-key-input')?.getAttribute('placeholder') ?? '' } : null;`), 8000);
   check('بعد اختيار OpenAI: طلب التحقق المعلن يذكر GET https://api.openai.com/v1/models، ولا طلب إلى أي مزوّد قبل الحفظ', switched?.announce.includes('GET https://api.openai.com/v1/models') && network.extra.length === 0, { switched, requests: network.extra.length });
@@ -95,12 +95,19 @@ async function scenario(d, target, checks, network) {
   const afterAdd = network.extra.map((r) => ({ host: r.host, method: r.method, path: r.path, from: r.from }));
   check('AC-E11 (٢): بعد إضافة المفتاح طلب واحد هو التحقق المعلن GET /v1/models إلى api.openai.com من الخلفية، ولا تحليل', afterAdd.length === 1 && afterAdd[0].host === 'api.openai.com' && afterAdd[0].method === 'GET' && afterAdd[0].path === '/v1/models' && afterAdd[0].from === 'background', afterAdd);
 
-  // 3. المودلات غير المعلنة التوافق والفحص الصريح.
-  const unchecked = await waitUntil(() => d.options(`const c = document.querySelector('[data-provider-card]'); const probe = c?.querySelector('[data-model-probe]'); return probe ? { blocked: Boolean(c.querySelector('[data-model-blocked]')), models: [...c.querySelectorAll('[data-action="model-probe"]')].map((b) => b.getAttribute('data-model')), options: [...c.querySelectorAll('[data-model-select] option')].map((o) => o.value).filter(Boolean), note: probe.textContent, source: c.querySelector('[data-models-source]')?.textContent ?? '' } : null;`), 10000);
-  check('AC-E11 (٣) وHYP-22: كل المودلات غير معلنة التوافق: «لا خيار تحليل» معلَّلًا وزر «افحص التوافق» لكلٍّ، وبيان الطلب المعلن (ping وحده، store=false)، ولا مودل في القائمة', unchecked?.blocked && unchecked.models.join(',') === 'mock-chat-2,mock-embed-1' && unchecked.options.length === 0 && unchecked.note.includes('POST https://api.openai.com/v1/responses') && unchecked.note.includes('store=false'), unchecked);
-  await d.options(`document.querySelector('[data-action="model-probe"][data-model="mock-chat-2"]').click(); return true;`);
-  const probed = await waitUntil(() => d.options(`const c = document.querySelector('[data-provider-card]'); const o = [...c.querySelectorAll('[data-model-select] option')].map((x) => x.value).filter(Boolean); return o.length ? { options: o, blocked: Boolean(c.querySelector('[data-model-blocked]')), left: [...c.querySelectorAll('[data-action="model-probe"]')].map((b) => b.getAttribute('data-model')) } : null;`), 10000);
-  check('الفحص الصريح بنقرة: يصير mock-chat-2 وحده خيارًا، ويبقى الآخر للفحص', probed && probed.options.join(',') === 'mock-chat-2' && !probed.blocked && probed.left.join(',') === 'mock-embed-1', probed);
+  // 3. DEC-13 ن-5: لا توافق معلن فلا اقتراح والحقل فارغ معلَّلًا؛ زر + (نقرة فعلية) يعرض القائمة المقروءة للمساعدة، والاختيار يملأ الحقل ويغلقها؛
+  //    و«اختبر النموذج» الاختياري بنقرة فعلية: POST /v1/responses بـ«ping» وحده.
+  const empty = await waitUntil(() => d.options(`const c = document.querySelector('[data-provider-card]'); const f = c?.querySelector('[data-model-input]'); return f && c.querySelector('[data-model-blocked]') ? { field: f.value, blocked: c.querySelector('[data-model-blocked]').textContent, test: c.querySelector('[data-action="model-test"]')?.getAttribute('title') ?? '', probeButtons: c.querySelectorAll('[data-action="model-probe"]').length } : null;`), 8000);
+  check('AC-E11 (٣) وDEC-13 ن-5: القائمة لا تعلن توافقًا فلا نموذج مقترح ولا مخمَّن، والحقل فارغ معلَّلًا، واختبار واحد للنموذج المكتوب ببيان طلبه (ping وحده، store=false) ولا زر لكل نموذج', empty && empty.field === '' && empty.blocked.includes('ولا يُخمَّن نموذج') && empty.test.includes('ping') && empty.test.includes('store=false') && empty.probeButtons === 0, empty);
+  await d.click('[data-provider-card] [data-action="model-list"]');
+  const listed = await waitUntil(() => d.options(`const o = [...document.querySelectorAll('[data-provider-card] [role="listbox"] [role="option"]')].map((x) => x.getAttribute('data-model')); return o.length ? o : null;`), 8000);
+  check('زر + يعرض قائمة OpenAI المقروءة بلا طلب جديد', listed && listed.join(',') === 'mock-chat-2,mock-embed-1' && network.extra.length === 1, { listed, requests: network.extra.length });
+  await d.click('[data-provider-card] [role="option"][data-model="mock-chat-2"]');
+  const picked = await waitUntil(() => d.options(`const c = document.querySelector('[data-provider-card]'); const f = c.querySelector('[data-model-input]'); return f.value === 'mock-chat-2' && !c.querySelector('[data-model-list]') ? { field: f.value, blocked: Boolean(c.querySelector('[data-model-blocked]')), focused: document.activeElement === f } : null;`), 8000);
+  check('الاختيار يملأ الحقل ويغلق القائمة ويعيد التركيز إلى الحقل، ويزول تعليل الحقل الفارغ', picked && !picked.blocked && picked.focused, picked);
+  await d.click('[data-provider-card] [data-action="model-test"]');
+  const probed = await waitUntil(() => d.options(`const r = document.querySelector('[data-provider-card] [data-model-test]'); return r && r.getAttribute('data-model-test') !== 'running' ? { verdict: r.getAttribute('data-model-test'), text: r.textContent } : null;`), 10000);
+  check('«اختبر النموذج» بنقرة فعلية: «قبِل OpenAI النموذج في الاختبار» للنموذج المكتوب', probed && probed.verdict === 'accepted' && probed.text.includes('قبِل OpenAI النموذج في الاختبار'), probed);
   const probeRequest = posts();
   check('طلب الفحص: POST /v1/responses واحد من الخلفية بنص «ping» وحد مخرجات 16 وstore=false، بلا نظام ولا شيء من الصفحات', probeRequest.length === 1 && probeRequest[0].from === 'background' && JSON.stringify(JSON.parse(probeRequest[0].body)) === JSON.stringify({ model: 'mock-chat-2', input: 'ping', max_output_tokens: 16, store: false }), probeRequest.map((r) => r.body));
 

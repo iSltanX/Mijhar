@@ -200,8 +200,8 @@ describe('TEST-AI-04 (AC-E10 (٢)): مفاتيح مستقلة لكل مزوّد'
   });
 });
 
-describe('TEST-AI-05 (AC-E10 (٤) و(٥)): المودل لكل مزوّد، والمتوافق وحده، ولا تحويل ولا إعادة', () => {
-  it('مودل كل مزوّد مستقل: التحقق يثبّت افتراضي كلٍّ في مفتاحه، واختيار مودل لمزوّد لا يمس غيره', async () => {
+describe('TEST-AI-05 (AC-E10 (٤) و(٥)، DEC-13 ن-5): النموذج لكل مزوّد كما في حقله، ولا تحويل ولا إعادة', () => {
+  it('نموذج كل مزوّد مستقل: التحقق يقترح في الحقل الفارغ المعلن توافقه في مفتاح كلٍّ، والكتابة لمزوّد لا تمس غيره', async () => {
     const m = await multi();
     await m.service.verify('anthropic');
     await m.service.verify('mock-b');
@@ -214,7 +214,7 @@ describe('TEST-AI-05 (AC-E10 (٤) و(٥)): المودل لكل مزوّد، وا
     expect((await m.service.status('anthropic'))?.model?.id).toBe('mock-sonnet-2');
   });
 
-  it('BLK-MODEL-COMPAT: مزوّد لا تعلن واجهته توافق مودلاته بلا مودل للتحليل، ولا يُرسل إليه شيء ولا يُخمَّن مودل', async () => {
+  it('BLK-MODEL-COMPAT (ن-5): مزوّد لا تعلن واجهته توافقًا لا اقتراح له والحقل فارغ، فلا يُرسل إليه شيء ولا يُخمَّن نموذج؛ والمعرّف المكتوب يُرسل إليه بلا اختبار', async () => {
     const m = await multi();
     await m.select('mock-c');
     const verified = await m.service.verify('mock-c');
@@ -224,30 +224,30 @@ describe('TEST-AI-05 (AC-E10 (٤) و(٥)): المودل لكل مزوّد، وا
     expect(status?.choice).toBe('');
     expect(await m.service.analyze(input('mock-c', 'c-model-x'), 't')).toMatchObject({ ok: false, failure: 'model-changed', status: null });
     expect(m.sent().filter((r) => r.method === 'POST')).toHaveLength(0);
+    await m.settings.set(modelSettingKey('mock-c'), 'c-model-not-listed');
+    expect((await m.service.analyze(input('mock-c', 'c-model-not-listed'), 't')).ok).toBe(true);
+    expect(m.sent().filter((r) => r.method === 'POST').map((r) => [r.host, r.path])).toEqual([[HOSTS['mock-c'], '/analyze']]);
   });
 
-  it('الفحص الصريح (DEC-13 ن-3): ينجح فيصير المودل خيارًا ويبقى بعد إعادة التحقق، ويفشل فيبقى غير متاح؛ ولا فحص لمزوّد يعلن التوافق', async () => {
+  it('«اختبر النموذج» الاختياري (DEC-13 ن-5): نتيجته لكل مزوّد ونموذجه ومفتاحه، ولا تنتقل إلى مزوّد آخر؛ ولا اختبار لمزوّد لا يدعمه محوّله', async () => {
     const m = await multi({ probeFails: ['c-model-y'] });
     await m.select('mock-c');
-    await m.service.verify('mock-c');
-    const ok = await m.service.probe('mock-c', 'c-model-x');
-    expect(ok.ok && ok.data.models.map((x) => [x.id, x.compatibility])).toEqual([
-      ['c-model-x', 'checked'],
-      ['c-model-y', 'unknown'],
-    ]);
-    expect(await m.service.probe('mock-c', 'c-model-y')).toMatchObject({ ok: false });
-    await m.service.verify('mock-c');
-    const status = await m.service.status();
-    expect(status?.models?.models.map((x) => x.compatibility)).toEqual(['checked', 'unknown']);
-    expect(status?.model?.id).toBe('c-model-x');
+    await m.settings.set(modelSettingKey('mock-c'), 'c-model-x');
+    expect(await m.service.probe('mock-c', 'c-model-x')).toMatchObject({ ok: true, data: { provider: 'mock-c', model: 'c-model-x', verdict: 'accepted' } });
+    expect((await m.service.status('mock-c'))?.test).toMatchObject({ model: 'c-model-x', verdict: 'accepted' });
+    // فشل الاختبار لا يغيّر الحقل ولا يمنع التحليل.
+    expect(await m.service.probe('mock-c', 'c-model-y')).toMatchObject({ ok: true, data: { model: 'c-model-y' } });
+    expect(m.settings.get(modelSettingKey('mock-c'))).toBe('c-model-x');
     expect((await m.service.analyze(input('mock-c', 'c-model-x'), 't')).ok).toBe(true);
+    // النتيجة تخص mock-c: نموذج بالمعرّف نفسه عند مزوّد آخر لا يرثها.
+    await m.settings.set(modelSettingKey('mock-b'), 'c-model-y');
+    expect((await m.service.status('mock-b'))?.test).toBeNull();
     const probes = m.sent().filter((r) => r.path === '/probe');
     expect(probes.map((r) => [r.host, r.key])).toEqual([
       [HOSTS['mock-c'], m.keys['mock-c']],
       [HOSTS['mock-c'], m.keys['mock-c']],
     ]);
     expect(await m.service.probe('mock-b', 'b-model-2')).toMatchObject({ ok: false, failure: 'invalid-request', status: null });
-    expect(await m.service.probe('mock-c', 'not-in-list')).toMatchObject({ ok: false, failure: 'invalid-request', status: null });
   });
 
   it('الفشل لا يحوّل إلى مزوّد آخر ولا يعيد: طلب تحليل واحد إلى مضيف المختار وحده، ويُعاد الرفض كما هو', async () => {

@@ -55,6 +55,7 @@ function analysisDeps() {
     model: { id: 'mock-sonnet-2', displayName: 'Mock Sonnet 2' },
     choice: 'mock-sonnet-2',
     models: null,
+    test: null,
     retryAt: null,
     providers: [],
   };

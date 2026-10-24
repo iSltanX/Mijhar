@@ -75,6 +75,7 @@ function analysisDeps() {
     model: { id: 'mock-gem-2', displayName: 'Mock Gem 2' },
     choice: 'mock-gem-2',
     models: null,
+    test: null,
     retryAt: null,
     providers: [],
   };

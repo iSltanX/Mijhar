@@ -8,12 +8,12 @@ import { describe, expect, it } from 'vitest';
 import { MemoryStorageArea, SettingsStore, Store, createSettingsRegistry } from '../../../../src/core';
 import { SecretStore } from '../../../../src/core/connections/secrets';
 import { ConnectionsService, memoryHealthLog } from '../../../../src/core/connections/service';
-import { PROVIDER_ID_KEY, PROVIDER_DESCRIPTORS, defineProviderSettings } from '../../../../src/modules/e/provider';
+import { PROVIDER_ID_KEY, PROVIDER_DESCRIPTORS, defineProviderSettings, modelSettingKey } from '../../../../src/modules/e/provider';
 import { GEMINI_ADAPTER } from '../../../../src/modules/e/provider/adapters/gemini';
 import { checkKey, descriptorById } from '../../../../src/modules/e/provider/catalog';
 import { GEMINI } from '../../../../src/modules/e/provider/descriptors/gemini';
 import { ProviderKeyMismatchError, bindKey, gatedFetch } from '../../../../src/modules/e/provider/gate';
-import { compatibleModels, defaultModel, uncheckedModels } from '../../../../src/modules/e/provider/models';
+import { defaultModel, listedModels } from '../../../../src/modules/e/provider/models';
 import { parseAnalysis } from '../../../../src/modules/e/provider/result';
 import { PROVIDER_ADAPTERS, createProviderRegistry } from '../../../../src/modules/e/provider/registry';
 import { ProviderService, memoryModelsCache } from '../../../../src/modules/e/provider/service';
@@ -85,7 +85,7 @@ describe('التحقق وقراءة المودلات (DEC-13 ن-3)', () => {
     expect(sent?.search).not.toMatch(/key=/);
   });
 
-  it('المرشَّح ما أعلن supportedGenerationMethods أنه يدعم التوليد وحده، بالحدّين المعلنين، ومعرّفه بلا بادئة models/؛ وتوافقه «غير محسوم» حتى الفحص الصريح (DEC-13 ن-4)؛ وما لم يعلن طرقه لا يُخمَّن', async () => {
+  it('المرشَّح ما أعلن supportedGenerationMethods أنه يدعم التوليد وحده، بالحدّين المعلنين، ومعرّفه بلا بادئة models/؛ والإعلان لا يضمن توافره للمفتاح فلا اقتراح (DEC-13 ن-5)؛ وما لم يعلن طرقه لا يُخمَّن', async () => {
     const { c } = setup();
     const r = await GEMINI_ADAPTER.listModels(c);
     expect(r.ok && r.data.models.map((m) => [m.id, m.displayName, m.maxInputTokens, m.maxTokens, m.compatibility, m.lifecycle])).toEqual([
@@ -94,10 +94,9 @@ describe('التحقق وقراءة المودلات (DEC-13 ن-3)', () => {
     ]);
     if (r.ok) {
       expect(r.data).toMatchObject({ provider: 'gemini', source: `https://${GEMINI_HOST}/v1beta/models`, partial: false, readAt: NOW });
-      // لا مودل خيارًا للتحليل قبل الفحص الصريح، ولا افتراضي (BLK-MODEL-COMPAT)؛ والمرشَّحان يُعرضان للفحص.
-      expect(compatibleModels(r.data)).toEqual([]);
+      // لا اقتراح في الحقل الفارغ (BLK-MODEL-COMPAT حتى يُكتب معرّف)؛ والمرشَّحان يُعرضان بزر + للمساعدة.
       expect(defaultModel(r.data)).toBeNull();
-      expect(uncheckedModels(r.data).map((m) => m.id)).toEqual(['mock-gem-2', 'mock-gem-flash']);
+      expect(listedModels(r.data).map((m) => m.id)).toEqual(['mock-gem-2', 'mock-gem-flash']);
     }
     expect(GEMINI_MOCK_MODELS.length).toBeGreaterThan(2);
   });
@@ -345,49 +344,51 @@ describe('الخدمة الفعلية بمحوّل Gemini المشحون (محا
       cache: memoryModelsCache(),
       now: () => clock,
     });
-    return { service, gemini, anthropic, anthropicKey, tick: (ms: number) => void (clock += ms) };
+    return { service, settings, stores, gemini, anthropic, anthropicKey, tick: (ms: number) => void (clock += ms) };
   }
   /** الخدمة تقيّد طلبًا واحدًا جاريًا لكل تبويب وقسم؛ فكل الطلبات هنا من تبويب واحد. */
   const analyzeIn = (s: { service: ProviderService }, request: ReturnType<typeof input>) => s.service.analyze(request, 'tab-1');
   /** طلبات التحليل وحدها (الفحص الصريح POST أيضًا لكن بنص «ping» وحده). */
-  const analyses = (s: { gemini: { requests: Array<{ method: string; body: string | null }> } }) => s.gemini.requests.filter((x) => x.method === 'POST' && !/"text":"ping"/.test(x.body ?? ''));
-  /** التحقق ثم الفحص الصريح لمودل (DEC-13 ن-4): لا مودل خيارًا قبله. */
+  const analyses = (s: { gemini: { requests: Array<{ method: string; path: string; body: string | null }> } }) => s.gemini.requests.filter((x) => x.method === 'POST' && !/"text":"ping"/.test(x.body ?? ''));
+  /** التحقق ثم كتابة معرّف النموذج في حقله (DEC-13 ن-5): لا اختبار مشروط. */
   const ready = async (s: Awaited<ReturnType<typeof system>>, model = 'mock-gem-2') => {
     await s.service.verify('gemini');
-    return s.service.probe('gemini', model);
+    await s.settings.set(modelSettingKey('gemini'), model);
   };
   const input = (model: string) => ({ requestId: 'r1', section: 'checks', provider: 'gemini', model, system: 'تعليمات', prompt: 'error TS2322: x' });
 
-  it('التحقق ثم التحليل: كل شيء إلى مضيف Gemini بمفتاحه وحده، ولا طلب إلى Anthropic ولا مفتاحه في أي طلب', async () => {
+  it('التحقق ثم التحليل بالمعرّف المكتوب بلا اختبار: كل شيء إلى مضيف Gemini بمفتاحه وحده، ولا طلب إلى Anthropic ولا مفتاحه في أي طلب', async () => {
     const s = await system();
     const verified = await s.service.verify('gemini');
     expect(verified.ok && verified.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'unknown'], ['mock-gem-flash', 'unknown']]);
-    // قبل الفحص الصريح: لا مودل متوافقًا، ولا إرسال تحليل.
+    // الحقل فارغ ولا اقتراح: لا تحليل.
     expect((await s.service.status('gemini'))?.model).toBeNull();
-    expect(await analyzeIn(s, input('mock-gem-2'))).toMatchObject({ ok: false });
+    expect(await analyzeIn(s, input('mock-gem-2'))).toMatchObject({ ok: false, failure: 'model-changed' });
     expect(analyses(s)).toHaveLength(0);
-    const checked = await s.service.probe('gemini', 'mock-gem-2');
-    expect(checked.ok && checked.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'checked'], ['mock-gem-flash', 'unknown']]);
+    await s.settings.set(modelSettingKey('gemini'), 'mock-gem-2');
     const status = await s.service.status('gemini');
-    expect(status?.model?.id).toBe('mock-gem-2');
+    expect(status?.model).toEqual({ id: 'mock-gem-2', displayName: 'Mock Gem 2' });
     expect(status?.provider.host).toBe(GEMINI_HOST);
     const result = await analyzeIn(s, input('mock-gem-2'));
     expect(result).toMatchObject({ ok: true, data: { provider: 'Google Gemini', host: GEMINI_HOST, model: 'mock-gem-2-001' } });
-    expect(s.gemini.requests.map((r) => `${r.method} ${r.path}${r.search}`)).toEqual(['GET /v1beta/models?pageSize=1000', 'POST /v1beta/models/mock-gem-2:generateContent', 'POST /v1beta/models/mock-gem-2:generateContent']);
-    // الأول فحص «ping» وحده، والثاني التحليل؛ ولم يحمل الفحص شيئًا من المحتوى.
-    expect(s.gemini.requests[1]?.body).toBe(JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 64 } }));
-    expect(s.gemini.requests[2]?.body).toContain('error TS2322');
+    expect(s.gemini.requests.map((r) => `${r.method} ${r.path}${r.search}`)).toEqual(['GET /v1beta/models?pageSize=1000', 'POST /v1beta/models/mock-gem-2:generateContent']);
+    expect(s.gemini.requests[1]?.body).toContain('error TS2322');
+    // الاختبار الاختياري بعده: «ping» وحده بلا شيء من المحتوى.
+    expect(await s.service.probe('gemini', 'mock-gem-2')).toMatchObject({ ok: true, data: { verdict: 'accepted', status: 200 } });
+    expect(s.gemini.requests[2]?.body).toBe(JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 64 } }));
     expect(s.gemini.requests.every((r) => r.headers['x-goog-api-key'] === KEY && !r.url.includes(KEY))).toBe(true);
     expect(s.anthropic.requests).toHaveLength(0);
     expect(JSON.stringify(s.gemini.requests)).not.toContain(s.anthropicKey);
   });
 
-  it('مودل غير متوافق (لا يدعم التوليد) لا يُرسل إليه شيء', async () => {
+  it('معرّف خارج القائمة (مودل التضمين) يُرسل إليه ما دام في الحقل، وطلب الموافقة لنموذج غير الذي في الحقل لا يُرسل', async () => {
     const s = await system();
     await ready(s);
-    const r = await analyzeIn(s, input('mock-gem-embed'));
-    expect(r).toMatchObject({ ok: false });
+    expect(await analyzeIn(s, input('mock-gem-embed'))).toMatchObject({ ok: false, failure: 'model-changed' });
     expect(analyses(s)).toHaveLength(0);
+    await s.settings.set(modelSettingKey('gemini'), 'mock-gem-embed');
+    await analyzeIn(s, input('mock-gem-embed'));
+    expect(analyses(s).map((r) => r.path)).toEqual(['/v1beta/models/mock-gem-embed:generateContent']);
   });
 
   it('حد الطلبات بموعده المعلن يمنع الطلب التالي حتى يحل الموعد، ولا إعادة تلقائية', async () => {
@@ -412,35 +413,36 @@ describe('الخدمة الفعلية بمحوّل Gemini المشحون (محا
     expect(s.anthropic.requests).toHaveLength(0);
   });
 
-  it('فحص فاشل (404 «لم يعد متاحًا») يُبقي المودل غير محسوم: لا خيار ولا إرسال تحليل؛ ومودل آخر ينجح فحصه فيصير الخيار وحده', async () => {
+  it('اختبار فاشل (404 «لم يعد متاحًا») «رفض» لا يغيّر الحقل ولا يمنع التحليل؛ والتحليل به يُرسل مرة واحدة ويعرض رفض Google بلا تبديل نموذج ولا إعادة', async () => {
     const s = await system({ probeFails: ['mock-gem-2'] });
-    await s.service.verify('gemini');
+    await ready(s);
     const failed = await s.service.probe('gemini', 'mock-gem-2');
-    expect(failed).toMatchObject({ ok: false, failure: 'not-found' });
-    expect((await s.service.status('gemini'))?.model).toBeNull();
-    expect(await analyzeIn(s, input('mock-gem-2'))).toMatchObject({ ok: false });
-    expect(analyses(s)).toHaveLength(0);
-    const good = await s.service.probe('gemini', 'mock-gem-flash');
-    expect(good.ok && good.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'unknown'], ['mock-gem-flash', 'checked']]);
-    expect((await s.service.status('gemini'))?.model?.id).toBe('mock-gem-flash');
-    expect(await analyzeIn(s, input('mock-gem-flash'))).toMatchObject({ ok: true });
+    expect(failed).toMatchObject({ ok: true, data: { model: 'mock-gem-2', verdict: 'rejected', status: 404 } });
+    expect(failed.ok && failed.data.message).toContain('no longer available');
+    expect((await s.service.status('gemini'))?.model?.id).toBe('mock-gem-2');
+    const r = await analyzeIn(s, input('mock-gem-2'));
+    expect(r).toMatchObject({ ok: false, failure: 'not-found', status: 404 });
+    expect(analyses(s).map((x) => x.path)).toEqual(['/v1beta/models/mock-gem-2:generateContent']);
+    await new Promise((done) => setTimeout(done, 20));
+    expect(analyses(s)).toHaveLength(1);
+    expect((await s.service.status('gemini'))?.model?.id).toBe('mock-gem-2');
+    expect(s.anthropic.requests).toHaveLength(0);
   });
 
-  it('ما ثبت بالفحص يبقى بعد إعادة التحقق من المفتاح فلا يُعاد الفحص، ولا فحص لمودل حُسم أو خارج القائمة', async () => {
+  it('نتيجة الاختبار تبقى بعد إعادة التحقق للنموذج والمفتاح نفسيهما، ويُختبر معرّف خارج القائمة', async () => {
     const s = await system();
     await ready(s);
-    const again = await s.service.verify('gemini');
-    expect(again.ok && again.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'checked'], ['mock-gem-flash', 'unknown']]);
-    const before = s.gemini.requests.length;
-    expect(await s.service.probe('gemini', 'mock-gem-2')).toMatchObject({ ok: false, failure: 'invalid-request' });
-    expect(await s.service.probe('gemini', 'mock-gem-embed')).toMatchObject({ ok: false, failure: 'invalid-request' });
-    expect(s.gemini.requests.length).toBe(before);
+    await s.service.probe('gemini', 'mock-gem-2');
+    await s.service.verify('gemini');
+    expect((await s.service.status('gemini'))?.test).toMatchObject({ model: 'mock-gem-2', verdict: 'accepted' });
+    expect(await s.service.probe('gemini', 'mock-gem-embed')).toMatchObject({ ok: true, data: { model: 'mock-gem-embed' } });
+    expect((await s.service.status('gemini'))?.test).toBeNull();
   });
 
-  it('حد الطلبات الذي أعلنه الفحص يمنع فحصًا آخر حتى موعده، ولا إعادة تلقائية', async () => {
+  it('حد الطلبات في الاختبار «لم يُحسم» لا رفض، وموعده يمنع اختبارًا آخر حتى يحل، ولا إعادة تلقائية', async () => {
     const s = await system({ probe: 'rate-limit', retryAfter: 30 });
     await s.service.verify('gemini');
-    expect(await s.service.probe('gemini', 'mock-gem-2')).toMatchObject({ ok: false, failure: 'rate-limit' });
+    expect(await s.service.probe('gemini', 'mock-gem-2')).toMatchObject({ ok: true, data: { verdict: 'inconclusive', status: 429 } });
     expect(await s.service.probe('gemini', 'mock-gem-flash')).toMatchObject({ ok: false, failure: 'cooldown' });
     expect(s.gemini.requests.filter((x) => x.method === 'POST')).toHaveLength(1);
   });
