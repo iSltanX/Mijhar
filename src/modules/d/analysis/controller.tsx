@@ -141,7 +141,12 @@ export class SectionAnalysis {
   /** «حلّل…» أو «أعد التحليل» أو «أعد المحاولة»: تفعيل المستخدم الحقيقي وحده، ثم الموافقة؛ ولا طلب إلى المزوّد هنا. */
   open(event: Event): void {
     if (!isTrustedActivation(event) || !this.deps.provider || this.state.kind === 'loading') return;
-    const context = this.collect();
+    let context: ContextStructure | null;
+    try {
+      context = this.collect();
+    } catch {
+      context = null;
+    }
     if (!context) {
       this.set({ kind: 'failed', failure: 'no-context', message: 'لا سياق لهذه الصفحة يُبنى منه طلب؛ لم يُرسل شيء.', retryAt: null });
       return;

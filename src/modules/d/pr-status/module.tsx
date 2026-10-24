@@ -40,7 +40,7 @@ import { PR_STATUS_SELECTORS, parseStatusDetails, readPrSummary } from './extrac
 import type { FetchedChecks } from './extract';
 import { STALE_MINUTES_DEFAULT, STALE_MINUTES_KEY, defineDStatusSettings, isStaleMinutes } from './settings';
 import { D_CARD_CSS } from './style';
-import { prepareContext } from '../../e/context';
+import { COLLECTOR_SELECTORS, prepareContext } from '../../e/context';
 import { SectionAnalysis, defaultAnalysisDeps } from '../analysis/controller';
 import type { SectionAnalysisDeps } from '../analysis/controller';
 import { ANALYSIS_CSS } from '../analysis/style';
@@ -174,7 +174,8 @@ export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionMo
     id: PR_STATUS_MODULE_ID,
     title: 'ملخص حالة طلب الدمج',
     pages: ['pr'],
-    selectors: PR_STATUS_SELECTORS,
+    // MJ21: ومحددات جامع الطبقة المشتركة لسياق التحليل.
+    selectors: [...PR_STATUS_SELECTORS, ...COLLECTOR_SELECTORS],
     mount(ctx) {
       if (port === undefined) port = defaultPort();
       if (connections === undefined) connections = defaultConnections();

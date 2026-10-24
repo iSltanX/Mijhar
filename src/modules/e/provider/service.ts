@@ -213,32 +213,34 @@ export class ProviderService {
     }
     const slot = `${tab}:${input.section}`;
     if (this.inflight.has(slot)) return local('busy', 'طلب تحليل جارٍ من هذا القسم؛ انتظره أو أوقفه. لم يُرسل طلب آخر.');
-    const adapter = await this.provider();
-    const wait = this.cooldown(adapter.id);
-    if (wait !== null) return local('cooldown', `أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.`, wait);
-    const status = await this.status();
-    if (!status.model || status.model.id !== input.model) return local('model-changed', 'تغيّر المودل بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
-    if (status.key?.health === 'expired') return local('expired-key', `رفض ${adapter.title} المفتاح المحفوظ من قبل (401)؛ لم يُرسل شيء. استبدله أو تحقق منه من الإعدادات.`);
-    if (!status.permission) return local('permission', `صلاحية ${adapter.host} غير ممنوحة؛ امنحها من بطاقة مفتاح المزوّد في الإعدادات. لم يُرسل شيء.`);
-    const got = await this.key();
-    if (!('key' in got)) return got;
-    const declared = status.models?.models.find((m) => m.id === input.model)?.maxTokens ?? null;
-    const maxTokens = declared !== null ? Math.min(ANALYSIS_OUTPUT_TOKENS, declared) : ANALYSIS_OUTPUT_TOKENS;
-
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), this.options.timeoutMs ?? ANALYSIS_TIMEOUT_MS);
+    // الحجز متزامن قبل أي await: نقرتان متتاليتان لا تُصدران طلبين.
     this.inflight.set(slot, input.requestId);
+    const controller = new AbortController();
     this.controllers.set(input.requestId, controller);
-    const requestedAt = this.now();
+    let timer: ReturnType<typeof setTimeout> | null = null;
     try {
+      const adapter = await this.provider();
+      const wait = this.cooldown(adapter.id);
+      if (wait !== null) return local('cooldown', `أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.`, wait);
+      const status = await this.status();
+      if (!status.model || status.model.id !== input.model) return local('model-changed', 'تغيّر المودل بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
+      if (status.key?.health === 'expired') return local('expired-key', `رفض ${adapter.title} المفتاح المحفوظ من قبل (401)؛ لم يُرسل شيء. استبدله أو تحقق منه من الإعدادات.`);
+      if (!status.permission) return local('permission', `صلاحية ${adapter.host} غير ممنوحة؛ امنحها من بطاقة مفتاح المزوّد في الإعدادات. لم يُرسل شيء.`);
+      if (controller.signal.aborted) return local('aborted', 'أُوقف الطلب قبل إرساله؛ لم يُرسل شيء.');
+      const got = await this.key();
+      if (!('key' in got)) return got;
+      const declared = status.models?.models.find((m) => m.id === input.model)?.maxTokens ?? null;
+      const maxTokens = declared !== null ? Math.min(ANALYSIS_OUTPUT_TOKENS, declared) : ANALYSIS_OUTPUT_TOKENS;
+      timer = setTimeout(() => controller.abort(), this.options.timeoutMs ?? ANALYSIS_TIMEOUT_MS);
+      const requestedAt = this.now();
       const result = await adapter.analyze(this.call(adapter, got.key, controller.signal), { model: input.model, system: input.system, prompt: input.prompt, maxTokens });
       this.note(adapter, result);
       await this.observe(providerVerdict(result, 'usage', adapter.host));
       if (!result.ok) return { ...result, message: redactKey(result.message, got.key) };
       return { ok: true, status: result.status, data: { ...result.data, provider: adapter.title, host: adapter.host, requestedAt, completedAt: this.now() } };
     } finally {
-      clearTimeout(timer);
-      this.inflight.delete(slot);
+      if (timer) clearTimeout(timer);
+      if (this.inflight.get(slot) === input.requestId) this.inflight.delete(slot);
       this.controllers.delete(input.requestId);
     }
   }

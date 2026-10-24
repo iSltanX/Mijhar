@@ -7,7 +7,7 @@
 //    موسومة بأدلتها. السياق من الطبقة المشتركة بالسجل المقروء إن قُرئ، ولا يُرسل شيء قبل «إرسال للتحليل».
 import { mountSurface } from '../../../core/ui-host/surface';
 import type { ExtensionModule, ModuleContext } from '../../../core';
-import { prepareContext } from '../../e/context';
+import { COLLECTOR_SELECTORS, prepareContext } from '../../e/context';
 import type { LogExtra } from '../../e/context';
 import { SectionAnalysis, defaultAnalysisDeps } from '../analysis/controller';
 import type { SectionAnalysisDeps } from '../analysis/controller';
@@ -67,7 +67,8 @@ export function createLogModule(options: LogModuleOptions = {}): ExtensionModule
     title: 'شرح سجل الفحص',
     pages: ['actions-run'],
     shouldMount: (page) => isJobPath(page.href),
-    selectors: JOB_PAGE_SELECTORS,
+    // MJ21: ومحددات جامع الطبقة المشتركة، فيُبنى سياق التحليل وإن لم تُسجَّل وحدة غيرها.
+    selectors: [...JOB_PAGE_SELECTORS, ...COLLECTOR_SELECTORS],
     mount(ctx) {
       new LogController(ctx, fetchLog, debounceMs, options.analysis ?? defaultAnalysisDeps()).start();
     },
