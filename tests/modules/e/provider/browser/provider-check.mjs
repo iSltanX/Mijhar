@@ -3,8 +3,8 @@
 // (tests/modules/d/token/browser/drivers.mjs) ومعهما مضيف المزوّد محليًا (fixture-provider-mock): لا شبكة خارجية، وكل طلب إلى api.anthropic.com
 // يُسجَّل بطريقته ومساره وترويساته وجسمه. والرمز والمفتاح مختلَقان بصيغة حقيقية يُولَّدان وقت التشغيل ولا يُكتبان في أي دليل.
 //   1. الإعدادات: بطاقة المفتاح تعلن طلب التحقق قبل الحفظ، و«لماذا المفتاح؟» فيها؛ ولا طلب إلى المزوّد قبل الحفظ.
-//   2. حفظ الرمز ثم المفتاح بالواجهة: الطلب الوحيد إلى المزوّد بعد إضافة المفتاح هو التحقق المعلن (GET /v1/models)، والمودلات في «إعدادات التحليل»
-//      بمصدرها؛ وفتح صفحة الفحوص لا يرسل شيئًا.
+//   2. حفظ الرمز ثم المفتاح بالواجهة: الطلب الوحيد إلى المزوّد بعد إضافة المفتاح هو التحقق المعلن (GET /v1/models)، والمودلات المتوافقة في قائمة
+//      المودل داخل بطاقة «مزوّد التحليل» الموحّدة بمصدرها (MJ23، AC-E10 (٣))؛ ولا قسم «إعدادات التحليل» منفصل؛ وفتح صفحة الفحوص لا يرسل شيئًا.
 //   3. صفحة مهمة Actions محفوظة: «حلّل…» والإرسال بالنقر البرمجي من عالم الصفحة لا يفتحان شيئًا ولا يرسلان؛ ونقرة الفأرة وEnter وSpace (حقيقية)
 //      تُصدر كلٌّ منها طلبًا واحدًا بعد الموافقة، والنتيجة في الطبقة الثالثة موسومة بمودلها ووقتها.
 //   4. تدقيق الشبكة: لا وجهة غير github.com وapi.github.com وapi.anthropic.com؛ وطلبات المزوّد من الخلفية بالمفتاح وحده (x-api-key) بلا رمز GitHub
@@ -13,6 +13,7 @@
 // صلاحيتا api.github.com وapi.anthropic.com ممنوحتان في نسخة مشتقة (نافذة الإذن لا تُقبل آليًا)؛ وطلبها في نقرة الحفظ يقيسه ui.test.tsx.
 // وفي Firefox تبقى موافقة «مشاركة محتوى المواقع» (websiteContent) اختيارية كما في الحزمة (AD-15): لا تُمنح قبل الحفظ فتُعرض الصلاحية «غير ممنوحتين»،
 // وتطلبها نقرة الحفظ الحقيقية مع المضيف (extensions.webextOptionalPermissionPrompts=false يقبل الطلب بلا نافذة)، ولا تحليل قبلها.
+// MJ23 (TEST-AI-10): انحدار Anthropic على البطاقة الموحّدة، والسجل المشحون فيه Anthropic وحده (لا مزوّد بلا محوّل مدموج)، ونص Firefox يذكر تسمية «المطوِّر».
 // الاستعمال: node tests/modules/e/provider/browser/provider-check.mjs [chrome edge brave firefox] [--out-dir evidence/T-11.6]
 import fs from 'node:fs';
 import os from 'node:os';
@@ -77,9 +78,10 @@ async function scenario(d, target, checks, network) {
   const posts = () => network.extra.filter((r) => r.method === 'POST');
 
   // 1. الإعدادات.
-  const card = await waitUntil(() => d.options(`const c = document.querySelector('[data-connection="provider-key"]'); const g = c?.querySelector('[data-provider-permission]')?.getAttribute('data-provider-permission'); return c && g && g !== 'checking' ? { permission: g, announce: c.querySelector('[data-verify-request]')?.textContent ?? '', guide: c.querySelector('[data-action="provider-key-guide"]')?.getAttribute('href') ?? null, input: Boolean(c.querySelector('#mj-key-input')), content: c.querySelector('[data-content-consent]')?.textContent ?? null } : null;`), 10000);
+  const card = await waitUntil(() => d.options(`const c = document.querySelector('[data-connection="provider-key"]'); const g = c?.querySelector('[data-provider-permission]')?.getAttribute('data-provider-permission'); return c && g && g !== 'checking' ? { permission: g, announce: c.querySelector('[data-verify-request]')?.textContent ?? '', guide: c.querySelector('[data-action="provider-key-guide"]')?.getAttribute('href') ?? null, input: Boolean(c.querySelector('#mj-key-input')), content: c.querySelector('[data-content-consent]')?.textContent ?? null, cards: document.querySelectorAll('[data-provider-card]').length, providers: [...(c.querySelector('[data-provider-select]')?.options ?? [])].map((o) => o.value), model: Boolean(c.querySelector('[data-provider-card] [data-model-select]')), rules: Boolean(c.querySelector('[data-provider-rules]')), oldSection: Boolean(document.querySelector('[data-provider-settings]')), title: c.querySelector('h3')?.textContent ?? '' } : null;`), 10000);
   check('بطاقة المفتاح: حقله، وطلب التحقق معلن قبل الحفظ، و«لماذا المفتاح؟» فيها', card?.input && card.announce.includes('GET https://api.anthropic.com/v1/models') && card.announce.includes('لا تبدأ أي تحليل') && card.guide === '#guide/provider-key', card);
-  if (target === 'firefox') check('Firefox (AD-15): قبل الحفظ صلاحية المضيف وحدها لا تكفي («غير ممنوحتين»)، والبطاقة تعلن موافقة «مشاركة محتوى المواقع» (websiteContent) التي تطلبها نقرة الحفظ', card?.permission === 'denied' && card.content?.includes('websiteContent'), card);
+  check('AC-E10 (٣): بطاقة «مزوّد التحليل» واحدة فيها قائمة المزوّد (Anthropic وحده المدموج) والمودل والقواعد، ولا قسم «إعدادات التحليل» منفصل', card?.cards === 1 && card.title === 'مزوّد التحليل' && card.providers.join(',') === 'anthropic' && card.model && card.rules && !card.oldSection, card);
+  if (target === 'firefox') check('Firefox (AD-15): قبل الحفظ صلاحية المضيف وحدها لا تكفي («غير ممنوحتين»)، والبطاقة تعلن موافقة «مشاركة محتوى المواقع» (websiteContent) الواحدة لكل المزوّدين وتسمية Firefox «مطوِّر الامتداد» (O-25)', card?.permission === 'denied' && card.content?.includes('websiteContent') && card.content.includes('واحدة لكل المزوّدين') && card.content.includes('مطوِّر الامتداد'), card);
   else check('عائلة Chromium: لا موافقة محتوى مواقع تُعلن ولا تُطلب', card?.permission === 'granted' && card.content === null, card);
   check('لا طلب إلى المزوّد قبل الحفظ', network.extra.length === 0, network.extra);
 
@@ -98,8 +100,8 @@ async function scenario(d, target, checks, network) {
   await sleep(1500);
   const afterAdd = network.extra.map((r) => ({ method: r.method, path: r.path, from: r.from }));
   check('AC-E9 (١): بعد إضافة المفتاح طلب واحد إلى المزوّد هو التحقق المعلن GET /v1/models من الخلفية، ولا تحليل', afterAdd.length === 1 && afterAdd[0].method === 'GET' && afterAdd[0].path === '/v1/models?limit=100' && afterAdd[0].from === 'background', afterAdd);
-  const settings = await waitUntil(() => d.options(`const s = document.querySelector('[data-provider-settings]'); const o = [...(s?.querySelectorAll('select option') ?? [])].map((x) => x.value); return o.length ? { options: o, source: s.querySelector('[data-models-source]')?.textContent ?? '' } : null;`), 8000);
-  check('AC-E9 (٣): المودلات في «إعدادات التحليل» من المزوّد وقت التشغيل بمصدرها', settings && settings.options.join(',') === 'mock-sonnet-2,mock-haiku-2' && settings.source.includes('api.anthropic.com/v1/models'), settings);
+  const settings = await waitUntil(() => d.options(`const s = document.querySelector('[data-provider-card]'); const o = [...(s?.querySelectorAll('[data-model-select] option') ?? [])].map((x) => x.value).filter(Boolean); return o.length ? { options: o, source: s.querySelector('[data-models-source]')?.textContent ?? '' } : null;`), 8000);
+  check('AC-E9 (٣) وAC-E10 (٣): المودلات المتوافقة في البطاقة الموحّدة من المزوّد وقت التشغيل بمصدرها', settings && settings.options.join(',') === 'mock-sonnet-2,mock-haiku-2' && settings.source.includes('api.anthropic.com/v1/models'), settings);
 
   // 3. صفحة الفحوص.
   await d.openGithub(JOB_URL);

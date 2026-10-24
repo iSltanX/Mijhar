@@ -1,0 +1,338 @@
+{
+  "at": "2026-10-24T16:12:05.978Z",
+  "browser": "Firefox 158.0.1",
+  "headless": false,
+  "promptPref": true,
+  "blocked": [
+    "firefox.settings.services.mozilla.com",
+    "firefox-settings-attachments.cdn.mozilla.net",
+    "content-signature-2.cdn.mozilla.net"
+  ],
+  "providerRequests": [
+    "GET /v1/models?limit=100",
+    "POST /v1/messages",
+    "GET /v1/models?limit=100",
+    "GET /v1/models?limit=100"
+  ],
+  "passed": 21,
+  "failed": 0,
+  "notRun": 0,
+  "steps": [
+    {
+      "part": "إعداد",
+      "name": "ملف تعريف جديد بلا قبول آلي: extensions.webextOptionalPermissionPrompts على قيمته الافتراضية (true)",
+      "ok": true,
+      "detail": {
+        "promptPref": true
+      }
+    },
+    {
+      "part": "إعداد",
+      "name": "الحزمة المشحونة كما هي: api.anthropic.com اختيارية، وwebsiteContent اختيارية في الإعلان",
+      "ok": true,
+      "detail": {
+        "name": "مِجهَر",
+        "optional": [
+          "https://api.github.com/*",
+          "https://api.anthropic.com/*"
+        ],
+        "dc": {
+          "has_previous_consent": false,
+          "optional": [
+            "websiteContent"
+          ],
+          "required": [
+            "none"
+          ]
+        }
+      }
+    },
+    {
+      "part": "العرض",
+      "name": "قبل الحفظ: البطاقة تعلن موافقة «مشاركة محتوى المواقع» و«غير ممنوحتين»، ولا طلب إلى المزوّد",
+      "ok": true,
+      "detail": {
+        "permission": "denied",
+        "text": "صلاحية api.anthropic.com وموافقة مشاركة محتوى المواقع: غير ممنوحتين"
+      }
+    },
+    {
+      "part": "العرض",
+      "name": "O-25: البطاقة الموحّدة (Anthropic وحده في القائمة) تذكر أن الموافقة واحدة لكل المزوّدين، وأن Firefox ينسبها إلى «المطوِّر»، وأن المحتوى يُرسل إلى المزوّد المختار وحده",
+      "ok": true,
+      "detail": {
+        "providers": [
+          "anthropic"
+        ],
+        "notice": "في Firefox تُطلب في نقرة الحفظ نفسها، مع صلاحية api.anthropic.com، موافقة «مشاركة محتوى المواقع» (websiteContent) الاختيارية، وهي واحدة لكل المزوّدين؛ فلا يُرسل تحليل دونها. تسمّيها نافذة Firefox «جمع: محتوى الموقع» وتنسبها إلى «المطوِّر»، وتسمّيها إدارة الإضافات «شارك محتوى الموقع الإلكتروني مع مطوِّر الامتداد»؛ ومِجهَر لا يرسل شيئًا إلى مطوّره: يُرسل المحتوى المنقّح، بعد موافقتك على كل طلب، إلى المزوّد الذي تختاره وحده. وسحب صلاحية المضيف يوقف التحليل عند هذا المزوّد وحده، وسحب الموافقة يوقفه عند كل المزوّدين."
+      }
+    },
+    {
+      "part": "العرض",
+      "name": "نقرة الحفظ تُظهر نافذة الإذن الأصلية في واجهة Firefox (لا قبول آلي)",
+      "ok": true,
+      "detail": {
+        "open": "showing",
+        "shown": true,
+        "id": "addon-webext-permissions-notification",
+        "notificationId": "addon-webext-permissions",
+        "header": "يطلب  يطلب مِجهَر إعدادات إضافية",
+        "text": "يطلب مِجهَر إعدادات إضافيةالأذونات الجديدة:الوصول إلى بياناتك للمواقع في نطاق api.anthropic.comتجميع بيانات جديدة:يقول المطوِّر إن الامتداد يريد جمع: محتوى الموقعإعدادات اختيارية:اطّلع على المزيد",
+        "items": [
+          "الوصول إلى بياناتك للمواقع في نطاق api.anthropic.com",
+          "يقول المطوِّر إن الامتداد يريد جمع: محتوى الموقع"
+        ],
+        "primary": "اسمح",
+        "secondary": "ارفض"
+      }
+    },
+    {
+      "part": "العرض",
+      "name": "النافذة تذكر المضيف api.anthropic.com وبند مشاركة محتوى المواقع",
+      "ok": true,
+      "detail": {
+        "text": "يطلب مِجهَر إعدادات إضافيةالأذونات الجديدة:الوصول إلى بياناتك للمواقع في نطاق api.anthropic.comتجميع بيانات جديدة:يقول المطوِّر إن الامتداد يريد جمع: محتوى الموقعإعدادات اختيارية:اطّلع على المزيد",
+        "items": [
+          "الوصول إلى بياناتك للمواقع في نطاق api.anthropic.com",
+          "يقول المطوِّر إن الامتداد يريد جمع: محتوى الموقع"
+        ]
+      }
+    },
+    {
+      "part": "العرض",
+      "name": "قبل أي ردّ على النافذة: صفر طلبات إلى المزوّد",
+      "ok": true,
+      "detail": [
+        {
+          "method": "GET",
+          "path": "/v1/models?limit=100",
+          "hasKey": true,
+          "authorization": false
+        },
+        {
+          "method": "POST",
+          "path": "/v1/messages",
+          "hasKey": true,
+          "authorization": false
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models?limit=100",
+          "hasKey": true,
+          "authorization": false
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models?limit=100",
+          "hasKey": true,
+          "authorization": false
+        }
+      ]
+    },
+    {
+      "part": "الرفض",
+      "name": "زر النافذة الثانوي («ارفض»): لا صلاحية ولا websiteContent في permissions.getAll",
+      "ok": true,
+      "detail": {
+        "origins": [
+          "https://github.com/*"
+        ],
+        "data_collection": [],
+        "permissions": [
+          "storage"
+        ]
+      }
+    },
+    {
+      "part": "الرفض",
+      "name": "البطاقة «غير ممنوحتين»، والمفتاح محفوظ «غير متحقق منه» بلا أي طلب إلى المزوّد",
+      "ok": true,
+      "detail": {
+        "permissionText": "صلاحية api.anthropic.com وموافقة مشاركة محتوى المواقع: غير ممنوحتين",
+        "key": "session",
+        "message": "حُفظ مفتاح Anthropic في ذاكرة الجلسة ولم يُتحقق منه: لم تُمنح صلاحية api.anthropic.com وموافقة مشاركة محتوى المواقع، فلم يُرسل شيء. | محفوظ ولم يُتحقق منه بعد؛ لا يُعدّ سليمًا قبل طلب تحقق."
+      }
+    },
+    {
+      "part": "الرفض",
+      "name": "المنع في الخلفية: الحالة permission=false، وطلب تحليل يُرسل إلى الخلفية مباشرة يُرفض محليًا بلا أي طلب",
+      "ok": true,
+      "detail": {
+        "permission": false,
+        "analyze": {
+          "ok": false,
+          "failure": "model-changed",
+          "status": null,
+          "message": "تغيّر المودل أو لم يثبت توافقه بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.",
+          "retryAt": null
+        }
+      }
+    },
+    {
+      "part": "القبول",
+      "name": "«تحقق من المفتاح» يطلبهما ثانية فتظهر النافذة الأصلية نفسها",
+      "ok": true,
+      "detail": {
+        "open": "showing",
+        "shown": true,
+        "id": "addon-webext-permissions-notification",
+        "notificationId": "addon-webext-permissions",
+        "header": "يطلب  يطلب مِجهَر إعدادات إضافية",
+        "text": "يطلب مِجهَر إعدادات إضافيةالأذونات الجديدة:الوصول إلى بياناتك للمواقع في نطاق api.anthropic.comتجميع بيانات جديدة:يقول المطوِّر إن الامتداد يريد جمع: محتوى الموقعإعدادات اختيارية:اطّلع على المزيد",
+        "items": [
+          "الوصول إلى بياناتك للمواقع في نطاق api.anthropic.com",
+          "يقول المطوِّر إن الامتداد يريد جمع: محتوى الموقع"
+        ],
+        "primary": "اسمح",
+        "secondary": "ارفض"
+      }
+    },
+    {
+      "part": "القبول",
+      "name": "زر النافذة الأساسي («اسمح»): المضيف وwebsiteContent في permissions.getAll",
+      "ok": true,
+      "detail": {
+        "origins": [
+          "https://github.com/*",
+          "https://api.anthropic.com/*"
+        ],
+        "data_collection": [
+          "websiteContent"
+        ],
+        "permissions": [
+          "storage"
+        ]
+      }
+    },
+    {
+      "part": "القبول",
+      "name": "البطاقة «ممنوحتان» والمفتاح «سليم» بطلب التحقق المعلن وحده (GET /v1/models بالمفتاح بلا Authorization)",
+      "ok": true,
+      "detail": {
+        "verifies": [
+          "GET /v1/models?limit=100"
+        ],
+        "card": "صلاحية api.anthropic.com وموافقة مشاركة محتوى المواقع: ممنوحتان"
+      }
+    },
+    {
+      "part": "القبول",
+      "name": "الخلفية تقبل التحليل بعد المنح: طلب POST واحد إلى المضيف المحلي",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "posts": 1
+      }
+    },
+    {
+      "part": "السحب",
+      "name": "مفتاح «مشاركة محتوى المواقع» في إدارة الإضافات يسحب websiteContent",
+      "ok": true,
+      "detail": {
+        "thrown": "TypeError: can't access property \"permissions\", globalThis_.browser is undefined"
+      }
+    },
+    {
+      "part": "السحب",
+      "name": "البطاقة في الإعدادات تنعكس «غير ممنوحتين» دون إعادة تحميل",
+      "ok": true,
+      "detail": "صلاحية api.anthropic.com وموافقة مشاركة محتوى المواقع: المضيف ممنوح، وموافقة محتوى المواقع غير ممنوحة"
+    },
+    {
+      "part": "السحب",
+      "name": "الخلفية: الحالة permission=false، وطلب التحليل يُرفض (permission) بلا أي طلب",
+      "ok": true,
+      "detail": {
+        "permission": false,
+        "analyze": {
+          "ok": false,
+          "failure": "permission",
+          "status": null,
+          "message": "صلاحية api.anthropic.com أو موافقة المتصفح على مشاركة محتوى المواقع غير ممنوحة؛ امنحهما من بطاقة «مزوّد التحليل» في الإعدادات. لم يُرسل شيء.",
+          "retryAt": null
+        },
+        "posts": 1
+      }
+    },
+    {
+      "part": "السحب",
+      "name": "«اسحب صلاحية api.anthropic.com» يسحب المضيف وحده وتبقى موافقة محتوى المواقع (المشتركة)، والخلفية ترفض التحليل بلا طلب",
+      "ok": true,
+      "detail": {
+        "p5": {
+          "origins": [
+            "https://github.com/*"
+          ],
+          "data_collection": [
+            "websiteContent"
+          ],
+          "permissions": [
+            "storage"
+          ]
+        },
+        "status": {
+          "host": false,
+          "content": true
+        },
+        "r5": {
+          "ok": false,
+          "failure": "permission"
+        },
+        "card": "صلاحية api.anthropic.com وموافقة مشاركة محتوى المواقع: المضيف غير ممنوح، وموافقة محتوى المواقع ممنوحة"
+      }
+    },
+    {
+      "part": "السحب",
+      "name": "منح المضيف من جديد: النافذة الأصلية تذكر مضيف المختار api.anthropic.com",
+      "ok": true,
+      "detail": {
+        "text": "يطلب مِجهَر إعدادات إضافيةالأذونات الجديدة:الوصول إلى بياناتك للمواقع في نطاق api.anthropic.comتجميع بيانات جديدة:إعدادات اختيارية:اطّلع على المزيد",
+        "items": [
+          "الوصول إلى بياناتك للمواقع في نطاق api.anthropic.com"
+        ]
+      }
+    },
+    {
+      "part": "السحب",
+      "name": "«اسحب موافقة محتوى المواقع (لكل المزوّدين)» يسحبها وحدها ويبقى المضيف، والخلفية ترفض التحليل بلا طلب",
+      "ok": true,
+      "detail": {
+        "p6": {
+          "origins": [
+            "https://github.com/*",
+            "https://api.anthropic.com/*"
+          ],
+          "data_collection": [],
+          "permissions": [
+            "storage"
+          ]
+        },
+        "status": {
+          "host": true,
+          "content": false
+        },
+        "r6": {
+          "ok": false,
+          "failure": "permission"
+        },
+        "card": "صلاحية api.anthropic.com وموافقة مشاركة محتوى المواقع: المضيف ممنوح، وموافقة محتوى المواقع غير ممنوحة"
+      }
+    },
+    {
+      "part": "الأسرار",
+      "name": "لا مفتاح في أي نتيجة مسجلة، ولا مضيف خارجي (كل ما عدا github.com وapi.github.com وapi.anthropic.com محجوب ومسرود)",
+      "ok": true,
+      "detail": [
+        "firefox.settings.services.mozilla.com",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "content-signature-2.cdn.mozilla.net"
+      ]
+    }
+  ],
+  "notes": [
+    "الرفض: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)",
+    "القبول: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)",
+    "السحب من about:addons: clicked (نقرة click() على مفتاح الصفحة من سياق المتصفح)",
+    "السحب من البطاقة: الزران مفعّلان قبل النقر = true"
+  ]
+}
