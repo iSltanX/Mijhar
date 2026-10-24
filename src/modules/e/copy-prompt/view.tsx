@@ -23,10 +23,10 @@ export const TEMPLATE_BLURB: Readonly<Record<PromptId, string>> = {
   handoff: 'المستودع والفرع والالتزام وخطوات التكرار',
 };
 
-/** ما حُجب من الأسرار المحتملة في النسخة: العدد وتفصيله بأنماطه. */
+/** ما حُجب من الأسرار المحتملة في النسخة: العدد الكلي وبند لكل نمط («2× رمز GitHub»). */
 export interface PrivateNote {
   readonly total: number;
-  readonly detail: string;
+  readonly items: readonly string[];
 }
 
 export interface CopyPromptViewProps {
@@ -168,7 +168,15 @@ export function CopyPromptView(props: CopyPromptViewProps) {
           <Icon name="shield" />
           <span class="cp-note-body">
             <span>
-              حُجب {privateNote.total} من الأنماط السرّية المحتملة في البرومبت ({privateNote.detail}). الحجب بقائمة أنماط معروفة لا يزيل كل سرّ: راجع ما تلصقه.
+              حُجب {privateNote.total} من الأنماط السرّية المحتملة في البرومبت (
+              {privateNote.items.map((item, i) => (
+                // كل بند معزول اتجاهًا: اسم النمط يحوي كلمات لاتينية (GitHub وAWS) تشوّش ترتيب العدد بجوارها في سطر عربي.
+                <span key={item}>
+                  {i > 0 && '، '}
+                  <bdi data-private-item="">{item}</bdi>
+                </span>
+              ))}
+              ). الحجب بقائمة أنماط معروفة لا يزيل كل سرّ: راجع ما تلصقه.
             </span>
           </span>
         </p>

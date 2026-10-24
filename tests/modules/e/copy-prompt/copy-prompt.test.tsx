@@ -272,8 +272,8 @@ describe('المحتوى الخاص: تنبيه مختصر لا صندوق نص'
     expect(note?.getAttribute('data-tone')).toBe('warning');
     expect(note?.textContent).toMatch(/حُجب 2 من الأنماط السرّية المحتملة/);
     expect(note?.textContent).toContain('لا يزيل كل سرّ');
-    // أسماء الأنماط مختصرة بلا قوسها التفصيلي ومعها أعدادها.
-    expect(note?.textContent).toContain('(رمز GitHub ×1، معرّف مفتاح AWS ×1)');
+    // أسماء الأنماط مختصرة بلا قوسها التفصيلي والعدد قبل كل اسم، وكل بند معزول اتجاهًا.
+    expect([...(note?.querySelectorAll('[data-private-item]') ?? [])].map((el) => el.textContent)).toEqual(['1× رمز GitHub', '1× معرّف مفتاح AWS']);
     for (const secret of [fake.ghp, fake.aws]) expect(ui.root().textContent).not.toContain(secret);
     expect(ui.root().querySelector('textarea, input, pre')).toBeNull();
     manager.stop();

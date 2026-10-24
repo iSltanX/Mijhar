@@ -200,8 +200,8 @@ class CopyPromptController {
     if (!structure) throw new Error('لا سياق لهذه الصفحة');
     const { text } = renderPrompt(promptOf(this.templateId()), structure);
     const { secrets } = structure;
-    // التنبيه مختصر: اسم النمط بلا قوسه التفصيلي (بادئات لاتينية تشوّش ترتيب الاتجاهين في سطر عربي).
-    return { text, note: secrets.total ? { total: secrets.total, detail: secrets.hits.map((h) => `${h.label.replace(/\s*\(.*\)\s*$/, '')} ×${h.count}`).join('، ') } : null };
+    // التنبيه مختصر: اسم النمط بلا قوسه التفصيلي (بادئات لاتينية تشوّش ترتيب الاتجاهين في سطر عربي)، والعدد قبله.
+    return { text, note: secrets.total ? { total: secrets.total, items: secrets.hits.map((h) => `${h.count}× ${h.label.replace(/\s*\(.*\)\s*$/, '')}`) } : null };
   }
 
   /** معالج النقر: كل ما قبل الكتابة إلى الحافظة متزامن، فتبقى الكتابة في فعل المستخدم نفسه (T-0.5). */
