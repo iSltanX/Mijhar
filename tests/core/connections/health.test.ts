@@ -33,11 +33,12 @@ const state = (name: string): Reply => {
 };
 
 describe('التعريفات: قائمة مغلقة بلا مفاتيح أسرار', () => {
-  it('اتصالان بمعرّفين ثابتين؛ ولكلٍّ نوعه ووجهته وما يحتاجه وما يتعطل بحذفه', () => {
-    expect(CONNECTION_IDS).toEqual(['github-token', 'provider-key']);
+  // MJ22 (T-11.8): صلاحية الكتابة اتصال ثالث بسرّ منفصل (AD-19).
+  it('ثلاثة اتصالات بمعرّفات ثابتة؛ ولكلٍّ نوعه ووجهته وما يحتاجه وما يتعطل بحذفه', () => {
+    expect(CONNECTION_IDS).toEqual(['github-token', 'provider-key', 'github-write']);
     for (const def of CONNECTIONS) {
       expect(def.kind && def.destination && def.needs && def.enables && def.disables).toBeTruthy();
-      expect(JSON.stringify(def)).not.toMatch(/mijhar\.secret|providerKey|githubToken/);
+      expect(JSON.stringify(def)).not.toMatch(/mijhar\.secret|providerKey|githubToken|githubWrite/);
     }
     expect(isConnectionId('github-token')).toBe(true);
     expect(isConnectionId('https://evil.example')).toBe(false);
