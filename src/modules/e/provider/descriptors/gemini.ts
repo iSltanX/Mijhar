@@ -1,6 +1,7 @@
 // وصف مزوّد التحليل الثالث (DEC-09 ز-4، MJ25، T-11.12): Google Gemini عبر generativelanguage.googleapis.com. وصف بلا ترويسة ولا مسار طلب: يصل سكربت
 // المحتوى واللوحة والإعدادات، ومحوّله (adapters/gemini.ts) في الخلفية وحدها (AC-E10 (١)). ومفتاحه بمفتاحَي تخزين مشتقين من معرّفه (keys.ts، DEC-10 ح-4).
-// صيغة المفتاح: مفتاح Google API المعتاد (AIza ثم 35 حرفًا)؛ ولا تعلن وثائق Gemini صيغة له صراحةً، فالفحص المحلي تحذيري والحكم لرد الخادم.
+// صيغة المفتاح: لا تعلن وثائق Gemini صيغة له صراحةً، فالفحص المحلي تحذيري والحكم لرد الخادم. تُقبل صيغتان: مفتاح Google API المعتاد (AIza ثم 35 حرفًا)،
+// والصيغة الجديدة التي يصدرها Google AI Studio (AQ. ثم نحو 50 حرفًا؛ رُصدت على مفتاح المالك التجريبي في MJ25 لا في وثيقة رسمية).
 import type { ProviderDescriptor } from '../types';
 
 const HOST = 'generativelanguage.googleapis.com';
@@ -10,12 +11,12 @@ export const GEMINI: ProviderDescriptor = {
   title: 'Google Gemini',
   host: HOST,
   origin: `https://${HOST}/*`,
-  keyPrefix: 'AIza',
+  keyPrefix: 'AQ. / AIza',
   keyName: 'مفتاح Gemini API من حسابك في Google AI Studio',
   keyFormat: {
-    pattern: /^AIza[A-Za-z0-9_-]{35}$/,
+    pattern: /^(?:AIza[A-Za-z0-9_-]{35}|AQ\.[A-Za-z0-9_-]{30,80})$/,
     rejects: [],
-    mismatch: 'لا يطابق صيغة مفتاح Gemini API (AIza…). تأكد أنك نسخته كاملًا من Google AI Studio.',
+    mismatch: 'لا يطابق صيغة مفتاح Gemini API (AQ… أو AIza…). تأكد أنك نسخته كاملًا من Google AI Studio.',
   },
   verifyRequest: `طلب واحد GET https://${HOST}/v1beta/models يقرأ قائمة المودلات المتاحة لمفتاحك ويحمل المفتاح في ترويسة الطلب لا في عنوانه، ولا يحمل شيئًا من صفحاتك.`,
   // قائمة المودلات الرسمية تعلن لكل مودل طرق التوليد التي يدعمها؛ فالمتوافق معلن من الواجهة ولا فحص صريح (DEC-13 ن-3).

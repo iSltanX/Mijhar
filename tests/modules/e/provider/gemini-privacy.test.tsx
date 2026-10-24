@@ -21,7 +21,7 @@ import { GEMINI } from '../../../../src/modules/e/provider/descriptors/gemini';
 import { trustedClick } from '../../../shared/trusted-click';
 import { flush, hostsOf, loadHtml, mountModules, readFixture } from '../../d/helpers';
 import { NOW, SAMPLES, mountOn, view } from '../copy-prompt/helpers';
-import { fakeGeminiKey } from './fixture-provider-mock';
+import { fakeGeminiAqKey, fakeGeminiKey } from './fixture-provider-mock';
 
 const FAKE_KEY = fakeGeminiKey('V');
 
@@ -39,6 +39,14 @@ describe('الفاحص والمنقّح: النمط في القائمة المع
     expect(found[0]).toMatchObject({ patternId: 'gemini-key', line: 1 });
     expect(text.slice(found[0]?.start, found[0]?.end)).toBe(FAKE_KEY);
     expect(maskOf('gemini-key')).toContain('محجوب');
+  });
+
+  it('الصيغة الجديدة AQ. (AI Studio) تُرصد وتُحجب كذلك، ولا يُرصد «AQ.» قصير', () => {
+    const aq = fakeGeminiAqKey('V');
+    const text = `GEMINI_API_KEY=${aq}\nAQ.short\nxAQ.${aq.slice(3)}`;
+    const found = scanText(text);
+    expect(found.map((f) => f.patternId)).toEqual(['gemini-key']);
+    expect(text.slice(found[0]?.start, found[0]?.end)).toBe(aq);
   });
 });
 

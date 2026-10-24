@@ -1,0 +1,110 @@
+{
+  "test": "TEST-AI-09",
+  "mode": "اتصال حقيقي بمفتاح تجريبي من المالك (Chrome)",
+  "measuredAt": "2026-10-24T17:24:05.794Z",
+  "steps": {
+    "verify": {
+      "card": {
+        "health": "healthy",
+        "key": "session",
+        "models": [
+          "gemini-2.5-flash",
+          "gemini-2.5-pro",
+          "gemini-2.5-flash-preview-tts",
+          "gemini-2.5-pro-preview-tts",
+          "gemma-4-26b-a4b-it",
+          "gemma-4-31b-it",
+          "gemini-flash-latest",
+          "gemini-flash-lite-latest",
+          "gemini-pro-latest",
+          "gemini-2.5-flash-lite",
+          "gemini-2.5-flash-image",
+          "gemini-3-flash-preview",
+          "gemini-3.1-pro-preview",
+          "gemini-3.1-pro-preview-customtools",
+          "gemini-3.1-flash-lite-preview",
+          "gemini-3.1-flash-lite",
+          "gemini-3-pro-image-preview",
+          "gemini-3-pro-image",
+          "nano-banana-pro-preview",
+          "gemini-3.1-flash-image-preview",
+          "gemini-3.1-flash-image",
+          "gemini-3.1-flash-lite-image",
+          "gemini-nano-banana-2.1",
+          "gemini-3.5-flash",
+          "gemini-3.5-flash-lite",
+          "gemini-omni-flash-preview",
+          "gemini-omni-1.1-flash",
+          "gemini-3.5-transcribe",
+          "gemini-3.6-flash",
+          "gemini-3.7-flash",
+          "gemini-3.8-flash",
+          "gemini-4-argon",
+          "lyria-3-clip-preview",
+          "lyria-3-pro-preview",
+          "lyria-3.5",
+          "gemini-3.1-flash-tts-preview",
+          "gemini-3.8-flash-tts",
+          "gemini-3.8-flash-lite-tts",
+          "gemini-robotics-er-2-preview",
+          "gemini-2.5-computer-use-preview-10-2025",
+          "antigravity-preview-05-2026",
+          "antigravity-preview-09-2026",
+          "antigravity-preview-latest",
+          "deep-research-max-preview-04-2026",
+          "deep-research-preview-04-2026",
+          "deep-research-pro-preview-12-2025"
+        ],
+        "source": "من قائمة Google Gemini (https://generativelanguage.googleapis.com/v1beta/models) كما قُرئت 2026-10-24 17:24 UTC؛ تُعرض المودلات المتوافقة مع التحليل وحدها (46 من 46)، وتُحدَّث عند كل تحقق من المفتاح."
+      },
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1beta/models",
+          "query": "?pageSize=1000",
+          "status": 200,
+          "error": null,
+          "models": 60,
+          "nextPage": false
+        }
+      ]
+    },
+    "consent": {
+      "title": "إرسال هذا إلى Google Gemini للتحليل؟",
+      "destination": "الوجهةGoogle Gemini · Gemini 2.5 Flash عبر مفتاحك، إلى generativelanguage.googleapis.com وحده · سياسته في البيانات: ai.google.dev/gemini-api/terms"
+    },
+    "analysis": {
+      "outcome": {
+        "kind": "failed",
+        "text": "تحليل مقترح من المزوّداحتمال يحتاج تحققًاتعذّر التحليل: المودل المختار غير متاح لهذا المفتاح (404) — المودل المختار غير متاح لهذا المفتاح (HTTP 404): This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gem.بقية القسم تعمل كما هي.أعد المحاولةافتح بطاقة «مزوّد التحليل» في الإعدادات"
+      },
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1beta/models/gemini-2.5-flash:generateContent",
+          "query": "",
+          "status": 404,
+          "error": {
+            "code": 404,
+            "status": "NOT_FOUND",
+            "message": "This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Int",
+            "reasons": []
+          },
+          "models": null,
+          "nextPage": false
+        }
+      ]
+    }
+  },
+  "browser": "Chrome 156.0.8078.47",
+  "extensionErrors": {
+    "runtime": [],
+    "manifest": []
+  },
+  "consoleHasKey": false,
+  "allRequestsFromBackground": true,
+  "keyInUrlOrBody": false,
+  "requestHosts": [
+    "generativelanguage.googleapis.com"
+  ]
+}

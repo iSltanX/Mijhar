@@ -5,10 +5,10 @@ Not implemented: Window's scrollTo() method
 Not implemented: Window's scrollTo() method
 
  Test Files  173 passed (173)
-      Tests  2640 passed | 2 skipped (2642)
-   Start at  20:00:11
-   Duration  33.26s (tests 60%, environment 19%, import 18%, transform 3%)
+      Tests  2641 passed | 2 skipped (2643)
+   Start at  20:24:58
+   Duration  33.94s (tests 60%, import 19%, environment 18%, transform 3%)
 
-    Isolate  173 workers spawned · ~368ms startup each (spawn + environment, per file)
-             at least ~8.72s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  173 workers spawned · ~363ms startup each (spawn + environment, per file)
+             at least ~8.61s faster with isolate: false — reuses workers across files instead of one per file
 

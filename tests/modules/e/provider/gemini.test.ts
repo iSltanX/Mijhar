@@ -19,7 +19,7 @@ import { PROVIDER_ADAPTERS, createProviderRegistry } from '../../../../src/modul
 import { ProviderService, memoryModelsCache } from '../../../../src/modules/e/provider/service';
 import { fakePermissions } from '../../../core/ui-host/helpers';
 import { memoryArea } from '../../d/token/helpers';
-import { GEMINI_HOST, GEMINI_MOCK_MODELS, fakeGeminiKey, fakeKey, geminiMock, providerMock } from './fixture-provider-mock';
+import { GEMINI_HOST, GEMINI_MOCK_MODELS, fakeGeminiAqKey, fakeGeminiKey, fakeKey, geminiMock, providerMock } from './fixture-provider-mock';
 import type { GeminiScenario } from './fixture-provider-mock';
 
 const KEY = fakeGeminiKey('U');
@@ -45,8 +45,13 @@ describe('الوصف وصيغة المفتاح (AC-E12 (٤))', () => {
   it('يقبل صيغة مفتاح Google API ويرفض الفارغ وغيرها من مفاتيح المزوّدين والرموز، بلا إرسال', () => {
     expect(checkKey(GEMINI, `  ${KEY}  `)).toEqual({ ok: true, key: KEY });
     expect(KEY).toMatch(/^AIza[A-Za-z0-9_-]{35}$/);
+    // الصيغة الجديدة التي يصدرها AI Studio (AQ. ثم نحو 50 حرفًا): رُصدت على مفتاح المالك التجريبي فرُفضت محليًا قبل أن تُصلَح.
+    const aq = fakeGeminiAqKey('U');
+    expect(aq).toMatch(/^AQ\.[A-Za-z0-9_-]{50}$/);
+    expect(checkKey(GEMINI, `\n${aq}\n`)).toEqual({ ok: true, key: aq });
+    expect(checkKey(GEMINI, 'AQ.short')).toMatchObject({ ok: false });
     expect(checkKey(GEMINI, '')).toMatchObject({ ok: false });
-    expect(checkKey(GEMINI, fakeKey('X'))).toMatchObject({ ok: false, reason: expect.stringContaining('AIza') });
+    expect(checkKey(GEMINI, fakeKey('X'))).toMatchObject({ ok: false, reason: expect.stringContaining('AQ') });
     expect(checkKey(GEMINI, 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')).toMatchObject({ ok: false });
     expect(checkKey(GEMINI, KEY.slice(0, 20))).toMatchObject({ ok: false });
   });

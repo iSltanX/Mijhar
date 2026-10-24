@@ -202,6 +202,9 @@ export function mockHostsFetch(options: { readonly probeFails?: readonly string[
 /** مفتاح بصيغة Google API (AIza + 35 حرفًا) يُركَّب وقت التشغيل؛ لا مفتاح بصيغته الكاملة في المستودع. */
 export const fakeGeminiKey = (tag = 'A'): string => ['AIza', 'Sy', `${tag}MijharMockGeminiKey`.padEnd(33, 'x').slice(0, 33)].join('');
 
+/** مفتاح بصيغة AI Studio الجديدة (AQ. ثم 50 حرفًا) يُركَّب وقت التشغيل. */
+export const fakeGeminiAqKey = (tag = 'A'): string => ['AQ', '.', `${tag}MijharMockAqKey`.padEnd(50, 'z').slice(0, 50)].join('');
+
 export const GEMINI_HOST = 'generativelanguage.googleapis.com';
 
 export const GEMINI_MOCK_MODELS = [
