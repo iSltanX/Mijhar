@@ -197,7 +197,7 @@ async function scenario(d, target, checks, network) {
   check('البطاقة: الفحوص «ينقص الرمزَ Actions» و«غير معروف»، والطلب مقروء بمستودعه وفرعه والتزامه ووقته', checksKind === 'insufficient' && cardText.checks.includes('Actions') && cardText.checks.includes('غير معروف') && cardText.pull === 'read' && cardText.binding.includes(`${P.owner}/${P.repo}`) && cardText.binding.includes(P.headSha.slice(0, 7)), { checksKind, cardText });
   await reopen();
   const insufficient = await registry();
-  check('ناقص الصلاحيات من الاستعمال: شارته ونصه بالصلاحية والمستودع', insufficient?.token === 'insufficient' && insufficient.text.includes('Actions: Read') && insufficient.text.includes(`${P.owner}/${P.repo}`), { token: insufficient?.token, text: insufficient?.text });
+  check('ناقص الصلاحيات من الاستعمال: شارته ونصه بالصلاحية والمستودع', insufficient?.token === 'insufficient' && insufficient.text.includes('صلاحية Actions (قراءة)') && insufficient.text.includes(`${P.owner}/${P.repo}`), { token: insufficient?.token, text: insufficient?.text });
   check('طلبات البطاقة من الخلفية بالرمز وبـGET وحدها', network.api.slice(cardStart).every((c) => c.from === 'background' && c.method === 'GET' && c.auth === 'saved'), network.api.slice(cardStart));
 
   // متجاوز الحد آخرًا: بعد ردّ النفاد لا تُرسل الخلفية طلبًا بالرمز قبل موعده (VR-07)، والتحقق نفسه (/rate_limit) مستثنى.

@@ -116,7 +116,7 @@ describe('TEST-PR-06: لكل حالة نصها، ولا نجاح لما لم ي�
     expect(c.q('[data-access-part="pull"]')?.getAttribute('data-access-kind')).toBe('read');
     const checks = c.q('[data-access-part="checks"]');
     expect(checks?.getAttribute('data-access-kind')).toBe('insufficient');
-    expect(checks?.textContent).toContain('ينقص الرمزَ Actions: Read');
+    expect(checks?.textContent).toContain('ينقص الرمزَ صلاحيةُ Actions (قراءة)');
     expect(checks?.textContent).toContain('غير معروف');
     expect(c.q('[data-api-error="checks"]')).not.toBeNull();
     expect(c.q('[data-checks-source="api"]')).toBeNull();

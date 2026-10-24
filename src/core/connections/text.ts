@@ -38,8 +38,8 @@ export function healthText(id: ConnectionId, status: Pick<ConnectionStatus, 'hea
         ? `انتهت مدة ${noun} في ${utcText(d.expiresAt)}. يتعطل ما يعتمد عليه وحده؛ امسحه واحفظ بدلًا منه.`
         : `رفض ${service} ${noun} (401): انتهت مدته أو أُلغي أو لم يعد صالحًا. يتعطل ما يعتمد عليه وحده، ولا تُرسل الطلبات بلا ${noun} ما دام محفوظًا؛ امسحه أو استبدله.`;
     case 'insufficient': {
-      const name = d.permission ? (options.permissionName?.(d.permission) ?? d.permission) : 'صلاحية قراءة';
-      return `ينقصه ${name}: Read${d.where ? ` لـ${d.where}` : ''}. تُستبعد هذه البيانات ويُعلَن ذلك حيث تُعرض؛ أضف الصلاحية من ${service} ثم تحقق.`;
+      const name = d.permission ? `صلاحية ${options.permissionName?.(d.permission) ?? d.permission} (قراءة)` : 'صلاحية قراءة';
+      return `ينقصه ${name}${d.where ? ` في المستودع ${d.where}` : ''}. تُستبعد هذه البيانات ويُعلَن ذلك حيث تُعرض؛ أضف الصلاحية من ${service} ثم تحقق.`;
     }
     case 'rate-limited':
       return `تجاوز حد الطلبات الموثَّقة${typeof d.retryAt === 'number' ? `؛ لا يُرسل طلب قبل ${utcText(d.retryAt)}` : ''}. ما لم يُقرأ يُعلَن «غير معروف» ولا يُعرض نجاحًا.`;

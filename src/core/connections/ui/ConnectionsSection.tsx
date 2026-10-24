@@ -11,10 +11,10 @@ import { featureById } from '../features';
 import { HEALTH_TONE } from '../health';
 import type { ConnectionStatus } from '../health';
 import type { ConnectionsPort, PendingReturn } from '../port';
+import { utcText } from '../text';
 import { HealthBadge } from './HealthBadge';
 import { CONNECTIONS_CSS } from './styles';
 
-const clock = (ms: number): string => new Date(ms).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
 
 export interface ConnectionHeaderProps {
   readonly def: ConnectionDefinition;
@@ -43,7 +43,7 @@ export function ConnectionHeader({ def, status }: ConnectionHeaderProps) {
           <>
             <dt>آخر تحقق</dt>
             <dd>
-              <Ltr>{clock(status.checkedAt)}</Ltr>
+              <Ltr>{utcText(status.checkedAt)}</Ltr>
             </dd>
           </>
         )}

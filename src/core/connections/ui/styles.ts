@@ -23,9 +23,9 @@ export const CONNECTIONS_CSS = `${HEALTH_BADGE_CSS}
 .mj-root .notice[data-tone="success"] { background: var(--mijhar-bg-success-subtle); color: var(--mijhar-text-success); }
 .mj-root .conn-return { display: flex; flex-direction: column; gap: var(--mijhar-space-6); border: 1px solid currentColor; }
 .mj-root .conn-storage { display: flex; flex-direction: column; gap: var(--mijhar-space-8); padding: var(--mijhar-space-16); border: 1px solid var(--mijhar-border-default); border-radius: var(--mijhar-radius-12); }
-.mj-root .conn-storage ul { margin: 0; padding-inline-start: var(--mijhar-space-20); display: flex; flex-direction: column; gap: var(--mijhar-space-4); }
+.mj-root .conn-storage ul { margin: 0; padding-inline-start: var(--mijhar-space-24); display: flex; flex-direction: column; gap: var(--mijhar-space-4); }
 .mj-root .conn-confirm { display: flex; flex-direction: column; gap: var(--mijhar-space-6); padding: var(--mijhar-space-12); border: 1px solid var(--mijhar-text-danger); border-radius: var(--mijhar-radius-6); background: var(--mijhar-bg-danger-subtle); }
-.mj-root .conn-confirm ul { margin: 0; padding-inline-start: var(--mijhar-space-20); }
+.mj-root .conn-confirm ul { margin: 0; padding-inline-start: var(--mijhar-space-24); }
 `;
 
 /** بوابة الخيار داخل قسمه (جذر ظل البطاقات في صفحة GitHub). */

@@ -156,7 +156,7 @@ describe('(٢) الحالات الخمس بنصوصها على استجابات 
       render(null, container);
     }
     expect(seen.expired).toContain('401');
-    expect(seen.insufficient).toContain('Actions: Read لـocto-owner/private-demo');
+    expect(seen.insufficient).toContain('صلاحية Actions (قراءة) في المستودع octo-owner/private-demo');
     expect(seen['rate-limited']).toContain('لا يُرسل طلب قبل');
     expect(seen.unavailable).toContain('تعذّر الوصول إلى GitHub');
     expect(seen.unverified).toContain('api.github.com');

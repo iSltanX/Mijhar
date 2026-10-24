@@ -81,7 +81,7 @@ export function accessText(part: string, access: AccessState): string {
     case 'expired':
       return `${part}: رفض GitHub الرمز (401): منتهٍ أو ملغى، ولم يُعَد الطلب بلا رمز؛ ${unknown}.`;
     case 'insufficient':
-      return `${part}: ينقص الرمزَ ${access.permission ?? 'صلاحية'}: Read لهذه البيانات، فاستُبعدت؛ ${unknown}.`;
+      return `${part}: ينقص الرمزَ ${access.permission ? `صلاحيةُ ${access.permission} (قراءة)` : 'صلاحيةُ قراءة'} لهذه البيانات، فاستُبعدت؛ ${unknown}.`;
     case 'rate-limited':
       return `${part}: تجاوز حد الطلبات${access.authenticated ? ' الموثَّقة' : ''}${typeof access.retryAt === 'number' ? `؛ لا يُرسل طلب قبل ${clock(access.retryAt)}` : ''}؛ ${unknown}.`;
     case 'unavailable':

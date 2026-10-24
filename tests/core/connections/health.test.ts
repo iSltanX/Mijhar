@@ -157,7 +157,7 @@ describe('النصوص: لكل حالة نصها، ولا «سليم» إلا ب
     expect(healthy).toContain('5000');
     expect(healthy).toContain('2026-10-30 14:25 UTC');
     expect(expired).toContain('401');
-    expect(insufficient).toContain('Actions: Read لـocto-owner/private-demo');
+    expect(insufficient).toContain('ينقصه صلاحية Actions (قراءة) في المستودع octo-owner/private-demo');
     expect(limited).toContain('2026-10-23 15:15 UTC');
     expect(unavailable).toContain('HTTP 503');
     expect(none).toContain('تعمل بدونه');
