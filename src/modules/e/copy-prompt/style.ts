@@ -41,7 +41,7 @@ export const COPY_PROMPT_CSS = `
 .cp-item-blurb { font-size: 12px; line-height: 16px; color: var(--mijhar-text-secondary); }
 .cp-menu-foot { margin-top: var(--mijhar-space-4); padding: var(--mijhar-space-8) var(--mijhar-space-8) var(--mijhar-space-4); border-top: 1px solid var(--mijhar-border-muted); font-size: 12px; line-height: 16px; color: var(--mijhar-text-secondary); }
 
-.cp-note { display: flex; align-items: flex-start; gap: var(--mijhar-space-8); margin-top: var(--mijhar-space-6); padding: var(--mijhar-space-6) var(--mijhar-space-12); border-radius: var(--mijhar-radius-6); font-size: 12px; line-height: 16px; }
+.cp-note { display: flex; align-items: flex-start; gap: var(--mijhar-space-8); max-width: 560px; margin-top: var(--mijhar-space-6); padding: var(--mijhar-space-6) var(--mijhar-space-12); border-radius: var(--mijhar-radius-6); font-size: 12px; line-height: 16px; }
 .cp-note .icon { margin-top: 1px; }
 .cp-note[data-tone="warning"] { background: var(--mijhar-bg-warning-subtle); color: var(--mijhar-text-warning); }
 .cp-note[data-tone="danger"] { background: var(--mijhar-bg-danger-subtle); color: var(--mijhar-text-danger); }

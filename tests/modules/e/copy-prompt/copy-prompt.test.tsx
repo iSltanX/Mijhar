@@ -81,6 +81,8 @@ describe('الحالات: تحميل ثم نجاح بعد نجاح الكتاب�
     expect(r.copied[0]).toBe(promptOf('next-step'));
     expect(r.copied[0]).toContain('# تحديد الخطوة التالية: feat: refresh the settings UI');
     expect(r.copied[0]).toContain('## المعلومات الناقصة');
+    // AD-30: لا قراءة API في البرومبت (لا تمرّر المرحلة قراءة API إلى الطبقة): المصدر الصفحة وحدها ولا ذكر لـGitHub API.
+    expect(r.copied[0]).not.toMatch(/GitHub API|api\.github\.com/);
     expect(fetchSpy).not.toHaveBeenCalled();
     manager.stop();
   });
@@ -270,6 +272,8 @@ describe('المحتوى الخاص: تنبيه مختصر لا صندوق نص'
     expect(note?.getAttribute('data-tone')).toBe('warning');
     expect(note?.textContent).toMatch(/حُجب 2 من الأنماط السرّية المحتملة/);
     expect(note?.textContent).toContain('لا يزيل كل سرّ');
+    // أسماء الأنماط مختصرة بلا قوسها التفصيلي ومعها أعدادها.
+    expect(note?.textContent).toContain('(رمز GitHub ×1، معرّف مفتاح AWS ×1)');
     for (const secret of [fake.ghp, fake.aws]) expect(ui.root().textContent).not.toContain(secret);
     expect(ui.root().querySelector('textarea, input, pre')).toBeNull();
     manager.stop();
