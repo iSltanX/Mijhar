@@ -5,7 +5,10 @@ export {
   applySurface,
   DRAWER_MESSAGE,
   isDrawerMessage,
+  isOpenOptionsMessage,
   OPEN_OPTIONS_MESSAGE,
+  OPTIONS_TARGETS,
+  optionsPageUrl,
   openPanel,
   PANEL_COMMAND,
   PANEL_SHORTCUT,
@@ -13,7 +16,7 @@ export {
   SURFACE_MIRROR_KEY,
   toggleDrawer,
 } from './commands';
-export type { DrawerAction, DrawerMessage, PanelCommandDeps, PanelOutcome } from './commands';
+export type { DrawerAction, DrawerMessage, OpenOptionsMessage, OptionsTarget, PanelCommandDeps, PanelOutcome } from './commands';
 export { Drawer, DRAWER_NAME, DRAWER_OPEN_ATTR, DRAWER_WIDTH_PX } from './drawer';
 export type { DrawerControls, DrawerOptions } from './drawer';
 export { API_GITHUB_HOST, API_GITHUB_ORIGIN, API_GITHUB_PERMISSION, ApiGithubPermission, fetchApiGithub, PermissionNotGrantedError } from './permissions';
@@ -33,6 +36,7 @@ export {
   isPanelRequest,
   isSurface,
   isUnitId,
+  isWelcomeState,
   PANEL_REQUEST_FRESH_MS,
   PANEL_REQUEST_KEY,
   requestPanelTab,
@@ -42,5 +46,7 @@ export {
   UNIT_IDS,
   UNITS,
   unitOf,
+  WELCOME_KEY,
+  WELCOME_STATES,
 } from './units';
-export type { PanelRequest, Surface, UnitId, UnitInfo } from './units';
+export type { PanelRequest, Surface, UnitId, UnitInfo, WelcomeState } from './units';

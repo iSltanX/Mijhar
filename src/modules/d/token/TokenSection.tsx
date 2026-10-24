@@ -4,6 +4,7 @@
 //  - الحفظ يكتب في المخزن مباشرة (صفحة إضافة موثوقة)، والخلفية تقرؤه لطلباتها؛ فلا يعبر الرمز أي رسالة. والتحقق طلب /rate_limit عبر
 //    منفذ الخلفية نفسه (مسار وحده، والرد بلا الرمز).
 //  - قائمة الصلاحيات الدنيا ظاهرة عند الإدخال، كلها Read-only، ولا يُذكر غيرها.
+//  - «كيف تحصل على الرمز؟» يفتح دليله داخل صفحة الإعدادات (#guide/github-token، AD-29).
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { PublicApiPort, PublicApiResult } from '../../../core/api';
 import { Ltr } from '../../../shared/ui';
@@ -149,6 +150,12 @@ export function TokenSection({ store, port, target, now = () => Date.now() }: To
         برمز وصول للقراءة فقط تقرأ مِجهَر ما يحتاج مصادقة: طلبات الدمج في مستودعاتك الخاصة وفحوص Actions فيها. تُرسل الطلبات به من خلفية الإضافة
         وحدها إلى <Ltr className="mono">api.github.com</Ltr>، ولا يصل إلى صفحات GitHub ولا يظهر بعد حفظه. ودونه تعمل الوحدة (د) كاملة على الصفحة
         وAPI العامة.
+      </p>
+      <p class="row">
+        <a href="#guide/github-token" data-action="token-guide">
+          كيف تحصل على الرمز؟
+        </a>
+        <span class="muted small">فائدته وخطوات إنشائه بأقل الصلاحيات، بالصور.</span>
       </p>
       <p>
         <span class="status" data-state={info ? 'granted' : info === null ? 'denied' : 'pending'} data-token-state={info ? info.place : info === null ? 'none' : 'checking'} role="status">

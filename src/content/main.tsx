@@ -6,7 +6,7 @@
 //  - يسجّل محرك الترجمة المحلي المختار في DEC-03 لواجهة الترجمة (T-4.3): سكربت المحتوى هو السياق الذي ثبت فيه Translator API في T-0.2؛ ومعه إدارة
 //    الحزمة (T-4.4): بطاقة استئذان قبل أن ينزّل المتصفح حزمة اللغة، ورسائل واضحة لانقطاع الشبكة وامتلاء القرص.
 import { BUILTIN_MODULES, bindModuleToggles, createModuleRegistry, createSettingsRegistry, Drawer, extensionApi, isDrawerMessage, isModuleEnabled, LifecycleManager, OPEN_OPTIONS_MESSAGE, openSettings, PageDetector } from '../core';
-import type { ExtensionApi, ExtensionModule, LifecycleManagerOptions, OpenedSettings, StorageBinding } from '../core';
+import type { ExtensionApi, ExtensionModule, LifecycleManagerOptions, OpenedSettings, OpenOptionsMessage, OptionsTarget, StorageBinding } from '../core';
 import { connectModuleA } from '../modules/a/scope/module';
 import { installManagedTranslationEngine } from '../modules/c/model-manager';
 import { defineSectionSettings, SETTINGS_SECTIONS } from '../options/sections';
@@ -41,9 +41,11 @@ export function startContent(options: ContentOptions = {}): ContentHandle {
     // إعدادات ميزات الوحدة (أ) يعرّفها قسمها في SETTINGS_SECTIONS؛ وتصل إلى الوحدة بالربط قبل التركيب (MJ7).
     connectModuleA(settings);
     const openOptions = () => void api.runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE });
+    // AD-29: الموضع من قائمة مغلقة تتحقق منها الخلفية قبل فتحه.
+    const openOptionsAt = (target: OptionsTarget) => void api.runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE, target } satisfies OpenOptionsMessage);
     const drawer = new Drawer({
       document: doc,
-      content: () => <PanelApp surface="drawer" settings={settings} sections={SETTINGS_SECTIONS} openOptions={openOptions} />,
+      content: () => <PanelApp surface="drawer" settings={settings} sections={SETTINGS_SECTIONS} openOptions={openOptions} openOptionsAt={openOptionsAt} />,
     });
     const manager = new LifecycleManager({
       registry: createModuleRegistry(options.modules ?? BUILTIN_MODULES),
