@@ -204,8 +204,8 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
       return true;
     }
     if (isProviderRequest(message)) {
-      // التبويب من sender لا من الرسالة: طلب واحد جارٍ لكل قسم في التبويب.
-      void provider.handle(message, String(sender.tab?.id ?? sender.url ?? 'extension')).then(sendResponse, () => sendResponse(null));
+      // التبويب من sender لا من الرسالة: طلب واحد جارٍ لكل قسم في التبويب. MJ23: والتحقق والفحص من صفحات الإضافة وحدها (من sender).
+      void provider.handle(message, String(sender.tab?.id ?? sender.url ?? 'extension'), fromExtensionPage(sender)).then(sendResponse, () => sendResponse(null));
       return true;
     }
     if (isExecutionRequest(message)) {

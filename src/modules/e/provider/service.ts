@@ -3,7 +3,8 @@
 //  - لكل مزوّد مخزن مفتاحه المستقل (DEC-10 ح-4) ومودله وحالة صحته وقائمة مودلاته وموعد إعادة المحاولة الذي أعلنه؛ وطلب مزوّد لا يقرأ إلا مخزن مزوّده،
 //    والبوابة (bindKey) ترفض مفتاحًا ليس له، فلا يُرسل مفتاح إلى مضيف غير مزوّده (AC-E10 (٢)).
 //  - لا طلب إلا بفعل صريح: «تحقق» لمزوّد من صفحة الإعدادات (قائمة مودلاته، الطلب المعلن)، و«افحص التوافق» لمودل لم تعلن واجهته توافقه، و«أرسل
-//    وحلّل» من موافقة القسم. وstatus لا يطلب شيئًا.
+//    وحلّل» من موافقة القسم. وstatus لا يطلب شيئًا. والتحقق والفحص (طلبان بالمفتاح لا يبدؤهما قسم) يُقبلان من صفحات الإضافة وحدها، لا من سكربت
+//    المحتوى (الخلفية تحدد ذلك من sender لا من الرسالة).
 //  - طلب واحد جارٍ لكل قسم في التبويب، وطلب تحليل واحد لكل رسالة، ولا إعادة محاولة تلقائية ولا تحويل إلى مزوّد آخر عند الفشل؛ وموعد إعادة
 //    المحاولة الذي يعلنه المزوّد يُحترم فلا يُرسل قبله شيء إليه؛ ومفتاح رفضه المزوّد (401) لا يُرسل به ثانية حتى يُستبدل أو يُتحقق منه. ولا سقف
 //    إنفاق ولا ميزانية ولا حصة تفرضها الإضافة (AD-31): إدارة الإنفاق للمستخدم عند المزوّد.
@@ -360,16 +361,19 @@ export class ProviderService {
     return true;
   }
 
-  /** يعالج رسالة الطبقة. tab: تبويب المرسل من sender (لا من الرسالة). لا يرمي. */
-  async handle(request: ProviderRequest, tab: string): Promise<unknown> {
+  /**
+   * يعالج رسالة الطبقة. tab: تبويب المرسل من sender (لا من الرسالة)؛ extensionPage: المرسل صفحة من الإضافة نفسها (الإعدادات أو اللوحة)، من sender
+   * أيضًا. لا يرمي.
+   */
+  async handle(request: ProviderRequest, tab: string, extensionPage = false): Promise<unknown> {
     try {
       switch (request.op) {
         case 'status':
           return await this.status(typeof request.provider === 'string' ? request.provider : undefined);
         case 'verify':
-          return await this.verify(String(request.provider));
+          return extensionPage ? await this.verify(String(request.provider)) : local('invalid-request', 'التحقق من المفتاح من صفحة الإعدادات وحدها؛ لم يُرسل شيء.');
         case 'probe':
-          return await this.probe(String(request.provider), String(request.model));
+          return extensionPage ? await this.probe(String(request.provider), String(request.model)) : local('invalid-request', 'فحص التوافق من صفحة الإعدادات وحدها؛ لم يُرسل شيء.');
         case 'analyze':
           return await this.analyze(request, tab);
         case 'cancel':

@@ -73,6 +73,15 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
     expect(status?.key?.detail.reason).toContain('api.anthropic.com');
   });
 
+  it('MJ23: التحقق (طلب بالمفتاح) من صفحة الإعدادات وحدها: من سكربت المحتوى يُرفض بلا طلب، ومن الإعدادات يُرسل', async () => {
+    const s = await providerSystem();
+    expect(await s.tab().verify('anthropic')).toMatchObject({ ok: false, failure: 'invalid-request', status: null });
+    expect(await s.tab().probe('anthropic', 'mock-sonnet-2')).toMatchObject({ ok: false, failure: 'invalid-request', status: null });
+    expect(s.provider.requests).toHaveLength(0);
+    expect((await s.options.verify('anthropic')).ok).toBe(true);
+    expect(s.provider.requests).toHaveLength(1);
+  });
+
   it('بلا مفتاح محفوظ: لا طلب، ويُعلن السبب', async () => {
     const s = await providerSystem({ withKey: false });
     expect(await s.options.verify('anthropic')).toMatchObject({ ok: false, failure: 'no-key', status: null });
