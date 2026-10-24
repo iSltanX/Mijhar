@@ -23,7 +23,19 @@
         "ok": true
       },
       {
-        "name": "AC-E12 (٣) وDEC-13: القائمة مودلات Gemini المتوافقة بـsupportedGenerationMethods وحدها (بلا مودل التضمين) بمصدرها",
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
         "ok": true
       },
       {
@@ -125,6 +137,26 @@
           "bytes": 0
         },
         {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
           "host": "api.anthropic.com",
           "method": "GET",
           "path": "/v1/models?limit=100",
@@ -194,7 +226,19 @@
         "ok": true
       },
       {
-        "name": "AC-E12 (٣) وDEC-13: القائمة مودلات Gemini المتوافقة بـsupportedGenerationMethods وحدها (بلا مودل التضمين) بمصدرها",
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
         "ok": true
       },
       {
@@ -296,6 +340,26 @@
           "bytes": 0
         },
         {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
           "host": "api.anthropic.com",
           "method": "GET",
           "path": "/v1/models?limit=100",
@@ -365,7 +429,19 @@
         "ok": true
       },
       {
-        "name": "AC-E12 (٣) وDEC-13: القائمة مودلات Gemini المتوافقة بـsupportedGenerationMethods وحدها (بلا مودل التضمين) بمصدرها",
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
         "ok": true
       },
       {
@@ -467,6 +543,26 @@
           "bytes": 0
         },
         {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
           "host": "api.anthropic.com",
           "method": "GET",
           "path": "/v1/models?limit=100",
@@ -540,7 +636,19 @@
         "ok": true
       },
       {
-        "name": "AC-E12 (٣) وDEC-13: القائمة مودلات Gemini المتوافقة بـsupportedGenerationMethods وحدها (بلا مودل التضمين) بمصدرها",
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
         "ok": true
       },
       {
@@ -634,6 +742,26 @@
           "key": "gemini-key",
           "authorization": false,
           "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
         },
         {
           "host": "api.anthropic.com",

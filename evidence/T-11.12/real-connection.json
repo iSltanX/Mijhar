@@ -1,61 +1,14 @@
 {
   "test": "TEST-AI-09",
   "mode": "اتصال حقيقي بمفتاح تجريبي من المالك (Chrome)",
-  "measuredAt": "2026-10-24T17:24:23.624Z",
+  "measuredAt": "2026-10-24T17:37:03.056Z",
   "steps": {
     "verify": {
       "card": {
         "health": "healthy",
         "key": "session",
-        "models": [
-          "gemini-2.5-flash",
-          "gemini-2.5-pro",
-          "gemini-2.5-flash-preview-tts",
-          "gemini-2.5-pro-preview-tts",
-          "gemma-4-26b-a4b-it",
-          "gemma-4-31b-it",
-          "gemini-flash-latest",
-          "gemini-flash-lite-latest",
-          "gemini-pro-latest",
-          "gemini-2.5-flash-lite",
-          "gemini-2.5-flash-image",
-          "gemini-3-flash-preview",
-          "gemini-3.1-pro-preview",
-          "gemini-3.1-pro-preview-customtools",
-          "gemini-3.1-flash-lite-preview",
-          "gemini-3.1-flash-lite",
-          "gemini-3-pro-image-preview",
-          "gemini-3-pro-image",
-          "nano-banana-pro-preview",
-          "gemini-3.1-flash-image-preview",
-          "gemini-3.1-flash-image",
-          "gemini-3.1-flash-lite-image",
-          "gemini-nano-banana-2.1",
-          "gemini-3.5-flash",
-          "gemini-3.5-flash-lite",
-          "gemini-omni-flash-preview",
-          "gemini-omni-1.1-flash",
-          "gemini-3.5-transcribe",
-          "gemini-3.6-flash",
-          "gemini-3.7-flash",
-          "gemini-3.8-flash",
-          "gemini-4-argon",
-          "lyria-3-clip-preview",
-          "lyria-3-pro-preview",
-          "lyria-3.5",
-          "gemini-3.1-flash-tts-preview",
-          "gemini-3.8-flash-tts",
-          "gemini-3.8-flash-lite-tts",
-          "gemini-robotics-er-2-preview",
-          "gemini-2.5-computer-use-preview-10-2025",
-          "antigravity-preview-05-2026",
-          "antigravity-preview-09-2026",
-          "antigravity-preview-latest",
-          "deep-research-max-preview-04-2026",
-          "deep-research-preview-04-2026",
-          "deep-research-pro-preview-12-2025"
-        ],
-        "source": "من قائمة Google Gemini (https://generativelanguage.googleapis.com/v1beta/models) كما قُرئت 2026-10-24 17:24 UTC؛ تُعرض المودلات المتوافقة مع التحليل وحدها (46 من 46)، وتُحدَّث عند كل تحقق من المفتاح."
+        "models": [],
+        "source": "من قائمة Google Gemini (https://generativelanguage.googleapis.com/v1beta/models) كما قُرئت 2026-10-24 17:37 UTC؛ تُعرض المودلات المتوافقة مع التحليل وحدها (0 من 46)، وتُحدَّث عند كل تحقق من المفتاح."
       },
       "requests": [
         {
@@ -69,6 +22,30 @@
         }
       ]
     },
+    "beforeProbe": {
+      "usableModels": 0,
+      "blockedNotice": true,
+      "candidates": 46
+    },
+    "probes": [
+      {
+        "model": "gemini-2.5-flash",
+        "status": 404,
+        "error": {
+          "code": 404,
+          "status": "NOT_FOUND",
+          "message": "This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Int",
+          "reasons": []
+        },
+        "becameOption": false
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "status": 200,
+        "error": null,
+        "becameOption": true
+      }
+    ],
     "consent": {
       "title": "إرسال هذا إلى Google Gemini للتحليل؟",
       "destination": "الوجهةGoogle Gemini · Gemini 3.5 Flash Lite عبر مفتاحك، إلى generativelanguage.googleapis.com وحده · سياسته في البيانات: ai.google.dev/gemini-api/terms"
@@ -76,8 +53,8 @@
     "analysis": {
       "outcome": {
         "kind": "result",
-        "text": "تحليل مقترح من المزوّداحتمال يحتاج تحققًافشل فحص Compile & Hygiene بسبب كود الخروج 1 دون توفر سجل مفصلمثبت من المصدراقتباسات وردت حرفيًا فيما أُرسل من الصفحة (لا ما يقوله النموذج عنها):[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1.السبب المحتملProcess completed with exit code 1.[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1. — ورد في المصدرالإصلاح والخطوة التاليةفحص السجل الكامل للخطوة 14 Compile & Hygiene لمعرفة سبب كود الخروج 1التحقق من التغييرات المرتبطة بالموضوع automations: refine cloud repository ownership UXالمعلومات الناقصةنص السجل الكامل للفحص الفاشلقائمة التغييرات المرتبطة بالموضوعمقتطفات الأدلة الإضافيةوما أعلنته الطبقة قبل الإرسال: 3 بندًامقتطف الخطأ (غير متاح): نص السجل محجوب عن غير المسجَّل في هذه الصفحةالتغييرات المرتبطة: صفحة المهمة لا تعرض التغييراتمقتطفات الأدلة: لم يُضف مقتطف دليل من تحديد في الصفحةgemini-3.5-flash-lite · Google Gemini · إلى generativelanguage.googleapis.com · طُلب 20:24:25أعد التحليلأخفِاقتراح نموذج لا يحل محل حقيقة مرصودة، ولا يُنفَّذ منه أمر تلقائيًا.",
-        "meta": "gemini-3.5-flash-lite · Google Gemini · إلى generativelanguage.googleapis.com · طُلب 20:24:25"
+        "text": "تحليل مقترح من المزوّداحتمال يحتاج تحققًافشل فحص Compile & Hygiene برمز خروج 1 دون توفر تفاصيل السجل.مثبت من المصدراقتباسات وردت حرفيًا فيما أُرسل من الصفحة (لا ما يقوله النموذج عنها):[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1.السبب المحتملProcess completed with exit code 1.[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1. — ورد في المصدرالإصلاح والخطوة التاليةفحص سجل الخطأ الكامل للخطوة 14 Compile & Hygiene عبر الرابط المتاح للتحقق من السبب الجذري.المعلومات الناقصةنص السجل الكامل للفحص الفاشلالتغييرات المرتبطة بالمستودعمقتطفات الأدلة التفصيليةوما أعلنته الطبقة قبل الإرسال: 3 بندًامقتطف الخطأ (غير متاح): نص السجل محجوب عن غير المسجَّل في هذه الصفحةالتغييرات المرتبطة: صفحة المهمة لا تعرض التغييراتمقتطفات الأدلة: لم يُضف مقتطف دليل من تحديد في الصفحةgemini-3.5-flash-lite · Google Gemini · إلى generativelanguage.googleapis.com · طُلب 20:37:11أعد التحليلأخفِاقتراح نموذج لا يحل محل حقيقة مرصودة، ولا يُنفَّذ منه أمر تلقائيًا.",
+        "meta": "gemini-3.5-flash-lite · Google Gemini · إلى generativelanguage.googleapis.com · طُلب 20:37:11"
       },
       "requests": [
         {

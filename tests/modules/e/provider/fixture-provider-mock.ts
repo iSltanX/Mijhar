@@ -222,6 +222,10 @@ export type GeminiOutcome = 'ok' | 'bad-key' | 'forbidden' | 'not-found' | 'too-
 export interface GeminiScenario {
   verify?: GeminiOutcome;
   analyze?: GeminiOutcome;
+  /** نتيجة الفحص الصريح (طلب «ping» وحده): الافتراضي نجاح. */
+  probe?: GeminiOutcome;
+  /** مودلات يردّ الفحص عليها بـ404 «لم يعد متاحًا للمستخدمين الجدد» (كما قِيس عند Google)، ولو أعلنتها القائمة. */
+  probeFails?: readonly string[];
   /** رمز retry-after بالثواني في 429. */
   retryAfter?: number;
   /** تأخير RetryInfo في تفاصيل 429 («27s»). */
@@ -288,6 +292,15 @@ export function geminiMock(scenario: GeminiScenario = {}) {
     }
     const match = /^\/v1beta\/models\/([^/:]+):generateContent$/.exec(url.pathname);
     if (match && init.method === 'POST') {
+      const asSent = JSON.parse(body ?? '{}') as { contents?: Array<{ parts: Array<{ text: string }> }>; systemInstruction?: unknown };
+      // الفحص الصريح: نص ثابت «ping» وحده بلا تعليمات نظام.
+      if (asSent.contents?.[0]?.parts[0]?.text === 'ping' && !asSent.systemInstruction) {
+        if (scenario.probeFails?.includes(match[1] ?? '')) return reply(404, gerror(404, 'NOT_FOUND', `This model models/${match[1]} is no longer available to new users.${echo}`));
+        const probeOutcome = scenario.probe ?? 'ok';
+        if (probeOutcome === 'prompt-blocked') return reply(200, { promptFeedback: { blockReason: 'SAFETY' } });
+        if (probeOutcome !== 'ok') return fail(probeOutcome);
+        return reply(200, { candidates: [{ content: { role: 'model', parts: [{ text: 'pong' }] }, finishReason: 'STOP' }], modelVersion: match[1] });
+      }
       const outcome = scenario.analyze ?? 'ok';
       if (outcome === 'prompt-blocked') return reply(200, { promptFeedback: { blockReason: 'SAFETY', safetyRatings: [] }, usageMetadata: { promptTokenCount: 10 } });
       if (outcome === 'reply-blocked') return reply(200, { candidates: [{ content: { role: 'model', parts: [{ text: '{"summary":"مقطوع' }] }, finishReason: 'SAFETY' }], modelVersion: match[1] });

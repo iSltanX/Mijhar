@@ -13,7 +13,7 @@ import { GEMINI_ADAPTER } from '../../../../src/modules/e/provider/adapters/gemi
 import { checkKey, descriptorById } from '../../../../src/modules/e/provider/catalog';
 import { GEMINI } from '../../../../src/modules/e/provider/descriptors/gemini';
 import { ProviderKeyMismatchError, bindKey, gatedFetch } from '../../../../src/modules/e/provider/gate';
-import { compatibleModels, defaultModel } from '../../../../src/modules/e/provider/models';
+import { compatibleModels, defaultModel, uncheckedModels } from '../../../../src/modules/e/provider/models';
 import { parseAnalysis } from '../../../../src/modules/e/provider/result';
 import { PROVIDER_ADAPTERS, createProviderRegistry } from '../../../../src/modules/e/provider/registry';
 import { ProviderService, memoryModelsCache } from '../../../../src/modules/e/provider/service';
@@ -35,11 +35,16 @@ const REQUEST = { model: 'mock-gem-2', system: 'تعليمات', prompt: 'error 
 
 describe('الوصف وصيغة المفتاح (AC-E12 (٤))', () => {
   it('مضيف Gemini وصلاحيته الاختيارية وسياسته الرسمية وطلب التحقق المعلن بلا اسم ترويسة ولا مفتاح', () => {
-    expect(GEMINI).toMatchObject({ id: 'gemini', host: GEMINI_HOST, origin: `https://${GEMINI_HOST}/*`, probeRequest: null });
+    expect(GEMINI).toMatchObject({ id: 'gemini', host: GEMINI_HOST, origin: `https://${GEMINI_HOST}/*` });
     expect(GEMINI.policy.url).toBe('https://ai.google.dev/gemini-api/terms');
     expect(GEMINI.policy.readOn).toBe('2026-10-24');
     expect(GEMINI.verifyRequest).toContain(`GET https://${GEMINI_HOST}/v1beta/models`);
     expect(GEMINI.verifyRequest).not.toMatch(/x-goog-api-key|AIza/);
+    // DEC-13 ن-4: للفحص الصريح طلب معلن: POST بنص ثابت «ping» وحده بلا محتوى، بلا اسم ترويسة ولا مفتاح ولا مسار المودلات (علامات المحوّل).
+    expect(GEMINI.probeRequest).toContain('POST');
+    expect(GEMINI.probeRequest).toContain('«ping» وحده');
+    expect(GEMINI.probeRequest).toContain('لا يحمل شيئًا من صفحاتك');
+    expect(GEMINI.probeRequest).not.toMatch(/x-goog-api-key|AIza|\/v1beta\/models\//);
   });
 
   it('يقبل صيغة مفتاح Google API ويرفض الفارغ وغيرها من مفاتيح المزوّدين والرموز، بلا إرسال', () => {
@@ -80,17 +85,19 @@ describe('التحقق وقراءة المودلات (DEC-13 ن-3)', () => {
     expect(sent?.search).not.toMatch(/key=/);
   });
 
-  it('المتوافق ما أعلن supportedGenerationMethods أنه يدعم التوليد وحده، بالحدّين المعلنين، ومعرّفه بلا بادئة models/؛ وما لم يعلن طرقه لا يُخمَّن', async () => {
+  it('المرشَّح ما أعلن supportedGenerationMethods أنه يدعم التوليد وحده، بالحدّين المعلنين، ومعرّفه بلا بادئة models/؛ وتوافقه «غير محسوم» حتى الفحص الصريح (DEC-13 ن-4)؛ وما لم يعلن طرقه لا يُخمَّن', async () => {
     const { c } = setup();
     const r = await GEMINI_ADAPTER.listModels(c);
     expect(r.ok && r.data.models.map((m) => [m.id, m.displayName, m.maxInputTokens, m.maxTokens, m.compatibility, m.lifecycle])).toEqual([
-      ['mock-gem-2', 'Mock Gem 2', 1048576, 65536, 'declared', null],
-      ['mock-gem-flash', 'Mock Gem Flash', 131072, 8192, 'declared', null],
+      ['mock-gem-2', 'Mock Gem 2', 1048576, 65536, 'unknown', null],
+      ['mock-gem-flash', 'Mock Gem Flash', 131072, 8192, 'unknown', null],
     ]);
     if (r.ok) {
       expect(r.data).toMatchObject({ provider: 'gemini', source: `https://${GEMINI_HOST}/v1beta/models`, partial: false, readAt: NOW });
-      expect(compatibleModels(r.data).map((m) => m.id)).toEqual(['mock-gem-2', 'mock-gem-flash']);
-      expect(defaultModel(r.data)?.id).toBe('mock-gem-2');
+      // لا مودل خيارًا للتحليل قبل الفحص الصريح، ولا افتراضي (BLK-MODEL-COMPAT)؛ والمرشَّحان يُعرضان للفحص.
+      expect(compatibleModels(r.data)).toEqual([]);
+      expect(defaultModel(r.data)).toBeNull();
+      expect(uncheckedModels(r.data).map((m) => m.id)).toEqual(['mock-gem-2', 'mock-gem-flash']);
     }
     expect(GEMINI_MOCK_MODELS.length).toBeGreaterThan(2);
   });
@@ -105,6 +112,47 @@ describe('التحقق وقراءة المودلات (DEC-13 ن-3)', () => {
   it('بلا صلاحية المضيف: فشل «permission» ولا طلب', async () => {
     const { mock, c } = setup({}, false);
     expect(await GEMINI_ADAPTER.listModels(c)).toMatchObject({ ok: false, failure: 'permission', status: null });
+    expect(mock.requests).toHaveLength(0);
+  });
+});
+
+describe('الفحص الصريح للمودل (DEC-13 ن-4)', () => {
+  const probeOf = (r: { requests: Array<{ method: string; body: string | null }> }) => r.requests.filter((x) => x.method === 'POST');
+
+  it('طلب واحد POST إلى نقطة generateContent للمودل بنص «ping» وحده بلا تعليمات نظام ولا محتوى، والمفتاح في الترويسة وحدها', async () => {
+    const { mock, c } = setup();
+    const r = await GEMINI_ADAPTER.probe?.(c, 'mock-gem-2');
+    expect(r).toMatchObject({ ok: true, status: 200, data: true });
+    expect(mock.requests).toHaveLength(1);
+    const [sent] = mock.requests;
+    expect(sent).toMatchObject({ method: 'POST', host: GEMINI_HOST, path: '/v1beta/models/mock-gem-2:generateContent', search: '', credentials: 'omit' });
+    expect(sent?.headers['x-goog-api-key']).toBe(KEY);
+    expect(sent?.url).not.toContain(KEY);
+    expect(JSON.parse(sent?.body ?? '{}')).toEqual({ contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 64 } });
+  });
+
+  it('مودل أعلنته القائمة ورُدّ عليه 404 «لم يعد متاحًا للمستخدمين الجدد» لا يثبت توافقه: فشل «not-found» بنص عربي بلا مفتاح، وطلب واحد', async () => {
+    const { mock, c } = setup({ probeFails: ['mock-gem-2'], echoKey: true });
+    const r = await GEMINI_ADAPTER.probe?.(c, 'mock-gem-2');
+    expect(r).toMatchObject({ ok: false, failure: 'not-found', status: 404 });
+    if (r && !r.ok) {
+      expect(r.message).toMatch(ARABIC);
+      expect(r.message).toContain('no longer available');
+      expect(r.message).not.toContain(KEY);
+    }
+    expect(probeOf(mock)).toHaveLength(1);
+  });
+
+  it.each(['rate-limit', 'unavailable', 'forbidden', 'bad-key', 'prompt-blocked'] as const)('%s لا يثبت التوافق، وطلب واحد بلا إعادة', async (outcome) => {
+    const { mock, c } = setup({ probe: outcome, retryAfter: 5 });
+    const r = await GEMINI_ADAPTER.probe?.(c, 'mock-gem-2');
+    expect(r?.ok).toBe(false);
+    expect(mock.requests).toHaveLength(1);
+  });
+
+  it('بلا صلاحية المضيف: «permission» ولا طلب', async () => {
+    const { mock, c } = setup({}, false);
+    expect(await GEMINI_ADAPTER.probe?.(c, 'mock-gem-2')).toMatchObject({ ok: false, failure: 'permission' });
     expect(mock.requests).toHaveLength(0);
   });
 });
@@ -301,18 +349,34 @@ describe('الخدمة الفعلية بمحوّل Gemini المشحون (محا
   }
   /** الخدمة تقيّد طلبًا واحدًا جاريًا لكل تبويب وقسم؛ فكل الطلبات هنا من تبويب واحد. */
   const analyzeIn = (s: { service: ProviderService }, request: ReturnType<typeof input>) => s.service.analyze(request, 'tab-1');
+  /** طلبات التحليل وحدها (الفحص الصريح POST أيضًا لكن بنص «ping» وحده). */
+  const analyses = (s: { gemini: { requests: Array<{ method: string; body: string | null }> } }) => s.gemini.requests.filter((x) => x.method === 'POST' && !/"text":"ping"/.test(x.body ?? ''));
+  /** التحقق ثم الفحص الصريح لمودل (DEC-13 ن-4): لا مودل خيارًا قبله. */
+  const ready = async (s: Awaited<ReturnType<typeof system>>, model = 'mock-gem-2') => {
+    await s.service.verify('gemini');
+    return s.service.probe('gemini', model);
+  };
   const input = (model: string) => ({ requestId: 'r1', section: 'checks', provider: 'gemini', model, system: 'تعليمات', prompt: 'error TS2322: x' });
 
   it('التحقق ثم التحليل: كل شيء إلى مضيف Gemini بمفتاحه وحده، ولا طلب إلى Anthropic ولا مفتاحه في أي طلب', async () => {
     const s = await system();
     const verified = await s.service.verify('gemini');
-    expect(verified.ok && verified.data.models.map((m) => m.id)).toEqual(['mock-gem-2', 'mock-gem-flash']);
+    expect(verified.ok && verified.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'unknown'], ['mock-gem-flash', 'unknown']]);
+    // قبل الفحص الصريح: لا مودل متوافقًا، ولا إرسال تحليل.
+    expect((await s.service.status('gemini'))?.model).toBeNull();
+    expect(await analyzeIn(s, input('mock-gem-2'))).toMatchObject({ ok: false });
+    expect(analyses(s)).toHaveLength(0);
+    const checked = await s.service.probe('gemini', 'mock-gem-2');
+    expect(checked.ok && checked.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'checked'], ['mock-gem-flash', 'unknown']]);
     const status = await s.service.status('gemini');
     expect(status?.model?.id).toBe('mock-gem-2');
     expect(status?.provider.host).toBe(GEMINI_HOST);
     const result = await analyzeIn(s, input('mock-gem-2'));
     expect(result).toMatchObject({ ok: true, data: { provider: 'Google Gemini', host: GEMINI_HOST, model: 'mock-gem-2-001' } });
-    expect(s.gemini.requests.map((r) => `${r.method} ${r.path}${r.search}`)).toEqual(['GET /v1beta/models?pageSize=1000', 'POST /v1beta/models/mock-gem-2:generateContent']);
+    expect(s.gemini.requests.map((r) => `${r.method} ${r.path}${r.search}`)).toEqual(['GET /v1beta/models?pageSize=1000', 'POST /v1beta/models/mock-gem-2:generateContent', 'POST /v1beta/models/mock-gem-2:generateContent']);
+    // الأول فحص «ping» وحده، والثاني التحليل؛ ولم يحمل الفحص شيئًا من المحتوى.
+    expect(s.gemini.requests[1]?.body).toBe(JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 64 } }));
+    expect(s.gemini.requests[2]?.body).toContain('error TS2322');
     expect(s.gemini.requests.every((r) => r.headers['x-goog-api-key'] === KEY && !r.url.includes(KEY))).toBe(true);
     expect(s.anthropic.requests).toHaveLength(0);
     expect(JSON.stringify(s.gemini.requests)).not.toContain(s.anthropicKey);
@@ -320,32 +384,65 @@ describe('الخدمة الفعلية بمحوّل Gemini المشحون (محا
 
   it('مودل غير متوافق (لا يدعم التوليد) لا يُرسل إليه شيء', async () => {
     const s = await system();
-    await s.service.verify('gemini');
+    await ready(s);
     const r = await analyzeIn(s, input('mock-gem-embed'));
     expect(r).toMatchObject({ ok: false });
-    expect(s.gemini.requests.filter((x) => x.method === 'POST')).toHaveLength(0);
+    expect(analyses(s)).toHaveLength(0);
   });
 
   it('حد الطلبات بموعده المعلن يمنع الطلب التالي حتى يحل الموعد، ولا إعادة تلقائية', async () => {
     const s = await system({ analyze: 'rate-limit', retryAfter: 30 });
-    await s.service.verify('gemini');
+    await ready(s);
     const first = await analyzeIn(s, input('mock-gem-2'));
     expect(first).toMatchObject({ ok: false, failure: 'rate-limit', retryAt: NOW + 30_000 });
     const second = await analyzeIn(s, { ...input('mock-gem-2'), requestId: 'r2' });
     expect(second).toMatchObject({ ok: false, failure: 'cooldown' });
-    expect(s.gemini.requests.filter((x) => x.method === 'POST')).toHaveLength(1);
+    expect(analyses(s)).toHaveLength(1);
     s.tick(31_000);
     await analyzeIn(s, { ...input('mock-gem-2'), requestId: 'r3' });
-    expect(s.gemini.requests.filter((x) => x.method === 'POST')).toHaveLength(2);
+    expect(analyses(s)).toHaveLength(2);
   });
 
   it('حجب الأمان فشل بسببه عبر الخدمة، وطلب واحد، ولا مزوّد آخر', async () => {
     const s = await system({ analyze: 'prompt-blocked' });
-    await s.service.verify('gemini');
+    await ready(s);
     const r = await analyzeIn(s, input('mock-gem-2'));
     expect(r).toMatchObject({ ok: false, failure: 'invalid' });
-    expect(s.gemini.requests.filter((x) => x.method === 'POST')).toHaveLength(1);
+    expect(analyses(s)).toHaveLength(1);
     expect(s.anthropic.requests).toHaveLength(0);
+  });
+
+  it('فحص فاشل (404 «لم يعد متاحًا») يُبقي المودل غير محسوم: لا خيار ولا إرسال تحليل؛ ومودل آخر ينجح فحصه فيصير الخيار وحده', async () => {
+    const s = await system({ probeFails: ['mock-gem-2'] });
+    await s.service.verify('gemini');
+    const failed = await s.service.probe('gemini', 'mock-gem-2');
+    expect(failed).toMatchObject({ ok: false, failure: 'not-found' });
+    expect((await s.service.status('gemini'))?.model).toBeNull();
+    expect(await analyzeIn(s, input('mock-gem-2'))).toMatchObject({ ok: false });
+    expect(analyses(s)).toHaveLength(0);
+    const good = await s.service.probe('gemini', 'mock-gem-flash');
+    expect(good.ok && good.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'unknown'], ['mock-gem-flash', 'checked']]);
+    expect((await s.service.status('gemini'))?.model?.id).toBe('mock-gem-flash');
+    expect(await analyzeIn(s, input('mock-gem-flash'))).toMatchObject({ ok: true });
+  });
+
+  it('ما ثبت بالفحص يبقى بعد إعادة التحقق من المفتاح فلا يُعاد الفحص، ولا فحص لمودل حُسم أو خارج القائمة', async () => {
+    const s = await system();
+    await ready(s);
+    const again = await s.service.verify('gemini');
+    expect(again.ok && again.data.models.map((m) => [m.id, m.compatibility])).toEqual([['mock-gem-2', 'checked'], ['mock-gem-flash', 'unknown']]);
+    const before = s.gemini.requests.length;
+    expect(await s.service.probe('gemini', 'mock-gem-2')).toMatchObject({ ok: false, failure: 'invalid-request' });
+    expect(await s.service.probe('gemini', 'mock-gem-embed')).toMatchObject({ ok: false, failure: 'invalid-request' });
+    expect(s.gemini.requests.length).toBe(before);
+  });
+
+  it('حد الطلبات الذي أعلنه الفحص يمنع فحصًا آخر حتى موعده، ولا إعادة تلقائية', async () => {
+    const s = await system({ probe: 'rate-limit', retryAfter: 30 });
+    await s.service.verify('gemini');
+    expect(await s.service.probe('gemini', 'mock-gem-2')).toMatchObject({ ok: false, failure: 'rate-limit' });
+    expect(await s.service.probe('gemini', 'mock-gem-flash')).toMatchObject({ ok: false, failure: 'cooldown' });
+    expect(s.gemini.requests.filter((x) => x.method === 'POST')).toHaveLength(1);
   });
 
   it('مفتاح Gemini المرفوض لا يمسح مفتاح Anthropic ولا يحوّل إليه', async () => {

@@ -2,8 +2,9 @@
 // evidence/T-11.12/direct-access.json: الطلب يصل ويُقرأ رده في المتصفحات الأربعة). وصفه (الاسم والمضيف وصيغة المفتاح وطلب التحقق المعلن) في
 // descriptors/gemini.ts؛ وهنا وحده ما لا يصل غير الخلفية (I-2):
 //  - المفتاح في ترويسة x-goog-api-key لا في العنوان (فلا يظهر في سجل ولا عنوان)، وcontent-type للجسم.
-//  - المودلات من GET /v1beta/models وقت التشغيل (وهي طلب التحقق المعلن: لا يحمل محتوى): المتوافق ما أعلن في supportedGenerationMethods أنه يدعم طريقة
-//    التوليد المستعملة (DEC-13 ن-3)، مع حدّي المدخلات والمخرجات المعلنين؛ وما لم يعلنها لا يُعرض ولا يُستنتج من اسمه.
+//  - المودلات من GET /v1beta/models وقت التشغيل (وهي طلب التحقق المعلن: لا يحمل محتوى): المرشّح ما أعلن في supportedGenerationMethods أنه يدعم طريقة
+//    التوليد المستعملة، مع حدّي المدخلات والمخرجات المعلنين؛ وما لم يعلنها لا يُعرض ولا يُستنتج من اسمه. والإعلان ترشيح لا إثبات (DEC-13 ن-4): لا يصير المرشّح
+//    خيارًا للتحليل إلا بالفحص الصريح (probe) الذي يبدؤه المستخدم، بنص ثابت «ping» وحده لا يحمل شيئًا من الصفحات.
 //  - التحليل POST /v1beta/models/<مودل>:generateContent بلا بث.
 //  - الرفض بحسب ما قِيس: مفتاح غير صالح يردّه الخادم 400 INVALID_ARGUMENT بسبب API_KEY_INVALID (لا 401)، فيُصنَّف مفتاحًا مرفوضًا.
 //  - حجب الأمان الذي يعلنه الرد (promptFeedback.blockReason أو finishReason أمني) فشل بسببه لا تحليل، ولا يُعاد الطلب.
@@ -17,6 +18,9 @@ const HOST = GEMINI.host;
 const METHOD = 'generateContent';
 const MODELS_PATH = '/v1beta/models?pageSize=1000';
 const MODEL_PREFIX = 'models/';
+/** نص الفحص الصريح: ثابت لا يحمل شيئًا من الصفحات. */
+const PROBE_TEXT = 'ping';
+const PROBE_MAX_OUTPUT = 64;
 
 const headers = (key: string, json: boolean): Record<string, string> => ({
   'x-goog-api-key': key,
@@ -116,7 +120,7 @@ function parseModel(raw: unknown): ProviderModel | null {
   const name = str(r?.name);
   if (!name) return null;
   const methods = Array.isArray(r?.supportedGenerationMethods) ? r.supportedGenerationMethods.filter((m): m is string => typeof m === 'string') : [];
-  // DEC-13 ن-3: لا يصلح للتحليل إلا ما أعلنت الواجهة أنه يدعم طريقة التوليد المستعملة.
+  // DEC-13 ن-4: لا يُرشَّح إلا ما أعلنت الواجهة أنه يدعم طريقة التوليد المستعملة، وتوافقه «غير محسوم» حتى يثبت بالفحص الصريح.
   if (!methods.includes(METHOD)) return null;
   const id = name.startsWith(MODEL_PREFIX) ? name.slice(MODEL_PREFIX.length) : name;
   return {
@@ -127,7 +131,7 @@ function parseModel(raw: unknown): ProviderModel | null {
     maxTokens: num(r?.outputTokenLimit),
     maxInputTokens: num(r?.inputTokenLimit),
     lifecycle: null,
-    compatibility: 'declared',
+    compatibility: 'unknown',
   };
 }
 
@@ -197,6 +201,13 @@ function parseReply(raw: unknown, request: AnalysisRequest, key: string): Provid
   };
 }
 
+/** فحص ناجح: ردّ المودل بمرشّح توليد (ولو بلا نص لأن حد المخرجات استُهلك)؛ وبلا مرشّح (حجب أو رد غير متوقع) لا يثبت توافقه. */
+function parseProbe(raw: unknown): ProviderResult<true> | null {
+  const r = raw as RawReply | null;
+  if (!r || typeof r !== 'object' || !Array.isArray(r.candidates) || r.candidates.length === 0) return null;
+  return { ok: true, status: 200, data: true };
+}
+
 export const GEMINI_ADAPTER: ProviderAdapter = {
   descriptor: GEMINI,
 
@@ -217,5 +228,11 @@ export const GEMINI_ADAPTER: ProviderAdapter = {
     });
     const path = `/v1beta/models/${encodeURIComponent(request.model)}:${METHOD}`;
     return send<AnalysisReply>(call, path, { method: 'POST', headers: headers(call.key, true), body }, (raw) => parseReply(raw, request, call.key));
+  },
+
+  probe(call, model) {
+    const body = JSON.stringify({ contents: [{ role: 'user', parts: [{ text: PROBE_TEXT }] }], generationConfig: { maxOutputTokens: PROBE_MAX_OUTPUT } });
+    const path = `/v1beta/models/${encodeURIComponent(model)}:${METHOD}`;
+    return send<true>(call, path, { method: 'POST', headers: headers(call.key, true), body }, (raw) => parseProbe(raw));
   },
 };

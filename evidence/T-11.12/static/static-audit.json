@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-10-24T16:59:10.064Z",
+  "measuredAt": "2026-10-24T17:40:10.615Z",
   "translationPathDirs": [
     "src/modules/c/engines/",
     "src/modules/c/masking/",
@@ -259,7 +259,7 @@
       "findings": [],
       "summary": {
         "dist/chromium/background.js": {
-          "bytes": 395068,
+          "bytes": 396117,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -267,7 +267,7 @@
           "networkApis": []
         },
         "dist/chromium/content.js": {
-          "bytes": 1436378,
+          "bytes": 1436618,
           "hosts": [
             "schema.org",
             "github.com",
@@ -281,7 +281,7 @@
           ]
         },
         "dist/chromium/options.js": {
-          "bytes": 443874,
+          "bytes": 444179,
           "hosts": [
             "api.github.com",
             "www.w3.org",
@@ -291,7 +291,7 @@
           "networkApis": []
         },
         "dist/chromium/reader.js": {
-          "bytes": 315597,
+          "bytes": 315803,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -299,7 +299,7 @@
           "networkApis": []
         },
         "dist/chromium/sidepanel.js": {
-          "bytes": 841058,
+          "bytes": 841264,
           "hosts": [
             "www.w3.org",
             "api.github.com",
@@ -316,7 +316,7 @@
       "findings": [],
       "summary": {
         "dist/firefox/background.js": {
-          "bytes": 395066,
+          "bytes": 396115,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -324,7 +324,7 @@
           "networkApis": []
         },
         "dist/firefox/content.js": {
-          "bytes": 1436421,
+          "bytes": 1436661,
           "hosts": [
             "schema.org",
             "github.com",
@@ -338,7 +338,7 @@
           ]
         },
         "dist/firefox/options.js": {
-          "bytes": 443870,
+          "bytes": 444175,
           "hosts": [
             "api.github.com",
             "www.w3.org",
@@ -348,7 +348,7 @@
           "networkApis": []
         },
         "dist/firefox/reader.js": {
-          "bytes": 315595,
+          "bytes": 315801,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -356,7 +356,7 @@
           "networkApis": []
         },
         "dist/firefox/sidepanel.js": {
-          "bytes": 841056,
+          "bytes": 841262,
           "hosts": [
             "www.w3.org",
             "api.github.com",

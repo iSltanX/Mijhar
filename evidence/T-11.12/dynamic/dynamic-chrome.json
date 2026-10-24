@@ -52,7 +52,7 @@
     "readme": [
       {
         "attempt": 1,
-        "ms": 12822,
+        "ms": 11094,
         "phase": "done",
         "note": "تُرجمت 17 من 17 فقرة.",
         "translations": 17,
@@ -63,7 +63,7 @@
     ],
     "availabilityAfterTranslate": "available",
     "comment": {
-      "ms": 507,
+      "ms": 506,
       "phase": "done",
       "translations": 2,
       "warnings": 0,
@@ -72,7 +72,7 @@
       "consentShown": false
     },
     "issue": {
-      "ms": 508,
+      "ms": 512,
       "phase": "done",
       "translations": 2,
       "warnings": 0,
@@ -96,9 +96,9 @@
       "title": "about:blank"
     },
     {
-      "type": "page",
-      "url": "about:blank",
-      "title": "about:blank"
+      "type": "browser_ui",
+      "url": "chrome://omnibox-popup.top-chrome/",
+      "title": "Omnibox Popup"
     },
     {
       "type": "browser_ui",
@@ -106,9 +106,9 @@
       "title": "Omnibox Popup"
     },
     {
-      "type": "browser_ui",
-      "url": "chrome://omnibox-popup.top-chrome/",
-      "title": "Omnibox Popup"
+      "type": "page",
+      "url": "about:blank",
+      "title": "about:blank"
     },
     {
       "type": "service_worker",
@@ -244,8 +244,8 @@
           },
           "postData": null,
           "hasPostData": false,
-          "requestId": "58735.10",
-          "t": 1792861202790,
+          "requestId": "68937.10",
+          "t": 1792863791507,
           "target": {
             "type": "page",
             "url": "about:blank"
@@ -270,8 +270,8 @@
           },
           "postData": "The side panel opens from the toolbar",
           "hasPostData": true,
-          "requestId": "58735.11",
-          "t": 1792861202790,
+          "requestId": "68937.11",
+          "t": 1792863791507,
           "target": {
             "type": "page",
             "url": "about:blank"
@@ -325,7 +325,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 5
+      "t": 6
     },
     {
       "url": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
@@ -338,16 +338,6 @@
       "t": 25
     },
     {
-      "url": "https://github.com/favicon.ico",
-      "method": "GET",
-      "type": "Other",
-      "target": {
-        "type": "page",
-        "url": "about:blank"
-      },
-      "t": 126
-    },
-    {
       "url": "chrome-extension://opfabohkfbfdpdfdphpcmfmdolipiohl/fonts/IBMPlexSansArabic-Regular.woff2",
       "method": "GET",
       "type": "Font",
@@ -355,7 +345,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 143
+      "t": 117
     },
     {
       "url": "chrome-extension://opfabohkfbfdpdfdphpcmfmdolipiohl/fonts/Almarai-Bold.woff2",
@@ -365,7 +355,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 144
+      "t": 117
     },
     {
       "url": "chrome-extension://opfabohkfbfdpdfdphpcmfmdolipiohl/fonts/Almarai-Regular.woff2",
@@ -375,7 +365,17 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 144
+      "t": 118
+    },
+    {
+      "url": "https://github.com/favicon.ico",
+      "method": "GET",
+      "type": "Other",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 125
     },
     {
       "url": "chrome-extension://opfabohkfbfdpdfdphpcmfmdolipiohl/fonts/Cairo-Bold.woff2",
@@ -385,7 +385,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 160
+      "t": 137
     },
     {
       "url": "chrome-extension://opfabohkfbfdpdfdphpcmfmdolipiohl/fonts/IBMPlexSansArabic-Bold.woff2",
@@ -395,7 +395,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 18528
+      "t": 16762
     },
     {
       "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
@@ -405,7 +405,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 22010
+      "t": 20228
     },
     {
       "url": "https://collector.invalid/log",
@@ -415,7 +415,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 22010
+      "t": 20228
     }
   ],
   "extensionTargetsSeen": 2

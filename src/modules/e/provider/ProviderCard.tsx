@@ -67,7 +67,7 @@ const CARD_CSS = `
 }
 .mj-root .key-input:focus-visible { outline: none; border-color: var(--mijhar-border-focus); box-shadow: var(--mijhar-focus-ring); }
 .mj-root .choice input:disabled + .label { color: var(--mijhar-text-disabled); }
-.mj-root .model-probe { margin: 0; padding-inline-start: var(--mijhar-space-24); display: flex; flex-direction: column; gap: var(--mijhar-space-4); }
+.mj-root .model-probe { margin: 0; padding-inline-start: var(--mijhar-space-24); display: flex; flex-direction: column; gap: var(--mijhar-space-4); max-height: 16rem; overflow-y: auto; }
 `;
 
 const PLACE_TEXT: Readonly<Record<SecretPlace, string>> = { session: 'ذاكرة الجلسة', disk: 'القرص في هذا المتصفح' };
@@ -464,14 +464,14 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
         </p>
         {blocked && (
           <p class="notice" data-tone="warning" data-model-blocked="">
-            لم يُعلن {descriptor.title} مودلًا متوافقًا مع التحليل في قائمته، ولم يثبت توافق مودل بفحص صريح؛ فلا خيار تحليل لهذا المزوّد الآن، ولا يُرسل إليه شيء، ولا
+            لم يثبت توافق مودل من قائمة {descriptor.title} مع التحليل (لا إعلان من واجهته ولا فحص صريح ناجح)؛ فلا خيار تحليل لهذا المزوّد الآن، ولا يُرسل إليه شيء، ولا
             يُخمَّن مودل.
           </p>
         )}
         {unchecked.length > 0 && (
           <div class="notice" data-model-probe="">
             <span>
-              مودلات لم تعلن واجهة {descriptor.title} توافقها مع التحليل: يُفحص كلٌّ منها بطلب تبدؤه أنت ({descriptor.probeRequest})، ولا يصير خيارًا قبل نجاحه.
+              مودلات في قائمة {descriptor.title} لم يثبت توافقها مع التحليل بعد (لم تعلنه واجهته، أو أعلنته ولا تضمن توافرها لمفتاحك): يُفحص كلٌّ منها بطلب تبدؤه أنت ({descriptor.probeRequest})، ولا يصير خيارًا قبل نجاحه.
             </span>
             <ul class="model-probe">
               {unchecked.map((m) => (

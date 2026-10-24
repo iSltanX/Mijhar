@@ -1,4 +1,4 @@
-# فحص ساكن لمسار الترجمة — 2026-10-24T16:59:10.064Z
+# فحص ساكن لمسار الترجمة — 2026-10-24T17:40:10.615Z
 
 المانيفست source/chromium (src/manifest/chromium.json):
   permissions: ["sidePanel","storage"] · optional_permissions: []
@@ -32,17 +32,17 @@
     src/modules/h/first-contribution/sources.ts: fetch
 
 الحزمة chromium:
-  dist/chromium/background.js: 395068 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
-  dist/chromium/content.js: 1436378 حرفًا · مضيفات: schema.org,github.com,www.w3.org,docs.github.com,api.github.com · واجهات شبكة: fetch,XMLHttpRequest
-  dist/chromium/options.js: 443874 حرفًا · مضيفات: api.github.com,www.w3.org,github.com,docs.github.com · واجهات شبكة: —
-  dist/chromium/reader.js: 315597 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
-  dist/chromium/sidepanel.js: 841058 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
+  dist/chromium/background.js: 396117 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/chromium/content.js: 1436618 حرفًا · مضيفات: schema.org,github.com,www.w3.org,docs.github.com,api.github.com · واجهات شبكة: fetch,XMLHttpRequest
+  dist/chromium/options.js: 444179 حرفًا · مضيفات: api.github.com,www.w3.org,github.com,docs.github.com · واجهات شبكة: —
+  dist/chromium/reader.js: 315803 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/chromium/sidepanel.js: 841264 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
 الحزمة firefox:
-  dist/firefox/background.js: 395066 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
-  dist/firefox/content.js: 1436421 حرفًا · مضيفات: schema.org,github.com,www.w3.org,docs.github.com,api.github.com · واجهات شبكة: fetch,XMLHttpRequest
-  dist/firefox/options.js: 443870 حرفًا · مضيفات: api.github.com,www.w3.org,github.com,docs.github.com · واجهات شبكة: —
-  dist/firefox/reader.js: 315595 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
-  dist/firefox/sidepanel.js: 841056 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
+  dist/firefox/background.js: 396115 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/firefox/content.js: 1436661 حرفًا · مضيفات: schema.org,github.com,www.w3.org,docs.github.com,api.github.com · واجهات شبكة: fetch,XMLHttpRequest
+  dist/firefox/options.js: 444175 حرفًا · مضيفات: api.github.com,www.w3.org,github.com,docs.github.com · واجهات شبكة: —
+  dist/firefox/reader.js: 315801 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/firefox/sidepanel.js: 841262 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
 
 المخالفات: 0
 التحذيرات: 0
