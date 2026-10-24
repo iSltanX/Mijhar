@@ -73,7 +73,11 @@ const CARD_CSS = `
 const PLACE_TEXT: Readonly<Record<SecretPlace, string>> = { session: 'ذاكرة الجلسة', disk: 'القرص في هذا المتصفح' };
 const TONE_ATTR: Readonly<Record<HealthTone, string | undefined>> = { danger: 'danger', warning: 'warning', success: 'success', info: undefined, muted: undefined };
 
-type Message = { readonly tone: 'danger' | 'info' | 'success'; readonly text: string };
+/**
+ * رسالة البطاقة لمزوّدها وحده. وما يصف مفتاحًا بعينه (قُبل، لم يُتحقق منه، حُفظ، مُسح) يحمل هويته (savedAt، أو null لـ«لا مفتاح»)، فيختفي إن
+ * استُبدل المفتاح أو مُسح من صفحة أخرى بعده (F-05)؛ وما لا يحمل هوية (فشل، صلاحية) يبقى حتى العملية التالية أو تغيير المزوّد.
+ */
+type Message = { readonly tone: 'danger' | 'info' | 'success'; readonly text: string; readonly provider: string; readonly key?: number | null };
 
 /** حالة مفتاح مزوّد كما تذكرها قائمة المزوّد («المفتاح: سليم»). */
 const keyLabel = (health: ProviderStatus['providers'][number]['health'] | undefined): string =>
@@ -108,6 +112,21 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
   // قراءة بدأت لمزوّد سابق (عملية لم تنته قبل التبديل) أو سبقتها قراءة أحدث لا تكتب فوق المعروض الآن (F-05).
   const reads = useRef({ id, info: 0, status: 0 });
   reads.current.id = id;
+  // هوية المفتاح المعروض: undefined قبل قراءته، وnull بلا مفتاح.
+  const keyId = info === undefined ? undefined : (info?.savedAt ?? null);
+  const say = (tone: Message['tone'], text: string, key?: number | null): Message => ({ tone, text, provider: id, key });
+  const note = message && message.provider === id && (message.key === undefined || message.key === keyId) ? message : null;
+
+  // عملية البطاقة (حفظ، تحقق، مسح، سحب) تخص المزوّد الذي بدأت له وجيلها: تغيير المزوّد يبدأ جيلًا جديدًا ويُفرج عن الأزرار، فلا تكتب العملية
+  // السابقة حين تنتهي رسالتها ولا مفتاحها ولا تفرّغ الحقل في بطاقة مزوّد آخر، ولا يُنهي ختامها انشغال عملية أحدث (F-05). والطلب نفسه يمضي إلى
+  // مزوّده، والخلفية تربط نتيجته بالمفتاح الذي أُرسل به.
+  const ops = useRef(0);
+  const begin = (fresh = true) => {
+    const n = (ops.current += 1);
+    setBusy(true);
+    if (fresh) setMessage(null);
+    return { live: () => ops.current === n && reads.current.id === id, end: () => ops.current === n && setBusy(false) };
+  };
 
   const readPermission = useCallback(
     () =>
@@ -140,6 +159,8 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
   // تغيير المزوّد: كل ما يُعرض يُقرأ من جديد لمزوّده هو، والحقل يُفرَّغ فلا يُحفظ مفتاح في مخزن غير الذي لُصق له.
   useEffect(() => {
     let alive = true;
+    ops.current += 1;
+    setBusy(false);
     setInfo(undefined);
     setGranted(null);
     setProvider(undefined);
@@ -188,15 +209,23 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
     };
   }, [readInfo, readStatus]);
 
-  const verify = async (): Promise<void> => {
+  // تأكيد المسح كان لمفتاح بعينه: يُغلق إن مُسح أو استُبدل من صفحة أخرى.
+  useEffect(() => setConfirming(false), [keyId]);
+
+  /** طلب التحقق المعلن للمفتاح key؛ ونتيجته تُعرض له وحده، ثم يُقرأ المفتاح وحالته من جديد فتختفي إن استُبدل في أثناء الطلب. */
+  const verify = async (key: number | null, live: () => boolean): Promise<void> => {
     const result = await port.verify(id);
-    await readStatus();
+    await Promise.all([readStatus(), readInfo()]);
+    if (!live()) return;
     if (result.ok) {
-      setMessage({
-        tone: 'success',
-        text: `قبِل ${descriptor.title} المفتاح وقُرئت قائمة نماذجه (${result.data.models.length})؛ تعرضها بزر + بجانب حقل النموذج للمساعدة. لم يبدأ أي تحليل ولم يُرسل شيء من صفحاتك.`,
-      });
-    } else setMessage({ tone: 'danger', text: `لم يُتحقق من المفتاح: ${result.message}` });
+      setMessage(
+        say(
+          'success',
+          `قبِل ${descriptor.title} المفتاح وقُرئت قائمة نماذجه (${result.data.models.length})؛ تعرضها بزر + بجانب حقل النموذج للمساعدة. لم يبدأ أي تحليل ولم يُرسل شيء من صفحاتك.`,
+          key,
+        ),
+      );
+    } else setMessage(say('danger', `لم يُتحقق من المفتاح: ${result.message}`, key));
     onChange?.();
   };
 
@@ -212,76 +241,77 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
     if (!field || busy) return;
     const parsed = checkKey(descriptor, field.value);
     if (!parsed.ok) {
-      setMessage({ tone: 'danger', text: parsed.reason });
+      setMessage(say('danger', parsed.reason));
       return;
     }
     const asked = askPermission();
-    setBusy(true);
-    setMessage(null);
+    const op = begin();
     asked
       .then(async (ok) => {
         await readPermission();
         const saved = await store.save(parsed.key, place);
+        if (!op.live()) return;
         field.value = '';
         putInfo(saved);
         if (!ok) {
-          setMessage({ tone: 'info', text: `حُفظ مفتاح ${descriptor.title} في ${PLACE_TEXT[saved.place]} ولم يُتحقق منه: لم تُمنح ${grantName}، فلم يُرسل شيء.` });
+          setMessage(say('info', `حُفظ مفتاح ${descriptor.title} في ${PLACE_TEXT[saved.place]} ولم يُتحقق منه: لم تُمنح ${grantName}، فلم يُرسل شيء.`, saved.savedAt));
           await readStatus();
           onChange?.();
           return;
         }
-        await verify();
+        await verify(saved.savedAt, op.live);
       })
-      .catch((error: unknown) => setMessage({ tone: 'danger', text: `لم يُحفظ المفتاح: ${error instanceof Error ? error.message : 'خطأ غير معروف'}` }))
-      .finally(() => setBusy(false));
+      .catch((error: unknown) => op.live() && setMessage(say('danger', `لم يُحفظ المفتاح: ${error instanceof Error ? error.message : 'خطأ غير معروف'}`)))
+      .finally(op.end);
   };
 
   /** التحقق (قائمة النماذج) لا يحمل محتوى من الصفحات: صلاحية المضيف وحدها، بلا موافقة محتوى المواقع (BLK-AUD-02، privacy.md#sent). */
   const recheck = () => {
     const asked = granted?.host ? Promise.resolve(true) : permission.requestHost().catch(() => false);
-    setBusy(true);
-    setMessage(null);
+    const key = keyId ?? null;
+    const op = begin();
     asked
       .then(async (ok) => {
         await readPermission();
+        if (!op.live()) return;
         if (!ok) {
-          setMessage({ tone: 'info', text: `لم تُمنح صلاحية ${descriptor.host}؛ لم يُرسل شيء.` });
+          setMessage(say('info', `لم تُمنح صلاحية ${descriptor.host}؛ لم يُرسل شيء.`));
           return;
         }
-        await verify();
+        await verify(key, op.live);
       })
-      .catch(() => setMessage({ tone: 'danger', text: 'تعذّر الوصول إلى خلفية الإضافة' }))
-      .finally(() => setBusy(false));
+      .catch(() => op.live() && setMessage(say('danger', 'تعذّر الوصول إلى خلفية الإضافة')))
+      .finally(op.end);
   };
 
   const clear = () => {
     setConfirming(false);
-    setBusy(true);
-    setMessage(null);
+    const op = begin();
     if (input.current) input.current.value = '';
     store
       .clear()
       .then(() => {
+        if (!op.live()) return;
         putInfo(null);
-        setMessage({ tone: 'info', text: `مُسح مفتاح ${descriptor.title} من ذاكرة الجلسة ومن القرص. وتبقى مفاتيح المزوّدين الآخرين والأقسام و«نسخ البرومبت» ورمز GitHub كما هي.` });
+        setMessage(say('info', `مُسح مفتاح ${descriptor.title} من ذاكرة الجلسة ومن القرص. وتبقى مفاتيح المزوّدين الآخرين والأقسام و«نسخ البرومبت» ورمز GitHub كما هي.`, null));
       })
-      .catch((error: unknown) => setMessage({ tone: 'danger', text: `تعذّر مسح المفتاح كاملًا: ${error instanceof Error ? error.message : 'خطأ غير معروف'}` }))
+      .catch((error: unknown) => op.live() && setMessage(say('danger', `تعذّر مسح المفتاح كاملًا: ${error instanceof Error ? error.message : 'خطأ غير معروف'}`)))
       .finally(() => {
-        setBusy(false);
+        op.end();
         void readStatus();
         onChange?.();
       });
   };
 
   const revoke = (what: 'host' | 'content') => {
-    setBusy(true);
+    const op = begin(false);
     (what === 'host' ? permission.revoke() : permission.revokeContent())
       .then(
         () => readPermission(),
-        () => setMessage({ tone: 'danger', text: 'تعذّر سحب الصلاحية' }),
+        () => op.live() && setMessage(say('danger', 'تعذّر سحب الصلاحية')),
       )
       .finally(() => {
-        setBusy(false);
+        op.end();
         void readStatus();
       });
   };
@@ -317,13 +347,13 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
 
   const pick = (value: string) => {
     setMessage(null);
-    settings.set(modelKey, value).catch((e: unknown) => setMessage({ tone: 'danger', text: `تعذّر الحفظ: ${e instanceof Error ? e.message : String(e)}` }));
+    settings.set(modelKey, value).catch((e: unknown) => setMessage(say('danger', `تعذّر الحفظ: ${e instanceof Error ? e.message : String(e)}`)));
   };
 
   const switchTo = (value: string) => {
     settings.set(PROVIDER_ID_KEY, value).then(
       () => onChange?.(),
-      (e: unknown) => setMessage({ tone: 'danger', text: `تعذّر الحفظ: ${e instanceof Error ? e.message : String(e)}` }),
+      (e: unknown) => setMessage(say('danger', `تعذّر الحفظ: ${e instanceof Error ? e.message : String(e)}`)),
     );
   };
 
@@ -491,9 +521,9 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
           </div>
         )}
 
-        {message && (
-          <p class="notice" data-tone={message.tone === 'info' ? undefined : message.tone} role="alert" data-key-message="">
-            {message.text}
+        {note && (
+          <p class="notice" data-tone={note.tone === 'info' ? undefined : note.tone} role="alert" data-key-message="">
+            {note.text}
           </p>
         )}
         {shown && (
@@ -510,6 +540,7 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
         value={choice}
         onCommit={pick}
         hasKey={Boolean(info)}
+        keyId={keyId}
         list={provider?.models ?? null}
         test={provider?.test ?? null}
         busy={busy}
