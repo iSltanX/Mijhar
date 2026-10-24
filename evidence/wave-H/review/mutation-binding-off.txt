@@ -1,0 +1,12 @@
+# تطفير binding-off
+الملف: src/modules/d/pr-status/module.tsx
+قبل: const matched = Boolean(binding?.match.same);
+بعد: const matched = Boolean(binding);
+
+     × القراءة الناجحة بالرمز تعرض المستودع والفرع والالتزام والوقت؛ ودفع التزام جديد يُسقطها ويُعلن أنها لالتزام آخر 159ms
+     × تغيّر فرع الرأس في الصفحة بالالتزام نفسه يُعلن ولا يُدمج 155ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/modules/d/status/card.test.tsx > ربط النتيجة بالمستودع والفرع والالتزام ووقتها > القراءة الناجحة بالرمز تعرض المستودع والفرع والالتزام والوقت؛ ودفع التزام جديد يُسقطها ويُعلن أنها لالتزام آخر
+ FAIL  tests/modules/d/status/card.test.tsx > ربط النتيجة بالمستودع والفرع والالتزام ووقتها > تغيّر فرع الرأس في الصفحة بالالتزام نفسه يُعلن ولا يُدمج
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 13 passed (15)

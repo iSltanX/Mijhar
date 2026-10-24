@@ -1,0 +1,10 @@
+# تطفير feature-list
+الملف: src/core/connections/service.ts
+قبل: if (tab?.id === undefined || !isFeatureId(feature)) return;
+بعد: if (tab?.id === undefined) return;
+
+     × ميزة خارج القائمة المغلقة أو بلا تبويب مرسل تُهمل؛ والموضع خارج OPTIONS_TARGETS لا يركّب عنوانًا 3ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/core/connections/registry.test.tsx > (٣) العودة إلى الميزة التي طلبت الربط > ميزة خارج القائمة المغلقة أو بلا تبويب مرسل تُهمل؛ والموضع خارج OPTIONS_TARGETS لا يركّب عنوانًا
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 47 passed (48)

@@ -1,0 +1,41 @@
+=== token: node tests/modules/d/token/browser/token-check.mjs chrome edge brave firefox --out-dir evidence/wave-H/modules/token (13:08:57)
+exit=0 (13:09:23)
+  ✓ بعد المسح: الطلب بلا Authorization، والبطاقة تعمل على الصفحة وتعلن 404 بلا خطأ موقِف
+Firefox 158.0.1: 24/24
+المجموع: 106/106
+=== mj11: node tests/modules/d/browser/mj11-integration.mjs chrome edge brave firefox (13:09:23)
+exit=0 (13:09:52)
+Brave 156.0.8078.48: 18/18 فحصًا · رسائل كونسول الإضافة 0
+Firefox 158.0.1: 18/18 فحصًا · رسائل كونسول الإضافة 0
+المجموع: 72/72 فحصًا اجتاز
+=== builder: node tests/modules/e/browser/builder-check.mjs chrome edge brave firefox --out-dir evidence/wave-H/modules/builder (13:09:52)
+exit=0 (13:10:16)
+  ✓ صفحة مهمة Actions حقيقية: الخطوات ومقتطف الخطأ من التنبيهات
+Firefox 158.0.1: 13/13
+المجموع: 55/55
+=== templates: node tests/modules/e/browser/templates-check.mjs chrome edge brave firefox --out-dir evidence/wave-H/modules/templates (13:10:16)
+exit=0 (13:10:47)
+  ✓ [T-6.3] لا طلب شبكة من الفاحص ولا من إدراج السجل
+Firefox 158.0.1: 31/31
+المجموع: 127/127
+=== integration: node tests/modules/browser/integration.mjs (13:10:47)
+exit=0 (13:11:17)
+Brave 156.0.8078.48: 26/26 فحصًا · أخطاء الكونسول 0
+Firefox 158.0.1: 25/25 فحصًا · أخطاء الكونسول 0
+المجموع: 103/103 فحصًا اجتاز
+=== ui-host: node tests/core/ui-host/browser/run.mjs (13:11:17)
+exit=0 (13:12:08)
+Brave 156.0.8078.48: تمت التجارب
+Firefox 158.0.1: تمت التجارب
+كُتبت النتائج الخام والتقرير في evidence/T-1.4
+=== load-check (13:12:08)
+exit=0
+
+| المتصفح | الإصدار | الحزمة | النتيجة | الحالة | أخطاء المانيفست | أخطاء التشغيل | التحذيرات | الخلفية |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Chrome | 156.0.8078.47 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Edge | 155.0.4283.60 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Brave | 156.0.8078.48 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Firefox | 158.0.1 | `dist/firefox` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | الخلفية تعمل |
+
+DONE

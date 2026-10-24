@@ -1,0 +1,14 @@
+# تطفير access-level
+الملف: src/core/connections/secrets.ts
+قبل: if (session.setAccessLevel) await session.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' });
+بعد: 
+
+     × يُضبط TRUSTED_CONTEXTS قبل كتابة الرمز حيث يُتاح (عائلة Chromium) 3ms
+     × فشل ضبط مستوى الوصول يمنع الكتابة 1ms
+     × الجلسة: يُضبط TRUSTED_CONTEXTS قبل كل كتابة، وكل سرّ في مفتاحه وحده، وحذف أحدهما يُبقي الآخر 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/core/connections/secrets.test.ts > مفتاحان مستقلان لكل سرّ > الجلسة: يُضبط TRUSTED_CONTEXTS قبل كل كتابة، وكل سرّ في مفتاحه وحده، وحذف أحدهما يُبقي الآخر
+ FAIL  tests/modules/d/token/store.test.ts > منطقة الجلسة ومستوى الوصول > يُضبط TRUSTED_CONTEXTS قبل كتابة الرمز حيث يُتاح (عائلة Chromium)
+ FAIL  tests/modules/d/token/store.test.ts > منطقة الجلسة ومستوى الوصول > فشل ضبط مستوى الوصول يمنع الكتابة
+ Test Files  2 failed | 6 passed (8)
+      Tests  3 failed | 71 passed (74)

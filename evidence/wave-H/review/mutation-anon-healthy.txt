@@ -1,0 +1,10 @@
+# تطفير anon-healthy
+الملف: src/core/connections/health.ts
+قبل: if (!result.authenticated) return { health: 'unverified'
+بعد: if (false) return { health: 'unverified'
+
+     × ردّ ناجح بلا رمز لا يُعدّ سليمًا 3ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/core/connections/health.test.ts > التحقق الصريح (/rate_limit) على جدول الإشارات > ردّ ناجح بلا رمز لا يُعدّ سليمًا
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 32 passed (33)

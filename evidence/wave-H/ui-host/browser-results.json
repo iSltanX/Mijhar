@@ -1,0 +1,1078 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "steps": {
+      "isolation": {
+        "control": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": []
+        },
+        "hostile": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": [],
+          "cspBlockedInlineStyle": true
+        },
+        "uiDiffs": [],
+        "probes": 13,
+        "props": 37,
+        "sample": {
+          "drawerFont": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "drawerBg": "rgb(255, 255, 255)",
+          "titleSize": "18px",
+          "buttonBg": "rgb(12, 122, 122)"
+        }
+      },
+      "drawer": {
+        "focusOnOpen": {
+          "documentActive": "mijhar-host",
+          "inside": "h1#mj-drawer-title"
+        },
+        "escapeClosed": true,
+        "toggleOpens": true,
+        "toggleCloses": true,
+        "settingsTabInDrawer": {
+          "toggles": 8,
+          "textFields": 0,
+          "grantButton": false,
+          "openOptions": true
+        },
+        "toggleFromDrawerOff": true,
+        "toggleFromDrawerOn": true,
+        "closeButton": true
+      },
+      "toggles": {
+        "perUnit": [
+          {
+            "unit": "a",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "b",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "c",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "d",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "e",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "f",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "g",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "h",
+            "off": true,
+            "checked": false,
+            "on": true
+          }
+        ],
+        "network": {},
+        "allOffMounted": [],
+        "leakAllOffVsMounted": [],
+        "documentSheetsAllOff": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "documentSheetsDrawerOpen": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "afterReloadMounted": [],
+        "afterReloadChecked": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "allOnMounted": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h"
+        ]
+      },
+      "permission": {
+        "requestsBeforeAnything": 0,
+        "initialState": "denied",
+        "containsInitially": false,
+        "fetchWithout": {
+          "sent": false,
+          "error": "PermissionNotGrantedError: صلاحية https://api.github.com/* غير ممنوحة: امنحها من «الإعدادات والخصوصية» أولًا"
+        },
+        "requestsWhileNotGranted": 0,
+        "clickStartsRequest": {
+          "buttonDisabledWhilePending": true,
+          "state": "denied",
+          "contains": false,
+          "note": "نافذة طلب المتصفح ظاهرة ولا تُقبل آليًا؛ يبقى الطلب معلّقًا"
+        },
+        "requestsTotal": 0
+      },
+      "native": {
+        "openResult": {
+          "opened": true
+        },
+        "contexts": [
+          {
+            "type": "SIDE_PANEL",
+            "url": "chrome-extension://gjegkgcbmlpnjndadnnonmhoaihflfcj/sidepanel.html"
+          }
+        ],
+        "panelPageTabs": [
+          "السياق والفحوص",
+          "القاموس والتعلّم",
+          "ملاحظاتي وأكمل لاحقًا",
+          "المجتمع وأول مساهمة",
+          "الإعدادات والخصوصية"
+        ],
+        "panelSettings": {
+          "toggles": 8,
+          "permissionSection": 1,
+          "shortcut": "⌥G"
+        }
+      },
+      "command": {
+        "nativePrefWithActivation": {
+          "outcome": {
+            "outcome": "native",
+            "at": 1792836681711
+          },
+          "drawer": "closed"
+        },
+        "nativePrefNoGesture": {
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "`sidePanel.open()` may only be called in response to a user gesture.",
+            "at": 1792836682027
+          }
+        },
+        "secondCommandCloses": true,
+        "nativeWhenDrawerPreferred": {
+          "opened": false,
+          "error": "Error: No active side panel for windowId: 1083440789"
+        },
+        "drawerPref": {
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "No active side panel for windowId: 1083440789",
+            "at": 1792836682529
+          }
+        },
+        "drawerPrefAfterWorkerRestart": {
+          "workerRestarted": true,
+          "outcomesBefore": 5,
+          "outcomesAfter": 1,
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "No active side panel for windowId: 1083440789",
+            "at": 1792836683063
+          }
+        },
+        "nativeRestored": {
+          "opened": true
+        },
+        "registered": {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥G"
+        },
+        "optionsShowsShortcut": "⌥G",
+        "reboundVia": "chrome.developerPrivate.updateExtensionCommand (صفحة chrome://extensions/shortcuts)",
+        "afterRebind": {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥⇧M"
+        },
+        "optionsAfterRebind": "⌥⇧M",
+        "shortcutsPageUrl": "chrome://extensions/shortcuts",
+        "keystroke": "لم يُجرَ آليًا: ضغطات CDP لا تبلغ مسرّعات المتصفح في macOS (قيس في تجربة مستكشفة)؛ يُجرى بضغطة فعلية"
+      }
+    },
+    "browserVersion": "156.0.8078.47",
+    "network": {
+      "apiGithub": [],
+      "other": []
+    },
+    "errors": null,
+    "durationMs": 7842
+  },
+  "edge": {
+    "label": "Edge",
+    "steps": {
+      "isolation": {
+        "control": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": []
+        },
+        "hostile": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": [],
+          "cspBlockedInlineStyle": true
+        },
+        "uiDiffs": [],
+        "probes": 13,
+        "props": 37,
+        "sample": {
+          "drawerFont": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "drawerBg": "rgb(255, 255, 255)",
+          "titleSize": "18px",
+          "buttonBg": "rgb(12, 122, 122)"
+        }
+      },
+      "drawer": {
+        "focusOnOpen": {
+          "documentActive": "mijhar-host",
+          "inside": "h1#mj-drawer-title"
+        },
+        "escapeClosed": true,
+        "toggleOpens": true,
+        "toggleCloses": true,
+        "settingsTabInDrawer": {
+          "toggles": 8,
+          "textFields": 0,
+          "grantButton": false,
+          "openOptions": true
+        },
+        "toggleFromDrawerOff": true,
+        "toggleFromDrawerOn": true,
+        "closeButton": true
+      },
+      "toggles": {
+        "perUnit": [
+          {
+            "unit": "a",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "b",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "c",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "d",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "e",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "f",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "g",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "h",
+            "off": true,
+            "checked": false,
+            "on": true
+          }
+        ],
+        "network": {},
+        "allOffMounted": [],
+        "leakAllOffVsMounted": [],
+        "documentSheetsAllOff": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "documentSheetsDrawerOpen": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "afterReloadMounted": [],
+        "afterReloadChecked": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "allOnMounted": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h"
+        ]
+      },
+      "permission": {
+        "requestsBeforeAnything": 0,
+        "initialState": "denied",
+        "containsInitially": false,
+        "fetchWithout": {
+          "sent": false,
+          "error": "PermissionNotGrantedError: صلاحية https://api.github.com/* غير ممنوحة: امنحها من «الإعدادات والخصوصية» أولًا"
+        },
+        "requestsWhileNotGranted": 0,
+        "clickStartsRequest": {
+          "buttonDisabledWhilePending": true,
+          "state": "denied",
+          "contains": false,
+          "note": "نافذة طلب المتصفح ظاهرة ولا تُقبل آليًا؛ يبقى الطلب معلّقًا"
+        },
+        "requestsTotal": 0
+      },
+      "native": {
+        "openResult": {
+          "opened": true
+        },
+        "contexts": [
+          {
+            "type": "SIDE_PANEL",
+            "url": "chrome-extension://gjegkgcbmlpnjndadnnonmhoaihflfcj/sidepanel.html"
+          }
+        ],
+        "panelPageTabs": [
+          "السياق والفحوص",
+          "القاموس والتعلّم",
+          "ملاحظاتي وأكمل لاحقًا",
+          "المجتمع وأول مساهمة",
+          "الإعدادات والخصوصية"
+        ],
+        "panelSettings": {
+          "toggles": 8,
+          "permissionSection": 1,
+          "shortcut": "⌥G"
+        }
+      },
+      "command": {
+        "nativePrefWithActivation": {
+          "outcome": {
+            "outcome": "native",
+            "at": 1792836690125
+          },
+          "drawer": "closed"
+        },
+        "nativePrefNoGesture": {
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "`sidePanel.open()` may only be called in response to a user gesture.",
+            "at": 1792836690433
+          }
+        },
+        "secondCommandCloses": true,
+        "nativeWhenDrawerPreferred": {
+          "opened": false,
+          "error": "Error: No active side panel for windowId: 1122446765"
+        },
+        "drawerPref": {
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "No active side panel for windowId: 1122446765",
+            "at": 1792836691000
+          }
+        },
+        "drawerPrefAfterWorkerRestart": {
+          "workerRestarted": true,
+          "outcomesBefore": 5,
+          "outcomesAfter": 1,
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "No active side panel for windowId: 1122446765",
+            "at": 1792836691526
+          }
+        },
+        "nativeRestored": {
+          "opened": true
+        },
+        "registered": {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥G"
+        },
+        "optionsShowsShortcut": "⌥G",
+        "reboundVia": "chrome.developerPrivate.updateExtensionCommand (صفحة chrome://extensions/shortcuts)",
+        "afterRebind": {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥⇧M"
+        },
+        "optionsAfterRebind": "⌥⇧M",
+        "shortcutsPageUrl": "edge://extensions/shortcuts",
+        "keystroke": "لم يُجرَ آليًا: ضغطات CDP لا تبلغ مسرّعات المتصفح في macOS (قيس في تجربة مستكشفة)؛ يُجرى بضغطة فعلية"
+      }
+    },
+    "browserVersion": "155.0.4283.60",
+    "network": {
+      "apiGithub": [],
+      "other": []
+    },
+    "errors": null,
+    "durationMs": 8482
+  },
+  "brave": {
+    "label": "Brave",
+    "steps": {
+      "isolation": {
+        "control": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": []
+        },
+        "hostile": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": [],
+          "cspBlockedInlineStyle": true
+        },
+        "uiDiffs": [],
+        "probes": 13,
+        "props": 37,
+        "sample": {
+          "drawerFont": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "drawerBg": "rgb(255, 255, 255)",
+          "titleSize": "18px",
+          "buttonBg": "rgb(12, 122, 122)"
+        }
+      },
+      "drawer": {
+        "focusOnOpen": {
+          "documentActive": "mijhar-host",
+          "inside": "h1#mj-drawer-title"
+        },
+        "escapeClosed": true,
+        "toggleOpens": true,
+        "toggleCloses": true,
+        "settingsTabInDrawer": {
+          "toggles": 8,
+          "textFields": 0,
+          "grantButton": false,
+          "openOptions": true
+        },
+        "toggleFromDrawerOff": true,
+        "toggleFromDrawerOn": true,
+        "closeButton": true
+      },
+      "toggles": {
+        "perUnit": [
+          {
+            "unit": "a",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "b",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "c",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "d",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "e",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "f",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "g",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "h",
+            "off": true,
+            "checked": false,
+            "on": true
+          }
+        ],
+        "network": {},
+        "allOffMounted": [],
+        "leakAllOffVsMounted": [],
+        "documentSheetsAllOff": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "documentSheetsDrawerOpen": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "afterReloadMounted": [],
+        "afterReloadChecked": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "allOnMounted": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h"
+        ]
+      },
+      "permission": {
+        "requestsBeforeAnything": 0,
+        "initialState": "denied",
+        "containsInitially": false,
+        "fetchWithout": {
+          "sent": false,
+          "error": "PermissionNotGrantedError: صلاحية https://api.github.com/* غير ممنوحة: امنحها من «الإعدادات والخصوصية» أولًا"
+        },
+        "requestsWhileNotGranted": 0,
+        "clickStartsRequest": {
+          "buttonDisabledWhilePending": true,
+          "state": "denied",
+          "contains": false,
+          "note": "نافذة طلب المتصفح ظاهرة ولا تُقبل آليًا؛ يبقى الطلب معلّقًا"
+        },
+        "requestsTotal": 0
+      },
+      "native": {
+        "openResult": {
+          "opened": true
+        },
+        "contexts": [
+          {
+            "type": "SIDE_PANEL",
+            "url": "chrome-extension://gjegkgcbmlpnjndadnnonmhoaihflfcj/sidepanel.html"
+          }
+        ],
+        "panelPageTabs": [
+          "السياق والفحوص",
+          "القاموس والتعلّم",
+          "ملاحظاتي وأكمل لاحقًا",
+          "المجتمع وأول مساهمة",
+          "الإعدادات والخصوصية"
+        ],
+        "panelSettings": {
+          "toggles": 8,
+          "permissionSection": 1,
+          "shortcut": "⌥G"
+        }
+      },
+      "command": {
+        "nativePrefWithActivation": {
+          "outcome": {
+            "outcome": "native",
+            "at": 1792836698010
+          },
+          "drawer": "closed"
+        },
+        "nativePrefNoGesture": {
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "`sidePanel.open()` may only be called in response to a user gesture.",
+            "at": 1792836698322
+          }
+        },
+        "secondCommandCloses": true,
+        "nativeWhenDrawerPreferred": {
+          "opened": false,
+          "error": "Error: No active side panel for windowId: 2013583761"
+        },
+        "drawerPref": {
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "No active side panel for windowId: 2013583761",
+            "at": 1792836698883
+          }
+        },
+        "drawerPrefAfterWorkerRestart": {
+          "workerRestarted": true,
+          "outcomesBefore": 5,
+          "outcomesAfter": 1,
+          "drawer": "open",
+          "outcome": {
+            "outcome": "drawer",
+            "detail": "No active side panel for windowId: 2013583761",
+            "at": 1792836699408
+          }
+        },
+        "nativeRestored": {
+          "opened": true
+        },
+        "registered": {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥G"
+        },
+        "optionsShowsShortcut": "⌥G",
+        "reboundVia": "chrome.developerPrivate.updateExtensionCommand (صفحة chrome://extensions/shortcuts)",
+        "afterRebind": {
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "name": "toggle-panel",
+          "shortcut": "⌥⇧M"
+        },
+        "optionsAfterRebind": "⌥⇧M",
+        "shortcutsPageUrl": "chrome://extensions/shortcuts",
+        "keystroke": "لم يُجرَ آليًا: ضغطات CDP لا تبلغ مسرّعات المتصفح في macOS (قيس في تجربة مستكشفة)؛ يُجرى بضغطة فعلية"
+      }
+    },
+    "browserVersion": "156.0.8078.48",
+    "network": {
+      "apiGithub": [],
+      "other": []
+    },
+    "errors": null,
+    "durationMs": 7927
+  },
+  "firefox": {
+    "label": "Firefox",
+    "steps": {
+      "isolation": {
+        "control": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": []
+        },
+        "hostile": {
+          "opened": true,
+          "meta": {
+            "popoverOpen": true,
+            "styleMode": "adopted"
+          },
+          "fakeMeta": {
+            "styleMode": "adopted"
+          },
+          "rect": {
+            "fromRight": 0,
+            "top": 0,
+            "w": 400,
+            "fullHeight": true
+          },
+          "hit": "drawer",
+          "pageDiffs": [],
+          "cspBlockedInlineStyle": true
+        },
+        "uiDiffs": [],
+        "probes": 13,
+        "props": 37,
+        "sample": {
+          "drawerFont": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "drawerBg": "rgb(23, 28, 34)",
+          "titleSize": "18px",
+          "buttonBg": "rgb(59, 180, 177)"
+        }
+      },
+      "drawer": {
+        "focusOnOpen": {
+          "documentActive": "mijhar-host",
+          "inside": "h1#mj-drawer-title"
+        },
+        "escapeClosed": true,
+        "toggleOpens": true,
+        "toggleCloses": true,
+        "settingsTabInDrawer": {
+          "toggles": 8,
+          "textFields": 0,
+          "grantButton": false,
+          "openOptions": true
+        },
+        "toggleFromDrawerOff": true,
+        "toggleFromDrawerOn": true,
+        "closeButton": true
+      },
+      "toggles": {
+        "perUnit": [
+          {
+            "unit": "a",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "b",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "c",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "d",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "e",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "f",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "g",
+            "off": true,
+            "checked": false,
+            "on": true
+          },
+          {
+            "unit": "h",
+            "off": true,
+            "checked": false,
+            "on": true
+          }
+        ],
+        "allOffMounted": [],
+        "leakAllOffVsMounted": [],
+        "documentSheetsAllOff": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "documentSheetsDrawerOpen": {
+          "styleSheets": 0,
+          "adopted": 0,
+          "styleElements": 0,
+          "linkElements": 0,
+          "headChildren": 2
+        },
+        "afterReloadMounted": [],
+        "afterReloadChecked": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "allOnMounted": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h"
+        ]
+      },
+      "permission": {
+        "requestsBeforeAnything": 0,
+        "initialState": "denied",
+        "containsInitially": false,
+        "fetchWithout": {
+          "sent": false,
+          "error": "PermissionNotGrantedError: صلاحية https://api.github.com/* غير ممنوحة: امنحها من «الإعدادات والخصوصية» أولًا"
+        },
+        "requestWithoutClick": {
+          "rejected": "permissions.request may only be called from a user input handler"
+        },
+        "containsAfterRequestWithoutClick": false,
+        "requestsWhileNotGranted": 0,
+        "stateAfterClick": "granted",
+        "containsAfterGrant": true,
+        "fetchWith": {
+          "sent": true,
+          "status": 200,
+          "body": "\"محلي: لا شبكة\""
+        },
+        "requestsAfterGrant": 1,
+        "stateAfterRevoke": "denied",
+        "containsAfterRevoke": false,
+        "fetchAfterRevoke": {
+          "sent": false,
+          "error": "PermissionNotGrantedError: صلاحية https://api.github.com/* غير ممنوحة: امنحها من «الإعدادات والخصوصية» أولًا"
+        },
+        "requestsAfterRevoke": 1,
+        "stateAfterBrowserRevoke": "denied",
+        "containsAfterBrowserRevoke": false,
+        "requestsTotal": 1
+      },
+      "native": {
+        "openResult": {
+          "opened": true
+        },
+        "sidebarOpen": true,
+        "sidebarView": [
+          {
+            "url": "moz-extension://d6176f61-d08d-4c46-b730-8b0e6d7f8e66/sidepanel.html",
+            "ready": "true",
+            "tabs": [
+              "السياق والفحوص",
+              "القاموس والتعلّم",
+              "ملاحظاتي وأكمل لاحقًا",
+              "المجتمع وأول مساهمة",
+              "الإعدادات والخصوصية"
+            ]
+          }
+        ]
+      },
+      "command": {
+        "registered": {
+          "name": "toggle-panel",
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "shortcut": "Alt+G"
+        },
+        "keyElement": {
+          "key": "G",
+          "modifiers": "alt"
+        },
+        "nativeToggleCloses": true,
+        "nativeToggleOpens": true,
+        "nativeOutcomes": [
+          "native",
+          "native"
+        ],
+        "drawerPref": {
+          "drawer": "open",
+          "sidebarUnchanged": true
+        },
+        "drawerPrefClosesOnSecond": true,
+        "suspendedBeforeWake": "stopped",
+        "suspendMethod": "extension.terminateBackground()",
+        "wakeDrawerPref": {
+          "drawer": "open",
+          "backgroundAfter": "running",
+          "sidebarOpened": false
+        },
+        "optionsShowsShortcut": "Alt+G",
+        "reboundVia": "extension.shortcuts.updateCommand (about:addons)",
+        "afterRebind": {
+          "name": "toggle-panel",
+          "description": "افتح لوحة مِجهَر أو الدرج",
+          "shortcut": "Alt+Shift+M"
+        },
+        "keyElementAfterRebind": {
+          "key": "M",
+          "modifiers": "alt,shift"
+        },
+        "optionsAfterRebind": "Alt+Shift+M",
+        "shortcutsPageOpened": [
+          "about:addons"
+        ]
+      }
+    },
+    "browserVersion": "158.0.1",
+    "network": {
+      "apiGithub": [
+        {
+          "host": "api.github.com",
+          "path": "/zen",
+          "at": 1792836706713
+        }
+      ],
+      "githubPages": 6,
+      "refusedHosts": [
+        "firefox.settings.services.mozilla.com",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "content-signature-2.cdn.mozilla.net",
+        "archive.mozilla.org"
+      ]
+    },
+    "errors": null,
+    "durationMs": 16687
+  },
+  "date": "2026-10-24"
+}

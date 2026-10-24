@@ -1,0 +1,138 @@
+{
+  "date": "2026-10-24T10:13:43.287Z",
+  "browser": "Chrome 156.0.8078.47",
+  "parts": {
+    "a": {
+      "api": [],
+      "blocked": [],
+      "consoleHasSecret": false
+    },
+    "b": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": null
+        }
+      ],
+      "blocked": [],
+      "consoleHasSecret": false
+    }
+  },
+  "steps": [
+    {
+      "part": "أ",
+      "name": "السجل: رمز GitHub «غير مربوط»، ومفتاح المزوّد «لم يُتح بعد»",
+      "ok": true
+    },
+    {
+      "part": "أ",
+      "name": "نص غير صالح مكتوب بلوحة المفاتيح ونقرة «احفظ»: رسالة رفض، والحالة «غير مربوط» لا «سليم»، ولا طلب",
+      "ok": true
+    },
+    {
+      "part": "أ",
+      "name": "رمز بصيغة صحيحة بلا تحقق فعلي (الصلاحية غير ممنوحة): «غير متحقق منه» لا «سليم»، ولا طلب",
+      "ok": true
+    },
+    {
+      "part": "أ",
+      "name": "لا رمز في DOM الإعدادات بعد الحفظ",
+      "ok": true
+    },
+    {
+      "part": "أ",
+      "name": "المسح بتأكيد يسمّي ما يتعطل وحده ثم «غير مربوط»",
+      "ok": true
+    },
+    {
+      "part": "أ",
+      "name": "لا طلب إلى api.github.com ولا مضيف خارجي، ولا سرّ في الكونسول",
+      "ok": true
+    },
+    {
+      "part": "ب",
+      "name": "رمز يرفضه GitHub (401) بعد طلب تحقق: «منتهٍ» لا «سليم»",
+      "ok": true
+    },
+    {
+      "part": "ب",
+      "name": "«سليم» بعد قبول فعلي وحده (حد 5000)",
+      "ok": true
+    },
+    {
+      "part": "ب",
+      "name": "طلبات السجل: GET /rate_limit من الخلفية وحدها، واحد لكل تحقق (2)",
+      "ok": true
+    },
+    {
+      "part": "ب",
+      "name": "البطاقة تقرأ الطلب الخاص بالرمز (نقرة «اقرأ» فعلية)",
+      "ok": true
+    },
+    {
+      "part": "ب",
+      "name": "حذف الرمز: «غير مربوط»، ومفتاح المزوّد باقٍ في مفتاحه المستقل",
+      "ok": true
+    },
+    {
+      "part": "ب",
+      "name": "بعد الحذف: ما يعتمد على الرمز وحده يتعطل (خيار الربط في لوحة API)، وبقية البطاقة (الفحوص والموانع) كاملة",
+      "ok": true
+    },
+    {
+      "part": "ب",
+      "name": "كل طلبات api.github.com من الخلفية بـGET، ولا مضيف خارجي، ولا سرّ في الكونسول",
+      "ok": true
+    }
+  ]
+}

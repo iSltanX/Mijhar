@@ -1,0 +1,23 @@
+## dist/chromium — الملفات التي تحوي كل نمط
+- `mijhar.secret.githubToken`: background.js options.js 
+- `mijhar.secret.providerKey`: background.js options.js 
+- `mijhar-secrets`: background.js options.js 
+- `providerKey`: background.js options.js 
+- `mijhar.connections.health`: background.js 
+- `Authorization`: background.js 
+- `setAccessLevel`: background.js options.js 
+- `api.anthropic.com`: content.js options.js 
+## dist/firefox — الملفات التي تحوي كل نمط
+- `mijhar.secret.githubToken`: background.js options.js 
+- `mijhar.secret.providerKey`: background.js options.js 
+- `mijhar-secrets`: background.js options.js 
+- `providerKey`: background.js options.js 
+- `mijhar.connections.health`: background.js 
+- `Authorization`: background.js 
+- `setAccessLevel`: background.js options.js 
+- `api.anthropic.com`: content.js options.js 
+## المانيفستان
+- chromium: {"permissions":["sidePanel","storage"],"host_permissions":["https://github.com/*"],"optional_host_permissions":["https://api.github.com/*"]}
+- firefox: {"permissions":["storage"],"host_permissions":["https://github.com/*"],"optional_host_permissions":["https://api.github.com/*"]}
+## واجهات شبكة خارج التعليقات في e/context وe/prompt-templates وcore/connections وd/status
+- فارغ

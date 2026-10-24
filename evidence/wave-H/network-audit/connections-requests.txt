@@ -1,0 +1,34 @@
+# طلبات الشبكة في فحص سجل الاتصالات على الشجرة المجمّعة (من browser-connections-check.json)
+
+## Chrome 156.0.8078.47: 11 طلبًا إلى api.github.com؛ غير GET: 0؛ من غير الخلفية: 0؛ مضيفات خارجية محجوبة: []؛ سرّ في الكونسول: false
+- 5 × GET /rate_limit من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/check-runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/status من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/branches/main من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/actions/runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة بلا
+## Edge 155.0.4283.60: 11 طلبًا إلى api.github.com؛ غير GET: 0؛ من غير الخلفية: 0؛ مضيفات خارجية محجوبة: []؛ سرّ في الكونسول: false
+- 5 × GET /rate_limit من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/check-runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/status من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/branches/main من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/actions/runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة بلا
+## Brave 156.0.8078.48: 11 طلبًا إلى api.github.com؛ غير GET: 0؛ من غير الخلفية: 0؛ مضيفات خارجية محجوبة: []؛ سرّ في الكونسول: false
+- 5 × GET /rate_limit من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/check-runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/status من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/branches/main من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/actions/runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة بلا
+## Firefox 158.0.1: 11 طلبًا إلى api.github.com؛ غير GET: 0؛ من غير الخلفية: 0؛ مضيفات خارجية محجوبة: ["content-signature-2.cdn.mozilla.net","firefox-settings-attachments.cdn.mozilla.net","firefox.settings.services.mozilla.com"]؛ سرّ في الكونسول: false
+- 5 × GET /rate_limit من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/check-runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/commits/<sha>/status من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/branches/main من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/actions/runs من background بترويسة saved
+- 1 × GET /repos/octo-owner/private-demo/pulls/7 من background بترويسة بلا
