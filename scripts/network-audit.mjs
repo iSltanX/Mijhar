@@ -7,7 +7,10 @@
 //    (الصفحة وعامل الإضافة وصفحاتها) خلال التشغيل كله؛ فكل طلب في النافذة يُنسب إلى الإضافة أو المتصفح لا إلى الصفحة (العينة ساكنة بلا موارد). ثم ضابط إيجابي:
 //    طلب تسريب متعمد يجب أن يكشفه التدقيق، ليثبت أن الأداة ترى ما تدّعي غيابه.
 //    Firefox: لا رصد شبكة (Marionette لا يرصدها) فيُسجَّل «لم يُجرَ» بسببه؛ ويبقى فحصه ساكنًا.
-// الاستعمال: node scripts/network-audit.mjs static|dynamic|all [chrome edge brave] [--out-dir evidence/T-4.5]
+//  - MJ23 (T-11.10، AC-E10 (١)، I-2): عزل المحوّلات والأسرار في الحزم المبنية: ترويسات كل محوّل ومساراته (PROVIDER_ADAPTER_MARKERS) في background.js وحده،
+//    ومخزن الأسرار (SECRET_STORE_MARKERS) في background.js وoptions.js وحدهما؛ وأي ظهور في حزمة أخرى (content وreader وsidepanel) مخالفة. ضمن static،
+//    ووحده بالوضع providers.
+// الاستعمال: node scripts/network-audit.mjs static|dynamic|all|providers [chrome edge brave] [--out-dir evidence/T-4.5]
 // يتطلب dist مبنيًا (npm run build).
 import fs from 'node:fs';
 import net from 'node:net';
@@ -48,6 +51,57 @@ function walk(dir, accept, out = []) {
 const read = (file) => fs.readFileSync(path.join(ROOT, file), 'utf8');
 const rel = (file) => path.relative(ROOT, file);
 
+/**
+ * علامات كل محوّل مزوّد في السجل (src/modules/e/provider/registry.ts): أسماء ترويساته ومسارات طلباته كما في ملفه وحده. يفرض اختبار ساكن أن لكل محوّل
+ * مدموج علاماته هنا وأنها في ملفه وحده من src؛ وإضافة محوّل تضيف سطره. ونص طلب التحقق المعلن (في السجل الوصفي) لا يحمل علامة منها.
+ */
+export const PROVIDER_ADAPTER_MARKERS = /** @type {Readonly<Record<string, readonly string[]>>} */ ({
+  anthropic: ['anthropic-dangerous-direct-browser-access', 'anthropic-version', 'x-api-key', '/v1/messages', '/v1/models?limit='],
+});
+/** علامات مخزن الأسرار: اسم قاعدة IndexedDB وبادئة مفاتيح storage.session (src/core/connections/secrets.ts وkeys.ts). */
+export const SECRET_STORE_MARKERS = /** @type {readonly string[]} */ (['mijhar-secrets', 'mijhar.secret.']);
+const ADAPTER_BUNDLES = ['background.js'];
+const SECRET_BUNDLES = ['background.js', 'options.js'];
+
+/** عزل المحوّلات والأسرار في حزمة مبنية واحدة (dist/<target>، أو مجلد يُمرَّر للضابط الإيجابي). */
+export function providerIsolation(target, dir = path.join(ROOT, 'dist', target)) {
+  if (!fs.existsSync(dir)) return { target, missing: `dist/${target}`, findings: [] };
+  const files = walk(dir, (f) => f.endsWith('.js')).map((f) => ({ name: path.relative(dir, f), text: fs.readFileSync(f, 'utf8') }));
+  /** @type {Finding[]} */
+  const findings = [];
+  const where = (marker) => files.filter((f) => f.text.includes(marker)).map((f) => f.name);
+  const adapters = {};
+  for (const [provider, markers] of Object.entries(PROVIDER_ADAPTER_MARKERS)) {
+    adapters[provider] = Object.fromEntries(markers.map((m) => [m, where(m)]));
+    for (const [marker, found] of Object.entries(adapters[provider])) {
+      for (const name of found) if (!ADAPTER_BUNDLES.includes(name)) findings.push({ severity: 'violation', rule: 'adapter-outside-background', where: `dist/${target}/${name}`, detail: `علامة محوّل ${provider} (${marker}) خارج الخلفية` });
+      if (!found.length) findings.push({ severity: 'violation', rule: 'adapter-missing', where: `dist/${target}`, detail: `علامة محوّل ${provider} (${marker}) غائبة عن الحزم: العلامات لا تطابق المحوّل` });
+    }
+  }
+  const secrets = Object.fromEntries(SECRET_STORE_MARKERS.map((m) => [m, where(m)]));
+  for (const [marker, found] of Object.entries(secrets)) for (const name of found) if (!SECRET_BUNDLES.includes(name)) findings.push({ severity: 'violation', rule: 'secret-store-outside-trusted', where: `dist/${target}/${name}`, detail: `علامة مخزن الأسرار (${marker}) خارج الخلفية وصفحة الإعدادات` });
+  return { target, files: files.map((f) => f.name), adapters, secrets, findings };
+}
+
+export function providerIsolationText(results) {
+  const lines = [`# عزل المحوّلات والأسرار في الحزم المبنية (I-2، AC-E10 (١)) — ${new Date().toISOString()}`, ''];
+  for (const r of results) {
+    if (r.missing) {
+      lines.push(`الحزمة ${r.target}: غير موجودة (${r.missing}) — لم تُفحص`, '');
+      continue;
+    }
+    lines.push(`الحزمة ${r.target} (${r.files.join(' · ')}):`);
+    for (const [provider, markers] of Object.entries(r.adapters)) for (const [m, found] of Object.entries(markers)) lines.push(`  محوّل ${provider} «${m}»: ${found.join(', ') || '—'}`);
+    for (const [m, found] of Object.entries(r.secrets)) lines.push(`  مخزن الأسرار «${m}»: ${found.join(', ') || '—'}`);
+    lines.push('');
+  }
+  const violations = results.flatMap((r) => r.findings);
+  lines.push(`المخالفات: ${violations.length}`);
+  for (const v of violations) lines.push(`  ✗ [${v.rule}] ${v.where}: ${v.detail}`);
+  lines.push('', violations.length === 0 ? 'النتيجة: اجتاز (ترويسات المحوّلات ومساراتها في background.js وحده، ومخزن الأسرار في الخلفية والإعدادات وحدهما).' : 'النتيجة: سقط.');
+  return lines.join('\n');
+}
+
 export function staticAudit() {
   const manifests = {};
   for (const [name, file] of [
@@ -74,10 +128,12 @@ export function staticAudit() {
     const files = walk(dir, (f) => f.endsWith('.js')).map((f) => ({ path: rel(f), text: fs.readFileSync(f, 'utf8') }));
     bundles[target] = auditBundle(files);
   }
+  const isolation = ['chromium', 'firefox'].map((t) => providerIsolation(t));
   const all = [
     ...Object.values(manifests).flatMap((m) => m.findings ?? []),
     ...sourceAudit.findings,
     ...Object.values(bundles).flatMap((b) => b.findings ?? []),
+    ...isolation.flatMap((r) => r.findings),
   ];
   return {
     measuredAt: new Date().toISOString(),
@@ -85,6 +141,7 @@ export function staticAudit() {
     manifests,
     sources: { scanned: sourceAudit.scanned, translationPathFiles: sourceAudit.translationPathFiles, networkUsage: sourceAudit.networkUsage, urlsByFile: sourceAudit.urlsByFile },
     bundles,
+    providerIsolation: isolation,
     findings: all,
     violations: all.filter((f) => f.severity === 'violation'),
     warnings: all.filter((f) => f.severity === 'warning'),
@@ -468,6 +525,13 @@ async function main() {
   const keys = args.length ? args : ['chrome', 'edge', 'brave'];
   fs.mkdirSync(outDir, { recursive: true });
   let failed = false;
+  if (mode === 'providers') {
+    const results = ['chromium', 'firefox'].map((t) => providerIsolation(t));
+    writeJson(path.join(outDir, 'provider-isolation.json'), results);
+    fs.writeFileSync(path.join(outDir, 'provider-isolation.txt'), `${providerIsolationText(results)}\n`);
+    console.error(providerIsolationText(results).split('\n').slice(-3).join('\n'));
+    failed ||= results.some((r) => r.missing || r.findings.length > 0);
+  }
   if (mode === 'static' || mode === 'all') {
     const result = staticAudit();
     writeJson(path.join(outDir, 'static-audit.json'), result);

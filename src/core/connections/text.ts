@@ -12,11 +12,14 @@ export interface HealthTextOptions {
   readonly now: number;
   /** اسم صلاحية GitHub من معاملها (actions ← Actions). */
   readonly permissionName?: (param: string) => string;
+  /** MJ23: اسم الخدمة الفعلية بدل وصفها العام (مزوّد التحليل المختار «Anthropic» بدل «المزوّد»). */
+  readonly service?: string;
 }
 
 /** الجملة التي تشرح الحالة. */
 export function healthText(id: ConnectionId, status: Pick<ConnectionStatus, 'health' | 'detail'>, options: HealthTextOptions): string {
-  const { noun, service } = connectionById(id);
+  const { noun, service: generic } = connectionById(id);
+  const service = options.service ?? generic;
   const d = status.detail;
   switch (status.health) {
     case 'none':

@@ -17,6 +17,8 @@ import { createCopyPromptModule } from '../../../src/modules/e/copy-prompt';
 import type { CopyFn } from '../../../src/modules/e/copy-prompt';
 import { CLOSING_LINE, renderPrompt } from '../../../src/modules/e/prompt-templates';
 import type { AnalyzeInput, AnalyzeResponse, ProviderPort, ProviderStatus } from '../../../src/modules/e/provider';
+import { providerInfo } from '../../../src/modules/e/provider';
+import { ANTHROPIC } from '../../../src/modules/e/provider/descriptors/anthropic';
 import { trustedClick } from '../../shared/trusted-click';
 import { ROOT, flush, hostsOf, loadHtml, mountModules } from '../../modules/d/helpers';
 import { pageAt } from '../../modules/e/helpers';
@@ -99,13 +101,17 @@ describe('TEST-SEC-07: حدود المحتوى المنقول في البروم�
 });
 
 const STATUS: ProviderStatus = {
-  provider: { id: 'anthropic', title: 'Anthropic', host: 'api.anthropic.com', origin: 'https://api.anthropic.com/*', keyPrefix: 'sk-ant-', verifyRequest: '' },
+  provider: providerInfo(ANTHROPIC),
+  selected: true,
   permission: true,
+  hostPermission: true,
+  contentPermission: null,
   key: { id: 'provider-key', place: 'session', savedAt: 1, health: 'healthy', checkedAt: 1, detail: {} },
   model: { id: 'mock-sonnet-2', displayName: 'Mock Sonnet 2' },
   choice: 'mock-sonnet-2',
   models: null,
   retryAt: null,
+  providers: [],
 };
 
 describe('TEST-SEC-07: التشغيل الكامل على المحتوى المعادي وردّ المزوّد المعادي', () => {
@@ -143,7 +149,7 @@ describe('TEST-SEC-07: التشغيل الكامل على المحتوى الم�
       status: 200,
       data: { text: HOSTILE_PROVIDER, model: input.model, stopReason: 'end_turn', usage: null, provider: 'Anthropic', host: 'api.anthropic.com', requestedAt: NOW, completedAt: NOW },
     }));
-    const provider: ProviderPort = { status: vi.fn(async () => STATUS), verify: vi.fn(), analyze, cancel: vi.fn(async () => undefined) };
+    const provider: ProviderPort = { status: vi.fn(async () => STATUS), verify: vi.fn(), probe: vi.fn(), analyze, cancel: vi.fn(async () => undefined) };
     const connections = {
       status: vi.fn(async () => [{ id: 'provider-key', place: 'session', savedAt: 1, health: 'healthy', checkedAt: 1, detail: {} }] as ConnectionStatus[]),
       pending: vi.fn(async () => null),

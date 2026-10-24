@@ -1,0 +1,7 @@
+{
+ "control": "content.js بعلامتين محقونتين",
+ "detected": [
+  "adapter-outside-background dist/chromium/content.js",
+  "secret-store-outside-trusted dist/chromium/content.js"
+ ]
+}

@@ -58,6 +58,8 @@ export interface HealthDetail {
 
 export interface HealthRecord {
   readonly id: ConnectionId;
+  /** MJ23 (T-11.10): لمفتاح مزوّد التحليل، المزوّد الذي قيست صحة مفتاحه؛ فلكل مزوّد سجله. */
+  readonly provider?: string;
   /** وقت حفظ السرّ الذي قيست له الحالة. */
   readonly savedAt: number;
   readonly health: RecordedHealth;
@@ -68,6 +70,8 @@ export interface HealthRecord {
 /** حالة اتصال كما تُعرض خارج الخلفية: بلا السرّ. */
 export interface ConnectionStatus {
   readonly id: ConnectionId;
+  /** MJ23 (T-11.10): لمفتاح مزوّد التحليل، المزوّد الذي هذه حالة مفتاحه (المختار في حالة السجل العامة). */
+  readonly provider?: string;
   readonly place: SecretPlace | null;
   readonly savedAt: number | null;
   readonly health: Health;
@@ -145,11 +149,11 @@ export function verdictFromUsage(path: string, result: PublicApiResult<unknown>,
   }
 }
 
-/** الحالة الآن من السرّ المحفوظ وسجل صحته. */
-export function resolveStatus(id: ConnectionId, info: SecretInfo | null, record: HealthRecord | null, now: number): ConnectionStatus {
-  const base = { id, place: info?.place ?? null, savedAt: info?.savedAt ?? null };
+/** الحالة الآن من السرّ المحفوظ وسجل صحته. provider: مزوّد المفتاح لمفتاح مزوّد التحليل، فلا يُقرأ سجل مزوّد لمفتاح غيره. */
+export function resolveStatus(id: ConnectionId, info: SecretInfo | null, record: HealthRecord | null, now: number, provider?: string): ConnectionStatus {
+  const base = { id, ...(provider !== undefined ? { provider } : {}), place: info?.place ?? null, savedAt: info?.savedAt ?? null };
   if (!info) return { ...base, health: 'none', checkedAt: null, detail: {} };
-  if (!record || record.id !== id || record.savedAt !== info.savedAt) {
+  if (!record || record.id !== id || record.provider !== provider || record.savedAt !== info.savedAt) {
     return { ...base, health: 'unverified', checkedAt: null, detail: { reason: 'محفوظ ولم يُتحقق منه بعد؛ لا يُعدّ سليمًا قبل طلب تحقق.' } };
   }
   const { expiresAt, retryAt } = record.detail;

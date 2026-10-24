@@ -1,5 +1,7 @@
 // تجربة الموافقة قبل الإرسال (T-11.6، AC-E9 (٢) و(٧)، مكوّن Consent sheet): تتوسع داخل القسم بطلب المستخدم وحده، وتبيّن ما يُرسل وحجمه وما
-// استُبعد منه والوجهة (المزوّد والمودل)، والنص كاملًا لمن أراد. لا سعر ولا تكلفة ولا تنبيه مالي (AD-31).
+// استُبعد منه والوجهة (المزوّد ومضيفه والمودل ورابط سياسته في البيانات)، والنص كاملًا لمن أراد. لا سعر ولا تكلفة ولا تنبيه مالي (AD-31).
+// MJ23 (AC-E10 (٥)، الإطار P-59): الوجهة هي الاختيار الفعلي الذي سيُرسل إليه؛ وإن تغيّر المزوّد أو المودل أو المحتوى بعد عرضها لا يُرسل شيء وتُعرض من
+// جديد مع سبب إعادتها (changed).
 // «إرسال للتحليل» (بتوجيه المالك 2026-10-24) يقبل تفعيل المستخدم الحقيقي وحده (isTrustedActivation، AD-27): نقرة الفأرة، وEnter أو Space على الزر،
 // وتفعيل تقنيات الإتاحة، وكلها حدث click موثوق يولّده المتصفح من زر أصلي؛ أما click() أو حدث يُنشئه سكربت في الصفحة فلا يُصدر طلبًا. ولا يُشترط
 // event.detail فلا ينكسر تفعيل لوحة المفاتيح وتقنيات الإتاحة. وعند الفتح ينتقل التركيز إلى عنوان البطاقة لا إلى زر الإرسال، فلا يُرسل شيء
@@ -13,6 +15,8 @@ import type { PreparedAnalysis } from '../request';
 export interface ConsentDestination {
   readonly provider: string;
   readonly host: string;
+  /** صفحة سياسة المزوّد الرسمية في البيانات (من سجله الوصفي)، أو غائبة. */
+  readonly policy?: { readonly url: string; readonly label: string };
   /** المودل الذي سيُرسل إليه، أو null حين لم تُقرأ قائمة المودلات بعد. */
   readonly model: { readonly id: string; readonly displayName: string } | null;
   /** صلاحية مضيف المزوّد ممنوحة. */
@@ -24,6 +28,8 @@ export interface ConsentSheetProps {
   readonly destination: ConsentDestination;
   /** سبب يمنع الإرسال الآن (موعد إعادة محاولة أعلنه المزوّد مثلًا)، أو null. */
   readonly blocked?: string | null;
+  /** لماذا أُعيد عرض الموافقة (تغيّر المحتوى أو الوجهة بعد عرضها)، أو null. */
+  readonly changed?: string | null;
   readonly onConfirm: () => void;
   readonly onCancel: () => void;
   /** يفتح إعدادات التحليل (المودل والصلاحية) في الإعدادات. */
@@ -32,7 +38,7 @@ export interface ConsentSheetProps {
 
 const count = (n: number): string => n.toLocaleString('en-US');
 
-export function ConsentSheet({ prepared, destination, blocked = null, onConfirm, onCancel, onSettings }: ConsentSheetProps) {
+export function ConsentSheet({ prepared, destination, blocked = null, changed = null, onConfirm, onCancel, onSettings }: ConsentSheetProps) {
   const [shown, setShown] = useState(false);
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
@@ -41,6 +47,10 @@ export function ConsentSheet({ prepared, destination, blocked = null, onConfirm,
   const { consent } = prepared;
   const ready = destination.model !== null && destination.permission && !blocked;
   const model = destination.model ? destination.model.displayName : 'مودل لم يُحدَّد بعد';
+  // يتغير المفتاح مع المحتوى أو الوجهة فيُعاد التركيز إلى العنوان عند إعادة العرض.
+  useEffect(() => {
+    if (changed) title.current?.focus();
+  }, [changed]);
   return (
     <section class="mj-consent" data-consent="" role="group" aria-labelledby="mj-consent-title" aria-describedby="mj-consent-lead">
       <header class="mj-consent-head">
@@ -53,6 +63,11 @@ export function ConsentSheet({ prepared, destination, blocked = null, onConfirm,
         سيُرسَل المحتوى الموضّح أدناه، بعد تنقيحه في متصفحك، إلى <strong>{destination.provider}</strong> (<Ltr className="mono">{destination.host}</Ltr>) عبر
         مفتاحك ليحلّله المودل <Ltr>{model}</Ltr>. لا يُرسل شيء قبل أن تختار «إرسال للتحليل».
       </p>
+      {changed && (
+        <p class="mj-note" data-tone="warning" role="alert" data-consent-changed="">
+          {changed}
+        </p>
+      )}
       <dl class="mj-consent-rows">
         <div data-consent-row="content">
           <dt>المحتوى</dt>
@@ -89,9 +104,18 @@ export function ConsentSheet({ prepared, destination, blocked = null, onConfirm,
             {destination.model ? (
               <>
                 <Ltr>{`${destination.provider} · ${destination.model.displayName}`}</Ltr> عبر مفتاحك، إلى <Ltr className="mono">{destination.host}</Ltr> وحده
+                {destination.policy && (
+                  <>
+                    {' '}
+                    · سياسته في البيانات:{' '}
+                    <a href={destination.policy.url} target="_blank" rel="noopener noreferrer" data-consent-policy="">
+                      {destination.policy.label}
+                    </a>
+                  </>
+                )}
               </>
             ) : (
-              <>لم يُحدَّد مودل بعد: تحقق من المفتاح في الإعدادات لتُقرأ قائمة المودلات من المزوّد.</>
+              <>لم يُحدَّد مودل متوافق بعد: تحقق من المفتاح في بطاقة «مزوّد التحليل» لتُقرأ قائمة المودلات من المزوّد، أو اختر مودلًا متوافقًا.</>
             )}
           </dd>
         </div>
@@ -112,18 +136,19 @@ export function ConsentSheet({ prepared, destination, blocked = null, onConfirm,
           <pre dir="auto">{prepared.prompt}</pre>
         </div>
       )}
-      <p class="mj-note" data-tone="info">
-        لا يُرفق رمز GitHub، ويُنقَّح المحتوى لاكتشاف الأسرار قبل الإرسال. راجع ما سيُرسل للتأكد. والرد اقتراح نموذج يُعرض نصًّا ولا يُنفَّذ منه شيء.
+      <p class="mj-note" data-tone="info" data-consent-note="">
+        لا يُرفق رمز GitHub ولا مفتاح أي مزوّد آخر، ويُنقَّح المحتوى لاكتشاف الأسرار قبل الإرسال. راجع ما سيُرسل للتأكد. والمزوّد والمودل هنا هما ما سيُرسل إليه
+        فعلًا: إن تغيّر أيهما أو تغيّر المحتوى بعد عرض البطاقة لا يُرسل شيء وتُعرض من جديد. والرد اقتراح نموذج يُعرض نصًّا ولا يُنفَّذ منه شيء.
       </p>
       {!destination.permission && (
         <p class="mj-note" data-tone="warning" data-consent-blocked="permission">
           {__TARGET__ === 'firefox' ? (
             <>
-              صلاحية <Ltr className="mono">{destination.host}</Ltr> أو موافقة Firefox على مشاركة محتوى المواقع غير ممنوحة؛ امنحهما من بطاقة مفتاح المزوّد في الإعدادات.
+              صلاحية <Ltr className="mono">{destination.host}</Ltr> أو موافقة Firefox على مشاركة محتوى المواقع غير ممنوحة؛ امنحهما من بطاقة «مزوّد التحليل» في الإعدادات.
             </>
           ) : (
             <>
-              صلاحية <Ltr className="mono">{destination.host}</Ltr> غير ممنوحة؛ امنحها من بطاقة مفتاح المزوّد في الإعدادات.
+              صلاحية <Ltr className="mono">{destination.host}</Ltr> غير ممنوحة؛ امنحها من بطاقة «مزوّد التحليل» في الإعدادات.
             </>
           )}
         </p>

@@ -6,6 +6,8 @@
 //    في طبقتي الحقيقة والسبب المثبت؛ وبإزالة المفتاح يعود القسم بلا نص تحليل؛ والتفعيل البرمجي لا يفتح الموافقة ولا يرسل.
 //  - الرد المعادي يُعرض نصًّا ولا يُنفَّذ؛ والفشل يُعلن ولا يُعاد تلقائيًا.
 //  - بطاقة طلب الدمج وصفحة المشكلة: الخيار بقالبه (مراجعة التغييرات، فهم المشكلة).
+//  - MJ23 (TEST-AI-05، AC-E10 (٥) و(٨)): الموافقة تعكس الاختيار الفعلي: تغيّر المزوّد أو المودل أو المحتوى بعد عرضها يمنع الإرسال ويعيد عرضها؛ والطلب
+//    يحمل المزوّد الذي عُرض؛ والسياق بحد الأسطر PP-03 الذي يتبعه «نسخ البرومبت» (I-3).
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { ConnectionStatus } from '../../../../src/core/connections/health';
 import { CONNECTIONS_CHANGED_MESSAGE } from '../../../../src/core/connections/port';
@@ -16,22 +18,28 @@ import type { SectionAnalysisDeps } from '../../../../src/modules/d/analysis';
 import { NO_ROOT_CAUSE_TEXT, POSSIBILITY_TAG, createLogModule } from '../../../../src/modules/d/log-parser';
 import { createPrStatusModule } from '../../../../src/modules/d/pr-status';
 import { scanText } from '../../../../src/modules/e/privacy-check';
+import { providerInfo } from '../../../../src/modules/e/provider';
 import type { AnalyzeInput, AnalyzeResponse, ProviderPort, ProviderStatus } from '../../../../src/modules/e/provider';
+import { ANTHROPIC } from '../../../../src/modules/e/provider/descriptors/anthropic';
 import { trustedClick } from '../../../shared/trusted-click';
-import { HOSTILE_REPLY, structuredReply } from '../../e/provider/fixture-provider-mock';
+import { HOSTILE_REPLY, mockDescriptor, structuredReply } from '../../e/provider/fixture-provider-mock';
 import { ROOT, flush, hostsOf, loadHtml, mountModules } from '../helpers';
 
 const JOB_PAGE = `${ROOT}/fixtures/logs/gh-job-failed.html`;
 const NOW = Date.UTC(2026, 9, 24, 11, 0);
 
 const STATUS: ProviderStatus = {
-  provider: { id: 'anthropic', title: 'Anthropic', host: 'api.anthropic.com', origin: 'https://api.anthropic.com/*', keyPrefix: 'sk-ant-', verifyRequest: '' },
+  provider: providerInfo(ANTHROPIC),
+  selected: true,
   permission: true,
+  hostPermission: true,
+  contentPermission: null,
   key: null,
   model: { id: 'mock-sonnet-2', displayName: 'Mock Sonnet 2' },
   choice: 'mock-sonnet-2',
   models: null,
   retryAt: null,
+  providers: [],
 };
 
 const ok = (input: AnalyzeInput, text: string): AnalyzeResponse => ({
@@ -40,8 +48,10 @@ const ok = (input: AnalyzeInput, text: string): AnalyzeResponse => ({
   data: { text, model: input.model, stopReason: 'end_turn', usage: null, provider: 'Anthropic', host: 'api.anthropic.com', requestedAt: NOW, completedAt: NOW },
 });
 
-function fakeDeps(options: { health?: ConnectionStatus['health']; reply?: (input: AnalyzeInput) => AnalyzeResponse } = {}) {
+function fakeDeps(options: { health?: ConnectionStatus['health']; reply?: (input: AnalyzeInput) => AnalyzeResponse; lineLimit?: number } = {}) {
   let health = options.health ?? 'healthy';
+  /** ما تعيده الخلفية الآن (يتغير بالمزوّد أو المودل المختار). */
+  let current: ProviderStatus = STATUS;
   const listeners = new Set<(m: unknown) => unknown>();
   const connections = {
     status: vi.fn(async () => [{ id: 'provider-key', place: 'session', savedAt: 1, health, checkedAt: 1, detail: {} }] as ConnectionStatus[]),
@@ -50,18 +60,27 @@ function fakeDeps(options: { health?: ConnectionStatus['health']; reply?: (input
     dismiss: vi.fn(async () => undefined),
   } satisfies ConnectionsPort;
   const provider = {
-    status: vi.fn(async () => ({ ...STATUS, key: { id: 'provider-key', place: 'session', savedAt: 1, health, checkedAt: 1, detail: {} } }) as ProviderStatus),
+    status: vi.fn(async () => ({ ...current, key: { id: 'provider-key', place: 'session', savedAt: 1, health, checkedAt: 1, detail: {} } }) as ProviderStatus),
     verify: vi.fn(),
+    probe: vi.fn(),
     analyze: vi.fn(async (input: AnalyzeInput) => (options.reply ?? ((i) => ok(i, structuredReply(i.prompt))))(input)),
     cancel: vi.fn(async () => undefined),
   } satisfies ProviderPort;
   const messages: ExtEvent<(m: unknown) => unknown> = { addListener: (l) => void listeners.add(l), removeListener: (l) => void listeners.delete(l) };
   const openSettings = vi.fn();
-  const deps: SectionAnalysisDeps = { provider, connections, openSettings, messages, newId: () => 'req-1' };
+  let lineLimit = options.lineLimit ?? 400;
+  const deps: SectionAnalysisDeps = { provider, connections, openSettings, messages, newId: () => 'req-1', lineLimit: () => lineLimit };
   return {
     deps,
     provider,
     openSettings,
+    /** يغيّر ما تعيده الخلفية (تبديل المزوّد أو المودل في الإعدادات). */
+    setStatus: (next: Partial<ProviderStatus>) => {
+      current = { ...current, ...next };
+    },
+    setLineLimit: (next: number) => {
+      lineLimit = next;
+    },
     /** يحاكي حذف المفتاح أو ربطه ثم عودة الخلفية إلى التبويب. */
     setHealth: async (next: ConnectionStatus['health']) => {
       health = next;
@@ -131,7 +150,7 @@ describe('AC-D9: التحليل في شرح سجل الفحص', () => {
     await flush(30);
     expect(f.provider.analyze).toHaveBeenCalledTimes(1);
     const sent = f.provider.analyze.mock.calls[0]?.[0] as AnalyzeInput;
-    expect(sent).toMatchObject({ requestId: 'req-1', section: 'checks', model: 'mock-sonnet-2' });
+    expect(sent).toMatchObject({ requestId: 'req-1', section: 'checks', provider: 'anthropic', model: 'mock-sonnet-2' });
     expect(sent.prompt.split('\n')[0]).toBe('# تشخيص الخطأ');
     expect(scanText(sent.prompt)).toEqual([]);
 
@@ -244,5 +263,86 @@ describe('بطاقة طلب الدمج وصفحة المشكلة', () => {
     expect(gated.querySelector('[data-analysis="gate"]')).not.toBeNull();
     expect(gated.querySelector('[data-action="analysis-open"]')).toBeNull();
     second.manager.stop();
+  });
+});
+
+describe('TEST-AI-05 (AC-E10 (٥)): الموافقة تعكس الاختيار الفعلي', () => {
+  it('تغيّر المزوّد المختار بعد عرض الموافقة: لا يُرسل شيء، وتُعرض من جديد بالوجهة الجديدة وسببها؛ ثم الإرسال يحمل المزوّد الجديد', async () => {
+    const f = fakeDeps();
+    const { root, manager } = await logCard(f.deps);
+    trustedClick(root.querySelector('[data-action="analysis-open"]') as HTMLButtonElement);
+    await flush(20);
+    expect(text(root.querySelector('[data-consent-lead]'))).toContain('Anthropic');
+    const b = mockDescriptor('mock-b', 'Mock B', false);
+    f.setStatus({ provider: providerInfo(b), model: { id: 'b-model-2', displayName: 'B Model 2' } });
+    trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
+    await flush(30);
+    expect(f.provider.analyze).not.toHaveBeenCalled();
+    expect(text(root.querySelector('[data-consent-changed]'))).toContain('تغيّر المزوّد المختار أو المودل');
+    expect(text(root.querySelector('[data-consent-lead]'))).toContain('Mock B');
+    expect(text(root.querySelector('[data-consent-lead]'))).toContain('api.mock-b.test');
+    expect(text(root.querySelector('[data-consent]'))).not.toContain('Anthropic');
+    trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
+    await flush(30);
+    expect(f.provider.analyze).toHaveBeenCalledTimes(1);
+    expect(f.provider.analyze.mock.calls[0]?.[0]).toMatchObject({ provider: 'mock-b', model: 'b-model-2' });
+    manager.stop();
+  });
+
+  it('تغيّر المودل وحده بعد العرض: لا يُرسل، وتُعاد الموافقة بالمودل الجديد', async () => {
+    const f = fakeDeps();
+    const { root, manager } = await logCard(f.deps);
+    trustedClick(root.querySelector('[data-action="analysis-open"]') as HTMLButtonElement);
+    await flush(20);
+    f.setStatus({ model: { id: 'mock-haiku-2', displayName: 'Mock Haiku 2' } });
+    trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
+    await flush(30);
+    expect(f.provider.analyze).not.toHaveBeenCalled();
+    expect(text(root.querySelector('[data-consent-lead]'))).toContain('Mock Haiku 2');
+    manager.stop();
+  });
+
+  it('تغيّر المحتوى في الصفحة بعد العرض: لا يُرسل، وتُعرض الموافقة بالمحتوى الذي سيُرسل الآن', async () => {
+    const f = fakeDeps();
+    const { root, manager } = await logCard(f.deps);
+    trustedClick(root.querySelector('[data-action="analysis-open"]') as HTMLButtonElement);
+    await flush(20);
+    const before = text(root.querySelector('[data-consent-row="size"]'));
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node: Node | null;
+    while ((node = walker.nextNode())) if (node.textContent?.includes('Process completed with exit code 1.')) node.textContent = node.textContent.replace('exit code 1.', 'exit code 1. (changed after consent)');
+    await flush(10);
+    trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
+    await flush(30);
+    expect(f.provider.analyze).not.toHaveBeenCalled();
+    expect(text(root.querySelector('[data-consent-changed]'))).toContain('تغيّر المحتوى');
+    expect(text(root.querySelector('[data-consent-row="size"]'))).not.toBe(before);
+    trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
+    await flush(30);
+    expect(f.provider.analyze).toHaveBeenCalledTimes(1);
+    manager.stop();
+  });
+});
+
+describe('AC-E10 (٨) وI-3: سياق التحليل بحد الأسطر PP-03', () => {
+  it('الحد المختار يسري على ما يُرسل كما يسري على «نسخ البرومبت»: اقتطاع معلن في المعلومات الناقصة', async () => {
+    const sentWith = async (lineLimit: number): Promise<string> => {
+      history.replaceState(null, '', '/salktbi902/etos/issues/1');
+      loadHtml(`${ROOT}/fixtures/spikes/gh-issue-etos-1.html`);
+      const f = fakeDeps({ lineLimit });
+      const { manager } = await mountModules([createAnalysisModule(f.deps)]);
+      await flush(30);
+      const root = hostsOf('d.analysis')[0]?.shadowRoot as ShadowRoot;
+      trustedClick(root.querySelector('[data-action="analysis-open"]') as HTMLButtonElement);
+      await flush(20);
+      trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
+      await flush(30);
+      manager.stop();
+      return (f.provider.analyze.mock.calls[0]?.[0] as AnalyzeInput).prompt;
+    };
+    const full = await sentWith(5000);
+    const cut = await sentWith(20);
+    expect(cut.length).toBeLessThan(full.length);
+    expect(cut).toMatch(/اقتُطع|اقتطاع|مقتطع/);
   });
 });

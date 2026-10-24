@@ -1,0 +1,15 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj23-027bde
+
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-all: النص وبنود القسم الإلزامي كما كانت 36ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-no-checks-error: النص وبنود القسم الإلزامي كما كانت 14ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-none: النص وبنود القسم الإلزامي كما كانت 11ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-tight-limits: النص وبنود القسم الإلزامي كما كانت 13ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > issue-all: النص وبنود القسم الإلزامي كما كانت 77ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > job-all: النص وبنود القسم الإلزامي كما كانت 78ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  19:22:51
+   Duration  758ms (environment 36%, tests 34%, transform 16%, import 13%)
+

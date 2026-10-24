@@ -1,0 +1,14 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj23-027bde
+
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+
+ Test Files  171 passed (171)
+      Tests  2603 passed | 2 skipped (2605)
+   Start at  19:12:35
+   Duration  28.33s (tests 65%, import 16%, environment 16%, transform 3%)
+
+    Isolate  171 workers spawned · ~276ms startup each (spawn + environment, per file)
+             at least ~6.46s faster with isolate: false — reuses workers across files instead of one per file
+

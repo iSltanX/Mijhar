@@ -1,15 +1,17 @@
-// محوّل المزوّد الأول (DEC-09 ز-1): Anthropic (Claude API) عبر api.anthropic.com وحده، من خلفية الإضافة (evidence/T-0.5، HYP-17):
+// محوّل المزوّد الأول (DEC-09 ز-4): Anthropic (Claude API) عبر api.anthropic.com وحده، من خلفية الإضافة (evidence/T-0.5، HYP-17). وصفه (الاسم والمضيف
+// وصيغة المفتاح وطلب التحقق المعلن) في descriptors/anthropic.ts؛ وهنا وحده ما لا يصل غير الخلفية (I-2):
 //  - الترويسات التي لزمت في القياس: x-api-key وanthropic-version وcontent-type وanthropic-dangerous-direct-browser-access (بدونها يرفض الخادم
 //    طلب سياق الإضافة بـ401). لا وسيط خارجي.
-//  - المودلات من GET /v1/models وقت التشغيل (وهي طلب التحقق المعلن: لا يحمل محتوى)، والتحليل POST /v1/messages بلا بث.
+//  - المودلات من GET /v1/models وقت التشغيل (وهي طلب التحقق المعلن: لا يحمل محتوى)، والتحليل POST /v1/messages بلا بث. والتوافق (DEC-13 ن-3) معلن
+//    من الواجهة الرسمية: ما تسرده نقطة المودلات متاح لواجهة الرسائل، والمتقاعد لا يُعرض؛ فلا فحص صريح ولا استنتاج من الاسم.
 //  - لا سعر ولا تكلفة هنا (AD-31)؛ وما يعلنه المزوّد من حدود (429 وretry-after، وmax_tokens للمودل) يُحترم ويُعاد كما هو.
+import { ANTHROPIC } from '../descriptors/anthropic';
 import { ProviderPermissionError, redactKey } from '../gate';
 import type { AnalysisReply, AnalysisRequest, ModelsList, ProviderAdapter, ProviderCall, ProviderFailure, ProviderModel, ProviderResult } from '../types';
 
-const HOST = 'api.anthropic.com';
+const HOST = ANTHROPIC.host;
 const VERSION = '2023-06-01';
 const MODELS_PATH = '/v1/models?limit=100';
-const KEY = /^sk-ant-api\d{2}-[A-Za-z0-9_-]{20,}$/;
 
 const headers = (key: string, json: boolean): Record<string, string> => ({
   'x-api-key': key,
@@ -78,31 +80,19 @@ function parseModel(raw: unknown): ProviderModel | null {
     maxTokens: num(r?.max_tokens),
     maxInputTokens: num(r?.max_input_tokens),
     lifecycle: str(r?.lifecycle),
+    compatibility: 'declared',
   };
 }
 
-export const ANTHROPIC: ProviderAdapter = {
-  id: 'anthropic',
-  title: 'Anthropic',
-  host: HOST,
-  origin: `https://${HOST}/*`,
-  keyPrefix: 'sk-ant-',
-  verifyRequest: `طلب واحد GET https://${HOST}/v1/models يقرأ قائمة المودلات المتاحة لمفتاحك، ولا يحمل شيئًا من صفحاتك.`,
-
-  checkKey(input) {
-    const key = input.trim();
-    if (!key) return { ok: false, reason: 'الحقل فارغ.' };
-    if (KEY.test(key)) return { ok: true, key };
-    if (key.startsWith('sk-ant-admin')) return { ok: false, reason: 'هذا مفتاح إدارة (Admin) لا يصلح للتحليل؛ أنشئ مفتاح API عاديًا من Claude Console.' };
-    return { ok: false, reason: 'لا يطابق صيغة مفتاح Anthropic API (sk-ant-api…). تأكد أنك نسخته كاملًا.' };
-  },
+export const ANTHROPIC_ADAPTER: ProviderAdapter = {
+  descriptor: ANTHROPIC,
 
   listModels(call) {
     return send<ModelsList>(call, MODELS_PATH, { method: 'GET', headers: headers(call.key, false) }, (body) => {
       const b = body as { data?: unknown; has_more?: unknown } | null;
       if (!Array.isArray(b?.data)) return null;
       const models = b.data.map(parseModel).filter((m): m is ProviderModel => m !== null && m.lifecycle !== 'retired');
-      return { provider: 'anthropic', models, readAt: call.now(), source: `https://${HOST}/v1/models`, partial: b.has_more === true };
+      return { provider: ANTHROPIC.id, models, readAt: call.now(), source: `https://${HOST}/v1/models`, partial: b.has_more === true };
     });
   },
 

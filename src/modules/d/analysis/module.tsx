@@ -36,7 +36,7 @@ class IssueAnalysis {
     private readonly ctx: ModuleContext,
     deps: SectionAnalysisDeps,
   ) {
-    this.analysis = new SectionAnalysis(ctx, 'issue', deps, () => prepareContext(ctx.document, ctx.selectors, ctx.page), () => this.draw());
+    this.analysis = new SectionAnalysis(ctx, 'issue', deps, ({ limits }) => prepareContext(ctx.document, ctx.selectors, ctx.page, { limits }), () => this.draw());
   }
 
   start(): void {

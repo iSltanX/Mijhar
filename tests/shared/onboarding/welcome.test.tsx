@@ -84,7 +84,8 @@ describe('الخطوة الثانية: الاتصالات الاختيارية',
     expect(token.getAttribute('data-status')).toBe('available');
     expect(token.querySelector('[data-action="guide-github-token"]')?.textContent).toContain('كيف أحصل على الرمز؟');
     expect(key.getAttribute('data-status')).toBe('available');
-    expect(key.textContent).toContain('يُرسل ما توافق عليه إلى Anthropic وحدها');
+    // MJ23 (AC-E10 (٧)): الوجهة المزوّد المختار، وأسماء المزوّدين من السجل الوصفي (Anthropic وحدها مدموجة الآن).
+    expect(key.textContent).toContain('يُرسل ما توافق عليه إلى المزوّد الذي تختاره وحده: Anthropic');
     expect(key.textContent).not.toMatch(/سعر|تكلف|دولار|مجاني|تدفع/);
     await click('[data-action="guide-provider-key"]');
     expect(openOptionsAt).toHaveBeenLastCalledWith('guide/provider-key');

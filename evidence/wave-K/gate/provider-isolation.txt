@@ -1,0 +1,24 @@
+المخالفات: 0
+
+النتيجة: اجتاز (ترويسات المحوّلات ومساراتها في background.js وحده، ومخزن الأسرار في الخلفية والإعدادات وحدهما).
+.js):
+  محوّل anthropic «anthropic-dangerous-direct-browser-access»: background.js
+  محوّل anthropic «anthropic-version»: background.js
+  محوّل anthropic «x-api-key»: background.js
+  محوّل anthropic «/v1/messages»: background.js
+  محوّل anthropic «/v1/models?limit=»: background.js
+  مخزن الأسرار «mijhar-secrets»: background.js, options.js
+  مخزن الأسرار «mijhar.secret.»: background.js, options.js
+
+الحزمة firefox (background.js · content.js · options.js · reader.js · sidepanel.js):
+  محوّل anthropic «anthropic-dangerous-direct-browser-access»: background.js
+  محوّل anthropic «anthropic-version»: background.js
+  محوّل anthropic «x-api-key»: background.js
+  محوّل anthropic «/v1/messages»: background.js
+  محوّل anthropic «/v1/models?limit=»: background.js
+  مخزن الأسرار «mijhar-secrets»: background.js, options.js
+  مخزن الأسرار «mijhar.secret.»: background.js, options.js
+
+المخالفات: 0
+
+النتيجة: اجتاز (ترويسات المحوّلات ومساراتها في background.js وحده، ومخزن الأسرار في الخلفية والإعدادات وحدهما).

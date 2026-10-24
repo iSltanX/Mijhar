@@ -2,6 +2,9 @@
 //  - بلا مفتاح (أو مفتاح منتهٍ): بوابة «ميزة تحتاج ربطًا» معلَّلة بما تحتاجه، ولا نص تحليل؛ وبقية القسم كما هي.
 //  - «حلّل…» بتفعيل المستخدم الحقيقي يبني السياق من الطبقة المشتركة (يمرّره القسم)، ويعرض الموافقة: ما يُرسل وحجمه وما استُبعد ووجهته.
 //  - «إرسال للتحليل» وحده يُصدر الطلب، وطلب واحد لكل تفعيل (والخلفية ترفض ثانيًا من القسم نفسه ما دام الأول جاريًا)؛ ولا إعادة محاولة تلقائية.
+//  - MJ23 (AC-E10 (٥)): قبل الإرسال يُعاد بناء المحتوى وتُقرأ حالة المزوّد: إن تغيّر المحتوى أو المزوّد المختار أو المودل عمّا عرضته الموافقة لا يُرسل
+//    شيء وتُعرض الموافقة من جديد بما تغيّر؛ والخلفية ترفض هي أيضًا مزوّدًا أو مودلًا غير ما عُرض. ولا تحويل إلى مزوّد آخر عند الفشل.
+//  - MJ23 (I-3، AC-E10 (٨)): السياق يُبنى بحد الأسطر PP-03 الذي يتبعه «نسخ البرومبت».
 //  - النتيجة اقتراح موسوم «احتمال يحتاج تحققًا» بأدلته وما نقص والمودل ووقت الطلب؛ لا تحل محل حقيقة مرصودة ولا تُعرض في طبقة الحقائق.
 // لا محوّل هنا ولا مزوّد بعينه: الطلب عبر منفذ الخلفية (AC-E9 (٦)). ولا أسعار ولا تكلفة (AD-31).
 import type { ComponentChild } from 'preact';
@@ -15,16 +18,24 @@ import type { ExtEvent } from '../../../core/ui-host/browser-api';
 import { OPEN_OPTIONS_MESSAGE } from '../../../core/ui-host/commands';
 import type { OpenOptionsMessage } from '../../../core/ui-host/commands';
 import { isTrustedActivation } from '../../../shared/ui/user-activation';
+import { LINE_LIMIT_DEFAULT, limitsOf } from '../../e/context';
 import type { ContextStructure } from '../../e/context';
 import { parseAnalysis, prepareAnalysis, runtimeProviderPort } from '../../e/provider';
 import type { AnalysisOutcome, ParsedAnalysis, PreparedAnalysis, ProviderFailure, ProviderPort, ProviderStatus } from '../../e/provider';
+import { storedLineLimit } from './limits';
 import { ANALYSIS_SECTIONS } from './sections';
 import type { AnalysisSectionDef, AnalysisSectionId } from './sections';
 import { AnalysisBlock } from './view';
 
 export type AnalysisState =
   | { readonly kind: 'idle'; readonly note?: string }
-  | { readonly kind: 'consent'; readonly prepared: PreparedAnalysis; readonly status: ProviderStatus | null | undefined }
+  | {
+      readonly kind: 'consent';
+      readonly prepared: PreparedAnalysis;
+      readonly status: ProviderStatus | null | undefined;
+      /** لماذا أُعيد عرض الموافقة (تغيّر المحتوى أو المزوّد أو المودل بعد عرضها)، أو غائب. */
+      readonly changed?: string;
+    }
   | { readonly kind: 'loading'; readonly requestId: string; readonly prepared: PreparedAnalysis; readonly status: ProviderStatus }
   | { readonly kind: 'result'; readonly outcome: AnalysisOutcome; readonly parsed: ParsedAnalysis; readonly prepared: PreparedAnalysis }
   | { readonly kind: 'failed'; readonly failure: ProviderFailure | 'no-context'; readonly message: string; readonly retryAt: number | null };
@@ -37,7 +48,14 @@ export interface SectionAnalysisDeps {
   readonly openSettings: (feature: FeatureId) => void;
   /** رسائل الخلفية إلى التبويب (العودة بعد الربط). */
   readonly messages: ExtEvent<(message: unknown) => unknown> | null;
+  /** حد أسطر كل قسم من السياق (PP-03): في الإضافة الإعداد المخزَّن نفسه الذي يتبعه «نسخ البرومبت» (defaultAnalysisDeps)، وبدونه الافتراضي. */
+  readonly lineLimit?: () => number;
   readonly newId?: () => string;
+}
+
+/** ما يمرّره المتحكم إلى جامع القسم. */
+export interface CollectOptions {
+  readonly limits: ReturnType<typeof limitsOf>;
 }
 
 function safe<T>(make: () => T): T | null {
@@ -58,6 +76,7 @@ export function defaultAnalysisDeps(): SectionAnalysisDeps {
       void runtime?.sendMessage({ type: OPEN_OPTIONS_MESSAGE, target: 'provider-key', feature } satisfies OpenOptionsMessage).catch(() => undefined);
     },
     messages: runtime ? (runtime.onMessage as unknown as ExtEvent<(message: unknown) => unknown>) : null,
+    lineLimit: storedLineLimit(),
   };
 }
 
@@ -91,13 +110,15 @@ export class SectionAnalysis {
   private health: Health | undefined = undefined;
   private readonly def: AnalysisSectionDef;
   private readonly newId: () => string;
+  /** تحقق ما قبل الإرسال جارٍ: نقرة ثانية لا تبدأ تحققًا آخر. */
+  private confirming = false;
 
   constructor(
     private readonly ctx: ModuleContext,
     section: AnalysisSectionId,
     private readonly deps: SectionAnalysisDeps,
-    /** سياق القسم من الطبقة المشتركة (بإضافاته)، أو null لصفحة بلا سياق. */
-    private readonly collect: () => ContextStructure | null,
+    /** سياق القسم من الطبقة المشتركة (بإضافاته وحد الأسطر الممرَّر)، أو null لصفحة بلا سياق. */
+    private readonly collect: (options: CollectOptions) => ContextStructure | null,
     private readonly onChange: () => void,
   ) {
     this.def = ANALYSIS_SECTIONS[section];
@@ -138,42 +159,81 @@ export class SectionAnalysis {
     this.onChange();
   }
 
-  /** «حلّل…» أو «أعد التحليل» أو «أعد المحاولة»: تفعيل المستخدم الحقيقي وحده، ثم الموافقة؛ ولا طلب إلى المزوّد هنا. */
-  open(event: Event): void {
-    if (!isTrustedActivation(event) || !this.deps.provider || this.state.kind === 'loading') return;
+  /** المحتوى كما يُرسل الآن: سياق القسم بحد الأسطر الحالي، مجهَّزًا بقالب القسم؛ أو null لصفحة بلا سياق. */
+  private prepare(): PreparedAnalysis | null {
     let context: ContextStructure | null;
     try {
-      context = this.collect();
+      context = this.collect({ limits: limitsOf(this.deps.lineLimit?.() ?? LINE_LIMIT_DEFAULT) });
     } catch {
       context = null;
     }
-    if (!context) {
+    return context ? prepareAnalysis(context, this.def) : null;
+  }
+
+  /** «حلّل…» أو «أعد التحليل» أو «أعد المحاولة»: تفعيل المستخدم الحقيقي وحده، ثم الموافقة؛ ولا طلب إلى المزوّد هنا. */
+  open(event: Event): void {
+    if (!isTrustedActivation(event) || !this.deps.provider || this.state.kind === 'loading') return;
+    const prepared = this.prepare();
+    if (!prepared) {
       this.set({ kind: 'failed', failure: 'no-context', message: 'لا سياق لهذه الصفحة يُبنى منه طلب؛ لم يُرسل شيء.', retryAt: null });
       return;
     }
-    const prepared = prepareAnalysis(context, this.def);
-    this.set({ kind: 'consent', prepared, status: undefined });
-    void this.deps.provider.status().then((status) => {
-      if (this.state.kind === 'consent' && this.state.prepared === prepared) this.set({ kind: 'consent', prepared, status });
+    this.show(prepared);
+  }
+
+  /** يعرض الموافقة بمحتوى مجهَّز ثم يقرأ وجهته (المزوّد المختار ومودله) من الخلفية. */
+  private show(prepared: PreparedAnalysis, changed?: string): void {
+    this.set({ kind: 'consent', prepared, status: undefined, ...(changed ? { changed } : {}) });
+    void this.deps.provider?.status().then((status) => {
+      if (this.state.kind === 'consent' && this.state.prepared === prepared) this.set({ kind: 'consent', prepared, status, ...(changed ? { changed } : {}) });
     });
   }
 
-  /** «إرسال للتحليل» (تحقق ConsentSheet من التفعيل الحقيقي): طلب واحد بما عرضته الموافقة نفسها. */
+  /**
+   * «إرسال للتحليل» (تحقق ConsentSheet من التفعيل الحقيقي): طلب واحد بما عرضته الموافقة نفسها. يُعاد بناء المحتوى وتُقرأ الوجهة أولًا: ما تغيّر عمّا
+   * عُرض يعيد عرض الموافقة ولا يُرسل شيء (AC-E10 (٥)).
+   */
   confirm(): void {
     const state = this.state;
     const provider = this.deps.provider;
-    if (state.kind !== 'consent' || !provider || !state.status?.model) return;
+    if (state.kind !== 'consent' || !provider || !state.status?.model || this.confirming) return;
+    const shown = state;
+    const shownStatus = state.status;
+    const now = this.prepare();
+    if (!now || now.prompt !== shown.prepared.prompt || now.system !== shown.prepared.system) {
+      if (now) this.show(now, 'تغيّر المحتوى منذ عُرضت الموافقة؛ هذا ما سيُرسل الآن. لم يُرسل شيء.');
+      else this.set({ kind: 'failed', failure: 'no-context', message: 'لم يعد للصفحة سياق يُبنى منه طلب؛ لم يُرسل شيء.', retryAt: null });
+      return;
+    }
+    this.confirming = true;
+    void provider
+      .status()
+      .then((fresh) => {
+        if (this.state !== shown) return;
+        if (!fresh || fresh.provider.id !== shownStatus.provider.id || fresh.model?.id !== shownStatus.model?.id) {
+          this.set({ kind: 'consent', prepared: shown.prepared, status: fresh, changed: 'تغيّر المزوّد المختار أو المودل منذ عُرضت الموافقة؛ هذه الوجهة الآن. لم يُرسل شيء.' });
+          return;
+        }
+        this.send(shown.prepared, fresh);
+      })
+      .finally(() => {
+        this.confirming = false;
+      });
+  }
+
+  private send(prepared: PreparedAnalysis, status: ProviderStatus): void {
+    const provider = this.deps.provider;
+    const model = status.model;
+    if (!provider || !model) return;
     const requestId = this.newId();
-    const { prepared, status } = state;
     this.set({ kind: 'loading', requestId, prepared, status });
-    const model = status.model as NonNullable<ProviderStatus['model']>;
-    void provider.analyze({ requestId, section: this.def.id, model: model.id, system: prepared.system, prompt: prepared.prompt }).then((response) => {
+    void provider.analyze({ requestId, section: this.def.id, provider: status.provider.id, model: model.id, system: prepared.system, prompt: prepared.prompt }).then((response) => {
       const now = this.state;
       if (now.kind !== 'loading' || now.requestId !== requestId) return;
       if (response.ok) this.set({ kind: 'result', outcome: response.data, parsed: parseAnalysis(response.data.text, prepared.prompt, response.data.stopReason), prepared });
       else {
         this.set({ kind: 'failed', failure: response.failure, message: failureText(response.failure, response.message), retryAt: response.retryAt });
-        if (response.failure === 'unauthorized' || response.failure === 'expired-key' || response.failure === 'permission') void this.readHealth();
+        if (['unauthorized', 'expired-key', 'permission', 'provider-changed', 'no-key', 'model-changed'].includes(response.failure)) void this.readHealth();
       }
     });
   }

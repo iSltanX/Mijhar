@@ -1,9 +1,10 @@
 // fixture-provider-mock (الخطة 7.1): محوّل مزوّد وهمي محلي لا يتصل بشبكة ولا يحتاج مفتاحًا حقيقيًا:
 //  - fetch وهمي يحاكي api.anthropic.com (قائمة مودلات ثابتة، ونجاح التحقق وفشله، ورد تحليل أو رفضه، ورد معادٍ يحاول توجيه الإضافة) ويسجّل كل طلب
 //    بعنوانه وترويساته وجسمه، ليُدقق ما خرج وإلى أين؛
-//  - ومحوّل مزوّد ثانٍ وهمي (MOCK_PROVIDER_B) بمضيف لا يوجد، يثبت أن السجل يقبل غير المزوّد الأول دون مس شيفرة الأقسام (AC-E9 (٦)).
+//  - ومحوّلان وهميان لمزوّدين غير Anthropic (MOCK_B يعلن توافق مودلاته، وMOCK_C لا يعلنه ويدعم الفحص الصريح) بمضيفين لا يوجدان، يثبتان التبديل
+//    والعزل والموافقة الفعلية دون مس شيفرة الأقسام (AC-E10، محاكاة).
 // معرّفات المودلات هنا وهمية عمدًا: لا مودل حقيقي مثبت في الاختبار ولا في الشيفرة. والمفتاح يُركَّب وقت التشغيل.
-import type { AnalysisReply, ModelsList, ProviderAdapter, ProviderResult } from '../../../../src/modules/e/provider';
+import type { AnalysisReply, ModelsList, ProviderAdapter, ProviderDescriptor, ProviderModel, ProviderResult } from '../../../../src/modules/e/provider';
 
 export const fakeKey = (tag = 'A'): string => ['sk', 'ant', 'api03', `${tag}MIJHARMOCKKEY`.repeat(5)].join('-');
 
@@ -104,23 +105,92 @@ export function providerMock(scenario: MockScenario = {}) {
   return { fetch: fetch as unknown as typeof globalThis.fetch, requests };
 }
 
-/** مزوّد ثانٍ وهمي: محوّل كامل بمضيفه وصيغة مفتاحه، لا يعرف الأقسام ولا تعرفه. */
-export const MOCK_PROVIDER_B: ProviderAdapter = {
-  id: 'mock-b',
-  title: 'Mock B',
-  host: 'api.mock-provider.test',
-  origin: 'https://api.mock-provider.test/*',
-  keyPrefix: 'mockb-',
-  verifyRequest: 'طلب واحد إلى https://api.mock-provider.test/models.',
-  checkKey: (input) => (/^mockb-[a-z0-9]{8,}$/.test(input.trim()) ? { ok: true, key: input.trim() } : { ok: false, reason: 'صيغة غير صالحة' }),
-  async listModels(call): Promise<ProviderResult<ModelsList>> {
-    const response = await call.fetch('/models', { method: 'GET', headers: { authorization: `Key ${call.key}` } });
-    if (!response.ok) return { ok: false, failure: 'http', status: response.status, message: 'فشل', retryAt: null };
-    return { ok: true, status: 200, data: { provider: 'mock-b', models: [{ id: 'b-model', displayName: 'B Model', createdAt: null, line: 'sonnet', maxTokens: 1000, maxInputTokens: null, lifecycle: 'active' }], readAt: call.now(), source: 'https://api.mock-provider.test/models', partial: false } };
-  },
-  async analyze(call, request): Promise<ProviderResult<AnalysisReply>> {
-    const response = await call.fetch('/analyze', { method: 'POST', headers: { authorization: `Key ${call.key}` }, body: JSON.stringify({ m: request.model, p: request.prompt }) });
-    if (!response.ok) return { ok: false, failure: 'http', status: response.status, message: 'فشل', retryAt: null };
-    return { ok: true, status: 200, data: { text: '{"findings":[{"text":"من المزوّد الثاني","evidence":[]}]}', model: request.model, stopReason: 'end_turn', usage: null } };
-  },
+/** وصف مزوّد وهمي بمضيف محلي لا يوجد؛ للاختبار وحده (لا يدخل السجل المشحون). */
+export function mockDescriptor(id: 'mock-b' | 'mock-c', title: string, probe: boolean): ProviderDescriptor {
+  const host = `api.${id}.test`;
+  return {
+    id,
+    title,
+    host,
+    origin: `https://${host}/*`,
+    keyPrefix: `${id.slice(-1)}key-`,
+    keyName: `مفتاح ${title} الوهمي`,
+    keyFormat: { pattern: new RegExp(`^${id.slice(-1)}key-[a-z0-9]{12,}$`), rejects: [], mismatch: `لا يطابق صيغة مفتاح ${title}.` },
+    verifyRequest: `طلب واحد GET https://${host}/models يقرأ قائمة المودلات.`,
+    probeRequest: probe ? `طلب واحد POST https://${host}/probe بنص ثابت لا يحمل شيئًا من صفحاتك` : null,
+    policy: { url: `https://${host}/policy`, label: host, readOn: '2026-10-24', summary: 'سياسة وهمية للاختبار.' },
+  };
+}
+
+/** مفتاح بصيغة المزوّد الوهمي يُركَّب وقت التشغيل. */
+export const fakeMockKey = (id: 'mock-b' | 'mock-c', tag = 'a'): string => `${id.slice(-1)}key-${tag.toLowerCase()}${'mijharmock'.repeat(2)}`;
+
+const MOCK_LISTS: Readonly<Record<'mock-b' | 'mock-c', readonly ProviderModel[]>> = {
+  // B تعلن واجهته توافق مودلاته (كما في Anthropic).
+  'mock-b': [
+    { id: 'b-model-2', displayName: 'B Model 2', createdAt: null, line: null, maxTokens: 1000, maxInputTokens: null, lifecycle: 'active', compatibility: 'declared' },
+    { id: 'b-model-1', displayName: 'B Model 1', createdAt: null, line: null, maxTokens: 1000, maxInputTokens: null, lifecycle: 'active', compatibility: 'declared' },
+  ],
+  // C لا تعلن واجهته التوافق (كقائمة id وcreated وحدها): لا خيار تحليل قبل فحص صريح (BLK-MODEL-COMPAT).
+  'mock-c': [
+    { id: 'c-model-x', displayName: 'c-model-x', createdAt: null, line: null, maxTokens: null, maxInputTokens: null, lifecycle: null, compatibility: 'unknown' },
+    { id: 'c-model-y', displayName: 'c-model-y', createdAt: null, line: null, maxTokens: null, maxInputTokens: null, lifecycle: null, compatibility: 'unknown' },
+  ],
 };
+
+/** محوّل وهمي كامل بمضيفه وترويسته وصيغة مفتاحه، لا يعرف الأقسام ولا تعرفه. */
+export function mockAdapter(id: 'mock-b' | 'mock-c', title: string): ProviderAdapter {
+  const descriptor = mockDescriptor(id, title, id === 'mock-c');
+  const fail = (response: Response): ProviderResult<never> => ({ ok: false, failure: response.status === 401 ? 'unauthorized' : 'http', status: response.status, message: `HTTP ${response.status}`, retryAt: null });
+  const adapter: ProviderAdapter = {
+    descriptor,
+    async listModels(call): Promise<ProviderResult<ModelsList>> {
+      const response = await call.fetch('/models', { method: 'GET', headers: { 'x-mock-key': call.key } });
+      if (!response.ok) return fail(response);
+      return { ok: true, status: 200, data: { provider: id, models: MOCK_LISTS[id], readAt: call.now(), source: `https://${descriptor.host}/models`, partial: false } };
+    },
+    async analyze(call, request): Promise<ProviderResult<AnalysisReply>> {
+      const response = await call.fetch('/analyze', { method: 'POST', headers: { 'x-mock-key': call.key }, body: JSON.stringify({ m: request.model, s: request.system, p: request.prompt }) });
+      if (!response.ok) return fail(response);
+      return { ok: true, status: 200, data: { text: `{"summary":"من ${title}","findings":[],"next_steps":[],"missing":[]}`, model: request.model, stopReason: 'end_turn', usage: null } };
+    },
+  };
+  if (id !== 'mock-c') return adapter;
+  return {
+    ...adapter,
+    async probe(call, model): Promise<ProviderResult<true>> {
+      const response = await call.fetch('/probe', { method: 'POST', headers: { 'x-mock-key': call.key }, body: JSON.stringify({ m: model, p: 'ping' }) });
+      return response.ok ? { ok: true, status: 200, data: true } : fail(response);
+    },
+  };
+}
+
+export const MOCK_B = mockAdapter('mock-b', 'Mock B');
+export const MOCK_C = mockAdapter('mock-c', 'Mock C');
+
+export interface HostRecord {
+  readonly host: string;
+  readonly path: string;
+  readonly method: string;
+  readonly key: string | null;
+  readonly body: string | null;
+}
+
+/** fetch وهمي لمضيفي B وC: يسجّل كل طلب بمضيفه ومفتاحه ويرد بنجاح، أو برمز يحدده الاختبار لمضيف أو لمضيف ومسار، أو بفشل فحص مودل بعينه. */
+export function mockHostsFetch(options: { readonly probeFails?: readonly string[]; readonly status?: Readonly<Record<string, number>> } = {}) {
+  const requests: HostRecord[] = [];
+  const fetch = async (input: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
+    const url = new URL(String(input));
+    const headers = Object.fromEntries(new Headers(init.headers).entries());
+    const body = typeof init.body === 'string' ? init.body : null;
+    requests.push({ host: url.host, path: url.pathname, method: init.method ?? 'GET', key: headers['x-mock-key'] ?? null, body });
+    const forced = options.status?.[`${url.host}${url.pathname}`] ?? options.status?.[url.host];
+    if (forced !== undefined) return new Response('{}', { status: forced });
+    if (url.pathname === '/probe') {
+      const model = (JSON.parse(body ?? '{}') as { m?: string }).m ?? '';
+      return new Response('{}', { status: options.probeFails?.includes(model) ? 400 : 200 });
+    }
+    return new Response('{}', { status: 200 });
+  };
+  return { fetch: fetch as unknown as typeof globalThis.fetch, requests };
+}

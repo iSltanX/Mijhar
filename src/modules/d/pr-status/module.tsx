@@ -241,8 +241,8 @@ class PrStatusController {
     private readonly deps: ControllerDeps,
   ) {
     this.domReadAt = deps.now();
-    // AD-30: القراءة الممرَّرة تُربط في الجامع بما تعرضه الصفحة وقت التحليل؛ ولغير الظاهر لا تدخل ويُعلن ذلك.
-    this.analysisPart = new SectionAnalysis(ctx, 'pr', deps.analysis, () => prepareContext(ctx.document, ctx.selectors, ctx.page, { extras: { api: this.apiData } }), () => this.refresh('tick'));
+    // AD-30: القراءة الممرَّرة تُربط في الجامع بما تعرضه الصفحة وقت التحليل؛ ولغير الظاهر لا تدخل ويُعلن ذلك. وحد الأسطر PP-03 من المتحكم (I-3).
+    this.analysisPart = new SectionAnalysis(ctx, 'pr', deps.analysis, ({ limits }) => prepareContext(ctx.document, ctx.selectors, ctx.page, { limits, extras: { api: this.apiData } }), () => this.refresh('tick'));
   }
 
   start(): void {

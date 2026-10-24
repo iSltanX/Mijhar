@@ -1,8 +1,11 @@
 // «لماذا مفتاح مزوّد التحليل؟» في صفحة الإعدادات (AD-29، AC-E9 (٨)، الإطار O-18): ما يضيفه المفتاح وأين يظهر داخل الأقسام القائمة بمثال قصير لكل
 // منها موسوم «احتمال يحتاج تحققًا»، وما يُرسل ولمن ومتى، وما يبقى دونه. لا أسعار ولا تكلفة ولا روابط لها (AD-31)، ولا ذكر لميزة لم تُدمج.
 // والأقسام وعناوينها من سجل الميزات نفسه (CONNECTED_FEATURES)، فلا تختلف عما يظهر فيها. لا طلب شبكة من الصفحة؛ ورابط سياسة المزوّد يُفتح بنقر.
+// MJ23 (AC-E10 (٧)، الإطار O-26): لا يُحصر التحليل في مزوّد: أسماء المزوّدين ومضيفاتهم وسياساتهم من سجلهم الوصفي، فلا يُذكر مزوّد لم يُدمج محوّله.
 import { useEffect, useRef } from 'preact/hooks';
 import { CONNECTED_FEATURES } from '../../core/connections/features';
+import { PROVIDER_DESCRIPTORS, providerNames } from '../../modules/e/provider/catalog';
+import type { ProviderDescriptor } from '../../modules/e/provider/types';
 import { Ltr } from '../../shared/ui';
 import { Icon } from '../../shared/ui/icons';
 import type { IconName } from '../../shared/ui/icons';
@@ -14,13 +17,9 @@ export interface ProviderKeyGuideProps {
   readonly onBack: () => void;
   /** يفتح بطاقة المفتاح في الإعدادات. */
   readonly onAdd: () => void;
+  /** السجل الوصفي (للاختبار بمزوّدين وهميين). */
+  readonly descriptors?: readonly ProviderDescriptor[];
 }
-
-/** سياسة الاحتفاظ بالبيانات كما أعلنها المزوّد، بتاريخ قراءتها (privacy.claude.com). */
-export const RETENTION_SOURCE = {
-  url: 'https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data',
-  readOn: '2026-10-24',
-} as const;
 
 const PLACES: Readonly<Record<string, { readonly where: string; readonly icon: IconName; readonly example: string }>> = {
   'd.analysis.checks': {
@@ -51,7 +50,7 @@ const PLACES_CSS = `
 @media (max-width: 640px) { .mj-root .guide .place { grid-template-columns: minmax(0, 1fr); } }
 `;
 
-export function ProviderKeyGuide({ onBack, onAdd }: ProviderKeyGuideProps) {
+export function ProviderKeyGuide({ onBack, onAdd, descriptors = PROVIDER_DESCRIPTORS }: ProviderKeyGuideProps) {
   const ref = useRef<HTMLElement>(null);
   useStyles(ref, 'provider-key-guide', GUIDE_CSS + PLACES_CSS);
   const title = useRef<HTMLHeadingElement>(null);
@@ -75,8 +74,8 @@ export function ProviderKeyGuide({ onBack, onAdd }: ProviderKeyGuideProps) {
           لماذا مفتاح مزوّد التحليل؟
         </h1>
         <p class="lead">
-          المفتاح اختياري. يضيف تحليلًا نصيًّا يقترحه نموذج Claude من Anthropic داخل الأقسام التي تعرفها، ولا يبدأ أي تحليل إلا حين تطلبه وتختار «إرسال للتحليل»
-          بعد أن ترى ما سيُرسل.
+          المفتاح اختياري. يضيف تحليلًا نصيًّا يقترحه نموذج من المزوّد الذي تختاره ({providerNames(descriptors)}) داخل الأقسام التي تعرفها، ولا يبدأ أي تحليل إلا حين
+          تطلبه وتختار «إرسال للتحليل» بعد أن ترى ما سيُرسل.
         </p>
       </header>
 
@@ -107,7 +106,14 @@ export function ProviderKeyGuide({ onBack, onAdd }: ProviderKeyGuideProps) {
           <li data-send="destination">
             <Icon name="globe" />
             <span>
-              الوجهة: <Ltr className="mono">api.anthropic.com</Ltr> وحدها، مباشرة من خلفية الإضافة بلا أي وسيط.
+              الوجهة: مضيف المزوّد الذي اخترته وحده (
+              {descriptors.map((d, i) => (
+                <span key={d.id}>
+                  {i > 0 ? ' أو ' : ''}
+                  <Ltr className="mono">{d.host}</Ltr>
+                </span>
+              ))}
+              )، مباشرة من خلفية الإضافة بلا أي وسيط وبمفتاحك لديه وحده؛ ولا يُرسل مفتاح مزوّد إلى غيره.
             </span>
           </li>
           <li data-send="content">
@@ -120,16 +126,23 @@ export function ProviderKeyGuide({ onBack, onAdd }: ProviderKeyGuideProps) {
           </li>
           <li data-send="key">
             <Icon name="key" />
-            <span>المفتاح: في ذاكرة الجلسة افتراضيًا، أو على القرص غير مشفَّر باختيارك، ويُرسل إلى المزوّد وحده للمصادقة، ولا يظهر في سجل ولا برومبت ولا تصدير.</span>
+            <span>المفتاح: لكل مزوّد مفتاحه، في ذاكرة الجلسة افتراضيًا أو على القرص غير مشفَّر باختيارك، ويُرسل إلى مزوّده وحده للمصادقة، ولا يظهر في سجل ولا برومبت ولا تصدير.</span>
           </li>
         </ul>
-        <p class="muted small" data-retention="">
-          سياسة المزوّد المعلنة (قُرئت {RETENTION_SOURCE.readOn} من{' '}
-          <a href={RETENTION_SOURCE.url} {...external}>
-            privacy.claude.com
-          </a>
-          ): يحذف مدخلات API ومخرجاتها من خوادمه خلال 30 يومًا مع استثناءات يذكرها، ولا يدرّب نماذجه عليها في المنتجات التجارية ما لم تأذن.
-        </p>
+        <p class="muted small">لكل مزوّد سياسته في استعمال البيانات كما أعلنها في صفحته الرسمية، ولا يدّعي مِجهَر عنها ما لم يعلنه المزوّد:</p>
+        <ul class="ticks" data-retention="">
+          {descriptors.map((d) => (
+            <li key={d.id} class="muted small" data-retention-provider={d.id}>
+              <span>
+                سياسة {d.title} المعلنة (قُرئت {d.policy.readOn} من{' '}
+                <a href={d.policy.url} {...external}>
+                  {d.policy.label}
+                </a>
+                ): {d.policy.summary}
+              </span>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section class="card" aria-labelledby="mj-pk-without">
