@@ -1,0 +1,805 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "browserVersion": "156.0.8078.47",
+    "surfaces": {
+      "options": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": true,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": true,
+            "glyphs": 98
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 1
+      },
+      "sidepanel": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": true,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": true,
+            "glyphs": 6
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 1
+      },
+      "github": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 19
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": true,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": true,
+            "glyphs": 5
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "options: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "github: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي",
+        "ok": true
+      }
+    ]
+  },
+  "edge": {
+    "label": "Edge",
+    "browserVersion": "155.0.4283.60",
+    "surfaces": {
+      "options": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": true,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": true,
+            "glyphs": 98
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 1
+      },
+      "sidepanel": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": true,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": true,
+            "glyphs": 6
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 1
+      },
+      "github": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 19
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": true,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": true,
+            "glyphs": 5
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "options: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "github: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي",
+        "ok": true
+      }
+    ]
+  },
+  "brave": {
+    "label": "Brave",
+    "browserVersion": "156.0.8078.48",
+    "surfaces": {
+      "options": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": true,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": true,
+            "glyphs": 98
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 1
+      },
+      "sidepanel": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": true,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": true,
+            "glyphs": 6
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 1
+      },
+      "github": {
+        "heading": {
+          "requested": "\"Mijhar UI Cairo\", Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": true,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": true,
+            "glyphs": 19
+          }
+        },
+        "text": {
+          "requested": "\"Mijhar UI Almarai\", Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": true,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": true,
+            "glyphs": 5
+          }
+        },
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "options: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": true
+      },
+      {
+        "name": "github: النص يُرسم بـAlmarai المضمّن",
+        "ok": true
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي",
+        "ok": true
+      }
+    ]
+  },
+  "firefox": {
+    "label": "Firefox",
+    "browserVersion": "158.0.1",
+    "surfaces": {
+      "options": {
+        "heading": "Mijhar UI Cairo, Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "headingWeight": "700",
+        "text": "Mijhar UI Almarai, Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "check": {
+          "display": true,
+          "text": true
+        },
+        "uiStyleElements": 1
+      },
+      "sidepanel": {
+        "heading": "Mijhar UI Cairo, Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "headingWeight": "700",
+        "text": "Mijhar UI Almarai, Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "check": {
+          "display": true,
+          "text": true
+        },
+        "uiStyleElements": 1
+      },
+      "github": {
+        "heading": "Mijhar UI Cairo, Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "headingWeight": "700",
+        "text": "Mijhar UI Almarai, Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "faces": [
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Mijhar UI Cairo",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Mijhar UI Almarai",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "check": {
+          "display": true,
+          "text": true
+        },
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل",
+        "ok": true
+      },
+      {
+        "name": "options: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل",
+        "ok": true
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل",
+        "ok": true
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل",
+        "ok": true
+      },
+      {
+        "name": "github: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل",
+        "ok": true
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": true
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي للإضافة",
+        "ok": true
+      }
+    ]
+  }
+}
