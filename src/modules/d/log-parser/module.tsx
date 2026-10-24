@@ -3,8 +3,15 @@
 //  - الشبكة: لا طلب إلا بنقر صريح على «اقرأ سجل الخطوة الفاشلة»: طلب واحد بنفس الأصل لرابط data-log-url الذي تعرضه الصفحة نفسها،
 //    بلا رمز ولا اتصال بـapi.github.com. لغير المسجَّل يحجبه GitHub (404، evidence/T-0.3) فلا يُعرض الزر ويُعلَن الحجب (BLK-GH-AUTH-LOGS).
 //  - السجل الأكبر من الحد يُقتطع من أوله ويُعلَن ذلك.
+//  - MJ21 (T-11.7، AC-D9): «حلّل الفشل واقترح الإصلاح» في الطبقة الثالثة وحدها: بلا مفتاح بوابة معلَّلة ولا نص تحليل؛ وبمفتاح موافقة ثم نتيجة
+//    موسومة بأدلتها. السياق من الطبقة المشتركة بالسجل المقروء إن قُرئ، ولا يُرسل شيء قبل «إرسال للتحليل».
 import { mountSurface } from '../../../core/ui-host/surface';
 import type { ExtensionModule, ModuleContext } from '../../../core';
+import { prepareContext } from '../../e/context';
+import type { LogExtra } from '../../e/context';
+import { SectionAnalysis, defaultAnalysisDeps } from '../analysis/controller';
+import type { SectionAnalysisDeps } from '../analysis/controller';
+import { ANALYSIS_CSS } from '../analysis/style';
 import { LOG_MODULE_ID } from './ids';
 import { JOB_PAGE_SELECTORS, isJobPath, readJobPage } from './job-page';
 import type { JobPage, JobStep } from './job-page';
@@ -48,6 +55,8 @@ export const fetchStepLog: FetchLog = async (url, signal) => {
 export interface LogModuleOptions {
   readonly fetchLog?: FetchLog;
   readonly debounceMs?: number;
+  /** MJ21: منافذ التحليل (للاختبار). الافتراضي رسائل الخلفية؛ وخارج الإضافة لا تحليل. */
+  readonly analysis?: SectionAnalysisDeps;
 }
 
 export function createLogModule(options: LogModuleOptions = {}): ExtensionModule {
@@ -60,7 +69,7 @@ export function createLogModule(options: LogModuleOptions = {}): ExtensionModule
     shouldMount: (page) => isJobPath(page.href),
     selectors: JOB_PAGE_SELECTORS,
     mount(ctx) {
-      new LogController(ctx, fetchLog, debounceMs).start();
+      new LogController(ctx, fetchLog, debounceMs, options.analysis ?? defaultAnalysisDeps()).start();
     },
   };
 }
@@ -72,15 +81,29 @@ class LogController {
   private loaded: Loaded | null = null;
   private loading = false;
   private timer: ReturnType<typeof setTimeout> | null = null;
+  private readonly analysisPart: SectionAnalysis;
 
   constructor(
     private readonly ctx: ModuleContext,
     private readonly fetchLog: FetchLog,
     private readonly debounceMs: number,
-  ) {}
+    analysisDeps: SectionAnalysisDeps,
+  ) {
+    this.analysisPart = new SectionAnalysis(ctx, 'checks', analysisDeps, () => prepareContext(ctx.document, ctx.selectors, ctx.page, { extras: { log: this.logExtra() } }), () => this.refresh());
+  }
+
+  /** السجل كما قرأه القسم بنقر المستخدم، أو غيابه بسببه؛ تمرّره الطبقة المشتركة إلى التحليل كما هو. */
+  private logExtra(): LogExtra {
+    const page = readJobPage(this.ctx.document, this.ctx.selectors);
+    const failed = page.failedSteps[0] ?? null;
+    const loaded = this.loaded && failed && this.loaded.step === failed.number ? this.loaded : null;
+    if (loaded?.ok) return { text: loaded.log.text, source: 'step-log', step: failed, truncatedBySource: loaded.log.truncated };
+    return { text: null, unavailableReason: this.unavailableReason(page, failed, loaded), source: 'annotations', step: failed };
+  }
 
   start(): void {
     const { ctx } = this;
+    this.analysisPart.start();
     this.refresh();
     ctx.observe(ctx.page.contentRoot ?? ctx.document.body, { childList: true, subtree: true }, (records) => {
       const own = this.surface?.host;
@@ -114,7 +137,7 @@ class LogController {
     if (!this.surface) {
       const logs = ctx.selectors.resolve(ctx.document, 'd.job.logs')?.element;
       const parent = logs?.parentNode ?? ctx.page.contentRoot ?? ctx.document.body;
-      this.surface = mountSurface(ctx, { parent, before: logs ?? parent.firstChild, styles: LOG_CSS, label: 'شرح سجل الفحص' });
+      this.surface = mountSurface(ctx, { parent, before: logs ?? parent.firstChild, styles: LOG_CSS + ANALYSIS_CSS, label: 'شرح سجل الفحص' });
     }
     this.surface.render(this.view(page, failed));
   }
@@ -141,7 +164,7 @@ class LogController {
     const canRead = Boolean(failed?.logUrl) && !page.signInForLogs && !(this.loaded?.ok && this.loaded.step === failed?.number);
     const others = page.failedSteps.length - 1;
     return (
-      <LogAnalysisView analysis={analysis}>
+      <LogAnalysisView analysis={analysis} analysisSlot={this.analysisPart.view()}>
         <div class="d-actions">
           {canRead && (
             <button type="button" class="d-button" data-action="read-step-log" disabled={this.loading} onClick={() => this.load(failed)}>
