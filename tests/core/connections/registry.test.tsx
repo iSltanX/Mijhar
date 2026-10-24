@@ -13,6 +13,7 @@ import { HEALTH_LOG_KEY } from '../../../src/core/connections/service';
 import { ConnectionsSection } from '../../../src/core/connections/ui/ConnectionsSection';
 import { OPEN_OPTIONS_MESSAGE, OPTIONS_TARGETS } from '../../../src/core/ui-host/commands';
 import { TokenSection } from '../../../src/modules/d/token/TokenSection';
+import { OptionsApp } from '../../../src/options/OptionsApp';
 import { FIXTURE, PROVIDER_PATTERN, TOKEN_PATTERN, connectionSystem, fakeProviderKey, fakeToken, pathOf } from './helpers';
 import type { Call, Reply } from './helpers';
 
@@ -259,5 +260,40 @@ describe('(٥) و(٦) العزل والحذف', () => {
     const guide = ui.card('github-token')?.querySelector<HTMLAnchorElement>('a[data-action="token-guide"]');
     expect(guide?.getAttribute('href')).toBe('#guide/github-token');
     expect(all).not.toContain('لماذا المفتاح');
+  });
+
+  it('(٧) في صفحة الإعدادات: المدخل يفتح الدليل، والرجوع (#token) يعيد التركيز إلى «كيف تحصل على الرمز؟» داخل بطاقة الرمز في السجل', async () => {
+    const s = await connectionSystem(() => state('valid'));
+    window.location.hash = '';
+    await act(async () =>
+      render(
+        <OptionsApp
+          settings={() => (
+            <ConnectionsSection
+              connections={s.connections}
+              body={(id, header, status, refresh) => (id === 'github-token' ? <TokenSection store={s.tokens} port={s.port} target="chromium" now={() => NOW} header={header} status={status} onChange={refresh} /> : null)}
+            />
+          )}
+        />,
+        container,
+      ),
+    );
+    await flush();
+    await act(async () => {
+      (container.querySelector('[data-connection="github-token"] [data-action="token-guide"]') as HTMLAnchorElement).click();
+      await new Promise((r) => setTimeout(r, 20));
+    });
+    expect(window.location.hash).toBe('#guide/github-token');
+    expect(container.querySelector('[data-section="connections"]')).toBeNull();
+    await act(async () => {
+      (container.querySelector('[data-action="guide-back"]') as HTMLButtonElement).click();
+      await new Promise((r) => setTimeout(r, 20));
+    });
+    await flush();
+    expect(window.location.hash).toBe('#token');
+    const active = document.activeElement;
+    expect(active?.getAttribute('data-action')).toBe('token-guide');
+    expect(active?.closest('[data-connection="github-token"]')).not.toBeNull();
+    window.location.hash = '';
   });
 });
