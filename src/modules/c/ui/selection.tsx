@@ -8,6 +8,8 @@ import { createShadowHost } from '../../../core/ui-host/shadow';
 import type { ShadowParts } from '../../../core/ui-host/shadow';
 import { copyMaskedText } from '../engines/fallback';
 import type { ClipboardWrite } from '../engines/fallback';
+import { ConsentPanel } from '../model-manager/consent-panel';
+import type { ConsentCard } from '../model-manager/consent';
 import { INTEGRITY_WARNING, maskSegments, translateProtected } from '../masking';
 import type { ProtectedTranslation } from '../masking';
 import { inlineSegments, skipReasonFor, tokenNodes } from './blocks';
@@ -67,13 +69,17 @@ function Button({ left, top, onTranslate }: { left: number; top: number; onTrans
 }
 
 export interface SelectionCardState {
-  readonly status: 'working' | 'translated' | 'kept' | 'error' | 'unavailable';
+  readonly status: 'working' | 'translated' | 'kept' | 'error' | 'unavailable' | 'consent';
   readonly original: string;
   readonly body?: HTMLElement;
   readonly message?: string;
   /** بديل غياب المحرك (AC-C4): نسخ التحديد مقنَّعًا، ونتيجة آخر نسخ. */
   readonly copy?: () => void;
   readonly copyNote?: string;
+  /** بطاقة الاستئذان قبل تنزيل المتصفح حزمة اللغة (T-4.4) ونقرتاها. */
+  readonly consent?: ConsentCard;
+  readonly onConsent?: () => void;
+  readonly onDecline?: () => void;
 }
 
 function Card({ state, left, top, onClose }: { state: SelectionCardState; left: number; top: number; onClose: () => void }) {
@@ -120,6 +126,9 @@ function Card({ state, left, top, onClose }: { state: SelectionCardState; left: 
         </p>
       )}
       {state.status === 'translated' && <p class="sel-result" lang="ar" dir="rtl" data-section="translation" ref={holder} />}
+      {state.status === 'consent' && state.consent && state.onConsent && state.onDecline && (
+        <ConsentPanel card={state.consent} onConfirm={state.onConsent} onDecline={state.onDecline} />
+      )}
       {(state.status === 'kept' || state.status === 'error' || state.status === 'unavailable') && (
         <p class="tr-warning" role="note" data-section="notice">
           {state.message}
@@ -260,6 +269,19 @@ export class SelectionTranslator {
     };
     if (!service) return unavailable('لا محرك ترجمة محلي مُفعَّل.');
     const availability = await service.availability().catch(() => ({ state: 'unavailable' as const, reason: 'تعذّر فحص المحرك' }));
+    if (availability.state === 'consent') {
+      // أول استدعاء سينزّل المتصفح حزمة لغة: لا create() قبل موافقة صريحة (T-4.4).
+      return set({
+        status: 'consent',
+        original,
+        consent: availability.card,
+        onConsent: () => {
+          service.grantConsent?.();
+          void this.translate();
+        },
+        onDecline: () => this.closeCard(),
+      });
+    }
     if (availability.state !== 'ready') return unavailable(availability.state === 'unavailable' ? `المحرك غير متاح: ${availability.reason}` : 'لا محرك ترجمة محلي مُفعَّل.');
     let result: ProtectedTranslation;
     try {

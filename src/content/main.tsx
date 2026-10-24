@@ -3,11 +3,12 @@
 //  - مفاتيح الوحدات (modules.<a..h>.enabled) تركّب الوحدات وتزيلها في الصفحة المفتوحة عند تغيّرها من أي سياق.
 //  - الدرج لا يطلب صلاحية ولا يعرض حقل سرّ: ما يحتاج ذلك يُفتح في صفحة الإعدادات.
 //  - يجيب اللوحة الأصلية بوصف الصفحة من DOM (جسر VR-10): فرع الملف ومساره لا يُعرفان من الرابط وحده.
-//  - يسجّل محرك الترجمة المحلي المختار في DEC-03 لواجهة الترجمة (T-4.3): سكربت المحتوى هو السياق الذي ثبت فيه Translator API في T-0.2.
+//  - يسجّل محرك الترجمة المحلي المختار في DEC-03 لواجهة الترجمة (T-4.3): سكربت المحتوى هو السياق الذي ثبت فيه Translator API في T-0.2؛ ومعه إدارة
+//    الحزمة (T-4.4): بطاقة استئذان قبل أن ينزّل المتصفح حزمة اللغة، ورسائل واضحة لانقطاع الشبكة وامتلاء القرص.
 import { BUILTIN_MODULES, bindModuleToggles, createModuleRegistry, createSettingsRegistry, Drawer, extensionApi, isDrawerMessage, isModuleEnabled, LifecycleManager, OPEN_OPTIONS_MESSAGE, openSettings, PageDetector } from '../core';
 import type { ExtensionApi, ExtensionModule, LifecycleManagerOptions, OpenedSettings, StorageBinding } from '../core';
 import { connectModuleA } from '../modules/a/scope/module';
-import { installTranslationEngine } from '../modules/c/engines';
+import { installManagedTranslationEngine } from '../modules/c/model-manager';
 import { defineSectionSettings, SETTINGS_SECTIONS } from '../options/sections';
 import { respondPageInfo } from '../shared/page/page-source';
 import { PanelApp } from '../sidepanel/PanelApp';
@@ -28,7 +29,7 @@ export interface ContentHandle {
 export function startContent(options: ContentOptions = {}): ContentHandle {
   const api = options.api ?? extensionApi();
   const doc = options.document ?? document;
-  installTranslationEngine();
+  installManagedTranslationEngine();
   const opened = openSettings({
     migrate: false,
     registry: createSettingsRegistry((registry) => defineSectionSettings(registry)),

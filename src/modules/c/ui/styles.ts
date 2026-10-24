@@ -1,4 +1,7 @@
-// أنماط واجهة الترجمة: مضيفات الفقرات المترجَمة (ترث خط الصفحة ولونها فتبدو جزءًا منها)، وشريط التحكم فوق كل نص، وزر التحديد وبطاقته.
+// أنماط واجهة الترجمة: مضيفات الفقرات المترجَمة (ترث خط الصفحة ولونها فتبدو جزءًا منها)، وشريط التحكم فوق كل نص، وزر التحديد وبطاقته،
+// وبطاقة الاستئذان قبل تنزيل المتصفح حزمة اللغة (T-4.4، أنماطها في model-manager/consent-style.ts).
+import { CONSENT_CSS } from '../model-manager/consent-style';
+
 export const TRANSLATION_HOST_CSS = `
 :host {
   display: block !important; position: static !important; float: none !important; width: auto !important; max-width: 100% !important;
@@ -48,8 +51,8 @@ export const BAR_CSS = `
 .bar .note { font-size: 12px; color: var(--mijhar-text-secondary); }
 .bar .note[data-tone="danger"] { color: var(--mijhar-text-danger); }
 .bar progress { inline-size: 120px; block-size: 8px; accent-color: var(--mijhar-bg-brand); }
-@media (pointer: coarse), (hover: none) { .bar .btn { min-height: 44px; } }
-`;
+@media (pointer: coarse), (hover: none) { .bar .btn, .bar .consent .btn { min-height: 44px; } }
+${CONSENT_CSS}`;
 
 export const FLOAT_HOST_CSS = `
 :host {
@@ -77,4 +80,4 @@ export const FLOAT_CSS = `
 .sel-card .tr-warning { margin: 0; padding: 6px 10px; border-radius: var(--mijhar-radius-6); background: var(--mijhar-bg-warning-subtle); color: var(--mijhar-text-warning); }
 .sel-card .prot { direction: ltr; unicode-bidi: isolate; }
 @media (pointer: coarse), (hover: none) { .sel-btn, .sel-card .btn { min-height: 44px; } }
-`;
+${CONSENT_CSS}`;
