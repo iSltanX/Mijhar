@@ -47,7 +47,9 @@ describe('التعريفات: قائمة مغلقة بلا مفاتيح أسرا
   it('مفتاح المزوّد متاح مع طبقة التحليل (MJ21، AC-E9)، بوجهته الوحيدة وبلا أي ذكر لتكلفة (AD-31)', () => {
     const provider = CONNECTIONS.find((c) => c.id === 'provider-key');
     expect(provider?.availability).toBe('available');
-    expect(provider?.destination).toBe('api.anthropic.com');
+    // MJ23 (AC-E10 (٧)): الوصف لا يحصر الوجهة في مزوّد؛ مضيف المختار في بطاقة «مزوّد التحليل» من السجل الوصفي.
+    expect(provider?.destination).toBe('مضيف المزوّد المختار');
+    expect(JSON.stringify(provider)).not.toMatch(/anthropic|openai|gemini/i);
     expect(provider?.notYet).toBeUndefined();
     expect(JSON.stringify(provider)).not.toMatch(/تكلف|سعر|دولار/);
   });

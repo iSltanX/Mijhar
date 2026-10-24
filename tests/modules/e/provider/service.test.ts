@@ -4,19 +4,16 @@
 //  - إضافة المفتاح لا تبدأ أي تحليل: لا طلب إلا التحقق المعلن (قائمة المودلات)، وstatus لا يطلب شيئًا.
 //  - طلب التحليل واحد لكل رسالة، إلى api.anthropic.com وحده، بالمفتاح وحده (لا رمز GitHub في ترويسة ولا جسم)، ولا مفتاح في أي رد ولا رسالة خطأ.
 //  - حدود المزوّد التقنية تُحترم: موعد إعادة المحاولة المعلن، ومفتاح رفضه المزوّد، وطلب جارٍ من القسم نفسه؛ ولا حد إنفاق من الإضافة (AD-31).
-//  - المودلات من المزوّد وقت التشغيل بمصدرها ووقتها، والافتراضي من القائمة نفسها (فئة sonnet)، والمتقاعد لا يُعرض.
+//  - المودلات من المزوّد وقت التشغيل بمصدرها ووقتها، والافتراضي أول متوافق نشط من القائمة نفسها (بلا اسم ولا فئة)، والمتقاعد لا يُعرض.
+// وتعدد المزوّدين بمحوّلين وهميين في multi-provider.test.ts.
 import { describe, expect, it, vi } from 'vitest';
-import { PROVIDER_MODEL_KEY, createProviderRegistry } from '../../../../src/modules/e/provider';
 import type { AnalyzeInput } from '../../../../src/modules/e/provider';
-import { ANTHROPIC } from '../../../../src/modules/e/provider/adapters/anthropic';
-import { ProviderService, memoryModelsCache } from '../../../../src/modules/e/provider/service';
-import { fakePermissions } from '../../../core/ui-host/helpers';
-import { MOCK_PROVIDER_B, providerMock } from './fixture-provider-mock';
 import { ANTHROPIC_ORIGIN, GITHUB_ORIGIN, providerSystem } from './helpers';
 
 const input = (over: Partial<AnalyzeInput> = {}): AnalyzeInput => ({
   requestId: over.requestId ?? 'r1',
   section: 'checks',
+  provider: 'anthropic',
   model: 'mock-sonnet-2',
   system: 'تعليمات صيغة الرد',
   prompt: '# تشخيص الخطأ\n\n## مقتطف الخطأ\n\nerror TS2322: Type string is not assignable to type number\n',
@@ -34,7 +31,7 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
     expect(before?.model).toBeNull();
     expect(before?.key?.health).toBe('unverified');
 
-    const verified = await s.options.verify();
+    const verified = await s.options.verify('anthropic');
     expect(verified.ok).toBe(true);
     expect(s.provider.requests).toHaveLength(1);
     const [req] = s.provider.requests;
@@ -54,9 +51,9 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
     expect(s.github.some((g) => allText(g).includes(s.key))).toBe(false);
   });
 
-  it('AC-E9 (٣): المودلات من المزوّد وقت التشغيل بمصدرها ووقتها، والمتقاعد لا يُعرض، والافتراضي من القائمة (فئة sonnet) ويُثبَّت اختيارًا', async () => {
+  it('AC-E9 (٣): المودلات من المزوّد وقت التشغيل بمصدرها ووقتها، والمتقاعد لا يُعرض، والافتراضي أول متوافق نشط في القائمة ويُثبَّت اختيارًا', async () => {
     const s = await providerSystem();
-    await s.options.verify();
+    await s.options.verify('anthropic');
     const status = await s.tab().status();
     expect(status?.models?.source).toBe('https://api.anthropic.com/v1/models');
     expect(typeof status?.models?.readAt).toBe('number');
@@ -67,7 +64,7 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
 
   it('بلا صلاحية api.anthropic.com لا يُرسل التحقق ولا التحليل، والمفتاح «غير متحقق منه» بسببه', async () => {
     const s = await providerSystem({ granted: [GITHUB_ORIGIN] });
-    const verified = await s.options.verify();
+    const verified = await s.options.verify('anthropic');
     expect(verified).toMatchObject({ ok: false, failure: 'permission', status: null });
     expect(s.provider.requests).toHaveLength(0);
     const status = await s.tab().status();
@@ -78,7 +75,7 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
 
   it('بلا مفتاح محفوظ: لا طلب، ويُعلن السبب', async () => {
     const s = await providerSystem({ withKey: false });
-    expect(await s.options.verify()).toMatchObject({ ok: false, failure: 'no-key', status: null });
+    expect(await s.options.verify('anthropic')).toMatchObject({ ok: false, failure: 'no-key', status: null });
     expect(s.provider.requests).toHaveLength(0);
   });
 });
@@ -86,19 +83,21 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
 describe('AD-15: في Firefox لا تحليل دون موافقة مشاركة محتوى المواقع (websiteContent)', () => {
   it('صلاحية المضيف وحدها: التحقق يُرسل (لا محتوى فيه)، والحالة «غير ممنوحة»، والتحليل لا يُرسل ويُعلن السبب', async () => {
     const s = await providerSystem({ target: 'firefox' });
-    expect((await s.options.verify()).ok).toBe(true);
+    expect((await s.options.verify('anthropic')).ok).toBe(true);
     expect(s.provider.requests).toHaveLength(1);
     expect((await s.tab().status())?.permission).toBe(false);
     const result = await s.tab().analyze(input());
     expect(result).toMatchObject({ ok: false, failure: 'permission', status: null });
     if (!result.ok) expect(result.message).toContain('مشاركة محتوى المواقع');
     expect(s.provider.requests.filter((r) => r.method === 'POST')).toHaveLength(0);
-    expect(vi.mocked(s.permissions.contains)).toHaveBeenCalledWith({ origins: [ANTHROPIC_ORIGIN], data_collection: ['websiteContent'] });
+    // صلاحية المضيف (لكل مزوّد) والموافقة الواحدة (لكل المزوّدين) تُقرآن كلٌّ على حدة (AC-E10 (٦)).
+    expect(vi.mocked(s.permissions.contains)).toHaveBeenCalledWith({ origins: [ANTHROPIC_ORIGIN] });
+    expect(vi.mocked(s.permissions.contains)).toHaveBeenCalledWith({ data_collection: ['websiteContent'] });
   });
 
   it('بالموافقتين: طلب تحليل واحد كما في عائلة Chromium', async () => {
     const s = await providerSystem({ target: 'firefox', collected: ['websiteContent'] });
-    await s.options.verify();
+    await s.options.verify('anthropic');
     expect((await s.tab().status())?.permission).toBe(true);
     expect((await s.tab().analyze(input())).ok).toBe(true);
     expect(s.provider.requests.filter((r) => r.method === 'POST')).toHaveLength(1);
@@ -106,7 +105,7 @@ describe('AD-15: في Firefox لا تحليل دون موافقة مشاركة �
 
   it('عائلة Chromium لا تشترطها ولا تطلبها', async () => {
     const s = await providerSystem();
-    await s.options.verify();
+    await s.options.verify('anthropic');
     expect((await s.tab().analyze(input())).ok).toBe(true);
     for (const [set] of vi.mocked(s.permissions.contains).mock.calls) expect(set).not.toHaveProperty('data_collection');
   });
@@ -115,7 +114,7 @@ describe('AD-15: في Firefox لا تحليل دون موافقة مشاركة �
 describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
   it('طلب واحد POST /v1/messages إلى api.anthropic.com وحده بالمودل الذي عرضته الموافقة، والمفتاح وحده (لا رمز GitHub)، ولا مفتاح في أي رد', async () => {
     const s = await providerSystem();
-    await s.options.verify();
+    await s.options.verify('anthropic');
     const result = await s.tab().analyze(input());
     expect(result.ok).toBe(true);
     const posts = s.provider.requests.filter((r) => r.method === 'POST');
@@ -141,7 +140,7 @@ describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
 
   it('المودل تغيّر بعد عرض الموافقة: لا يُرسل شيء', async () => {
     const s = await providerSystem();
-    await s.options.verify();
+    await s.options.verify('anthropic');
     const result = await s.tab().analyze(input({ model: 'mock-haiku-2' }));
     expect(result).toMatchObject({ ok: false, failure: 'model-changed', status: null });
     expect(s.provider.requests.filter((r) => r.method === 'POST')).toHaveLength(0);
@@ -149,7 +148,7 @@ describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
 
   it('طلب جارٍ من القسم نفسه في التبويب: الثاني يُرفض دون إرسال؛ وقسم آخر أو تبويب آخر مستقل', async () => {
     const s = await providerSystem({ scenario: { delayMs: 40 } });
-    await s.options.verify();
+    await s.options.verify('anthropic');
     const tab = s.tab(41);
     const first = tab.analyze(input({ requestId: 'a' }));
     const second = await tab.analyze(input({ requestId: 'b' }));
@@ -164,7 +163,7 @@ describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
 
   it('موعد إعادة المحاولة الذي أعلنه المزوّد (429، retry-after) يُحترم: لا طلب قبله ولا إعادة تلقائية', async () => {
     const s = await providerSystem({ scenario: { analyze: '429', retryAfter: 30 } });
-    await s.options.verify();
+    await s.options.verify('anthropic');
     const first = await s.tab().analyze(input());
     expect(first).toMatchObject({ ok: false, failure: 'rate-limit', status: 429 });
     if (!first.ok) expect(first.retryAt).toBeGreaterThan(Date.now());
@@ -176,7 +175,7 @@ describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
 
   it('مفتاح رفضه المزوّد (401): «منتهٍ»، ولا يُرسل به ثانية حتى يُتحقق منه أو يُستبدل؛ والرسالة بلا المفتاح وإن ردّده الخادم', async () => {
     const s = await providerSystem({ scenario: { analyze: '401', echoKey: true } });
-    await s.options.verify();
+    await s.options.verify('anthropic');
     const first = await s.tab().analyze(input());
     expect(first).toMatchObject({ ok: false, failure: 'unauthorized', status: 401 });
     if (!first.ok) {
@@ -191,7 +190,7 @@ describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
 
   it('إيقاف طلب جارٍ يلغيه ولا نتيجة له', async () => {
     const s = await providerSystem({ scenario: { delayMs: 200 } });
-    await s.options.verify();
+    await s.options.verify('anthropic');
     const pending = s.tab().analyze(input({ requestId: 'stop-me' }));
     await new Promise((r) => setTimeout(r, 10));
     await s.tab().cancel('stop-me');
@@ -200,42 +199,9 @@ describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
 
   it('طلب غير صالح (بلا برومبت أو بمودل غير صالح) لا يُرسل', async () => {
     const s = await providerSystem();
-    await s.options.verify();
+    await s.options.verify('anthropic');
     expect(await s.tab().analyze(input({ prompt: '   ' }))).toMatchObject({ ok: false, failure: 'invalid-request' });
     expect(await s.tab().analyze(input({ model: 'bad model id' }))).toMatchObject({ ok: false, failure: 'invalid-request' });
     expect(s.provider.requests.filter((r) => r.method === 'POST')).toHaveLength(0);
-  });
-});
-
-describe('TEST-AI-02 (AC-E9 (٦)): السجل يقبل محوّلًا ثانيًا دون مس شيفرة الأقسام', () => {
-  it('خدمة بسجل فيه المزوّدان، والمختار الثاني: التحقق والتحليل إلى مضيفه وحده بصيغته، والأقسام لا تعرف أيهما', async () => {
-    const registry = createProviderRegistry([ANTHROPIC, MOCK_PROVIDER_B]);
-    const requests: string[] = [];
-    const fetch = (async (url: string | URL | Request) => {
-      requests.push(String(url));
-      return new Response('{}', { status: 200 });
-    }) as unknown as typeof globalThis.fetch;
-    const permissions = fakePermissions([MOCK_PROVIDER_B.origin]);
-    const values = new Map<string, unknown>([['e.provider.id', 'mock-b'], [PROVIDER_MODEL_KEY, '']]);
-    const settings = { get: <T,>(k: string) => values.get(k) as T, set: async (k: string, v: unknown) => void values.set(k, v) };
-    const service = new ProviderService({
-      registry,
-      keys: { read: async () => ({ token: 'mockb-abcdef123', savedAt: 1, place: 'session' }), info: async () => ({ place: 'session', savedAt: 1 }) },
-      permissions,
-      fetch,
-      connections: { status: async () => [], observe: async () => undefined },
-      settings: async () => settings as never,
-      cache: memoryModelsCache(),
-    });
-    const verified = await service.verify();
-    expect(verified.ok).toBe(true);
-    expect((await service.status()).provider).toMatchObject({ id: 'mock-b', host: 'api.mock-provider.test' });
-    const result = await service.analyze(input({ model: 'b-model' }), 'tab-1');
-    expect(result.ok).toBe(true);
-    expect(requests).toEqual(['https://api.mock-provider.test/models', 'https://api.mock-provider.test/analyze']);
-    // صلاحية مضيف المزوّد الأول غير ممنوحة هنا، ولم يُطلب منه شيء.
-    expect(requests.some((u) => u.includes('anthropic'))).toBe(false);
-    expect(providerMock().requests).toHaveLength(0);
-    void ANTHROPIC_ORIGIN;
   });
 });

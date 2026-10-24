@@ -1,10 +1,11 @@
-// سجل المزوّدين (T-11.6، AC-E9 (٦)): قائمة مغلقة من المحوّلات، والمزوّد الأول Anthropic (DEC-09). إضافة مزوّد = ملف محوّل في adapters/ وسطر
-// هنا ومضيفه في optional_host_permissions؛ ولا تمس شيفرة الأقسام (d/analysis وما يعرضه)، فهي تتعامل مع السجل والخلفية لا مع محوّل بعينه.
+// سجل المحوّلات (T-11.6، T-11.10، AC-E10 (١)): قائمة مغلقة من محوّلات المزوّدين للخلفية وحدها، فلا تصل ترويساتها ولا مساراتها حزمة غير background.js
+// (I-2). ووصف كل مزوّد (ما تعرضه الواجهات) في السجل الوصفي catalog.ts؛ واختبار يفرض أن القائمتين متطابقتان بالترتيب والوصف نفسه، فلا تعرض الواجهة
+// مزوّدًا لم يُدمج محوّله ولا يبقى محوّل بلا وصف. ولا تمس إضافة محوّل شيفرة الأقسام (d/analysis وما يعرضه).
 // والمودل يُختار من قائمة المزوّد وقت التشغيل: لا معرّف مودل ولا سعر في الشيفرة (AC-E9 (٣)، AD-31).
-import { ANTHROPIC } from './adapters/anthropic';
-import type { ModelsList, ProviderAdapter, ProviderModel } from './types';
+import { ANTHROPIC_ADAPTER } from './adapters/anthropic';
+import type { ProviderAdapter } from './types';
 
-export const PROVIDERS: readonly ProviderAdapter[] = [ANTHROPIC];
+export const PROVIDER_ADAPTERS: readonly ProviderAdapter[] = [ANTHROPIC_ADAPTER];
 
 export interface ProviderRegistry {
   readonly list: readonly ProviderAdapter[];
@@ -13,24 +14,18 @@ export interface ProviderRegistry {
   readonly first: ProviderAdapter;
 }
 
-export function createProviderRegistry(list: readonly ProviderAdapter[] = PROVIDERS): ProviderRegistry {
+export function createProviderRegistry(list: readonly ProviderAdapter[] = PROVIDER_ADAPTERS): ProviderRegistry {
   const first = list[0];
   if (!first) throw new Error('سجل المزوّدين فارغ');
   const ids = new Set<string>();
-  for (const p of list) {
-    if (ids.has(p.id)) throw new Error(`مزوّد بمعرّف مكرر: ${p.id}`);
-    ids.add(p.id);
+  const hosts = new Set<string>();
+  for (const { descriptor: d } of list) {
+    if (ids.has(d.id)) throw new Error(`مزوّد بمعرّف مكرر: ${d.id}`);
+    // مضيف لكل مزوّد: صلاحيته وسحبها ومفتاحه يخصونه وحده.
+    if (hosts.has(d.host)) throw new Error(`مضيف مكرر بين مزوّدين: ${d.host}`);
+    if (d.origin !== `https://${d.host}/*`) throw new Error(`نمط صلاحية لا يطابق مضيف المزوّد: ${d.origin}`);
+    ids.add(d.id);
+    hosts.add(d.host);
   }
-  return { list, first, byId: (id) => list.find((p) => p.id === id) ?? null };
+  return { list, first, byId: (id) => list.find((p) => p.descriptor.id === id) ?? null };
 }
-
-/**
- * المودل الافتراضي من قائمة المزوّد نفسها: أحدث مودل نشط من فئة «sonnet» كما يعلنها المزوّد، وإلا أول مودل نشط (القائمة الأحدث أولًا)؛
- * ولا يُستنتج شيء من المعرّف.
- */
-export function defaultModel(list: Pick<ModelsList, 'models'>): ProviderModel | null {
-  const active = list.models.filter((m) => m.lifecycle === null || m.lifecycle === 'active');
-  return active.find((m) => m.line === 'sonnet') ?? active[0] ?? list.models[0] ?? null;
-}
-
-export const isModelId = (value: unknown): value is string => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:@-]{0,127}$/.test(value);

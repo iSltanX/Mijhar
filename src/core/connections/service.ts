@@ -3,6 +3,8 @@
 //  - السجل يُحفظ في storage.session (لا سرّ فيه: حالة وأرقام وأسباب منقّحة)، فيبقى بعد إيقاظ الخلفية ويُمحى بإغلاق المتصفح؛ وإن تعذّر
 //    فالذاكرة. سجل لكل اتصال مربوط بوقت حفظ سرّه.
 //  - التعديلات متسلسلة في طابور واحد، فلا تُسقط استجابتان متزامنتان إحداهما الأخرى.
+//  - MJ23 (T-11.10، AC-E10 (٢)): مفتاح مزوّد التحليل لكل مزوّد بمخزنه وسجل صحته؛ و«مفتاح مزوّد التحليل» في حالة السجل العامة (وبوابات الميزات في
+//    الأقسام) حالة مفتاح المزوّد المختار، فتغيير المزوّد لا يمسح سجل غيره ولا يقرأ مفتاحه.
 import type { PublicApiResult } from '../api/client';
 import type { ExtensionApi, TabLike } from '../ui-host/browser-api';
 import { CONNECTION_IDS } from './definitions';
@@ -56,9 +58,16 @@ export function extensionHealthLog(scope: typeof globalThis = globalThis): Healt
   return session ? sessionHealthLog(session) : memoryHealthLog();
 }
 
+/** مخازن مفاتيح مزوّدي التحليل: وقت حفظ مفتاح كل مزوّد ومكانه فقط، والمزوّد المختار الآن. */
+export interface ProviderKeyStores {
+  selected(): Promise<string>;
+  store(provider: string): Pick<SecretStore, 'info'> | null;
+}
+
 export interface ConnectionsServiceOptions {
-  /** مخزن سرّ كل اتصال (يُقرأ منه وقت الحفظ ومكانه فقط). */
+  /** مخزن سرّ كل اتصال (يُقرأ منه وقت الحفظ ومكانه فقط). مفتاح مزوّد التحليل من providerKeys إن وُجدت. */
   readonly stores: Partial<Record<ConnectionId, Pick<SecretStore, 'info'>>>;
+  readonly providerKeys?: ProviderKeyStores;
   readonly log?: HealthLog;
   /** صلاحيات القراءة التي يضيفها المستخدم للرمز (READ_PERMISSIONS)، ليُميَّز نقص الرمز مما لا يُتاح له أصلًا. */
   readonly fixable: readonly string[];
@@ -73,8 +82,11 @@ interface Pending {
   readonly feature: FeatureId;
 }
 
+/** مفتاح السجل: الاتصال، ومعه المزوّد لمفتاح مزوّد التحليل. */
+const recordKey = (id: ConnectionId, provider?: string): string => (provider === undefined ? id : `${id}:${provider}`);
+
 export class ConnectionsService {
-  private records: Map<ConnectionId, HealthRecord> | null = null;
+  private records: Map<string, HealthRecord> | null = null;
   private queue: Promise<unknown> = Promise.resolve();
   private pendingReturn: Pending | null = null;
   private readonly log: HealthLog;
@@ -91,35 +103,50 @@ export class ConnectionsService {
     return run;
   }
 
-  private async loaded(): Promise<Map<ConnectionId, HealthRecord>> {
+  private async loaded(): Promise<Map<string, HealthRecord>> {
     if (!this.records) {
       const list = await this.log.load().catch((error: unknown) => {
         this.options.onError?.(error);
         return [] as readonly HealthRecord[];
       });
-      this.records = new Map(list.map((r) => [r.id, r]));
+      this.records = new Map(list.map((r) => [recordKey(r.id, r.provider), r]));
     }
     return this.records;
   }
 
-  private async write(id: ConnectionId, savedAt: number, verdict: Verdict): Promise<void> {
+  private async write(id: ConnectionId, savedAt: number, verdict: Verdict, provider?: string): Promise<void> {
     const records = await this.loaded();
-    records.set(id, { id, savedAt, health: verdict.health, checkedAt: this.now(), detail: verdict.detail });
+    records.set(recordKey(id, provider), { id, ...(provider !== undefined ? { provider } : {}), savedAt, health: verdict.health, checkedAt: this.now(), detail: verdict.detail });
     await this.log.save([...records.values()]).catch((error: unknown) => this.options.onError?.(error));
   }
 
-  /** حالة كل الاتصالات الآن. */
+  private async providerInfo(provider: string) {
+    return (await this.options.providerKeys?.store(provider)?.info().catch(() => null)) ?? null;
+  }
+
+  private async resolveProvider(provider: string, records: Map<string, HealthRecord>, now: number): Promise<ConnectionStatus> {
+    return resolveStatus('provider-key', await this.providerInfo(provider), records.get(recordKey('provider-key', provider)) ?? null, now, provider);
+  }
+
+  /** حالة كل الاتصالات الآن؛ ومفتاح مزوّد التحليل بحالة مفتاح المزوّد المختار. */
   status(): Promise<ConnectionStatus[]> {
     return this.serial(async () => {
       const records = await this.loaded();
       const now = this.now();
+      const providers = this.options.providerKeys;
       return Promise.all(
         CONNECTION_IDS.map(async (id) => {
+          if (id === 'provider-key' && providers) return this.resolveProvider(await providers.selected(), records, now);
           const info = (await this.options.stores[id]?.info().catch(() => null)) ?? null;
           return resolveStatus(id, info, records.get(id) ?? null, now);
         }),
       );
     });
+  }
+
+  /** حالة مفتاح مزوّد بعينه (لبطاقة «مزوّد التحليل» وخدمته)، بلا مفتاحه. */
+  keyStatus(provider: string): Promise<ConnectionStatus> {
+    return this.serial(async () => this.resolveProvider(provider, await this.loaded(), this.now()));
   }
 
   /**
@@ -140,14 +167,15 @@ export class ConnectionsService {
 
   /**
    * MJ21 (T-11.6): يسجّل حكمًا على صحة اتصال من استجابة مرّت بالخلفية (مفتاح المزوّد: التحقق والاستعمال)، لوقت حفظ سرّه الحالي. null أو لا سرّ
-   * محفوظ: لا شيء.
+   * محفوظ: لا شيء. MJ23: provider لمفتاح مزوّد التحليل، فيُسجَّل لمزوّده وحده.
    */
-  observe(id: ConnectionId, verdict: Verdict | null): Promise<void> {
+  observe(id: ConnectionId, verdict: Verdict | null, provider?: string): Promise<void> {
     return this.serial(async () => {
       if (!verdict) return;
-      const info = await this.options.stores[id]?.info().catch(() => null);
+      const scoped = id === 'provider-key' && provider !== undefined && this.options.providerKeys;
+      const info = scoped ? await this.providerInfo(provider) : await this.options.stores[id]?.info().catch(() => null);
       if (!info) return;
-      await this.write(id, info.savedAt, verdict);
+      await this.write(id, info.savedAt, verdict, scoped ? provider : undefined);
     });
   }
 

@@ -90,7 +90,8 @@ class LogController {
     private readonly debounceMs: number,
     analysisDeps: SectionAnalysisDeps,
   ) {
-    this.analysisPart = new SectionAnalysis(ctx, 'checks', analysisDeps, () => prepareContext(ctx.document, ctx.selectors, ctx.page, { extras: { log: this.logExtra() } }), () => this.refresh());
+    // وحد الأسطر PP-03 من المتحكم (I-3).
+    this.analysisPart = new SectionAnalysis(ctx, 'checks', analysisDeps, ({ limits }) => prepareContext(ctx.document, ctx.selectors, ctx.page, { limits, extras: { log: this.logExtra() } }), () => this.refresh());
   }
 
   /** السجل كما قرأه القسم بنقر المستخدم، أو غيابه بسببه؛ تمرّره الطبقة المشتركة إلى التحليل كما هو. */

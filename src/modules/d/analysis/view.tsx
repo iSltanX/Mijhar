@@ -23,7 +23,7 @@ export interface AnalysisBlockProps {
 
 const clock = (ms: number): string => new Date(ms).toLocaleTimeString('en-GB', { hour12: false });
 const count = (n: number): string => n.toLocaleString('en-US');
-const KEY_FAILURES = new Set(['unauthorized', 'forbidden', 'expired-key', 'no-key', 'permission', 'key-read', 'not-found']);
+const KEY_FAILURES = new Set(['unauthorized', 'forbidden', 'expired-key', 'no-key', 'permission', 'key-read', 'not-found', 'model-changed', 'provider-changed', 'incompatible']);
 
 function Tag() {
   return (
@@ -185,9 +185,11 @@ export function AnalysisBlock({ def, state, health, onOpen, onConfirm, onCancel,
             destination={{
               provider: state.status?.provider.title ?? 'المزوّد',
               host: state.status?.provider.host ?? 'المزوّد',
+              ...(state.status ? { policy: { url: state.status.provider.policy.url, label: state.status.provider.policy.label } } : {}),
               model: state.status?.model ?? null,
               permission: Boolean(state.status?.permission),
             }}
+            changed={state.changed ?? null}
             blocked={state.status === null ? 'تعذّر الوصول إلى خلفية الإضافة؛ لا يمكن الإرسال الآن.' : state.status.retryAt !== null ? `أعلن المزوّد موعدًا لإعادة المحاولة (${clock(state.status.retryAt)})؛ لا يُرسل شيء قبله.` : null}
             onConfirm={onConfirm}
             onCancel={onCancel}
@@ -221,7 +223,7 @@ export function AnalysisBlock({ def, state, health, onOpen, onConfirm, onCancel,
             </button>
             {KEY_FAILURES.has(state.failure) && (
               <button type="button" class="mj-link" data-action="analysis-settings" onClick={onSettings}>
-                افتح بطاقة المفتاح في الإعدادات
+                افتح بطاقة «مزوّد التحليل» في الإعدادات
               </button>
             )}
           </div>

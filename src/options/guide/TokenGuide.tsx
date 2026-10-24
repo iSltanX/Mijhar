@@ -4,6 +4,7 @@
 import type { ComponentChildren } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { READ_ACCESS_LEVEL, READ_PERMISSIONS, TOKEN_LIMITS } from '../../modules/d/token/format';
+import { PROVIDER_DESCRIPTORS } from '../../modules/e/provider/catalog';
 import { Ltr } from '../../shared/ui';
 import { Icon } from '../../shared/ui/icons';
 import { useStyles } from '../../shared/ui/useStyles';
@@ -200,8 +201,15 @@ export function TokenGuide({ onBack }: TokenGuideProps) {
               <td>
                 <Ltr className="mono">api.github.com</Ltr> وحده
               </td>
-              <td>
-                <Ltr className="mono">api.anthropic.com</Ltr> وحده
+              <td data-provider-hosts="">
+                مضيف المزوّد الذي تختاره وحده (
+                {PROVIDER_DESCRIPTORS.map((d, i) => (
+                  <span key={d.id}>
+                    {i > 0 ? ' أو ' : ''}
+                    <Ltr className="mono">{d.host}</Ltr>
+                  </span>
+                ))}
+                )
               </td>
             </tr>
             <tr>

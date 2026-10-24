@@ -7,7 +7,8 @@
 //  - سجل الاتصالات (MJ18، T-11.1): كل استجابة GitHub تمر بها تحدّث صحة الرمز (التحقق /rate_limit والاستعمال)، وتعرض الحالة بلا سرّ،
 //    وتعيد المستخدم إلى الميزة التي طلبت الربط.
 //  - طبقة المزوّد (MJ21، T-11.6): تقرأ مفتاح المزوّد من مخزنه لكل طلب وتضيفه إلى طلب المحوّل هنا وحده (لا رمز GitHub معه)، ولا طلب إلا
-//    بالتحقق المعلن من الإعدادات أو بموافقة القسم؛ وتحترم موعد إعادة المحاولة المعلن ولا تكرر طلبًا جاريًا من القسم نفسه.
+//    بالتحقق المعلن من الإعدادات أو بموافقة القسم؛ وتحترم موعد إعادة المحاولة المعلن ولا تكرر طلبًا جاريًا من القسم نفسه. MJ23 (T-11.10): لكل مزوّد
+//    مخزن مفتاحه وصحته في سجل الاتصالات، والمحوّلات (ترويساتها ومساراتها) هنا وحدها (I-2).
 //  - مسار الإنجاز (MJ22، T-11.8): تقرأ رمز الكتابة من مخزنه المستقل لخطوة التنفيذ وحدها، وتقبلها من صفحة الإضافة وحدها (من sender لا من
 //    الرسالة)، وتكتب عبر بوابة الكتابة الثلاثية (src/core/guardrails/write-gate.ts). ولا يصل رمز الكتابة عميل القراءة ولا طبقة المزوّد ولا سجل
 //    الاتصالات (يرى وقت حفظه ومكانه وحدهما).
@@ -31,15 +32,18 @@ import type { PublicApiResult } from '../core/api/client';
 import { extensionTokenStore } from '../modules/d/token/store';
 import type { TokenStore } from '../modules/d/token/store';
 import { READ_PERMISSIONS } from '../modules/d/token/format';
-import { connectionSecretStore } from '../core/connections/keys';
+import { connectionSecretStore, providerSecretStore } from '../core/connections/keys';
 import { isConnectionsRequest } from '../core/connections/port';
 import { ConnectionsService, extensionHealthLog } from '../core/connections/service';
 import type { HealthLog } from '../core/connections/service';
 import type { SecretStore } from '../core/connections/secrets';
 import { NotesBroker, openParts } from '../modules/g/notes/broker';
 import { isProviderRequest } from '../modules/e/provider/port';
+import { createProviderRegistry } from '../modules/e/provider/registry';
 import { ProviderService, extensionModelsCache } from '../modules/e/provider/service';
-import type { ModelsCache } from '../modules/e/provider/service';
+import type { ModelsCache, ProviderKeyStore } from '../modules/e/provider/service';
+import { PROVIDER_ID_KEY } from '../modules/e/provider/settings';
+import type { ProviderAdapter } from '../modules/e/provider/types';
 import { isNotesWriteRequest } from '../modules/g/notes/writer';
 import { isExecutionRequest } from '../modules/f/execution/port';
 import { ExecutionService } from '../modules/f/execution/service';
@@ -53,8 +57,12 @@ export interface BackgroundOptions {
   readonly fetch?: typeof fetch;
   /** مخزن رمز الوصول (للاختبار). الافتراضي storage.session وIndexedDB الإضافة؛ null بلا رمز. */
   readonly tokens?: Pick<TokenStore, 'read' | 'info'> | null;
-  /** مخزن مفتاح مزوّد التحليل (للاختبار). الافتراضي مفتاحاه المستقلان؛ null بلا مفتاح. */
-  readonly providerKeys?: Pick<SecretStore, 'info' | 'read'> | null;
+  /** مخزن مفتاح مزوّد التحليل الأول (Anthropic) بمفتاحيه التاريخيين (للاختبار)؛ null بلا مفتاح. وغيره من providerKeyStores أو مخزنه الافتراضي. */
+  readonly providerKeys?: ProviderKeyStore | null;
+  /** مخزن مفتاح كل مزوّد (للاختبار). الافتراضي مفتاحاه المستقلان لكل مزوّد (keys.ts). */
+  readonly providerKeyStores?: (provider: string) => ProviderKeyStore | null;
+  /** محوّلات المزوّدين (للاختبار بمحوّلات وهمية). الافتراضي سجل الخلفية. */
+  readonly providerAdapters?: readonly ProviderAdapter[];
   /** fetch لطلبات المزوّد (للاختبار). الافتراضي fetch العام. */
   readonly providerFetch?: typeof fetch;
   /** مخزن رمز الكتابة (للاختبار). الافتراضي مفتاحاه المستقلان؛ null بلا رمز. */
@@ -91,11 +99,33 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
 
   // MJ18 (T-11.1): سجل الاتصالات. مخزن كل سرّ يُقرأ منه وقت الحفظ ومكانه فقط، والصحة من الاستجابات التي تمر بالخلفية.
   const tokens = options.tokens === undefined ? extensionTokenStore() : options.tokens;
-  const providerKeys = options.providerKeys === undefined ? connectionSecretStore('provider-key') : options.providerKeys;
   const writeToken = options.writeToken === undefined ? connectionSecretStore('github-write') : options.writeToken;
+  // MJ23 (T-11.10): مخزن مستقل لكل مزوّد، يُنشأ مرة لكل معرّف؛ ومفتاح الأول (Anthropic) في مفتاحيه التاريخيين (keys.ts).
+  const providerRegistry = createProviderRegistry(options.providerAdapters);
+  const keyStores = new Map<string, ProviderKeyStore | null>();
+  const providerKeys = (provider: string): ProviderKeyStore | null => {
+    if (!providerRegistry.byId(provider)) return null;
+    if (!keyStores.has(provider)) {
+      const store = options.providerKeyStores
+        ? options.providerKeyStores(provider)
+        : options.providerKeys !== undefined
+          ? provider === providerRegistry.first.descriptor.id
+            ? options.providerKeys
+            : null
+          : providerSecretStore(provider);
+      keyStores.set(provider, store);
+    }
+    return keyStores.get(provider) ?? null;
+  };
+  const selectedProvider = async (): Promise<string> => {
+    const id = (await ready.then(({ settings }) => settings.get<string>(PROVIDER_ID_KEY)).catch(() => null)) ?? null;
+    return typeof id === 'string' && providerRegistry.byId(id) ? id : providerRegistry.first.descriptor.id;
+  };
   const connections = new ConnectionsService({
     // MJ22: سجل الاتصالات يرى وقت حفظ رمز الكتابة ومكانه (info) وحدهما، لا قيمته.
-    stores: { ...(tokens ? { 'github-token': tokens } : {}), ...(providerKeys ? { 'provider-key': providerKeys } : {}), ...(writeToken ? { 'github-write': { info: () => writeToken.info() } } : {}) },
+    stores: { ...(tokens ? { 'github-token': tokens } : {}), ...(writeToken ? { 'github-write': { info: () => writeToken.info() } } : {}) },
+    // MJ23: ومفتاح كل مزوّد (وقت حفظه ومكانه) والمختار منها.
+    providerKeys: { selected: selectedProvider, store: (provider) => providerKeys(provider) },
     log: options.healthLog ?? extensionHealthLog(),
     fixable: READ_PERMISSIONS.map((p) => p.param),
     api,
@@ -133,6 +163,7 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
 
   // MJ21 (T-11.6): طبقة المزوّد. المفتاح يُقرأ من مخزنه لكل طلب، والإعدادات (المزوّد والمودل) من المخزن بعد فتحه.
   const provider = new ProviderService({
+    registry: providerRegistry,
     keys: providerKeys,
     permissions: api.permissions ?? null,
     ...(options.providerFetch ? { fetch: options.providerFetch } : {}),

@@ -14,7 +14,7 @@ import { MODEL_SECTION } from '../modules/c/model-manager/section';
 import { TRANSLATE_SECTION } from '../modules/c/ui/section';
 import { PR_STATUS_SECTION } from '../modules/d/pr-status/section';
 import { COPY_PROMPT_SECTION } from '../modules/e/copy-prompt/section';
-import { PROVIDER_SETTINGS_SECTION } from '../modules/e/provider/section';
+import { defineProviderSettings } from '../modules/e/provider/settings';
 import { COMPOSER_SECTION } from '../modules/f/composer/section';
 import { LATER_SETTINGS_SECTION } from '../modules/g/bookmarks/section';
 import { EXPORT_SETTINGS_SECTION } from '../modules/g/export/section';
@@ -58,8 +58,13 @@ export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
   COMMUNITY_SETTINGS_SECTION, // MJ9 (T-9.1، T-9.4): المجتمع وأول مساهمة
   LATER_SETTINGS_SECTION, // MJ12 (T-8.2، T-8.3): أكمل لاحقًا وخصوصية الأسطر (DEC-05)
   EXPORT_SETTINGS_SECTION, // MJ13 (T-8.4): التخزين المحلي والتصدير وتنبيه الجهاز المشترك
-  PROVIDER_SETTINGS_SECTION, // MJ21 (T-11.6): إعدادات التحليل (المودل من قائمة المزوّد) — صفحة الإعدادات وحدها
 ];
+
+/**
+ * إعدادات بلا قسم في هذا التبويب، تُعرَّف في كل سياق مع إعدادات الأقسام. سطر لكل مرحلة.
+ * MJ23 (T-11.10): المزوّد المختار ومودل كل مزوّد؛ وتعرضها بطاقة «مزوّد التحليل» في سجل الاتصالات بدل قسم «إعدادات التحليل» المنفصل (MJ21).
+ */
+export const SETTINGS_DEFINITIONS: readonly ((registry: SettingsRegistry) => void)[] = [defineProviderSettings];
 
 export const sectionsFor = (surface: SettingsSurface, sections: readonly SettingsSection[] = SETTINGS_SECTIONS): SettingsSection[] =>
   sections.filter((section) => (section.surfaces ?? DEFAULT_SECTION_SURFACES).includes(surface));
@@ -67,4 +72,5 @@ export const sectionsFor = (surface: SettingsSurface, sections: readonly Setting
 /** يعرّف إعدادات الأقسام في السجل (يمرَّر إلى createSettingsRegistry في كل سياق). */
 export function defineSectionSettings(registry: SettingsRegistry, sections: readonly SettingsSection[] = SETTINGS_SECTIONS): void {
   for (const section of sections) section.define?.(registry);
+  for (const define of SETTINGS_DEFINITIONS) define(registry);
 }

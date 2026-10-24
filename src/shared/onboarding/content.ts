@@ -1,7 +1,9 @@
 // نصوص الترحيب عند أول فتح للوحة (AD-29) من إطارات القسم J في ملف التصميم المعتمد (P-55 وP-56). كل ميزة مذكورة هنا منفَّذة ومدمجة؛
 // والاتصال الاختياري الذي لم يُنفَّذ بعد يُعلَن «لم يُتح بعد» ولا يُعرض كأنه يعمل. MJ21 (AC-E9 البند ٨): مفتاح المزوّد متاح مع طبقة التحليل،
-// برابط «لماذا المفتاح؟» وموضع ربطه في الإعدادات (الإطار P-56). لا أسعار ولا تكلفة (AD-31).
+// برابط «لماذا المفتاح؟» وموضع ربطه في الإعدادات (الإطار P-56). لا أسعار ولا تكلفة (AD-31). MJ23 (AC-E10 (٧)، الإطار P-60): أسماء المزوّدين من سجلهم
+// الوصفي، فلا يُحصر التحليل في مزوّد ولا يُذكر مزوّد لم يُدمج محوّله.
 import type { OptionsTarget } from '../../core/ui-host/commands';
+import { providerNames } from '../../modules/e/provider/catalog';
 import type { IconName } from '../ui/icons';
 
 export interface WelcomeFeature {
@@ -54,7 +56,7 @@ export const OPTIONAL_CONNECTIONS: readonly OptionalConnection[] = [
     title: 'مفتاح مزوّد التحليل',
     text: 'يحلّل فشل الفحص ويراجع تغييرات طلب الدمج ويوضّح المشكلة، داخل أقسامها، ولا يرسل شيئًا قبل موافقتك على كل طلب.',
     status: 'available',
-    facts: [{ icon: 'globe', text: 'يُرسل ما توافق عليه إلى Anthropic وحدها' }],
+    facts: [{ icon: 'globe', text: `يُرسل ما توافق عليه إلى المزوّد الذي تختاره وحده: ${providerNames()}` }],
     guide: { target: 'guide/provider-key', label: 'لماذا المفتاح؟' },
     setup: 'provider-key',
   },
@@ -63,5 +65,5 @@ export const OPTIONAL_CONNECTIONS: readonly OptionalConnection[] = [
 /** الفرق بين الاتصالين بحسب ما أُتيح منهما. */
 export const connectionsDifference = (connections: readonly OptionalConnection[] = OPTIONAL_CONNECTIONS): string =>
   connections.every((c) => c.status === 'available')
-    ? 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، والمفتاح يتيح تحليلًا نصيًّا عند مزوّد خارجي بمفتاح من حسابك لديه. لا يغني أحدهما عن الآخر.'
+    ? 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، والمفتاح يتيح تحليلًا نصيًّا عند المزوّد الذي تختاره بمفتاح من حسابك لديه؛ ولكل مزوّد مفتاحه المستقل. لا يغني أحدهما عن الآخر.'
     : 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، ولا علاقة له بأي تحليل أو مزوّد.';

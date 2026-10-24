@@ -14,6 +14,8 @@ import type { FetchDetails } from '../../../src/modules/d/pr-status';
 import { createCopyPromptModule } from '../../../src/modules/e/copy-prompt';
 import type { CopyFn } from '../../../src/modules/e/copy-prompt';
 import type { AnalyzeInput, AnalyzeResponse, ProviderPort, ProviderStatus } from '../../../src/modules/e/provider';
+import { providerInfo } from '../../../src/modules/e/provider';
+import { ANTHROPIC } from '../../../src/modules/e/provider/descriptors/anthropic';
 import { trustedClick } from '../../shared/trusted-click';
 import { flush, hostsOf, loadHtml, mountModules, readFixture } from '../d/helpers';
 import { NOW, SAMPLES, mountOn, view } from './copy-prompt/helpers';
@@ -44,18 +46,23 @@ function plantKeyInTitle(): void {
 
 function analysisDeps() {
   const status: ProviderStatus = {
-    provider: { id: 'anthropic', title: 'Anthropic', host: 'api.anthropic.com', origin: 'https://api.anthropic.com/*', keyPrefix: 'sk-ant-', verifyRequest: '' },
+    provider: providerInfo(ANTHROPIC),
+    selected: true,
     permission: true,
+    hostPermission: true,
+    contentPermission: null,
     key: { id: 'provider-key', place: 'session', savedAt: 1, health: 'healthy', checkedAt: 1, detail: {} } as ConnectionStatus,
     model: { id: 'mock-sonnet-2', displayName: 'Mock Sonnet 2' },
     choice: 'mock-sonnet-2',
     models: null,
     retryAt: null,
+    providers: [],
   };
   const sent: AnalyzeInput[] = [];
   const provider = {
     status: vi.fn(async () => status),
     verify: vi.fn(),
+    probe: vi.fn(),
     analyze: vi.fn(async (input: AnalyzeInput): Promise<AnalyzeResponse> => {
       sent.push(input);
       return { ok: true, status: 200, data: { text: '{"summary":"x","findings":[],"next_steps":[],"missing":[]}', model: input.model, stopReason: 'end_turn', usage: null, provider: 'Anthropic', host: 'api.anthropic.com', requestedAt: NOW, completedAt: NOW } };
