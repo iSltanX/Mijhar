@@ -15,3 +15,21 @@ export const neutralize = (line: string): string => line.replace(/⟦/g, '[').re
 export function bounded(lines: readonly string[]): string[] {
   return [TRANSPORTED_OPEN, ...lines.map(neutralize), TRANSPORTED_CLOSE];
 }
+
+/**
+ * عكس bounded: نص كل كتلة منقولة في البرومبت، كتلةً كتلة (F-04). العلامة سطر وحده؛ وورودها داخل سطر (كما في BOUNDARY_RULE) لا يفتح كتلة،
+ * والمحتوى لا يزوّرها لأن neutralize أزال ⟦ و⟧ منه. ما خارج الكتل نص كتبه مِجهَر.
+ */
+export function transported(text: string): string[] {
+  const blocks: string[] = [];
+  let open: string[] | null = null;
+  for (const line of text.split('\n')) {
+    if (open === null) {
+      if (line === TRANSPORTED_OPEN) open = [];
+    } else if (line === TRANSPORTED_CLOSE) {
+      blocks.push(open.join('\n'));
+      open = null;
+    } else open.push(line);
+  }
+  return blocks;
+}

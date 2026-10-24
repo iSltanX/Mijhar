@@ -1,10 +1,13 @@
 // قراءة رد المزوّد للعرض (T-11.6، AC-E9 (٥)): فصل المثبت من المصدر عن الاحتمال. كل ما يقترحه النموذج «احتمال يحتاج تحققًا»؛ والمثبت من المصدر
-// هو الاقتباس الذي ورد حرفيًا فيما أُرسل فعلًا (يُتحقق منه هنا لا من قول النموذج)، والاقتباس الذي لم يرد فيه يُعلن أنه لم يرد ولا يُعدّ دليلًا.
+// هو الاقتباس الذي ورد حرفيًا فيما نُقل من الصفحة داخل البرومبت المرسل (يُتحقق منه هنا لا من قول النموذج)، والاقتباس الذي لم يرد فيه يُعلن أنه لم يرد
+// ولا يُعدّ دليلًا. نص القالب الذي كتبه مِجهَر (التعليمات و«المعلومات الناقصة» وسطر الختام) خارج حدود المنقول فلا يُعدّ مصدرًا (F-04).
 // وما نقص: ما يعلنه النموذج، مع ما أعلنته الطبقة نفسها قبل الإرسال (يعرضه القسم). الرد نصٌّ يُعرض فقط: لا يُنفَّذ منه شيء ولا يُفسَّر HTML.
+
+import { transported } from '../../../core/guardrails/boundaries';
 
 export interface EvidenceQuote {
   readonly text: string;
-  /** ورد حرفيًا (بعد توحيد المسافات) فيما أُرسل إلى المزوّد. */
+  /** ورد حرفيًا (بعد توحيد المسافات) في كتلة واحدة مما نُقل من الصفحة فيما أُرسل إلى المزوّد. */
   readonly found: boolean;
 }
 
@@ -55,12 +58,14 @@ function jsonOf(text: string): unknown {
   }
 }
 
+/** sent: البرومبت كما أُرسل؛ يُبحث عن الاقتباس في كتل المحتوى المنقول منه وحدها، كل كتلة على حدة. */
 export function parseAnalysis(text: string, sent: string, stopReason: string | null = null): ParsedAnalysis {
   const cut = stopReason === 'max_tokens';
-  const body = normalize(sent);
+  const source = transported(sent).map(normalize);
   const evidenceOf = (raw: string): EvidenceQuote => {
     const clean = unquote(raw);
-    return { text: clean, found: clean.length >= MIN_QUOTE && body.includes(normalize(clean)) };
+    const wanted = normalize(clean);
+    return { text: clean, found: clean.length >= MIN_QUOTE && source.some((block) => block.includes(wanted)) };
   };
   const parsed = jsonOf(text) as { summary?: unknown; findings?: unknown; next_steps?: unknown; missing?: unknown } | null;
   if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.findings)) {

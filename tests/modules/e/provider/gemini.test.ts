@@ -7,6 +7,7 @@
 import { describe, expect, it } from 'vitest';
 import { MemoryStorageArea, SettingsStore, Store, createSettingsRegistry } from '../../../../src/core';
 import { SecretStore } from '../../../../src/core/connections/secrets';
+import { bounded } from '../../../../src/core/guardrails/boundaries';
 import { ConnectionsService, memoryHealthLog } from '../../../../src/core/connections/service';
 import { PROVIDER_ID_KEY, PROVIDER_DESCRIPTORS, defineProviderSettings, modelSettingKey } from '../../../../src/modules/e/provider';
 import { GEMINI_ADAPTER } from '../../../../src/modules/e/provider/adapters/gemini';
@@ -31,7 +32,8 @@ function setup(scenario: GeminiScenario = {}, granted = true) {
   const permissions = fakePermissions(granted ? [GEMINI.origin] : []);
   return { mock, permissions, c: { key: KEY, fetch: gatedFetch(GEMINI, { permissions, fetch: mock.fetch }), now: () => NOW } };
 }
-const REQUEST = { model: 'mock-gem-2', system: 'تعليمات', prompt: 'error TS2322: النوع غير متوافق', maxTokens: 4096 };
+// البرومبت كما تبنيه الطبقة: ما نُقل من الصفحة بين حدّيه، فاقتباسه دليل من المصدر (F-04).
+const REQUEST = { model: 'mock-gem-2', system: 'تعليمات', prompt: bounded(['error TS2322: النوع غير متوافق']).join('\n'), maxTokens: 4096 };
 
 describe('الوصف وصيغة المفتاح (AC-E12 (٤))', () => {
   it('مضيف Gemini وصلاحيته الاختيارية وسياسته الرسمية وطلب التحقق المعلن بلا اسم ترويسة ولا مفتاح', () => {
