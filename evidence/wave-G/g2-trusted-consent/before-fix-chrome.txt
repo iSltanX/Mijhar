@@ -1,0 +1,7 @@
+✓ [الشريط] نقرة فأرة فعلية على «ترجمة» تعرض بطاقة الاستئذان
+✗ [الشريط] النقرتان البرمجيتان (isTrusted=false، ونشاط المستخدم قائم) لا تبدآن تنزيلًا ولا ترجمة: البطاقة باقية والحزمة downloadable — {"forged":{"found":true,"isTrusted":[false,false],"userActivationActive":true},"after":{"phase":"working","consent":false,"translations":0,"availability":"available"}}
+✗ [الشريط] بلا خطأ تشغيل — Error: لا زر consent-confirm في [data-case="readme"]
+✓ [المساعد] نقرة فأرة فعلية على «ترجم مسودة الحقل» تعرض بطاقة الاستئذان
+✗ [المساعد] النقرتان البرمجيتان لا تبدآن تنزيلًا ولا ترجمة: البطاقة باقية والحزمة downloadable — {"forged":{"found":true,"isTrusted":[false,false],"userActivationActive":true},"after":{"consent":false,"result":null,"translated":null,"availability":"downloadable"}}
+✗ [المساعد] بلا خطأ تشغيل — Error: لا عنصر: [data-action="consent-confirm"]
+chrome: 2/6 اجتازت

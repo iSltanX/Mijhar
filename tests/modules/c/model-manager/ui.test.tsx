@@ -11,7 +11,8 @@ import { ENGINE_MESSAGES, TranslatorApiEngine } from '../../../../src/modules/c/
 import { ManagedTranslationEngine, MODEL_MESSAGES } from '../../../../src/modules/c/model-manager';
 import type { ManagedEngineOptions } from '../../../../src/modules/c/model-manager';
 import { setTranslationService } from '../../../../src/modules/c/ui';
-import { FIXTURE, barBefore, bars, barNote, flush, hosts, loadHtml, mountTranslate, phase, press, translations } from '../ui/helpers';
+import { FIXTURE, barBefore, bars, barNote, flush, hosts, loadHtml, mountTranslate, phase, press, pressTrusted, translations } from '../ui/helpers';
+import { trustedClick } from '../../../shared/trusted-click';
 import type { Live } from '../ui/helpers';
 import { FakeTranslatorApi } from '../engines/fake-translator';
 
@@ -74,6 +75,13 @@ async function clickIn(root: ShadowRoot, action: string, wait = 40): Promise<voi
     await flush(wait);
   });
 }
+/** نقرة مستخدم موثوقة داخل جذر الظل (AD-27). */
+async function clickInTrusted(root: ShadowRoot, action: string, wait = 40): Promise<void> {
+  await act(async () => {
+    trustedClick(root.querySelector<HTMLButtonElement>(`[data-action="${action}"]`)!);
+    await flush(wait);
+  });
+}
 
 describe('الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable)', () => {
   it('عند التركيب وقبل أي ضغط: الأشرطة ظاهرة، ولا create() ولا نص يُرسل ولا بطاقة', async () => {
@@ -127,7 +135,7 @@ describe('الشريط: بطاقة الاستئذان قبل أن ينزّل ا�
     const bar = barBefore(README);
     await press(bar, 'translate');
     expect(fake.createCalls).toBe(0);
-    await press(bar, 'consent-confirm', 100);
+    await pressTrusted(bar, 'consent-confirm', 100);
     expect(phase(bar)).toBe('done');
     expect(consentOf(bar)).toBeNull();
     expect(fake.createCalls).toBe(1);
@@ -140,7 +148,7 @@ describe('الشريط: بطاقة الاستئذان قبل أن ينزّل ا�
     const fake = new FakeTranslatorApi({ state: 'downloadable' });
     await mountWith(managed(fake));
     await press(barBefore(README), 'translate');
-    await press(barBefore(README), 'consent-confirm', 100);
+    await pressTrusted(barBefore(README), 'consent-confirm', 100);
     const other = barBefore(COMMENT1);
     await press(other, 'translate', 80);
     expect(consentOf(other)).toBeNull();
@@ -165,13 +173,13 @@ describe('الأخطاء: رسائل واضحة في الشريط، والأصل
     await mountWith(managed(fake));
     const bar = barBefore(COMMENT1);
     await press(bar, 'translate');
-    await press(bar, 'consent-confirm', 80);
+    await pressTrusted(bar, 'consent-confirm', 80);
     expect(phase(bar)).toBe('error');
     expect(barNote(bar)).toContain(`تعذّرت الترجمة: ${MODEL_MESSAGES.networkLost}`);
     expect(translations()).toHaveLength(0);
     await press(bar, 'translate');
     expect(consentOf(bar)).not.toBeNull();
-    await press(bar, 'consent-confirm', 80);
+    await pressTrusted(bar, 'consent-confirm', 80);
     expect(phase(bar)).toBe('done');
     expect(fake.createCalls).toBe(2);
   });
@@ -181,7 +189,7 @@ describe('الأخطاء: رسائل واضحة في الشريط، والأصل
     await mountWith(managed(fake));
     const bar = barBefore(COMMENT1);
     await press(bar, 'translate');
-    await press(bar, 'consent-confirm', 80);
+    await pressTrusted(bar, 'consent-confirm', 80);
     expect(phase(bar)).toBe('error');
     expect(barNote(bar)).toContain(MODEL_MESSAGES.storageFull);
   });
@@ -191,7 +199,7 @@ describe('الأخطاء: رسائل واضحة في الشريط، والأصل
     await mountWith(managed(fake, { stallMs: 30 }));
     const bar = barBefore(COMMENT1);
     await press(bar, 'translate');
-    await press(bar, 'consent-confirm', 5);
+    await pressTrusted(bar, 'consent-confirm', 5);
     expect(phase(bar)).toBe('working');
     await act(async () => void (await flush(80)));
     expect(phase(bar)).toBe('error');
@@ -221,7 +229,7 @@ describe('بطاقة التحديد', () => {
     expect(selRoot().querySelector('[data-consent]')!.textContent).toContain('الحجم: غير معلن من المتصفح');
     expect(fake.createCalls).toBe(0);
     expect(fake.received).toEqual([]);
-    await clickIn(selRoot(), 'consent-confirm', 80);
+    await clickInTrusted(selRoot(), 'consent-confirm', 80);
     expect(fake.createCalls).toBe(1);
     expect(fake.received).toEqual(['The side panel opens from the toolbar.']);
     expect(selRoot().querySelector('[data-section="translation"]')!.textContent).toBe('ترجمة: The side panel opens from the toolbar.');
@@ -237,5 +245,68 @@ describe('بطاقة التحديد', () => {
     expect(selHost()).toBeNull();
     expect(fake.createCalls).toBe(0);
     expect(fake.received).toEqual([]);
+  });
+});
+
+describe('AD-27 (G-2): «موافق» تقبل نقرة المستخدم الموثوقة وحدها', () => {
+  /** نقرتان برمجيتان كما يصدرهما سكربت في الصفحة: click() وحدث MouseEvent مُنشأ (كلاهما isTrusted=false). */
+  const forge = async (button: HTMLButtonElement): Promise<void> => {
+    await act(async () => {
+      button.click();
+      button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, composed: true }));
+      await flush(60);
+    });
+  };
+
+  it('الشريط: النقر البرمجي على «موافق» لا يمنح الموافقة ولا create() وتبقى البطاقة؛ ثم النقرة الموثوقة تترجم', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable' });
+    const engine = managed(fake);
+    await mountWith(engine);
+    const bar = barBefore(README);
+    await press(bar, 'translate');
+    await forge(buttonOf(bar, 'consent-confirm')!);
+    expect(consentOf(bar)).not.toBeNull();
+    expect(fake.createCalls).toBe(0);
+    expect(fake.received).toEqual([]);
+    expect((await engine.availability()).state).toBe('consent');
+    await pressTrusted(bar, 'consent-confirm', 100);
+    expect(consentOf(bar)).toBeNull();
+    expect(fake.createCalls).toBe(1);
+    expect(phase(bar)).toBe('done');
+    noNetwork();
+  });
+
+  it('بطاقة التحديد: النقر البرمجي على «موافق» مرفوض بلا create()، والموثوق يترجم', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable' });
+    await mountWith(managed(fake));
+    await selectText('[data-case="p-sentences"]', 'The side panel opens from the toolbar.'.length);
+    await clickIn(selRoot(), 'translate-selection');
+    await forge(selRoot().querySelector<HTMLButtonElement>('[data-action="consent-confirm"]')!);
+    expect(selRoot().querySelector('.sel-card')!.getAttribute('data-status')).toBe('consent');
+    expect(fake.createCalls).toBe(0);
+    await clickInTrusted(selRoot(), 'consent-confirm', 80);
+    expect(fake.createCalls).toBe(1);
+    expect(selRoot().querySelector('[data-section="translation"]')!.textContent).toBe('ترجمة: The side panel opens from the toolbar.');
+    noNetwork();
+  });
+
+  it('«ليس الآن» يبقى قابلًا للنقر البرمجي (لا أثر له إلا إخفاء البطاقة)', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable' });
+    await mountWith(managed(fake));
+    const bar = barBefore(README);
+    await press(bar, 'translate');
+    await press(bar, 'consent-decline');
+    expect(consentOf(bar)).toBeNull();
+    expect(fake.createCalls).toBe(0);
+  });
+
+  it('trustedClick نفسه يصل إلى المعالج isTrusted=true (ضابط للمساعد)', () => {
+    const button = document.createElement('button');
+    document.body.append(button);
+    let trusted: boolean | null = null;
+    button.addEventListener('click', (event) => (trusted = event.isTrusted));
+    trustedClick(button);
+    expect(trusted).toBe(true);
+    button.remove();
   });
 });

@@ -15,6 +15,7 @@ import { FakeTranslatorApi } from '../../c/engines/fake-translator';
 import type { FakeTranslatorOptions } from '../../c/engines/fake-translator';
 import { ROOT, click, field, flush, loadHtml, mountComposer, panelRoot, triggerFor } from '../composer/helpers';
 import type { Live } from '../composer/helpers';
+import { trustedClick } from '../../../shared/trusted-click';
 
 const FIXTURE = path.join(ROOT, 'tests/modules/f/composer/fixtures/fixture-editors.html');
 const DRAFT = 'Run `npm test` in src/app.js and read https://example.com/docs before you merge.';
@@ -57,6 +58,14 @@ async function open(options: FakeTranslatorOptions = { state: 'downloadable' }) 
   await settle();
   return { fake, managed };
 }
+
+/** «موافق» بنقرة مستخدم موثوقة (AD-27): النقر البرمجي مرفوض. */
+const confirmTrusted = async (): Promise<void> => {
+  await act(async () => {
+    trustedClick(need('[data-action="consent-confirm"]'));
+    await flush(5);
+  });
+};
 
 const press = async (): Promise<void> => {
   await click(need('[data-action="translate-draft"]'));
@@ -102,7 +111,7 @@ describe('G-1: حزمة اللغة تحتاج موافقة (downloadable)', () =
   it('«موافق» تمنح الموافقة وتترجم من النقرة نفسها: create() مرة واحدة، والنتيجة للمراجعة، والإدراج معطَّل حتى المراجعة', async () => {
     const { fake } = await open();
     await press();
-    await click(need('[data-action="consent-confirm"]'));
+    await confirmTrusted();
     await settle();
     expect(fake.createCalls).toBe(1);
     expect(maybe('[data-consent]')).toBeNull();
@@ -118,7 +127,7 @@ describe('G-1: حزمة اللغة تحتاج موافقة (downloadable)', () =
   it('بعد ثبوت الحزمة تترجم النقرة التالية بلا بطاقة جديدة', async () => {
     const { fake } = await open();
     await press();
-    await click(need('[data-action="consent-confirm"]'));
+    await confirmTrusted();
     await settle();
     fake.state = 'available';
     await press();
@@ -130,7 +139,7 @@ describe('G-1: حزمة اللغة تحتاج موافقة (downloadable)', () =
   it('انقطاع الشبكة أثناء التنزيل: الرسالة الواضحة، ثم تعود البطاقة في النقرة التالية بلا create()', async () => {
     const { fake } = await open({ state: 'downloadable', createFailures: ['NetworkError'] });
     await press();
-    await click(need('[data-action="consent-confirm"]'));
+    await confirmTrusted();
     await settle();
     expect(need('[data-translate-result="error"]').textContent).toContain(MODEL_MESSAGES.networkLost);
     expect(fake.createCalls).toBe(1);
@@ -157,5 +166,26 @@ describe('G-1: لا تغيير في الحالات الأخرى', () => {
     expect(maybe('[data-action="translate-draft"]')).toBeNull();
     expect(maybe('[data-consent]')).toBeNull();
     expect(fake.createCalls).toBe(0);
+  });
+});
+
+describe('AD-27 (G-2): «موافق» في «ترجمة مسودتي» تقبل نقرة المستخدم الموثوقة وحدها', () => {
+  it('click() وMouseEvent مُنشأ على «موافق» لا يمنحان الموافقة ولا create() وتبقى البطاقة؛ ثم الموثوقة تترجم', async () => {
+    const { fake, managed } = await open();
+    await press();
+    await act(async () => {
+      const button = need<HTMLButtonElement>('[data-action="consent-confirm"]');
+      button.click();
+      button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, composed: true }));
+      await flush(30);
+    });
+    await settle();
+    expect(maybe('[data-consent]')).not.toBeNull();
+    expect(fake.createCalls).toBe(0);
+    expect((await managed.availability()).state).toBe('consent');
+    await confirmTrusted();
+    await settle();
+    expect(fake.createCalls).toBe(1);
+    expect(maybe('[data-translate-result="translated"]')).not.toBeNull();
   });
 });

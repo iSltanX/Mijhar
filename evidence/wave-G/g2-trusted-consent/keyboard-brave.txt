@@ -1,0 +1,8 @@
+✓ [الشريط] نقرة فأرة فعلية على «ترجمة» تعرض بطاقة الاستئذان
+✓ [الشريط] النقرتان البرمجيتان (isTrusted=false، ونشاط المستخدم قائم) لا تبدآن تنزيلًا ولا ترجمة: البطاقة باقية والحزمة downloadable — {"forged":{"found":true,"isTrusted":[false,false],"userActivationActive":true},"after":{"phase":"idle","consent":true,"translations":0,"availability":"downloadable"}}
+✓ [الشريط] Enter على «موافق» المركَّز تنزّل الحزمة وتترجم — {"phase":"done","translations":17,"arabic":17,"availability":"available"}
+✓ [المساعد] نقرة فأرة فعلية على «ترجم مسودة الحقل» تعرض بطاقة الاستئذان
+✓ [المساعد] النقرتان البرمجيتان لا تبدآن تنزيلًا ولا ترجمة: البطاقة باقية والحزمة downloadable — {"forged":{"found":true,"isTrusted":[false,false],"userActivationActive":true},"after":{"consent":true,"result":null,"translated":null,"availability":"downloadable"}}
+✓ [المساعد] التركيز على «موافق» حين تظهر البطاقة — consent-confirm
+✓ [المساعد] Space على «موافق» المركَّز تنزّل الحزمة وتترجم — {"result":"translated","translated":"قم بتشغيل `npm test` في src/app.js واقرأ https://example.com/docs قبل الدمج.","availability":"available"}
+brave: 7/7 اجتازت

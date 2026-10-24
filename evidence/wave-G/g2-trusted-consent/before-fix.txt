@@ -1,0 +1,75 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+ ❯ tests/shared/user-activation.test.ts (0 test)
+ ❯ tests/modules/f/phrasebank/consent.test.tsx (9 tests | 1 failed) 1367ms
+   ❯ AD-27 (G-2): «موافق» في «ترجمة مسودتي» تقبل نقرة المستخدم الموثوقة وحدها (1)
+     × click() وMouseEvent مُنشأ على «موافق» لا يمنحان الموافقة ولا create() وتبقى البطاقة؛ ثم الموثوقة تترجم 176ms
+ ❯ tests/modules/c/model-manager/ui.test.tsx (16 tests | 2 failed) 2395ms
+   ❯ AD-27 (G-2): «موافق» تقبل نقرة المستخدم الموثوقة وحدها (4)
+     × الشريط: النقر البرمجي على «موافق» لا يمنح الموافقة ولا create() وتبقى البطاقة؛ ثم النقرة الموثوقة تترجم 146ms
+     × بطاقة التحديد: النقر البرمجي على «موافق» مرفوض بلا create()، والموثوق يترجم 185ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/shared/user-activation.test.ts [ tests/shared/user-activation.test.ts ]
+Error: Cannot find module '../../src/shared/ui/user-activation' imported from /Volumes/iSltanXx/Projects/Brave/Mijhar/tests/shared/user-activation.test.ts
+ ❯ tests/shared/user-activation.test.ts:9:1
+      7| import { describe, expect, it } from 'vitest';
+      8| import { ROOT } from '../setup/paths';
+      9| import { isTrustedActivation } from '../../src/shared/ui/user-activati…
+       | ^
+     10|
+     11| const HELPER = 'src/shared/ui/user-activation.ts';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/modules/c/model-manager/ui.test.tsx > AD-27 (G-2): «موافق» تقبل نقرة المستخدم الموثوقة وحدها > الشريط: النقر البرمجي على «موافق» لا يمنح الموافقة ولا create() وتبقى البطاقة؛ ثم النقرة الموثوقة تترجم
+AssertionError: expected null not to be null
+ ❯ tests/modules/c/model-manager/ui.test.tsx:268:32
+    266|     await press(bar, 'translate');
+    267|     await forge(buttonOf(bar, 'consent-confirm')!);
+    268|     expect(consentOf(bar)).not.toBeNull();
+       |                                ^
+    269|     expect(fake.createCalls).toBe(0);
+    270|     expect(fake.received).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/modules/c/model-manager/ui.test.tsx > AD-27 (G-2): «موافق» تقبل نقرة المستخدم الموثوقة وحدها > بطاقة التحديد: النقر البرمجي على «موافق» مرفوض بلا create()، والموثوق يترجم
+AssertionError: expected 'translated' to be 'consent' // Object.is equality
+
+Expected: "consent"
+Received: "translated"
+
+ ❯ tests/modules/c/model-manager/ui.test.tsx:285:79
+    283|     await clickIn(selRoot(), 'translate-selection');
+    284|     await forge(selRoot().querySelector<HTMLButtonElement>('[data-acti…
+    285|     expect(selRoot().querySelector('.sel-card')!.getAttribute('data-st…
+       |                                                                               ^
+    286|     expect(fake.createCalls).toBe(0);
+    287|     await clickInTrusted(selRoot(), 'consent-confirm', 80);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/modules/f/phrasebank/consent.test.tsx > AD-27 (G-2): «موافق» في «ترجمة مسودتي» تقبل نقرة المستخدم الموثوقة وحدها > click() وMouseEvent مُنشأ على «موافق» لا يمنحان الموافقة ولا create() وتبقى البطاقة؛ ثم الموثوقة تترجم
+AssertionError: expected null not to be null
+ ❯ tests/modules/f/phrasebank/consent.test.tsx:183:41
+    181|     });
+    182|     await settle();
+    183|     expect(maybe('[data-consent]')).not.toBeNull();
+       |                                         ^
+    184|     expect(fake.createCalls).toBe(0);
+    185|     expect((await managed.availability()).state).toBe('consent');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  3 failed | 7 passed (10)
+      Tests  3 failed | 112 passed (115)
+   Start at  09:22:34
+   Duration  3.40s (tests 56%, environment 22%, transform 12%, import 9%)
+
