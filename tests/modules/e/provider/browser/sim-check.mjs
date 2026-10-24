@@ -136,6 +136,21 @@ async function scenario(session, checks) {
   const bVerify = requests(SIM_HOST);
   check('Mock B: طلب تحققه إلى مضيفه بمفتاحه وحده، ومفتاحه «سليم»، ومودلاته هو (المعلنة التوافق) لا مودلات Anthropic', Boolean(bHealthy) && bHealthy.models.join(',') === 'b-model-2,b-model-1' && bVerify.length === 1 && bVerify[0].headers['x-mock-key'] === B_KEY && !bVerify[0].headers['x-api-key'] && bVerify[0].from === 'background', { card: bHealthy, verify: bVerify.map((r) => ({ path: r.path, from: r.from, key: r.headers['x-mock-key'] === B_KEY ? 'B' : 'other' })) });
 
+  // لقطتا البطاقة الموحّدة (O-23 فاتحًا وO-27 داكنًا) للمراجعة البصرية.
+  if (outDir) {
+    fs.mkdirSync(path.join(outDir, 'screens'), { recursive: true });
+    const shot = async (name) => {
+      const el = page.locator('[data-connection="provider-key"]');
+      await el.scrollIntoViewIfNeeded();
+      await el.screenshot({ path: path.join(outDir, 'screens', `${name}.png`) });
+    };
+    await shot('card-mock-b-light');
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await sleep(300);
+    await shot('card-mock-b-dark');
+    await page.emulateMedia({ colorScheme: 'light' });
+  }
+
   // 3.
   await d.openGithub(JOB_URL);
   await waitUntil(() => d.github(`return Boolean(${IN_LOG('[data-action="analysis-open"]')}) || null;`), 15000);

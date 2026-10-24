@@ -433,7 +433,7 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
         )}
         {shown && (
           <p class="notice" data-tone={TONE_ATTR[HEALTH_TONE[shown.health]]} role="status" data-key-check={shown.health === 'healthy' ? 'ok' : 'fail'} data-health={shown.health}>
-            {healthText('provider-key', shown, { now: now() })}
+            {healthText('provider-key', shown, { now: now(), service: descriptor.title })}
           </p>
         )}
       </div>

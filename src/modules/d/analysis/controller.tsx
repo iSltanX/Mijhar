@@ -233,7 +233,7 @@ export class SectionAnalysis {
       if (response.ok) this.set({ kind: 'result', outcome: response.data, parsed: parseAnalysis(response.data.text, prepared.prompt, response.data.stopReason), prepared });
       else {
         this.set({ kind: 'failed', failure: response.failure, message: failureText(response.failure, response.message), retryAt: response.retryAt });
-        if (response.failure === 'unauthorized' || response.failure === 'expired-key' || response.failure === 'permission' || response.failure === 'provider-changed') void this.readHealth();
+        if (['unauthorized', 'expired-key', 'permission', 'provider-changed', 'no-key', 'model-changed'].includes(response.failure)) void this.readHealth();
       }
     });
   }
