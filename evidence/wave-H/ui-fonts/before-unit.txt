@@ -1,0 +1,13 @@
+     × كل ملف في EMBEDDED_FONTS موجود في assets/fonts ومعه ترخيصه، وقائمة التحقق تغطيها كلها 4ms
+     × Almarai-Regular.woff2: OFL-1.1 من الخط وملفه، وصاحب الحقوق واحد، ولا تحويل ولا بيانات وصفية 2ms
+     × Almarai-Bold.woff2: OFL-1.1 من الخط وملفه، وصاحب الحقوق واحد، ولا تحويل ولا بيانات وصفية 1ms
+ FAIL  tests/shared/ui/fonts.test.ts [ tests/shared/ui/fonts.test.ts ]
+Error: Failed to resolve import "../../../src/shared/ui/fonts" from "tests/shared/ui/fonts.test.ts". Does the file exist?
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/modules/a/fonts/fonts.test.ts > ملفات الخطوط وتراخيصها في الحزمة > كل ملف في EMBEDDED_FONTS موجود في assets/fonts ومعه ترخيصه، وقائمة التحقق تغطيها كلها
+AssertionError: expected [ 'fonts/Almarai-Bold.woff2', …(6) ] to deeply equal [ 'fonts/Cairo-Bold.woff2', …(4) ]
+ FAIL  tests/modules/a/fonts/fonts.test.ts > ملفات الخطوط وتراخيصها في الحزمة > Almarai-Regular.woff2: OFL-1.1 من الخط وملفه، وصاحب الحقوق واحد، ولا تحويل ولا بيانات وصفية
+ FAIL  tests/modules/a/fonts/fonts.test.ts > ملفات الخطوط وتراخيصها في الحزمة > Almarai-Bold.woff2: OFL-1.1 من الخط وملفه، وصاحب الحقوق واحد، ولا تحويل ولا بيانات وصفية
+TypeError: Cannot read properties of undefined (reading 'license')
+ Test Files  2 failed (2)
+      Tests  3 failed | 10 passed (13)

@@ -1,0 +1,901 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "browserVersion": "156.0.8078.47",
+    "surfaces": {
+      "options": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": false,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": false,
+            "glyphs": 98
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      },
+      "sidepanel": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 6
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      },
+      "github": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 19
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 5
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        }
+      },
+      {
+        "name": "options: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": false,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": false,
+            "glyphs": 98
+          }
+        }
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        }
+      },
+      {
+        "name": "sidepanel: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 6
+          }
+        }
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 19
+          }
+        }
+      },
+      {
+        "name": "github: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 5
+          }
+        }
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي",
+        "ok": true
+      }
+    ]
+  },
+  "edge": {
+    "label": "Edge",
+    "browserVersion": "155.0.4283.60",
+    "surfaces": {
+      "options": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": false,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": false,
+            "glyphs": 98
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      },
+      "sidepanel": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 6
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      },
+      "github": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 19
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 5
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        }
+      },
+      {
+        "name": "options: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": false,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": false,
+            "glyphs": 98
+          }
+        }
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        }
+      },
+      {
+        "name": "sidepanel: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 6
+          }
+        }
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 19
+          }
+        }
+      },
+      {
+        "name": "github: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 5
+          }
+        }
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي",
+        "ok": true
+      }
+    ]
+  },
+  "brave": {
+    "label": "Brave",
+    "browserVersion": "156.0.8078.48",
+    "surfaces": {
+      "options": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": false,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": false,
+            "glyphs": 98
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      },
+      "sidepanel": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 6
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      },
+      "github": {
+        "heading": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Tahoma",
+              "custom": false,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Tahoma",
+            "custom": false,
+            "glyphs": 19
+          }
+        },
+        "text": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Tahoma",
+              "custom": false,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Tahoma",
+            "custom": false,
+            "glyphs": 5
+          }
+        },
+        "faces": [],
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        }
+      },
+      {
+        "name": "options: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai",
+              "custom": false,
+              "glyphs": 98
+            }
+          ],
+          "main": {
+            "family": "Almarai",
+            "custom": false,
+            "glyphs": 98
+          }
+        }
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Cairo",
+              "custom": false,
+              "glyphs": 17
+            }
+          ],
+          "main": {
+            "family": "Cairo",
+            "custom": false,
+            "glyphs": 17
+          }
+        }
+      },
+      {
+        "name": "sidepanel: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Almarai Bold",
+              "custom": false,
+              "glyphs": 6
+            }
+          ],
+          "main": {
+            "family": "Almarai Bold",
+            "custom": false,
+            "glyphs": 6
+          }
+        }
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)",
+        "ok": false,
+        "detail": {
+          "requested": "Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Tahoma",
+              "custom": false,
+              "glyphs": 19
+            }
+          ],
+          "main": {
+            "family": "Tahoma",
+            "custom": false,
+            "glyphs": 19
+          }
+        }
+      },
+      {
+        "name": "github: النص يُرسم بـAlmarai المضمّن",
+        "ok": false,
+        "detail": {
+          "requested": "Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif",
+          "rendered": [
+            {
+              "family": "Tahoma",
+              "custom": false,
+              "glyphs": 5
+            }
+          ],
+          "main": {
+            "family": "Tahoma",
+            "custom": false,
+            "glyphs": 5
+          }
+        }
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي",
+        "ok": true
+      }
+    ]
+  },
+  "firefox": {
+    "label": "Firefox",
+    "browserVersion": "158.0.1",
+    "surfaces": {
+      "options": {
+        "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "headingWeight": "700",
+        "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "faces": [],
+        "check": {
+          "display": true,
+          "text": true
+        },
+        "uiStyleElements": 0
+      },
+      "sidepanel": {
+        "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "headingWeight": "700",
+        "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "faces": [],
+        "check": {
+          "display": true,
+          "text": true
+        },
+        "uiStyleElements": 0
+      },
+      "github": {
+        "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "headingWeight": "700",
+        "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+        "faces": [],
+        "check": {
+          "display": true,
+          "text": true
+        },
+        "uiStyleElements": 0
+      }
+    },
+    "blockedExternalHosts": [],
+    "checks": [
+      {
+        "name": "options: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل",
+        "ok": false,
+        "detail": {
+          "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "headingWeight": "700",
+          "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "faces": [],
+          "check": {
+            "display": true,
+            "text": true
+          },
+          "uiStyleElements": 0
+        }
+      },
+      {
+        "name": "options: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل",
+        "ok": false,
+        "detail": {
+          "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "headingWeight": "700",
+          "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "faces": [],
+          "check": {
+            "display": true,
+            "text": true
+          },
+          "uiStyleElements": 0
+        }
+      },
+      {
+        "name": "options: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "sidepanel: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل",
+        "ok": false,
+        "detail": {
+          "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "headingWeight": "700",
+          "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "faces": [],
+          "check": {
+            "display": true,
+            "text": true
+          },
+          "uiStyleElements": 0
+        }
+      },
+      {
+        "name": "sidepanel: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل",
+        "ok": false,
+        "detail": {
+          "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "headingWeight": "700",
+          "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "faces": [],
+          "check": {
+            "display": true,
+            "text": true
+          },
+          "uiStyleElements": 0
+        }
+      },
+      {
+        "name": "sidepanel: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل",
+        "ok": false,
+        "detail": {
+          "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "headingWeight": "700",
+          "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "faces": [],
+          "check": {
+            "display": true,
+            "text": true
+          },
+          "uiStyleElements": 0
+        }
+      },
+      {
+        "name": "github: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل",
+        "ok": false,
+        "detail": {
+          "heading": "Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "headingWeight": "700",
+          "text": "Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif",
+          "faces": [],
+          "check": {
+            "display": true,
+            "text": true
+          },
+          "uiStyleElements": 0
+        }
+      },
+      {
+        "name": "github: الأوجه الأربعة مسجّلة في document.fonts",
+        "ok": false,
+        "detail": []
+      },
+      {
+        "name": "github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)",
+        "ok": true
+      },
+      {
+        "name": "لا مضيف خارجي للإضافة",
+        "ok": true
+      }
+    ]
+  }
+}

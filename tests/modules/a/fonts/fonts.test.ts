@@ -23,15 +23,18 @@ import { loadFixture } from '../direction/helpers';
 
 const deliver = (): Promise<void> => new Promise((resolve) => setTimeout(resolve, 0));
 
+// خطوط القراءة وحدها؛ وخطّا هوية الواجهة في القائمة نفسها يتحقق منهما tests/shared/ui/fonts.test.ts.
+const READING_FILES = FONT_FILES.filter((f: { font: string }) => f.font in EMBEDDED_FONTS);
+
 describe('ملفات الخطوط وتراخيصها في الحزمة', () => {
   it('كل ملف في EMBEDDED_FONTS موجود في assets/fonts ومعه ترخيصه، وقائمة التحقق تغطيها كلها', () => {
     const files = Object.values(EMBEDDED_FONTS).flatMap((font) => font.files.map((f) => f.file));
     const licenses = Object.values(EMBEDDED_FONTS).map((font) => font.license.file);
     for (const file of [...files, ...licenses]) expect(fs.existsSync(path.join(ROOT, 'assets', file)), file).toBe(true);
-    expect(FONT_FILES.map((f: { file: string }) => `fonts/${f.file}`).sort()).toEqual([...files].sort());
+    expect(READING_FILES.map((f: { file: string }) => `fonts/${f.file}`).sort()).toEqual([...files].sort());
   });
 
-  it.each(FONT_FILES.map((f: { file: string }) => [f.file, f]))('%s: OFL-1.1 من الخط وملفه، وصاحب الحقوق واحد، ولا تحويل ولا بيانات وصفية', (_file, entry) => {
+  it.each(READING_FILES.map((f: { file: string }) => [f.file, f]))('%s: OFL-1.1 من الخط وملفه، وصاحب الحقوق واحد، ولا تحويل ولا بيانات وصفية', (_file, entry) => {
     const result = verifyFont(entry);
     expect(result.problems).toEqual([]);
     expect(result.spdx).toBe('OFL-1.1');

@@ -1,0 +1,62 @@
+— Chrome 156.0.8078.47
+  ✗ options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":17}],"main":{"family":"Cairo","custom":false,"glyphs":17}}
+  ✗ options: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai","custom":false,"glyphs":98}],"main":{"family":"Almarai","custom":false,"glyphs":98}}
+  ✗ options: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":17}],"main":{"family":"Cairo","custom":false,"glyphs":17}}
+  ✗ sidepanel: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai Bold","custom":false,"glyphs":6}],"main":{"family":"Almarai Bold","custom":false,"glyphs":6}}
+  ✗ sidepanel: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":19}],"main":{"family":"Cairo","custom":false,"glyphs":19}}
+  ✗ github: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai Bold","custom":false,"glyphs":5}],"main":{"family":"Almarai Bold","custom":false,"glyphs":5}}
+  ✗ github: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي
+    options: العنوان Cairo (من النظام) · النص Almarai (من النظام)
+    sidepanel: العنوان Cairo (من النظام) · النص Almarai Bold (من النظام)
+    github: العنوان Cairo (من النظام) · النص Almarai Bold (من النظام)
+Chrome: 2/11
+— Edge 155.0.4283.60
+  ✗ options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":17}],"main":{"family":"Cairo","custom":false,"glyphs":17}}
+  ✗ options: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai","custom":false,"glyphs":98}],"main":{"family":"Almarai","custom":false,"glyphs":98}}
+  ✗ options: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":17}],"main":{"family":"Cairo","custom":false,"glyphs":17}}
+  ✗ sidepanel: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai Bold","custom":false,"glyphs":6}],"main":{"family":"Almarai Bold","custom":false,"glyphs":6}}
+  ✗ sidepanel: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":19}],"main":{"family":"Cairo","custom":false,"glyphs":19}}
+  ✗ github: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai Bold","custom":false,"glyphs":5}],"main":{"family":"Almarai Bold","custom":false,"glyphs":5}}
+  ✗ github: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي
+    options: العنوان Cairo (من النظام) · النص Almarai (من النظام)
+    sidepanel: العنوان Cairo (من النظام) · النص Almarai Bold (من النظام)
+    github: العنوان Cairo (من النظام) · النص Almarai Bold (من النظام)
+Edge: 2/11
+— Brave 156.0.8078.48
+  ✗ options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":17}],"main":{"family":"Cairo","custom":false,"glyphs":17}}
+  ✗ options: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai","custom":false,"glyphs":98}],"main":{"family":"Almarai","custom":false,"glyphs":98}}
+  ✗ options: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Cairo","custom":false,"glyphs":17}],"main":{"family":"Cairo","custom":false,"glyphs":17}}
+  ✗ sidepanel: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Almarai Bold","custom":false,"glyphs":6}],"main":{"family":"Almarai Bold","custom":false,"glyphs":6}}
+  ✗ sidepanel: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام) — {"requested":"Cairo, \"Noto Kufi Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Tahoma","custom":false,"glyphs":19}],"main":{"family":"Tahoma","custom":false,"glyphs":19}}
+  ✗ github: النص يُرسم بـAlmarai المضمّن — {"requested":"Almarai, \"Noto Sans Arabic\", \"Segoe UI\", Tahoma, system-ui, sans-serif","rendered":[{"family":"Tahoma","custom":false,"glyphs":5}],"main":{"family":"Tahoma","custom":false,"glyphs":5}}
+  ✗ github: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي
+    options: العنوان Cairo (من النظام) · النص Almarai (من النظام)
+    sidepanel: العنوان Cairo (من النظام) · النص Almarai Bold (من النظام)
+    github: العنوان Tahoma (من النظام) · النص Tahoma (من النظام)
+Brave: 2/11
+— Firefox 158.0.1
+  ✗ options: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل — {"heading":"Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif","headingWeight":"700","text":"Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif","faces":[],"check":{"display":true,"text":true},"uiStyleElements":0}
+  ✗ options: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل — {"heading":"Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif","headingWeight":"700","text":"Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif","faces":[],"check":{"display":true,"text":true},"uiStyleElements":0}
+  ✗ options: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ sidepanel: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل — {"heading":"Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif","headingWeight":"700","text":"Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif","faces":[],"check":{"display":true,"text":true},"uiStyleElements":0}
+  ✗ sidepanel: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل — {"heading":"Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif","headingWeight":"700","text":"Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif","faces":[],"check":{"display":true,"text":true},"uiStyleElements":0}
+  ✗ sidepanel: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✗ github: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل — {"heading":"Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif","headingWeight":"700","text":"Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif","faces":[],"check":{"display":true,"text":true},"uiStyleElements":0}
+  ✗ github: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل — {"heading":"Cairo, Noto Kufi Arabic, Segoe UI, Tahoma, system-ui, sans-serif","headingWeight":"700","text":"Almarai, Noto Sans Arabic, Segoe UI, Tahoma, system-ui, sans-serif","faces":[],"check":{"display":true,"text":true},"uiStyleElements":0}
+  ✗ github: الأوجه الأربعة مسجّلة في document.fonts — []
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي للإضافة
+Firefox: 2/11
+المجموع: 8/44
