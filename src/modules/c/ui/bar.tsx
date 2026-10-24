@@ -1,6 +1,9 @@
 // شريط الترجمة فوق كل نص (F-C1/F-C3): زر «ترجمة إلى العربية» وحده قبل أي فعل؛ وأثناء الترجمة تقدّم وزر إلغاء؛ وبعدها ثلاثة أنماط عرض
 // (الأصل والترجمة معًا، الترجمة فقط، إظهار الأصل) و«إلغاء الترجمة». وعند غياب المحرك سببه وزر «نسخ النص المقنَّع» (AC-C4).
+// وحين تحتاج الترجمة إلى أن ينزّل المتصفح حزمة لغة (T-4.4) تحلّ بطاقة الاستئذان محل الزر حتى يوافق المستخدم أو يتراجع.
 // كل زر <button> أصلي باسم وصول، والحالة تُعلَن بـrole="status".
+import { ConsentPanel } from '../model-manager/consent-panel';
+import type { ConsentCard } from '../model-manager/consent';
 import type { DisplayMode, SessionSnapshot } from './session';
 
 export type BarKind = 'readme' | 'comment' | 'text';
@@ -13,6 +16,10 @@ export interface BarProps {
   readonly engineLabel: string;
   /** نتيجة آخر نسخ للنص المقنَّع (بديل غياب المحرك، AC-C4). */
   readonly copyNote?: string | null;
+  /** بطاقة الاستئذان قبل تنزيل المتصفح حزمة اللغة (T-4.4)؛ تُعرض بدل زر الترجمة. */
+  readonly consent?: ConsentCard | null;
+  readonly onConsent?: () => void;
+  readonly onDecline?: () => void;
   readonly onTranslate: () => void;
   readonly onCancel: () => void;
   readonly onMode: (mode: DisplayMode) => void;
@@ -51,7 +58,7 @@ export function describe(snapshot: SessionSnapshot): string {
   }
 }
 
-export function TranslationBar({ kind, snapshot, unavailable, engineLabel, copyNote, onTranslate, onCancel, onMode, onCopyMasked }: BarProps) {
+export function TranslationBar({ kind, snapshot, unavailable, engineLabel, copyNote, consent, onConsent, onDecline, onTranslate, onCancel, onMode, onCopyMasked }: BarProps) {
   const { phase, mode } = snapshot;
   const working = phase === 'working';
   // بعد الانتهاء (أو الخطأ بعد ترجمة بعض الفقرات) تُعرض أنماط العرض وإلغاء الترجمة.
@@ -59,7 +66,8 @@ export function TranslationBar({ kind, snapshot, unavailable, engineLabel, copyN
   const text = describe(snapshot);
   return (
     <div class="bar" data-phase={phase} data-kind={kind} role="group" aria-label="ترجمة تقنية إلى العربية">
-      {phase === 'idle' || phase === 'empty' || (phase === 'error' && snapshot.done === 0) ? (
+      {consent && onConsent && onDecline ? <ConsentPanel card={consent} onConfirm={onConsent} onDecline={onDecline} /> : null}
+      {!consent && (phase === 'idle' || phase === 'empty' || (phase === 'error' && snapshot.done === 0)) ? (
         <button type="button" class="btn btn-primary" data-action="translate" title={`يترجم بمحرك «${engineLabel}» عند الضغط وحده`} onClick={onTranslate}>
           {TRANSLATE_LABEL[kind]}
         </button>

@@ -1,0 +1,793 @@
+{
+  "measuredAt": "2026-10-24T04:56:13.264Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "page": "https://github.com/octo/mijhar-demo/issues/7",
+  "stallMs": 60000,
+  "results": [
+    {
+      "key": "chrome",
+      "results": [
+        {
+          "scenario": "consent",
+          "availabilityAtMount": "downloadable",
+          "availabilityAfterIdle": "downloadable",
+          "card": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+          "availabilityWhileCard": "downloadable",
+          "afterDecline": {
+            "consent": null,
+            "actions": [
+              "translate"
+            ],
+            "availability": "downloadable"
+          },
+          "confirm": [
+            {
+              "attempt": 1,
+              "ms": 6782,
+              "phase": "done",
+              "note": "تُرجمت 17 من 17 فقرة.",
+              "translations": 17,
+              "warnings": 0,
+              "arabic": 17,
+              "tokenLeak": false
+            }
+          ],
+          "availabilityAfterTranslate": "available",
+          "second": {
+            "phase": "done",
+            "consent": null,
+            "translations": 2
+          }
+        },
+        {
+          "scenario": "cancel+network-cut",
+          "availability": "downloadable",
+          "working": {
+            "phase": "working",
+            "note": "جارٍ الترجمة… 0 من 17",
+            "actions": [
+              "cancel"
+            ]
+          },
+          "cancelled": {
+            "phase": "idle",
+            "note": "",
+            "translations": 0,
+            "actions": [
+              "translate"
+            ]
+          },
+          "availabilityAfterCancel": "downloadable",
+          "stall": {
+            "ms": 60319,
+            "phase": "error",
+            "note": "تعذّرت الترجمة: لم يُنهِ المتصفح تنزيل حزمة لغة الترجمة بعد؛ قد يكون اتصالك بطيئًا أو منقطعًا. أعد الضغط بعد قليل.",
+            "translations": 0
+          },
+          "rawCreate": {
+            "state": "pending",
+            "t0": 1055.699999988079
+          },
+          "availabilityAfterStall": "downloadable",
+          "afterStall": {
+            "phase": "error",
+            "actions": [
+              "translate"
+            ],
+            "consent": null
+          }
+        }
+      ]
+    },
+    {
+      "key": "edge",
+      "results": [
+        {
+          "scenario": "unsupported",
+          "availability": "unavailable",
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+          "afterTranslate": {
+            "consent": null,
+            "translations": 0,
+            "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+          }
+        }
+      ]
+    },
+    {
+      "key": "brave",
+      "results": [
+        {
+          "scenario": "consent",
+          "availabilityAtMount": "downloadable",
+          "availabilityAfterIdle": "downloadable",
+          "card": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+          "availabilityWhileCard": "downloadable",
+          "afterDecline": {
+            "consent": null,
+            "actions": [
+              "translate"
+            ],
+            "availability": "downloadable"
+          },
+          "confirm": [
+            {
+              "attempt": 1,
+              "ms": 8321,
+              "phase": "done",
+              "note": "تُرجمت 17 من 17 فقرة.",
+              "translations": 17,
+              "warnings": 0,
+              "arabic": 17,
+              "tokenLeak": false
+            }
+          ],
+          "availabilityAfterTranslate": "available",
+          "second": {
+            "phase": "done",
+            "consent": null,
+            "translations": 2
+          }
+        },
+        {
+          "scenario": "cancel+network-cut",
+          "availability": "downloadable",
+          "working": {
+            "phase": "working",
+            "note": "جارٍ الترجمة… 0 من 17",
+            "actions": [
+              "cancel"
+            ]
+          },
+          "cancelled": {
+            "phase": "idle",
+            "note": "",
+            "translations": 0,
+            "actions": [
+              "translate"
+            ]
+          },
+          "availabilityAfterCancel": "downloadable",
+          "stall": {
+            "ms": 60340,
+            "phase": "error",
+            "note": "تعذّرت الترجمة: لم يُنهِ المتصفح تنزيل حزمة لغة الترجمة بعد؛ قد يكون اتصالك بطيئًا أو منقطعًا. أعد الضغط بعد قليل.",
+            "translations": 0
+          },
+          "rawCreate": {
+            "state": "pending",
+            "t0": 1059.5
+          },
+          "availabilityAfterStall": "downloadable",
+          "afterStall": {
+            "phase": "error",
+            "actions": [
+              "translate"
+            ],
+            "consent": null
+          }
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "خمسة أشرطة بلا بطاقة عند التركيب",
+      "ok": true,
+      "detail": [
+        {
+          "index": 0,
+          "case": "readme",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 1,
+          "case": "issue-description",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 2,
+          "case": "comment-body-1",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 3,
+          "case": "comment-body-2",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 4,
+          "case": "comment-body-legacy",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "لا تنزيل عند تحميل الصفحة ولا بعد الخمول: الحزمة ما زالت downloadable",
+      "ok": true,
+      "detail": {
+        "scenario": "consent",
+        "availabilityAtMount": "downloadable",
+        "availabilityAfterIdle": "downloadable",
+        "card": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+        "availabilityWhileCard": "downloadable",
+        "afterDecline": {
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "availability": "downloadable"
+        },
+        "confirm": [
+          {
+            "attempt": 1,
+            "ms": 6782,
+            "phase": "done",
+            "note": "تُرجمت 17 من 17 فقرة.",
+            "translations": 17,
+            "warnings": 0,
+            "arabic": 17,
+            "tokenLeak": false
+          }
+        ],
+        "availabilityAfterTranslate": "available",
+        "second": {
+          "phase": "done",
+          "consent": null,
+          "translations": 2
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "الضغط الأول يعرض بطاقة الاستئذان بدل الزر (الحجم غير معلن، الوجهة، الاتصال، الوعد)",
+      "ok": true,
+      "detail": {
+        "index": 0,
+        "case": "readme",
+        "phase": "idle",
+        "note": "",
+        "consent": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+        "actions": [
+          "consent-confirm",
+          "consent-decline"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "لا create() مع ظهور البطاقة: الحزمة ما زالت downloadable ولا ترجمة",
+      "ok": true,
+      "detail": "downloadable"
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "لا رقم حجم في البطاقة",
+      "ok": true,
+      "detail": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن"
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "«ليس الآن» يخفي البطاقة ويعيد الزر ولا create()",
+      "ok": true,
+      "detail": {
+        "consent": null,
+        "actions": [
+          "translate"
+        ],
+        "availability": "downloadable"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "«موافق» تنزّل الحزمة وتترجم الفقرات السبع عشرة بنصوص عربية بلا تسرب رموز",
+      "ok": true,
+      "detail": {
+        "attempt": 1,
+        "ms": 6782,
+        "phase": "done",
+        "note": "تُرجمت 17 من 17 فقرة.",
+        "translations": 17,
+        "warnings": 0,
+        "arabic": 17,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "بعد الترجمة الحزمة available (نزّلها المتصفح بموافقة)",
+      "ok": true,
+      "detail": "available"
+    },
+    {
+      "browser": "Chrome",
+      "page": "consent",
+      "name": "نص آخر يُترجم من أول ضغط بلا بطاقة جديدة",
+      "ok": true,
+      "detail": {
+        "phase": "done",
+        "consent": null,
+        "translations": 2
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "network-cut",
+      "name": "الحزمة downloadable رغم انقطاع الشبكة (المتصفح يعلن حالتها دون اتصال)",
+      "ok": true,
+      "detail": "downloadable"
+    },
+    {
+      "browser": "Chrome",
+      "page": "cancel",
+      "name": "بعد «موافق» بشبكة مقطوعة: الشريط «جارٍ الترجمة» وفيه زر إلغاء",
+      "ok": true,
+      "detail": {
+        "index": 0,
+        "case": "readme",
+        "phase": "working",
+        "note": "جارٍ الترجمة… 0 من 17",
+        "consent": null,
+        "actions": [
+          "cancel"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "cancel",
+      "name": "الإلغاء يعيد الشريط إلى حاله الأول بلا ترجمة ولا أثر",
+      "ok": true,
+      "detail": {
+        "index": 0,
+        "case": "readme",
+        "phase": "idle",
+        "note": "",
+        "consent": null,
+        "actions": [
+          "translate"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "cancel",
+      "name": "الحزمة لم تُنزَّل بعد الإلغاء (downloadable)",
+      "ok": true,
+      "detail": "downloadable"
+    },
+    {
+      "browser": "Chrome",
+      "page": "network-cut",
+      "name": "create() الخام يبقى معلّقًا ولا يرفض خلال 60 ثانية (قياس سلوك المتصفح)",
+      "ok": true,
+      "detail": {
+        "state": "pending",
+        "t0": 1055.699999988079
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "network-cut",
+      "name": "بعد المهلة (60 ث) رسالة التأخر الصريحة في الشريط بدل «جارٍ الترجمة» بلا نهاية",
+      "ok": true,
+      "detail": {
+        "ms": 60319,
+        "phase": "error",
+        "note": "تعذّرت الترجمة: لم يُنهِ المتصفح تنزيل حزمة لغة الترجمة بعد؛ قد يكون اتصالك بطيئًا أو منقطعًا. أعد الضغط بعد قليل.",
+        "translations": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "network-cut",
+      "name": "الأصل باقٍ: لا ترجمة جزئية، وزر الترجمة عاد، والحزمة غير منزّلة",
+      "ok": true,
+      "detail": {
+        "stall": {
+          "ms": 60319,
+          "phase": "error",
+          "note": "تعذّرت الترجمة: لم يُنهِ المتصفح تنزيل حزمة لغة الترجمة بعد؛ قد يكون اتصالك بطيئًا أو منقطعًا. أعد الضغط بعد قليل.",
+          "translations": 0
+        },
+        "afterStall": {
+          "phase": "error",
+          "actions": [
+            "translate"
+          ],
+          "consent": null
+        },
+        "availability": "downloadable"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "unsupported",
+      "name": "الزوج غير مدعوم: السبب الصريح وزر النسخ، والضغط لا يعرض بطاقة ولا يترجم",
+      "ok": true,
+      "detail": {
+        "scenario": "unsupported",
+        "availability": "unavailable",
+        "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+        "afterTranslate": {
+          "consent": null,
+          "translations": 0,
+          "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "خمسة أشرطة بلا بطاقة عند التركيب",
+      "ok": true,
+      "detail": [
+        {
+          "index": 0,
+          "case": "readme",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 1,
+          "case": "issue-description",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 2,
+          "case": "comment-body-1",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 3,
+          "case": "comment-body-2",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        },
+        {
+          "index": 4,
+          "case": "comment-body-legacy",
+          "phase": "idle",
+          "note": "",
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "translations": 0,
+          "warnings": 0,
+          "arabic": 0,
+          "tokenLeak": false
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "لا تنزيل عند تحميل الصفحة ولا بعد الخمول: الحزمة ما زالت downloadable",
+      "ok": true,
+      "detail": {
+        "scenario": "consent",
+        "availabilityAtMount": "downloadable",
+        "availabilityAfterIdle": "downloadable",
+        "card": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+        "availabilityWhileCard": "downloadable",
+        "afterDecline": {
+          "consent": null,
+          "actions": [
+            "translate"
+          ],
+          "availability": "downloadable"
+        },
+        "confirm": [
+          {
+            "attempt": 1,
+            "ms": 8321,
+            "phase": "done",
+            "note": "تُرجمت 17 من 17 فقرة.",
+            "translations": 17,
+            "warnings": 0,
+            "arabic": 17,
+            "tokenLeak": false
+          }
+        ],
+        "availabilityAfterTranslate": "available",
+        "second": {
+          "phase": "done",
+          "consent": null,
+          "translations": 2
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "الضغط الأول يعرض بطاقة الاستئذان بدل الزر (الحجم غير معلن، الوجهة، الاتصال، الوعد)",
+      "ok": true,
+      "detail": {
+        "index": 0,
+        "case": "readme",
+        "phase": "idle",
+        "note": "",
+        "consent": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+        "actions": [
+          "consent-confirm",
+          "consent-decline"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "لا create() مع ظهور البطاقة: الحزمة ما زالت downloadable ولا ترجمة",
+      "ok": true,
+      "detail": "downloadable"
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "لا رقم حجم في البطاقة",
+      "ok": true,
+      "detail": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن"
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "«ليس الآن» يخفي البطاقة ويعيد الزر ولا create()",
+      "ok": true,
+      "detail": {
+        "consent": null,
+        "actions": [
+          "translate"
+        ],
+        "availability": "downloadable"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "«موافق» تنزّل الحزمة وتترجم الفقرات السبع عشرة بنصوص عربية بلا تسرب رموز",
+      "ok": true,
+      "detail": {
+        "attempt": 1,
+        "ms": 8321,
+        "phase": "done",
+        "note": "تُرجمت 17 من 17 فقرة.",
+        "translations": 17,
+        "warnings": 0,
+        "arabic": 17,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "بعد الترجمة الحزمة available (نزّلها المتصفح بموافقة)",
+      "ok": true,
+      "detail": "available"
+    },
+    {
+      "browser": "Brave",
+      "page": "consent",
+      "name": "نص آخر يُترجم من أول ضغط بلا بطاقة جديدة",
+      "ok": true,
+      "detail": {
+        "phase": "done",
+        "consent": null,
+        "translations": 2
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "network-cut",
+      "name": "الحزمة downloadable رغم انقطاع الشبكة (المتصفح يعلن حالتها دون اتصال)",
+      "ok": true,
+      "detail": "downloadable"
+    },
+    {
+      "browser": "Brave",
+      "page": "cancel",
+      "name": "بعد «موافق» بشبكة مقطوعة: الشريط «جارٍ الترجمة» وفيه زر إلغاء",
+      "ok": true,
+      "detail": {
+        "index": 0,
+        "case": "readme",
+        "phase": "working",
+        "note": "جارٍ الترجمة… 0 من 17",
+        "consent": null,
+        "actions": [
+          "cancel"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "cancel",
+      "name": "الإلغاء يعيد الشريط إلى حاله الأول بلا ترجمة ولا أثر",
+      "ok": true,
+      "detail": {
+        "index": 0,
+        "case": "readme",
+        "phase": "idle",
+        "note": "",
+        "consent": null,
+        "actions": [
+          "translate"
+        ],
+        "translations": 0,
+        "warnings": 0,
+        "arabic": 0,
+        "tokenLeak": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "cancel",
+      "name": "الحزمة لم تُنزَّل بعد الإلغاء (downloadable)",
+      "ok": true,
+      "detail": "downloadable"
+    },
+    {
+      "browser": "Brave",
+      "page": "network-cut",
+      "name": "create() الخام يبقى معلّقًا ولا يرفض خلال 60 ثانية (قياس سلوك المتصفح)",
+      "ok": true,
+      "detail": {
+        "state": "pending",
+        "t0": 1059.5
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "network-cut",
+      "name": "بعد المهلة (60 ث) رسالة التأخر الصريحة في الشريط بدل «جارٍ الترجمة» بلا نهاية",
+      "ok": true,
+      "detail": {
+        "ms": 60340,
+        "phase": "error",
+        "note": "تعذّرت الترجمة: لم يُنهِ المتصفح تنزيل حزمة لغة الترجمة بعد؛ قد يكون اتصالك بطيئًا أو منقطعًا. أعد الضغط بعد قليل.",
+        "translations": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "network-cut",
+      "name": "الأصل باقٍ: لا ترجمة جزئية، وزر الترجمة عاد، والحزمة غير منزّلة",
+      "ok": true,
+      "detail": {
+        "stall": {
+          "ms": 60340,
+          "phase": "error",
+          "note": "تعذّرت الترجمة: لم يُنهِ المتصفح تنزيل حزمة لغة الترجمة بعد؛ قد يكون اتصالك بطيئًا أو منقطعًا. أعد الضغط بعد قليل.",
+          "translations": 0
+        },
+        "afterStall": {
+          "phase": "error",
+          "actions": [
+            "translate"
+          ],
+          "consent": null
+        },
+        "availability": "downloadable"
+      }
+    }
+  ],
+  "summary": {
+    "passed": 33,
+    "total": 33
+  }
+}

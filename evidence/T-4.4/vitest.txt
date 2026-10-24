@@ -1,0 +1,60 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj16-02bdc6
+
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > downloadable ← not-downloaded 1ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > downloading ← downloading 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > available ← ready 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > unavailable ← unsupported 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > شيء-جديد ← unknown 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > لا محرك (null) ← no-engine بلا حزمة ولا موضع ولا حذف 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > الحجم «غير معلن» حيث توجد حزمة يديرها المتصفح، ولا رقم ولا وحدة حجم في أي نص 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > الموافقة تلزم الحزمة غير المنزّلة وحدها (downloading: التنزيل قائم بلا استدعاء جديد؛ available: لا تنزيل) 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > describeModel (حالة الحزمة كما يعلنها المتصفح) > الحذف: لا تملكه الإضافة، والنص يقول ذلك ويحيل إلى المتصفح 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > consentCard > تعرض الحجم غير معلن والوجهة وشرط الاتصال والوعد، بلا رقم 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > classifyModelError (انقطاع الشبكة وامتلاء القرص) > NetworkError ← رسالة انقطاع الاتصال، قبل ثبوت الحزمة وبعده 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > classifyModelError (انقطاع الشبكة وامتلاء القرص) > TypeError من fetch/الشبكة ← انقطاع الاتصال؛ وTypeError آخر لا يُصنَّف 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > classifyModelError (انقطاع الشبكة وامتلاء القرص) > QuotaExceededError قبل ثبوت الحزمة ← امتلاء التخزين؛ وبعده هو طول النص فلا يُصنَّف 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > classifyModelError (انقطاع الشبكة وامتلاء القرص) > خطأ المحرك المغلَّف (EngineError) يُقرأ برمزه الأصلي 0ms
+ ✓ tests/modules/c/model-manager/model.test.ts > classifyModelError (انقطاع الشبكة وامتلاء القرص) > الإلغاء والأخطاء المجهولة لا تُصنَّف (تمرّ كما هي) 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > التركيب عند بدء سكربت المحتوى > لا يسأل المتصفح ولا ينشئ مترجمًا ولا يتصل (لا تنزيل عند التثبيت أو تحميل الصفحة) 1ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > التركيب عند بدء سكربت المحتوى > في سياق بلا Translator API يبقى محركًا غير متاح بسببه الصريح (لا لفّ) 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > الحزمة downloadable ← consent وبطاقة، ولا create() ولا ترجمة؛ والسؤال نفسه استعلام فقط 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > بعد grantConsent() تصير ready، وتبقى create() لم تُستدعَ حتى ترجمة صريحة 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > الموافقة لتنزيل واحد: بعد أن تُرصد الحزمة منزّلة تسقط، فإن زالت من المتصفح لاحقًا عادت البطاقة 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > الحزمة available ← ready مباشرة بلا بطاقة 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > الحزمة downloading ← ready مباشرة بلا بطاقة 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > unavailable (Edge) ← السبب الصريح نفسه من T-4.3 بلا بطاقة 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > فشل السؤال عن الحزمة يُغلق الباب بسبب صريح ولا يُنشئ مترجمًا 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > NetworkError أثناء تنزيل الحزمة ← رسالة انقطاع الاتصال، وتسقط الموافقة فتُسأل من جديد 1ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > QuotaExceededError قبل ثبوت الحزمة ← رسالة امتلاء التخزين، وتسقط الموافقة 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > QuotaExceededError والحزمة available هو طول النص فيبقى نصه من T-4.3 ولا يُحسب امتلاء قرص 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > الإلغاء أثناء الإنشاء يمرّ AbortError كما هو، وتسقط الموافقة (المتصفح قد لا يكون نزّل شيئًا) 0ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > NotSupportedError المتقطع لا يُسقط الموافقة: المستخدم وافق للتوّ ويعيد الضغط بلا بطاقة جديدة 2ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > عدم الدعم: unavailable يعرض سببه، والترجمة مباشرة على مترجم يرفض create() ترمي رسالة الجاهزية 2ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > مهلة التأخر (شبكة مقطوعة: create() يبقى معلّقًا ولا يرفض) > المهلة الافتراضية 60 ثانية 0ms
+ ✓ tests/modules/c/model-manager/section.test.tsx > MODEL_SECTION > مسجَّل مرة واحدة في أقسام الوحدة (ج) ويظهر في صفحة الإعدادات لا في الدرج المحقون 1ms
+ ✓ tests/modules/c/model-manager/section.test.tsx > MODEL_SECTION > يعرض الحجم «غير معلن» والوجهة والحذف والاتصال، وأن الإضافة لا تنزّل نموذجًا 4ms
+ ✓ tests/modules/c/model-manager/section.test.tsx > MODEL_SECTION > يعدّد حالات الحزمة التي يعلنها المتصفح، ولا يذكر رقم حجم 1ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > مهلة التأخر (شبكة مقطوعة: create() يبقى معلّقًا ولا يرفض) > الحزمة لم تثبت وcreate() لا يكتمل في المهلة ← رسالة التأخر، والموافقة باقية، ولا create() ثانية عند إعادة الضغط 185ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > مهلة التأخر (شبكة مقطوعة: create() يبقى معلّقًا ولا يرفض) > الحزمة available (رُصدت) ← لا مهلة: ترجمة بطيئة الإنشاء تنجح 62ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > مهلة التأخر (شبكة مقطوعة: create() يبقى معلّقًا ولا يرفض) > stallMs: 0 يعطّل المهلة 61ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > عند التركيب وقبل أي ضغط: الأشرطة ظاهرة، ولا create() ولا نص يُرسل ولا بطاقة 84ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > مهلة التأخر (شبكة مقطوعة: create() يبقى معلّقًا ولا يرفض) > الإلغاء قبل المهلة يمرّ AbortError لا رسالة التأخر 132ms
+ ✓ tests/modules/c/model-manager/managed-engine.test.ts > لا شبكة من الإضافة في أي مسار > البطاقة والموافقة والترجمة والفشل: لا fetch ولا XHR ولا beacon 0ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > الضغط الأول يعرض البطاقة (الحجم غير معلن) بدل الزر، ولا create() بعد 82ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > «ليس الآن» يُخفي البطاقة ويعيد الزر، ولا create() أبدًا 124ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > «موافق» تبدأ الترجمة من النقرة نفسها: create() مرة واحدة والفقرات السبع عشرة تُترجم 183ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > بعد الموافقة مرة لا تُسأل ثانية: شريط آخر يترجم من أول ضغط بلا بطاقة 267ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > الحزمة available: يترجم من أول ضغط بلا بطاقة 128ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الأخطاء: رسائل واضحة في الشريط، والأصل باقٍ، ويُسأل المستخدم من جديد > انقطاع الشبكة أثناء التنزيل ← رسالة الاتصال، ثم البطاقة من جديد ثم النجاح حين يعود الاتصال 295ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الأخطاء: رسائل واضحة في الشريط، والأصل باقٍ، ويُسأل المستخدم من جديد > امتلاء القرص ← رسالة المساحة 171ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الأخطاء: رسائل واضحة في الشريط، والأصل باقٍ، ويُسأل المستخدم من جديد > شبكة مقطوعة (create() معلّق) ← بعد المهلة رسالة التأخر في الشريط بدل «جارٍ الترجمة» بلا نهاية، والأصل باقٍ 180ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > الأخطاء: رسائل واضحة في الشريط، والأصل باقٍ، ويُسأل المستخدم من جديد > عدم الدعم (unavailable) ← السبب الصريح وزر النسخ، بلا بطاقة ولا create() 85ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > بطاقة التحديد > «ترجمة المحدد» والحزمة غير منزّلة ← بطاقة الاستئذان، ولا create() حتى الموافقة، ثم الترجمة 210ms
+ ✓ tests/modules/c/model-manager/ui.test.tsx > بطاقة التحديد > «ليس الآن» يغلق البطاقة بلا create() 167ms
+
+ Test Files  4 passed (4)
+      Tests  51 passed (51)
+   Start at  08:02:44
+   Duration  2.47s (tests 75%, environment 15%, transform 5%, import 5%)
+

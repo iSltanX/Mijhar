@@ -10,6 +10,7 @@ import { createShadowHost } from '../../../core/ui-host/shadow';
 import type { ShadowParts } from '../../../core/ui-host/shadow';
 import { copyMaskedText } from '../engines/fallback';
 import type { ClipboardWrite } from '../engines/fallback';
+import type { ConsentCard } from '../model-manager/consent';
 import { TranslationBar } from './bar';
 import type { BarKind } from './bar';
 import { collectBlocks } from './blocks';
@@ -56,6 +57,8 @@ interface Bar {
   snapshot: SessionSnapshot;
   unavailable: string | null;
   copied: string | null;
+  /** بطاقة الاستئذان قبل تنزيل المتصفح حزمة اللغة (T-4.4)، حتى يوافق المستخدم أو يتراجع. */
+  consent: ConsentCard | null;
 }
 
 const IDLE: SessionSnapshot = { phase: 'idle', mode: 'both', total: 0, done: 0, kept: 0, skipped: 0, truncated: false };
@@ -187,7 +190,7 @@ class TranslateController {
   private addBar(body: Element): void {
     const parts = createShadowHost(this.ctx.document, { name: BAR_HOST_NAME, hostCss: BAR_HOST_CSS, styles: BAR_CSS, label: 'ترجمة إلى العربية' });
     parts.root.classList.add('bar-root');
-    const bar: Bar = { body, kind: barKindOf(body), parts, session: null, snapshot: IDLE, unavailable: this.unavailable, copied: null };
+    const bar: Bar = { body, kind: barKindOf(body), parts, session: null, snapshot: IDLE, unavailable: this.unavailable, copied: null, consent: null };
     this.bars.set(body, bar);
     this.insertBar(bar);
     this.paint(bar);
@@ -214,6 +217,12 @@ class TranslateController {
         unavailable={bar.unavailable}
         engineLabel={service?.label ?? ''}
         copyNote={bar.copied}
+        consent={bar.consent}
+        onConsent={() => this.consent(bar)}
+        onDecline={() => {
+          bar.consent = null;
+          this.paint(bar);
+        }}
         onTranslate={() => void this.translate(bar)}
         onCancel={() => bar.session?.cancel()}
         onMode={(mode: DisplayMode) => bar.session?.setMode(mode)}
@@ -235,17 +244,32 @@ class TranslateController {
     this.paint(bar);
   }
 
+  /** فعل صريح: نقرة «موافق» في بطاقة الاستئذان، ثم تبدأ الترجمة من النقرة نفسها (create() تحتاج نشاط نقرة ما دامت الحزمة غير منزّلة). */
+  private consent(bar: Bar): void {
+    this.service()?.grantConsent?.();
+    bar.consent = null;
+    void this.translate(bar);
+  }
+
   /** فعل صريح: ضغط زر الترجمة. */
   private async translate(bar: Bar): Promise<void> {
     const service = this.service();
     const availability = await availabilityOf(service);
     if (this.ctx.signal.aborted || !service) return;
+    if (availability.state === 'consent') {
+      // المحرك جاهز لكن أول استدعاء سينزّل المتصفح حزمة لغة: لا create() قبل موافقة صريحة (T-4.4).
+      bar.consent = availability.card;
+      bar.unavailable = null;
+      this.paint(bar);
+      return;
+    }
     if (availability.state !== 'ready') {
       bar.unavailable = availability.state === 'unavailable' ? availability.reason : 'لا محرك ترجمة محلي مُفعَّل';
       this.paint(bar);
       return;
     }
     bar.unavailable = null;
+    bar.consent = null;
     bar.session ??= new TranslationSession(
       this.ctx,
       bar.body,

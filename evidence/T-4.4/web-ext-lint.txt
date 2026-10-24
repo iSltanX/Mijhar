@@ -1,0 +1,11 @@
+
+> mijhar@0.0.1 lint:firefox
+> web-ext lint --source-dir dist/firefox
+
+Validation Summary:
+
+errors          0              
+notices         0              
+warnings        0              
+
+lint exit 0
