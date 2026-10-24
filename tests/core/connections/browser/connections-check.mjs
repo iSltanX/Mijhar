@@ -3,8 +3,8 @@
 // بمشغّلي MJ15 (tests/modules/d/token/browser/drivers.mjs). لا شبكة خارجية: github.com وapi.github.com يُخدمان محليًا بردود جدول إشارات
 // T-0.5 (fixture-token-states.json)، والرمز ومفتاح المزوّد مختلَقان بصيغة حقيقية يُولَّدان وقت التشغيل ولا يُكتبان في أي دليل.
 //   0. فحص ساكن: مفاتيح السرّين وقاعدة الأسرار وسجل الصحة وترويسة Authorization في background.js وoptions.js وحدهما.
-//   1. سجل الاتصالات في الإعدادات: بطاقتان بنوعهما ووجهتهما وما يحتاجانه؛ مفتاح المزوّد «لم يُتح بعد» بلا حقل؛ بيان الحفظ «غير مشفَّر» بلا
-//      ادعاء تشفير؛ «كيف تحصل على الرمز؟» في بطاقة الرمز، ولا «لماذا المفتاح؟».
+//   1. سجل الاتصالات في الإعدادات: بطاقتان بنوعهما ووجهتهما وما يحتاجانه؛ مفتاح المزوّد متاح بحقله و«لماذا المفتاح؟» (MJ21، AC-E9 (٨))؛ بيان
+//      الحفظ «غير مشفَّر» بلا ادعاء تشفير؛ «كيف تحصل على الرمز؟» في بطاقة الرمز.
 //   2. نص غير صالح: لا حفظ ولا طلب، والحالة «غير مربوط».
 //   3. الحالات بنصوصها على ردود محقونة: منتهٍ (401)، متجاوز الحد (403 بنفاد وموعد)، غير متاح (503)، ثم سليم (5000)؛ وناقص الصلاحيات من
 //      استعمال البطاقة (403 actions=read). وتدقيق الشبكة: كل طلبات السجل GET /rate_limit من الخلفية، واحد لكل تحقق أعلنه المستخدم.
@@ -147,11 +147,11 @@ async function scenario(d, target, checks, network) {
       pkText: pk?.textContent ?? '',
       disclosure: document.querySelector('[data-storage-disclosure]')?.textContent ?? '',
       noClaims: document.querySelector('[data-no-claims]')?.textContent ?? '',
-      why: document.body.textContent.includes('لماذا المفتاح'),
+      why: pk?.querySelector('[data-action="provider-key-guide"]')?.getAttribute('href') ?? null,
     };
   `);
   check('بطاقة الرمز: نوعه ووجهته وما يحتاجه، «غير مربوط»، ومدخل «كيف تحصل على الرمز؟»', view?.ghBadge === 'none' && view.ghKind.includes('api.github.com') && view.ghNeeds.includes('صلاحيات قراءة فقط') && view.guide === '#guide/github-token', view);
-  check('مفتاح المزوّد «لم يُتح بعد» بلا حقل، ولا «لماذا المفتاح؟»', view?.pkAvailability === 'not-yet' && view.pkInputs === 0 && view.pkText.includes('لا حقل لمفتاح الآن') && !view.why, view);
+  check('مفتاح المزوّد متاح (MJ21): حقله و«لماذا المفتاح؟» في بطاقته، ولا تكلفة', !view?.pkAvailability && view.pkInputs > 0 && view.why === '#guide/provider-key' && !/تكلف|سعر/.test(view.pkText), view);
   check('بيان الحفظ: مفتاح مستقل لكل سرّ و«غير مشفَّر» صريحًا، ولا ادعاء تشفير ولا إزالة مضمونة', view?.disclosure.includes('مفتاح تخزين مستقل') && view.disclosure.includes('غير مشفَّر') && view.noClaims.includes('لا يدّعي مِجهَر تشفيرًا') && view.noClaims.includes('ولا يضمن التنقيح'), view && { disclosure: view.disclosure.slice(0, 200) });
 
   // 2. نص غير صالح.
@@ -209,7 +209,7 @@ async function scenario(d, target, checks, network) {
   check('تدقيق الشبكة: تحقق «متجاوز الحد» طلب /rate_limit واحد من الخلفية', onlyVerification(network.api.slice(limitStart), 1), network.api.slice(limitStart));
   mode = 'private';
 
-  // 5. العزل: مفتاح مزوّد في مفتاحه المستقل بالجلسة (لا حقل له بعد؛ يُكتب كما تكتبه صفحة الإعدادات).
+  // 5. العزل: مفتاح مزوّد في مفتاحه المستقل بالجلسة (يُكتب كما تكتبه بطاقته في صفحة الإعدادات).
   await d.options(`${API} await api.storage.session.set({ 'mijhar.secret.providerKey': { token: arguments[0], savedAt: Date.now() } }); return true;`, [KEY]);
   const sessionKeys = await d.options(`${API} return Object.keys(await api.storage.session.get(null)).sort();`);
   check('السرّان في مفتاحين مستقلين في الجلسة', JSON.stringify(sessionKeys) === JSON.stringify(['mijhar.connections.health', 'mijhar.secret.githubToken', 'mijhar.secret.providerKey']), sessionKeys);

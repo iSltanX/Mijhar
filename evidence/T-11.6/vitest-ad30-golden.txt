@@ -1,0 +1,6 @@
+ Test Files  4 passed (4)
+      Tests  66 passed (66)
+tests/modules/e/context/bundle-golden.test.ts:  Tests 6 passed (6)
+tests/modules/e/templates.test.ts:  Tests 31 passed (31)
+tests/modules/e/privacy-check.test.ts:  Tests 21 passed (21)
+tests/modules/e/prompt-templates/prompts.test.ts:  Tests 36 passed (36)

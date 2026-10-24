@@ -3,7 +3,10 @@
 // بمصدره (الخلفية أو الصفحة) ووسم ترويسة Authorization (لا قيمتها). وكلاهما يعيد مشغّلًا d بالواجهة نفسها:
 //   options(code, args) وgithub(code): جسم دالة async يُقيَّم في صفحة الإعدادات أو تبويب github.com.
 //   openGithub(url) · fill(selector, text) وclick(selector) في الإعدادات · clickShadow(host, selector): نقر فعلي (فعل مستخدم) داخل جذر ظل.
+//   keyShadow(host, selector, key): ضغطة مفتاح فعلية (Enter أو Space) على عنصر داخل جذر ظل بعد تركيزه (MJ21).
 //   probe(file): ملف من الحزمة المشتقة يُنفَّذ في عالم سكربت المحتوى بـscripting.executeScript من صفحة الإعدادات.
+// MJ21: extra اختياري { host: (req) => reply } يخدم مضيفات أخرى محليًا (مزوّد التحليل) ويسجّل كل طلب إليها في network.extra بطريقته ومساره
+// وترويساته وجسمه؛ وما سواها يبقى محجوبًا. ومن لا يمرّره لا يتغير له شيء.
 process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS = '1';
 import { execFileSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
@@ -54,11 +57,11 @@ export const RUN_PROBE = `
 
 // ---------- عائلة Chromium ----------
 
-export async function chromiumSession(key, { extDir, githubReply, apiReply, authLabel = (v) => (v ? 'present' : null) }) {
+export async function chromiumSession(key, { extDir, githubReply, apiReply, authLabel = (v) => (v ? 'present' : null), extra = {} }) {
   const { executable, label } = BROWSERS[key];
   const profileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mijhar-mj15-profile-'));
   const context = await chromium.launchPersistentContext(profileDir, { executablePath: executable, headless: true, viewport: { width: 1280, height: 900 }, ignoreDefaultArgs: ['--disable-extensions'], args: ['--enable-unsafe-extension-debugging'] });
-  const network = { api: [], github: [], blocked: new Set() };
+  const network = { api: [], github: [], blocked: new Set(), extra: [] };
   const consoleText = [];
   await context.route('https://github.com/**', (route) => {
     const url = new URL(route.request().url());
@@ -75,7 +78,17 @@ export async function chromiumSession(key, { extDir, githubReply, apiReply, auth
     const r = apiReply(pathAndQuery, authorization);
     return route.fulfill({ status: r.status, contentType: 'application/json', headers: r.headers ?? {}, body: JSON.stringify(r.body ?? {}) });
   });
-  await context.route((url) => url.protocol === 'https:' && !['github.com', 'api.github.com'].includes(url.host), (route) => {
+  for (const [host, reply] of Object.entries(extra)) {
+    await context.route(`https://${host}/**`, async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      const entry = { host, method: request.method(), path: url.pathname + url.search, headers: await request.allHeaders(), body: request.postData() ?? null, from: request.serviceWorker() ? 'background' : 'page' };
+      network.extra.push(entry);
+      const r = await reply(entry);
+      return route.fulfill({ status: r.status, contentType: 'application/json', headers: { 'access-control-allow-origin': '*', ...(r.headers ?? {}) }, body: typeof r.body === 'string' ? r.body : JSON.stringify(r.body ?? {}) });
+    });
+  }
+  await context.route((url) => url.protocol === 'https:' && !['github.com', 'api.github.com', ...Object.keys(extra)].includes(url.host), (route) => {
     network.blocked.add(new URL(route.request().url()).host);
     return route.abort();
   });
@@ -106,6 +119,10 @@ export async function chromiumSession(key, { extDir, githubReply, apiReply, auth
     async clickShadow(host, selector) {
       await github.bringToFront();
       await github.locator(`${host} ${selector}`).first().click();
+    },
+    async keyShadow(host, selector, key) {
+      await github.bringToFront();
+      await github.locator(`${host} ${selector}`).first().press(key === 'Space' ? ' ' : key);
     },
   };
   return {
@@ -160,22 +177,44 @@ function marionette(socket) {
   };
 }
 
-function makeCertificates(workDir) {
+function makeCertificates(workDir, extraHosts = []) {
   const file = (name) => path.join(workDir, name);
   const openssl = (...a) => execFileSync('openssl', a, { stdio: 'ignore' });
   openssl('req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-keyout', file('ca.key'), '-out', file('ca.pem'), '-days', '1', '-subj', '/CN=mijhar-mj15-test-ca', '-addext', 'basicConstraints=critical,CA:TRUE', '-addext', 'keyUsage=critical,keyCertSign,cRLSign');
   openssl('req', '-newkey', 'rsa:2048', '-nodes', '-keyout', file('key.pem'), '-out', file('leaf.csr'), '-subj', '/CN=github.com');
-  fs.writeFileSync(file('leaf.ext'), 'subjectAltName=DNS:github.com,DNS:api.github.com\nbasicConstraints=CA:FALSE\nkeyUsage=digitalSignature,keyEncipherment\nextendedKeyUsage=serverAuth\n');
+  const names = ['github.com', 'api.github.com', ...extraHosts].map((h) => `DNS:${h}`).join(',');
+  fs.writeFileSync(file('leaf.ext'), `subjectAltName=${names}\nbasicConstraints=CA:FALSE\nkeyUsage=digitalSignature,keyEncipherment\nextendedKeyUsage=serverAuth\n`);
   openssl('x509', '-req', '-in', file('leaf.csr'), '-CA', file('ca.pem'), '-CAkey', file('ca.key'), '-CAcreateserial', '-out', file('cert.pem'), '-days', '1', '-extfile', file('leaf.ext'));
   const caDer = fs.readFileSync(file('ca.pem'), 'utf8').replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
   return { key: fs.readFileSync(file('key.pem')), cert: fs.readFileSync(file('cert.pem')), caDer };
 }
 
-async function startServers(workDir, network, { githubReply, apiReply, authLabel }) {
-  const { key, cert, caDer } = makeCertificates(workDir);
+async function startServers(workDir, network, { githubReply, apiReply, authLabel, extra = {} }) {
+  const { key, cert, caDer } = makeCertificates(workDir, Object.keys(extra));
   const site = https.createServer({ key, cert }, (req, res) => {
     const host = (req.headers.host ?? '').split(':')[0];
     const url = new URL(req.url, `https://${host}`);
+    if (extra[host]) {
+      const chunks = [];
+      req.on('data', (c) => chunks.push(c));
+      req.on('end', async () => {
+        const cors = { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'GET, POST, OPTIONS' };
+        // الطلب التمهيدي لـCORS (OPTIONS) يُجاب ولا يُسجَّل: لا ترويسة سرّ فيه ولا جسم.
+        if (req.method === 'OPTIONS') {
+          res.writeHead(204, cors);
+          res.end();
+          return;
+        }
+        const body = chunks.length ? Buffer.concat(chunks).toString('utf8') : null;
+        const requestOrigin = req.headers.origin ?? null;
+        const entry = { host, method: req.method, path: url.pathname + url.search, headers: { ...req.headers }, body, from: requestOrigin === null || requestOrigin.startsWith('moz-extension://') ? 'background' : 'page' };
+        network.extra.push(entry);
+        const r = await extra[host](entry);
+        res.writeHead(r.status, { 'content-type': 'application/json', ...cors, ...(r.headers ?? {}) });
+        res.end(typeof r.body === 'string' ? r.body : JSON.stringify(r.body ?? {}));
+      });
+      return;
+    }
     if (host === 'api.github.com') {
       const authorization = req.headers.authorization ?? null;
       const requestOrigin = req.headers.origin ?? null;
@@ -201,7 +240,7 @@ async function startServers(workDir, network, { githubReply, apiReply, authLabel
   });
   proxy.on('connect', (req, client, head) => {
     const host = req.url.split(':')[0];
-    if (host !== 'github.com' && host !== 'api.github.com') {
+    if (host !== 'github.com' && host !== 'api.github.com' && !extra[host]) {
       network.blocked.add(host);
       client.end('HTTP/1.1 403 Forbidden\r\n\r\n');
       return;
@@ -242,13 +281,13 @@ const firefoxPrefs = (proxyPort) =>
 const ELEMENT = 'element-6066-11e4-a52e-4f735466cecf';
 const SHADOW = 'shadow-6066-11e4-a52e-4f735466cecf';
 
-export async function firefoxSession({ extDir, githubReply, apiReply, authLabel = (v) => (v ? 'present' : null) }) {
+export async function firefoxSession({ extDir, githubReply, apiReply, authLabel = (v) => (v ? 'present' : null), extra = {} }) {
   const { executable } = BROWSERS.firefox;
   const workDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mijhar-mj15-ff-'));
   const profileDir = path.join(workDir, 'profile');
   fs.mkdirSync(profileDir);
-  const network = { api: [], github: [], blocked: new Set() };
-  const servers = await startServers(workDir, network, { githubReply, apiReply, authLabel });
+  const network = { api: [], github: [], blocked: new Set(), extra: [] };
+  const servers = await startServers(workDir, network, { githubReply, apiReply, authLabel, extra });
   fs.writeFileSync(path.join(profileDir, 'user.js'), `${firefoxPrefs(servers.proxyPort)}\n`);
   const child = spawn(executable, ['-headless', '-marionette', '-remote-allow-system-access', '-no-remote', '-profile', profileDir], { stdio: 'ignore' });
   const exited = new Promise((resolve) => child.once('exit', resolve));
@@ -346,6 +385,17 @@ export async function firefoxSession({ extDir, githubReply, apiReply, authLabel 
         const shadowId = shadow[SHADOW] ?? Object.values(shadow)[0];
         const { value: inner } = await c.send('WebDriver:FindElementFromShadowRoot', { shadowRoot: shadowId, using: 'css selector', value: selector });
         await c.send('WebDriver:ElementClick', { id: inner[ELEMENT] ?? Object.values(inner)[0] });
+        await sleep(100);
+      },
+      async keyShadow(hostSelector, selector, key) {
+        await switchTo('github');
+        await runAsync(`document.querySelector(arguments[0])?.shadowRoot?.querySelector(arguments[1])?.scrollIntoView({ block: 'center' });`, [hostSelector, selector]);
+        const hostEl = await element(hostSelector);
+        const { value: shadow } = await c.send('WebDriver:GetShadowRoot', { id: hostEl });
+        const shadowId = shadow[SHADOW] ?? Object.values(shadow)[0];
+        const { value: inner } = await c.send('WebDriver:FindElementFromShadowRoot', { shadowRoot: shadowId, using: 'css selector', value: selector });
+        // ElementSendKeys يركّز العنصر ثم يرسل ضغطة فعلية: Enter = \uE007، وSpace مسافة.
+        await c.send('WebDriver:ElementSendKeys', { id: inner[ELEMENT] ?? Object.values(inner)[0], text: key === 'Enter' ? '\uE007' : ' ' });
         await sleep(100);
       },
     };
