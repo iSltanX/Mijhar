@@ -78,20 +78,27 @@ export function sessionModelsCache(session: SessionStorageLike): ModelsCache {
     const value = (await session.get(key))[key];
     return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
   };
+  // كل مفتاح يجمع المزوّدين في كائن واحد، فالكتابة قراءة ثم تعديل ثم كتابة؛ وكتابتان متداخلتان تمحو الثانية الأولى. فتتوالى في الخلفية (F-07).
+  let queue: Promise<unknown> = Promise.resolve();
+  const serial = <T>(task: () => Promise<T>): Promise<T> => {
+    const run = queue.then(task, task);
+    queue = run.catch(() => undefined);
+    return run;
+  };
   return {
     async load(provider) {
       const list = (await read(MODELS_CACHE_KEY))[provider];
       return isList(list) ? withCompatibility(list) : null;
     },
-    async save(list) {
-      await session.set({ [MODELS_CACHE_KEY]: { ...(await read(MODELS_CACHE_KEY)), [list.provider]: list } });
+    save(list) {
+      return serial(async () => session.set({ [MODELS_CACHE_KEY]: { ...(await read(MODELS_CACHE_KEY)), [list.provider]: list } }));
     },
     async loadTest(provider) {
       const test = (await read(MODEL_TESTS_KEY))[provider];
       return isTest(test) && test.provider === provider ? test : null;
     },
-    async saveTest(test) {
-      await session.set({ [MODEL_TESTS_KEY]: { ...(await read(MODEL_TESTS_KEY)), [test.provider]: test } });
+    saveTest(test) {
+      return serial(async () => session.set({ [MODEL_TESTS_KEY]: { ...(await read(MODEL_TESTS_KEY)), [test.provider]: test } }));
     },
   };
 }
