@@ -1,9 +1,9 @@
 ---
 name: mj
-description: يبدأ مرحلة من نظام MJ في مجهر أو يستأنفها في جلستها المستقلة داخل worktree. يُستدعى يدويًا فقط بـ`/mj MJn`.
+description: يبدأ مرحلة من نظام MJ في مجهر أو يستأنفها في جلستها المستقلة داخل worktree؛ وفي الموجة ذات المرحلة الواحدة (run one-session في waves.json) يكملها حتى المراجعة الذاتية والدمج المحلي وفتح الموجة التالية (AD-34). يُستدعى يدويًا فقط بـ`/mj MJn`.
 argument-hint: <MJn>
 disable-model-invocation: true
-allowed-tools: Bash(pwd) Bash(true) Bash(git diff *) Bash(git log *) Bash(git rev-parse *) Bash(git worktree list) Bash(git status *) Bash(git tag -l *) Bash(git branch --list *) Bash(git show *) Bash(git merge-base *) Bash(git rev-list *) Bash(sed -n *) Bash(grep -n *) Bash(test *)
+allowed-tools: Bash(pwd) Bash(true) Bash(git diff *) Bash(git log *) Bash(git rev-parse *) Bash(git worktree list) Bash(git status *) Bash(git tag -l *) Bash(git branch --list *) Bash(git show *) Bash(git merge-base *) Bash(git rev-list *) Bash(sed -n *) Bash(grep -n *) Bash(test *) Bash(node tools/build.mjs *) Bash(node tools/check.mjs *)
 ---
 
 # /mj $0
@@ -24,6 +24,7 @@ allowed-tools: Bash(pwd) Bash(true) Bash(git diff *) Bash(git log *) Bash(git re
 - وسوم أساس الموجات: !`git tag -l 'mj-*/base' --format='%(refname:short) %(objectname:short)' || true`
 - فروع المراحل الموجودة: !`git branch --list 'mj/*' --format='%(refname:short) %(objectname:short)' || true`
 - ترويسة المرحلة في هذا المجلد: !`sed -n '1,/^---$/p' Docs/MJ/stages/$0.md || true`
+- الموجات ونمط تشغيلها (`"run": "one-session"` = موجة بجلسة واحدة، `AD-34`): !`grep -n '"id": "\|"run"' Docs/MJ/waves.json || true`
 
 ## ما تفعله
 
@@ -44,8 +45,12 @@ allowed-tools: Bash(pwd) Bash(true) Bash(git diff *) Bash(git log *) Bash(git re
    `unfunction node npm npx corepack 2>/dev/null; hash -r`). لا تشغّل `node tools/build.mjs` بلا `--sync` هنا.
 7. **عند التسليم:** الترويسة `delivery: branch` و`commit` و`updated`، وتقرير التسليم بصيغته تحت سجل التنفيذ،
    ثم `--sync`، ثم الالتزام الأخير `‹ID›: <النتيجة> — جاهزة للدمج في الموجة ‹WAVE›`. اطبع التقرير وتوقف. لا تدمج في
-   `main` ولا تبدأ مرحلة أخرى ولا ترفع شيئًا.
-8. **لا مراجعة مستقلة هنا ولا برومبت مراجعة** (`AD-26`): اكتب في تقرير التسليم «نطاق المراجعة» (ما تمسّه المرحلة من
+   `main` ولا تبدأ مرحلة أخرى ولا ترفع شيئًا. **إلا إن كانت موجة المرحلة `"run": "one-session"`** (السطر أعلاه أو
+   `Docs/MJ/waves.json`): فلا تتوقف بعد الجاهزية، ونفّذ «دور: موجة بجلسة واحدة» في `Docs/MJ/README.md` خطوة خطوة في هذه
+   الجلسة نفسها (`AD-34`): مراجعة ذاتية تُسمّى كذلك، وضم `main`، وبوابة الموجة على شجرة الفرع، ثم عند خضرتها وحدها
+   الدمج المحلي في `main` من النسخة الرئيسية، والحالة، ووسم الموجة التالية، وصف السجل؛ ثم البلاغ وتوقف دون بدء
+   الموجة التالية. هذا الأمر نفسه تفويض المالك بهذا الدمج المحلي؛ لا تطلب منه جلسة دمج ولا أمرًا ثانيًا.
+8. **لا مراجعة مستقلة هنا ولا برومبت مراجعة** (`AD-26`)، وفي الموجة ذات الجلسة الواحدة مراجعة ذاتية تُسمّى كذلك ولا تُقدَّم مستقلة (`AD-34`): اكتب في تقرير التسليم «نطاق المراجعة» (ما تمسّه المرحلة من
    التخزين أو الصلاحيات أو الشبكة أو الخصوصية أو الأسرار أو التصدير والاستيراد، وملفاته ونقاط فحصه)، ويراجع منسّق
    الدمج الفروع بنفسه قبل الدمج. ولا تطلب من المالك فتح جلسة مراجعة. وإن استُؤنفت الجلسة لإصلاح خلل وثّقته مراجعة
    الدمج فاقرأه من `git show main:evidence/wave-‹WAVE›/review.md` وأصلحه داخل النطاق ثم سلّم من جديد.

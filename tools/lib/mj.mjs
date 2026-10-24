@@ -10,6 +10,8 @@ export const STAGES_DIR = 'Docs/MJ/stages';
 export const WAVES_FILE = 'Docs/MJ/waves.json';
 export const STAGE_STATUS = ['planned', 'active', 'blocked', 'done'];
 export const DELIVERY = ['none', 'branch', 'merged'];
+// أنماط تشغيل الموجة: الافتراضي (بلا حقل) جلسة لكل مرحلة ثم /mj-merge؛ و'one-session' للموجة ذات المرحلة الواحدة (AD-34).
+export const RUN_MODES = ['one-session'];
 export const TASK_WORDS = { 'لم تبدأ': 'not_started', 'جارٍ التنفيذ': 'in_progress', 'متوقفة': 'blocked', 'منفّذة': 'implemented', 'مدمجة': 'done' };
 export const TASK_WORD_OF = Object.fromEntries(Object.entries(TASK_WORDS).map(([k, v]) => [v, k]));
 export const REQUIRED = ['id', 'title', 'status', 'delivery', 'wave', 'order', 'depends', 'tasks', 'model', 'why_model', 'session', 'branch', 'base', 'updated', 'resume'];
@@ -207,6 +209,9 @@ export function validateMJ(plan, mj, waves) {
     if (JSON.stringify(inWave.map((s) => s.id)) !== JSON.stringify(w.order)) err(`waves: order في الموجة ${w.id} لا يطابق مراحلها بترتيب order: ${inWave.map((s) => s.id).join('، ')}`);
     if (!w.merge_model) err(`waves: الموجة ${w.id} بلا merge_model`);
     if (!w.gate) err(`waves: الموجة ${w.id} بلا وصف للفحص (gate)`);
+    // AD-34: موجة بمرحلة واحدة تُنفَّذ وتُراجَع ذاتيًا وتُدمج محليًا في جلسة مرحلتها.
+    if (w.run !== undefined && !RUN_MODES.includes(w.run)) err(`waves: نمط تشغيل غير معروف ${w.run} في الموجة ${w.id}`);
+    if (w.run === 'one-session' && w.order.length !== 1) err(`waves: الموجة ${w.id} بجلسة واحدة ولها ${w.order.length} مراحل (AD-34 للموجة ذات المرحلة الواحدة)`);
   }
   if (!waves.default_model || !waves.commands?.start?.includes('{id}') || !waves.commands?.merge?.includes('{wave}')) err('waves: default_model وأمرا البدء {id} والدمج {wave} مطلوبة');
   return errors;

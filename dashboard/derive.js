@@ -205,6 +205,8 @@
     var waves = W.waves.map(function (w, wi) {
       var stages = w.order.map(function (id) { return byId[id]; }).filter(Boolean);
       var open = !!tagOf['mj-' + w.id + '/base'];
+      // AD-34: الموجة ذات المرحلة الواحدة تُنفَّذ وتُراجَع ذاتيًا وتُدمج محليًا بأمر بدء مرحلتها؛ ولا أمر دمج منفصل.
+      var oneSession = w.run === 'one-session';
       var views = stages.map(function (s) {
         var h = s.header, key = stageKey(h), blockers = [];
         if (!open) blockers.push({ kind: 'wave', text: 'الموجة ' + w.id + ' لم تُفتح بعد: لا وسم ' + tick('mj-' + w.id + '/base') + (wi > 0 ? '؛ يضعه منسّق الدمج عند إغلاق الموجة ' + letters[wi - 1] : '') });
@@ -221,7 +223,7 @@
         });
         var hard = blockers.filter(function (b) { return b.kind !== 'decision'; });
         var sv = STAGE_VIEW[key];
-        return { stage: s, key: key, label: sv.label, tone: sv.tone, glyph: sv.glyph, blockers: blockers, canStart: key !== 'merged' && key !== 'ready' && !hard.length, isResume: key === 'active' || key === 'blocked', startCmd: fill(W.commands.start, { id: s.id }), source: s.source, counts: countTasks(status, h.tasks || []) };
+        return { stage: s, key: key, label: sv.label, tone: sv.tone, glyph: sv.glyph, blockers: blockers, canStart: key !== 'merged' && (key !== 'ready' || oneSession) && !hard.length, isResume: key === 'active' || key === 'blocked' || (oneSession && key === 'ready'), startCmd: fill(W.commands.start, { id: s.id }), source: s.source, counts: countTasks(status, h.tasks || []) };
       });
       var allMerged = views.length > 0 && views.every(function (v) { return v.key === 'merged'; });
       var allDelivered = views.length > 0 && views.every(function (v) { return v.key === 'merged' || v.key === 'ready'; });
@@ -233,7 +235,7 @@
       else if (!open) mergeBlockers.push('الموجة لم تُفتح بعد (لا وسم ' + tick('mj-' + w.id + '/base') + ')');
       else views.forEach(function (v) { if (v.key !== 'ready' && v.key !== 'merged') mergeBlockers.push(tick(v.stage.id) + ' ' + v.label); });
       var ids = []; stages.forEach(function (s) { ids = ids.concat(s.header.tasks || []); });
-      return { wave: w, stages: views, open: open, baseCommit: tagOf['mj-' + w.id + '/base'] || null, key: key, label: WAVE_VIEW[key].label, tone: WAVE_VIEW[key].tone, mergeBlockers: key === 'merged' ? [] : mergeBlockers, mergeCmd: fill(W.commands.merge, { wave: w.id }), counts: countTasks(status, ids), nextWave: letters[wi + 1] || null, isCurrent: false };
+      return { wave: w, stages: views, open: open, baseCommit: tagOf['mj-' + w.id + '/base'] || null, key: key, label: WAVE_VIEW[key].label, tone: WAVE_VIEW[key].tone, mergeBlockers: key === 'merged' ? [] : mergeBlockers, mergeCmd: oneSession ? null : fill(W.commands.merge, { wave: w.id }), oneSession: oneSession, counts: countTasks(status, ids), nextWave: letters[wi + 1] || null, isCurrent: false };
     });
     var current = null;
     for (var i = 0; i < waves.length; i++) { if (waves[i].key !== 'merged') { current = waves[i]; break; } }
@@ -242,12 +244,13 @@
     var next;
     if (!current) next = { kind: 'done', text: 'اكتملت كل الموجات: كل المراحل مدمجة ومتحقق منها.', cmd: null };
     else if (!current.open) next = { kind: 'wait', text: 'الموجة ' + current.wave.id + ' لم تُفتح بعد؛ يفتحها منسّق الدمج بوسم ' + tick('mj-' + current.wave.id + '/base') + ' عند إغلاق الموجة السابقة.', cmd: null };
+    else if (current.key === 'ready' && current.oneSession) next = { kind: 'resume', text: tick(current.stages[0].stage.id) + ' سُلِّمت ولم تُدمج بعد: استأنف جلستها بأمرها «' + current.stages[0].startCmd + '» لتكمل المراجعة الذاتية والبوابة والدمج المحلي (AD-34)؛ لا جلسة دمج منفصلة.', cmd: current.stages[0].startCmd };
     else if (current.key === 'ready') next = { kind: 'merge', text: 'كل مراحل الموجة ' + current.wave.id + ' جاهزة للدمج. افتح جلسة في النسخة الرئيسية (بلا worktree) بمودل ' + current.wave.merge_model + ' وألصق: «' + current.mergeCmd + '». تراجع الجلسة الفروع بنفسها قبل الدمج؛ لا جلسة مراجعة لكل مرحلة.', cmd: current.mergeCmd };
     else {
       var startable = current.stages.filter(function (v) { return v.canStart; });
       var fresh = startable.filter(function (v) { return !v.isResume; }), resume = startable.filter(function (v) { return v.isResume; });
       var parts = [];
-      if (fresh.length) parts.push('افتح جلسة worktree لكل من ' + fresh.map(function (v) { return tick(v.stage.id); }).join(' و') + ' بمودلها وألصق أمرها من صفها' + (fresh.length > 1 ? '؛ تعمل بالتوازي' : ''));
+      if (fresh.length) parts.push('افتح جلسة worktree لكل من ' + fresh.map(function (v) { return tick(v.stage.id); }).join(' و') + ' بمودلها وألصق أمرها من صفها' + (fresh.length > 1 ? '؛ تعمل بالتوازي' : '') + (current.oneSession ? '. الموجة بجلسة واحدة (AD-34): تنفّذ الجلسة وتفحص وتراجع ذاتيًا ثم تدمج محليًا وتفتح الموجة التالية عند نجاح الفحوص، ولا جلسة دمج بعدها' : ''));
       if (resume.length) parts.push((fresh.length ? 'واستأنف ' : 'استأنف ') + resume.map(function (v) { return tick(v.stage.id); }).join(' و') + ' بإعادة أمرها في جلستها');
       next = { kind: 'start', text: (parts.length ? parts.join('؛ ') : 'مراحل الموجة ' + current.wave.id + ' كلها سُلِّمت أو تنتظر') + '.', cmd: startable.length === 1 ? startable[0].startCmd : null, startable: startable.map(function (v) { return v.stage.id; }) };
     }

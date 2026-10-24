@@ -311,7 +311,7 @@ export function render({ plan, status, naming, mj, waves: mjWaves }, D) {
       B.push(`- **الخطوة التالية:** ${MV.next.text}`, '');
       B.push('### الموجات', '');
       B.push(table(['الموجة', 'المراحل بترتيب الدمج', 'التوازي', 'الحالة', 'ما يمنع الدمج', 'مودل الدمج', 'أمر الدمج', 'لماذا معًا'], MV.waves.map((w) => [
-        w.wave.id, w.wave.order.map((id) => `[${id}](stages/${id}.md)`).join(' · '), w.stages.length === 1 ? 'منفردة' : `${w.stages.length} معًا`, w.label, w.mergeBlockers.length ? w.mergeBlockers.join('؛ ') : '—', w.wave.merge_model + (w.wave.why_merge_model ? ` (${w.wave.why_merge_model})` : ''), `\`${w.mergeCmd}\``, w.wave.why_together,
+        w.wave.id, w.wave.order.map((id) => `[${id}](stages/${id}.md)`).join(' · '), w.stages.length === 1 ? 'منفردة' : `${w.stages.length} معًا`, w.label, w.mergeBlockers.length ? w.mergeBlockers.join('؛ ') : '—', w.wave.merge_model + (w.wave.why_merge_model ? ` (${w.wave.why_merge_model})` : ''), w.mergeCmd ? `\`${w.mergeCmd}\`` : `ضمن \`${w.stages[0].startCmd}\`: مراجعة ذاتية ودمج محلي في جلسة المرحلة (\`AD-34\`)`, w.wave.why_together,
       ])), '');
       B.push('### المراحل', '');
       B.push(table(['المرحلة', 'العنوان', 'الموجة', 'تعتمد على', 'المهام', 'المودل', 'الفرع', 'الحالة', 'ما يمنع البدء', 'الالتزام', 'أمر البدء'], MJP.stages.map((s) => {
@@ -373,7 +373,7 @@ export function render({ plan, status, naming, mj, waves: mjWaves }, D) {
     L.push('- وصول إلى صفحات GitHub عامة حية ومستودعات مرجعية عامة.');
     L.push('- رمز تجريبي من المالك لمستودع تجريبي **فقط** إن بقي `DEC-04` معلقًا أو اختير فيه دعم الرمز قبل `T-0.3`.');
     L.push('- Firefox 158.0.1 مثبت الآن (`EV-09`)؛ بنوده تُجرى كغيرها، وما تعذّر يُسجَّل «لم يُجرَ» بسببه.');
-    L.push('- جلسة مستقلة يفتحها المالك لكل مرحلة بأمر `/mj MJn`، وجلسة دمج لكل موجة بأمر `/mj-merge X`؛ ولا تبدأ مرحلة ولا تُدمج موجة تلقائيًا.', '');
+    L.push('- جلسة مستقلة يفتحها المالك لكل مرحلة بأمر `/mj MJn`، وجلسة دمج لكل موجة متعددة المراحل بأمر `/mj-merge X`؛ والموجة ذات المرحلة الواحدة (J وK وM) تُراجَع ذاتيًا وتُدمج محليًا في جلسة مرحلتها بالأمر نفسه (`AD-34`). ولا تبدأ مرحلة ولا تُدمج موجة إلا بأمر المالك.', '');
     L.push('**موانع مسماة نشطة:** لا يوجد؛ الموانع الـ16 في الخطة شروط تظهر أثناء التنفيذ ولم يظهر منها شيء لأن التنفيذ لم يبدأ.', '');
 
     L.push('## الخطوة التالية', '');

@@ -406,11 +406,16 @@
     var s = v.stage, h = s.header, sec = s.sections || {};
     var wave = W.waves.filter(function (w) { return w.id === h.wave; })[0] || { order: [] };
     var parallel = wave.order.filter(function (x) { return x !== h.id; });
+    var one = wave.run === 'one-session';
+    var wi = W.waves.indexOf(wave), nextWave = wi >= 0 && W.waves[wi + 1] ? W.waves[wi + 1].id : null;
+    var closing = one
+      ? 'هذه الموجة بجلسة واحدة (AD-34): نفّذ دور «جلسة مرحلة» حتى التسليم، ثم تابع «دور: موجة بجلسة واحدة» في Docs/MJ/README.md في هذه الجلسة نفسها: مراجعة ذاتية تُسمّى كذلك (ومنها المراجعة الأمنية بفحص لكل ادعاء حرج) في evidence/wave-' + h.wave + '/review.md، وضم main، وبوابة الموجة على شجرة الفرع (' + (wave.gate || '') + ' · الجولة اليدوية: ' + (wave.manual || 'لا شيء') + ')، ثم عند خضرتها وحدها الدمج المحلي في main من النسخة الرئيسية، وتثبيت الحالة، و' + (nextWave ? 'وسم mj-' + nextWave + '/base' : 'لا وسم بعدها (الأخيرة)') + '، وصف سجل الموجات. المانع الحقيقي يُصلح داخل النطاق ويُعاد فحصه، ولا دمج قبل زواله؛ وما خرج عن النطاق يوقف الجلسة قبل الدمج. هذا الأمر تفويض بالدمج المحلي وحده: لا جلسة دمج ولا أمر ثانٍ. لا وكلاء فرعيين، ولا تبدأ الموجة التالية، ولا ترفع شيئًا.'
+      : 'نفّذ دور «جلسة مرحلة» حرفيًا: تحقق بالأوامر من worktree والفرع والأساس والاعتماديات، ثم نفّذ وافحص في هذه الجلسة بلا وكلاء تنفيذ داخليين، وحدّث ترويسة ملف المرحلة وجدول «حالة المهام» وresume عند كل انتقال ثم node tools/build.mjs --sync، وسلّم بتقرير التسليم بصيغته (ومنه «نطاق المراجعة») والتزام أخير، وتوقف. لا مراجعة مستقلة في هذه الجلسة ولا برومبت مراجعة: يراجع منسّق الدمج الفروع بنفسه قبل الدمج (AD-26). لا تدمج في main ولا تبدأ مرحلة أخرى ولا ترفع شيئًا.';
     return [
       'أنت في مستودع مجهر (Mijhar) المحلي، في جلسة مستقلة داخل worktree. الحاكم CLAUDE.md في الجذر، ثم Docs/MJ/README.md (القواعد ودور «جلسة مرحلة» وصيغة تقرير التسليم)، ثم ملف المرحلة Docs/MJ/stages/' + h.id + '.md. اقرأ الثلاثة قبل أي عمل، وكل التواصل مع المالك بالعربية.',
       '',
       'المرحلة: ' + h.id + ' — ' + h.title,
-      'الموجة: ' + h.wave + ' · الأساس: الوسم ' + h.base + ' · الفرع: ' + h.branch + ' · المودل: ' + h.model + ' (' + h.why_model + ') · الجلسة: worktree مستقل',
+      'الموجة: ' + h.wave + ' · الأساس: الوسم ' + h.base + ' · الفرع: ' + h.branch + ' · المودل: ' + h.model + ' (' + h.why_model + ') · الجلسة: worktree مستقل' + (one ? ' · الدمج: في هذه الجلسة بعد مراجعة ذاتية (AD-34)' : ''),
       'المهام: ' + (h.tasks || []).join('، ') + ' · تعتمد على المراحل: ' + ((h.depends || []).length ? h.depends.join('، ') : 'لا شيء') + ' · تعمل بالتوازي مع: ' + (parallel.length ? parallel.join('، ') : 'لا شيء'),
       'نقطة الاستئناف: ' + h.resume,
       '',
@@ -421,7 +426,7 @@
       'معايير القبول:', sec['معايير القبول'] || '', '',
       'الفحوص:', sec['الفحوص'] || '', '',
       'المخاطر:', sec['المخاطر'] || '', '',
-      'نفّذ دور «جلسة مرحلة» حرفيًا: تحقق بالأوامر من worktree والفرع والأساس والاعتماديات، ثم نفّذ وافحص في هذه الجلسة بلا وكلاء تنفيذ داخليين، وحدّث ترويسة ملف المرحلة وجدول «حالة المهام» وresume عند كل انتقال ثم node tools/build.mjs --sync، وسلّم بتقرير التسليم بصيغته (ومنه «نطاق المراجعة») والتزام أخير، وتوقف. لا مراجعة مستقلة في هذه الجلسة ولا برومبت مراجعة: يراجع منسّق الدمج الفروع بنفسه قبل الدمج (AD-26). لا تدمج في main ولا تبدأ مرحلة أخرى ولا ترفع شيئًا.'
+      closing
     ].join('\n');
   }
   function mergePrompt(wv) {
@@ -450,6 +455,11 @@
   }
   function shortMergeBadge(wv, prevView) {
     if (wv.key === 'merged') return '';
+    if (wv.oneSession) {
+      if (prevView && prevView.key !== 'merged') return chip('تنتظر دمج ' + prevView.wave.id, 'muted');
+      if (!wv.open) return chip('الموجة لم تُفتح', 'muted');
+      return wv.key === 'ready' ? chip('سُلِّمت: استأنف جلستها لتدمج', 'warn') : chip('الدمج ضمن أمر البدء', 'muted');
+    }
     if (prevView && prevView.key !== 'merged') return chip('تنتظر دمج ' + prevView.wave.id, 'muted');
     if (!wv.open) return chip('الموجة لم تُفتح', 'muted');
     if (wv.key === 'ready') return chip('جاهزة للدمج', 'ok');
@@ -481,7 +491,7 @@
         '<p class="srow__goal">' + md((s.sections && s.sections['الهدف']) || '') + '</p>' +
         (v.key !== 'merged' && v.key !== 'ready' && v.blockers.length ? '<div class="srow__why"><strong>ما يمنع البدء:</strong><ul class="plain-list">' + v.blockers.map(function (b) { return '<li>' + md(b.text) + '</li>'; }).join('') + '</ul></div>' : '') +
         '<dl class="kv kv--tight">' +
-          '<dt>الجلسة</dt><dd>جلسة جديدة بخيار worktree، بمودل ' + esc(h.model) + (isEx ? ' <span class="muted">(' + md(h.why_model) + ')</span>' : '') + '</dd>' +
+          '<dt>الجلسة</dt><dd>جلسة جديدة بخيار worktree، بمودل ' + esc(h.model) + (isEx ? ' <span class="muted">(' + md(h.why_model) + ')</span>' : '') + (wv.oneSession ? '؛ وتكمل بالأمر نفسه حتى المراجعة الذاتية والدمج المحلي وفتح الموجة التالية عند نجاح الفحوص (AD-34)' : '') + '</dd>' +
           '<dt>الفرع والأساس</dt><dd><bdi class="ltr">' + esc(h.branch) + '</bdi> من الوسم <bdi class="ltr">' + esc(h.base) + '</bdi>' + (h.commit ? ' · الالتزام <bdi class="ltr">' + esc(h.commit) + '</bdi>' : '') + '</dd>' +
           '<dt>تعتمد على</dt><dd>' + ((h.depends || []).length ? h.depends.map(function (d) { return '<bdi class="ltr">' + esc(d) + '</bdi>'; }).join('، ') : 'لا شيء') + '</dd>' +
           (v.key !== 'merged' ? '<dt>نقطة الاستئناف</dt><dd>' + md(h.resume) + '</dd>' : '') +
@@ -507,6 +517,7 @@
   function mergeRow(wv, W, prevView) {
     var w = wv.wave, pid = 'p-merge-' + w.id, open = !!ui.open[pid];
     var isEx = w.merge_model !== W.default_merge_model;
+    if (wv.oneSession) return oneSessionRow(wv, W, prevView);
     return '<div class="mrow">' +
       '<div class="srow__main mrow__main" data-copy-scope>' +
         '<span class="srow__id mrow__id">دمج ' + esc(w.id) + '</span>' +
@@ -531,6 +542,33 @@
         '<div class="srow__actions" data-copy-scope>' + (wv.key === 'merged' ? '' : copyBtn(mergePrompt(wv), 'نسخ برومبت الدمج الكامل')) + fileLink('Docs/MJ/README.md', 'دور منسّق الدمج') + '</div>' +
       '</div></div>';
   }
+  // AD-34: الموجة ذات المرحلة الواحدة: الدمج المحلي في جلسة مرحلتها بعد مراجعة ذاتية؛ لا أمر دمج ولا برومبت دمج يُنسخ.
+  function oneSessionRow(wv, W, prevView) {
+    var w = wv.wave, v = wv.stages[0], pid = 'p-merge-' + w.id, open = !!ui.open[pid];
+    var sid = v ? v.stage.id : '';
+    return '<div class="mrow">' +
+      '<div class="srow__main mrow__main">' +
+        '<span class="srow__id mrow__id">دمج ' + esc(w.id) + '</span>' +
+        '<span class="srow__title mrow__title"><bdi class="ltr">' + esc(sid) + '</bdi> <span class="muted mrow__where">· في جلسة المرحلة نفسها بعد مراجعة ذاتية</span>' + shortMergeBadge(wv, prevView) + '</span>' +
+        '<span class="srow__status">' + statusText(wv.key, wv.label, wv.tone, '') + '</span>' +
+        '<span class="srow__meta">' +
+          '<span class="srow__model" title="جلسة المرحلة نفسها">' + esc(v ? v.stage.header.model : w.merge_model) + '</span>' +
+          (wv.key === 'merged' ? '<span class="muted srow__done">مدمجة</span>' : '<span class="muted srow__done">ضمن <bdi class="ltr">' + esc(v ? v.startCmd : '') + '</bdi></span>') +
+          toggleBtn('merge-' + w.id, 'التفاصيل') +
+        '</span>' +
+      '</div>' +
+      '<div class="srow__panel" id="' + pid + '"' + (open ? '' : ' hidden') + '>' +
+        '<p class="srow__goal">' + md(w.why_together) + '</p>' +
+        '<dl class="kv kv--tight"><dt>الجلسة</dt><dd>جلسة <bdi class="ltr">' + esc(sid) + '</bdi> نفسها بأمرها <bdi class="ltr">' + esc(v ? v.startCmd : '') + '</bdi>، بعد تسليمها: لا جلسة دمج منفصلة ولا أمر ثانٍ يُنسخ (AD-34).' + (wv.key === 'ready' ? ' سُلِّمت ولم تُدمج بعد: استأنفها بالأمر نفسه لتكمل.' : '') + '</dd>' +
+          (wv.key === 'merged'
+            ? (w.review ? '<dt>المراجعة الذاتية</dt><dd>أجرتها جلسة التنفيذ نفسها قبل الدمج المحلي، وهي ليست مراجعة مستقلة. ' + fileLink(w.review, 'تقرير المراجعة الذاتية') + '</dd>' : '')
+            : '<dt>المراجعة الذاتية</dt><dd>تجريها جلسة التنفيذ نفسها قبل الدمج وتُسمّى كذلك، ولا تُقدَّم مستقلة: الفرق مقابل المواصفة، ومراجعة أمنية بفحص لكل ادعاء حرج لما يمس التخزين أو الصلاحيات أو الشبكة أو الخصوصية أو الأسرار أو التصدير والاستيراد. التقرير في <bdi class="ltr">evidence/wave-' + esc(w.id) + '/review.md</bdi>؛ والمانع الحقيقي يُصلح داخل النطاق ويُعاد فحصه، ولا دمج قبل زواله.</dd>') +
+          '<dt>بوابة الموجة</dt><dd>' + md(w.gate) + ' تُجرى على شجرة الفرع بعد ضم main، وهي الشجرة التي تُدمج.</dd>' +
+          '<dt>الجولة اليدوية</dt><dd>' + md(w.manual || 'لا شيء.') + '</dd>' +
+          '<dt>بعد الدمج</dt><dd>' + (wv.nextWave ? 'تضع الجلسة وسم <bdi class="ltr">mj-' + esc(wv.nextWave) + '/base</bdi> للموجة ' + esc(wv.nextWave) + ' ولا تبدأها' : 'آخر موجة؛ لا وسم بعدها') + '</dd></dl>' +
+        '<div class="srow__actions">' + fileLink('Docs/MJ/README.md', 'دور: موجة بجلسة واحدة') + fileLink('DECISIONS.md', 'AD-34') + '</div>' +
+      '</div></div>';
+  }
   function waveBox(wv, W, prevView, prevWave) {
     var w = wv.wave;
     return '<details class="wavebox' + (wv.isCurrent ? ' is-current' : '') + '"' + (wv.isCurrent ? ' open' : '') + '><summary class="wavebox__sum"><span class="wavebox__num" aria-hidden="true">' + esc(w.id) + '</span><span class="wavebox__title">الموجة ' + esc(w.id) + ': ' + esc(w.title) + ' <span class="wavebox__sub">' + wv.stages.map(function (v) { return v.stage.id; }).join(' · ') + '</span></span><span class="wavebox__meta">' + statusText(wv.key, wv.label, wv.tone, '') + plainChip(wv.counts.merged + ' من ' + wv.counts.total + ' مهام') + (wv.isCurrent ? chip('الحالية', 'ready') : '') + '</span></summary>' +
@@ -543,7 +581,7 @@
     var W = MJ.waves, cur = V.current;
     var idxOf = {}; V.waves.forEach(function (wv, i) { idxOf[wv.wave.id] = i; });
     var box = function (wv) { var i = idxOf[wv.wave.id]; return waveBox(wv, W, i > 0 ? V.waves[i - 1] : null, i > 0 ? V.waves[i - 1].wave.id : null); };
-    var h = '<div class="wave-head"><h1>الموجات والمراحل</h1><p>' + V.waves.length + ' موجات · ' + V.stageCount + ' مرحلة · ' + V.counts.total + ' مهمة. كل مرحلة جلسة worktree تفتحها أنت؛ وكل موجة تُغلق بجلسة دمج واحدة تراجع فروعها ثم تدمجها.</p></div>';
+    var h = '<div class="wave-head"><h1>الموجات والمراحل</h1><p>' + V.waves.length + ' موجات · ' + V.stageCount + ' مرحلة · ' + V.counts.total + ' مهمة. كل مرحلة جلسة worktree تفتحها أنت؛ وكل موجة متعددة المراحل تُغلق بجلسة دمج واحدة تراجع فروعها ثم تدمجها، والموجة ذات المرحلة الواحدة تدمجها جلسة مرحلتها بأمرها نفسه بعد مراجعة ذاتية (AD-34).</p></div>';
     h += '<section class="card nowbar" data-copy-scope>' +
       '<div class="nowbar__state"><span class="nowbar__label">الآن</span><strong class="nowbar__wave">' + (cur ? 'الموجة ' + esc(cur.wave.id) + ': ' + esc(cur.wave.title) : 'اكتملت كل الموجات') + '</strong>' + (cur ? statusText(cur.key, cur.label, cur.tone, '') : statusText('merged', 'مدمجة ومتحقق منها', 'ok', '✓')) + '<span class="nowbar__progress">' + V.counts.merged + ' من ' + V.counts.total + ' مهمة مدمجة' + (V.counts.implemented ? ' · ' + V.counts.implemented + ' على فرع' : '') + (V.counts.active ? ' · ' + V.counts.active + ' جارية' : '') + '</span></div>' +
       '<div class="nowbar__next"><span class="nowbar__label">الخطوة التالية</span><span>' + md(V.next.text) + '</span>' + (V.next.cmd ? cmdBtn(V.next.cmd, true) : '') + '</div>' +
@@ -559,8 +597,8 @@
       '<table class="tbl"><thead><tr><th>المرحلة أو الموجة</th><th>المودل</th><th>السبب</th></tr></thead><tbody>' +
       '<tr><td data-label="المرحلة أو الموجة">افتراضي المراحل والدمج</td><td data-label="المودل">' + esc(W.default_model) + '</td><td data-label="السبب">مهام محددة المواصفات بمعايير قبول واضحة.</td></tr>' +
       MJ.stages.filter(function (s) { return s.header.model !== W.default_model; }).map(function (s) { return '<tr><td data-label="المرحلة أو الموجة"><bdi class="ltr">' + esc(s.header.id) + '</bdi> ' + esc(s.header.title) + '</td><td data-label="المودل">' + esc(s.header.model) + '</td><td data-label="السبب">' + md(s.header.why_model) + '</td></tr>'; }).join('') +
-      W.waves.filter(function (w) { return w.merge_model !== W.default_merge_model; }).map(function (w) { return '<tr><td data-label="المرحلة أو الموجة">دمج الموجة ' + esc(w.id) + '</td><td data-label="المودل">' + esc(w.merge_model) + '</td><td data-label="السبب">' + md(w.why_merge_model || '') + '</td></tr>'; }).join('') + '</tbody></table>' +
-      '<h3>طريقة العمل</h3>' + list(['تفتح جلسة مستقلة بخيار worktree لكل مرحلة قابلة للبدء، تختار مودلها، وتلصق أمرها القصير `/mj MJn` أو البرومبت الكامل من تفاصيلها. المراحل المستقلة في الموجة تعمل بالتوازي.', 'جلسة المرحلة تتحقق من الفرع والأساس والاعتماديات، وتنفّذ وتفحص بنفسها، وتحدّث ملف مرحلتها وتزامن اللوحة، وتسلّم «جاهزة للدمج» بمرجع الالتزام و«نطاق المراجعة» وتتوقف؛ لا تطلب منك فتح جلسة مراجعة ولا نسخ برومبت.', 'بعد اكتمال التسليمات تفتح جلسة الدمج وحدها في النسخة الرئيسية وتلصق `/mj-merge X`: تكتشف الفروع وتراجعها بنفسها قبل الدمج (ومراجعة أمنية للمراحل الحساسة، وتقريرها في `evidence/wave-X/review.md`؛ وخلل يمنع الدمج يوقفه بالإصلاح المطلوب)، ثم تدمجها بالترتيب على فرع تكامل وتفحص الشجرة المجمّعة وتنقلها إلى main وتفتح الموجة التالية بوسمها.', 'لا تبدأ مرحلة ولا تُدمج موجة إلا بأمرك؛ ولا رفع ولا نشر. القواعد كاملة في `Docs/MJ/README.md`.']) +
+      W.waves.filter(function (w) { return w.merge_model !== W.default_merge_model; }).map(function (w) { return '<tr><td data-label="المرحلة أو الموجة">دمج الموجة ' + esc(w.id) + (w.run === 'one-session' ? ' (في جلسة مرحلتها، AD-34)' : '') + '</td><td data-label="المودل">' + esc(w.merge_model) + '</td><td data-label="السبب">' + md(w.why_merge_model || '') + '</td></tr>'; }).join('') + '</tbody></table>' +
+      '<h3>طريقة العمل</h3>' + list(['تفتح جلسة مستقلة بخيار worktree لكل مرحلة قابلة للبدء، تختار مودلها، وتلصق أمرها القصير `/mj MJn` أو البرومبت الكامل من تفاصيلها. المراحل المستقلة في الموجة تعمل بالتوازي.', 'جلسة المرحلة تتحقق من الفرع والأساس والاعتماديات، وتنفّذ وتفحص بنفسها، وتحدّث ملف مرحلتها وتزامن اللوحة، وتسلّم «جاهزة للدمج» بمرجع الالتزام و«نطاق المراجعة» وتتوقف؛ لا تطلب منك فتح جلسة مراجعة ولا نسخ برومبت.', 'في الموجة ذات المرحلة الواحدة (J وK وM، `run: one-session`) يكفي أمر البدء `/mj MJn`: تنفّذ الجلسة وتفحص، ثم تراجع ذاتيًا (وتسمّيها مراجعة ذاتية)، وتشغّل بوابة الموجة، ثم عند نجاح الفحوص وحده تدمج محليًا في main وتحدّث الحالة والصفحة وتفتح الموجة التالية بوسمها دون أن تبدأها؛ ولا جلسة دمج ولا أمر ثانٍ (AD-34).', 'وفي الموجة متعددة المراحل، بعد اكتمال التسليمات تفتح جلسة الدمج وحدها في النسخة الرئيسية وتلصق `/mj-merge X`: تكتشف الفروع وتراجعها بنفسها قبل الدمج (ومراجعة أمنية للمراحل الحساسة، وتقريرها في `evidence/wave-X/review.md`؛ وخلل يمنع الدمج يوقفه بالإصلاح المطلوب)، ثم تدمجها بالترتيب على فرع تكامل وتفحص الشجرة المجمّعة وتنقلها إلى main وتفتح الموجة التالية بوسمها.', 'لا تبدأ مرحلة ولا تُدمج موجة إلا بأمرك؛ ولا رفع ولا نشر. القواعد كاملة في `Docs/MJ/README.md`.']) +
       '<div class="files">' + fileLink('Docs/MJ/README.md', 'Docs/MJ/README.md') + fileLink('STATUS.md', 'STATUS.md') + fileLink('DECISIONS.md', 'DECISIONS.md') + '</div></div></details>';
     return { html: h, count: null };
   }
