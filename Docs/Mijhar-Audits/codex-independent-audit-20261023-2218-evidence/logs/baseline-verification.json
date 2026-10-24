@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-23T22:18:04.887367+03:00",
+  "branch": "main",
+  "commit": "6e333faa7a063042e0d541caca810dd48fef748e",
+  "statusPorcelain": "",
+  "baselineHashedFiles": 653,
+  "changedSinceStart": [],
+  "productionFilesComparedToIsolatedCopy": 352,
+  "isolatedSourceMismatch": [],
+  "worktrees": "worktree /Volumes/iSltanXx/Projects/Brave/Mijhar\nHEAD 6e333faa7a063042e0d541caca810dd48fef748e\nbranch refs/heads/main\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj10-8366f0\nHEAD c700c201710a7981c68837e9dd9762e828f7863b\nbranch refs/heads/mj/10-glossary-access-translate-ui-composer\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj11-1ee56e\nHEAD daf7f9137c019400e2795b30d067e5736b286ae3\nbranch refs/heads/mj/11-pr-blockers-log-parser\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj12-9b2f25\nHEAD 70ce810d51f8552d3d05b25e904672e54d6806e7\nbranch refs/heads/mj/12-bookmarks-anchor-readme-wizard\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj2-5fba18\nHEAD 6a525ae5c5832ffaa650d72972263a56d8e5f1db\nbranch refs/heads/claude/mj2-5fba18\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj2-92ceb0\nHEAD c1d520ee22e866c5fcc25f60b4e34ec5c2c31fad\nbranch refs/heads/mj/6-direction-guard\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj3-52830f\nHEAD bc96f1f93595f9b19f6aa2b282608e2f60024a9d\nbranch refs/heads/mj/5-ui-host\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj4-826af3\nHEAD 7e40facd455e2f721e055510ee4bb52e371e5727\nbranch refs/heads/mj/7-module-a-rest\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj8-2440b2\nHEAD aa6408d9a74e4e0c27b338788df9b3e2f9078258\nbranch refs/heads/mj/8-glossary-card-pr-status\n\nworktree /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj9-a2de59\nHEAD 70be6309d383b3ce0b6e67b4e76c8095da5d61d0\nbranch refs/heads/mj/9-notes-community-first-layer\n\n"
+}

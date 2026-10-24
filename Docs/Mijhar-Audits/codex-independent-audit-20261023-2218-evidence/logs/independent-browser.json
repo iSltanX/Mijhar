@@ -1,0 +1,50 @@
+{
+  "browser": "156.0.8078.47",
+  "evidence": "actual browser, fresh production extension, routed fixtures; not live GitHub",
+  "network": [
+    {
+      "url": "https://github.com/octo/demo/issues/new",
+      "method": "GET"
+    },
+    {
+      "url": "https://github.com/octo/community",
+      "method": "GET"
+    },
+    {
+      "url": "https://github.com/octo/community",
+      "method": "GET"
+    }
+  ],
+  "extensionId": "iejnfgcichecfkkmapbcpbmbhcniifhj",
+  "composer": {
+    "block": "## Expected behavior\n\nIt works.",
+    "original": "Intro\n\n## Expected behavior\n\nIt works.\nTail",
+    "beforeUndo": "Intro\n\n## Expected behavior\n\nIt works.\nTail\n\n## Expected behavior\n\nIt changed.\n",
+    "afterUndo": "IntroTail\n\n## Expected behavior\n\nIt changed.\n",
+    "status": "أُزيل النص المُدرج وبقيت تعديلاتك اللاحقة في الحقل.",
+    "oldTextLost": true
+  },
+  "recovery": {
+    "beforeHosts": 1,
+    "afterHosts": 0,
+    "altered": {
+      "parent": "DIV",
+      "parentId": "",
+      "mainConnected": true
+    },
+    "url": "https://github.com/octo/community"
+  },
+  "navigation": {
+    "beforeRepo": "المستودع: octo/community. يقرأ المرشد نصوص الملفات فقط ولا ينفذ شيئًا نيابة عنك.",
+    "afterRepo": "المستودع: other/project. يقرأ المرشد نصوص الملفات فقط ولا ينفذ شيئًا نيابة عنك.",
+    "url": "https://github.com/other/project",
+    "events": [
+      "currententrychange",
+      "navigatesuccess"
+    ]
+  },
+  "options": {
+    "title": "مِجهَر — الإعدادات والخصوصية",
+    "body": "مِجهَر — الإعدادات والخصوصية\nالوحدات\n\nأوقف أي وحدة فتُزال آثارها من الصفحات المفتوحة فورًا، وشغّلها فتعود. يُحفظ اختيارك في هذا المتصفح.\n\n(أ) اتجاه عربي وقراءة مريحة\nضبط اتجاه النص العربي والمختلط، والخطوط، ووضع القراءة.\n(ب) قاموس الواجهة\nشرح مصطلحات GitHub وأزراره في سياقها، والجولات الإرشادية.\n(ج) ترجمة تقنية\nترجمة محلية تحمي الأكواد والرموز ولا تعرض نصًّا مشوَّهًا.\n(د) حالة العمل والفحوص\nحالة طلب الدمج والفحوص وموانعها بأدلتها.\n(هـ) حزمة السياق والبرومبت والتحليل\nجمع سياق المهمة ونسخه برومبتً"
+  }
+}
