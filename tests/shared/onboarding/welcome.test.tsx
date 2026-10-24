@@ -8,6 +8,8 @@ import { act } from 'preact/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PANEL_REQUEST_KEY, WELCOME_KEY } from '../../../src/core';
 import { OPTIONAL_CONNECTIONS, WELCOME_FEATURES } from '../../../src/shared/onboarding/content';
+import type { OptionalConnection } from '../../../src/shared/onboarding/content';
+import { Welcome } from '../../../src/shared/onboarding/Welcome';
 import { PanelApp } from '../../../src/sidepanel/PanelApp';
 import type { PanelView } from '../../../src/sidepanel/views';
 import { flush, memorySettings } from '../../core/ui-host/helpers';
@@ -71,8 +73,9 @@ describe('متى يظهر الترحيب', () => {
 });
 
 describe('الخطوة الثانية: الاتصالات الاختيارية', () => {
-  it('«التالي» ينقل التركيز إلى عنوانها؛ الرمز متاح وله دليل، ومفتاح المزوّد «لم يُتح بعد» بلا رابط ولا اسم مزوّد', async () => {
-    await mount('pending', { openOptionsAt: vi.fn() });
+  it('«التالي» ينقل التركيز إلى عنوانها؛ الرمز متاح وله دليل، ومفتاح المزوّد متاح (MJ21) برابط «لماذا المفتاح؟» ووجهته', async () => {
+    const openOptionsAt = vi.fn();
+    await mount('pending', { openOptionsAt });
     await click('[data-action="welcome-next"]');
     expect($('.welcome').getAttribute('data-welcome-step')).toBe('2');
     expect(document.activeElement?.id).toBe('mj-welcome-title');
@@ -80,11 +83,35 @@ describe('الخطوة الثانية: الاتصالات الاختيارية',
     const key = $('[data-connection="provider-key"]');
     expect(token.getAttribute('data-status')).toBe('available');
     expect(token.querySelector('[data-action="guide-github-token"]')?.textContent).toContain('كيف أحصل على الرمز؟');
-    expect(key.getAttribute('data-status')).toBe('not-yet');
-    expect(key.textContent).toContain('لم يُتح بعد');
-    expect(key.querySelector('button')).toBeNull();
-    expect(key.textContent).not.toMatch(/Anthropic|يحلّل فشل/);
-    expect(OPTIONAL_CONNECTIONS.find((c) => c.id === 'provider-key')?.status).toBe('not-yet');
+    expect(key.getAttribute('data-status')).toBe('available');
+    expect(key.textContent).toContain('يُرسل ما توافق عليه إلى Anthropic وحدها');
+    expect(key.textContent).not.toMatch(/سعر|تكلف|دولار|مجاني|تدفع/);
+    await click('[data-action="guide-provider-key"]');
+    expect(openOptionsAt).toHaveBeenLastCalledWith('guide/provider-key');
+  });
+
+  it('AC-E9 (٨): الترحيب لا يذكر المزوّد قبل طبقة التحليل («لم يُتح بعد» بلا رابط)، ويذكره بعدها برابط شرحه', async () => {
+    const token = OPTIONAL_CONNECTIONS.find((c) => c.id === 'github-token') as OptionalConnection;
+    const after = OPTIONAL_CONNECTIONS.find((c) => c.id === 'provider-key') as OptionalConnection;
+    // قبل MJ21 كما كان في الترحيب المدمج (AD-29): «لم يُتح بعد» بلا حقائق ولا رابط.
+    const before: OptionalConnection = { id: 'provider-key', icon: 'message', title: 'مفتاح مزوّد التحليل', text: 'تضيفه طبقة التحليل في تحديث لاحق.', status: 'not-yet', facts: [] };
+    const show = async (connections: readonly OptionalConnection[]) => {
+      act(() => render(<Welcome onDone={() => {}} openOptions={() => {}} connections={connections} />, container));
+      await settle();
+      await click('[data-action="welcome-next"]');
+      return $('[data-connection="provider-key"]');
+    };
+    const was = await show([token, before]);
+    expect(was.getAttribute('data-status')).toBe('not-yet');
+    expect(was.textContent).toContain('لم يُتح بعد');
+    expect(was.textContent).not.toMatch(/Anthropic/);
+    expect(was.querySelector('[data-action="guide-provider-key"]')).toBeNull();
+    render(null, container);
+    const now = await show([token, after]);
+    expect(now.getAttribute('data-status')).toBe('available');
+    expect(now.textContent).toMatch(/Anthropic/);
+    expect(now.querySelector('[data-action="guide-provider-key"]')?.textContent).toContain('لماذا المفتاح؟');
+    expect(after.guide?.target).toBe('guide/provider-key');
   });
 
   it('«كيف أحصل على الرمز؟» يفتح الدليل ولا ينهي الترحيب؛ و«اربط الرمز من الإعدادات» يفتح قسم الرمز وينهيه', async () => {

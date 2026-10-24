@@ -68,10 +68,19 @@ describe('hostOfMatchPattern وhostsInText', () => {
 });
 
 describe('auditManifest', () => {
-  it.each(['chromium', 'firefox'])('مانيفست المصدر %s: لا مخالفة ولا تحذير، ومضيفاته github.com وapi.github.com وحدهما', (name) => {
+  it.each(['chromium', 'firefox'])('مانيفست المصدر %s: لا مخالفة ولا تحذير، ومضيفاته github.com وapi.github.com ومضيف مزوّد التحليل الاختياري (MJ21) وحدها', (name) => {
     const result = auditManifest(manifest(name));
     expect(result.findings).toEqual([]);
-    expect([...new Set(result.hosts.map((h: { host: string }) => h.host))].sort()).toEqual(['api.github.com', 'github.com']);
+    expect([...new Set(result.hosts.map((h: { host: string }) => h.host))].sort()).toEqual(['api.anthropic.com', 'api.github.com', 'github.com']);
+  });
+
+  it('مضيف مزوّد التحليل (MJ21): صلاحية اختيارية وحدها مقبولة، وفي host_permissions مخالفة؛ وفي شيفرة مسار الترجمة مخالفة وخارجه مقبول', () => {
+    expect(auditManifest({ optional_host_permissions: ['https://api.anthropic.com/*'] }).findings).toEqual([]);
+    expect(auditManifest({ host_permissions: ['https://api.anthropic.com/*'] }).findings).toEqual([expect.objectContaining({ severity: 'violation', rule: 'cloud-translation-host' })]);
+    const files = (path: string) => [{ path, text: 'const u = "https://api.anthropic.com/v1/messages";' }];
+    expect(auditSources(files('src/modules/c/engines/x.ts')).findings).toEqual([expect.objectContaining({ severity: 'violation', rule: 'cloud-translation-host' })]);
+    expect(auditSources(files('src/modules/e/provider/x.ts')).findings).toEqual([]);
+    expect(auditSources([{ path: 'src/modules/e/provider/x.ts', text: 'const u = "https://api.openai.com/v1";' }]).findings).toEqual([expect.objectContaining({ severity: 'violation' })]);
   });
 
   it('مضيف ترجمة سحابي في host_permissions أو optional_host_permissions مخالفة', () => {

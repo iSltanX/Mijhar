@@ -91,16 +91,15 @@ async function optionsPage(reply: (call: Call, i: number) => Reply, options: { g
 const notice = (ui: Awaited<ReturnType<typeof optionsPage>>) => ui.q('[data-token-check]');
 
 describe('(١) الحالة من تحقق فعلي لا من نص في الحقل', () => {
-  it('لا رمز: غير مربوط بنصه، ومفتاح المزوّد «لم يُتح بعد» بلا حقل؛ ولكل اتصال نوعه وما يحتاجه', async () => {
+  it('لا رمز: غير مربوط بنصه، ومفتاح المزوّد متاح (MJ21) بلا سرّ محفوظ؛ ولكل اتصال نوعه وما يحتاجه', async () => {
     const ui = await optionsPage(() => state('valid'));
     expect(ui.badge('github-token')).toBe('none');
     expect(ui.card('github-token')?.querySelector('[data-connection-kind]')?.textContent).toContain('api.github.com');
     expect(ui.card('github-token')?.querySelector('[data-connection-needs]')?.textContent).toContain('صلاحيات قراءة فقط');
+    // جسم بطاقة المزوّد (حقله وتحققه) في اختبارات طبقة المزوّد (tests/modules/e/provider)؛ وهنا الرأس من السجل وحالته.
     const provider = ui.card('provider-key');
-    expect(provider?.getAttribute('data-availability')).toBe('not-yet');
-    expect(provider?.querySelector('[data-health]')?.getAttribute('data-health')).toBe('not-yet');
-    expect(provider?.querySelector('input, textarea')).toBeNull();
-    expect(provider?.querySelector('[data-not-yet]')?.textContent).toContain('لا حقل لمفتاح الآن');
+    expect(provider?.hasAttribute('data-availability')).toBe(false);
+    expect(provider?.getAttribute('data-health')).toBe('none');
     expect(ui.s.calls).toHaveLength(0);
   });
 
@@ -194,7 +193,7 @@ describe('(٣) العودة إلى الميزة التي طلبت الربط', (
     expect(await s.connections.pending()).toBeNull();
     await s.tabRuntime.sendMessage({ type: OPEN_OPTIONS_MESSAGE, target: 'javascript:alert(1)', feature: 'd.pr-status.private' });
     expect(s.tabs.create.mock.calls.map(([p]) => p.url)).toEqual(['chrome-extension://mijhar/options.html#token', 'chrome-extension://mijhar/options.html#token']);
-    expect(OPTIONS_TARGETS).toEqual(['token', 'guide/github-token']);
+    expect(OPTIONS_TARGETS).toEqual(['token', 'guide/github-token', 'provider-key', 'guide/provider-key']);
     expect(await s.connections.returnToFeature()).toBe(true);
     expect(await s.connections.returnToFeature()).toBe(false);
   });

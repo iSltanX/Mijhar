@@ -4,7 +4,7 @@
   "minimum_chrome_version": "114",
   "permissions": ["sidePanel", "storage"],
   "host_permissions": ["https://github.com/*"],
-  "optional_host_permissions": ["https://api.github.com/*"],
+  "optional_host_permissions": ["https://api.github.com/*", "https://api.anthropic.com/*"],
   "background": {
     "service_worker": "background.js"
   },

@@ -43,10 +43,12 @@ describe('التعريفات: قائمة مغلقة بلا مفاتيح أسرا
     expect(isConnectionId('https://evil.example')).toBe(false);
   });
 
-  it('مفتاح المزوّد «لم يُتح بعد» حتى تُدمج طبقة التحليل (MJ21، AD-29)', () => {
+  it('مفتاح المزوّد متاح مع طبقة التحليل (MJ21، AC-E9)، بوجهته الوحيدة وبلا أي ذكر لتكلفة (AD-31)', () => {
     const provider = CONNECTIONS.find((c) => c.id === 'provider-key');
-    expect(provider?.availability).toBe('not-yet');
-    expect(provider?.notYet).toContain('لا حقل لمفتاح الآن');
+    expect(provider?.availability).toBe('available');
+    expect(provider?.destination).toBe('api.anthropic.com');
+    expect(provider?.notYet).toBeUndefined();
+    expect(JSON.stringify(provider)).not.toMatch(/تكلف|سعر|دولار/);
   });
 });
 
@@ -177,9 +179,9 @@ describe('عقد «ميزة تحتاج ربطًا» (AC-11.1 ‏(٣) و(٥))', (
     expect(isLinked('none')).toBe(false);
   });
 
-  it('حذف سرّ أو انتهاؤه يعطّل ما يعتمد عليه وحده: لا ميزة تعتمد على مفتاح المزوّد الآن، وحالته لا تمس بوابة الرمز', () => {
+  it('حذف سرّ أو انتهاؤه يعطّل ما يعتمد عليه وحده: التحليل في أقسامه الثلاثة يعتمد على مفتاح المزوّد (MJ21)، وحالته لا تمس بوابة الرمز', () => {
     expect(dependentsOf('github-token').map((f) => f.id)).toEqual(['d.pr-status.private']);
-    expect(dependentsOf('provider-key')).toEqual([]);
+    expect(dependentsOf('provider-key').map((f) => f.id)).toEqual(['d.analysis.checks', 'd.analysis.pr', 'd.analysis.issue']);
     expect(gate(feature, { 'github-token': 'healthy', 'provider-key': 'expired' }).open).toBe(true);
   });
 });

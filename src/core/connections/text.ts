@@ -38,6 +38,8 @@ export function healthText(id: ConnectionId, status: Pick<ConnectionStatus, 'hea
         ? `انتهت مدة ${noun} في ${utcText(d.expiresAt)}. يتعطل ما يعتمد عليه وحده؛ امسحه واحفظ بدلًا منه.`
         : `رفض ${service} ${noun} (401): انتهت مدته أو أُلغي أو لم يعد صالحًا. يتعطل ما يعتمد عليه وحده، ولا تُرسل الطلبات بلا ${noun} ما دام محفوظًا؛ امسحه أو استبدله.`;
     case 'insufficient': {
+      // MJ21: رفض مزوّد التحليل (403) بسببه المعلن، بلا صلاحية GitHub تُسمّى.
+      if (!d.permission && d.reason) return `رفض ${service} الطلب (403): ${d.reason}. يتعطل ما يعتمد عليه وحده؛ راجع صلاحيات ${noun} لدى ${service} ثم تحقق.`;
       const name = d.permission ? `صلاحية ${options.permissionName?.(d.permission) ?? d.permission} (قراءة)` : 'صلاحية قراءة';
       return `ينقصه ${name}${d.where ? ` في المستودع ${d.where}` : ''}. تُستبعد هذه البيانات ويُعلَن ذلك حيث تُعرض؛ أضف الصلاحية من ${service} ثم تحقق.`;
     }

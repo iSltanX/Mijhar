@@ -9,8 +9,8 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 export const TARGETS = ['chromium', 'firefox'];
 export const BASE_HOST = 'https://github.com/*';
 // المضيفات الاختيارية المسموحة: تُطلب بنقر صريح ولا تُمنح عند التثبيت (AD-08). api.github.com يملك تدفقه T-1.4؛
-// وتضيف المرحلة التي تحتاج مضيفًا آخر (المزوّد أو النموذج) سطره هنا.
-export const OPTIONAL_HOSTS = ['https://api.github.com/*'];
+// وتضيف المرحلة التي تحتاج مضيفًا آخر (المزوّد أو النموذج) سطره هنا. api.anthropic.com: مزوّد التحليل (MJ21، DEC-09، AD-19)، تطلبه بطاقة المفتاح.
+export const OPTIONAL_HOSTS = ['https://api.github.com/*', 'https://api.anthropic.com/*'];
 
 // أنماط المضيف الأساسية: ما يُمنح عند التثبيت. أما optional_host_permissions فتُطلب عند الحاجة ولا تُفحص هنا.
 export function primaryHostPatterns(manifest) {

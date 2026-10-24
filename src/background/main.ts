@@ -6,6 +6,8 @@
 //  - تقرأ رمز الوصول الاختياري من مخزنه الموثوق لكل طلب (MJ15، T-5.5، AD-24)، ويضيف العميل ترويسته هنا وحده؛ فلا يعبر الرمز رسالة.
 //  - سجل الاتصالات (MJ18، T-11.1): كل استجابة GitHub تمر بها تحدّث صحة الرمز (التحقق /rate_limit والاستعمال)، وتعرض الحالة بلا سرّ،
 //    وتعيد المستخدم إلى الميزة التي طلبت الربط.
+//  - طبقة المزوّد (MJ21، T-11.6): تقرأ مفتاح المزوّد من مخزنه لكل طلب وتضيفه إلى طلب المحوّل هنا وحده (لا رمز GitHub معه)، ولا طلب إلا
+//    بالتحقق المعلن من الإعدادات أو بموافقة القسم؛ وتحترم موعد إعادة المحاولة المعلن ولا تكرر طلبًا جاريًا من القسم نفسه.
 // الاستيراد من الملفات مباشرة لا من ../core: الخلفية لا ترسم واجهة، فلا تحمل Preact.
 import { extensionApi } from '../core/ui-host/browser-api';
 import type { ExtensionApi } from '../core/ui-host/browser-api';
@@ -32,6 +34,9 @@ import { ConnectionsService, extensionHealthLog } from '../core/connections/serv
 import type { HealthLog } from '../core/connections/service';
 import type { SecretStore } from '../core/connections/secrets';
 import { NotesBroker, openParts } from '../modules/g/notes/broker';
+import { isProviderRequest } from '../modules/e/provider/port';
+import { ProviderService, extensionModelsCache } from '../modules/e/provider/service';
+import type { ModelsCache } from '../modules/e/provider/service';
 import { isNotesWriteRequest } from '../modules/g/notes/writer';
 
 export interface BackgroundOptions {
@@ -44,7 +49,11 @@ export interface BackgroundOptions {
   /** مخزن رمز الوصول (للاختبار). الافتراضي storage.session وIndexedDB الإضافة؛ null بلا رمز. */
   readonly tokens?: Pick<TokenStore, 'read' | 'info'> | null;
   /** مخزن مفتاح مزوّد التحليل (للاختبار). الافتراضي مفتاحاه المستقلان؛ null بلا مفتاح. */
-  readonly providerKeys?: Pick<SecretStore, 'info'> | null;
+  readonly providerKeys?: Pick<SecretStore, 'info' | 'read'> | null;
+  /** fetch لطلبات المزوّد (للاختبار). الافتراضي fetch العام. */
+  readonly providerFetch?: typeof fetch;
+  /** قائمة المودلات المقروءة (للاختبار). الافتراضي storage.session. */
+  readonly modelsCache?: ModelsCache;
   /** سجل صحة الاتصالات (للاختبار). الافتراضي storage.session. */
   readonly healthLog?: HealthLog;
   /** انعكاس التفضيل المتزامن في Firefox. الافتراضي localStorage صفحة الخلفية. */
@@ -111,6 +120,17 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     void ready.then(({ settings }) => settings.set(WELCOME_KEY, 'pending')).catch((error: unknown) => console.error('[mijhar] تعذّر تجهيز الترحيب', error));
   });
 
+  // MJ21 (T-11.6): طبقة المزوّد. المفتاح يُقرأ من مخزنه لكل طلب، والإعدادات (المزوّد والمودل) من المخزن بعد فتحه.
+  const provider = new ProviderService({
+    keys: providerKeys,
+    permissions: api.permissions ?? null,
+    ...(options.providerFetch ? { fetch: options.providerFetch } : {}),
+    connections,
+    settings: () => ready.then(({ settings }) => settings),
+    cache: options.modelsCache ?? extensionModelsCache(),
+    onError: (error) => console.error('[mijhar] طبقة المزوّد', error),
+  });
+
   // VR-01: الوسيط ينتظر فتح المخزن (ومعه الترحيل) قبل أول كتابة.
   const notesBroker = new NotesBroker(() => ready.then(({ store }) => openParts(store)));
 
@@ -124,6 +144,11 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
       if (!port) return undefined;
       // sendResponse مع true: الرد غير المتزامن في عائلة Chromium وFirefox معًا.
       void handlePublicApiRequest(message, port).then(sendResponse, (error: unknown) => sendResponse({ ok: false, failure: 'network', status: null, message: String(error), retryAt: null, readAt: Date.now(), rate: null }));
+      return true;
+    }
+    if (isProviderRequest(message)) {
+      // التبويب من sender لا من الرسالة: طلب واحد جارٍ لكل قسم في التبويب.
+      void provider.handle(message, String(sender.tab?.id ?? sender.url ?? 'extension')).then(sendResponse, () => sendResponse(null));
       return true;
     }
     if (isConnectionsRequest(message)) {

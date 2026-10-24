@@ -1,15 +1,20 @@
-// غلاف صفحة الإعدادات (AD-29): يختار بين الإعدادات ودليل رمز GitHub من جزء العنوان (#guide/github-token)، فيعمل الرجوع في المتصفح
-// ويُفتح الدليل مباشرة من اللوحة والدرج في تبويب جديد. #token يعرض الإعدادات ويركّز مدخل الدليل في قسم الرمز. لا يحمل العنوان أي بيانات.
+// غلاف صفحة الإعدادات (AD-29): يختار بين الإعدادات ودليل رمز GitHub (#guide/github-token) و«لماذا المفتاح؟» (#guide/provider-key، MJ21) من جزء
+// العنوان، فيعمل الرجوع في المتصفح وتُفتح الصفحتان مباشرة من اللوحة والدرج في تبويب جديد. #token و#provider-key تعرضان الإعدادات وتركّزان مدخل
+// الشرح في بطاقة السرّ. لا يحمل العنوان أي بيانات.
 import type { ComponentChild } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { OptionsTarget } from '../core/ui-host/commands';
+import { ProviderKeyGuide } from './guide/ProviderKeyGuide';
 import { TokenGuide } from './guide/TokenGuide';
 
 export const GUIDE_HASH = 'guide/github-token';
 export const TOKEN_HASH = 'token';
+export const PROVIDER_GUIDE_HASH = 'guide/provider-key';
+export const PROVIDER_HASH = 'provider-key';
 
 const PAGE_TITLE = 'مِجهَر — الإعدادات والخصوصية';
 const GUIDE_TITLE = 'دليل رمز GitHub — مِجهَر';
+const PROVIDER_GUIDE_TITLE = 'لماذا مفتاح مزوّد التحليل؟ — مِجهَر';
 
 export interface OptionsAppProps {
   /** محتوى الإعدادات، ويستقبل فاتح المواضع داخل هذه الصفحة. */
@@ -19,12 +24,12 @@ export interface OptionsAppProps {
 
 const readHash = (win: Window): string => decodeURIComponent(win.location.hash.replace(/^#/, ''));
 
-/** يمرّر قسم الرمز إلى العرض ويركّز مدخل الدليل فيه، أو عنوان القسم إن غاب المدخل. */
-function focusTokenSection(doc: Document): void {
-  const section = doc.querySelector<HTMLElement>('[data-section="token"]');
+/** يمرّر بطاقة السرّ إلى العرض ويركّز مدخل الشرح فيها، أو عنوانها إن غاب المدخل. */
+function focusSecretSection(doc: Document, name: 'token' | 'provider-key'): void {
+  const section = doc.querySelector<HTMLElement>(`[data-section="${name}"]`);
   if (!section) return;
   section.scrollIntoView?.({ block: 'start' });
-  const target = section.querySelector<HTMLElement>('[data-action="token-guide"]') ?? section.querySelector<HTMLElement>('h2');
+  const target = section.querySelector<HTMLElement>(`[data-action="${name}-guide"]`) ?? section.querySelector<HTMLElement>('h2');
   if (target && target.tagName === 'H2' && !target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
   target?.focus();
 }
@@ -36,11 +41,12 @@ export function OptionsApp({ settings, win = window }: OptionsAppProps) {
     win.addEventListener('hashchange', onHash);
     return () => win.removeEventListener('hashchange', onHash);
   }, [win]);
-  const guide = hash === GUIDE_HASH;
+  const guide = hash === GUIDE_HASH || hash === PROVIDER_GUIDE_HASH;
   const wasGuide = useRef(guide);
   useEffect(() => {
-    win.document.title = guide ? GUIDE_TITLE : PAGE_TITLE;
-    if (hash === TOKEN_HASH) focusTokenSection(win.document);
+    win.document.title = hash === GUIDE_HASH ? GUIDE_TITLE : hash === PROVIDER_GUIDE_HASH ? PROVIDER_GUIDE_TITLE : PAGE_TITLE;
+    if (hash === TOKEN_HASH) focusSecretSection(win.document, 'token');
+    else if (hash === PROVIDER_HASH) focusSecretSection(win.document, 'provider-key');
     else if (guide !== wasGuide.current) win.scrollTo(0, 0);
     wasGuide.current = guide;
   }, [hash, guide, win]);
@@ -51,7 +57,13 @@ export function OptionsApp({ settings, win = window }: OptionsAppProps) {
   return (
     <main class="options-page">
       <header class="options-header">{guide ? <p class="brand-line">{PAGE_TITLE}</p> : <h1>{PAGE_TITLE}</h1>}</header>
-      {guide ? <TokenGuide onBack={() => go(TOKEN_HASH)} /> : settings(go)}
+      {hash === GUIDE_HASH ? (
+        <TokenGuide onBack={() => go(TOKEN_HASH)} />
+      ) : hash === PROVIDER_GUIDE_HASH ? (
+        <ProviderKeyGuide onBack={() => go(PROVIDER_HASH)} onAdd={() => go(PROVIDER_HASH)} />
+      ) : (
+        settings(go)
+      )}
     </main>
   );
 }
