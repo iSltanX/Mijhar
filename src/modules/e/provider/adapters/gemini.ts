@@ -3,8 +3,8 @@
 // descriptors/gemini.ts؛ وهنا وحده ما لا يصل غير الخلفية (I-2):
 //  - المفتاح في ترويسة x-goog-api-key لا في العنوان (فلا يظهر في سجل ولا عنوان)، وcontent-type للجسم.
 //  - المودلات من GET /v1beta/models وقت التشغيل (وهي طلب التحقق المعلن: لا يحمل محتوى): المرشّح ما أعلن في supportedGenerationMethods أنه يدعم طريقة
-//    التوليد المستعملة، مع حدّي المدخلات والمخرجات المعلنين؛ وما لم يعلنها لا يُعرض ولا يُستنتج من اسمه. والإعلان ترشيح لا إثبات (DEC-13 ن-4): لا يصير المرشّح
-//    خيارًا للتحليل إلا بالفحص الصريح (probe) الذي يبدؤه المستخدم، بنص ثابت «ping» وحده لا يحمل شيئًا من الصفحات.
+//    التوليد المستعملة، مع حدّي المدخلات والمخرجات المعلنين؛ وما لم يعلنها لا يُعرض ولا يُستنتج من اسمه. والإعلان ترشيح لا إثبات، والقائمة مساعدة لا شرط (DEC-13
+//    ن-5): يُرسل التحليل إلى ما كتبه المستخدم أو اختاره وإن لم يُعلَن ولم يُختبر، و«اختبر النموذج» (probe) اختياري بنص ثابت «ping» وحده لا يحمل شيئًا من الصفحات.
 //  - التحليل POST /v1beta/models/<مودل>:generateContent بلا بث.
 //  - الرفض بحسب ما قِيس: مفتاح غير صالح يردّه الخادم 400 INVALID_ARGUMENT بسبب API_KEY_INVALID (لا 401)، فيُصنَّف مفتاحًا مرفوضًا.
 //  - حجب الأمان الذي يعلنه الرد (promptFeedback.blockReason أو finishReason أمني) فشل بسببه لا تحليل، ولا يُعاد الطلب.
@@ -122,7 +122,7 @@ function parseModel(raw: unknown): ProviderModel | null {
   const name = str(r?.name);
   if (!name) return null;
   const methods = Array.isArray(r?.supportedGenerationMethods) ? r.supportedGenerationMethods.filter((m): m is string => typeof m === 'string') : [];
-  // DEC-13 ن-4: لا يُرشَّح إلا ما أعلنت الواجهة أنه يدعم طريقة التوليد المستعملة، وتوافقه «غير محسوم» حتى يثبت بالفحص الصريح.
+  // DEC-13 ن-5: لا تعرض القائمة المساعدة إلا ما أعلنت الواجهة أنه يدعم طريقة التوليد المستعملة، وتوافقه «غير محسوم»؛ ولا يحجب ذلك نموذجًا يكتبه المستخدم.
   if (!methods.includes(METHOD)) return null;
   const id = name.startsWith(MODEL_PREFIX) ? name.slice(MODEL_PREFIX.length) : name;
   return {
