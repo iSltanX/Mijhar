@@ -1,11 +1,19 @@
 // نافذة «تجهيز حزمة السياق» (T-6.1): قائمة اختيار تحكم ما يدخل الحزمة، ومعاينة تتجدد عند كل تبديل (PB-05)، وقسم إلزامي لما تعذّر
 // جمعه أو اقتُطع لطوله يظهر هنا وفي الحزمة نفسها، والنسخ يدوي بنقر المستخدم (AD-06): لا إرسال إلى أي جهة.
-import { useMemo, useState } from 'preact/hooks';
+// T-6.2: محدّد القوالب الأربعة، والمعاينة قابلة للتعديل اليدوي وما تحمله هو ما يُنسخ أو يُنزَّل `.md` (تعديلاتها لا يستبدلها تغيير الاختيار).
+// T-6.3: لافتة البيانات الخاصة والفاحص التحذيري على نص المعاينة الحالي (بتعديلاتها)، ولا يغيّر الفاحص شيئًا منه.
+import { useMemo, useRef, useState } from 'preact/hooks';
+import { PrivacyCheck, scanText } from '../privacy-check';
+import type { Finding } from '../privacy-check';
+import { TEMPLATES, bundleFileName, renderTemplate } from '../templates';
+import type { TemplateId } from '../templates';
 import type { ContextSource, Gap } from './collect';
 import { GAPS_HEADING, ITEM, availableItems, buildBundle } from './build';
 import type { Limits, Snippet } from './build';
 
 export type CopyResult = 'copied' | 'failed';
+/** «downloaded» يعني أن التنزيل طُلب من المتصفح، لا أن الملف وصل مجلد التنزيلات (لا يُعرف ذلك من الصفحة). */
+export type DownloadResult = 'downloaded' | 'failed';
 
 export interface BuilderPanelProps {
   readonly source: ContextSource;
@@ -17,6 +25,8 @@ export interface BuilderPanelProps {
   readonly onRecollect: () => void;
   /** ينسخ النص في معالج النقر نفسه (فعل المستخدم). */
   readonly copy: (text: string) => Promise<CopyResult>;
+  /** ينزّل النص ملف `.md` باسمه، محليًا بلا شبكة. غيابه يعطّل الزر. */
+  readonly download?: (text: string, fileName: string) => Promise<DownloadResult>;
   readonly limits?: Limits;
   readonly collectedAt?: number;
 }
@@ -43,11 +53,25 @@ export function BuilderPanel(props: BuilderPanelProps) {
   // الافتراضي: كل المتاح مختار؛ والمقتطف الجديد يدخل مختارًا.
   const [excluded, setExcluded] = useState<ReadonlySet<string>>(new Set());
   const selected = useMemo(() => new Set(all.filter((id) => !excluded.has(id))), [all, excluded]);
-  const bundle = useMemo(() => buildBundle(source, snippets, selected, props.limits, props.collectedAt), [source, snippets, selected, props.limits, props.collectedAt]);
+  const [template, setTemplate] = useState<TemplateId | 'none'>('none');
+  // المولَّد دالة نقية من الاختيار والقالب؛ والمعدَّل يدويًا (إن وُجد) يحجبه إلى أن يُطلب استبداله.
+  const generated = useMemo(
+    () => (template === 'none' ? buildBundle(source, snippets, selected, props.limits, props.collectedAt) : renderTemplate(template, source, snippets, selected, props.limits, props.collectedAt)),
+    [template, source, snippets, selected, props.limits, props.collectedAt],
+  );
+  const [edited, setEdited] = useState<string | null>(null);
+  const text = edited ?? generated.text;
+  const findings = useMemo(() => scanText(text), [text]);
+  const previewRef = useRef<HTMLTextAreaElement>(null);
   const [copyState, setCopyState] = useState<CopyResult | null>(null);
+  const [downloadState, setDownloadState] = useState<DownloadResult | null>(null);
+  const resetNotices = () => {
+    setCopyState(null);
+    setDownloadState(null);
+  };
 
   const toggle = (id: string) => {
-    setCopyState(null);
+    resetNotices();
     setExcluded((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
@@ -56,7 +80,7 @@ export function BuilderPanel(props: BuilderPanelProps) {
     });
   };
   const setComments = (on: boolean) => {
-    setCopyState(null);
+    resetNotices();
     setExcluded((prev) => {
       const next = new Set(prev);
       for (const c of source.comments) {
@@ -67,7 +91,29 @@ export function BuilderPanel(props: BuilderPanelProps) {
     });
   };
   const copy = () => {
-    props.copy(bundle.text).then(setCopyState, () => setCopyState('failed'));
+    setDownloadState(null);
+    props.copy(text).then(setCopyState, () => setCopyState('failed'));
+  };
+  const download = () => {
+    setCopyState(null);
+    props.download?.(text, bundleFileName(source, template === 'none' ? null : template)).then(setDownloadState, () => setDownloadState('failed'));
+  };
+  const onInput = (event: Event) => {
+    const value = (event.currentTarget as HTMLTextAreaElement).value;
+    resetNotices();
+    setEdited(value === generated.text ? null : value);
+  };
+  const pickTemplate = (id: TemplateId | 'none') => {
+    resetNotices();
+    setTemplate(id);
+  };
+  /** يحدد الموضع المرصود في حقل المعاينة ليحذفه المستخدم أو يعدّله بيده. */
+  const selectFinding = (finding: Finding) => {
+    const area = previewRef.current;
+    if (!area) return;
+    area.focus();
+    area.setSelectionRange(finding.start, finding.end);
+    area.scrollTop = Math.max(0, (finding.start / Math.max(1, area.value.length)) * area.scrollHeight - area.clientHeight / 2);
   };
 
   const is = (id: string) => selected.has(id);
@@ -132,11 +178,44 @@ export function BuilderPanel(props: BuilderPanelProps) {
         </fieldset>
 
         <div class="e-preview">
-          <label for="mj-e-preview">المعاينة (تُنسخ كما هي)</label>
-          <textarea id="mj-e-preview" readOnly dir="auto" data-preview="" value={bundle.text} />
+          <fieldset class="e-templates" data-templates="">
+            <legend>القالب</legend>
+            <label class="e-choice">
+              <input type="radio" name="mj-e-template" data-template="none" checked={template === 'none'} onChange={() => pickTemplate('none')} />
+              <span>حزمة عامة (بلا قالب)</span>
+            </label>
+            {TEMPLATES.map((t) => (
+              <label class="e-choice" key={t.id}>
+                <input type="radio" name="mj-e-template" data-template={t.id} checked={template === t.id} onChange={() => pickTemplate(t.id)} />
+                <span>{t.label}</span>
+              </label>
+            ))}
+          </fieldset>
+          <label for="mj-e-preview">المعاينة (قابلة للتعديل؛ تُنسخ أو تُنزَّل كما هي)</label>
+          <textarea id="mj-e-preview" ref={previewRef} dir="auto" spellcheck={false} data-preview="" value={text} onInput={onInput} />
+          {edited !== null && (
+            <p class="notice" role="status" data-edited="">
+              المعاينة معدَّلة يدويًا: تغيير القالب أو الاختيار لا يبدّل نصها.{' '}
+              <button
+                type="button"
+                class="e-link"
+                data-action="builder-regenerate"
+                onClick={() => {
+                  resetNotices();
+                  setEdited(null);
+                }}
+              >
+                استبدلها بالنص المولَّد وتجاهل تعديلاتي
+              </button>
+            </p>
+          )}
+          <PrivacyCheck text={text} findings={findings} onSelect={selectFinding} />
           <div class="row">
             <button type="button" class="btn btn-primary" data-action="builder-copy" onClick={copy}>
               انسخ الحزمة
+            </button>
+            <button type="button" class="btn" data-action="builder-download" disabled={!props.download} onClick={download}>
+              نزّل كملف .md
             </button>
             <button type="button" class="btn" data-action="builder-recollect" onClick={props.onRecollect}>
               أعد الجمع من الصفحة
@@ -144,7 +223,16 @@ export function BuilderPanel(props: BuilderPanelProps) {
           </div>
           {copyState && (
             <p class="notice" data-tone={copyState === 'failed' ? 'danger' : undefined} role="status" data-copy-state={copyState}>
-              {copyState === 'copied' ? 'نُسخت الحزمة إلى الحافظة. لم تُرسل إلى أي جهة.' : 'تعذّر النسخ تلقائيًا: حدّد نص المعاينة وانسخه يدويًا.'}
+              {copyState === 'copied'
+                ? `نُسخت الحزمة إلى الحافظة. لم تُرسل إلى أي جهة.${findings.length ? ` وفيها ${findings.length} من الأنماط المشبوهة لم يُحذف منها شيء: راجعها قبل اللصق.` : ''}`
+                : 'تعذّر النسخ تلقائيًا: حدّد نص المعاينة وانسخه يدويًا.'}
+            </p>
+          )}
+          {downloadState && (
+            <p class="notice" data-tone={downloadState === 'failed' ? 'danger' : undefined} role="status" data-download-state={downloadState}>
+              {downloadState === 'downloaded'
+                ? `طُلب من المتصفح تنزيل الملف ${bundleFileName(source, template === 'none' ? null : template)}. لم تُرسل الحزمة إلى أي جهة.${findings.length ? ` وفيها ${findings.length} من الأنماط المشبوهة لم يُحذف منها شيء: راجعها قبل مشاركة الملف.` : ''}`
+                : 'تعذّر التنزيل: انسخ نص المعاينة يدويًا.'}
             </p>
           )}
         </div>
@@ -152,9 +240,9 @@ export function BuilderPanel(props: BuilderPanelProps) {
 
       <section class="e-gaps" aria-labelledby="mj-e-gaps-title" data-gaps="">
         <h4 id="mj-e-gaps-title">{GAPS_HEADING}</h4>
-        {bundle.gaps.length ? (
+        {generated.gaps.length ? (
           <ul>
-            {bundle.gaps.map((gap, i) => (
+            {generated.gaps.map((gap, i) => (
               <li key={`${gap.part}-${i}`} data-gap-kind={gap.kind}>
                 <strong>{gap.part}</strong> <span class="e-tag">{KIND_LABEL[gap.kind]}</span> {gap.reason}
                 {gap.cut ? ` — حُذف ${gap.cut.lines} سطرًا من ${gap.cut.of}` : ''}

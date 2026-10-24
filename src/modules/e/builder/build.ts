@@ -83,15 +83,20 @@ export function gapLine(gap: Gap): string {
 
 export const PAGE_TEXT: Readonly<Record<ContextSource['kind'], string>> = { pr: 'طلب الدمج', issue: 'المشكلة', job: 'مهمة Actions' };
 
-/** جزء من الحزمة: عنوانه الافتراضي وسطور متنه (بلا العنوان ولا سطر فارغ أخير). غائب (null) إن لم يُختر أو لم يتوفر. */
+/** جزء من الحزمة: عنوانه الأساسي وتفصيله (العدد أو الملخص بين قوسين) وسطور متنه (بلا العنوان ولا سطر فارغ أخير). غائب (null) إن لم يُختر أو لم يتوفر. */
 export interface Part {
   readonly heading: string;
+  /** يُلحق بالعنوان بين قوسين («2 من 3»)، أو null. */
+  readonly detail: string | null;
   readonly body: readonly string[];
 }
 
+/** العنوان الافتراضي للجزء: الأساسي ثم تفصيله بين قوسين. */
+export const partHeading = (part: Part, heading = part.heading): string => (part.detail ? `${heading} (${part.detail})` : heading);
+
 export interface BundleParts {
-  /** «حزمة سياق: …» أو اسم الصفحة إن لم يُختر العنوان. */
-  readonly title: string;
+  /** عنوان الصفحة إن اختير، وإلا اسم نوعها («طلب الدمج»). */
+  readonly subject: string;
   /** سطور المستودع والرابط (قائمة نقطية بلا عنوان). */
   readonly repo: readonly string[];
   /** سطور الفرع والتزام الرأس. */
@@ -128,7 +133,7 @@ export function buildParts(source: ContextSource, snippets: readonly Snippet[], 
       body.push(quote(c.text));
       if (c.cut) cuts.push({ part: 'الوصف', kind: 'truncated', reason: `بحد ${limits.description} سطرًا`, cut: c.cut });
     }
-    description = { heading: 'العنوان والوصف', body };
+    description = { heading: 'العنوان والوصف', detail: null, body };
   }
 
   let comments: Part | null = null;
@@ -142,13 +147,14 @@ export function buildParts(source: ContextSource, snippets: readonly Snippet[], 
       body.push(quote(c.text));
       if (c.cut) cuts.push({ part: `تعليق ${comment.author ?? comment.id}`, kind: 'truncated', reason: `بحد ${limits.comment} سطرًا`, cut: c.cut });
     }
-    comments = { heading: `التعليقات المختارة (${chosenComments.length} من ${source.comments.length})`, body };
+    comments = { heading: 'التعليقات المختارة', detail: `${chosenComments.length} من ${source.comments.length}`, body };
   }
 
   let checks: Part | null = null;
   if (source.checks && has(ITEM.checks)) {
     checks = {
-      heading: `نتائج الفحوص${source.checks.summary ? ` (${source.checks.summary})` : ''}`,
+      heading: 'نتائج الفحوص',
+      detail: source.checks.summary || null,
       body: source.checks.items.map((item) => `- ${item.failed ? '✗' : '•'} ${item.label}: \`${item.name}\`${item.required === true ? ' — إلزامي' : ''}${item.detail ? ` — ${item.detail}` : ''}`),
     };
   }
@@ -156,7 +162,7 @@ export function buildParts(source: ContextSource, snippets: readonly Snippet[], 
   let error: Part | null = null;
   if (source.errorExcerpt.length && has(ITEM.error)) {
     const c = clip(source.errorExcerpt.join('\n'), limits.error);
-    error = { heading: 'مقتطف الخطأ', body: [fence(c.text)] };
+    error = { heading: 'مقتطف الخطأ', detail: null, body: [fence(c.text)] };
     if (c.cut) cuts.push({ part: 'مقتطف الخطأ', kind: 'truncated', reason: `بحد ${limits.error} سطرًا`, cut: c.cut });
   }
 
@@ -170,11 +176,11 @@ export function buildParts(source: ContextSource, snippets: readonly Snippet[], 
       body.push(`### ${i + 1}. من ${snippet.where}`, '', fence(c.text));
       if (c.cut) cuts.push({ part: `مقتطف ${i + 1}`, kind: 'truncated', reason: `بحد ${limits.snippet} سطرًا`, cut: c.cut });
     });
-    snippetPart = { heading: `مقتطفات الأدلة (${chosen.length})`, body };
+    snippetPart = { heading: 'مقتطفات الأدلة', detail: String(chosen.length), body };
   }
 
   return {
-    title: `حزمة سياق: ${source.title && has(ITEM.title) ? source.title : PAGE_TEXT[source.kind]}`,
+    subject: source.title && has(ITEM.title) ? source.title : PAGE_TEXT[source.kind],
     repo,
     branch,
     description,
@@ -205,11 +211,11 @@ export function footerLines(collectedAt?: number): string[] {
 
 export function buildBundle(source: ContextSource, snippets: readonly Snippet[], selected: ReadonlySet<string>, limits: Limits = DEFAULT_LIMITS, collectedAt?: number): BuiltBundle {
   const parts = buildParts(source, snippets, selected, limits);
-  const lines: string[] = [`# ${parts.title}`, ''];
+  const lines: string[] = [`# حزمة سياق: ${parts.subject}`, ''];
   const facts = [...parts.repo, ...parts.branch];
   if (facts.length) lines.push(...facts, '');
   for (const part of [parts.description, parts.comments, parts.checks, parts.error, parts.snippets]) {
-    if (part) lines.push(...sectionLines(part.heading, part.body));
+    if (part) lines.push(...sectionLines(partHeading(part), part.body));
   }
   const gaps = allGaps(source, parts);
   lines.push(...gapsSection(gaps));
