@@ -2,6 +2,7 @@
 // DEC-13 ن-5 (حقل النموذج اليدوي وزر + والاختبار الاختياري؛ Model field وO-28) في المتصفحات الحقيقية على الحزمة المشحونة (dist/<target> من npm run build)
 // — **محاكاة**: مضيفا OpenAI وGoogle Gemini وهميان محليان (route لا شبكة خارجية)، بمفاتيح مختلَقة تُركَّب وقت التشغيل ولا تُكتب في أي دليل، بمشغّلي MJ15
 // (tests/modules/d/token/browser/drivers.mjs). كل نقرة هنا نقرة فعلية (Playwright/Marionette)؛ والحقل يُملأ بلوحة المفاتيح ثم يُغادَر.
+//   0. مفاتيح Anthropic وOpenAI وGemini محفوظة معًا مع رمز GitHub (TEST-PRIV-05): لا مفتاح ولا رمز في طلب إلى مضيف غير صاحبه.
 //   1. Gemini بمفتاح محفوظ وجلب قائمته متعذّر: زر + يعلن الفشل بإعادة المحاولة والحقل يعمل ويُحفظ؛ وإعادة المحاولة تعرض القائمة، والاختيار يملأ الحقل
 //      ويغلقها ويعيد التركيز إليه.
 //   2. OpenAI: معرّف يُكتب يدويًا وليس في القائمة يُحفظ بلا طلب عند الكتابة، ويُرسل إليه التحليل بعد الموافقة بلا أي اختبار سابق.
@@ -23,7 +24,8 @@ const keys = args.filter((a) => BROWSERS[a]);
 const TOKEN = ['github', 'pat', `11FIELDMIJHARFAKE0000_${'xFakeModelFieldCheckOnly'.repeat(3).slice(0, 59)}`].join('_');
 const OPENAI_KEY = ['sk', 'proj', 'ModelFieldCheckFakeKey'.repeat(4)].join('-');
 const GEMINI_KEY = ['AIza', 'SyFakeModelFieldCheckKey01234567890'].join('');
-const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{30,}/;
+const ANTHROPIC_KEY = ['sk', 'ant', 'api03', 'ModelFieldCheckFakeAnthropicKey'.repeat(2)].join('-');
+const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|sk-ant-api03-[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{30,}/;
 const hasSecret = (value) => SECRET_RE.test(typeof value === 'string' ? value : JSON.stringify(value ?? null));
 const OPENAI_HOST = 'api.openai.com';
 const GEMINI_HOST = 'generativelanguage.googleapis.com';
@@ -77,7 +79,11 @@ function geminiReply(entry) {
   }
   return { status: 404, body: { error: { code: 404, status: 'NOT_FOUND', message: 'not found' } } };
 }
-const anthropicReply = () => ({ status: 500, body: { type: 'error', error: { type: 'api_error', message: 'لا يجب أن يصل طلب إلى Anthropic في هذا الفحص' } } });
+/** Anthropic: التحقق وحده (مفتاحه محفوظ مع المفتاحين الآخرين، TEST-PRIV-05)؛ ولا يجب أن يصله تحليل في هذا الفحص. */
+const anthropicReply = (entry) =>
+  entry.path.startsWith('/v1/models')
+    ? { status: 200, body: { data: [{ type: 'model', id: 'mock-sonnet-2', display_name: 'Mock Sonnet 2', lifecycle: 'active', max_tokens: 64000 }], has_more: false } }
+    : { status: 500, body: { type: 'error', error: { type: 'api_error', message: 'لا يجب أن يصل تحليل إلى Anthropic في هذا الفحص' } } };
 
 function derived(target) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), `mijhar-model-field-${target}-`));
@@ -136,6 +142,13 @@ async function scenario(d, target, checks, network) {
   await d.fill('#mj-token-input', TOKEN);
   await d.click('[data-action="token-save"]');
   await waitUntil(() => d.options(`return document.querySelector('[data-connection="github-token"] [data-health]')?.getAttribute('data-health') === 'healthy' || null;`), 10000);
+
+  // 0. مفتاح Anthropic (المختار افتراضًا) محفوظ مع مفتاحَي OpenAI وGemini بعده: المفاتيح الثلاثة معًا (TEST-PRIV-05).
+  await until((c) => c.provider === 'anthropic' && c.health !== 'checking');
+  await d.fill('#mj-key-input', ANTHROPIC_KEY);
+  await d.click('[data-action="key-save"]');
+  const anthropic = await until((c) => c.provider === 'anthropic' && c.health === 'healthy');
+  check('Anthropic: مفتاحه «سليم» بطلب تحققه، والحقل الفارغ يقترح أول نموذج أعلن توافقه', Boolean(anthropic) && anthropic.field === 'mock-sonnet-2' && on('api.anthropic.com').length === 1, anthropic);
 
   // 1. Gemini: جلب القائمة متعذّر والحقل يعمل.
   await d.options(SELECT('gemini'));
@@ -215,10 +228,13 @@ async function scenario(d, target, checks, network) {
   const gone = analyses().filter((r) => JSON.parse(r.body ?? '{}').model === GONE);
   check('رفض المزوّد النموذج عند التحليل يُعرض بسببه، بطلب واحد بلا إعادة تلقائية ولا تبديل نموذج', Boolean(refusal) && consent2?.includes(GONE) && refusal.text.includes('does not exist') && gone.length === 1 && analyses().length === 2 && !hasSecret(refusal.text), { refusal, gone: gone.length, analyses: analyses().length });
   const after = await field();
-  check('ولا تحويل إلى مزوّد آخر: لا طلب إلى Gemini ولا Anthropic بعد الرفض، والحقل باقٍ', on(GEMINI_HOST).length === 3 && on('api.anthropic.com').length === 0 && after?.field === GONE, { gemini: on(GEMINI_HOST).length, anthropic: on('api.anthropic.com').length, field: after?.field });
+  check('ولا تحويل إلى مزوّد آخر: لا طلب إلى Gemini ولا Anthropic بعد الرفض، والحقل باقٍ', on(GEMINI_HOST).length === 3 && on('api.anthropic.com').length === 1 && after?.field === GONE, { gemini: on(GEMINI_HOST).length, anthropic: on('api.anthropic.com').length, field: after?.field });
 
-  // 6. الأسرار والوجهة.
-  check('كل طلبات المزوّدين من الخلفية، وكل مفتاح إلى مضيفه وحده في ترويسته', network.extra.every((r) => r.from === 'background') && on(OPENAI_HOST).every((r) => r.headers.authorization === `Bearer ${OPENAI_KEY}` && !r.headers['x-goog-api-key']) && on(GEMINI_HOST).every((r) => r.headers['x-goog-api-key'] === GEMINI_KEY && !r.headers.authorization && !r.path.includes(GEMINI_KEY)), network.extra.map((r) => ({ host: r.host, from: r.from })));
+  // 6. الأسرار والوجهة (TEST-PRIV-05 بالمفاتيح الثلاثة ورمز GitHub معًا).
+  check('كل طلبات المزوّدين من الخلفية، وكل مفتاح إلى مضيفه وحده في ترويسته', network.extra.every((r) => r.from === 'background') && on(OPENAI_HOST).every((r) => r.headers.authorization === `Bearer ${OPENAI_KEY}` && !r.headers['x-goog-api-key'] && !r.headers['x-api-key']) && on(GEMINI_HOST).every((r) => r.headers['x-goog-api-key'] === GEMINI_KEY && !r.headers.authorization && !r.headers['x-api-key'] && !r.path.includes(GEMINI_KEY)) && on('api.anthropic.com').every((r) => r.headers['x-api-key'] === ANTHROPIC_KEY && !r.headers.authorization && !r.headers['x-goog-api-key']), network.extra.map((r) => ({ host: r.host, from: r.from })));
+  const others = { [OPENAI_HOST]: [ANTHROPIC_KEY, GEMINI_KEY, TOKEN], [GEMINI_HOST]: [ANTHROPIC_KEY, OPENAI_KEY, TOKEN], 'api.anthropic.com': [OPENAI_KEY, GEMINI_KEY, TOKEN] };
+  const leaked = network.extra.filter((r) => (others[r.host] ?? []).some((secret) => JSON.stringify(r).includes(secret)));
+  check('TEST-PRIV-05: لا مفتاح مزوّد آخر ولا رمز GitHub في أي طلب إلى أي مزوّد (العنوان والترويسات والجسم)', leaked.length === 0, leaked.map((r) => ({ host: r.host, path: r.path })));
 }
 
 async function run(key) {
