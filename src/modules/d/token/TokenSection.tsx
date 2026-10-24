@@ -4,13 +4,23 @@
 //  - الحفظ يكتب في المخزن مباشرة (صفحة إضافة موثوقة)، والخلفية تقرؤه لطلباتها؛ فلا يعبر الرمز أي رسالة. والتحقق طلب /rate_limit عبر
 //    منفذ الخلفية نفسه (مسار وحده، والرد بلا الرمز).
 //  - قائمة الصلاحيات الدنيا ظاهرة عند الإدخال، كلها Read-only، ولا يُذكر غيرها.
-//  - «كيف تحصل على الرمز؟» يفتح دليله داخل صفحة الإعدادات (#guide/github-token، AD-29).
+//  - «كيف تحصل على الرمز؟» يفتح دليله داخل صفحة الإعدادات (#guide/github-token، AD-29)، ويبقى عند نقل القسم إلى سجل الاتصالات.
+//  - MJ18 (T-11.1): القسم جسم بطاقة «رمز GitHub للقراءة» في سجل الاتصالات: رأسها وشارتها من السجل، وحالته تصنّفها دوال السجل نفسها
+//    (سليم بعد قبول فعلي وحده، ولكل حالة نصها)، والمسح يسرد قبل تنفيذه ما يتعطل وحده وما يبقى.
+import type { ComponentChild } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import type { PublicApiPort, PublicApiResult } from '../../../core/api';
+import type { PublicApiPort } from '../../../core/api';
+import { dependentsOf } from '../../../core/connections/features';
+import { HEALTH_TONE, verdictFromVerification } from '../../../core/connections/health';
+import type { ConnectionStatus, HealthTone, Verdict } from '../../../core/connections/health';
+import { healthText, utcText } from '../../../core/connections/text';
+import { CONNECTIONS_CSS } from '../../../core/connections/ui/styles';
 import { Ltr } from '../../../shared/ui';
 import { useStyles } from '../../../shared/ui/useStyles';
 import { READ_ACCESS_LEVEL, READ_PERMISSIONS, TOKEN_FORMAT_MESSAGES, TOKEN_LIMITS, checkTokenFormat } from './format';
 import type { TokenInfo, TokenPlace, TokenStore } from './store';
+
+export { utcText };
 
 export interface TokenSectionProps {
   readonly store: Pick<TokenStore, 'info' | 'save' | 'clear' | 'sessionAvailable' | 'diskAvailable'>;
@@ -19,7 +29,16 @@ export interface TokenSectionProps {
   readonly target: 'chromium' | 'firefox';
   /** للاختبار. */
   readonly now?: () => number;
+  /** MJ18: رأس بطاقة السجل بدل العنوان والمقدمة (اسم الاتصال وشارته ونوعه وما يحتاجه). */
+  readonly header?: ComponentChild;
+  /** MJ18: حالة الرمز المسجلة في الخلفية (undefined: القسم وحده خارج السجل). */
+  readonly status?: ConnectionStatus | null;
+  /** MJ18: بعد كل حفظ أو تحقق أو مسح، ليقرأ السجل الحالة من جديد. */
+  readonly onChange?: () => void;
 }
+
+/** اسم صلاحية GitHub من معاملها. */
+export const permissionName = (param: string): string => READ_PERMISSIONS.find((p) => p.param === param)?.name ?? param;
 
 const TOKEN_CSS = `
 .mj-root .token-form { display: flex; flex-direction: column; gap: var(--mijhar-space-8); }
@@ -35,40 +54,29 @@ const TOKEN_CSS = `
 .mj-root .choice input:disabled + .label { color: var(--mijhar-text-disabled); }
 `;
 
-type Check =
-  | { readonly kind: 'ok'; readonly limit: number | null; readonly remaining: number | null; readonly expiresAt: number | null }
-  | { readonly kind: 'fail'; readonly tone: 'danger' | 'info'; readonly text: string };
-
-const DAY = 86_400_000;
-
-export const utcText = (ms: number): string => `${new Date(ms).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
-
 const PLACE_TEXT: Readonly<Record<TokenPlace, string>> = { session: 'ذاكرة الجلسة', disk: 'القرص في هذا المتصفح' };
 
-function checkFrom(result: PublicApiResult<unknown>, expiresAt: number | null): Check {
-  if (result.ok) {
-    if (!result.authenticated) return { kind: 'fail', tone: 'info', text: 'لم تجد الخلفية رمزًا محفوظًا، فأُرسل الطلب بلا رمز.' };
-    return { kind: 'ok', limit: result.rate?.limit ?? null, remaining: result.rate?.remaining ?? null, expiresAt };
-  }
-  switch (result.failure) {
-    case 'permission':
-      return { kind: 'fail', tone: 'info', text: 'الرمز محفوظ، ولن يُستعمل قبل أن تمنح صلاحية api.github.com في القسم أعلاه.' };
-    case 'unauthorized':
-      return { kind: 'fail', tone: 'danger', text: 'رفض GitHub الرمز (401): غير صالح أو منتهٍ أو ملغى. امسحه واحفظ رمزًا صالحًا؛ ولن تُرسل الطلبات بلا رمز ما دام محفوظًا.' };
-    default:
-      return { kind: 'fail', tone: 'danger', text: `تعذّر التحقق: ${result.message}` };
-  }
-}
+/** لون إشعار الحالة: الأخطر بالأحمر، والنقص والحد بالتحذير، والسليم بالأخضر، وغير المتحقق منه بالمعلومات. */
+const TONE_ATTR: Readonly<Record<HealthTone, string | undefined>> = { danger: 'danger', warning: 'warning', success: 'success', info: undefined, muted: undefined };
 
-export function TokenSection({ store, port, target, now = () => Date.now() }: TokenSectionProps) {
+export function TokenSection({ store, port, target, now = () => Date.now(), header, status, onChange }: TokenSectionProps) {
   const ref = useRef<HTMLElement>(null);
   useStyles(ref, 'd-token', TOKEN_CSS);
+  // أنماط السجل (الإشعارات بألوانها وتأكيد المسح) حين يُرسم القسم وحده أيضًا.
+  useStyles(ref, 'core-connections', CONNECTIONS_CSS);
   const input = useRef<HTMLInputElement>(null);
   const [info, setInfo] = useState<TokenInfo | null | undefined>(undefined);
   const [place, setPlace] = useState<TokenPlace>('session');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ tone: 'danger' | 'info'; text: string } | null>(null);
-  const [check, setCheck] = useState<Check | null>(null);
+  /** حكم آخر تحقق في هذه الصفحة، حتى تصل حالة السجل بعده. */
+  const [check, setCheck] = useState<Verdict | null>(null);
+  const [confirming, setConfirming] = useState(false);
+
+  // حالة السجل الجديدة (بعد تحقق أو استعمال سجّلته الخلفية) تحل محل الحكم المحلي: مصنّف واحد ومصدر واحد.
+  useEffect(() => {
+    if (status !== undefined) setCheck(null);
+  }, [status]);
 
   useEffect(() => {
     let alive = true;
@@ -83,8 +91,9 @@ export function TokenSection({ store, port, target, now = () => Date.now() }: To
 
   const verify = async (): Promise<void> => {
     const result = await port.get('/rate_limit');
-    const status = await port.status().catch(() => null);
-    setCheck(checkFrom(result, status?.tokenExpiresAt ?? null));
+    const auth = await port.status().catch(() => null);
+    setCheck(verdictFromVerification(result, auth?.tokenExpiresAt ?? null));
+    onChange?.();
   };
 
   const save = (event: Event) => {
@@ -112,6 +121,7 @@ export function TokenSection({ store, port, target, now = () => Date.now() }: To
   };
 
   const clear = () => {
+    setConfirming(false);
     setBusy(true);
     setMessage(null);
     setCheck(null);
@@ -125,14 +135,17 @@ export function TokenSection({ store, port, target, now = () => Date.now() }: To
         setMessage({ tone: 'info', text: 'مُسح الرمز من ذاكرة الجلسة ومن القرص. تعمل الوحدة (د) الآن على الصفحة وAPI العامة.' });
       })
       .catch((error: unknown) => setMessage({ tone: 'danger', text: `تعذّر مسح الرمز كاملًا: ${error instanceof Error ? error.message : 'خطأ غير معروف'}` }))
-      .finally(() => setBusy(false));
+      .finally(() => {
+        setBusy(false);
+        onChange?.();
+      });
   };
 
   const recheck = () => {
     setBusy(true);
     setMessage(null);
     verify()
-      .catch(() => setCheck({ kind: 'fail', tone: 'danger', text: 'تعذّر الوصول إلى خلفية الإضافة.' }))
+      .catch(() => setCheck({ health: 'unavailable', detail: { reason: 'تعذّر الوصول إلى خلفية الإضافة' } }))
       .finally(() => setBusy(false));
   };
 
@@ -143,14 +156,23 @@ export function TokenSection({ store, port, target, now = () => Date.now() }: To
       : 'غير متاح في هذا المتصفح.';
   const stateLabel = info === undefined ? 'جارٍ القراءة…' : info ? `محفوظ في ${PLACE_TEXT[info.place]} منذ ${utcText(info.savedAt)}` : 'لا رمز محفوظ';
 
+  // المعروض: حكم التحقق في هذه الصفحة، وإلا حالة السجل لرمز محفوظ.
+  const recorded = status && status.health !== 'none' ? { health: status.health, detail: status.detail } : null;
+  const shown: Verdict | null = check ?? recorded;
+  const dependents = dependentsOf('github-token');
+
   return (
-    <section ref={ref} class="section token" aria-labelledby="mj-token-title" data-section="token">
-      <h2 id="mj-token-title">رمز GitHub للقراءة (اختياري)</h2>
-      <p class="muted">
-        برمز وصول للقراءة فقط تقرأ مِجهَر ما يحتاج مصادقة: طلبات الدمج في مستودعاتك الخاصة وفحوص Actions فيها. تُرسل الطلبات به من خلفية الإضافة
-        وحدها إلى <Ltr className="mono">api.github.com</Ltr>، ولا يصل إلى صفحات GitHub ولا يظهر بعد حفظه. ودونه تعمل الوحدة (د) كاملة على الصفحة
-        وAPI العامة.
-      </p>
+    <section ref={ref} class="section token" aria-labelledby={header ? 'mj-conn-github-token-title' : 'mj-token-title'} data-section="token">
+      {header ?? (
+        <>
+          <h2 id="mj-token-title">رمز GitHub للقراءة (اختياري)</h2>
+          <p class="muted">
+            برمز وصول للقراءة فقط تقرأ مِجهَر ما يحتاج مصادقة: طلبات الدمج في مستودعاتك الخاصة وفحوص Actions فيها. تُرسل الطلبات به من خلفية
+            الإضافة وحدها إلى <Ltr className="mono">api.github.com</Ltr>، ولا يصل إلى صفحات GitHub ولا يظهر بعد حفظه. ودونه تعمل الوحدة (د) كاملة
+            على الصفحة وAPI العامة.
+          </p>
+        </>
+      )}
       <p class="row">
         <a href="#guide/github-token" data-action="token-guide">
           كيف تحصل على الرمز؟
@@ -213,45 +235,48 @@ export function TokenSection({ store, port, target, now = () => Date.now() }: To
           <button type="button" class="btn" data-action="token-check" disabled={busy || !info} onClick={recheck}>
             تحقق من الرمز
           </button>
-          <button type="button" class="btn btn-danger" data-action="token-clear" disabled={busy} onClick={clear}>
+          <button type="button" class="btn btn-danger" data-action="token-clear" disabled={busy} aria-expanded={confirming} onClick={() => setConfirming(true)}>
             امسح الرمز
           </button>
         </div>
       </form>
+
+      {confirming && (
+        <div class="conn-confirm" role="alertdialog" aria-labelledby="mj-token-confirm-title" data-token-confirm="">
+          <strong id="mj-token-confirm-title">امسح رمز GitHub؟</strong>
+          <span>يُمسح من ذاكرة الجلسة ومن القرص فورًا ولا يُستعاد؛ تلصقه من جديد إن احتجته.</span>
+          <span>يتعطل وحده:</span>
+          <ul data-disables="">
+            {dependents.map((f) => (
+              <li key={f.id}>{f.title}</li>
+            ))}
+          </ul>
+          <span data-keeps="">يبقى كما هو: قراءة الصفحة وAPI العامة، وكل الوحدات، وحزمة السياق، وأي اتصال آخر.</span>
+          <div class="row">
+            <button type="button" class="btn btn-danger" data-action="token-clear-confirm" disabled={busy} onClick={clear}>
+              امسح الرمز
+            </button>
+            <button type="button" class="btn" data-action="token-clear-cancel" onClick={() => setConfirming(false)}>
+              إلغاء
+            </button>
+          </div>
+        </div>
+      )}
 
       {message && (
         <p class="notice" data-tone={message.tone === 'danger' ? 'danger' : undefined} role="alert" data-token-message="">
           {message.text}
         </p>
       )}
-      {check && (
-        <p class="notice" data-tone={check.kind === 'fail' && check.tone === 'danger' ? 'danger' : undefined} role="status" data-token-check={check.kind}>
-          {check.kind === 'ok' ? (
-            <>
-              قبِل GitHub الرمز
-              {check.limit !== null && (
-                <>
-                  : حد الطلبات الموثَّقة <Ltr>{String(check.limit)}</Ltr> في الساعة
-                  {check.remaining !== null && (
-                    <>
-                      {' '}
-                      (المتبقي <Ltr>{String(check.remaining)}</Ltr>)
-                    </>
-                  )}
-                </>
-              )}
-              .
-              {check.expiresAt !== null && (
-                <>
-                  {' '}
-                  ينتهي في <Ltr>{utcText(check.expiresAt)}</Ltr>
-                  {check.expiresAt - now() < 7 * DAY ? ' — قريبًا؛ جدّده من GitHub قبل انتهائه.' : '.'}
-                </>
-              )}
-            </>
-          ) : (
-            check.text
-          )}
+      {shown && (
+        <p
+          class="notice"
+          data-tone={TONE_ATTR[HEALTH_TONE[shown.health]]}
+          role="status"
+          data-token-check={shown.health === 'healthy' ? 'ok' : 'fail'}
+          data-health={shown.health}
+        >
+          {healthText('github-token', shown, { now: now(), permissionName })}
         </p>
       )}
     </section>

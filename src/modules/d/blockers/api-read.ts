@@ -1,7 +1,12 @@
 // قراءة طلب الدمج من GitHub REST العامة (T-5.2) على ما قاسته evidence/T-0.3: الطلب نفسه (draft وmergeable وmergeable_state)،
 // وcheck-runs لالتزام الرأس بتصفّح الصفحات، وcommit status المجمَّع، وسياقات الفحوص الإلزامية من حماية فرع الهدف.
 // كل جزء Value مستقل بسبب فشله، فلا يُسقط فشلُ جزء غيرَه ولا يُعرض نجاحًا.
+// MJ18 (T-11.5): ومع كل جزء حالة وصوله المصنّفة (منتهٍ، ناقص الصلاحية، متجاوز الحد، غير متاح…)، والقراءة مربوطة بالمستودع وفرع الرأس
+// والتزامه ووقتها.
 import type { PublicApiPort, PublicApiResult, RateLimit } from '../../../core/api';
+import { accessOf } from '../status/access';
+import type { AccessState } from '../status/access';
+import type { ReadBinding } from '../status/binding';
 import { classifyCheckRun, classifyCommitStatus } from '../pr-status/categories';
 import { ACTIONS_ONLY_NOTE, readActionsChecks } from '../token/actions-checks';
 import type { CheckItem } from '../pr-status/summary';
@@ -19,6 +24,8 @@ export interface ApiPull {
   readonly mergeableState: string | null;
   readonly headSha: string;
   readonly baseRef: string;
+  /** MJ18: فرع الرأس كما أعادته API (head.ref)، أو null. */
+  readonly headRef: string | null;
 }
 
 export interface ApiChecks {
@@ -48,6 +55,10 @@ export interface ApiPrData {
   readonly requests: readonly string[];
   /** MJ15 (T-5.5): قُرئت برمز الوصول المحفوظ في الخلفية (لا يحمل الرمز). */
   readonly authenticated?: true;
+  /** MJ18 (T-11.5): حالة وصول كل جزء. */
+  readonly access: { readonly pull: AccessState; readonly checks: AccessState; readonly required: AccessState };
+  /** MJ18 (T-11.5): لأي مستودع وفرع والتزام قُرئت ومتى. */
+  readonly binding: ReadBinding;
 }
 
 interface RawPull {
@@ -57,7 +68,7 @@ interface RawPull {
   merged?: unknown;
   mergeable?: unknown;
   mergeable_state?: unknown;
-  head?: { sha?: unknown };
+  head?: { sha?: unknown; ref?: unknown };
   base?: { ref?: unknown };
 }
 
@@ -101,16 +112,21 @@ export async function readPrApi(port: PublicApiPort, owner: string, repo: string
   requests.push(pullPath);
   const pullResult = await port.get<RawPull>(pullPath);
   const auth = pullResult.authenticated ? ({ authenticated: true } as const) : {};
+  const repoName = `${owner}/${repo}`;
   if (!pullResult.ok) {
     const reason = failureText(pullResult);
-    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests, ...auth };
+    const access = accessOf(pullResult);
+    const readAt = now();
+    return { readAt, pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests, ...auth, access: { pull: access, checks: access, required: access }, binding: { repo: repoName, branch: null, commit: null, readAt } };
   }
   const raw = pullResult.data;
   const headSha = str(raw.head?.sha);
   const baseRef = str(raw.base?.ref);
   if (!headSha || !baseRef) {
     const reason = 'استجابة الطلب بلا head.sha أو base.ref';
-    return { readAt: now(), pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests, ...auth };
+    const access: AccessState = { kind: 'failed', authenticated: Boolean(pullResult.authenticated), reason };
+    const readAt = now();
+    return { readAt, pull: missing(reason), checks: missing(reason), required: missing(reason), rate: pullResult.rate, requests, ...auth, access: { pull: access, checks: access, required: access }, binding: { repo: repoName, branch: str(raw.head?.ref), commit: headSha, readAt } };
   }
   const pull: ApiPull = {
     number: typeof raw.number === 'number' ? raw.number : number,
@@ -121,6 +137,7 @@ export async function readPrApi(port: PublicApiPort, owner: string, repo: string
     mergeableState: str(raw.mergeable_state),
     headSha,
     baseRef,
+    headRef: str(raw.head?.ref),
   };
 
   const runsPath = `${base}/commits/${headSha}/check-runs`;
@@ -205,5 +222,21 @@ export async function readPrApi(port: PublicApiPort, owner: string, repo: string
     });
   }
   const rate = [runs, statuses, branch].reduce<RateLimit | null>((latest, r) => (r.rate && (!latest || r.rate.readAt >= latest.readAt) ? r.rate : latest), pullResult.rate);
-  return { readAt: now(), pull: have(pull), checks, required, rate, requests, ...auth };
+  // حالة وصول الفحوص: أول ما فشل مما بُنيت عليه؛ وcheck-runs المرفوضة للرمز لا تُحسب حين قامت مهام Actions مقامها.
+  const checksSources: PublicApiResult<unknown>[] = actions ? [statuses, ...(actions.ok ? [] : actions.failure ? [actions.failure] : [runs])] : [runs, statuses];
+  const checksFailed = checks.available ? null : checksSources.find((r) => !r.ok);
+  const checksAccess: AccessState = checksFailed ? accessOf(checksFailed) : checks.available ? { kind: 'read', authenticated: Boolean(pullResult.authenticated) } : { kind: 'failed', authenticated: Boolean(pullResult.authenticated), reason: checks.reason };
+  const requiredAccess: AccessState = branch.ok ? { kind: 'read', authenticated: Boolean(branch.authenticated) } : accessOf(branch);
+  const readAt = now();
+  return {
+    readAt,
+    pull: have(pull),
+    checks,
+    required,
+    rate,
+    requests,
+    ...auth,
+    access: { pull: accessOf(pullResult), checks: checksAccess, required: requiredAccess },
+    binding: { repo: repoName, branch: pull.headRef, commit: headSha, readAt },
+  };
 }

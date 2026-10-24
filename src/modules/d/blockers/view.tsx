@@ -1,6 +1,12 @@
 // عرض موانع الدمج بأدلتها، وشارة المصدر والتقادم، ولوحة API العامة داخل بطاقة حالة الطلب (T-5.2). كل مانع معه دليله منقولًا ومصدره،
 // والتنبيه المنهجي ظاهر دائمًا، ولا عبارة تجزم بإمكان الدمج.
 import type { PublicApiStatus } from '../../../core/api';
+import { featureById } from '../../../core/connections/features';
+import type { Health } from '../../../core/connections/health';
+import { ConnectionGate } from '../../../core/connections/ui/ConnectionGate';
+import { NOT_REQUESTED, accessText } from '../status/access';
+import type { BindingMatch, ReadBinding } from '../status/binding';
+import { AccessReport, BindingLine, MismatchNotice } from '../status/view';
 import type { ApiPrData } from './api-read';
 import { METHOD_NOTICE } from './explain';
 import type { Blocker, BlockersReport } from './explain';
@@ -168,16 +174,31 @@ export function FreshnessBadge({ sources, domReadAt, apiReadAt, alerts, onRefres
 export interface ApiPanelProps {
   readonly status: PublicApiStatus | null;
   readonly loading: boolean;
+  /** القراءة المعروضة: الأحدث، أو آخر قراءة ناجحة إن فشلت الأحدث (BLK-RATELIMIT-AUTH). */
   readonly data: ApiPrData | null;
+  /** MJ18 (T-11.5): القراءة الأحدث حين فشلت والمعروض أقدم منها، لتُعلن حالتها. */
+  readonly attempt?: ApiPrData | null;
   readonly onRead: () => void;
   readonly onOpenSettings: () => void;
-  /** قراءة API لالتزام غير الرأس الظاهر (VR-03): تُعرض منفصلة بتنبيه ولا تُدمج. */
-  readonly mismatch?: { readonly apiHead: string; readonly pageHead: string | null } | null;
+  /** MJ18 (T-11.5): ربط القراءة المعروضة بالمستودع والفرع والالتزام، ومقارنته بما تعرضه الصفحة الآن (VR-03 وAC-D8). */
+  readonly binding?: { readonly read: ReadBinding; readonly page: ReadBinding; readonly match: BindingMatch } | null;
+  /** MJ18 (T-11.1): صحة رمز GitHub في سجل الاتصالات، لبوابة الخيار. */
+  readonly tokenHealth?: Health | null;
+  /** MJ18 (T-11.1): يفتح موضع ربط الرمز في الإعدادات ويعيد إلى هذه البطاقة بعده. */
+  readonly onConnect?: (() => void) | null;
 }
 
+const PRIVATE_FEATURE = featureById('d.pr-status.private');
+
 /** لوحة API العامة: لا طلب إلا بنقر صريح، والصلاحية تُمنح من الإعدادات لا من الصفحة. */
-export function ApiPanel({ status, loading, data, onRead, onOpenSettings, mismatch = null }: ApiPanelProps) {
+export function ApiPanel({ status, loading, data, attempt = null, onRead, onOpenSettings, binding = null, tokenHealth = null, onConnect = null }: ApiPanelProps) {
   const rate = data?.rate ?? status?.rate ?? null;
+  const pullAccess = attempt?.access.pull ?? data?.access.pull ?? null;
+  // بوابة الخيار (AC-11.1 ‏(٣)): 404 بلا رمز (قد يكون المستودع خاصًا)، أو رمز منتهٍ. وبقية البطاقة تعمل كما هي.
+  const gateHealth: Health | null =
+    pullAccess?.kind === 'expired' || tokenHealth === 'expired' ? 'expired' : pullAccess?.kind === 'unavailable' && !pullAccess.authenticated ? (tokenHealth ?? 'none') : null;
+  const gateReason = gateHealth === 'expired' ? 'رفض GitHub الرمز المحفوظ.' : 'ردّ GitHub بلا رمز: غير موجود أو غير عام (404)، وقد يكون المستودع خاصًا.';
+  const mismatched = binding && !binding.match.same ? binding.match : null;
   return (
     <div class="d-api" data-section="api">
       {status === null ? null : !status.granted ? (
@@ -211,28 +232,22 @@ export function ApiPanel({ status, loading, data, onRead, onOpenSettings, mismat
           )}
         </p>
       )}
+      {status !== null && <AccessReport data={mismatched ? null : data} before={mismatched ? { kind: 'not-requested', authenticated: false } : status.granted ? NOT_REQUESTED : { kind: 'no-permission', authenticated: false }} />}
+      {attempt && data && attempt !== data && (
+        <p class="d-note" data-api-attempt={attempt.access.pull.kind}>
+          {accessText('القراءة الأحدث', attempt.access.pull)} المعروض آخر قراءة ناجحة في <At ms={data.readAt} />.
+        </p>
+      )}
+      {data?.pull.available && !mismatched && <BindingLine binding={data.binding} />}
+      {gateHealth && onConnect && <ConnectionGate feature={PRIVATE_FEATURE} health={{ 'github-token': gateHealth }} reason={gateReason} onConnect={onConnect} />}
       {data && (data.pull.available ? null : <p class="d-note" data-api-error="pull">تعذّرت قراءة API: {data.pull.reason}</p>)}
-      {data?.pull.available && !data.checks.available && <p class="d-note" data-api-error="checks">فحوص API غير متاحة: {data.checks.reason}</p>}
-      {data?.checks.available && data.checks.value.note && (
+      {data?.pull.available && !data.checks.available && !mismatched && <p class="d-note" data-api-error="checks">فحوص API غير متاحة: {data.checks.reason}</p>}
+      {data?.checks.available && data.checks.value.note && !mismatched && (
         <p class="d-note" data-api-via={data.checks.value.via ?? ''}>
           {data.checks.value.note}
         </p>
       )}
-      {mismatch && data?.pull.available && (
-        <p class="d-note" data-api-mismatch="">
-          بيانات API المقروءة لالتزام آخر (<bdi dir="ltr">{mismatch.apiHead.slice(0, 7)}</bdi>)
-          {mismatch.pageHead ? (
-            <>
-              {' '}
-              غير الظاهر الآن (<bdi dir="ltr">{mismatch.pageHead.slice(0, 7)}</bdi>)
-            </>
-          ) : (
-            ' ورأس الصفحة غير معروف'
-          )}
-          ، فلا تُدمج في الملخص ولا في الموانع؛ أعد القراءة من API. ما قُرئ لذلك الالتزام: <bdi dir="ltr">{`mergeable_state = ${data.pull.value.mergeableState ?? 'null'}`}</bdi>
-          {data.checks.available ? `، وفحوصه ${data.checks.value.items.length}` : ''}.
-        </p>
-      )}
+      {mismatched && binding && data?.pull.available && <MismatchNotice read={binding.read} page={binding.page} match={mismatched} data={data} />}
     </div>
   );
 }

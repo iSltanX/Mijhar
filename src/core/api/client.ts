@@ -41,6 +41,8 @@ export interface PublicApiError {
   readonly readAt: number;
   readonly rate: RateLimit | null;
   readonly authenticated?: true;
+  /** MJ18 (T-11.1، T-11.5): ترويسة x-accepted-github-permissions في رفض 403 بالرمز (الصلاحية التي تقبلها النقطة)، كما هي. */
+  readonly accepted?: string;
 }
 
 export type PublicApiResult<T> = PublicApiSuccess<T> | PublicApiError;
@@ -161,7 +163,7 @@ export class PublicApiClient {
     const tracker = this.trackers[mode];
     const cache = this.caches[mode];
     const auth = token ? ({ authenticated: true } as const) : {};
-    const fail = (failure: PublicApiFailure, message: string, status: number | null = null, retryAt: number | null = null): PublicApiError => ({
+    const fail = (failure: PublicApiFailure, message: string, status: number | null = null, retryAt: number | null = null, accepted: string | null = null): PublicApiError => ({
       ok: false,
       failure,
       status,
@@ -170,6 +172,7 @@ export class PublicApiClient {
       readAt: this.now(),
       rate: tracker.snapshot('core'),
       ...auth,
+      ...(accepted ? { accepted } : {}),
     });
     // تعذّر قراءة الرمز المحفوظ لا يعني «لا رمز»: لا يُرسل طلب مجهول بدله.
     if (tokenError !== null) return { ok: false, failure: 'token', status: null, message: `تعذّرت قراءة رمز الوصول المحفوظ (${tokenError})؛ لم يُرسل الطلب`, retryAt: null, readAt: this.now(), rate: null };
@@ -213,7 +216,7 @@ export class PublicApiClient {
       // نقص صلاحية لنقطة بعينها (evidence/T-0.5): الترويسة تسمّي الصلاحية المطلوبة.
       const needed = token ? response.headers.get('x-accepted-github-permissions')?.trim() : null;
       const message = await messageOf(response, 'رفض GitHub الطلب (403)');
-      return fail('forbidden', needed ? `${message} (الصلاحية المطلوبة: ${needed})` : message, status);
+      return fail('forbidden', needed ? `${message} (الصلاحية المطلوبة: ${needed})` : message, status, null, needed || null);
     }
     if (!response.ok) return fail('http', await messageOf(response, `HTTP ${status}`), status);
     let data: T;

@@ -1,0 +1,68 @@
+// تعريفات سجل الاتصالات (T-11.1): لكل اتصال نوعه ووجهته وما يحتاجه وما يفعّله ومفتاحا تخزين سرّه المستقلان. قائمة مغلقة: لا يُضاف
+// اتصال إلا هنا، ولكل سرّ مفتاحان لا يشاركه فيهما غيره (AC-11.1 ‏(٦)، DEC-10).
+//  - رمز GitHub للقراءة (T-5.5): متاح، ويُحفظ بمفتاحيه التاريخيين.
+//  - مفتاح مزوّد التحليل: «لم يُتح بعد». مخزنه المستقل ومحوه جاهزان (keys.ts)، أما حقله والتحقق منه (طلب إلى المزوّد بتكلفته المعلنة)
+//    وصلاحية مضيفه فتأتي مع طبقة التحليل (MJ21، AC-E9)؛ فلا يُجمع سرّ لا تستعمله ميزة، ويطابق السجل نص الترحيب (AD-29: «لا حقل لمفتاح الآن»).
+// لا مفاتيح تخزين هنا: هذا الملف وصف يصل سكربت المحتوى (بوابات الميزات)، ومفاتيح الأسرار في keys.ts للخلفية وصفحة الإعدادات وحدهما.
+
+export const CONNECTION_IDS = ['github-token', 'provider-key'] as const;
+export type ConnectionId = (typeof CONNECTION_IDS)[number];
+
+export const isConnectionId = (value: unknown): value is ConnectionId => typeof value === 'string' && (CONNECTION_IDS as readonly string[]).includes(value);
+
+export interface ConnectionDefinition {
+  readonly id: ConnectionId;
+  readonly title: string;
+  /** اسم السرّ في الجمل («الرمز»، «المفتاح»). */
+  readonly noun: string;
+  /** الخدمة التي تقبله أو ترفضه. */
+  readonly service: string;
+  /** نوع السرّ ووجهته الوحيدة في سطر. */
+  readonly kind: string;
+  /** المضيف الوحيد الذي يُرسل إليه السرّ. */
+  readonly destination: string;
+  /** ما يفعّله الاتصال. */
+  readonly enables: string;
+  /** ما يحتاجه الربط من المستخدم. */
+  readonly needs: string;
+  /** ما يتعطل بحذفه أو انتهائه، وحده. */
+  readonly disables: string;
+  /** 'available': يُربط الآن؛ 'not-yet': لم تُدمج المرحلة التي تستعمله، فلا حقل له ولا تحقق. */
+  readonly availability: 'available' | 'not-yet';
+  /** سبب «لم يُتح بعد». */
+  readonly notYet?: string;
+}
+
+export const CONNECTIONS: readonly ConnectionDefinition[] = [
+  {
+    id: 'github-token',
+    title: 'رمز GitHub للقراءة',
+    noun: 'الرمز',
+    service: 'GitHub',
+    kind: 'رمز دقيق الحبيبات للقراءة فقط',
+    destination: 'api.github.com',
+    enables: 'حالة طلبات الدمج وفحوص Actions في مستودعاتك الخاصة التي تختارها، وحدّ طلبات أعلى من GitHub.',
+    needs: 'رمز تنشئه من حسابك في GitHub بصلاحيات قراءة فقط، وصلاحية api.github.com الاختيارية في هذه الصفحة.',
+    disables: 'قراءة المستودعات الخاصة وفحوص Actions فيها بالرمز؛ وتبقى قراءة الصفحة وAPI العامة.',
+    availability: 'available',
+  },
+  {
+    id: 'provider-key',
+    title: 'مفتاح مزوّد التحليل',
+    noun: 'المفتاح',
+    service: 'المزوّد',
+    kind: 'مفتاح API لمزوّد تحليل خارجي',
+    destination: 'api.anthropic.com',
+    enables: 'تحليل نصّي اختياري داخل الأقسام القائمة، بموافقتك على كل طلب.',
+    needs: 'مفتاح API من حسابك لدى المزوّد، والتكلفة على حسابك هناك.',
+    disables: 'التحليل وحده؛ وتبقى الأقسام ونسخ حزمة السياق ورمز GitHub كما هي.',
+    availability: 'not-yet',
+    notYet: 'لم يُتح بعد: تضيفه طبقة التحليل في تحديث لاحق. لا حقل لمفتاح الآن، ولا يُرسل شيء إلى أي مزوّد.',
+  },
+];
+
+export function connectionById(id: ConnectionId): ConnectionDefinition {
+  const found = CONNECTIONS.find((c) => c.id === id);
+  if (!found) throw new Error(`اتصال غير معرّف: ${id}`);
+  return found;
+}

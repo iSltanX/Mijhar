@@ -227,6 +227,7 @@ async function scenario(d, target, checks, network) {
 
   // 6. المسح.
   await d.click('[data-action="token-clear"]');
+  await d.click('[data-action="token-clear-confirm"]'); // MJ18: المسح بعد تأكيد يسرد ما يتعطل وحده.
   const cleared = await waitUntil(() => d.options(`return document.querySelector('[data-token-state]')?.getAttribute('data-token-state') === 'none' ? true : null;`), 8000);
   const stores3 = await d.options(READ_EXTENSION_STORES, [TOKEN]);
   check('المسح يمحوه من الجلسة والقرص', cleared && !stores3.sessionHasToken && !stores3.idb.present && !stores3.localHasToken, stores3);

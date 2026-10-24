@@ -29,6 +29,11 @@ export type OptionsTarget = (typeof OPTIONS_TARGETS)[number];
 export interface OpenOptionsMessage {
   readonly type: typeof OPEN_OPTIONS_MESSAGE;
   readonly target?: OptionsTarget;
+  /**
+   * MJ18 (T-11.1): الميزة التي طلبت الربط، معرّفًا من القائمة المغلقة CONNECTED_FEATURES (src/core/connections/features.ts) لا عنوانًا؛
+   * تحفظه الخلفية مع تبويب المرسل لتعيد إليه بعد الربط. وما ليس في القائمة يُهمل.
+   */
+  readonly feature?: string;
 }
 
 export const isOpenOptionsMessage = (message: unknown): message is OpenOptionsMessage =>

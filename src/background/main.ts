@@ -4,6 +4,8 @@
 //  - تطبّق تفضيل مكان اللوحة حيث يُقرأ متزامنًا وقت الأمر (commands.ts).
 //  - الكاتب الوحيد لسجلات الملاحظات والمراسي (VR-01): تنفّذ رسائل الكتابة من كل السياقات في طابور واحد على مخزنها.
 //  - تقرأ رمز الوصول الاختياري من مخزنه الموثوق لكل طلب (MJ15، T-5.5، AD-24)، ويضيف العميل ترويسته هنا وحده؛ فلا يعبر الرمز رسالة.
+//  - سجل الاتصالات (MJ18، T-11.1): كل استجابة GitHub تمر بها تحدّث صحة الرمز (التحقق /rate_limit والاستعمال)، وتعرض الحالة بلا سرّ،
+//    وتعيد المستخدم إلى الميزة التي طلبت الربط.
 // الاستيراد من الملفات مباشرة لا من ../core: الخلفية لا ترسم واجهة، فلا تحمل Preact.
 import { extensionApi } from '../core/ui-host/browser-api';
 import type { ExtensionApi } from '../core/ui-host/browser-api';
@@ -20,8 +22,15 @@ import { GLOSSARY_COMMAND, GLOSSARY_TAB } from '../modules/b/search/ids';
 import { PublicApiClient } from '../core/api/client';
 import { directPort, handlePublicApiRequest, isPublicApiRequest } from '../core/api/port';
 import type { PublicApiPort } from '../core/api/port';
+import type { PublicApiResult } from '../core/api/client';
 import { extensionTokenStore } from '../modules/d/token/store';
 import type { TokenStore } from '../modules/d/token/store';
+import { READ_PERMISSIONS } from '../modules/d/token/format';
+import { connectionSecretStore } from '../core/connections/keys';
+import { isConnectionsRequest } from '../core/connections/port';
+import { ConnectionsService, extensionHealthLog } from '../core/connections/service';
+import type { HealthLog } from '../core/connections/service';
+import type { SecretStore } from '../core/connections/secrets';
 import { NotesBroker, openParts } from '../modules/g/notes/broker';
 import { isNotesWriteRequest } from '../modules/g/notes/writer';
 
@@ -33,7 +42,11 @@ export interface BackgroundOptions {
   /** fetch لطبقة API العامة (للاختبار). الافتراضي fetch العام. */
   readonly fetch?: typeof fetch;
   /** مخزن رمز الوصول (للاختبار). الافتراضي storage.session وIndexedDB الإضافة؛ null بلا رمز. */
-  readonly tokens?: Pick<TokenStore, 'read'> | null;
+  readonly tokens?: Pick<TokenStore, 'read' | 'info'> | null;
+  /** مخزن مفتاح مزوّد التحليل (للاختبار). الافتراضي مفتاحاه المستقلان؛ null بلا مفتاح. */
+  readonly providerKeys?: Pick<SecretStore, 'info'> | null;
+  /** سجل صحة الاتصالات (للاختبار). الافتراضي storage.session. */
+  readonly healthLog?: HealthLog;
   /** انعكاس التفضيل المتزامن في Firefox. الافتراضي localStorage صفحة الخلفية. */
   readonly mirror?: Pick<Storage, 'getItem' | 'setItem'>;
   readonly onOutcome?: (outcome: PanelOutcome, detail?: string) => void;
@@ -58,14 +71,37 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     }
   });
 
+  // MJ18 (T-11.1): سجل الاتصالات. مخزن كل سرّ يُقرأ منه وقت الحفظ ومكانه فقط، والصحة من الاستجابات التي تمر بالخلفية.
+  const tokens = options.tokens === undefined ? extensionTokenStore() : options.tokens;
+  const providerKeys = options.providerKeys === undefined ? connectionSecretStore('provider-key') : options.providerKeys;
+  const connections = new ConnectionsService({
+    stores: { ...(tokens ? { 'github-token': tokens } : {}), ...(providerKeys ? { 'provider-key': providerKeys } : {}) },
+    log: options.healthLog ?? extensionHealthLog(),
+    fixable: READ_PERMISSIONS.map((p) => p.param),
+    api,
+    onError: (error) => console.error('[mijhar] تعذّر حفظ صحة الاتصالات', error),
+  });
+
   // MJ11 (T-5.2): طبقة GitHub REST العامة لسكربت المحتوى. العميل يُنشأ عند أول طلب، وحالته (الحد وETag) في ذاكرة الخلفية وحدها.
   // MJ15 (T-5.5): الرمز يُقرأ من مخزنه عند كل طلب، فيُكشف حفظه أو مسحه من صفحة الإعدادات دون رسالة تحمله.
+  // MJ18 (T-11.1): كل نتيجة تُسجَّل في صحة الرمز قبل أن يُرد بها، فتقرأ الإعدادات حالة متسقة بعد تحققها.
   let publicApi: PublicApiPort | null = null;
   const apiPort = (): PublicApiPort | null => {
     if (!api.permissions) return null;
-    const tokens = options.tokens === undefined ? extensionTokenStore() : options.tokens;
+    if (publicApi) return publicApi;
     const token = tokens ? async () => (await tokens.read())?.token ?? null : undefined;
-    publicApi ??= directPort(new PublicApiClient({ permissions: api.permissions, ...(options.fetch ? { fetch: options.fetch } : {}), ...(token ? { token } : {}) }), api.permissions);
+    const client = new PublicApiClient({ permissions: api.permissions, ...(options.fetch ? { fetch: options.fetch } : {}), ...(token ? { token } : {}) });
+    const direct = directPort(client, api.permissions);
+    const observe = async <R extends PublicApiResult<unknown>>(path: string, result: R): Promise<R> => {
+      const { expiresAt } = await client.auth().catch(() => ({ expiresAt: null }));
+      await connections.observeGithub(path, result, expiresAt).catch((error: unknown) => console.error('[mijhar] تعذّر تسجيل صحة الرمز', error));
+      return result;
+    };
+    publicApi = {
+      status: () => direct.status(),
+      get: async (path) => observe(path, await direct.get(path)),
+      getAll: async (path, key, maxPages) => observe(path, await direct.getAll(path, key, maxPages)),
+    };
     return publicApi;
   };
 
@@ -90,7 +126,13 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
       void handlePublicApiRequest(message, port).then(sendResponse, (error: unknown) => sendResponse({ ok: false, failure: 'network', status: null, message: String(error), retryAt: null, readAt: Date.now(), rate: null }));
       return true;
     }
+    if (isConnectionsRequest(message)) {
+      void connections.handle(message).then(sendResponse, () => sendResponse(null));
+      return true;
+    }
     if (isOpenOptionsMessage(message)) {
+      // MJ18 (T-11.1): ميزة طلبت الربط تُحفظ مع تبويب المرسل (من sender لا من الرسالة) للعودة إليها.
+      if (message.feature !== undefined) connections.setPending(sender.tab, message.feature);
       // AD-29: موضع من القائمة المغلقة يُفتح في تبويب جديد؛ وما عداه صفحة الإعدادات نفسها.
       const url = message.target === undefined ? null : optionsPageUrl((path) => api.runtime.getURL(path), message.target);
       if (url && api.tabs) void api.tabs.create({ url });
