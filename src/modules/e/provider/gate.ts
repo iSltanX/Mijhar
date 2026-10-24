@@ -95,6 +95,11 @@ export class ProviderHostPermission {
     return this.api.request({ ...this.hostSet, ...(this.contentSet ?? {}) });
   }
 
+  /** صلاحية المضيف وحدها لطلب لا يحمل محتوى (جلب قائمة النماذج واختبار النموذج، DEC-13 ن-5)؛ من معالج نقر قبل أي await، ولا تُطلب معها موافقة المحتوى. */
+  requestHost(): Promise<boolean> {
+    return this.api.request(this.hostSet);
+  }
+
   /** يسحب صلاحية مضيف هذا المزوّد وحدها: يتوقف التحليل عنده وحده، وتبقى موافقة المحتوى ومضيفات غيره. */
   revoke(): Promise<boolean> {
     return this.api.remove(this.hostSet);

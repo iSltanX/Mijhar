@@ -242,12 +242,15 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
       });
   };
 
-  /** يطلب صلاحية المضيف في النقرة نفسها قبل أي await (VER-05)، ثم يرسل الطلب المعلن؛ ورفضها لا يرسل شيئًا. */
+  /**
+   * يطلب صلاحية المضيف وحدها في النقرة نفسها قبل أي await (VER-05)، ثم يرسل الطلب المعلن؛ ورفضها لا يرسل شيئًا. لا تُطلب موافقة محتوى المواقع (Firefox)
+   * لطلب لا يحمل محتوى؛ والتحليل يبقى مشروطًا بها.
+   */
   const withPermission = (send: () => Promise<FieldOutcome>): Promise<FieldOutcome> =>
-    askPermission().then(
+    (granted?.host ? Promise.resolve(true) : permission.requestHost().catch(() => false)).then(
       async (ok) => {
         await readPermission();
-        if (!ok) return { ok: false, message: `لم تُمنح ${grantName}، فلم يُرسل شيء` };
+        if (!ok) return { ok: false, message: `لم تُمنح صلاحية ${descriptor.host}، فلم يُرسل شيء` };
         const outcome = await send();
         await readStatus();
         onChange?.();

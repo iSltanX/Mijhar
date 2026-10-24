@@ -442,6 +442,34 @@ describe('AC-E10 (٤) وDEC-13 ن-5: حقل النموذج اليدوي وزر +
     expect(container.querySelector('[data-model-test]')).toBeNull();
   });
 
+  it('Firefox: زر + و«اختبر النموذج» يطلبان صلاحية المضيف وحدها (لا يحملان محتوى)، ولا تُطلب معهما موافقة محتوى المواقع', async () => {
+    const s = await setup({ firefox: true });
+    await s.stores.get('mock-c')?.save(fakeMockKey('mock-c'), 'session');
+    await s.choose('mock-c');
+    act(() => trustedClick($('[data-action="model-list"]')));
+    await flush();
+    expect(s.order).toEqual(['request:https://api.mock-c.test/*', 'verify:mock-c:list']);
+    expect(s.perms.collected.has('websiteContent')).toBe(false);
+    await s.type('c-model-typed');
+    act(() => trustedClick($('[data-action="model-test"]')));
+    await flush();
+    // المضيف ممنوح الآن: لا نافذة ثانية، ولا موافقة محتوى.
+    expect(s.order).toEqual(['request:https://api.mock-c.test/*', 'verify:mock-c:list', 'probe:mock-c:c-model-typed']);
+    expect(s.perms.collected.has('websiteContent')).toBe(false);
+  });
+
+  it('رفض صلاحية المضيف لزر +: لا يُرسل شيء، والسبب معلن والحقل يعمل', async () => {
+    const s = await setup({ answer: false });
+    await s.stores.get('mock-c')?.save(fakeMockKey('mock-c'), 'session');
+    await s.choose('mock-c');
+    act(() => trustedClick($('[data-action="model-list"]')));
+    await flush();
+    expect(s.order).toEqual(['request:https://api.mock-c.test/*']);
+    expect($('[data-list-state="failed"]').textContent).toContain('لم تُمنح صلاحية api.mock-c.test، فلم يُرسل شيء');
+    await s.type('c-still-works');
+    expect(s.settings.get(modelSettingKey('mock-c'))).toBe('c-still-works');
+  });
+
   it('لا اختبار لمزوّد لا يدعمه محوّله، ولا زر لكل نموذج في القائمة', async () => {
     const s = await setup({ granted: [B.origin] });
     await s.choose('mock-b');
