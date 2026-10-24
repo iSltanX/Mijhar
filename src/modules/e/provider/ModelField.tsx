@@ -57,7 +57,7 @@ const FIELD_CSS = `
 .mj-root .model-field .mf-pop-head, .mj-root .model-field .mf-pop-state { display: flex; align-items: center; justify-content: space-between; gap: var(--mijhar-space-8); padding: var(--mijhar-space-4) var(--mijhar-space-8); }
 .mj-root .model-field .mf-pop-state { justify-content: flex-start; padding-block: var(--mijhar-space-8); }
 .mj-root .model-field .mf-pop-state .mf-link { margin-inline-start: auto; }
-.mj-root .model-field .mf-link { appearance: none; padding: 0; border: 0; background: none; font: inherit; font-size: 12px; font-weight: 700; color: var(--mijhar-text-brand); cursor: pointer; }
+.mj-root .model-field .mf-link { appearance: none; flex: 0 0 auto; padding: 0; border: 0; background: none; font: inherit; font-size: 12px; font-weight: 700; color: var(--mijhar-text-brand); cursor: pointer; white-space: nowrap; }
 .mj-root .model-field .mf-link:hover { text-decoration: underline; }
 .mj-root .model-field .mf-link:disabled { color: var(--mijhar-text-disabled); cursor: not-allowed; text-decoration: none; }
 .mj-root .model-field [role="listbox"] { margin: 0; padding: 0; list-style: none; max-height: 16rem; overflow-y: auto; }
@@ -70,9 +70,11 @@ const FIELD_CSS = `
 .mj-root .model-field [role="option"][aria-selected="true"] { font-weight: 700; }
 .mj-root .model-field .mf-invalid { color: var(--mijhar-text-danger); }
 .mj-root .model-field .mf-foot { padding: var(--mijhar-space-4) var(--mijhar-space-8) 0; }
-.mj-root .model-field .mf-test { display: flex; align-items: center; gap: var(--mijhar-space-8); flex-wrap: wrap; }
-.mj-root .model-field .mf-test .btn { min-height: 28px; padding: 0 var(--mijhar-space-8); font-size: 12px; }
-.mj-root .model-field .mf-result { display: inline-flex; align-items: center; gap: var(--mijhar-space-6); flex: 1 1 16rem; padding: var(--mijhar-space-4) var(--mijhar-space-8); font-size: 12px; line-height: 18px; }
+.mj-root .model-field .mf-test { display: flex; align-items: flex-start; gap: var(--mijhar-space-8); max-width: 36rem; }
+.mj-root .model-field .mf-test .btn { flex: 0 0 auto; min-height: 28px; padding: 0 var(--mijhar-space-8); font-size: 12px; }
+.mj-root .model-field .mf-test-live { display: flex; flex: 1 1 auto; min-width: 0; align-self: center; }
+.mj-root .model-field .mf-result { display: flex; align-items: flex-start; gap: var(--mijhar-space-6); flex: 1 1 auto; min-width: 0; padding: var(--mijhar-space-4) var(--mijhar-space-8); font-size: 12px; line-height: 18px; overflow-wrap: anywhere; }
+.mj-root .model-field .mf-result .icon { margin-top: 1px; }
 .mj-root .model-field .mf-spin { animation: mj-mf-spin 900ms linear infinite; transform-origin: 50% 50%; }
 @keyframes mj-mf-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .mj-root .model-field .mf-spin { animation: none; } }
