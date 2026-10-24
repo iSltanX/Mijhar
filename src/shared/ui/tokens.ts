@@ -3,6 +3,8 @@
 // تُعرَّف الرموز على .mj-root لا على :host: لا تصل أنماط الصفحة إلى عنصر داخل الجذر، فلا يغلب متغيرٌ تعرّفه الصفحة
 // بالاسم نفسه ما نعرّفه هنا (المتغيرات تُورَّث عبر حدود الظل، والتعريف على العنصر الأقرب يغلب). ولا rem: حجم خط
 // الصفحة الجذري يغيّرها؛ كل المقاسات بالبكسل.
+// خطّا الهوية أولًا بعائلتيهما المضمّنتين (fonts.ts، تسجّلهما نقطتا التركيب)، ثم الاسم المثبت على الجهاز، ثم خطوط النظام.
+import { UI_FONT_DISPLAY, UI_FONT_TEXT } from './fonts';
 
 const LIGHT = `
   --mijhar-bg-canvas: #f4f6f8;
@@ -77,8 +79,8 @@ const DARK = `
 `;
 
 const SHARED = `
-  --mijhar-font-display: Cairo, "Noto Kufi Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
-  --mijhar-font-text: Almarai, "Noto Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --mijhar-font-display: "${UI_FONT_DISPLAY}", Cairo, "Noto Kufi Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --mijhar-font-text: "${UI_FONT_TEXT}", Almarai, "Noto Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
   --mijhar-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --mijhar-space-4: 4px;
   --mijhar-space-6: 6px;

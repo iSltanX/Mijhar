@@ -6,6 +6,7 @@ import type { ExtensionApi } from '../core/ui-host/browser-api';
 import { ApiGithubPermission } from '../core/ui-host/permissions';
 import { openSettings } from '../core/ui-host/settings-runtime';
 import { createSettingsRegistry } from '../core/ui-host/units';
+import { registerUiFonts } from '../shared/ui/fonts';
 import { BASE_CSS } from '../shared/ui/tokens';
 import { defineSectionSettings } from './sections';
 import type { ShortcutsCapability } from './SettingsTab';
@@ -42,10 +43,12 @@ body { background: #ffffff; }
 .mj-root.page { min-height: 100vh; }
 `;
 
-function installStyles(doc: Document): void {
+/** أنماط الصفحة والرموز، وخطّا الهوية المضمّنان. */
+export function installStyles(doc: Document): void {
   const style = doc.createElement('style');
   style.textContent = `${PAGE_CSS}\n${BASE_CSS}`;
   doc.head.append(style);
+  registerUiFonts(doc);
 }
 
 /** يفتح الإعدادات ثم يرسم الصفحة؛ وإن تعذّر فتح التخزين عرض الخطأ بدل صفحة فارغة. */

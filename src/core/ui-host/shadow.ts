@@ -7,6 +7,8 @@
 //  - من الواجهة إلى الصفحة: الأنماط داخل الجذر لا تخرج منه، ولا تُحقن ورقة أنماط في المستند.
 // الأنماط تُتبنّى ورقةً مبنية (adoptedStyleSheets) فلا تخضع لـCSP الصفحة؛ وإن تعذّر ذلك فعنصر <style> داخل الجذر.
 // الجذر مفتوح (open) عمدًا: لا سرّ في أي واجهة محقونة (لا حقل رمز ولا مفتاح، DEC-04)، والفتح يتيح الفحص الآلي.
+// خطّا الهوية يُسجَّلان في document.fonts للمستند (FontFace، لا ورقة أنماط) مع أول مضيف، فتسري داخل كل الجذور.
+import { registerUiFonts } from '../../shared/ui/fonts';
 import { BASE_CSS } from '../../shared/ui/tokens';
 
 export const HOST_TAG = 'mijhar-host';
@@ -68,6 +70,7 @@ export function githubTheme(doc: Document): 'light' | 'dark' | undefined {
 
 /** ينشئ مضيفًا غير مُدرج في المستند. الإدراج مسؤولية المستدعي (عبر ctx.mutations في الوحدات). */
 export function createShadowHost(doc: Document, options: ShadowHostOptions): ShadowParts {
+  registerUiFonts(doc);
   const host = doc.createElement(HOST_TAG);
   host.setAttribute(HOST_ATTR, options.name);
   const shadow = host.attachShadow({ mode: 'open' });

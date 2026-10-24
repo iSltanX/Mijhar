@@ -15,16 +15,25 @@ import zlib from 'node:zlib';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const FONTS_DIR = path.join(ROOT, 'assets/fonts');
 
-// الخطوط كما في src/modules/a/fonts/fonts.ts (EMBEDDED_FONTS)، ومصدر كل ملف TTF.
+// كل خط في assets/fonts ومصدر ملف TTF: خطوط القراءة في src/modules/a/fonts/fonts.ts (EMBEDDED_FONTS)، وخطا هوية الواجهة في
+// src/shared/ui/fonts.ts (UI_FONTS: Cairo للعناوين، وAlmarai للنص).
+// copyright: سطر حقوق يختلف بين الخط وملف ترخيصه في التوزيع الأصلي نفسه، مقبول بنصّيه الحرفيين وسببه؛ وأي نص غيرهما مشكلة.
+const ALMARAI_COPYRIGHT = {
+  font: 'Copyright (c) 2019 by Almarai. All rights reserved.',
+  file: 'Copyright 2019 The Almarai Project Authors (https://github.com/JuergenWillrodt/Almarai)',
+  reason: 'توزيع Google Fonts لـAlmarai 1.10 نفسه: nameID 0 في الخط يسمّي «Almarai» وملف OFL.txt المرافق يسمّي «The Almarai Project Authors»، وكلاهما المشروع نفسه',
+};
 export const FONT_FILES = [
   { font: 'plex', file: 'IBMPlexSansArabic-Regular.woff2', source: 'IBMPlexSansArabic-Regular.ttf', license: 'OFL-IBMPlexSansArabic.txt' },
   { font: 'plex', file: 'IBMPlexSansArabic-Bold.woff2', source: 'IBMPlexSansArabic-Bold.ttf', license: 'OFL-IBMPlexSansArabic.txt' },
   { font: 'cairo', file: 'Cairo-Regular.woff2', source: 'Cairo-Regular.ttf', license: 'OFL-Cairo.txt' },
   { font: 'cairo', file: 'Cairo-Bold.woff2', source: 'Cairo-Bold.ttf', license: 'OFL-Cairo.txt' },
   { font: 'noto', file: 'NotoSansArabic-Variable.woff2', source: 'NotoSansArabic-VariableFont_wdth,wght.ttf', license: 'OFL-NotoSansArabic.txt' },
+  { font: 'almarai', file: 'Almarai-Regular.woff2', source: 'Almarai-Regular.ttf', license: 'OFL-Almarai.txt', copyright: ALMARAI_COPYRIGHT },
+  { font: 'almarai', file: 'Almarai-Bold.woff2', source: 'Almarai-Bold.ttf', license: 'OFL-Almarai.txt', copyright: ALMARAI_COPYRIGHT },
 ];
 
-const KNOWN_TAGS = [
+export const KNOWN_TAGS = [
   'cmap', 'head', 'hhea', 'hmtx', 'maxp', 'name', 'OS/2', 'post', 'cvt ', 'fpgm', 'glyf', 'loca', 'prep', 'CFF ', 'VORG', 'EBDT',
   'EBLC', 'gasp', 'hdmx', 'kern', 'LTSH', 'PCLT', 'VDMX', 'vhea', 'vmtx', 'BASE', 'GDEF', 'GPOS', 'GSUB', 'EBSC', 'JSTF', 'MATH',
   'CBDT', 'CBLC', 'COLR', 'CPAL', 'SVG ', 'sbix', 'acnt', 'avar', 'bdat', 'bloc', 'bsln', 'cvar', 'fdsc', 'feat', 'fmtx', 'fvar',
@@ -130,7 +139,12 @@ export function verifyFont(entry, { fontsDir = FONTS_DIR, sourceDir = null } = {
   if (!OFL_IN_FILE.test(licenseText)) problems.push('ملف الترخيص ليس نص SIL OFL 1.1');
   const fileCopyright = licenseText.split(/\r?\n/, 1)[0];
   const holder = (text) => text.replace(/^Copyright\s*(©|\(c\))?\s*\d{4}(-\d{4})?\s*/i, '').replace(/\s*(All rights reserved\.?|with Reserved Font Name.*)$/i, '').trim();
-  if (holder(names[0] ?? '') !== holder(fileCopyright)) problems.push(`صاحب الحقوق يختلف: الخط «${names[0]}» والملف «${fileCopyright}»`);
+  const notes = [];
+  if (holder(names[0] ?? '') !== holder(fileCopyright)) {
+    const known = entry.copyright && names[0] === entry.copyright.font && fileCopyright.trim() === entry.copyright.file;
+    if (known) notes.push(`سطر الحقوق يختلف بنصّين معروفين: ${entry.copyright.reason}`);
+    else problems.push(`صاحب الحقوق يختلف: الخط «${names[0]}» والملف «${fileCopyright}»`);
+  }
   const reserved = /Reserved Font Name\s+"([^"]+)"/i.exec(licenseText)?.[1] ?? null;
   let source = null;
   if (sourceDir) {
@@ -177,6 +191,7 @@ export function verifyFont(entry, { fontsDir = FONTS_DIR, sourceDir = null } = {
     transformedTables: transformed,
     woffMetadata: woff.header.metaLength > 0,
     source,
+    notes,
     problems,
   };
 }
@@ -191,7 +206,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const out = option('--out');
   const results = FONT_FILES.map((entry) => verifyFont(entry, { sourceDir }));
   for (const r of results) {
-    console.log(`${r.file}: ${r.bytes} بايت · ${r.family} ${r.version} · ${r.spdx ?? 'رخصة غير متحقق منها'} · محجوز: ${r.reservedFontName ?? '—'}${r.source ? ` · جداول مطابقة ${r.source.identicalTables}/${r.source.tables}` : ''}${r.problems.length ? ` · مشكلات: ${r.problems.join('؛ ')}` : ''}`);
+    console.log(`${r.file}: ${r.bytes} بايت · ${r.family} ${r.version} · ${r.spdx ?? 'رخصة غير متحقق منها'} · محجوز: ${r.reservedFontName ?? '—'}${r.source ? ` · جداول مطابقة ${r.source.identicalTables}/${r.source.tables}` : ''}${r.notes.length ? ` · ملاحظة: ${r.notes.join('؛ ')}` : ''}${r.problems.length ? ` · مشكلات: ${r.problems.join('؛ ')}` : ''}`);
   }
   if (out) fs.writeFileSync(out, `${JSON.stringify({ checkedAt: new Date().toISOString(), sourceDir, results }, null, 2)}\n`);
   if (results.some((r) => r.problems.length)) process.exit(1);
