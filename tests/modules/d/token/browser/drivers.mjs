@@ -113,6 +113,9 @@ export async function chromiumSession(key, { extDir, githubReply, apiReply, auth
     browserVersion: context.browser().version(),
     d,
     network,
+    // سياق Playwright وتبويب github.com (إضافة MJ20): منح قراءة الحافظة والتقاط الشاشات. غائبان في Firefox.
+    context,
+    githubPage: github,
     consoleText: () => consoleText.join('\n'),
     async extensionErrors() {
       const devtools = await context.newPage();

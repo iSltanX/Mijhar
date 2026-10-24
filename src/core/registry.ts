@@ -14,6 +14,7 @@ import { COMPARE_MODULE } from '../modules/d/compare/module';
 import { LOG_MODULE } from '../modules/d/log-parser/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
 import { CONTEXT_BUILDER_MODULE } from '../modules/e/builder/module';
+import { COPY_PROMPT_MODULE } from '../modules/e/copy-prompt/module';
 import { COMPOSER_MODULE } from '../modules/f/composer/module';
 import { BOOKMARKS_MODULE } from '../modules/g/bookmarks/module';
 import { MODULE_G } from '../modules/g/notes/module';
@@ -108,6 +109,7 @@ export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   BOOKMARKS_MODULE, // MJ12 (T-8.2): الوحدة (ز) زر «أكمل لاحقًا»
   TOURS_MODULE, // MJ13 (T-3.5): الوحدة (ب): الجولات الإرشادية القرائية الآمنة
   CONTEXT_BUILDER_MODULE, // MJ15 (T-6.1): الوحدة (هـ): منشئ حزمة السياق
+  COPY_PROMPT_MODULE, // MJ20 (T-11.3): الوحدة (هـ): زر نسخ البرومبت
 ];
 
 export function createModuleRegistry(modules: readonly ExtensionModule[] = BUILTIN_MODULES): ModuleRegistry {

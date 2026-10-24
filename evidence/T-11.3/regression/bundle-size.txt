@@ -1,0 +1,2 @@
+1507278 dist/chromium/content.js
+1507277 dist/firefox/content.js

@@ -13,6 +13,7 @@ import { TOURS_SECTION } from '../modules/b/tours/section';
 import { MODEL_SECTION } from '../modules/c/model-manager/section';
 import { TRANSLATE_SECTION } from '../modules/c/ui/section';
 import { PR_STATUS_SECTION } from '../modules/d/pr-status/section';
+import { COPY_PROMPT_SECTION } from '../modules/e/copy-prompt/section';
 import { COMPOSER_SECTION } from '../modules/f/composer/section';
 import { LATER_SETTINGS_SECTION } from '../modules/g/bookmarks/section';
 import { EXPORT_SETTINGS_SECTION } from '../modules/g/export/section';
@@ -50,6 +51,7 @@ export const SETTINGS_SECTIONS: readonly SettingsSection[] = [
   TRANSLATE_SECTION, // MJ10 (T-4.1): الوحدة (ج)
   MODEL_SECTION, // MJ16 (T-4.4): الوحدة (ج): نموذج الترجمة (الحجم والحذف)
   PR_STATUS_SECTION, // MJ8 (T-5.1، T-5.4): الوحدة (د)
+  COPY_PROMPT_SECTION, // MJ20 (T-11.3): الوحدة (هـ): زر نسخ البرومبت
   COMPOSER_SECTION, // MJ10 (T-7.1): الوحدة (و)
   NOTES_SETTINGS_SECTION, // MJ9 (T-8.1): الملاحظات الخاصة
   COMMUNITY_SETTINGS_SECTION, // MJ9 (T-9.1، T-9.4): المجتمع وأول مساهمة

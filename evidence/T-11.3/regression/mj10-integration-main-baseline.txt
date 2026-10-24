@@ -1,0 +1,3 @@
+  ✗ Chrome · وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل: {"counts":{"card":0,"highlight":0,"bar":5,"translation":0,"selection":1,"composerButtons":1,"composerPanel":0},"html":{"equal":true}}
+Chrome 156.0.8078.47: 26/27 فحصًا · أخطاء الكونسول 0
+المجموع: 26/27 فحصًا اجتاز
