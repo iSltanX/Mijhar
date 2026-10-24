@@ -8,7 +8,10 @@
 //   3. الموافقة ثم «نفّذ» بنقر الفأرة: ثلاث عمليات لا غير (POST git/refs ثم PUT contents ثم POST pulls) من الخلفية بترويسة Authorization، ورابط الطلب.
 //   4. تحقق مستقل من GitHub بلا رمز: الطلب مفتوح غير مدموج، وفرعه وأساسه كما في النطاق، والملف على الفرع هو المحتوى المعاين، وطلب واحد لهذا الفرع.
 // لا يُغلق الطلب ولا يُدمج ولا يُحذف الفرع: يبقى للمالك يراجعه ويغلقه بنفسه.
+// طلبات الإضافة وحدها تُقاس (من الخلفية أو من صفحات الإضافة)؛ وما ترسله صفحة github.com نفسها إلى api.github.com (إحصاءاتها
+// ‎/_private/browser/stats‎ مثلًا) يُسجَّل منفصلًا ويُفحص أنه بلا Authorization ولا يمس /repos/: ليس من مِجهَر.
 // الاستعمال: node tests/modules/f/execution/browser/exec-live.mjs --repo <owner/name> [--file README.md] [--out-dir evidence/T-11.8]
+//            node tests/modules/f/execution/browser/exec-live.mjs --evaluate <exec-live.json>  (يعيد بنود الشبكة على سجل محفوظ بلا متصفح ولا كتابة)
 process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS = '1';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -17,6 +20,32 @@ import { chromium } from 'playwright-core';
 import { BROWSERS, ROOT, sleep, waitUntil } from '../../../d/token/browser/drivers.mjs';
 
 const args = process.argv.slice(2);
+
+/** بنود الشبكة على سجل طلبات api.github.com (طلبات الإضافة من الخلفية، وطلبات الصفحة منفصلة). */
+export function networkChecks(network, owner, repo, file, phase) {
+  const ext = network.filter((n) => n.from !== 'page');
+  const page = network.filter((n) => n.from === 'page');
+  const out = [];
+  const add = (name, ok, detail) => out.push({ name, ok: Boolean(ok), ...(ok ? {} : { detail }) });
+  add('طلبات صفحة github.com نفسها إلى api.github.com (ليست من الإضافة) بلا Authorization ولا تمس /repos/', page.every((n) => !n.authorization && !n.path.startsWith('/repos/')), page);
+  const before = phase === 'before-write' ? ext : ext.filter((n) => n.method === 'GET');
+  add('قراءات الإضافة GET بلا Authorization (لا رمز كتابة في أي قراءة)', before.length >= 3 && before.every((n) => n.method === 'GET' && !n.authorization && n.from === 'background'), before);
+  if (phase === 'before-write') return out;
+  const writes = ext.filter((n) => n.method !== 'GET').map((n) => `${n.method} ${n.path} ${n.from} ${n.authorization ? 'auth' : 'none'} ${n.status ?? '?'}`);
+  const put = `PUT /repos/${owner}/${repo}/contents/${file.split('/').map(encodeURIComponent).join('/')} background auth`;
+  add('ثلاث عمليات لا غير بترتيبها من الخلفية بترويسة Authorization', writes.length === 3 && writes[0] === `POST /repos/${owner}/${repo}/git/refs background auth 201` && /^(200|201)$/.test(writes[1].slice(put.length + 1)) && writes[1].startsWith(put) && writes[2] === `POST /repos/${owner}/${repo}/pulls background auth 201`, writes);
+  add('ولا طريقة غير GET وPOST وPUT، ولا دمج ولا إغلاق', ext.every((n) => ['GET', 'POST', 'PUT'].includes(n.method)) && !ext.some((n) => /\/merge|\/pulls\/\d+$/.test(n.path) && n.method !== 'GET'), ext.map((n) => `${n.method} ${n.path}`));
+  return out;
+}
+
+if (args[0] === '--evaluate') {
+  const saved = JSON.parse(fs.readFileSync(path.resolve(args[1]), 'utf8'));
+  const [o, r] = saved.repo.split('/');
+  const items = networkChecks(saved.network, o, r, saved.file, 'after-write');
+  for (const i of items) console.log(`  ${i.ok ? '✓' : '✗'} ${i.name}${i.ok ? '' : ` — ${JSON.stringify(i.detail)}`}`);
+  console.log(`المجموع: ${items.filter((i) => i.ok).length}/${items.length}`);
+  process.exit(items.every((i) => i.ok) ? 0 : 1);
+}
 const opt = (flag, fallback = null) => {
   const at = args.indexOf(flag);
   return at === -1 ? fallback : args[at + 1];
@@ -101,13 +130,13 @@ try {
   await panel.locator('[data-field="path"]').fill(file);
   await panel.locator('[data-action="exec-prepare"]').click();
   await panel.waitForSelector('[data-exec-step="preview"]', { timeout: 20000 });
-  const reads = network.filter((n) => n.method === 'GET');
-  check('2: المعاينة بقراءات GET بلا ترويسة Authorization (لا رمز كتابة في أي قراءة)', reads.length >= 3 && reads.every((n) => !n.authorization), reads);
+  for (const c of networkChecks(network, owner, repo, file, 'before-write')) check(`2: ${c.name}`, c.ok, c.detail);
   const original = await panel.locator('[data-field="content"]').inputValue();
   const edited = `${original.replace(/\n*$/, '\n')}\n${LINE}\n`;
   await panel.locator('[data-field="content"]').fill(edited);
   const diff = await panel.evaluate(() => [...document.querySelectorAll('[data-diff] .diff-row')].map((r) => `${r.getAttribute('data-kind')}:${r.querySelector('.text')?.textContent}`));
-  check('2: الفرق كاملًا قبل أي اتصال كتابة', diff.includes(`add:${LINE}`) && network.every((n) => n.method === 'GET'), { adds: diff.filter((d) => d.startsWith('add:')), writes: network.filter((n) => n.method !== 'GET') });
+  const extWrites = () => network.filter((n) => n.from !== 'page' && n.method !== 'GET');
+  check('2: الفرق كاملًا قبل أي اتصال كتابة', diff.includes(`add:${LINE}`) && extWrites().length === 0, { adds: diff.filter((d) => d.startsWith('add:')), writes: extWrites() });
   const branch = await panel.locator('[data-field="branch"]').inputValue();
   await panel.locator('[data-field="title"]').fill('docs: Mijhar TEST-EXEC-01 (one line)');
   await panel.locator('[data-action="exec-next"]').click();
@@ -122,7 +151,7 @@ try {
     await new Promise((r) => setTimeout(r, 1000));
     return { checked: box.checked, step: document.querySelector('[data-exec-step]')?.getAttribute('data-exec-step') };
   });
-  check('2: النقر البرمجي على الموافقة و«نفّذ» لا يغيّر شيئًا ولا يرسل', skipped.checked === false && skipped.step === 'scope' && network.every((n) => n.method === 'GET'), skipped);
+  check('2: النقر البرمجي على الموافقة و«نفّذ» لا يغيّر شيئًا ولا يرسل', skipped.checked === false && skipped.step === 'scope' && extWrites().length === 0, { skipped, writes: extWrites() });
   if (outDir) {
     fs.mkdirSync(path.join(outDir, 'live'), { recursive: true });
     await panel.locator('.exec').screenshot({ path: path.join(outDir, 'live', 'scope.png') });
@@ -135,10 +164,7 @@ try {
   await sleep(1500);
   const done = await panel.evaluate(() => ({ outcome: document.querySelector('[data-outcome]')?.getAttribute('data-outcome'), link: document.querySelector('[data-action="exec-open-pull"]')?.getAttribute('href') ?? null, failure: document.querySelector('[data-failure-step]')?.textContent ?? null }));
   if (outDir) await panel.locator('.exec').screenshot({ path: path.join(outDir, 'live', 'done.png') });
-  const writes = network.filter((n) => n.method !== 'GET').map((n) => `${n.method} ${n.path} ${n.from} ${n.authorization ? 'auth' : 'none'} ${n.status ?? '?'}`);
-  const expected = [`POST /repos/${owner}/${repo}/git/refs background auth 201`, `PUT /repos/${owner}/${repo}/contents/${file.split('/').map(encodeURIComponent).join('/')} background auth`, `POST /repos/${owner}/${repo}/pulls background auth 201`];
-  check('3: ثلاث عمليات لا غير بترتيبها من الخلفية بترويسة Authorization', writes.length === 3 && writes[0] === expected[0] && writes[1].startsWith(expected[1]) && writes[2] === expected[2], writes);
-  check('3: ولا طريقة غير GET وPOST وPUT، ولا دمج ولا إغلاق', network.every((n) => ['GET', 'POST', 'PUT'].includes(n.method)) && !network.some((n) => /\/merge|\/pulls\/\d+$/.test(n.path) && n.method !== 'GET'), network.map((n) => `${n.method} ${n.path}`));
+  for (const c of networkChecks(network, owner, repo, file, 'after-write').slice(2)) check(`3: ${c.name}`, c.ok, c.detail);
   check('3: «ما حدث فعلًا» نجاح برابط الطلب', done.outcome === 'ok' && /^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/.test(done.link ?? ''), done);
   result.pull = done.link;
 

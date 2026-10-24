@@ -1,0 +1,153 @@
+{
+  "repo": "iSltanX/mijhar-exec-test",
+  "file": "README.md",
+  "startedAt": "2026-10-24T15:05:49.934Z",
+  "checks": [
+    {
+      "name": "1: حفظ المالك رمز الكتابة في الجلسة ومنح صلاحية api.github.com",
+      "ok": true
+    },
+    {
+      "name": "1: لا طلب إلى api.github.com بعد حفظ رمز الكتابة (لا تحقق بطلب قراءة)",
+      "ok": true
+    },
+    {
+      "name": "2: المعاينة بقراءات GET بلا ترويسة Authorization (لا رمز كتابة في أي قراءة)",
+      "ok": true
+    },
+    {
+      "name": "2: الفرق كاملًا قبل أي اتصال كتابة",
+      "ok": false,
+      "detail": {
+        "adds": [
+          "add:",
+          "add:مِجهَر TEST-EXEC-01: سطر تجريبي أُضيف بعد معاينة الفرق والموافقة على النطاق (2026-10-24 15:05 UTC)."
+        ],
+        "writes": [
+          {
+            "method": "POST",
+            "path": "/_private/browser/stats",
+            "from": "page",
+            "authorization": false,
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "name": "2: النقر البرمجي على الموافقة و«نفّذ» لا يغيّر شيئًا ولا يرسل",
+      "ok": false,
+      "detail": {
+        "checked": false,
+        "step": "scope"
+      }
+    },
+    {
+      "name": "3: ثلاث عمليات لا غير بترتيبها من الخلفية بترويسة Authorization",
+      "ok": false,
+      "detail": [
+        "POST /_private/browser/stats page none 200",
+        "POST /repos/iSltanX/mijhar-exec-test/git/refs background auth 201",
+        "PUT /repos/iSltanX/mijhar-exec-test/contents/README.md background auth 200",
+        "POST /repos/iSltanX/mijhar-exec-test/pulls background auth 201"
+      ]
+    },
+    {
+      "name": "3: ولا طريقة غير GET وPOST وPUT، ولا دمج ولا إغلاق",
+      "ok": true
+    },
+    {
+      "name": "3: «ما حدث فعلًا» نجاح برابط الطلب",
+      "ok": true
+    },
+    {
+      "name": "4: الطلب مفتوح وغير مدموج، وفرعه وأساسه كما في النطاق",
+      "ok": true
+    },
+    {
+      "name": "4: الطلب يغيّر ملفًا واحدًا بسطر مضاف وحده",
+      "ok": true
+    },
+    {
+      "name": "4: الملف على الفرع الجديد هو المحتوى المعاين نفسه",
+      "ok": true
+    },
+    {
+      "name": "4: طلب واحد لهذا الفرع",
+      "ok": true
+    }
+  ],
+  "network": [
+    {
+      "method": "POST",
+      "path": "/_private/browser/stats",
+      "from": "page",
+      "authorization": false,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/repos/iSltanX/mijhar-exec-test",
+      "from": "background",
+      "authorization": false,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/repos/iSltanX/mijhar-exec-test/git/ref/heads/main",
+      "from": "background",
+      "authorization": false,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/repos/iSltanX/mijhar-exec-test/contents/README.md?ref=7641485b41fe5d9591d0cda0f986435bfbfcfe5c",
+      "from": "background",
+      "authorization": false,
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/repos/iSltanX/mijhar-exec-test/git/refs",
+      "from": "background",
+      "authorization": true,
+      "status": 201
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/iSltanX/mijhar-exec-test/contents/README.md",
+      "from": "background",
+      "authorization": true,
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/repos/iSltanX/mijhar-exec-test/pulls",
+      "from": "background",
+      "authorization": true,
+      "status": 201
+    }
+  ],
+  "browserVersion": "156.0.8078.47",
+  "pull": "https://github.com/iSltanX/mijhar-exec-test/pull/1",
+  "pullState": {
+    "number": 1,
+    "state": "open",
+    "merged": false,
+    "draft": true,
+    "head": "mijhar/edit-readme-20261024-1512",
+    "base": "main",
+    "changedFiles": 1,
+    "additions": 2,
+    "deletions": 0
+  },
+  "scope": {
+    "المستودع": "iSltanX/mijhar-exec-test",
+    "الفرع الجديد": "mijhar/edit-readme-20261024-1512 من main (7641485)",
+    "الملف": "README.md · ملف واحد (−0 +2)",
+    "طلب الدمج": "يُفتح مسودةً بعنوان «docs: Mijhar TEST-EXEC-01 (one line)»",
+    "لن يحدث": "لا دمج ولا إغلاق ولا أي كتابة أخرى."
+  },
+  "branch": "mijhar/edit-readme-20261024-1512",
+  "finishedAt": "2026-10-24T15:12:09.039Z"
+}
