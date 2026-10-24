@@ -89,6 +89,12 @@ function statusPart(s: SanitizedContext): Part | null {
   if (report.state === 'explained' && !report.blockers.length && !report.attention.length) body.push('- لا مانع دمج في الأدلة المقروءة.');
   for (const note of report.notes) body.push(`- ${note}`);
   body.push(`- مصدر الأدلة: ${s.status.apiReadAt !== null ? `الصفحة وGitHub API (قُرئت ${utcStamp(s.status.apiReadAt)})` : 'الصفحة وحدها'}.`, `- ${METHOD_NOTICE}`);
+  // AD-30: قراءة API ممرَّرة بربطها وحالة وصول كل جزء منها (وما لم يُقرأ «غير معروف»)؛ ولا شيء حين لم تُمرَّر قراءة.
+  const { api } = s.status;
+  if (api) {
+    body.push(`- ${api.summary}`);
+    if (api.matched) for (const part of api.parts) body.push(`  - ${part.text}`);
+  }
   const counted = report.blockers.length + report.attention.length;
   return { heading: 'الحالة والموانع', detail: counted ? `${report.blockers.length} يمنع، ${report.attention.length} قد يمنع` : null, body };
 }
@@ -227,6 +233,15 @@ const ABSENT: Readonly<Record<'branch' | 'checks' | 'error' | 'log' | 'changes' 
 
 const NOT_SELECTED: PartState = { state: 'excluded', reason: 'لم يُختر' };
 
+/** جرد الحالة (AD-30): قراءة API لالتزام آخر، أو أجزاء منها لم تُقرأ، بجملها («غير معروف»)؛ وnull حين لا قراءة أو قُرئت كلها. */
+function apiNote(status: NonNullable<SanitizedContext['status']>): string | null {
+  const { api } = status;
+  if (!api) return null;
+  if (!api.matched) return api.summary;
+  const unread = api.parts.filter((p) => p.kind !== 'read');
+  return unread.length ? unread.map((p) => p.text).join(' ') : null;
+}
+
 function inventoryOf(s: SanitizedContext, parts: ContextParts): Record<PartKey, PartState> {
   const collected = (count: number, note: string | null = null): PartState => ({ state: 'collected', count, note });
   const missing = (reason: string): PartState => ({ state: 'missing', reason });
@@ -241,7 +256,7 @@ function inventoryOf(s: SanitizedContext, parts: ContextParts): Record<PartKey, 
     checks: s.checks ? collected(s.checks.items.length, gap('نتائج الفحوص')) : available.checks ? NOT_SELECTED : missing(gap('نتائج الفحوص') ?? ABSENT.checks[s.kind]),
     error: s.error !== null ? collected(s.error.split('\n').length) : available.error ? NOT_SELECTED : missing(gap('مقتطف الخطأ') ?? ABSENT.error[s.kind]),
     snippets: s.snippets.length ? collected(s.snippets.length) : available.snippets ? NOT_SELECTED : missing('لم يُضف مقتطف دليل من تحديد في الصفحة'),
-    status: s.status ? collected(s.status.report.blockers.length + s.status.report.attention.length) : available.status ? NOT_SELECTED : missing(s.kind === 'pr' ? 'لم تُقرأ حالة الطلب' : 'حالة الدمج وموانعه تخص صفحة طلب الدمج'),
+    status: s.status ? collected(s.status.report.blockers.length + s.status.report.attention.length, apiNote(s.status)) : available.status ? NOT_SELECTED : missing(s.kind === 'pr' ? 'لم تُقرأ حالة الطلب' : 'حالة الدمج وموانعه تخص صفحة طلب الدمج'),
     log: parts.log && s.log ? collected(s.log.analysis.messages.length, gap('السجل')) : available.log && !s.log ? NOT_SELECTED : missing(logGap ?? ABSENT.log[s.kind]),
     changes: s.changes && parts.changes
       ? collected(s.changes.files.length || (s.changes.totals.files ?? 0), s.changes.files.length ? gap('التغييرات', 'أسطر الفروق') : 'أعداد من ترويسة الطلب؛ أسماء الملفات وأسطرها في تبويب «Files changed»')
