@@ -217,7 +217,8 @@
         "evidence/T-1.4/browser-report.md",
         "evidence/wave-C/ui-host/browser-report.md",
         "evidence/wave-C/manual-round.json",
-        "evidence/wave-C/gate.md"
+        "evidence/wave-C/gate.md",
+        "evidence/wave-I/ui-host/browser-report.md"
       ],
       "note": "عزل الأنماط في الاتجاهين على صفحة ضبط وصفحة معادية بـCSP style-src 'self': 0 اختلاف في 13 عنصرًا × 37 خاصية و0 تغيّر في أنماط الصفحة، في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1، وأُعيد على الشجرة المجمّعة للموجة C. الدرج يعمل في الأربعة، واللوحة الأصلية تُفتح بنقر حيث ثبت دعمها (HYP-14 ثبتت في Edge وBrave)، وظهرت معروضةً في نوافذ Chrome وEdge وBrave المرئية في الجولة اليدوية."
     },
@@ -227,7 +228,8 @@
         "evidence/T-1.4/report.md",
         "evidence/T-1.4/browser-report.md",
         "evidence/wave-C/ui-host/browser-report.md",
-        "evidence/wave-C/gate.md"
+        "evidence/wave-C/gate.md",
+        "evidence/wave-I/ui-host/browser-report.md"
       ],
       "note": "المفاتيح الثمانية تركّب وتزيل وتُحفظ بعد إعادة التحميل في الأربعة (54 اختبار vitest ومعها تجارب المتصفحات)؛ صفر طلب إلى api.github.com قبل المنح من كل السياقات في الأربعة، وعلى الشجرة المجمّعة. المنح والسحب الفعليان قيسا في Firefox وحده؛ والمعالج والاختصار وإعادة ربطه قيست في الأربعة. لم يُجرَ آليًا في Chrome وEdge وBrave: الضغطة الفعلية لـ⌥G، وقبول نافذة الصلاحية ثم سحبها (لا تبلغهما CDP)؛ ينتظران جولة المالك بيده."
     },
@@ -670,7 +672,8 @@
         "evidence/T-6.1/report.md",
         "evidence/wave-F/modules/builder.txt",
         "evidence/wave-F/gate.md",
-        "evidence/wave-H/modules/builder/"
+        "evidence/wave-H/modules/builder/",
+        "evidence/wave-I/modules/builder/"
       ],
       "note": "AC-E1: أقسام الحزمة كلها بقيمها على العينة المرجعية ومشكلة ومهمة Actions حقيقيتين محفوظتين، والنسخ بنقر فعلي؛ 55/55 في الأربعة على الشجرة المجمّعة. وأُعيد بعد نقل الجمع والتنقيح إلى الطبقة المشتركة (MJ19) على الشجرة المجمّعة للموجة H: 55/55، ومرجع المخرج الحرفي (AD-28) 6/6."
     },
@@ -680,7 +683,8 @@
         "evidence/T-6.1/report.md",
         "evidence/wave-F/modules/builder.txt",
         "evidence/wave-F/gate.md",
-        "evidence/wave-H/modules/builder/"
+        "evidence/wave-H/modules/builder/",
+        "evidence/wave-I/modules/builder/"
       ],
       "note": "AC-E2: قائمة الاختيار تتحكم بكل عنصر، وقسم «ما تعذّر جمعه أو اقتُطع لطوله» في الواجهة والحزمة بالبنود نفسها مع عدد الأسطر المقتطعة؛ PB-05 الوسيط نحو 0.1ms في عائلة Chromium و≤ 1ms في Firefox؛ 55/55 على الشجرة المجمّعة. وأُعيد على الموجة H بعد النقل: 55/55، وPB-05 الوسيط 0.20ms في عائلة Chromium و0.00ms في Firefox."
     },
@@ -690,7 +694,8 @@
         "evidence/T-6.2/report.md",
         "evidence/wave-G/modules/templates.txt",
         "evidence/wave-G/gate.md",
-        "evidence/wave-H/modules/templates/"
+        "evidence/wave-H/modules/templates/",
+        "evidence/wave-I/modules/templates/"
       ],
       "note": "AC-E3: القوالب الأربعة تولّد أقسامها المعرّفة بترتيبها على العينة المرجعية وتستهلك أجزاء المنشئ نفسها بلا مسار موازٍ، والقسم الإلزامي في كلٍّ؛ 31 اختبار وحدة، وe2e بنقر فعلي على الشجرة المجمّعة في الأربعة 127/127 (مع T-6.3)، وانحدار منشئ الحزمة 55/55. وأُعيد على الموجة H بعد نقل buildParts إلى الطبقة المشتركة: 127/127 في الأربعة بلا تعديل في التوقعات."
     },
@@ -700,7 +705,8 @@
         "evidence/T-6.2/report.md",
         "evidence/wave-G/modules/templates.txt",
         "evidence/wave-G/gate.md",
-        "evidence/wave-H/modules/templates/"
+        "evidence/wave-H/modules/templates/",
+        "evidence/wave-I/modules/templates/"
       ],
       "note": "AC-E4: المعاينة قابلة للتعديل والنص المعدَّل بعينه هو ما يُنسخ أو يُنزَّل كملف .md (Blob محلي، ومحتوى blob: = المعاينة المعدَّلة)، وصفر طلبات شبكة في الأربعة؛ 23 اختبار واجهة. لم يُجرَ: وصول الملف إلى مجلد التنزيلات وعمله تحت CSP لـgithub.com الحقيقية. الملاحظة G-3 في evidence/wave-G/review.md. وأُعيد على الموجة H بعد نقل buildParts إلى الطبقة المشتركة: 127/127 في الأربعة بلا تعديل في التوقعات."
     },
@@ -711,7 +717,8 @@
         "evidence/wave-G/modules/templates.txt",
         "evidence/wave-G/review/scan-check.txt",
         "evidence/wave-G/gate.md",
-        "evidence/wave-H/modules/templates/"
+        "evidence/wave-H/modules/templates/",
+        "evidence/wave-I/modules/templates/"
       ],
       "note": "AC-E5: على السجل المرجعي يُرصد رمز ghp_ المختلَق وحده في السطر 457 ويُظلَّل، واللافتة وإخلاء المسؤولية دائمان ولا يُدّعى إزالة أي نص؛ 21 اختبار وحدة و7 واجهة، وe2e في الأربعة، وفحص أداء المراجعة 19/19 على مدخلات معادية حتى 5 ميغابايت (5 إلى 13 ملّي ثانية). وأُعيد على الموجة H بعد نقل buildParts إلى الطبقة المشتركة: 127/127 في الأربعة بلا تعديل في التوقعات."
     },
@@ -943,7 +950,8 @@
         "evidence/T-11.5/report.md",
         "evidence/wave-H/modules/connections/",
         "evidence/wave-H/modules/mj11/",
-        "evidence/wave-H/gate.md"
+        "evidence/wave-H/gate.md",
+        "evidence/wave-I/modules/mj11/"
       ],
       "note": "AC-D8 في البطاقة: الحالات الخمس بنصوصها و«غير معروف» لما لم يُقرأ، ولا نجاح ولا خلو من المشكلات، وكل قراءة مربوطة بالمستودع والفرع والالتزام ووقتها وتسقط عند تغيّر أيٍّ منها، وآخر قراءة ناجحة تبقى عند فشل أحدث؛ وحدة وتكامل، وفحص MJ11 72/72 في الأربعة، وتطفير الربط يُسقط اختبارين. مخرجات الطبقة المشتركة حين تأخذ بيانات API: H-1 في evidence/wave-H/review.md."
     },
@@ -959,14 +967,24 @@
       "note": "AC-E6: بنية سياق واحدة على العينات الأربع بما جُمع وما لم يصل بسببه وما اقتُطع بعدد أسطره، وكل محتوى يمرّ بالمنقّح، والفحص الساكن يثبت أن الحزمة وقوالبها وقوالب البرومبت تبني من الطبقة وحدها؛ وتطفير مسار موازٍ يُسقط الحارس الساكن، وتطفير الحجب يُسقط 24 اختبارًا. «نسخ البرومبت» والتحليل لم يُبنيا: حارسهما مكتوب ويسري حين يُضافان."
     },
     "TEST-CTX-06": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.3/report.md",
+        "evidence/wave-I/modules/copy-prompt/",
+        "evidence/wave-I/manual-round.json",
+        "evidence/wave-I/gate.md"
+      ],
+      "note": "AC-E7 (الشق التفاعلي): التحميل ثم «تم النسخ» بعد نجاح الحافظة فعليًا وحده، وفشل حقيقي (نقرة بلا نشاط مستخدم) يُعلن بسببه مع البديل اليدوي ولا تأكيد، والمنسوخ برومبت القالب المختار؛ 115/115 في الأربعة على الشجرة المجمّعة. والجولة اليدوية في Chrome بنافذة مرئية: نقرة فأرة في قسم الفحوص وصفحة مشكلة، وحافظة النظام والمحرر النصي (⌘V) متطابقان ويبدآن بعنوان القالب."
     },
     "TEST-CTX-07": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.3/report.md",
+        "evidence/wave-I/modules/copy-prompt/",
+        "evidence/wave-I/manual-round.json",
+        "evidence/wave-I/gate.md"
+      ],
+      "note": "AC-E7 (الباقي): بلا أي مفتاح ولا رمز لا طلب إلى مزوّد ولا إلى api.github.com أثناء الجمع والتجهيز والنسخ، ولا صندوق نص ولا معاينة إلزامية، والارتفاع ثابت، والتنبيه المختصر بعدد الأنماط المحجوبة؛ وعلى الشجرة المجمّعة يُحجب أيضًا مفتاح بصيغة مفتاح المزوّد (AD-30، H-5، tests/modules/e/wave-i-crossing.test.tsx). PB-08 بين 3.0 و62.8ms."
     },
     "TEST-CTX-08": {
       "status": "passed",
@@ -983,7 +1001,8 @@
         "evidence/T-11.1/report.md",
         "evidence/wave-H/modules/connections/",
         "evidence/wave-H/manual-round.json",
-        "evidence/wave-H/gate.md"
+        "evidence/wave-H/gate.md",
+        "evidence/wave-I/modules/connections/"
       ],
       "note": "AC-11.1: السجل بحالات صحة من تحقق فعلي (نص غير صالح لا يُحفظ ولا يُطلب، ورمز محفوظ بلا تحقق «غير متحقق منه»، و«سليم» بقبول بالرمز وحده)، والحالات الخمس بنصوصها على ردود محقونة، وخيار الربط داخل قسمه والعودة إلى الميزة، وحذف سرّ يعطّل ما يعتمد عليه وحده؛ وحدة وتكامل، و124/124 في الأربعة على الشجرة المجمّعة، والجولة اليدوية في Chrome بنافذة مرئية 13/13. لم يُجرَ: رمز حقيقي للمالك، وانتهاء فعلي، وتجاوز الحد الحقيقي."
     },
@@ -995,29 +1014,49 @@
         "evidence/wave-H/security-static.txt",
         "evidence/wave-H/network-audit/",
         "evidence/wave-H/review/",
-        "evidence/wave-H/review.md"
+        "evidence/wave-H/review.md",
+        "evidence/wave-I/modules/connections/"
       ],
       "note": "AC-11.1 (٦): كل سرّ في مفتاح جلسة ومفتاح سجل مستقلين بـTRUSTED_CONTEXTS قبل كل كتابة، وفي background.js وoptions.js وحدهما؛ وسكربت المحتوى لا يقرأ الجلسة ولا يجد سرًّا في storage.local وIndexedDB عالمه والأحداث والرسائل وDOM؛ ولا سرّ في الكونسول ولا ردود الحالة ولا التصدير ونسخة البيانات؛ وطلبات السجل GET /rate_limit من الخلفية وحدها؛ وبيان «غير مشفَّر» بلا ادعاء تشفير. وتطفير حارس مستوى الوصول يُسقط 3 اختبارات."
     },
     "TEST-AI-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.6/report.md",
+        "evidence/wave-I/modules/provider/",
+        "evidence/wave-I/manual-round.json",
+        "evidence/wave-I/gate.md"
+      ],
+      "note": "AC-E9 (١)–(٣) بمضيف مزوّد وهمي محلي (fixture-provider-mock)، لا اتصال حقيقي: بعد حفظ المفتاح طلب التحقق المعلن وحده GET /v1/models من الخلفية، ولا تحليل قبل «إرسال للتحليل»، والموافقة تبيّن المحتوى وحجمه وما استُبعد والوجهة والمودل، والمودلات من المزوّد وقت التشغيل بمصدرها؛ ولا سعر ولا تكلفة في الشيفرة (AD-31). 96/96 في الأربعة على الشجرة المجمّعة، والجولة اليدوية في Chrome: الموافقة في قسم الفحوص وصفحة المشكلة قبل أي طلب تحليل. ولم يُجرَ بمفتاح حقيقي."
     },
     "TEST-AI-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.6/report.md",
+        "evidence/wave-I/review.md"
+      ],
+      "note": "AC-E9 (٥) و(٦): النتيجة تفصل المثبت (اقتباس حرفي مما أُرسل) عن الاحتمال وتبيّن النقص؛ ومحوّل وهمي ثانٍ في الاختبار لا يمس شيفرة الأقسام، والأقسام الثلاثة تستدعي SectionAnalysis عبر منفذ الخلفية بلا مزوّد بعينه (مراجعة الدمج)."
     },
     "TEST-AI-03": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.7/report.md",
+        "evidence/wave-I/modules/provider/",
+        "evidence/wave-I/vitest-gate.txt",
+        "evidence/wave-I/gate.md"
+      ],
+      "note": "AC-D9: التحليل في الطبقة الثالثة من شرح السجل موسومًا «احتمال يحتاج تحققًا» بأدلته وما نقص والمودل ووقت الطلب، وغائب عن طبقتي الحقيقة والسبب المثبت، والقسم كامل بلا مفتاح والخيار معلَّلًا؛ وفي ذيل بطاقة الطلب وبطاقة «فهم المشكلة». بمزوّد وهمي."
     },
     "TEST-PRIV-04": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.6/report.md",
+        "evidence/wave-I/modules/provider/",
+        "evidence/wave-I/security-static.txt",
+        "evidence/wave-I/review/",
+        "evidence/wave-I/review.md"
+      ],
+      "note": "AC-E9 (٤): طلبات المزوّد من الخلفية بالمفتاح وحده (x-api-key) بلا Authorization ولا رمز GitHub، ولا مفتاح في طلب إلى GitHub ولا في الكونسول ولا DOM ولا البرومبت (نمط anthropic-key، AD-30)؛ ولا وجهة غير github.com وapi.github.com وapi.anthropic.com؛ ومخزن السرّ في background.js وoptions.js وحدهما. والتطفير: بوابة المضيف ونمط الحجب وموافقة Firefox يسقط كلٌّ منها اختبارًا."
     },
     "TEST-EXEC-01": {
       "status": "planned",

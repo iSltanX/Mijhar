@@ -1,0 +1,11 @@
+# طفرة: no-inflight-reservation
+# الملف: src/modules/e/provider/service.ts
+# قبل: if (this.inflight.has(slot)) return local('busy',
+# بعد: if (false) return local('busy',
+# الاختبارات: tests/modules/e/provider/service.test.ts
+# رمز الخروج: 1 (غير الصفر = الطفرة كُشفت)
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > طلب جارٍ من القسم نفسه في التبويب: الثاني يُرفض دون إرسال؛ وقسم آخر أو تبويب آخر مستقل

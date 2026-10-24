@@ -1,0 +1,79 @@
+=== build: npm run build (16:14:52)
+exit=0 (16:14:53)
+> node scripts/build.mjs
+
+chromium: dist/chromium
+firefox: dist/firefox
+=== lint: npx web-ext lint --source-dir dist/firefox (16:14:53)
+exit=0 (16:14:55)
+errors          0              
+notices         0              
+warnings        0              
+
+=== load-check: npm run load-check -- --report evidence/wave-I/load-check.md (16:14:55)
+exit=0 (16:15:13)
+| Edge | 155.0.4283.60 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Brave | 156.0.8078.48 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Firefox | 158.0.1 | `dist/firefox` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | الخلفية تعمل |
+
+=== copy-prompt: node tests/modules/e/browser/copy-prompt-check.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/copy-prompt (16:15:13)
+exit=0 (16:16:37)
+  ✓ الزر يعمل وتُنسخ النتيجة وفي التخزين كله لا مفتاح مزوّد ولا رمز وصول ولا سرّ
+  ✓ ما زال الزر مركَّبًا في صفحة المهمة بعد الجولة
+Firefox 158.0.1: 28/28
+المجموع: 115/115
+=== provider: node tests/modules/e/provider/browser/provider-check.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/provider (16:16:37)
+exit=0 (16:17:14)
+  ✓ لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)
+  ✓ لا وجهة للإضافة غير github.com وapi.github.com وapi.anthropic.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)
+Firefox 158.0.1: 24/24
+المجموع: 96/96
+=== connections: node tests/core/connections/browser/connections-check.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/connections (16:17:14)
+exit=0 (16:17:43)
+  ✓ بعد الربط والتحقق: لافتة «عُد إلى …» باسم الميزة
+  ✓ العودة إلى تبويب الميزة: زر القراءة مركَّز والقراءة بالرمز متاحة، ولا طلب API
+Firefox 158.0.1: 30/30
+المجموع: 124/124
+=== token: node tests/modules/d/token/browser/token-check.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/token (16:17:43)
+exit=0 (16:18:04)
+  ✓ المسح يمحوه من الجلسة والقرص
+  ✓ بعد المسح: الطلب بلا Authorization، والبطاقة تعمل على الصفحة وتعلن 404 بلا خطأ موقِف
+Firefox 158.0.1: 24/24
+المجموع: 106/106
+=== mj11: node tests/modules/d/browser/mj11-integration.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/mj11 (16:18:04)
+exit=0 (16:18:35)
+Edge 155.0.4283.60: 18/18 فحصًا · رسائل كونسول الإضافة 0
+Brave 156.0.8078.48: 18/18 فحصًا · رسائل كونسول الإضافة 0
+Firefox 158.0.1: 18/18 فحصًا · رسائل كونسول الإضافة 0
+المجموع: 72/72 فحصًا اجتاز
+=== builder: node tests/modules/e/browser/builder-check.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/builder (16:18:35)
+exit=0 (16:18:59)
+  ✓ صفحة مشكلة حقيقية: العنوان والوصف والتعليقات، بلا قسم فحوص
+  ✓ صفحة مهمة Actions حقيقية: الخطوات ومقتطف الخطأ من التنبيهات
+Firefox 158.0.1: 13/13
+المجموع: 55/55
+=== templates: node tests/modules/e/browser/templates-check.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/templates (16:18:59)
+exit=0 (16:19:30)
+  ✓ [T-6.3] حذف الرموز يدويًا يُسقط المرصودات (الفحص على النص الحالي)
+  ✓ [T-6.3] لا طلب شبكة من الفاحص ولا من إدراج السجل
+Firefox 158.0.1: 31/31
+المجموع: 127/127
+=== integration: node tests/modules/browser/integration.mjs chrome edge brave firefox --out-dir evidence/wave-I/modules/integration (16:19:30)
+exit=0 (16:20:01)
+Edge 155.0.4283.60: 26/26 فحصًا · أخطاء الكونسول 0
+Brave 156.0.8078.48: 26/26 فحصًا · أخطاء الكونسول 0
+Firefox 158.0.1: 25/25 فحصًا · أخطاء الكونسول 0
+المجموع: 103/103 فحصًا اجتاز
+=== ui-host: node tests/core/ui-host/browser/run.mjs --out evidence/wave-I/ui-host (16:20:01)
+exit=0 (16:20:53)
+Edge 155.0.4283.60: تمت التجارب
+Brave 156.0.8078.48: تمت التجارب
+Firefox 158.0.1: تمت التجارب
+كُتبت النتائج الخام والتقرير في evidence/wave-I/ui-host
+=== network-static: node scripts/network-audit.mjs static --out-dir evidence/wave-I/network-audit (16:20:53)
+exit=0 (16:20:54)
+المخالفات: 0
+التحذيرات: 0
+
+النتيجة: اجتاز (لا مخالفة).
+DONE

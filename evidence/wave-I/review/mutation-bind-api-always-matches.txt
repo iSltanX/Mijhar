@@ -1,0 +1,14 @@
+# طفرة: bind-api-always-matches
+# الملف: src/modules/e/context/collect.ts
+# قبل: const matched = Boolean(match?.same);
+# بعد: const matched = Boolean(offered.pull.available);
+# الاختبارات: tests/modules/e/wave-i-crossing.test.tsx tests/modules/e/context/api-binding.test.ts
+# رمز الخروج: 1 (غير الصفر = الطفرة كُشفت)
+
+ Test Files  2 failed (2)
+      Tests  4 failed | 8 passed (12)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/modules/e/wave-i-crossing.test.tsx > H-1 على الشجرة المجمّعة: قراءة API في سياق التحليل من بطاقة الطلب > قراءة لالتزام غير الظاهر لا تدخل ما يُرسل، ويُعلن أنها لالتزام آخر وقيمها «غير معروف»
+ FAIL  tests/modules/e/context/api-binding.test.ts > AD-30 (١): ربط قراءة API في الطبقة المشتركة > قراءة API لـفرع آخر لا تدخل البنية (لا فحوصها ولا موانعها) ويُعلن أنها لالتزام آخر بما تغيّر
+ FAIL  tests/modules/e/context/api-binding.test.ts > AD-30 (١): ربط قراءة API في الطبقة المشتركة > قراءة API لـمستودع آخر لا تدخل البنية (لا فحوصها ولا موانعها) ويُعلن أنها لالتزام آخر بما تغيّر
+ FAIL  tests/modules/e/context/api-binding.test.ts > AD-30 (١): ربط قراءة API في الطبقة المشتركة > قراءة API لـالتزام آخر لا تدخل البنية (لا فحوصها ولا موانعها) ويُعلن أنها لالتزام آخر بما تغيّر

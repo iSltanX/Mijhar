@@ -1,0 +1,14 @@
+# طفرة: no-anthropic-pattern
+# الملف: src/modules/e/privacy-check/scan.ts
+# قبل: { id: 'anthropic-key', label: 'مفتاح Anthropic API (sk-ant-)', regex: /(?<![A-Za-z0-9])sk-ant-[A-Za-z0-9_-]{16,}/g },
+# بعد: (حُذف السطر)
+# الاختبارات: tests/modules/e/wave-i-crossing.test.tsx tests/modules/e/context/api-binding.test.ts tests/modules/e/copy-prompt
+# رمز الخروج: 1 (غير الصفر = الطفرة كُشفت)
+
+ Test Files  2 failed | 4 passed (6)
+      Tests  4 failed | 44 passed (48)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/modules/e/wave-i-crossing.test.tsx > H-5 على الشجرة المجمّعة: مفتاح مختلَق بصيغة مفتاح المزوّد > «نسخ البرومبت» (MJ20) يحجبه بنمط MJ21 ويعدّه في التنبيه المختصر، ولا يظهر في المنسوخ ولا في واجهة الزر
+ FAIL  tests/modules/e/wave-i-crossing.test.tsx > H-5 على الشجرة المجمّعة: مفتاح مختلَق بصيغة مفتاح المزوّد > التحليل (MJ21) من بطاقة الطلب: الموافقة تعلن الحجب، وما يُرسل إلى المزوّد بلا المفتاح
+ FAIL  tests/modules/e/context/api-binding.test.ts > AD-30 (٢): صيغة مفتاح المزوّد في قائمة الحجب > النمط السابع في القائمة المعرّفة، ويرصد المفتاح المختلَق وحده بموضعه
+ FAIL  tests/modules/e/context/api-binding.test.ts > AD-30 (٢): صيغة مفتاح المزوّد في قائمة الحجب > يحجبه المنقّح المشترك في البرومبت (mask) ويرصده في الحزمة (flag)

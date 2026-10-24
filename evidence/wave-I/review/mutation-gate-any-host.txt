@@ -1,0 +1,11 @@
+# طفرة: gate-any-host
+# الملف: src/modules/e/provider/gate.ts
+# قبل: if (url.protocol !== 'https:' || url.host !== adapter.host) throw
+# بعد: if (url.protocol !== 'https:') throw
+# الاختبارات: tests/modules/e/provider
+# رمز الخروج: 1 (غير الصفر = الطفرة كُشفت)
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 54 passed (55)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/modules/e/provider/adapter.test.ts > البوابة: مضيف المحوّل وحده وبعد الصلاحية > عنوان خارج api.anthropic.com يرمي ولا يُرسل؛ وبلا صلاحية يرمي ProviderPermissionError ولا يُرسل

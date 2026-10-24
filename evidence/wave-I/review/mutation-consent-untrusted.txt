@@ -1,0 +1,13 @@
+# طفرة: consent-untrusted
+# الملف: src/modules/e/provider/ui/ConsentSheet.tsx
+# قبل: onClick={(event) => isTrustedActivation(event) && onConfirm()}
+# بعد: onClick={() => onConfirm()}
+# الاختبارات: tests/modules/d/analysis tests/modules/e/provider/ui.test.tsx tests/shared/user-activation.test.ts tests/modules/e/wave-i-crossing.test.tsx
+# رمز الخروج: 1 (غير الصفر = الطفرة كُشفت)
+
+ Test Files  3 failed | 1 passed (4)
+      Tests  3 failed | 27 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/shared/user-activation.test.ts > حراسة ساكنة على src > كل ملف فيه زر «موافق» (consent-confirm) يمرر معالجه بـisTrustedActivation
+ FAIL  tests/modules/e/provider/ui.test.tsx > تجربة الموافقة (AC-E9 (٢) و(٧)) > التفعيل البرمجي لا يُصدر شيئًا: click() وحدث مُنشأ ولو بنقرة فأرة مزيفة؛ والنقرة الموثوقة وحدها تُصدر طلبًا واحدًا
+ FAIL  tests/modules/d/analysis/analysis.test.tsx > AC-D9: التحليل في شرح سجل الفحص > بمفتاح: التفعيل البرمجي لا يفتح الموافقة ولا يرسل؛ والموافقة تبيّن ما يُرسل؛ و«إرسال للتحليل» الموثوقة وحدها تُصدر طلبًا واحدًا؛ والنتيجة في الطبقة الثالثة وحدها

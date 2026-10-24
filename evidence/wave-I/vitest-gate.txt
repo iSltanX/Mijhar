@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+
+ Test Files  13 passed (13)
+      Tests  116 passed (116)
+   Start at  16:22:30
+   Duration  3.09s (environment 37%, tests 31%, transform 20%, import 12%)
+
+    Isolate  13 workers spawned · ~630ms startup each (spawn + environment, per file)
+             at least ~540ms faster with isolate: false — reuses workers across files instead of one per file
+

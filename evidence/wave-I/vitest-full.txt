@@ -1,0 +1,14 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+
+ Test Files  160 passed (160)
+      Tests  2438 passed | 2 skipped (2440)
+   Start at  16:22:40
+   Duration  27.89s (tests 64%, import 17%, environment 16%, transform 3%)
+
+    Isolate  160 workers spawned · ~301ms startup each (spawn + environment, per file)
+             at least ~6.58s faster with isolate: false — reuses workers across files instead of one per file
+

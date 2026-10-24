@@ -1,0 +1,11 @@
+# طفرة: firefox-content-permission-ignored
+# الملف: src/modules/e/provider/service.ts
+# قبل: this.options.permissions?.contains({ origins: [adapter.origin], ...(content ?? {}) })
+# بعد: this.options.permissions?.contains({ origins: [adapter.origin] })
+# الاختبارات: tests/modules/e/provider
+# رمز الخروج: 1 (غير الصفر = الطفرة كُشفت)
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 54 passed (55)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/modules/e/provider/service.test.ts > AD-15: في Firefox لا تحليل دون موافقة مشاركة محتوى المواقع (websiteContent) > صلاحية المضيف وحدها: التحقق يُرسل (لا محتوى فيه)، والحالة «غير ممنوحة»، والتحليل لا يُرسل ويُعلن السبب
