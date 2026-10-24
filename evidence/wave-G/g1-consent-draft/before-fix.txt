@@ -1,0 +1,106 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+ ❯ tests/modules/f/phrasebank/consent.test.tsx (8 tests | 6 failed) 791ms
+   ❯ G-1: حزمة اللغة تحتاج موافقة (downloadable) (6)
+     × المحرك موجود فلا يُقال «غير متاح»: القسم جاهز وزر الترجمة ظاهر، ولا create() ولا شبكة 144ms
+     × النقرة الأولى تعرض بطاقة الاستئذان (الحجم غير معلن) بدل الترجمة، ولا create() قبل «موافق» 86ms
+     × «ليس الآن» تخفي البطاقة وتعيد الزر بلا create() ولا مساس بالمسودة 87ms
+     × «موافق» تمنح الموافقة وتترجم من النقرة نفسها: create() مرة واحدة، والنتيجة للمراجعة، والإدراج معطَّل حتى المراجعة 89ms
+     × بعد ثبوت الحزمة تترجم النقرة التالية بلا بطاقة جديدة 86ms
+     × انقطاع الشبكة أثناء التنزيل: الرسالة الواضحة، ثم تعود البطاقة في النقرة التالية بلا create() 83ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/modules/f/phrasebank/consent.test.tsx > G-1: حزمة اللغة تحتاج موافقة (downloadable) > المحرك موجود فلا يُقال «غير متاح»: القسم جاهز وزر الترجمة ظاهر، ولا create() ولا شبكة
+AssertionError: expected 'absent' to be 'ready' // Object.is equality
+
+Expected: "ready"
+Received: "absent"
+
+ ❯ tests/modules/f/phrasebank/consent.test.tsx:69:39
+     67|   it('المحرك موجود فلا يُقال «غير متاح»: القسم جاهز وزر الترجمة ظاهر، …
+     68|     const { fake } = await open();
+     69|     expect(section().dataset.service).toBe('ready');
+       |                                       ^
+     70|     expect(maybe('[data-translate-status]')).toBeNull();
+     71|     expect(need<HTMLButtonElement>('[data-action="translate-draft"]').…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/modules/f/phrasebank/consent.test.tsx > G-1: حزمة اللغة تحتاج موافقة (downloadable) > النقرة الأولى تعرض بطاقة الاستئذان (الحجم غير معلن) بدل الترجمة، ولا create() قبل «موافق»
+Error: لا عنصر في اللوحة: [data-action="translate-draft"]
+ ❯ need tests/modules/f/phrasebank/consent.test.tsx:37:18
+     35| const need = <E extends Element = HTMLElement>(selector: string): E =>…
+     36|   const el = panelRoot().querySelector<E>(selector);
+     37|   if (!el) throw new Error(`لا عنصر في اللوحة: ${selector}`);
+       |                  ^
+     38|   return el;
+     39| };
+ ❯ press tests/modules/f/phrasebank/consent.test.tsx:62:15
+ ❯ tests/modules/f/phrasebank/consent.test.tsx:79:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/modules/f/phrasebank/consent.test.tsx > G-1: حزمة اللغة تحتاج موافقة (downloadable) > «ليس الآن» تخفي البطاقة وتعيد الزر بلا create() ولا مساس بالمسودة
+Error: لا عنصر في اللوحة: [data-action="translate-draft"]
+ ❯ need tests/modules/f/phrasebank/consent.test.tsx:37:18
+     35| const need = <E extends Element = HTMLElement>(selector: string): E =>…
+     36|   const el = panelRoot().querySelector<E>(selector);
+     37|   if (!el) throw new Error(`لا عنصر في اللوحة: ${selector}`);
+       |                  ^
+     38|   return el;
+     39| };
+ ❯ press tests/modules/f/phrasebank/consent.test.tsx:62:15
+ ❯ tests/modules/f/phrasebank/consent.test.tsx:93:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/modules/f/phrasebank/consent.test.tsx > G-1: حزمة اللغة تحتاج موافقة (downloadable) > «موافق» تمنح الموافقة وتترجم من النقرة نفسها: create() مرة واحدة، والنتيجة للمراجعة، والإدراج معطَّل حتى المراجعة
+Error: لا عنصر في اللوحة: [data-action="translate-draft"]
+ ❯ need tests/modules/f/phrasebank/consent.test.tsx:37:18
+     35| const need = <E extends Element = HTMLElement>(selector: string): E =>…
+     36|   const el = panelRoot().querySelector<E>(selector);
+     37|   if (!el) throw new Error(`لا عنصر في اللوحة: ${selector}`);
+       |                  ^
+     38|   return el;
+     39| };
+ ❯ press tests/modules/f/phrasebank/consent.test.tsx:62:15
+ ❯ tests/modules/f/phrasebank/consent.test.tsx:104:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/modules/f/phrasebank/consent.test.tsx > G-1: حزمة اللغة تحتاج موافقة (downloadable) > بعد ثبوت الحزمة تترجم النقرة التالية بلا بطاقة جديدة
+Error: لا عنصر في اللوحة: [data-action="translate-draft"]
+ ❯ need tests/modules/f/phrasebank/consent.test.tsx:37:18
+     35| const need = <E extends Element = HTMLElement>(selector: string): E =>…
+     36|   const el = panelRoot().querySelector<E>(selector);
+     37|   if (!el) throw new Error(`لا عنصر في اللوحة: ${selector}`);
+       |                  ^
+     38|   return el;
+     39| };
+ ❯ press tests/modules/f/phrasebank/consent.test.tsx:62:15
+ ❯ tests/modules/f/phrasebank/consent.test.tsx:120:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/modules/f/phrasebank/consent.test.tsx > G-1: حزمة اللغة تحتاج موافقة (downloadable) > انقطاع الشبكة أثناء التنزيل: الرسالة الواضحة، ثم تعود البطاقة في النقرة التالية بلا create()
+Error: لا عنصر في اللوحة: [data-action="translate-draft"]
+ ❯ need tests/modules/f/phrasebank/consent.test.tsx:37:18
+     35| const need = <E extends Element = HTMLElement>(selector: string): E =>…
+     36|   const el = panelRoot().querySelector<E>(selector);
+     37|   if (!el) throw new Error(`لا عنصر في اللوحة: ${selector}`);
+       |                  ^
+     38|   return el;
+     39| };
+ ❯ press tests/modules/f/phrasebank/consent.test.tsx:62:15
+ ❯ tests/modules/f/phrasebank/consent.test.tsx:132:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 2 passed (8)
+   Start at  08:47:18
+   Duration  1.71s (tests 49%, environment 34%, transform 11%, import 5%)
+

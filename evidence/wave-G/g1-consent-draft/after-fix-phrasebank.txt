@@ -1,0 +1,9 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+
+ Test Files  3 passed (3)
+      Tests  27 passed (27)
+   Start at  08:48:20
+   Duration  2.43s (tests 68%, environment 17%, transform 9%, import 6%)
+
