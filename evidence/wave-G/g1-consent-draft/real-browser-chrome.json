@@ -1,0 +1,132 @@
+{
+  "key": "chrome",
+  "version": "156.0.8078.47",
+  "availabilityAtStart": "downloadable",
+  "s1": {
+    "service": "ready",
+    "status": null,
+    "button": true,
+    "buttonDisabled": false,
+    "consent": null,
+    "result": null,
+    "translated": null,
+    "error": null
+  },
+  "s2": {
+    "service": "ready",
+    "status": null,
+    "button": false,
+    "buttonDisabled": null,
+    "consent": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+    "result": null,
+    "translated": null,
+    "error": null
+  },
+  "s3": {
+    "service": "ready",
+    "status": null,
+    "button": true,
+    "buttonDisabled": false,
+    "consent": null,
+    "result": null,
+    "translated": null,
+    "error": null
+  },
+  "s4": {
+    "service": "ready",
+    "status": null,
+    "button": true,
+    "buttonDisabled": false,
+    "consent": null,
+    "result": "translated",
+    "translated": "قم بتشغيل `npm test` في src/app.js واقرأ https://example.com/docs قبل الدمج.",
+    "error": null
+  },
+  "s4ms": 5764,
+  "s5": {
+    "service": "ready",
+    "status": null,
+    "button": true,
+    "buttonDisabled": false,
+    "consent": null,
+    "result": "translated",
+    "translated": "قم بتشغيل `npm test` في src/app.js واقرأ https://example.com/docs قبل الدمج.",
+    "error": null
+  },
+  "blockedRequests": [],
+  "checks": [
+    {
+      "name": "القسم جاهز وزر الترجمة ظاهر ومفعَّل (لا «المحرك غير متاح»)",
+      "ok": true,
+      "detail": {
+        "service": "ready",
+        "status": null,
+        "button": true,
+        "buttonDisabled": false,
+        "consent": null,
+        "result": null,
+        "translated": null,
+        "error": null
+      }
+    },
+    {
+      "name": "لا create() عند فتح المساعد: الحزمة ما زالت downloadable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "النقرة الفعلية الأولى تعرض بطاقة الاستئذان (الحجم غير معلن) بدل الترجمة",
+      "ok": true,
+      "detail": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن"
+    },
+    {
+      "name": "ولا create() أثناء البطاقة: ما زالت downloadable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "«ليس الآن» تخفي البطاقة وتعيد الزر",
+      "ok": true,
+      "detail": {
+        "service": "ready",
+        "status": null,
+        "button": true,
+        "buttonDisabled": false,
+        "consent": null,
+        "result": null,
+        "translated": null,
+        "error": null
+      }
+    },
+    {
+      "name": "ولا تنزيل بعد «ليس الآن»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "«موافق» بنقرة فعلية تنزّل الحزمة وتترجم: نتيجة للمراجعة",
+      "ok": true,
+      "detail": {
+        "ms": 5764,
+        "result": "translated",
+        "translated": "قم بتشغيل `npm test` في src/app.js واقرأ https://example.com/docs قبل الدمج.",
+        "error": null
+      }
+    },
+    {
+      "name": "الحزمة صارت available بعد الموافقة",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "النقرة التالية تترجم بلا بطاقة جديدة",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "name": "لا طلب شبكة خارجي أثناء التجربة (المحجوب: العينة وأيقونتها فقط)",
+      "ok": true,
+      "detail": []
+    }
+  ]
+}
