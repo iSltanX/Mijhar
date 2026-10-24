@@ -167,7 +167,7 @@ export class ProviderService {
   /** الطلب الجاري لكل قسم في تبويب. */
   private readonly inflight = new Map<string, string>();
   private readonly controllers = new Map<string, AbortController>();
-  /** موعد إعادة المحاولة الذي أعلنه المزوّد لكل مزوّد. */
+  /** موعد إعادة المحاولة الذي أعلنه المزوّد لكل مزوّد (ذاكرة العامل؛ ويُستعاد بعد إيقاظه من سجل صحة المفتاح، F-06). */
   private readonly retryAt = new Map<string, number>();
 
   constructor(private readonly options: ProviderServiceOptions) {
@@ -191,9 +191,19 @@ export class ProviderService {
     return typeof value === 'string' && isModelId(value) ? value : '';
   }
 
-  private cooldown(provider: string): number | null {
-    const at = this.retryAt.get(provider);
-    if (at === undefined) return null;
+  /**
+   * موعد إعادة المحاولة المعلن الذي لم يحن بعد، أو null (AD-31). ما في الذاكرة أولًا؛ وإلا فمن سجل صحة المفتاح المحفوظ، فلا يُسقطه إيقاظ عامل الخلفية
+   * (F-06). والسجل لا يُعطي موعدًا إلا لجيل المفتاح الحالي نفسه وقبل حلوله (resolveStatus)، فلا يُنسب موعد مفتاح استُبدل إلى بديله.
+   */
+  private async cooldown(provider: string): Promise<number | null> {
+    let at = this.retryAt.get(provider);
+    if (at === undefined) {
+      const key = await this.options.connections.keyStatus(provider).catch(() => null);
+      const saved = key?.health === 'rate-limited' ? key.detail.retryAt : null;
+      if (typeof saved !== 'number') return null;
+      at = saved;
+      this.retryAt.set(provider, at);
+    }
     if (this.now() >= at) {
       this.retryAt.delete(provider);
       return null;
@@ -233,7 +243,7 @@ export class ProviderService {
       choice,
       models,
       test: testFor(test, choice, keySavedAt),
-      retryAt: this.cooldown(d.id),
+      retryAt: await this.cooldown(d.id),
       providers,
     };
   }
@@ -302,11 +312,13 @@ export class ProviderService {
 
   /**
    * طلب التحقق المعلن لمزوّد: قائمة نماذجه بمفتاحه المحفوظ. يسجّل صحته ويحفظ القائمة؛ ومع suggest يقترح في حقل النموذج الفارغ أول نموذج أعلنت واجهته
-   * توافقه (يجوز ولا يُفرض، DEC-13 ن-5). وزر + يرسله بلا اقتراح.
+   * توافقه (يجوز ولا يُفرض، DEC-13 ن-5). وزر + يرسله بلا اقتراح. ولا يُرسل قبل موعد إعادة محاولة أعلنه المزوّد (AD-31، F-06).
    */
   async verify(id: string, suggest = true): Promise<VerifyResponse> {
     const adapter = this.registry.byId(id);
     if (!adapter) return local('invalid-request', 'مزوّد غير معروف؛ لم يُرسل شيء.');
+    const wait = await this.cooldown(adapter.descriptor.id);
+    if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
     const result = await adapter.listModels(this.call(adapter, got));
@@ -331,7 +343,7 @@ export class ProviderService {
   async probe(id: string, model: string): Promise<ProbeResponse> {
     const adapter = this.registry.byId(id);
     if (!adapter?.probe || !isModelId(model)) return local('invalid-request', 'لا اختبار نموذج لهذا المزوّد، أو المعرّف غير صالح؛ لم يُرسل شيء.');
-    const wait = this.cooldown(adapter.descriptor.id);
+    const wait = await this.cooldown(adapter.descriptor.id);
     if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
@@ -380,7 +392,7 @@ export class ProviderService {
       const d = adapter.descriptor;
       // لا تحويل إلى مزوّد غير الذي عرضته الموافقة (AC-E10 (٥)).
       if (d.id !== input.provider) return local('provider-changed', 'تغيّر المزوّد المختار بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
-      const wait = this.cooldown(d.id);
+      const wait = await this.cooldown(d.id);
       if (wait !== null) return local('cooldown', `أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.`, wait);
       const status = await this.status(d.id);
       if (!status?.model || status.model.id !== input.model) return local('model-changed', 'تغيّر النموذج في حقله أو صار فارغًا بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');

@@ -6,6 +6,7 @@ import { SecretStore } from '../../src/core/connections/secrets';
 import type { SecretArea, StoredSecret } from '../../src/core/connections/secrets';
 import { ConnectionsService, memoryHealthLog } from '../../src/core/connections/service';
 import { ProviderService, memoryModelsCache } from '../../src/modules/e/provider/service';
+import type { ProviderKeyStore } from '../../src/modules/e/provider/service';
 import { createProviderRegistry } from '../../src/modules/e/provider/registry';
 import { OPENAI_ADAPTER } from '../../src/modules/e/provider/adapters/openai';
 import { defineProviderSettings, modelSettingKey } from '../../src/modules/e/provider/settings';
@@ -94,16 +95,9 @@ describe('F-03: نسبة الردود إلى جيل المفتاح الذي أُ
     let captured!: () => void;
     const paused = new Promise<void>((r) => (captured = r));
     const resume = new Promise<void>((r) => (release = r));
-    // يعلّق القراءة الأولى بعد أخذ لقطتها: يُستبدل المفتاح بين قراءة السرّ وما يليها في probe.
     const area: SecretArea = {
       async get() {
-        const snapshot = value;
-        if (capture) {
-          capture = false;
-          captured();
-          await resume;
-        }
-        return snapshot;
+        return value;
       },
       async set(v) {
         value = v;
@@ -117,6 +111,19 @@ describe('F-03: نسبة الردود إلى جيل المفتاح الذي أُ
     const oldKey = 'sk-' + 'auditold'.repeat(8);
     const newKey = 'sk-' + 'auditnew'.repeat(8);
     await keys.save(oldKey, 'session');
+    // يعلّق قراءة السرّ التي يُرسل بها الطلب بعد أخذ لقطتها: يُستبدل المفتاح بين قراءة السرّ وما يليها في probe. قراءات وقت الحفظ (info) لا تُعلَّق.
+    const requestKeys: ProviderKeyStore = {
+      async read() {
+        const snapshot = await keys.read();
+        if (capture) {
+          capture = false;
+          captured();
+          await resume;
+        }
+        return snapshot;
+      },
+      info: () => keys.info(),
+    };
     const settingsArea = new MemoryStorageArea();
     const settings = await SettingsStore.open(
       await Store.open({ area: settingsArea, changes: settingsArea, locks: null }),
@@ -127,7 +134,7 @@ describe('F-03: نسبة الردود إلى جيل المفتاح الذي أُ
     const sent: string[] = [];
     const service = new ProviderService({
       registry: createProviderRegistry([adapter]),
-      keys: () => keys,
+      keys: () => requestKeys,
       permissions: fakePermissions([adapter.descriptor.origin]),
       settings: async () => settings,
       connections,
