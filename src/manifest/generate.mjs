@@ -10,7 +10,8 @@ export const TARGETS = ['chromium', 'firefox'];
 export const BASE_HOST = 'https://github.com/*';
 // المضيفات الاختيارية المسموحة: تُطلب بنقر صريح ولا تُمنح عند التثبيت (AD-08). api.github.com يملك تدفقه T-1.4؛
 // وتضيف المرحلة التي تحتاج مضيفًا آخر (المزوّد أو النموذج) سطره هنا. api.anthropic.com: مزوّد التحليل (MJ21، DEC-09، AD-19)، تطلبه بطاقة المفتاح.
-export const OPTIONAL_HOSTS = ['https://api.github.com/*', 'https://api.anthropic.com/*'];
+// generativelanguage.googleapis.com: مزوّد التحليل Google Gemini (MJ25، T-11.12، AD-32).
+export const OPTIONAL_HOSTS = ['https://api.github.com/*', 'https://api.anthropic.com/*', 'https://generativelanguage.googleapis.com/*'];
 
 // أنماط المضيف الأساسية: ما يُمنح عند التثبيت. أما optional_host_permissions فتُطلب عند الحاجة ولا تُفحص هنا.
 export function primaryHostPatterns(manifest) {

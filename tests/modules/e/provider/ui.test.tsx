@@ -12,6 +12,7 @@ import { act } from 'preact/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ConsentSheet, prepareAnalysis } from '../../../../src/modules/e/provider';
 import { ANTHROPIC } from '../../../../src/modules/e/provider/descriptors/anthropic';
+import { GEMINI } from '../../../../src/modules/e/provider/descriptors/gemini';
 import { ProviderKeyGuide } from '../../../../src/options/guide/ProviderKeyGuide';
 import { OptionsApp } from '../../../../src/options/OptionsApp';
 import { trustedClick } from '../../../shared/trusted-click';
@@ -124,7 +125,8 @@ describe('تجربة الموافقة (AC-E9 (٢) و(٧))', () => {
 describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', () => {
   it('الأماكن الثلاثة بمثال موسوم لكل منها، والوجهة وما يُرسل وما يبقى دونه؛ بلا أسعار ولا روابطها ولا ميزة لم تُدمج', () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch');
-    act(() => render(<ProviderKeyGuide onBack={() => {}} onAdd={() => {}} />, container));
+    // السجل المشحون يتسع بكل محوّل يُدمج (MJ24 وMJ25)؛ فهذا الاختبار على وصف Anthropic وحده، ونص غيره في اختبار AC-E10 (٧) أدناه.
+    act(() => render(<ProviderKeyGuide onBack={() => {}} onAdd={() => {}} descriptors={[ANTHROPIC]} />, container));
     const places = [...container.querySelectorAll('[data-place]')];
     expect(places.map((p) => p.getAttribute('data-place'))).toEqual(['d.analysis.checks', 'd.analysis.pr', 'd.analysis.issue']);
     for (const place of places) {
@@ -154,8 +156,16 @@ describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', (
     expect(text).toContain('(api.anthropic.com أو api.mock-b.test)');
     expect([...container.querySelectorAll('[data-retention-provider]')].map((li) => li.getAttribute('data-retention-provider'))).toEqual(['anthropic', 'mock-b']);
     render(null, container);
-    act(() => render(<ProviderKeyGuide onBack={() => {}} onAdd={() => {}} />, container));
+    act(() => render(<ProviderKeyGuide onBack={() => {}} onAdd={() => {}} descriptors={[ANTHROPIC]} />, container));
     expect(container.textContent).not.toMatch(/OpenAI|Gemini|Google/);
+    // MJ25: Google Gemini في السجل المشحون فتذكره النصوص بما في سجله الوصفي وحده (اسمه ومضيفه وسياسته).
+    render(null, container);
+    act(() => render(<ProviderKeyGuide onBack={() => {}} onAdd={() => {}} descriptors={[ANTHROPIC, GEMINI]} />, container));
+    const both = container.textContent ?? '';
+    expect(both).toContain('(Anthropic أو Google Gemini)');
+    expect(both).toContain('(api.anthropic.com أو generativelanguage.googleapis.com)');
+    expect(both).toContain(GEMINI.policy.summary);
+    expect([...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href'))).toEqual([ANTHROPIC.policy.url, GEMINI.policy.url]);
   });
 
   it('يُفتح من #guide/provider-key داخل الإعدادات، و«أضف مفتاحًا» يعود إلى بطاقة المفتاح', async () => {

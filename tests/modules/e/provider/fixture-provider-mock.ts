@@ -194,3 +194,115 @@ export function mockHostsFetch(options: { readonly probeFails?: readonly string[
   };
   return { fetch: fetch as unknown as typeof globalThis.fetch, requests };
 }
+
+// ——— مضيف Google Gemini الوهمي (MJ25، T-11.12، AC-E12 (٥)) ———
+// fetch وهمي يحاكي generativelanguage.googleapis.com بأشكال الردود كما قِيست في evidence/T-11.12/direct-access.json (الخطأ: error.code وstatus
+// وdetails بـErrorInfo.reason) وكما تصفها الوثائق الرسمية (models.list وgenerateContent). يسجّل كل طلب بعنوانه وترويساته وجسمه. المعرّفات وهمية عمدًا.
+
+/** مفتاح بصيغة Google API (AIza + 35 حرفًا) يُركَّب وقت التشغيل؛ لا مفتاح بصيغته الكاملة في المستودع. */
+export const fakeGeminiKey = (tag = 'A'): string => ['AIza', 'Sy', `${tag}MijharMockGeminiKey`.padEnd(33, 'x').slice(0, 33)].join('');
+
+export const GEMINI_HOST = 'generativelanguage.googleapis.com';
+
+export const GEMINI_MOCK_MODELS = [
+  { name: 'models/mock-gem-2', displayName: 'Mock Gem 2', inputTokenLimit: 1048576, outputTokenLimit: 65536, supportedGenerationMethods: ['generateContent', 'countTokens'] },
+  { name: 'models/mock-gem-flash', displayName: 'Mock Gem Flash', inputTokenLimit: 131072, outputTokenLimit: 8192, supportedGenerationMethods: ['generateContent'] },
+  // لا يدعم طريقة التوليد المستعملة: لا يُعرض ولو كان اسمه «gem».
+  { name: 'models/mock-gem-embed', displayName: 'Mock Gem Embed', inputTokenLimit: 2048, outputTokenLimit: 1, supportedGenerationMethods: ['embedContent'] },
+  { name: 'models/mock-gem-draw', displayName: 'Mock Gem Draw', inputTokenLimit: 480, outputTokenLimit: 8, supportedGenerationMethods: ['predict'] },
+  // لم تعلن الواجهة له طرقًا أصلًا: لا يُخمَّن.
+  { name: 'models/mock-gem-silent', displayName: 'Mock Gem Silent', inputTokenLimit: 1000, outputTokenLimit: 100 },
+] as const;
+
+export type GeminiOutcome = 'ok' | 'bad-key' | 'forbidden' | 'not-found' | 'too-large' | 'precondition' | 'rate-limit' | 'unavailable' | 'invalid' | 'prompt-blocked' | 'reply-blocked' | 'empty' | 'max-tokens' | 'max-empty' | 'thinking';
+
+export interface GeminiScenario {
+  verify?: GeminiOutcome;
+  analyze?: GeminiOutcome;
+  /** رمز retry-after بالثواني في 429. */
+  retryAfter?: number;
+  /** تأخير RetryInfo في تفاصيل 429 («27s»). */
+  retryDelay?: string;
+  /** يعلن صفحة ثانية من المودلات. */
+  nextPage?: boolean;
+  reply?: (prompt: string) => string;
+  /** يردّد المفتاح في رسالة الخطأ (لاختبار تنقيحه). */
+  echoKey?: boolean;
+  /** يرمي الاتصال نفسه (انقطاع الشبكة). */
+  networkError?: boolean;
+  delayMs?: number;
+}
+
+export interface GeminiRecorded extends RecordedRequest {
+  readonly host: string;
+  readonly path: string;
+  readonly search: string;
+}
+
+const gerror = (code: number, status: string, message: string, reason?: string, extra: Record<string, unknown>[] = []) => ({
+  error: { code, message, status, ...(reason ? { details: [{ '@type': 'type.googleapis.com/google.rpc.ErrorInfo', reason, domain: 'googleapis.com', metadata: { service: GEMINI_HOST } }, ...extra] } : extra.length ? { details: extra } : {}) },
+});
+
+export function geminiMock(scenario: GeminiScenario = {}) {
+  const requests: GeminiRecorded[] = [];
+  const fetch = async (input: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
+    const url = new URL(String(input));
+    const headers = Object.fromEntries(new Headers(init.headers).entries());
+    const body = typeof init.body === 'string' ? init.body : null;
+    requests.push({ url: url.href, host: url.host, path: url.pathname, search: url.search, method: init.method ?? 'GET', headers, body, credentials: init.credentials });
+    if (scenario.networkError) throw new TypeError('Failed to fetch');
+    if (scenario.delayMs) {
+      await new Promise<void>((resolve, reject) => {
+        const aborted = (): void => reject(Object.assign(new Error('aborted'), { name: 'AbortError' }));
+        if (init.signal?.aborted) return aborted();
+        const timer = setTimeout(resolve, scenario.delayMs);
+        init.signal?.addEventListener('abort', () => {
+          clearTimeout(timer);
+          reject(Object.assign(new Error('aborted'), { name: 'AbortError' }));
+        });
+      });
+    }
+    const key = headers['x-goog-api-key'] ?? '';
+    const echo = scenario.echoKey ? ` (key ${key})` : '';
+    const reply = (status: number, payload: unknown, extra: Record<string, string> = {}): Response =>
+      new Response(JSON.stringify(payload), { status, headers: { 'content-type': 'application/json; charset=UTF-8', ...extra } });
+    const fail = (outcome: GeminiOutcome): Response => {
+      if (outcome === 'bad-key') return reply(400, gerror(400, 'INVALID_ARGUMENT', `API key not valid. Please pass a valid API key.${echo}`, 'API_KEY_INVALID', [{ '@type': 'type.googleapis.com/google.rpc.LocalizedMessage', locale: 'en-US', message: 'API key not valid.' }]));
+      if (outcome === 'forbidden') return reply(403, gerror(403, 'PERMISSION_DENIED', `Your API key was reported as leaked.${echo}`));
+      if (outcome === 'not-found') return reply(404, gerror(404, 'NOT_FOUND', `models/x is not found for API version v1beta, or is not supported for generateContent.${echo}`));
+      if (outcome === 'too-large') return reply(400, gerror(400, 'INVALID_ARGUMENT', `The input token count exceeds the maximum number of tokens allowed.${echo}`));
+      if (outcome === 'precondition') return reply(400, gerror(400, 'FAILED_PRECONDITION', `User location is not supported for the API use.${echo}`));
+      if (outcome === 'rate-limit') {
+        const retry = scenario.retryDelay ? [{ '@type': 'type.googleapis.com/google.rpc.RetryInfo', retryDelay: scenario.retryDelay }] : [];
+        return reply(429, gerror(429, 'RESOURCE_EXHAUSTED', `You exceeded your current limit.${echo}`, undefined, retry), scenario.retryAfter ? { 'retry-after': String(scenario.retryAfter) } : {});
+      }
+      if (outcome === 'unavailable') return reply(503, gerror(503, 'UNAVAILABLE', `The model is overloaded.${echo}`));
+      return reply(400, gerror(400, 'INVALID_ARGUMENT', `Invalid JSON payload received.${echo}`));
+    };
+    if (url.pathname === '/v1beta/models' && (init.method ?? 'GET') === 'GET') {
+      const outcome = scenario.verify ?? 'ok';
+      return outcome === 'ok' ? reply(200, { models: GEMINI_MOCK_MODELS, ...(scenario.nextPage ? { nextPageToken: 'page-2' } : {}) }) : fail(outcome);
+    }
+    const match = /^\/v1beta\/models\/([^/:]+):generateContent$/.exec(url.pathname);
+    if (match && init.method === 'POST') {
+      const outcome = scenario.analyze ?? 'ok';
+      if (outcome === 'prompt-blocked') return reply(200, { promptFeedback: { blockReason: 'SAFETY', safetyRatings: [] }, usageMetadata: { promptTokenCount: 10 } });
+      if (outcome === 'reply-blocked') return reply(200, { candidates: [{ content: { role: 'model', parts: [{ text: '{"summary":"مقطوع' }] }, finishReason: 'SAFETY' }], modelVersion: match[1] });
+      if (outcome === 'empty') return reply(200, { candidates: [{ finishReason: 'OTHER' }], modelVersion: match[1] });
+      if (outcome === 'max-empty') return reply(200, { candidates: [{ content: { role: 'model', parts: [{ text: 'ملخص تفكير', thought: true }] }, finishReason: 'MAX_TOKENS' }], modelVersion: match[1] });
+      if (outcome !== 'ok' && outcome !== 'max-tokens' && outcome !== 'thinking') return fail(outcome);
+      const sent = JSON.parse(body ?? '{}') as { contents?: Array<{ parts: Array<{ text: string }> }> };
+      const prompt = sent.contents?.[0]?.parts[0]?.text ?? '';
+      const text = (scenario.reply ?? structuredReply)(prompt);
+      const parts = outcome === 'thinking' ? [{ text: 'ملخص تفكير داخلي لا يُعرض', thought: true }, { text }] : [{ text }];
+      return reply(200, {
+        candidates: [{ content: { role: 'model', parts }, finishReason: outcome === 'max-tokens' ? 'MAX_TOKENS' : 'STOP', index: 0 }],
+        usageMetadata: { promptTokenCount: 1200, candidatesTokenCount: 180, totalTokenCount: 1380 },
+        modelVersion: `${match[1]}-001`,
+        responseId: 'resp_mock',
+      });
+    }
+    return reply(404, gerror(404, 'NOT_FOUND', 'not found'));
+  };
+  return { fetch: fetch as unknown as typeof globalThis.fetch, requests };
+}

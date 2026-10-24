@@ -20,6 +20,8 @@ export const SECRET_PATTERNS: readonly SecretPattern[] = [
   { id: 'slack-token', label: 'رمز Slack (xox…)', regex: /(?<![A-Za-z0-9])xox[abprs]-[A-Za-z0-9-]{10,}/g },
   // AD-30 (H-5): صيغة مفتاح مزوّد التحليل المعتمد في DEC-09، فيحجبه المنقّح المشترك من كل محتوى قبل أي إرسال ويرصده تنبيه الحزمة.
   { id: 'anthropic-key', label: 'مفتاح Anthropic API (sk-ant-)', regex: /(?<![A-Za-z0-9])sk-ant-[A-Za-z0-9_-]{16,}/g },
+  // MJ25 (T-11.12): صيغة مفتاح Google Gemini (مفتاح Google API المعتاد AIza…)؛ الطول الأدنى تحذيري كغيره.
+  { id: 'gemini-key', label: 'مفتاح Google Gemini API (AIza)', regex: /(?<![A-Za-z0-9])AIza[A-Za-z0-9_-]{30,}/g },
 ];
 
 export interface Finding {

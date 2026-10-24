@@ -21,8 +21,8 @@ describe.each(Object.keys(manifests))('مانيفست %s', (target) => {
   });
 
   it('api.github.com ومضيف مزوّد التحليل (MJ21) اختياريان وحدهما، وليسا في الصلاحيات الأساسية', () => {
-    expect(manifest.optional_host_permissions).toEqual([API_GITHUB_ORIGIN, 'https://api.anthropic.com/*']);
-    expect(JSON.stringify(manifest.permissions ?? [])).not.toContain('api.anthropic.com');
+    expect(manifest.optional_host_permissions).toEqual([API_GITHUB_ORIGIN, 'https://api.anthropic.com/*', 'https://generativelanguage.googleapis.com/*']);
+    expect(JSON.stringify(manifest.permissions ?? [])).not.toMatch(/api\.anthropic\.com|generativelanguage/);
     expect(manifest.host_permissions).toEqual([BASE_HOST]);
     expect(JSON.stringify(manifest.permissions ?? [])).not.toContain('api.github.com');
     expect(manifest.optional_permissions).toBeUndefined();
@@ -40,7 +40,7 @@ describe('ما يخص كل هدف', () => {
   });
 
   it('حارس المولّد يرفض مضيفًا اختياريًا خارج القائمة المسموحة', () => {
-    expect(OPTIONAL_HOSTS).toEqual([API_GITHUB_ORIGIN, 'https://api.anthropic.com/*']);
+    expect(OPTIONAL_HOSTS).toEqual([API_GITHUB_ORIGIN, 'https://api.anthropic.com/*', 'https://generativelanguage.googleapis.com/*']);
     expect(() => assertManifest('chromium', { ...manifests.chromium, optional_host_permissions: [API_GITHUB_ORIGIN, 'https://*.example.com/*'] })).toThrow(/مضيف اختياري غير مسموح/);
   });
 });

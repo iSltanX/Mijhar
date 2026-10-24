@@ -57,6 +57,7 @@ const rel = (file) => path.relative(ROOT, file);
  */
 export const PROVIDER_ADAPTER_MARKERS = /** @type {Readonly<Record<string, readonly string[]>>} */ ({
   anthropic: ['anthropic-dangerous-direct-browser-access', 'anthropic-version', 'x-api-key', '/v1/messages', '/v1/models?limit='],
+  gemini: ['x-goog-api-key', '/v1beta/models?pageSize=', '/v1beta/models/'],
 });
 /** علامات مخزن الأسرار: اسم قاعدة IndexedDB وبادئة مفاتيح storage.session (src/core/connections/secrets.ts وkeys.ts). */
 export const SECRET_STORE_MARKERS = /** @type {readonly string[]} */ (['mijhar-secrets', 'mijhar.secret.']);

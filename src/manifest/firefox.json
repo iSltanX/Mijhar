@@ -16,7 +16,7 @@
   },
   "permissions": ["storage"],
   "host_permissions": ["https://github.com/*"],
-  "optional_host_permissions": ["https://api.github.com/*", "https://api.anthropic.com/*"],
+  "optional_host_permissions": ["https://api.github.com/*", "https://api.anthropic.com/*", "https://generativelanguage.googleapis.com/*"],
   "background": {
     "scripts": ["background.js"]
   },
