@@ -1060,24 +1060,39 @@
       "note": "AC-E9 (٤): طلبات المزوّد من الخلفية بالمفتاح وحده (x-api-key) بلا Authorization ولا رمز GitHub، ولا مفتاح في طلب إلى GitHub ولا في الكونسول ولا DOM ولا البرومبت (نمط anthropic-key، AD-30)؛ ولا وجهة غير github.com وapi.github.com وapi.anthropic.com؛ ومخزن السرّ في background.js وoptions.js وحدهما. والتطفير: بوابة المضيف ونمط الحجب وموافقة Firefox يسقط كلٌّ منها اختبارًا."
     },
     "TEST-EXEC-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.8/report.md",
+        "evidence/T-11.8/live/"
+      ],
+      "note": "AC-F6 (الشق الإيجابي) على GitHub الحقيقي: المستودع التجريبي العام iSltanX/mijhar-exec-test (أنشأته الجلسة بأمر المالك) ورمز كتابة دقيق الحبيبات تجريبي لصقه المالك بيده. حفظ الرمز لم يرسل شيئًا؛ والمعاينة ثلاث قراءات GET من الخلفية بلا Authorization؛ والفرق قبل أي كتابة؛ والنقر البرمجي على الموافقة و«نفّذ» لم يرسل؛ ثم بالفأرة POST git/refs (201) وPUT contents/README.md (200) وPOST pulls (201) من الخلفية برمز الكتابة، ولا طريقة أخرى ولا دمج ولا إغلاق؛ وطلب الدمج #1 مسودةً مفتوحًا غير مدموج يغيّر README.md وحده (+2 −0) والملف على الفرع هو المعاين. الحصيلة الأولى 9/12 لأن المعيار عدّ طلب إحصاءات صفحة GitHub نفسها (POST /_private/browser/stats)؛ صُحّح وأُعيد تقييم السجل المحفوظ 4/4 بلا كتابة ثانية. على حزمة 9be8be5؛ ومهلة طلب الكتابة بعدها مقيسة بالوحدة والمتصفحات."
     },
     "TEST-EXEC-02": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.8/report.md",
+        "evidence/wave-J/browser-exec-check.json",
+        "evidence/wave-J/gate.md"
+      ],
+      "note": "AC-F6 (الشق المانع): لا رسالة كتابة ولا سؤال عن صلاحيتها قبل موافقة النطاق؛ والنقر البرمجي على الموافقة و«نفّذ» (ولو أُزيل تعطيله) لا يرسل؛ والخلفية ترفض التنفيذ من سكربت المحتوى وخطة ناقصة أو زائدة أو خارج النطاق؛ وBLK-WRITE-SCOPE يوقف المسار عند المعاينة و«نسخ الفرق» متاح. الوحدة على الخلفية الفعلية، والمتصفحات 76/76 على شجرة الفرع (Firefox: المسار كاملًا في اللوحة «لم يُجرَ»: sidebar_action لا يقودها Marionette)."
     },
     "TEST-SEC-06": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.9/report.md",
+        "evidence/wave-J/built-check.json",
+        "evidence/T-11.9/mutations.txt"
+      ],
+      "note": "AC-F7 (١) و(٢) و(٤): فحص ساكن على src وعلى الحزمتين المبنيتين (21/21 لكلٍّ): مفتاحا رمز الكتابة في background.js وoptions.js وحدهما ومستقلان عن مفتاحي القراءة، والعمليات الثلاث وPUT في background.js وحده، ولا merge ولا DELETE ولا PATCH، ولا Authorization في content.js ولا sidepanel.js، ولا eval ولا innerHTML بمحتوى ولا executeScript؛ وما يعرض ردّ المزوّد لا يستورد ما يكتب في الحقول ولا مسار الإنجاز. والحراسة الموسّعة تشمل أربع موافقات وزرّي التنزيل، والنقرة البرمجية عليهما لا تنزّل والفأرة تنزّل في الأربعة (AD-33). التطفير 13/13."
     },
     "TEST-SEC-07": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.9/report.md",
+        "tests/core/guardrails/fixtures/fixture-prompt-injection.html",
+        "evidence/wave-J/vitest-full.txt"
+      ],
+      "note": "AC-F7 (٣): عنوان ووصف وتعليق بسجل ملصوق وسجل مهمة وردّ مزوّد، كلٌّ يحاول تغيير إعداد أو طلب سرّ أو توسيع صلاحية أو فتح طلب دمج: كل المنقول بين حدّي «⟦محتوى منقول من الصفحة⟧» وتزويرهما مُبطل، وتعليمات مِجهَر خارجها؛ وفي التشغيل الكامل طلب واحد إلى المزوّد بنقرة المستخدم ولا permissions.request ولا كتابة تخزين ولا رسالة ولا شبكة ولا إدراج في حقل التعليق، والرد نص بلا عناصر."
     },
     "TEST-AI-04": {
       "status": "planned",
