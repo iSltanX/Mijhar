@@ -142,7 +142,8 @@ export interface ProviderServiceOptions {
   /** سجل الاتصالات: حالة مفتاح كل مزوّد وتسجيل صحته. */
   readonly connections: {
     keyStatus(provider: string): Promise<ConnectionStatus | null>;
-    observe(id: 'provider-key', verdict: Verdict | null, provider: string): Promise<void>;
+    /** savedAt: وقت حفظ المفتاح الذي أُرسل به الطلب؛ لا يُكتب الحكم إن استُبدل المفتاح قبل الرد (F-03). */
+    observe(id: 'provider-key', verdict: Verdict | null, provider: string, savedAt?: number): Promise<void>;
   };
   readonly settings: () => Promise<Pick<SettingsStore, 'get' | 'set'>>;
   readonly cache?: ModelsCache;
@@ -155,6 +156,9 @@ type Fail = Extract<ProviderResult<never>, { ok: false }>;
 const local = (failure: ProviderFailure, message: string, retryAt: number | null = null): Fail => ({ ok: false, failure, status: null, message, retryAt });
 
 const SECTION = /^[a-z][a-z0-9.-]{0,40}$/;
+
+/** المفتاح كما قُرئ للطلب، ومعه وقت حفظه من القراءة نفسها: هوية جيل المفتاح الذي تُنسب إليه نتيجة الطلب (F-03). */
+type KeySnapshot = ProviderSecret & { readonly savedAt: number };
 
 export class ProviderService {
   private readonly registry: ProviderRegistry;
@@ -255,14 +259,14 @@ export class ProviderService {
     );
   }
 
-  /** مفتاح المزوّد من مخزنه هو وحده. */
-  private async secret(adapter: ProviderAdapter): Promise<ProviderSecret | Fail> {
+  /** مفتاح المزوّد من مخزنه هو وحده، ووقت حفظه من القراءة نفسها (لا من قراءة ثانية قد تلي استبداله). */
+  private async secret(adapter: ProviderAdapter): Promise<KeySnapshot | Fail> {
     const store = this.options.keys(adapter.descriptor.id);
     const none = local('no-key', `لا مفتاح محفوظ لـ${adapter.descriptor.title}؛ لم يُرسل شيء.`);
     if (!store) return none;
     try {
       const record = await store.read();
-      return record ? { provider: adapter.descriptor.id, token: record.token } : none;
+      return record ? { provider: adapter.descriptor.id, token: record.token, savedAt: record.savedAt } : none;
     } catch (error) {
       return local('key-read', `تعذّرت قراءة المفتاح المحفوظ (${error instanceof Error ? error.name : 'Error'})؛ لم يُرسل شيء.`);
     }
@@ -275,8 +279,17 @@ export class ProviderService {
     return { key, fetch, now: this.now, ...(signal ? { signal } : {}) };
   }
 
-  private observe(adapter: ProviderAdapter, verdict: Verdict | null): Promise<void> {
-    return this.options.connections.observe('provider-key', verdict, adapter.descriptor.id).catch((error: unknown) => this.options.onError?.(error));
+  private observe(adapter: ProviderAdapter, verdict: Verdict | null, key: KeySnapshot): Promise<void> {
+    return this.options.connections.observe('provider-key', verdict, adapter.descriptor.id, key.savedAt).catch((error: unknown) => this.options.onError?.(error));
+  }
+
+  /** استُبدل المفتاح المحفوظ منذ قُرئ للطلب: نتيجة الطلب للمفتاح القديم، فلا تُحفظ ولا تُعرض للبديل (F-03). */
+  private async replaced(adapter: ProviderAdapter, key: KeySnapshot): Promise<boolean> {
+    return (await this.keySavedAt(adapter)) !== key.savedAt;
+  }
+
+  private changed(adapter: ProviderAdapter, status: number | null): Fail {
+    return { ok: false, failure: 'key-changed', status, message: `استُبدل مفتاح ${adapter.descriptor.title} المحفوظ أثناء الطلب؛ لم تُنسب نتيجته إلى المفتاح الجديد. أعد المحاولة به.`, retryAt: null };
   }
 
   private note(adapter: ProviderAdapter, result: ProviderResult<unknown>): void {
@@ -298,7 +311,8 @@ export class ProviderService {
     if (!('token' in got)) return got;
     const result = await adapter.listModels(this.call(adapter, got));
     this.note(adapter, result);
-    await this.observe(adapter, providerVerdict(result, 'verify', adapter.descriptor.host));
+    await this.observe(adapter, providerVerdict(result, 'verify', adapter.descriptor.host), got);
+    if (await this.replaced(adapter, got)) return this.changed(adapter, result.status);
     if (!result.ok) return result;
     const list = result.data;
     await this.save(list);
@@ -321,22 +335,22 @@ export class ProviderService {
     if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
-    const keySavedAt = await this.keySavedAt(adapter);
     const result = await adapter.probe(this.call(adapter, got), model);
     this.note(adapter, result);
-    await this.observe(adapter, providerVerdict(result, 'usage', adapter.descriptor.host));
+    await this.observe(adapter, providerVerdict(result, 'usage', adapter.descriptor.host), got);
     // صلاحية المضيف غير ممنوحة: البوابة رفضت قبل أي طلب، فلا نتيجة اختبار.
     if (!result.ok && result.failure === 'permission') return { ...result, message: redactKey(result.message, got.token) };
+    if (await this.replaced(adapter, got)) return this.changed(adapter, result.status);
     const test: ModelTest = {
       provider: adapter.descriptor.id,
       model,
-      keySavedAt: keySavedAt ?? 0,
+      keySavedAt: got.savedAt,
       verdict: result.ok ? 'accepted' : testVerdict(result.failure),
       status: result.status,
       message: result.ok ? '' : redactKey(result.message, got.token),
       at: this.now(),
     };
-    if (keySavedAt !== null) await this.cache.saveTest(test).catch((error: unknown) => this.options.onError?.(error));
+    await this.cache.saveTest(test).catch((error: unknown) => this.options.onError?.(error));
     return { ok: true, data: test };
   }
 
@@ -388,7 +402,7 @@ export class ProviderService {
       const requestedAt = this.now();
       const result = await adapter.analyze(this.call(adapter, got, controller.signal), { model: input.model, system: input.system, prompt: input.prompt, maxTokens });
       this.note(adapter, result);
-      await this.observe(adapter, providerVerdict(result, 'usage', d.host));
+      await this.observe(adapter, providerVerdict(result, 'usage', d.host), got);
       if (!result.ok) return { ...result, message: redactKey(result.message, got.token) };
       return { ok: true, status: result.status, data: { ...result.data, provider: d.title, host: d.host, requestedAt, completedAt: this.now() } };
     } finally {

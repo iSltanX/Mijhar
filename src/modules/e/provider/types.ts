@@ -101,7 +101,7 @@ export interface ModelsList {
 /**
  * أسباب الفشل المصنَّفة. محلية (لم يُرسل طلب): permission وno-key وkey-read وexpired-key وbusy وcooldown وmodel-changed وprovider-changed
  * وincompatible وinvalid-request. ومن المزوّد: unauthorized (401) وforbidden (403) وnot-found وtoo-large وinvalid وrate-limit (429) وoverloaded
- * (529 أو 5xx) وhttp وnetwork وaborted.
+ * (529 أو 5xx) وhttp وnetwork وaborted. وkey-changed: استُبدل المفتاح المحفوظ أثناء طلب تحقق أو اختبار، فلا تُنسب نتيجته إلى البديل (F-03).
  */
 export type ProviderFailure =
   | 'permission'
@@ -123,7 +123,8 @@ export type ProviderFailure =
   | 'overloaded'
   | 'http'
   | 'network'
-  | 'aborted';
+  | 'aborted'
+  | 'key-changed';
 
 export type ProviderResult<T> =
   | { readonly ok: true; readonly status: number; readonly data: T }

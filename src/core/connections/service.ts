@@ -167,14 +167,15 @@ export class ConnectionsService {
 
   /**
    * MJ21 (T-11.6): يسجّل حكمًا على صحة اتصال من استجابة مرّت بالخلفية (مفتاح المزوّد: التحقق والاستعمال)، لوقت حفظ سرّه الحالي. null أو لا سرّ
-   * محفوظ: لا شيء. MJ23: provider لمفتاح مزوّد التحليل، فيُسجَّل لمزوّده وحده.
+   * محفوظ: لا شيء. MJ23: provider لمفتاح مزوّد التحليل، فيُسجَّل لمزوّده وحده. savedAt: وقت حفظ السرّ الذي أُرسل به الطلب؛ إن استُبدل السرّ قبل الرد
+   * فالحكم للسرّ القديم ولا يُكتب على البديل (F-03).
    */
-  observe(id: ConnectionId, verdict: Verdict | null, provider?: string): Promise<void> {
+  observe(id: ConnectionId, verdict: Verdict | null, provider?: string, savedAt?: number): Promise<void> {
     return this.serial(async () => {
       if (!verdict) return;
       const scoped = id === 'provider-key' && provider !== undefined && this.options.providerKeys;
       const info = scoped ? await this.providerInfo(provider) : await this.options.stores[id]?.info().catch(() => null);
-      if (!info) return;
+      if (!info || (savedAt !== undefined && info.savedAt !== savedAt)) return;
       await this.write(id, info.savedAt, verdict, scoped ? provider : undefined);
     });
   }
