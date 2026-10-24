@@ -41,7 +41,7 @@ describe('الترحيب عند التثبيت', () => {
 describe('فتح الإعدادات على موضع', () => {
   it('المواضع المعروفة وحدها تصير عنوانًا داخل الإضافة', () => {
     const getURL = (p: string) => `chrome-extension://id/${p}`;
-    expect(OPTIONS_TARGETS).toEqual(['token', 'guide/github-token']);
+    expect(OPTIONS_TARGETS).toEqual(['token', 'guide/github-token', 'provider-key', 'guide/provider-key']);
     expect(optionsPageUrl(getURL, 'guide/github-token')).toBe('chrome-extension://id/options.html#guide/github-token');
     expect(optionsPageUrl(getURL, 'token')).toBe('chrome-extension://id/options.html#token');
     for (const bad of ['https://evil.example', '../options.html', 'token#x', 'guide/other', '', null, 3, { target: 'token' }]) expect(optionsPageUrl(getURL, bad)).toBeNull();

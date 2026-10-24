@@ -20,10 +20,10 @@ export const OPEN_OPTIONS_MESSAGE = 'mijhar:open-options';
 export const SURFACE_MIRROR_KEY = 'mijhar.ui.surface';
 
 /**
- * مواضع في صفحة الإعدادات يفتحها الترحيب والإعدادات في اللوحة (AD-29): قسم الرمز، ودليله. قائمة مغلقة: الخلفية لا تفتح عنوانًا
- * تركّبه رسالة من سكربت المحتوى، بل أحد هذه المواضع أو صفحة الإعدادات نفسها.
+ * مواضع في صفحة الإعدادات يفتحها الترحيب والإعدادات في اللوحة والأقسام (AD-29): قسم الرمز ودليله، وبطاقة مفتاح المزوّد و«لماذا المفتاح؟» (MJ21).
+ * قائمة مغلقة: الخلفية لا تفتح عنوانًا تركّبه رسالة من سكربت المحتوى، بل أحد هذه المواضع أو صفحة الإعدادات نفسها.
  */
-export const OPTIONS_TARGETS = ['token', 'guide/github-token'] as const;
+export const OPTIONS_TARGETS = ['token', 'guide/github-token', 'provider-key', 'guide/provider-key'] as const;
 export type OptionsTarget = (typeof OPTIONS_TARGETS)[number];
 
 export interface OpenOptionsMessage {

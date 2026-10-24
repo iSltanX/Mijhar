@@ -1,6 +1,6 @@
 // الفحص الساكن لمسار الترجمة (T-4.5، AC-C6): المانيفست (الصلاحيات ومضيفاتها واختياريها وCSP وما يطابقه سكربت المحتوى) والشيفرة المصدرية والحزمة المبنية.
 // دوال نقية على نصوص وكائنات: scripts/network-audit.mjs يقرأ الملفات ويستدعيها، وvitest يختبرها بعينات. لا مضيف نموذج للإضافة تحت ج-2 (policy.mjs).
-import { ALLOWED_MODEL_HOSTS, BROAD_HOST_PATTERNS, CLOUD_TRANSLATION_HOSTS, DECLARED_MANIFEST_HOSTS, hostCovers, hostMatches, NETWORK_API_PATTERNS, OTHER_ENGINE_PATTERNS, TRANSLATION_PATH_DIRS } from './policy.mjs';
+import { ALLOWED_MODEL_HOSTS, ANALYSIS_PROVIDER_HOSTS, BROAD_HOST_PATTERNS, CLOUD_TRANSLATION_HOSTS, DECLARED_MANIFEST_HOSTS, hostCovers, hostMatches, NETWORK_API_PATTERNS, OTHER_ENGINE_PATTERNS, TRANSLATION_PATH_DIRS } from './policy.mjs';
 
 /** @typedef {{ severity: 'violation' | 'warning' | 'info', rule: string, where: string, detail: string }} Finding */
 
@@ -46,7 +46,7 @@ function cspStrings(manifest) {
  * تحذير: مضيف لم تُعلنه السياسة (DECLARED_MANIFEST_HOSTS) للمراجعة. معلومة: كل مضيف وأين.
  * @returns {{ findings: Finding[], hosts: { host: string, where: string }[], permissions: string[], optionalPermissions: string[], csp: string[] }}
  */
-export function auditManifest(manifest, { declared = DECLARED_MANIFEST_HOSTS, cloud = CLOUD_TRANSLATION_HOSTS, allowedModel = ALLOWED_MODEL_HOSTS } = {}) {
+export function auditManifest(manifest, { declared = DECLARED_MANIFEST_HOSTS, cloud = CLOUD_TRANSLATION_HOSTS, allowedModel = ALLOWED_MODEL_HOSTS, analysis = ANALYSIS_PROVIDER_HOSTS } = {}) {
   /** @type {Finding[]} */
   const findings = [];
   const hosts = [];
@@ -58,6 +58,8 @@ export function auditManifest(manifest, { declared = DECLARED_MANIFEST_HOSTS, cl
     const host = hostOfMatchPattern(pattern);
     if (host === null) continue;
     hosts.push({ host, where });
+    // مضيف مزوّد التحليل صلاحيةً اختيارية وحدها (MJ21)؛ وفي أي حقل آخر مخالفة كغيره.
+    if (where === 'optional_host_permissions' && hostMatches(host, analysis)) continue;
     if (hostCovers(host, cloud) && !hostMatches(host, allowedModel)) findings.push({ severity: 'violation', rule: 'cloud-translation-host', where, detail: `مضيف ترجمة سحابي في المانيفست: ${host}` });
     else if (!hostMatches(host, declared) && !hostMatches(host, allowedModel)) findings.push({ severity: 'warning', rule: 'undeclared-host', where, detail: `مضيف لم تعلنه سياسة المسار: ${host}` });
   }
@@ -80,7 +82,7 @@ export function auditManifest(manifest, { declared = DECLARED_MANIFEST_HOSTS, cl
  * فحص ملفات المصدر: واجهات الشبكة في مسار الترجمة مخالفة؛ ومضيفات ترجمة سحابية في أي ملف مخالفة؛ وواجهات الشبكة خارج المسار معلومة (جرد).
  * @param {{ path: string, text: string }[]} files
  */
-export function auditSources(files, { cloud = CLOUD_TRANSLATION_HOSTS, dirs = TRANSLATION_PATH_DIRS } = {}) {
+export function auditSources(files, { cloud = CLOUD_TRANSLATION_HOSTS, dirs = TRANSLATION_PATH_DIRS, analysis = ANALYSIS_PROVIDER_HOSTS } = {}) {
   /** @type {Finding[]} */
   const findings = [];
   /** @type {Record<string, string[]>} */
@@ -98,7 +100,8 @@ export function auditSources(files, { cloud = CLOUD_TRANSLATION_HOSTS, dirs = TR
     const hosts = hostsInText(code);
     if (hosts.length) urlsByFile[path] = hosts;
     for (const host of hosts) {
-      if (hostMatches(host, cloud)) findings.push({ severity: 'violation', rule: 'cloud-translation-host', where: path, detail: `مضيف ترجمة سحابي في الشيفرة: ${host}` });
+      // مضيف مزوّد التحليل خارج مسار الترجمة مسموح (MJ21)؛ وفيه مخالفة.
+      if (hostMatches(host, cloud) && !(hostMatches(host, analysis) && !onPath)) findings.push({ severity: 'violation', rule: 'cloud-translation-host', where: path, detail: `مضيف ترجمة سحابي في الشيفرة: ${host}` });
       else if (onPath) findings.push({ severity: 'warning', rule: 'external-host-in-translation-path', where: path, detail: `رابط خارجي في مسار الترجمة: ${host}` });
     }
   }
@@ -114,7 +117,7 @@ export function stripComments(text) {
  * فحص ملف الحزمة المبنية: غياب مضيفات الترجمة السحابية ومحركات غير ج-2 (ONNX وWebAssembly وtrial.ml). وجود fetch في الحزمة متوقع (وحدات أخرى)، فيُعدّ ولا يُحسب مخالفة.
  * @param {{ path: string, text: string }[]} files
  */
-export function auditBundle(files, { cloud = CLOUD_TRANSLATION_HOSTS } = {}) {
+export function auditBundle(files, { cloud = CLOUD_TRANSLATION_HOSTS, analysis = ANALYSIS_PROVIDER_HOSTS } = {}) {
   /** @type {Finding[]} */
   const findings = [];
   /** @type {Record<string, { bytes: number, hosts: string[], networkApis: string[] }>} */
@@ -122,7 +125,8 @@ export function auditBundle(files, { cloud = CLOUD_TRANSLATION_HOSTS } = {}) {
   for (const { path, text } of files) {
     const code = stripComments(text);
     const hosts = hostsInText(code);
-    for (const host of hosts) if (hostMatches(host, cloud)) findings.push({ severity: 'violation', rule: 'cloud-translation-host', where: path, detail: `مضيف ترجمة سحابي في الحزمة: ${host}` });
+    // مضيف مزوّد التحليل في الحزم متوقع (مسار التحليل، MJ21)؛ وطلبه أثناء تشغيل ترجمة يبقى مخالفة في التدقيق الديناميكي.
+    for (const host of hosts) if (hostMatches(host, cloud) && !hostMatches(host, analysis)) findings.push({ severity: 'violation', rule: 'cloud-translation-host', where: path, detail: `مضيف ترجمة سحابي في الحزمة: ${host}` });
     for (const { name, pattern } of OTHER_ENGINE_PATTERNS) if (pattern.test(code)) findings.push({ severity: 'violation', rule: 'other-engine', where: path, detail: `أثر محرك خارج ج-2 في الحزمة: ${name}` });
     summary[path] = {
       bytes: text.length,

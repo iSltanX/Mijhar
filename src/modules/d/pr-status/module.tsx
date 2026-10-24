@@ -9,6 +9,8 @@
 //    وما لم يُقرأ «غير معروف». وفشل قراءة أحدث (حد أو رمز) لا يمحو آخر قراءة ناجحة لنفس الالتزام: تبقى بوقتها ويُعلن الفشل.
 //  - MJ18 (T-11.1): قراءة المستودع الخاص خيار يحتاج ربطًا يظهر في لوحة API معلَّلًا (بوابة)، ويفتح موضع الرمز في الإعدادات ثم تعيد الخلفية
 //    إلى هذا التبويب وتبلغه، فتُقرأ حالة الاتصال من جديد ويُركَّز زر القراءة دون إرسال طلب.
+//  - MJ21 (T-11.7): «راجع تغييرات الطلب» في ذيل البطاقة: بلا مفتاح بوابة معلَّلة ولا نص تحليل؛ وبمفتاح موافقة ثم مراجعة مقترحة بأدلتها. السياق من
+//    الطبقة المشتركة، وقراءة API تدخله بربطها بالمستودع والفرع والالتزام الظاهرة وحدها (AD-30)؛ ولا يُرسل شيء قبل «إرسال للتحليل».
 import { mountSurface } from '../../../core/ui-host/surface';
 import { extensionApi } from '../../../core/ui-host/browser-api';
 import type { ExtEvent } from '../../../core/ui-host/browser-api';
@@ -38,6 +40,10 @@ import { PR_STATUS_SELECTORS, parseStatusDetails, readPrSummary } from './extrac
 import type { FetchedChecks } from './extract';
 import { STALE_MINUTES_DEFAULT, STALE_MINUTES_KEY, defineDStatusSettings, isStaleMinutes } from './settings';
 import { D_CARD_CSS } from './style';
+import { COLLECTOR_SELECTORS, prepareContext } from '../../e/context';
+import { SectionAnalysis, defaultAnalysisDeps } from '../analysis/controller';
+import type { SectionAnalysisDeps } from '../analysis/controller';
+import { ANALYSIS_CSS } from '../analysis/style';
 import type { PrSummary } from './summary';
 import { PrStatusCard } from './view';
 
@@ -67,6 +73,8 @@ export interface PrStatusOptions {
   readonly openConnect?: () => void;
   /** MJ18: رسائل الخلفية إلى التبويب (إشعار العودة بعد الربط). الافتراضي runtime.onMessage. */
   readonly runtimeMessages?: ExtEvent<(message: unknown) => unknown> | null;
+  /** MJ21: منافذ التحليل (للاختبار). الافتراضي رسائل الخلفية؛ وخارج الإضافة لا تحليل. */
+  readonly analysis?: SectionAnalysisDeps;
 }
 
 /** نتيجة جلب لالتزام (مفتاحها رابط الجزء الحامل لـsha) تبقى صالحة عبر إعادات التركيب فلا يتكرر الطلب. */
@@ -166,7 +174,8 @@ export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionMo
     id: PR_STATUS_MODULE_ID,
     title: 'ملخص حالة طلب الدمج',
     pages: ['pr'],
-    selectors: PR_STATUS_SELECTORS,
+    // MJ21: ومحددات جامع الطبقة المشتركة لسياق التحليل.
+    selectors: [...PR_STATUS_SELECTORS, ...COLLECTOR_SELECTORS],
     mount(ctx) {
       if (port === undefined) port = defaultPort();
       if (connections === undefined) connections = defaultConnections();
@@ -184,6 +193,7 @@ export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionMo
         connections,
         openConnect: options.openConnect ?? defaultOpenConnect,
         messages,
+        analysis: options.analysis ?? defaultAnalysisDeps(),
       }).start();
     },
   };
@@ -202,6 +212,7 @@ interface ControllerDeps {
   readonly connections: ConnectionsPort | null;
   readonly openConnect: () => void;
   readonly messages: ExtEvent<(message: unknown) => unknown> | null;
+  readonly analysis: SectionAnalysisDeps;
 }
 
 type ReadReason = 'initial' | 'mutation' | 'fetched' | 'explicit' | 'tick' | 'api';
@@ -223,16 +234,20 @@ class PrStatusController {
   private apiStatus: PublicApiStatus | null = null;
   private apiLoading = false;
   private tokenHealth: Health | null = null;
+  private readonly analysisPart: SectionAnalysis;
 
   constructor(
     private readonly ctx: ModuleContext,
     private readonly deps: ControllerDeps,
   ) {
     this.domReadAt = deps.now();
+    // AD-30: القراءة الممرَّرة تُربط في الجامع بما تعرضه الصفحة وقت التحليل؛ ولغير الظاهر لا تدخل ويُعلن ذلك.
+    this.analysisPart = new SectionAnalysis(ctx, 'pr', deps.analysis, () => prepareContext(ctx.document, ctx.selectors, ctx.page, { extras: { api: this.apiData } }), () => this.refresh('tick'));
   }
 
   start(): void {
     const { ctx } = this;
+    this.analysisPart.start();
     this.refresh('initial');
     const root = ctx.page.contentRoot ?? ctx.document.body;
     ctx.observe(root, { childList: true, subtree: true, characterData: true }, (records) => {
@@ -342,7 +357,7 @@ class PrStatusController {
     const { ctx, deps } = this;
     if (!this.surface) {
       const spot = (this.anchor = this.place());
-      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: D_CARD_CSS + BLOCKERS_CSS + STATUS_CSS + GATE_CSS, label: 'ملخص حالة طلب الدمج' });
+      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: D_CARD_CSS + BLOCKERS_CSS + STATUS_CSS + GATE_CSS + ANALYSIS_CSS, label: 'ملخص حالة طلب الدمج' });
     } else if (!this.surface.host.isConnected && this.anchor) {
       // أعادت الصفحة رسم حاويتها فأزالت المضيف: يُعاد إدراجه في موضعه الجديد.
       const spot = (this.anchor = this.place());
@@ -384,19 +399,22 @@ class PrStatusController {
         }
         blockers={<BlockersView report={report} />}
         footer={
-          canApi ? (
-            <ApiPanel
-              status={this.apiStatus}
-              loading={this.apiLoading}
-              data={this.apiData}
-              attempt={this.apiAttempt}
-              binding={binding}
-              tokenHealth={this.tokenHealth}
-              onRead={() => this.readApi()}
-              onOpenSettings={deps.openSettings}
-              onConnect={deps.connections ? deps.openConnect : null}
-            />
-          ) : null
+          <>
+            {canApi ? (
+              <ApiPanel
+                status={this.apiStatus}
+                loading={this.apiLoading}
+                data={this.apiData}
+                attempt={this.apiAttempt}
+                binding={binding}
+                tokenHealth={this.tokenHealth}
+                onRead={() => this.readApi()}
+                onOpenSettings={deps.openSettings}
+                onConnect={deps.connections ? deps.openConnect : null}
+              />
+            ) : null}
+            {this.analysisPart.view()}
+          </>
         }
       />,
     );

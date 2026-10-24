@@ -15,7 +15,8 @@ export interface TokenGuideProps {
   readonly onBack: () => void;
 }
 
-const GUIDE_CSS = `
+/** أنماط صفحات الشرح داخل الإعدادات (دليل الرمز و«لماذا المفتاح؟»). */
+export const GUIDE_CSS = `
 .mj-root .guide { display: flex; flex-direction: column; gap: var(--mijhar-space-24); }
 /* العنوان يتلقى التركيز برمجيًا عند فتح الدليل (ليس عنصرًا تفاعليًا)، فلا إطار تركيز عليه. */
 .mj-root .guide h1[tabindex]:focus, .mj-root .guide h1[tabindex]:focus-visible { outline: none; box-shadow: none; }
@@ -65,9 +66,9 @@ const GUIDE_CSS = `
 }
 `;
 
-const external = { target: '_blank', rel: 'noopener noreferrer' } as const;
+export const external = { target: '_blank', rel: 'noopener noreferrer' } as const;
 
-function Note({ tone, icon, children }: { tone?: 'warning' | 'info'; icon: 'warning' | 'info' | 'shield'; children: ComponentChildren }) {
+export function Note({ tone, icon, children }: { tone?: 'warning' | 'info'; icon: 'warning' | 'info' | 'shield'; children: ComponentChildren }) {
   return (
     <p class="inline-note" {...(tone ? { 'data-tone': tone } : {})}>
       <Icon name={icon} />
@@ -209,18 +210,18 @@ export function TokenGuide({ onBack }: TokenGuideProps) {
               <td>ما توافق عليه من سياق الصفحة</td>
             </tr>
             <tr>
-              <th scope="row">التكلفة</th>
-              <td>مجاني</td>
-              <td>بحسب الاستخدام على حسابك لدى المزوّد</td>
-            </tr>
-            <tr>
               <th scope="row">هل يلزم؟</th>
               <td>لا</td>
               <td>لا</td>
             </tr>
           </tbody>
         </table>
-        <Note icon="info">مفتاح المزوّد يصل مع طبقة التحليل في تحديث لاحق؛ لا يوجد في هذه النسخة حقل له ولا أي إرسال إلى مزوّد.</Note>
+        <Note icon="info">
+          مفتاح المزوّد اختياري ومستقل عن الرمز، ولا يُرسل شيء إلى المزوّد إلا بموافقتك على كل طلب:{' '}
+          <a href="#guide/provider-key" data-action="provider-key-guide">
+            لماذا المفتاح؟
+          </a>
+        </Note>
       </section>
 
       <section aria-labelledby="mj-guide-steps" class="guide">

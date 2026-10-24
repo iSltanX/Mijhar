@@ -42,6 +42,12 @@ export const CLOUD_TRANSLATION_HOSTS = /** @type {readonly string[]} */ ([
 /** مضيفات الإضافة نفسها المقبولة في المانيفست اليوم (AD-08)؛ ما سواها يُعرض في التقرير للمراجعة ولا يوقف الاختبار. */
 export const DECLARED_MANIFEST_HOSTS = /** @type {readonly string[]} */ (['github.com', 'api.github.com']);
 
+/**
+ * MJ21 (T-11.6، DEC-09، AD-19): مضيف مزوّد التحليل. هو في CLOUD_TRANSLATION_HOSTS ويبقى مخالفة في مسار الترجمة (شيفرته وأي طلب أثناء الترجمة)؛ ويُقبل
+ * خارجه: صلاحية مضيف اختيارية (optional_host_permissions) وحدها في المانيفست، وفي شيفرة مسار التحليل وحزمه. ويدقق مسارَ التحليل نفسه TEST-PRIV-04.
+ */
+export const ANALYSIS_PROVIDER_HOSTS = /** @type {readonly string[]} */ (['api.anthropic.com']);
+
 /** مجلدات الشيفرة التي هي «مسار الترجمة»: لا يجوز فيها استدعاء شبكة ولا مضيف خارجي. */
 export const TRANSLATION_PATH_DIRS = /** @type {readonly string[]} */ ([
   'src/modules/c/engines/',

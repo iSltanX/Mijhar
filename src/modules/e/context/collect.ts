@@ -2,6 +2,8 @@
 // وحده، بلا أي طلب شبكة، ولا رمز ولا سرّ (سكربت المحتوى لا يملكهما)، ويعيد استخدام قرّاء الوحدة (د) ولا يعيد بناءهم: ملخص الحالة والتصنيفات
 // السبعة (T-5.1)، وتفسير الموانع ومصدره ودمج قراءة API (T-5.2)، وقارئ صفحة المهمة ومحلل السجل بطبقاته الثلاث (T-5.3)، وقارئ المقارنة (T-5.4).
 // وما يأتي من خارج الصفحة (نص سجل قرأه قسم بنقر المستخدم، أو قراءة API بالرمز أو الصلاحية الاختيارية) يُمرَّر إليه «إضافاتٍ» ولا يجلبه.
+//  - قراءة API (AD-30، H-1): تُقبل بربطها بالمستودع والفرع والالتزام الظاهرة الآن (compareBinding، كبطاقة الحالة)، وقراءة لغيرها لا تدخل البنية
+//    ويُعلن أنها لالتزام آخر؛ وحالة وصول كل جزء منها (accessText) في الحالة والجرد و«المعلومات الناقصة»، وما لم يُقرأ «غير معروف» (AC-D8).
 //  - طلب الدمج: المستودع والرابط والفرعان والتزام الرأس، والعنوان والوصف والتعليقات الظاهرة، ونتائج الفحوص ومقتطف الخطأ، والحالة والموانع، وأعداد التغييرات.
 //  - المشكلة: العنوان والوصف والتعليقات. صفحة مهمة Actions: الخطوات بنتائجها والتنبيهات مقتطفًا للخطأ.
 //  - الفروق (مقارنة أو التزام أو ملفات طلب): الطرفان أو الالتزام، والملفات بنوعها وأسطرها، وأسطر الفروق حيث تعرضها الصفحة.
@@ -11,7 +13,7 @@ import type { PageState, SelectorEntry, SelectorsRegistry } from '../../../core'
 import { explainBlockers, readDomEvidence } from '../../d/blockers/explain';
 import type { BlockersReport } from '../../d/blockers/explain';
 import { collapsedInfo } from '../../d/blockers/freshness';
-import { apiMatchesHead, mergeApi } from '../../d/blockers/merge';
+import { mergeApi } from '../../d/blockers/merge';
 import type { ApiPrData } from '../../d/blockers/api-read';
 import { readCompare } from '../../d/compare/extract';
 import { cleanPath } from '../../d/compare/file-kinds';
@@ -24,6 +26,10 @@ import { readPrSummary } from '../../d/pr-status/extract';
 import { PR_STATE_LABELS, REVIEW_LABELS } from '../../d/pr-status/summary';
 import { squash } from '../../d/pr-status/value';
 import type { Value } from '../../d/pr-status/value';
+import { UNKNOWN_TEXT, accessText } from '../../d/status/access';
+import type { AccessKind } from '../../d/status/access';
+import { FIELD_TEXT, compareBinding, shortSha } from '../../d/status/binding';
+import type { ReadBinding } from '../../d/status/binding';
 
 /** أنواع الصفحات الأربعة: طلب دمج، ومشكلة، وفحوص (صفحة مهمة Actions)، وفروق (مقارنة أو التزام أو ملفات طلب). */
 export type ContextPageKind = 'pr' | 'issue' | 'job' | 'diff';
@@ -89,6 +95,26 @@ export interface Snippet {
   readonly where: string;
 }
 
+/** جزء من قراءة API بحالة وصوله (AC-D8). */
+export interface ApiPartAccess {
+  readonly part: 'pull' | 'checks' | 'required';
+  readonly kind: AccessKind;
+  /** جملة الحالة كما في البطاقة (accessText)؛ وكل حالة غير «قُرئت» تعلن قيمه «غير معروف». */
+  readonly text: string;
+}
+
+/** قراءة API الممرَّرة إلى الجامع: لأي مستودع وفرع والتزام قُرئت ومتى، وهل هي لما تعرضه الصفحة الآن، وحالة وصول كل جزء (AD-30). */
+export interface ApiAccess {
+  readonly binding: ReadBinding;
+  /** لما تعرضه الصفحة الآن (المستودع والفرع والالتزام)؛ وإلا لم تدخل البنية. */
+  readonly matched: boolean;
+  /** ما تغيّر أو جُهل حين لا تطابق («الالتزام»…). */
+  readonly changed: readonly string[];
+  readonly parts: readonly ApiPartAccess[];
+  /** سطر الربط: المستودع والفرع والالتزام ووقت القراءة، وما لم يُعرف «غير معروف». */
+  readonly summary: string;
+}
+
 /** حالة طلب الدمج وموانعه كما يقرؤها قرّاء الوحدة (د). */
 export interface PrStatus {
   /** حالة الطلب بالعربية («مفتوح»…)، أو null إن لم تُقرأ. */
@@ -99,6 +125,8 @@ export interface PrStatus {
   readonly report: BlockersReport;
   /** وقت قراءة API إن قُرئت لرأس الصفحة نفسه (شارة المصدر والتقادم)، وإلا null. */
   readonly apiReadAt: number | null;
+  /** قراءة API الممرَّرة بربطها وحالة وصول أجزائها (AD-30)، أو null حين لم تُمرَّر قراءة. */
+  readonly api: ApiAccess | null;
 }
 
 export interface ChangedFile {
@@ -153,7 +181,7 @@ export interface LogExtra {
 /** ما يُمرَّر إلى الجامع من خارج الصفحة؛ كلاهما اختياري ولا يتوقف الجمع على غيابه. */
 export interface CollectExtras {
   readonly log?: LogExtra | null;
-  /** قراءة API لطلب الدمج (T-5.2 أو برمز T-5.5)؛ لا تدخل إلا إن كانت لالتزام الرأس الظاهر (VR-03). */
+  /** قراءة API لطلب الدمج (T-5.2 أو برمز T-5.5)؛ لا تدخل إلا إن كانت للمستودع والفرع والالتزام الظاهرة (VR-03، AD-30). */
   readonly api?: ApiPrData | null;
 }
 
@@ -292,11 +320,46 @@ function readLog(extra: LogExtra, annotations: readonly AnnotationInput[]): { lo
   return { log, gaps };
 }
 
+const API_PARTS: ReadonlyArray<{ readonly part: ApiPartAccess['part']; readonly text: string }> = [
+  { part: 'pull', text: 'بيانات الطلب من API (قابلية الدمج وحالته)' },
+  { part: 'checks', text: 'الفحوص من API (ومنها ما تطويه الصفحة)' },
+  { part: 'required', text: 'الفحوص الإلزامية من حماية الفرع' },
+];
+const API_GAP = 'بيانات API';
+
+/**
+ * ربط قراءة API بما تعرضه الصفحة الآن وحالة وصول أجزائها (AD-30): القبول بالمستودع والفرع والالتزام معًا (compareBinding كبطاقة الحالة)، وقراءة
+ * لغيرها تُعلن «لالتزام آخر» ولا تدخل؛ وكل جزء لم يُقرأ فجوةٌ بجملة حالته («غير معروف»). قراءة لم تُمرَّر لا تُغيّر شيئًا.
+ */
+function bindApi(offered: ApiPrData | null | undefined, page: ReadBinding): { api: ApiPrData | null; access: ApiAccess | null; gaps: Gap[] } {
+  if (!offered) return { api: null, access: null, gaps: [] };
+  const read = offered.binding;
+  const match = offered.pull.available ? compareBinding(read, page) : null;
+  const matched = Boolean(match?.same);
+  const changed = match && !match.same ? match.changed.map((f) => FIELD_TEXT[f]) : [];
+  // قراءة فشل جزؤها الأول (بيانات الطلب) تعلن حالته وحده كما في البطاقة؛ وما بعده لم يُطلب.
+  const shown = offered.access.pull.kind === 'read' ? API_PARTS : API_PARTS.slice(0, 1);
+  const parts = shown.map(({ part, text }) => ({ part, kind: offered.access[part].kind, text: accessText(text, offered.access[part]) }));
+  const gaps: Gap[] = [];
+  if (offered.pull.available && !matched) {
+    const where = (b: ReadBinding, unknown: string): string => `${shortSha(b.commit) ?? unknown}${b.branch ? ` على ${b.branch}` : ''}`;
+    gaps.push({
+      part: API_GAP,
+      kind: 'unavailable',
+      reason: `قراءة API لالتزام آخر (${where(read, UNKNOWN_TEXT)}) غير الظاهر الآن (${where(page, 'رأس الصفحة غير معروف')})؛ تغيّر ${changed.join(' و')}، فلم تدخل الفحوص ولا الموانع وقيمها ${UNKNOWN_TEXT}`,
+    });
+  } else for (const p of parts) if (p.kind !== 'read') gaps.push({ part: API_GAP, kind: 'unavailable', reason: p.text });
+  const at = read.readAt !== null ? ` (قُرئت ${new Date(read.readAt).toISOString().slice(0, 16).replace('T', ' ')} UTC)` : '';
+  const summary = `قراءة API لـ\`${read.repo ?? UNKNOWN_TEXT}\` على الفرع \`${read.branch ?? UNKNOWN_TEXT}\` والالتزام \`${shortSha(read.commit) ?? UNKNOWN_TEXT}\`${at}${matched ? '' : `: لالتزام آخر غير الظاهر الآن، فلم تدخل (تغيّر ${changed.join(' و') || 'الالتزام'})`}.`;
+  return { api: matched ? offered : null, access: { binding: read, matched, changed, parts, summary }, gaps };
+}
+
 function collectPr(doc: Document, selectors: SelectorsRegistry, page: PageState, extras: CollectExtras): ContextSource {
   const b = base(doc, selectors, page, 'pr');
   const dom = readPrSummary(doc, selectors, { pageNumber: page.number });
-  // هوية الالتزام (VR-03): قراءة API لرأس غير الظاهر لا تدخل الملخص ولا الموانع، كما في بطاقة الحالة.
-  const api = extras.api && apiMatchesHead(dom, extras.api) ? extras.api : null;
+  // هوية القراءة (VR-03، AD-30): قراءة API لمستودع أو فرع أو التزام غير الظاهر لا تدخل الملخص ولا الموانع، كما في بطاقة الحالة.
+  const bound = bindApi(extras.api, { repo: b.repo, branch: dom.head.available ? dom.head.value.branch : null, commit: dom.headSha, readAt: null });
+  const { api } = bound;
   const summary = mergeApi(dom, api);
   const { comments, gaps: commentGaps } = readComments(doc, selectors);
   const gaps: Gap[] = [...b.gaps, ...commentGaps];
@@ -332,6 +395,7 @@ function collectPr(doc: Document, selectors: SelectorsRegistry, page: PageState,
   const collapsed = collapsedInfo(summary, api);
   if (collapsed) gaps.push({ part: 'نتائج الفحوص', kind: 'collapsed', reason: `قائمة الفحوص مطوية أو ناقصة: قُرئ ${collapsed.read} من ${collapsed.expected}${collapsed.label ? ` («${collapsed.label}»)` : ''}؛ ما لم يُقرأ لا يُعدّ ناجحًا` });
   if (logRead) gaps.push(...logRead.gaps);
+  gaps.push(...bound.gaps);
 
   const review = valueOf(summary.reviews);
   const status: PrStatus = {
@@ -339,6 +403,7 @@ function collectPr(doc: Document, selectors: SelectorsRegistry, page: PageState,
     review: review ? `${REVIEW_LABELS[review.state]} («${review.evidence}»)` : null,
     report: explainBlockers(summary, readDomEvidence(doc, selectors), api),
     apiReadAt: api?.pull.available ? api.readAt : null,
+    api: bound.access,
   };
   const totals = { files: valueOf(summary.files), additions: valueOf(summary.additions), deletions: valueOf(summary.deletions) };
   const changes: Changes | null = totals.files === null && totals.additions === null && totals.deletions === null ? null : { totals, files: [], complete: false };

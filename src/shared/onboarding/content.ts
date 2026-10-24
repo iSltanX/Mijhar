@@ -1,6 +1,6 @@
-// نصوص الترحيب عند أول فتح للوحة (AD-29) من إطارات القسم J في ملف التصميم المعتمد (P-55 وP-56a). كل ميزة مذكورة هنا منفَّذة ومدمجة؛
-// والاتصال الاختياري الذي لم يُنفَّذ بعد يُعلَن «لم يُتح بعد» ولا يُعرض كأنه يعمل. تقلب MJ21 حالة مفتاح المزوّد وتضيف رابط شرحه حين
-// تُدمج طبقة التحليل (AC-E9 البند ٨).
+// نصوص الترحيب عند أول فتح للوحة (AD-29) من إطارات القسم J في ملف التصميم المعتمد (P-55 وP-56). كل ميزة مذكورة هنا منفَّذة ومدمجة؛
+// والاتصال الاختياري الذي لم يُنفَّذ بعد يُعلَن «لم يُتح بعد» ولا يُعرض كأنه يعمل. MJ21 (AC-E9 البند ٨): مفتاح المزوّد متاح مع طبقة التحليل،
+// برابط «لماذا المفتاح؟» وموضع ربطه في الإعدادات (الإطار P-56). لا أسعار ولا تكلفة (AD-31).
 import type { OptionsTarget } from '../../core/ui-host/commands';
 import type { IconName } from '../ui/icons';
 
@@ -43,7 +43,7 @@ export const OPTIONAL_CONNECTIONS: readonly OptionalConnection[] = [
     status: 'available',
     facts: [
       { icon: 'lock', text: 'قراءة فقط، ويُرسل إلى GitHub وحده' },
-      { icon: 'check', text: 'مجاني، تنشئه من حسابك في GitHub' },
+      { icon: 'check', text: 'تنشئه من حسابك في GitHub' },
     ],
     guide: { target: 'guide/github-token', label: 'كيف أحصل على الرمز؟' },
     setup: 'token',
@@ -52,14 +52,16 @@ export const OPTIONAL_CONNECTIONS: readonly OptionalConnection[] = [
     id: 'provider-key',
     icon: 'message',
     title: 'مفتاح مزوّد التحليل',
-    text: 'تحليل نصّي اختياري لفشل الفحص وتغييرات طلب الدمج، تضيفه طبقة التحليل في تحديث لاحق. لا حقل لمفتاح الآن ولا أي إرسال إلى مزوّد.',
-    status: 'not-yet',
-    facts: [],
+    text: 'يحلّل فشل الفحص ويراجع تغييرات طلب الدمج ويوضّح المشكلة، داخل أقسامها، ولا يرسل شيئًا قبل موافقتك على كل طلب.',
+    status: 'available',
+    facts: [{ icon: 'globe', text: 'يُرسل ما توافق عليه إلى Anthropic وحدها' }],
+    guide: { target: 'guide/provider-key', label: 'لماذا المفتاح؟' },
+    setup: 'provider-key',
   },
 ];
 
 /** الفرق بين الاتصالين بحسب ما أُتيح منهما. */
 export const connectionsDifference = (connections: readonly OptionalConnection[] = OPTIONAL_CONNECTIONS): string =>
   connections.every((c) => c.status === 'available')
-    ? 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، والمفتاح يتيح تحليلًا نصيًّا عند مزوّد خارجي تدفع له. لا يغني أحدهما عن الآخر.'
+    ? 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، والمفتاح يتيح تحليلًا نصيًّا عند مزوّد خارجي بمفتاح من حسابك لديه. لا يغني أحدهما عن الآخر.'
     : 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، ولا علاقة له بأي تحليل أو مزوّد.';

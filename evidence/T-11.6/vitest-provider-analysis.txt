@@ -1,0 +1,71 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj21-91644e
+
+ ✓ tests/modules/e/provider/adapter.test.ts > صيغة المفتاح تُفحص محليًا > يقبل sk-ant-api… ويرفض الفارغ ومفتاح الإدارة وغيرهما، بلا إرسال 2ms
+ ✓ tests/modules/e/provider/adapter.test.ts > البوابة: مضيف المحوّل وحده وبعد الصلاحية > عنوان خارج api.anthropic.com يرمي ولا يُرسل؛ وبلا صلاحية يرمي ProviderPermissionError ولا يُرسل 2ms
+ ✓ tests/modules/e/provider/adapter.test.ts > البوابة: مضيف المحوّل وحده وبعد الصلاحية > يرسل بلا ملفات تعريف ارتباط ولا مرجِع ولا ذاكرة 28ms
+ ✓ tests/modules/e/provider/adapter.test.ts > البوابة: مضيف المحوّل وحده وبعد الصلاحية > redactKey يحذف المفتاح من أي نص 0ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > 401 ← unauthorized بلا موعد إعادة 2ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > 403 ← forbidden بلا موعد إعادة 0ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > 400 ← invalid بلا موعد إعادة 0ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > 529 ← overloaded بلا موعد إعادة 1ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > 429 بموعد retry-after المعلن 1ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > رسالة خطأ يردّد فيها الخادم المفتاح تُنقّح منه 1ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > بلا صلاحية: فشل «permission» ولا طلب 1ms
+ ✓ tests/modules/e/provider/adapter.test.ts > تصنيف الاستجابات > رد التحليل: النص والمودل وسبب التوقف والأعداد المعلنة (لا تكلفة) 1ms
+ ✓ tests/modules/e/provider/static.test.ts > AD-31: لا أسعار ولا تكلفة ولا حدود إنفاق في مِجهَر > لا كلمة سعر أو تكلفة أو ميزانية أو إنفاق أو حصة في شيفرة مسار التحليل ونصوصه 4ms
+ ✓ tests/modules/e/provider/static.test.ts > AD-31: لا أسعار ولا تكلفة ولا حدود إنفاق في مِجهَر > لا رابط لصفحة أسعار ولا طلب لها في أي ملف من src 38ms
+ ✓ tests/modules/e/provider/static.test.ts > AC-E9 (٣): لا مودل مثبت في الشيفرة > لا معرّف مودل (claude-opus-… وما شابه) في src 14ms
+ ✓ tests/modules/e/provider/static.test.ts > AC-E9 (٦): الأقسام لا تعرف محوّلًا بعينه > ولا مضيفه ولا اسمه ولا خدمة الخلفية ولا مفاتيح الأسرار 2ms
+ ✓ tests/modules/e/provider/static.test.ts > AC-E9 (٦): الأقسام لا تعرف محوّلًا بعينه > السجل وحده يعرف المحوّلات، وما يصل سكربت المحتوى من الطبقة لا يستورد البطاقة ولا الخدمة ولا الأسرار 27ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، والطلب الوحيد بعدها التحقق المعلن > الحالة لا تطلب شيئًا؛ والتحقق طلب واحد GET /v1/models بالمفتاح وحده إلى api.anthropic.com، وصحته «سليم» من الاستجابة 10ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، والطلب الوحيد بعدها التحقق المعلن > AC-E9 (٣): المودلات من المزوّد وقت التشغيل بمصدرها ووقتها، والمتقاعد لا يُعرض، والافتراضي من القائمة (فئة sonnet) ويُثبَّت اختيارًا 3ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، والطلب الوحيد بعدها التحقق المعلن > بلا صلاحية api.anthropic.com لا يُرسل التحقق ولا التحليل، والمفتاح «غير متحقق منه» بسببه 2ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، والطلب الوحيد بعدها التحقق المعلن > بلا مفتاح محفوظ: لا طلب، ويُعلن السبب 1ms
+ ✓ tests/modules/e/provider/service.test.ts > AD-15: في Firefox لا تحليل دون موافقة مشاركة محتوى المواقع (websiteContent) > صلاحية المضيف وحدها: التحقق يُرسل (لا محتوى فيه)، والحالة «غير ممنوحة»، والتحليل لا يُرسل ويُعلن السبب 4ms
+ ✓ tests/modules/e/provider/service.test.ts > AD-15: في Firefox لا تحليل دون موافقة مشاركة محتوى المواقع (websiteContent) > بالموافقتين: طلب تحليل واحد كما في عائلة Chromium 2ms
+ ✓ tests/modules/e/provider/service.test.ts > AD-15: في Firefox لا تحليل دون موافقة مشاركة محتوى المواقع (websiteContent) > عائلة Chromium لا تشترطها ولا تطلبها 1ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > طلب واحد POST /v1/messages إلى api.anthropic.com وحده بالمودل الذي عرضته الموافقة، والمفتاح وحده (لا رمز GitHub)، ولا مفتاح في أي رد 2ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > المودل تغيّر بعد عرض الموافقة: لا يُرسل شيء 3ms
+ ✓ tests/modules/e/provider/request.test.ts > AC-E9 (٢) و(٤): ما يُرسل وما تعرضه الموافقة > البرومبت هو قالب الطبقة نفسه بعد الحجب: لا سرّ مطابق ولا مفتاح المزوّد ولا رمز GitHub، والمحجوب ظاهر بعلامته 30ms
+ ✓ tests/modules/e/provider/request.test.ts > AC-E9 (٢) و(٤): ما يُرسل وما تعرضه الموافقة > الموافقة: الأقسام التي وصلها محتوى بترتيبها، والحجم حروفًا وأسطرًا، وما استُبعد كما في «المعلومات الناقصة»، وما حُجب بعدده؛ بلا سعر ولا تكلفة 23ms
+ ✓ tests/modules/e/provider/request.test.ts > AC-E9 (٢) و(٤): ما يُرسل وما تعرضه الموافقة > تعليمات الرد: السياق بيانات لا تعليمات، والأدلة اقتباسات حرفية، وما لم يرد في missing، وبنية JSON المطلوبة 21ms
+ ✓ tests/modules/e/provider/request.test.ts > AC-E9 (٥): فصل المثبت من المصدر عن الاحتمال، وبيان ما نقص > رد بالبنية: البنود والخطوات وما نقص؛ والاقتباس الوارد حرفيًا «مثبت»، والمختلَق «لم يرد» 1ms
+ ✓ tests/modules/e/provider/request.test.ts > AC-E9 (٥): فصل المثبت من المصدر عن الاحتمال، وبيان ما نقص > رد داخل سياج ```json يُقرأ، والمسافات لا تمنع مطابقة الاقتباس 0ms
+ ✓ tests/modules/e/provider/request.test.ts > AC-E9 (٥): فصل المثبت من المصدر عن الاحتمال، وبيان ما نقص > رد بلا البنية (ومنه الرد المعادي) يُعرض نصًّا واحدًا كما هو ولا يُفسَّر؛ وتوقف عند حد الطول يُعلن 0ms
+ ✓ tests/modules/e/provider/request.test.ts > AC-E9 (٥): فصل المثبت من المصدر عن الاحتمال، وبيان ما نقص > اقتباس قصير جدًا لا يُعدّ دليلًا وإن ورد 0ms
+ ✓ tests/modules/e/provider/ui.test.tsx > تجربة الموافقة (AC-E9 (٢) و(٧)) > تبيّن قبل الزر ما سيُرسل ولأي مزوّد ومودل ووجهة، والزر «إرسال للتحليل» مربوط بها لتقنيات الإتاحة؛ والتركيز على العنوان 61ms
+ ✓ tests/modules/e/provider/ui.test.tsx > تجربة الموافقة (AC-E9 (٢) و(٧)) > صياغة التنقيح بلا ضمان مطلق، ولا سعر ولا تكلفة ولا تنبيه مالي 4ms
+ ✓ tests/modules/e/provider/ui.test.tsx > تجربة الموافقة (AC-E9 (٢) و(٧)) > «اعرض ما سيُرسل» يعرض النص كما يُرسل حرفيًا 4ms
+ ✓ tests/modules/e/provider/ui.test.tsx > تجربة الموافقة (AC-E9 (٢) و(٧)) > التفعيل البرمجي لا يُصدر شيئًا: click() وحدث مُنشأ ولو بنقرة فأرة مزيفة؛ والنقرة الموثوقة وحدها تُصدر طلبًا واحدًا 4ms
+ ✓ tests/modules/e/provider/ui.test.tsx > تجربة الموافقة (AC-E9 (٢) و(٧)) > معطّل بلا مودل أو بلا صلاحية المضيف أو بموعد إعادة معلن، ويقول السبب 6ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > طلب التحقق معلن قبل الحفظ، و«لماذا المفتاح؟» في البطاقة، ولا تكلفة 10ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > صيغة خاطئة تُرفض محليًا: لا حفظ ولا صلاحية ولا طلب 5ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > مفتاح صالح: الصلاحية تُطلب في النقرة نفسها قبل أي حفظ، ثم الحفظ، ثم التحقق المعلن وحده؛ والحقل يُفرَّغ ولا يُعرض المفتاح 5ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > طلب جارٍ من القسم نفسه في التبويب: الثاني يُرفض دون إرسال؛ وقسم آخر أو تبويب آخر مستقل 85ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > موعد إعادة المحاولة الذي أعلنه المزوّد (429، retry-after) يُحترم: لا طلب قبله ولا إعادة تلقائية 1ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > مفتاح رفضه المزوّد (401): «منتهٍ»، ولا يُرسل به ثانية حتى يُتحقق منه أو يُستبدل؛ والرسالة بلا المفتاح وإن ردّده الخادم 1ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > رفض الصلاحية: يُحفظ «غير متحقق منه» ولا يُرسل شيء 5ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > عائلة Chromium: الطلب صلاحية المضيف وحدها، ولا ذكر لموافقة محتوى المواقع 4ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > Firefox (AD-15): الإعلان يذكر موافقة «مشاركة محتوى المواقع» قبل الحفظ، والنقرة نفسها تطلبها مع صلاحية المضيف قبل أي حفظ، ثم الحفظ ثم التحقق 4ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > Firefox: صلاحية المضيف وحدها لا تكفي، فتُطلب الموافقتان في نقرة الحفظ؛ ورفضهما يحفظ المفتاح «غير متحقق منه» بلا طلب 5ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > Firefox: السحب يسحب صلاحية المضيف وموافقة محتوى المواقع معًا 9ms
+ ✓ tests/modules/e/provider/ui.test.tsx > بطاقة مفتاح المزوّد (AC-E9 (١) و(٤)) > المسح يسرد ما يتعطل وحده: التحليل في أقسامه الثلاثة 4ms
+ ✓ tests/modules/e/provider/ui.test.tsx > «لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨)) > الأماكن الثلاثة بمثال موسوم لكل منها، والوجهة وما يُرسل وما يبقى دونه؛ بلا أسعار ولا روابطها ولا ميزة لم تُدمج 10ms
+ ✓ tests/modules/e/provider/ui.test.tsx > «لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨)) > يُفتح من #guide/provider-key داخل الإعدادات، و«أضف مفتاحًا» يعود إلى بطاقة المفتاح 10ms
+ ✓ tests/modules/d/analysis/analysis.test.tsx > AC-D9: التحليل في شرح سجل الفحص > بلا مفتاح: الخيار معلَّلًا بما يحتاجه داخل الطبقة الثالثة، والقسم كامل، ولا نص تحليل ولا طلب 261ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > إيقاف طلب جارٍ يلغيه ولا نتيجة له 213ms
+ ✓ tests/modules/e/provider/service.test.ts > AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل > طلب غير صالح (بلا برومبت أو بمودل غير صالح) لا يُرسل 1ms
+ ✓ tests/modules/e/provider/service.test.ts > TEST-AI-02 (AC-E9 (٦)): السجل يقبل محوّلًا ثانيًا دون مس شيفرة الأقسام > خدمة بسجل فيه المزوّدان، والمختار الثاني: التحقق والتحليل إلى مضيفه وحده بصيغته، والأقسام لا تعرف أيهما 0ms
+ ✓ tests/modules/d/analysis/analysis.test.tsx > AC-D9: التحليل في شرح سجل الفحص > بمفتاح: التفعيل البرمجي لا يفتح الموافقة ولا يرسل؛ والموافقة تبيّن ما يُرسل؛ و«إرسال للتحليل» الموثوقة وحدها تُصدر طلبًا واحدًا؛ والنتيجة في الطبقة الثالثة وحدها 249ms
+ ✓ tests/modules/d/analysis/analysis.test.tsx > AC-D9: التحليل في شرح سجل الفحص > بإزالة المفتاح يبقى القسم كاملًا ولا يظهر أي نص تحليل، ويظهر الخيار معلَّلًا 207ms
+ ✓ tests/modules/d/analysis/analysis.test.tsx > AC-D9: التحليل في شرح سجل الفحص > رد معادٍ يُعرض نصًّا كما هو ولا يُنفَّذ منه شيء ولا يُنشئ عنصرًا 196ms
+ ✓ tests/modules/d/analysis/analysis.test.tsx > AC-D9: التحليل في شرح سجل الفحص > الفشل يُعلن بسببه ويقترح بطاقة المفتاح، ولا يُعاد تلقائيًا؛ و«أعد المحاولة» يعود إلى الموافقة لا إلى الإرسال 250ms
+ ✓ tests/modules/d/analysis/analysis.test.tsx > بطاقة طلب الدمج وصفحة المشكلة > بطاقة الطلب: «راجع تغييرات الطلب» في ذيلها، والموافقة بقالب «مراجعة التغييرات» 107ms
+ ✓ tests/modules/d/analysis/analysis.test.tsx > بطاقة طلب الدمج وصفحة المشكلة > صفحة المشكلة: بطاقة «فهم المشكلة» بعد الترويسة، والموافقة بقالب «فهم المشكلة»؛ وبلا مفتاح بوابة معلَّلة وحدها 188ms
+
+ Test Files  6 passed (6)
+      Tests  62 passed (62)
+   Start at  15:58:10
+   Duration  2.96s (transform 34%, environment 30%, tests 21%, import 15%)
+

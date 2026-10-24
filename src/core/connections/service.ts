@@ -138,6 +138,19 @@ export class ConnectionsService {
     });
   }
 
+  /**
+   * MJ21 (T-11.6): يسجّل حكمًا على صحة اتصال من استجابة مرّت بالخلفية (مفتاح المزوّد: التحقق والاستعمال)، لوقت حفظ سرّه الحالي. null أو لا سرّ
+   * محفوظ: لا شيء.
+   */
+  observe(id: ConnectionId, verdict: Verdict | null): Promise<void> {
+    return this.serial(async () => {
+      if (!verdict) return;
+      const info = await this.options.stores[id]?.info().catch(() => null);
+      if (!info) return;
+      await this.write(id, info.savedAt, verdict);
+    });
+  }
+
   /** طلب ربط من ميزة في تبويب: يُحفظ للعودة إليه. الميزة من القائمة المغلقة وحدها. */
   setPending(tab: TabLike | undefined, feature: unknown): void {
     if (tab?.id === undefined || !isFeatureId(feature)) return;

@@ -2,6 +2,7 @@
 export { attachNetworkRecorder, browserWsUrl } from './capture.mjs';
 export { auditWindow, classifyRequests, findLeaks, hostOf, isNetworkRequest, normalizeForSearch } from './dynamic.mjs';
 export {
+  ANALYSIS_PROVIDER_HOSTS,
   ALLOWED_MODEL_HOSTS,
   BROAD_HOST_PATTERNS,
   CLOUD_TRANSLATION_HOSTS,

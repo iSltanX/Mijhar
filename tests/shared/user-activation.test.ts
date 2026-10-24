@@ -33,7 +33,7 @@ describe('حراسة ساكنة على src', () => {
 
   it('كل ملف فيه زر «موافق» (consent-confirm) يمرر معالجه بـisTrustedActivation', () => {
     const withConfirm = files.filter((f) => /data-action="consent-confirm"/.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
-    expect(withConfirm.sort()).toEqual(['src/modules/c/model-manager/consent-panel.tsx', 'src/modules/f/phrasebank/translate-draft.tsx']);
+    expect(withConfirm.sort()).toEqual(['src/modules/c/model-manager/consent-panel.tsx', 'src/modules/e/provider/ui/ConsentSheet.tsx', 'src/modules/f/phrasebank/translate-draft.tsx']);
     for (const f of withConfirm) {
       const text = fs.readFileSync(path.join(ROOT, f), 'utf8');
       const button = text.slice(text.indexOf('data-action="consent-confirm"'));

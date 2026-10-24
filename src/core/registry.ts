@@ -11,6 +11,7 @@ import { SEARCH_MODULE } from '../modules/b/search/module';
 import { TOURS_MODULE } from '../modules/b/tours/module';
 import { TRANSLATE_MODULE } from '../modules/c/ui/module';
 import { COMPARE_MODULE } from '../modules/d/compare/module';
+import { ANALYSIS_MODULE } from '../modules/d/analysis/module';
 import { LOG_MODULE } from '../modules/d/log-parser/module';
 import { PR_STATUS_MODULE } from '../modules/d/pr-status/module';
 import { CONTEXT_BUILDER_MODULE } from '../modules/e/builder/module';
@@ -110,6 +111,7 @@ export const BUILTIN_MODULES: readonly ExtensionModule[] = [
   TOURS_MODULE, // MJ13 (T-3.5): الوحدة (ب): الجولات الإرشادية القرائية الآمنة
   CONTEXT_BUILDER_MODULE, // MJ15 (T-6.1): الوحدة (هـ): منشئ حزمة السياق
   COPY_PROMPT_MODULE, // MJ20 (T-11.3): الوحدة (هـ): زر نسخ البرومبت
+  ANALYSIS_MODULE, // MJ21 (T-11.7): الوحدة (د): التحليل في صفحة المشكلة (وفي الفحوص وطلب الدمج داخل قسميهما)
 ];
 
 export function createModuleRegistry(modules: readonly ExtensionModule[] = BUILTIN_MODULES): ModuleRegistry {

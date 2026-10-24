@@ -99,7 +99,8 @@ function Block({ block }: { block: MessageBlock }) {
   );
 }
 
-export function LogAnalysisView({ analysis, children }: { analysis: LogAnalysis; children?: ComponentChildren }) {
+/** analysisSlot (MJ21، T-11.7): تحليل المزوّد داخل الطبقة الثالثة وحدها، موسومًا «احتمال يحتاج تحققًا»؛ ولا يدخل طبقتي الحقيقة والسبب المثبت. */
+export function LogAnalysisView({ analysis, children, analysisSlot }: { analysis: LogAnalysis; children?: ComponentChildren; analysisSlot?: ComponentChildren }) {
   const { location } = analysis;
   return (
     <section class="d-card" data-card="log-analysis" aria-labelledby="mj-log-title">
@@ -194,6 +195,7 @@ export function LogAnalysisView({ analysis, children }: { analysis: LogAnalysis;
         ) : (
           <p class="d-note">لا احتمالات مقترحة من نص السجل.</p>
         )}
+        {analysisSlot}
       </section>
       {children}
     </section>

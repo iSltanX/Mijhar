@@ -24,6 +24,28 @@ export const CONNECTED_FEATURES = [
     requires: ['github-token'],
     benefit: 'تقرأ الخلفية الطلب وحماية الفرع وحالة الالتزام ومهام Actions برمزك للقراءة فقط، ويبقى ما تعرضه الصفحة كما هو.',
   },
+  // MJ21 (T-11.7، AC-D9): التحليل داخل أقسامه الثلاثة، بموافقة على كل طلب.
+  {
+    id: 'd.analysis.checks',
+    title: 'حلّل الفشل واقترح الإصلاح',
+    section: 'شرح سجل الفحص',
+    requires: ['provider-key'],
+    benefit: 'تحليل نصّي في الطبقة الثالثة موسوم «احتمال يحتاج تحققًا» بأدلته وما نقص منها؛ ولا يُرسل شيء قبل موافقتك على ما يُرسل ووجهته.',
+  },
+  {
+    id: 'd.analysis.pr',
+    title: 'راجع تغييرات الطلب',
+    section: 'ملخص حالة طلب الدمج',
+    requires: ['provider-key'],
+    benefit: 'نقاط مراجعة مقترحة موسومة «احتمال يحتاج تحققًا» بأدلتها؛ ولا يُرسل شيء قبل موافقتك على ما يُرسل ووجهته.',
+  },
+  {
+    id: 'd.analysis.issue',
+    title: 'افهم المشكلة والخطوة التالية',
+    section: 'صفحة المشكلة',
+    requires: ['provider-key'],
+    benefit: 'ملخص مقترح للمشكلة وما ينقصها وخطوة تالية، موسوم «احتمال يحتاج تحققًا» بأدلته؛ ولا يُرسل شيء قبل موافقتك.',
+  },
 ] as const satisfies readonly ConnectedFeature[];
 
 export type FeatureId = (typeof CONNECTED_FEATURES)[number]['id'];

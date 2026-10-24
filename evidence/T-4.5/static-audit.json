@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-10-24T04:59:02.725Z",
+  "measuredAt": "2026-10-24T12:59:37.698Z",
   "translationPathDirs": [
     "src/modules/c/engines/",
     "src/modules/c/masking/",
@@ -17,6 +17,10 @@
         },
         {
           "host": "api.github.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.anthropic.com",
           "where": "optional_host_permissions"
         },
         {
@@ -48,6 +52,10 @@
           "where": "optional_host_permissions"
         },
         {
+          "host": "api.anthropic.com",
+          "where": "optional_host_permissions"
+        },
+        {
           "host": "github.com",
           "where": "content_scripts[0].matches"
         },
@@ -72,6 +80,10 @@
         },
         {
           "host": "api.github.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.anthropic.com",
           "where": "optional_host_permissions"
         },
         {
@@ -103,6 +115,10 @@
           "where": "optional_host_permissions"
         },
         {
+          "host": "api.anthropic.com",
+          "where": "optional_host_permissions"
+        },
+        {
           "host": "github.com",
           "where": "content_scripts[0].matches"
         },
@@ -119,7 +135,7 @@
     }
   },
   "sources": {
-    "scanned": 337,
+    "scanned": 401,
     "translationPathFiles": 37,
     "networkUsage": {
       "src/modules/d/log-parser/module.tsx": [
@@ -153,7 +169,10 @@
       "src/modules/d/pr-status/module.tsx": [
         "github.com"
       ],
-      "src/modules/e/builder/build.ts": [
+      "src/modules/e/context/build.ts": [
+        "github.com"
+      ],
+      "src/modules/e/context/collect.ts": [
         "github.com"
       ],
       "src/modules/g/anchor/types.ts": [
@@ -200,6 +219,16 @@
       ],
       "src/modules/h/readme-wizard/query.ts": [
         "github.com"
+      ],
+      "src/options/guide/ProviderKeyGuide.tsx": [
+        "privacy.claude.com"
+      ],
+      "src/options/guide/template-url.ts": [
+        "github.com",
+        "docs.github.com"
+      ],
+      "src/options/main.tsx": [
+        "api.anthropic.com"
       ]
     }
   },
@@ -208,7 +237,7 @@
       "findings": [],
       "summary": {
         "dist/chromium/background.js": {
-          "bytes": 304994,
+          "bytes": 346562,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -216,7 +245,7 @@
           "networkApis": []
         },
         "dist/chromium/content.js": {
-          "bytes": 1204198,
+          "bytes": 1357295,
           "hosts": [
             "schema.org",
             "github.com",
@@ -230,16 +259,19 @@
           ]
         },
         "dist/chromium/options.js": {
-          "bytes": 303482,
+          "bytes": 406130,
           "hosts": [
             "api.github.com",
             "www.w3.org",
-            "github.com"
+            "github.com",
+            "docs.github.com",
+            "privacy.claude.com",
+            "api.anthropic.com"
           ],
           "networkApis": []
         },
         "dist/chromium/reader.js": {
-          "bytes": 291514,
+          "bytes": 305765,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -247,7 +279,7 @@
           "networkApis": []
         },
         "dist/chromium/sidepanel.js": {
-          "bytes": 745389,
+          "bytes": 780842,
           "hosts": [
             "www.w3.org",
             "api.github.com",
@@ -264,7 +296,7 @@
       "findings": [],
       "summary": {
         "dist/firefox/background.js": {
-          "bytes": 304992,
+          "bytes": 346560,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -272,7 +304,7 @@
           "networkApis": []
         },
         "dist/firefox/content.js": {
-          "bytes": 1204197,
+          "bytes": 1357338,
           "hosts": [
             "schema.org",
             "github.com",
@@ -286,16 +318,19 @@
           ]
         },
         "dist/firefox/options.js": {
-          "bytes": 303479,
+          "bytes": 406142,
           "hosts": [
             "api.github.com",
             "www.w3.org",
-            "github.com"
+            "github.com",
+            "docs.github.com",
+            "privacy.claude.com",
+            "api.anthropic.com"
           ],
           "networkApis": []
         },
         "dist/firefox/reader.js": {
-          "bytes": 291512,
+          "bytes": 305763,
           "hosts": [
             "www.w3.org",
             "github.com"
@@ -303,7 +338,7 @@
           "networkApis": []
         },
         "dist/firefox/sidepanel.js": {
-          "bytes": 745387,
+          "bytes": 780840,
           "hosts": [
             "www.w3.org",
             "api.github.com",
