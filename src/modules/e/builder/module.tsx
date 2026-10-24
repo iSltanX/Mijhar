@@ -3,18 +3,20 @@
 //  - الجمع عند فتح النافذة وعند «أعد الجمع» وحدهما، من DOM الصفحة، بلا أي طلب شبكة (لا fetch في هذه الوحدة).
 //  - مقتطفات الأدلة: آخر نص حدّده المستخدم في الصفحة (خارج واجهتنا) يُضاف بنقر صريح.
 //  - النسخ يدوي بنقر (AD-06): writeText في معالج النقر نفسه، والبديل execCommand('copy') من حقل المعاينة داخل جذر الظل (evidence/T-0.5).
+//  - التنزيل `.md` (T-6.2) محلي بنقر أيضًا: Blob ورابط blob: وعنصر a[download] داخل جذر الظل، بلا صلاحية downloads ولا شبكة.
 import type { ExtensionModule, ModuleContext } from '../../../core';
 import { mountSurface } from '../../../core/ui-host/surface';
 import { JOB_PAGE_SELECTORS, isJobPath } from '../../d/log-parser/job-page';
 import { PR_STATUS_SELECTORS } from '../../d/pr-status/extract';
 import { squash } from '../../d/pr-status/value';
+import { PRIVACY_CSS } from '../privacy-check';
 import type { Snippet } from './build';
 import { BUILDER_SELECTORS, collectContext } from './collect';
 import type { ContextPageKind, ContextSource } from './collect';
 import { BUILDER_MODULE_ID } from './ids';
 import { BUILDER_CSS } from './style';
 import { BuilderPanel } from './view';
-import type { CopyResult } from './view';
+import type { CopyResult, DownloadResult } from './view';
 
 export { BUILDER_MODULE_ID };
 
@@ -22,6 +24,8 @@ export interface BuilderOptions {
   readonly now?: () => number;
   /** النسخ (للاختبار). الافتراضي الحافظة ثم البديل من حقل المعاينة. */
   readonly copy?: (text: string, preview: HTMLTextAreaElement | null) => Promise<CopyResult>;
+  /** التنزيل (للاختبار). الافتراضي downloadMarkdown. */
+  readonly download?: (text: string, fileName: string, host: ParentNode) => Promise<DownloadResult>;
 }
 
 const ANCHOR = {
@@ -53,6 +57,29 @@ export async function copyWithFallback(text: string, preview: HTMLTextAreaElemen
   preview.select();
   try {
     return preview.ownerDocument.execCommand('copy') ? 'copied' : 'failed';
+  } catch {
+    return 'failed';
+  }
+}
+
+/** ينزّل النص ملف Markdown: Blob محلي ورابط blob: لعنصر a[download] داخل `host` (جذر الظل) ينقر عليه. بلا شبكة ولا صلاحية downloads. */
+export async function downloadMarkdown(text: string, fileName: string, host: ParentNode & Node): Promise<DownloadResult> {
+  const doc = host.ownerDocument;
+  if (!doc || typeof URL === 'undefined' || typeof URL.createObjectURL !== 'function') return 'failed';
+  try {
+    const url = URL.createObjectURL(new Blob([text], { type: 'text/markdown;charset=utf-8' }));
+    const link = doc.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.rel = 'noopener';
+    link.hidden = true;
+    // نقرة التنزيل لا تخرج إلى معالجات صفحة GitHub (روابط Turbo وغيرها).
+    link.addEventListener('click', (event) => event.stopPropagation());
+    host.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    return 'downloaded';
   } catch {
     return 'failed';
   }
@@ -95,7 +122,7 @@ class BuilderController {
   start(): void {
     const { ctx } = this;
     const spot = this.place();
-    this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: BUILDER_CSS, label: 'حزمة السياق' });
+    this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: BUILDER_CSS + PRIVACY_CSS, label: 'حزمة السياق' });
     ctx.listen(ctx.document, 'selectionchange', () => this.trackSelection());
     this.draw();
   }
@@ -170,6 +197,7 @@ class BuilderController {
               this.draw();
             }}
             copy={(text) => (this.options.copy ?? copyWithFallback)(text, surface.root.querySelector<HTMLTextAreaElement>('[data-preview]'))}
+            download={(text, fileName) => (this.options.download ?? downloadMarkdown)(text, fileName, surface.root)}
             {...(this.collectedAt !== undefined ? { collectedAt: this.collectedAt } : {})}
           />
         )}
