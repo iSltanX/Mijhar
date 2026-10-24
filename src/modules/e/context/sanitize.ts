@@ -8,6 +8,7 @@
 //       أي نص»، وفاحصها يظلّل ما يرصده بموضعه في النص الذي سيُنسخ.
 // دالة نقية بلا شبكة ولا حالة.
 import type { LogAnalysis } from '../../d/log-parser/parse';
+import { groupMessages } from '../../d/log-parser/view';
 import { scanText } from '../privacy-check/scan';
 import type { Finding } from '../privacy-check/scan';
 import type { ChangedFile, Changes, CommentInfo, ContextPageKind, ContextSource, Gap, PrStatus, Snippet } from './collect';
@@ -127,7 +128,7 @@ export interface SanitizedContext {
   readonly log: SanitizedLog | null;
   readonly changes: SanitizedChanges | null;
   /** ما كان متاحًا في المجموع قبل الاختيار (للجرد: «لم يُختر» غير «لم يصل»)، بلا أي محتوى. */
-  readonly available: Readonly<Record<'repo' | 'title' | 'description' | 'checks' | 'error' | 'status' | 'log' | 'changes', boolean>> & { readonly comments: number; readonly snippets: number };
+  readonly available: Readonly<Record<'repo' | 'branch' | 'title' | 'description' | 'checks' | 'error' | 'status' | 'log' | 'changes', boolean>> & { readonly comments: number; readonly snippets: number };
   /** فجوات الجمع (كلها، اختير جزؤها أم لا). */
   readonly gaps: readonly Gap[];
   /** ما اقتطعه المنقّح، بترتيب الأجزاء. */
@@ -144,14 +145,16 @@ function clip(text: string, max: number): { text: string; cut: { lines: number; 
 
 const ORIGIN: Readonly<Record<LogAnalysis['messages'][number]['origin'], string>> = { 'error-marker': '##[error]', 'pattern-line': 'سطر طابق نمطًا', annotation: 'تنبيه' };
 
-/** الطبقة الأولى من التحليل نصًّا: لكل رسالة موضعها ثم أسطرها المحيطة بأرقامها (والسطر نفسه بعلامة >). */
+/** الطبقة الأولى من التحليل نصًّا: لكل كتلة رسائل متجاورة (بتجميع شرح السجل نفسه) موضعها ثم أسطرها بأرقامها، والسطر المقصود بعلامة >. */
 function logExcerpt(log: LogAnalysis): string | null {
   const out: string[] = [];
-  for (const m of log.messages) {
+  for (const block of groupMessages(log.messages)) {
     if (out.length) out.push('');
-    out.push(`# ${m.step ?? 'خطوة غير معروفة'}${m.line !== null ? ` — السطر ${m.line}` : ''} (${ORIGIN[m.origin]})`);
-    if (m.context.length) for (const c of m.context) out.push(`${c.focus ? '>' : ' '} ${c.number} | ${c.text}`);
-    else for (const line of m.text.split('\n')) out.push(`> ${line}`);
+    const numbers = block.messages.map((m) => m.line).filter((n): n is number => n !== null);
+    const origins = [...new Set(block.messages.map((m) => ORIGIN[m.origin]))].join('، ');
+    out.push(`# ${block.messages[0]?.step ?? 'خطوة غير معروفة'}${numbers.length ? ` — ${numbers.length > 1 ? 'الأسطر' : 'السطر'} ${numbers.join('، ')}` : ''} (${origins})`);
+    if (block.lines.length) for (const c of block.lines) out.push(`${c.focus ? '>' : ' '} ${c.number} | ${c.text}`);
+    else for (const m of block.messages) for (const line of m.text.split('\n')) out.push(`> ${line}`);
   }
   return out.length ? out.join('\n') : null;
 }
@@ -270,6 +273,7 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
     changes: changes === null ? null : pass(changes, 'التغييرات'),
     available: {
       repo: Boolean(source.repo),
+      branch: Boolean(source.branch),
       title: Boolean(source.title),
       description: Boolean(source.description),
       checks: Boolean(source.checks),

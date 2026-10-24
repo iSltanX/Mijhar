@@ -2,7 +2,7 @@
 // منذ T-11.2 تعرض الحزمة بنية طبقة السياق المشتركة (modules/e/context) ولا تبني لنفسها: الاختيار والاقتطاع بحد أسطر معلن وعدّ المقتطع
 // والأجزاء نفسها في الطبقة، والحزمة تمرّر حدودها المعتمدة (DEFAULT_LIMITS) وسياسة الأسرار flag (AD-28: لافتة T-6.3 وإخلاؤها كما هما).
 // وقسم «ما تعذّر جمعه أو اقتُطع لطوله» إلزامي في الحزمة دائمًا، ويجمع فجوات الجمع واقتطاعات التنقيح.
-import { ITEM, buildContext, contextItems, gapsSection, partHeading, sectionLines } from '../context';
+import { ITEM, buildContext, contextItems, gapsSection, partHeading, sectionLines, utcStamp } from '../context';
 import type { ContextSource, ContextStructure, Gap, Limits as ContextLimits, Snippet } from '../context';
 
 /** حدود أسطر كتل الحزمة. */
@@ -30,7 +30,7 @@ export const bundleContext = (source: ContextSource, snippets: readonly Snippet[
   buildContext(source, { snippets, selected, limits, secrets: 'flag' });
 
 export function footerLines(collectedAt?: number): string[] {
-  return ['---', `جُمعت محليًا من الصفحة المفتوحة${collectedAt !== undefined ? ` (${new Date(collectedAt).toISOString().slice(0, 16).replace('T', ' ')} UTC)` : ''} ولم تُرسل إلى أي جهة. راجعها قبل مشاركتها: قد تحوي بيانات خاصة.`];
+  return ['---', `جُمعت محليًا من الصفحة المفتوحة${collectedAt !== undefined ? ` (${utcStamp(collectedAt)})` : ''} ولم تُرسل إلى أي جهة. راجعها قبل مشاركتها: قد تحوي بيانات خاصة.`];
 }
 
 export function buildBundle(source: ContextSource, snippets: readonly Snippet[], selected: ReadonlySet<string>, limits: Limits = DEFAULT_LIMITS, collectedAt?: number): BuiltBundle {

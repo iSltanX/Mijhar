@@ -16,7 +16,7 @@ export { CONTEXT_LIMITS, ITEM, contextItems, limitsOf, maskOf, sanitize } from '
 export type { Limits, SanitizeOptions, SanitizedChanges, SanitizedContext, SanitizedLog, SecretHit, SecretPolicy, SecretsReport } from './sanitize';
 export { PART_KEYS, buildContext, formatParts } from './build';
 export type { ContextOptions, ContextParts, ContextStructure, PartKey, PartState } from './build';
-export { GAPS_HEADING, PAGE_TEXT, fence, gapLine, gapsSection, partHeading, quote, sectionLines } from './format';
+export { GAPS_HEADING, PAGE_TEXT, fence, gapLine, gapsSection, partHeading, quote, sectionLines, utcStamp } from './format';
 export type { Part } from './format';
 export { LINE_LIMIT_DEFAULT, LINE_LIMIT_KEY, defineContextSettings, isLineLimit } from './settings';
 

@@ -10,7 +10,7 @@ import { METHOD_NOTICE } from '../../d/blockers/explain';
 import type { Blocker } from '../../d/blockers/explain';
 import { NO_ROOT_CAUSE_TEXT } from '../../d/log-parser/parse';
 import type { CheckLine, ContextPageKind, ContextSource, Gap, Snippet } from './collect';
-import { PAGE_TEXT, fence, quote } from './format';
+import { PAGE_TEXT, fence, quote, utcStamp } from './format';
 import type { Part } from './format';
 import { sanitize } from './sanitize';
 import type { Limits, SanitizeOptions, SanitizedContext, SecretsReport } from './sanitize';
@@ -39,9 +39,10 @@ export interface ContextParts {
   readonly links: Part | null;
 }
 
-export type PartKey = 'source' | 'description' | 'comments' | 'checks' | 'error' | 'snippets' | 'status' | 'log' | 'changes' | 'links';
+/** source: المستودع والرابط؛ branch: الفرع والتزام الرأس (أو طرفا المقارنة والالتزام). */
+export type PartKey = 'source' | 'branch' | 'description' | 'comments' | 'checks' | 'error' | 'snippets' | 'status' | 'log' | 'changes' | 'links';
 
-export const PART_KEYS: readonly PartKey[] = ['source', 'description', 'comments', 'checks', 'error', 'snippets', 'status', 'log', 'changes', 'links'];
+export const PART_KEYS: readonly PartKey[] = ['source', 'branch', 'description', 'comments', 'checks', 'error', 'snippets', 'status', 'log', 'changes', 'links'];
 
 export type PartState =
   | { readonly state: 'collected'; readonly count: number; readonly note: string | null }
@@ -67,8 +68,6 @@ export interface ContextOptions extends SanitizeOptions {
   readonly collectedAt?: number;
 }
 
-const iso = (at: number): string => `${new Date(at).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
-
 const checkLine = (item: CheckLine): string => `- ${item.failed ? '✗' : '•'} ${item.label}: \`${item.name}\`${item.required === true ? ' — إلزامي' : ''}${item.detail ? ` — ${item.detail}` : ''}`;
 
 function totalsText(totals: { files: number | null; additions: number | null; deletions: number | null }): string | null {
@@ -89,7 +88,7 @@ function statusPart(s: SanitizedContext): Part | null {
   for (const b of report.attention) body.push(...lines(b, 'قد يمنع'));
   if (report.state === 'explained' && !report.blockers.length && !report.attention.length) body.push('- لا مانع دمج في الأدلة المقروءة.');
   for (const note of report.notes) body.push(`- ${note}`);
-  body.push(`- مصدر الأدلة: ${s.status.apiReadAt !== null ? `الصفحة وGitHub API (قُرئت ${iso(s.status.apiReadAt)})` : 'الصفحة وحدها'}.`, `- ${METHOD_NOTICE}`);
+  body.push(`- مصدر الأدلة: ${s.status.apiReadAt !== null ? `الصفحة وGitHub API (قُرئت ${utcStamp(s.status.apiReadAt)})` : 'الصفحة وحدها'}.`, `- ${METHOD_NOTICE}`);
   const counted = report.blockers.length + report.attention.length;
   return { heading: 'الحالة والموانع', detail: counted ? `${report.blockers.length} يمنع، ${report.attention.length} قد يمنع` : null, body };
 }
@@ -212,7 +211,8 @@ export function formatParts(s: SanitizedContext): ContextParts {
   };
 }
 
-const ABSENT: Readonly<Record<'checks' | 'error' | 'log' | 'changes' | 'comments', Readonly<Record<ContextPageKind, string>>>> = {
+const ABSENT: Readonly<Record<'branch' | 'checks' | 'error' | 'log' | 'changes' | 'comments', Readonly<Record<ContextPageKind, string>>>> = {
+  branch: { pr: 'لم يُقرأ الفرع ولا التزام الرأس من ترويسة الطلب', issue: 'صفحة المشكلة لا ترتبط بفرع ولا التزام', job: 'صفحة المهمة لا يُقرأ منها فرع ولا التزام', diff: 'لم يُقرأ طرفا المقارنة ولا الالتزام من مسار الصفحة' },
   checks: { pr: 'لا تعرض الصفحة صفوف الفحوص', issue: 'صفحة المشكلة لا تحمل فحوصًا', job: 'لم تُقرأ خطوات المهمة من الصفحة', diff: 'صفحة الفروق لا تعرض نتائج الفحوص' },
   error: { pr: 'لا فحص فاشل في الصفوف المقروءة', issue: 'صفحة المشكلة لا تحمل فحوصًا فاشلة', job: 'لا تنبيه خطأ في صفحة المهمة', diff: 'صفحة الفروق لا تعرض أخطاء فحوص' },
   log: {
@@ -235,6 +235,7 @@ function inventoryOf(s: SanitizedContext, parts: ContextParts): Record<PartKey, 
   const logGap = gap('السجل') ?? (s.kind === 'job' ? gap('مقتطف الخطأ') : null);
   return {
     source: s.repo ? collected(1) : available.repo ? NOT_SELECTED : missing('لم يُقرأ المستودع من مسار الصفحة'),
+    branch: parts.branch.length ? collected(parts.branch.length, gap('الفرع والالتزام')) : available.branch ? NOT_SELECTED : missing(gap('الفرع والالتزام') ?? ABSENT.branch[s.kind]),
     description: parts.description ? collected(1) : available.title || available.description ? NOT_SELECTED : missing(gap('الوصف') ?? `${PAGE_TEXT[s.kind]} بلا عنوان ولا وصف في الصفحة`),
     comments: s.comments.length ? collected(s.comments.length, s.comments.length < available.comments ? `${s.comments.length} من ${available.comments}` : null) : available.comments ? NOT_SELECTED : missing(gap('التعليقات') ?? ABSENT.comments[s.kind]),
     checks: s.checks ? collected(s.checks.items.length, gap('نتائج الفحوص')) : available.checks ? NOT_SELECTED : missing(gap('نتائج الفحوص') ?? ABSENT.checks[s.kind]),

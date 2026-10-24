@@ -23,6 +23,9 @@ export function gapLine(gap: Gap): string {
 
 export const GAPS_HEADING = 'ما تعذّر جمعه أو اقتُطع لطوله';
 
+/** وقت بالدقيقة بتوقيت UTC: «2026-10-24 09:30 UTC». */
+export const utcStamp = (at: number): string => `${new Date(at).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
+
 export const PAGE_TEXT: Readonly<Record<ContextPageKind, string>> = { pr: 'طلب الدمج', issue: 'المشكلة', job: 'مهمة Actions', diff: 'صفحة الفروق' };
 
 /** جزء من بنية السياق: عنوانه الأساسي وتفصيله (العدد أو الملخص بين قوسين) وسطور متنه (بلا العنوان ولا سطر فارغ أخير). */
