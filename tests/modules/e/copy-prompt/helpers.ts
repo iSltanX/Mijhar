@@ -4,6 +4,7 @@ import type { ExtensionModule } from '../../../../src/core';
 import { COLLECTOR_SELECTORS, prepareContext } from '../../../../src/modules/e/context';
 import type { ContextStructure } from '../../../../src/modules/e/context';
 import { flush, hostsOf, mountModules } from '../../d/helpers';
+import { trustedClick } from '../../../shared/trusted-click';
 import { loadFile, pageAt } from '../helpers';
 import { SAMPLES } from '../context/samples';
 import type { Sample } from '../context/samples';
@@ -25,10 +26,12 @@ export function view() {
   const q = <E extends Element = HTMLElement>(sel: string) => root()?.querySelector(sel) as E | null;
   const state = () => q('[data-copy-prompt]')?.getAttribute('data-state') ?? null;
   const label = () => (q('[data-label]')?.textContent ?? '').trim();
+  // MJ22 (AD-33): زر التنزيل يقبل نقرة المستخدم الموثوقة وحدها، فيُنقر كما ينقره المستخدم؛ وغيره كما كان.
   const click = async (sel: string) => {
     const el = q<HTMLElement>(sel);
     if (!el) throw new Error(`لا عنصر: ${sel}`);
-    el.click();
+    if (sel.includes('download')) trustedClick(el);
+    else el.click();
     await flush();
   };
   return { host, root, q, state, label, click };

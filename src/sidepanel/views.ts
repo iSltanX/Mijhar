@@ -11,6 +11,7 @@ import { EXPORT_DRAWER_VIEW, EXPORT_PANEL_VIEW } from '../modules/g/export/view'
 import { NOTES_DRAWER_VIEW, NOTES_PANEL_VIEW } from '../modules/g/notes/view';
 import { README_WIZARD_VIEWS } from '../modules/h/readme-wizard/view';
 import { COMMUNITY_PANEL_VIEWS } from '../modules/h/views';
+import { EXECUTION_PANEL_VIEWS } from '../modules/f/execution/view';
 
 /** التبويبات الأربعة الأولى من المستوى 3 (EXECUTION_PLAN.md ‏5)؛ الخامس «الإعدادات والخصوصية» يملكه المضيف. */
 export type PanelTabId = 'context' | 'glossary' | 'notes' | 'community';
@@ -44,4 +45,5 @@ export const PANEL_VIEWS: readonly PanelView[] = [
   EXPORT_PANEL_VIEW, // MJ13 (T-8.4): التصدير والاستيراد والاستعادة والحذف (اللوحة الأصلية)
   EXPORT_DRAWER_VIEW, // MJ13 (T-8.4): تنبيه الجهاز المشترك في الدرج (بلا حقول إدخال)
   ...README_WIZARD_VIEWS, // MJ12 (T-9.2): معالج اقتراح README عربي
+  ...EXECUTION_PANEL_VIEWS, // MJ22 (T-11.8): تجهيز تعديل (اللوحة الأصلية؛ وفي الدرج رسالة تدل عليه)
 ];

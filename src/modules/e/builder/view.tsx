@@ -2,7 +2,9 @@
 // جمعه أو اقتُطع لطوله يظهر هنا وفي الحزمة نفسها، والنسخ يدوي بنقر المستخدم (AD-06): لا إرسال إلى أي جهة.
 // T-6.2: محدّد القوالب الأربعة، والمعاينة قابلة للتعديل اليدوي وما تحمله هو ما يُنسخ أو يُنزَّل `.md` (تعديلاتها لا يستبدلها تغيير الاختيار).
 // T-6.3: لافتة البيانات الخاصة والفاحص التحذيري على نص المعاينة الحالي (بتعديلاتها)، ولا يغيّر الفاحص شيئًا منه.
+// MJ22 (AD-33، I-1): زر التنزيل يقبل نقرة المستخدم الموثوقة وحدها (AD-27)؛ والنقر البرمجي من سكربت الصفحة لا ينزّل شيئًا.
 import { useMemo, useRef, useState } from 'preact/hooks';
+import { isTrustedActivation } from '../../../shared/ui/user-activation';
 import { GAPS_HEADING, ITEM } from '../context';
 import type { ContextSource, Gap, Snippet } from '../context';
 import { PrivacyCheck, scanText } from '../privacy-check';
@@ -215,7 +217,7 @@ export function BuilderPanel(props: BuilderPanelProps) {
             <button type="button" class="btn btn-primary" data-action="builder-copy" onClick={copy}>
               انسخ الحزمة
             </button>
-            <button type="button" class="btn" data-action="builder-download" disabled={!props.download} onClick={download}>
+            <button type="button" class="btn" data-action="builder-download" disabled={!props.download} onClick={(event) => isTrustedActivation(event) && download()}>
               نزّل كملف .md
             </button>
             <button type="button" class="btn" data-action="builder-recollect" onClick={props.onRecollect}>

@@ -1,0 +1,9 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj22-5aef3e
+
+
+ Test Files  9 passed (9)
+      Tests  133 passed (133)
+   Start at  18:04:58
+   Duration  2.13s (environment 33%, tests 29%, transform 22%, import 15%)
+

@@ -2,6 +2,9 @@
 // جزء البنية بعينه أو سطر «لم يصل» إن غاب؛ و«المعلومات الناقصة» آخر كل برومبت: فجوات الجمع وما اقتُطع بعدد أسطره، ثم كل قسم لم يصل جزؤه
 // بسببه من جرد البنية، ثم ما حُجب من الأسرار المحتملة. لا يحوي البرومبت نص الصفحة كاملًا بلا تمييز ولا بيانًا لم يصل إلى البنية؛ ولا يُبنى
 // إلا من بنية منقّحة بالحجب (mask)، فلا يبقى فيه سرّ مطابق للقائمة المعرّفة (AC-E8).
+// MJ22 (T-11.9، AC-F7 (٣)): كل ما نُقل من الصفحة (الموضوع وأجزاء البنية) بين حدّين صريحين يفصلانه عن تعليمات مِجهَر، ويسبقه سطر يقول إن ما بينهما
+// بيانات لا تعليمات (src/core/guardrails/boundaries.ts)؛ وما كتبه مِجهَر («المطلوب» و«المعلومات الناقصة» وسطر الختام) خارجهما.
+import { BOUNDARY_RULE, bounded } from '../../../core/guardrails/boundaries';
 import { PAGE_TEXT, buildContext, gapLine, maskOf, partHeading, sectionLines, utcStamp } from '../context';
 import type { ContextOptions, ContextSource, ContextStructure, Part, PartState } from '../context';
 import { CLOSING_LINE, MISSING_HEADING, NOT_RECEIVED_LINE, PART_INVENTORY, promptOf, sectionsFor } from './definitions';
@@ -32,13 +35,13 @@ export const promptHeadings = (id: PromptId, kind: ContextStructure['kind']): st
 export function renderPrompt(def: PromptDef | PromptId, ctx: ContextStructure): BuiltPrompt {
   if (ctx.secrets.policy !== 'mask') throw new Error('البرومبت يُبنى من بنية سياق منقّحة بحجب الأسرار (secrets: mask)');
   const prompt = typeof def === 'string' ? promptOf(def) : def;
-  const lines: string[] = [`# ${prompt.label}: ${ctx.subject}`, '', `قالب البرومبت: ${prompt.label} (${prompt.english}) · ${PAGE_TEXT[ctx.kind]}`, ''];
+  const lines: string[] = [`# ${prompt.label}`, '', `قالب البرومبت: ${prompt.label} (${prompt.english}) · ${PAGE_TEXT[ctx.kind]}`, BOUNDARY_RULE, '', ...bounded([`الموضوع: ${ctx.subject}`]), ''];
   // الأقسام التي لم يصل جزؤها، مجمّعة بجرد الجزء (السجل وما استخرجه محلله سببهما واحد).
   const notReceived = new Map<string, { headings: string[]; reason: string }>();
   const sectionOf = (spec: PromptSection): string[] => {
     if (spec.kind === 'fixed') return sectionLines(spec.heading, spec.lines);
     const part = partOf(ctx, spec.part);
-    if (part && part.body.length) return sectionLines(part.detail ? partHeading(part, spec.heading) : spec.heading, part.body);
+    if (part && part.body.length) return sectionLines(part.detail ? partHeading(part, spec.heading) : spec.heading, bounded(part.body));
     const key = PART_INVENTORY[spec.part];
     const entry = notReceived.get(key) ?? { headings: [], reason: reasonOf(ctx.inventory[key]) };
     entry.headings.push(spec.heading);

@@ -8,6 +8,9 @@
 //    وتعيد المستخدم إلى الميزة التي طلبت الربط.
 //  - طبقة المزوّد (MJ21، T-11.6): تقرأ مفتاح المزوّد من مخزنه لكل طلب وتضيفه إلى طلب المحوّل هنا وحده (لا رمز GitHub معه)، ولا طلب إلا
 //    بالتحقق المعلن من الإعدادات أو بموافقة القسم؛ وتحترم موعد إعادة المحاولة المعلن ولا تكرر طلبًا جاريًا من القسم نفسه.
+//  - مسار الإنجاز (MJ22، T-11.8): تقرأ رمز الكتابة من مخزنه المستقل لخطوة التنفيذ وحدها، وتقبلها من صفحة الإضافة وحدها (من sender لا من
+//    الرسالة)، وتكتب عبر بوابة الكتابة الثلاثية (src/core/guardrails/write-gate.ts). ولا يصل رمز الكتابة عميل القراءة ولا طبقة المزوّد ولا سجل
+//    الاتصالات (يرى وقت حفظه ومكانه وحدهما).
 // الاستيراد من الملفات مباشرة لا من ../core: الخلفية لا ترسم واجهة، فلا تحمل Preact.
 import { extensionApi } from '../core/ui-host/browser-api';
 import type { ExtensionApi } from '../core/ui-host/browser-api';
@@ -38,6 +41,8 @@ import { isProviderRequest } from '../modules/e/provider/port';
 import { ProviderService, extensionModelsCache } from '../modules/e/provider/service';
 import type { ModelsCache } from '../modules/e/provider/service';
 import { isNotesWriteRequest } from '../modules/g/notes/writer';
+import { isExecutionRequest } from '../modules/f/execution/port';
+import { ExecutionService } from '../modules/f/execution/service';
 
 export interface BackgroundOptions {
   readonly api?: ExtensionApi;
@@ -52,6 +57,10 @@ export interface BackgroundOptions {
   readonly providerKeys?: Pick<SecretStore, 'info' | 'read'> | null;
   /** fetch لطلبات المزوّد (للاختبار). الافتراضي fetch العام. */
   readonly providerFetch?: typeof fetch;
+  /** مخزن رمز الكتابة (للاختبار). الافتراضي مفتاحاه المستقلان؛ null بلا رمز. */
+  readonly writeToken?: Pick<SecretStore, 'info' | 'read'> | null;
+  /** fetch لطلبات الكتابة (للاختبار). الافتراضي fetch العام. */
+  readonly writeFetch?: typeof fetch;
   /** قائمة المودلات المقروءة (للاختبار). الافتراضي storage.session. */
   readonly modelsCache?: ModelsCache;
   /** سجل صحة الاتصالات (للاختبار). الافتراضي storage.session. */
@@ -83,8 +92,10 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
   // MJ18 (T-11.1): سجل الاتصالات. مخزن كل سرّ يُقرأ منه وقت الحفظ ومكانه فقط، والصحة من الاستجابات التي تمر بالخلفية.
   const tokens = options.tokens === undefined ? extensionTokenStore() : options.tokens;
   const providerKeys = options.providerKeys === undefined ? connectionSecretStore('provider-key') : options.providerKeys;
+  const writeToken = options.writeToken === undefined ? connectionSecretStore('github-write') : options.writeToken;
   const connections = new ConnectionsService({
-    stores: { ...(tokens ? { 'github-token': tokens } : {}), ...(providerKeys ? { 'provider-key': providerKeys } : {}) },
+    // MJ22: سجل الاتصالات يرى وقت حفظ رمز الكتابة ومكانه (info) وحدهما، لا قيمته.
+    stores: { ...(tokens ? { 'github-token': tokens } : {}), ...(providerKeys ? { 'provider-key': providerKeys } : {}), ...(writeToken ? { 'github-write': { info: () => writeToken.info() } } : {}) },
     log: options.healthLog ?? extensionHealthLog(),
     fixable: READ_PERMISSIONS.map((p) => p.param),
     api,
@@ -133,6 +144,19 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     onError: (error) => console.error('[mijhar] طبقة المزوّد', error),
   });
 
+  // MJ22 (T-11.8): خطوة التنفيذ. رمز الكتابة يصلها وحدها، ورمز القراءة لمقارنتهما وحدها (سرّان مختلفان).
+  const execution = new ExecutionService({
+    writeToken,
+    readToken: tokens,
+    permissions: api.permissions ?? null,
+    ...(options.writeFetch ? { fetch: options.writeFetch } : {}),
+    connections,
+    onError: (error) => console.error('[mijhar] مسار الإنجاز', error),
+  });
+  // صفحة من الإضافة نفسها (اللوحة الأصلية أو الإعدادات)، لا سكربت محتوى في صفحة GitHub ولا الدرج.
+  const extensionOrigin = api.runtime.getURL('');
+  const fromExtensionPage = (sender: { url?: string }): boolean => typeof sender.url === 'string' && sender.url.startsWith(extensionOrigin);
+
   // VR-01: الوسيط ينتظر فتح المخزن (ومعه الترحيل) قبل أول كتابة.
   const notesBroker = new NotesBroker(() => ready.then(({ store }) => openParts(store)));
 
@@ -151,6 +175,10 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     if (isProviderRequest(message)) {
       // التبويب من sender لا من الرسالة: طلب واحد جارٍ لكل قسم في التبويب.
       void provider.handle(message, String(sender.tab?.id ?? sender.url ?? 'extension')).then(sendResponse, () => sendResponse(null));
+      return true;
+    }
+    if (isExecutionRequest(message)) {
+      void execution.handle(message, fromExtensionPage(sender)).then(sendResponse, () => sendResponse(null));
       return true;
     }
     if (isConnectionsRequest(message)) {

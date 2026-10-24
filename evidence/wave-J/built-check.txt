@@ -1,0 +1,46 @@
+
+== chromium: اجتاز
+✓ background.js مبني
+✓ content.js مبني
+✓ options.js مبني
+✓ sidepanel.js مبني
+✓ مفتاحا رمز الكتابة في background.js وoptions.js وحدهما
+✓ رمز القراءة ورمز الكتابة في مفتاحين مستقلين (لا يشترك ملف في مفتاح واحد لهما)
+✓ عمليات الكتابة الثلاث (الفرع والملف والطلب) في background.js وحده
+✓ طريقة PUT في background.js وحده
+✓ لا دمج (/merge) ولا DELETE ولا PATCH في أي ملف
+✓ ترويسة Authorization لا تُبنى في content.js ولا sidepanel.js
+✓ خدمة التنفيذ في background.js وحده
+✓ موافقة النطاق في حزمة اللوحة (sidepanel.js) لا في background.js ولا options.js
+✓ لا eval( في أي ملف مبني
+✓ لا new Function في أي ملف مبني
+✓ لا setTimeout(نص) في أي ملف مبني
+✓ لا innerHTML = (بمحتوى) في أي ملف مبني
+✓ لا outerHTML = في أي ملف مبني
+✓ لا insertAdjacentHTML في أي ملف مبني
+✓ لا document.write في أي ملف مبني
+✓ لا executeScript في أي ملف مبني
+✓ لا createContextualFragment في أي ملف مبني
+
+== firefox: اجتاز
+✓ background.js مبني
+✓ content.js مبني
+✓ options.js مبني
+✓ sidepanel.js مبني
+✓ مفتاحا رمز الكتابة في background.js وoptions.js وحدهما
+✓ رمز القراءة ورمز الكتابة في مفتاحين مستقلين (لا يشترك ملف في مفتاح واحد لهما)
+✓ عمليات الكتابة الثلاث (الفرع والملف والطلب) في background.js وحده
+✓ طريقة PUT في background.js وحده
+✓ لا دمج (/merge) ولا DELETE ولا PATCH في أي ملف
+✓ ترويسة Authorization لا تُبنى في content.js ولا sidepanel.js
+✓ خدمة التنفيذ في background.js وحده
+✓ موافقة النطاق في حزمة اللوحة (sidepanel.js) لا في background.js ولا options.js
+✓ لا eval( في أي ملف مبني
+✓ لا new Function في أي ملف مبني
+✓ لا setTimeout(نص) في أي ملف مبني
+✓ لا innerHTML = (بمحتوى) في أي ملف مبني
+✓ لا outerHTML = في أي ملف مبني
+✓ لا insertAdjacentHTML في أي ملف مبني
+✓ لا document.write في أي ملف مبني
+✓ لا executeScript في أي ملف مبني
+✓ لا createContextualFragment في أي ملف مبني

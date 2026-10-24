@@ -11,6 +11,7 @@ import { PRIVACY_BANNER, PRIVACY_DISCLAIMER } from '../../../src/modules/e/priva
 import { TEMPLATES } from '../../../src/modules/e/templates';
 import { flush, hostsOf, mountModules } from '../d/helpers';
 import { E_FIXTURE, loadFile } from './helpers';
+import { trustedClick } from '../../shared/trusted-click';
 
 const NOW = Date.UTC(2026, 9, 24, 9, 30);
 // رموز وهمية تُركَّب وقت التشغيل.
@@ -54,10 +55,12 @@ async function mounted(extra: { download?: boolean } = {}) {
   const q = <E extends Element = HTMLElement>(sel: string) => root().querySelector(sel) as E | null;
   const area = () => q<HTMLTextAreaElement>('[data-preview]') as HTMLTextAreaElement;
   const preview = () => area().value;
+  // MJ22 (AD-33): زر التنزيل يقبل نقرة المستخدم الموثوقة وحدها، فيُنقر كما ينقره المستخدم؛ وغيره كما كان.
   const click = async (sel: string) => {
     const el = q<HTMLElement>(sel);
     if (!el) throw new Error(`لا عنصر: ${sel}`);
-    el.click();
+    if (sel.includes('download')) trustedClick(el);
+    else el.click();
     await flush();
   };
   const type = async (text: string) => {
@@ -266,8 +269,11 @@ describe('التنزيل الافتراضي (Blob محلي ورابط blob:)', (
     loadFile(E_FIXTURE);
     const { manager } = await mountModules([createContextBuilderModule({ now: () => NOW })]);
     const root = hostsOf('e.builder')[0]?.shadowRoot as ShadowRoot;
+    // MJ22 (AD-33): زر التنزيل بنقرة موثوقة كما ينقره المستخدم.
     const press = async (sel: string) => {
-      (root.querySelector(sel) as HTMLElement).click();
+      const el = root.querySelector(sel) as HTMLElement;
+      if (sel.includes('download')) trustedClick(el);
+      else el.click();
       await flush();
     };
     await press('[data-action="builder-toggle"]');

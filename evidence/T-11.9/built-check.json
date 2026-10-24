@@ -1,0 +1,329 @@
+{
+  "checkedAt": "2026-10-24T15:01:10.417Z",
+  "results": [
+    {
+      "target": "chromium",
+      "files": [
+        "background.js",
+        "content.js",
+        "options.js",
+        "reader.js",
+        "sidepanel.js"
+      ],
+      "items": [
+        {
+          "id": "file:background.js",
+          "title": "background.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "file:content.js",
+          "title": "content.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "file:options.js",
+          "title": "options.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "file:sidepanel.js",
+          "title": "sidepanel.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "write-key-holders",
+          "title": "مفتاحا رمز الكتابة في background.js وoptions.js وحدهما",
+          "pass": true,
+          "detail": [
+            "background.js",
+            "options.js"
+          ]
+        },
+        {
+          "id": "separate-keys",
+          "title": "رمز القراءة ورمز الكتابة في مفتاحين مستقلين (لا يشترك ملف في مفتاح واحد لهما)",
+          "pass": true,
+          "detail": {
+            "readHolders": [
+              "background.js",
+              "options.js"
+            ],
+            "writeHolders": [
+              "background.js",
+              "options.js"
+            ]
+          }
+        },
+        {
+          "id": "write-ops",
+          "title": "عمليات الكتابة الثلاث (الفرع والملف والطلب) في background.js وحده",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "put-only-background",
+          "title": "طريقة PUT في background.js وحده",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "no-merge-close-delete",
+          "title": "لا دمج (/merge) ولا DELETE ولا PATCH في أي ملف",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "auth-only-background-options",
+          "title": "ترويسة Authorization لا تُبنى في content.js ولا sidepanel.js",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "execution-service-background",
+          "title": "خدمة التنفيذ في background.js وحده",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "execution-ui-panel",
+          "title": "موافقة النطاق في حزمة اللوحة (sidepanel.js) لا في background.js ولا options.js",
+          "pass": true,
+          "detail": [
+            "content.js",
+            "sidepanel.js"
+          ]
+        },
+        {
+          "id": "sink:eval(",
+          "title": "لا eval( في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:new Function",
+          "title": "لا new Function في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:setTimeout(نص)",
+          "title": "لا setTimeout(نص) في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:innerHTML = (بمحتوى)",
+          "title": "لا innerHTML = (بمحتوى) في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:outerHTML =",
+          "title": "لا outerHTML = في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:insertAdjacentHTML",
+          "title": "لا insertAdjacentHTML في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:document.write",
+          "title": "لا document.write في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:executeScript",
+          "title": "لا executeScript في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:createContextualFragment",
+          "title": "لا createContextualFragment في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        }
+      ],
+      "pass": true
+    },
+    {
+      "target": "firefox",
+      "files": [
+        "background.js",
+        "content.js",
+        "options.js",
+        "reader.js",
+        "sidepanel.js"
+      ],
+      "items": [
+        {
+          "id": "file:background.js",
+          "title": "background.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "file:content.js",
+          "title": "content.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "file:options.js",
+          "title": "options.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "file:sidepanel.js",
+          "title": "sidepanel.js مبني",
+          "pass": true,
+          "detail": "background.js content.js options.js reader.js sidepanel.js"
+        },
+        {
+          "id": "write-key-holders",
+          "title": "مفتاحا رمز الكتابة في background.js وoptions.js وحدهما",
+          "pass": true,
+          "detail": [
+            "background.js",
+            "options.js"
+          ]
+        },
+        {
+          "id": "separate-keys",
+          "title": "رمز القراءة ورمز الكتابة في مفتاحين مستقلين (لا يشترك ملف في مفتاح واحد لهما)",
+          "pass": true,
+          "detail": {
+            "readHolders": [
+              "background.js",
+              "options.js"
+            ],
+            "writeHolders": [
+              "background.js",
+              "options.js"
+            ]
+          }
+        },
+        {
+          "id": "write-ops",
+          "title": "عمليات الكتابة الثلاث (الفرع والملف والطلب) في background.js وحده",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "put-only-background",
+          "title": "طريقة PUT في background.js وحده",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "no-merge-close-delete",
+          "title": "لا دمج (/merge) ولا DELETE ولا PATCH في أي ملف",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "auth-only-background-options",
+          "title": "ترويسة Authorization لا تُبنى في content.js ولا sidepanel.js",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "execution-service-background",
+          "title": "خدمة التنفيذ في background.js وحده",
+          "pass": true,
+          "detail": [
+            "background.js"
+          ]
+        },
+        {
+          "id": "execution-ui-panel",
+          "title": "موافقة النطاق في حزمة اللوحة (sidepanel.js) لا في background.js ولا options.js",
+          "pass": true,
+          "detail": [
+            "content.js",
+            "sidepanel.js"
+          ]
+        },
+        {
+          "id": "sink:eval(",
+          "title": "لا eval( في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:new Function",
+          "title": "لا new Function في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:setTimeout(نص)",
+          "title": "لا setTimeout(نص) في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:innerHTML = (بمحتوى)",
+          "title": "لا innerHTML = (بمحتوى) في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:outerHTML =",
+          "title": "لا outerHTML = في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:insertAdjacentHTML",
+          "title": "لا insertAdjacentHTML في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:document.write",
+          "title": "لا document.write في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:executeScript",
+          "title": "لا executeScript في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "id": "sink:createContextualFragment",
+          "title": "لا createContextualFragment في أي ملف مبني",
+          "pass": true,
+          "detail": []
+        }
+      ],
+      "pass": true
+    }
+  ]
+}
