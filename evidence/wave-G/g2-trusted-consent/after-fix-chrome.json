@@ -1,0 +1,129 @@
+{
+  "key": "chrome",
+  "measuredAt": "2026-10-24T06:25:51.273Z",
+  "bar": {
+    "version": "156.0.8078.47",
+    "start": "downloadable",
+    "forged": {
+      "found": true,
+      "isTrusted": [
+        false,
+        false
+      ],
+      "userActivationActive": true
+    },
+    "afterForged": {
+      "phase": "idle",
+      "consent": true,
+      "translations": 0,
+      "availability": "downloadable"
+    },
+    "afterReal": {
+      "phase": "done",
+      "translations": 17,
+      "arabic": 17,
+      "availability": "available"
+    }
+  },
+  "composer": {
+    "version": "156.0.8078.47",
+    "start": "downloadable",
+    "forged": {
+      "found": true,
+      "isTrusted": [
+        false,
+        false
+      ],
+      "userActivationActive": true
+    },
+    "afterForged": {
+      "consent": true,
+      "result": null,
+      "translated": null,
+      "availability": "downloadable"
+    },
+    "afterReal": {
+      "consent": false,
+      "result": "translated",
+      "translated": "قم بتشغيل `npm test` في src/app.js واقرأ https://example.com/docs قبل الدمج.",
+      "availability": "available"
+    }
+  },
+  "checks": [
+    {
+      "surface": "الشريط",
+      "name": "نقرة فأرة فعلية على «ترجمة» تعرض بطاقة الاستئذان",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "surface": "الشريط",
+      "name": "النقرتان البرمجيتان (isTrusted=false، ونشاط المستخدم قائم) لا تبدآن تنزيلًا ولا ترجمة: البطاقة باقية والحزمة downloadable",
+      "ok": true,
+      "detail": {
+        "forged": {
+          "found": true,
+          "isTrusted": [
+            false,
+            false
+          ],
+          "userActivationActive": true
+        },
+        "after": {
+          "phase": "idle",
+          "consent": true,
+          "translations": 0,
+          "availability": "downloadable"
+        }
+      }
+    },
+    {
+      "surface": "الشريط",
+      "name": "نقرة فأرة فعلية على «موافق» تنزّل الحزمة وتترجم",
+      "ok": true,
+      "detail": {
+        "phase": "done",
+        "translations": 17,
+        "arabic": 17,
+        "availability": "available"
+      }
+    },
+    {
+      "surface": "المساعد",
+      "name": "نقرة فأرة فعلية على «ترجم مسودة الحقل» تعرض بطاقة الاستئذان",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "surface": "المساعد",
+      "name": "النقرتان البرمجيتان لا تبدآن تنزيلًا ولا ترجمة: البطاقة باقية والحزمة downloadable",
+      "ok": true,
+      "detail": {
+        "forged": {
+          "found": true,
+          "isTrusted": [
+            false,
+            false
+          ],
+          "userActivationActive": true
+        },
+        "after": {
+          "consent": true,
+          "result": null,
+          "translated": null,
+          "availability": "downloadable"
+        }
+      }
+    },
+    {
+      "surface": "المساعد",
+      "name": "نقرة فأرة فعلية على «موافق» تنزّل الحزمة وتترجم",
+      "ok": true,
+      "detail": {
+        "result": "translated",
+        "translated": "قم بتشغيل `npm test` في src/app.js واقرأ https://example.com/docs قبل الدمج.",
+        "availability": "available"
+      }
+    }
+  ]
+}

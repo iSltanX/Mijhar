@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { act } from 'preact/test-utils';
+import { trustedClick } from '../../../shared/trusted-click';
 import { LifecycleManager, ModuleRegistry, PageDetector } from '../../../../src/core';
 import { createTranslateModule } from '../../../../src/modules/c/ui';
 import type { TranslateModuleOptions } from '../../../../src/modules/c/ui';
@@ -55,6 +56,14 @@ export const phase = (bar: HTMLElement): string | null => bar.shadowRoot!.queryS
 export async function press(bar: HTMLElement, action: string, wait = 40): Promise<void> {
   await act(async () => {
     barButton(bar, action)!.click();
+    await flush(wait);
+  });
+}
+
+/** كـpress بنقرة مستخدم موثوقة (isTrusted=true، tests/shared/trusted-click.ts): لأزرار الموافقة التي ترفض النقر البرمجي (AD-27). */
+export async function pressTrusted(bar: HTMLElement, action: string, wait = 40): Promise<void> {
+  await act(async () => {
+    trustedClick(barButton(bar, action)!);
     await flush(wait);
   });
 }

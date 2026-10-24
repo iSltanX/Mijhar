@@ -3,8 +3,9 @@
 //  - المراجعة اليدوية قبل الإدراج: لا تُفعَّل أزرار الإدراج قبل أن يؤكد المستخدم أنه راجع الترجمة، والإدراج بالإدراج الآمن نفسه (لا مسح للمسودة ولا استبدال لها)؛
 //  - غياب المحرك يعرض «المحرك غير متاح» ولا أثر له في القسم الثابت: لا تعديل في مكوّناته ولا في سلوكها؛
 //  - حزمة اللغة التي ينزّلها المتصفح (availability: 'consent'، T-4.4 / G-1): المحرك موجود فيبقى الزر ظاهرًا، وكل نقرة تسأل المحرك عن حالته؛ فإن احتاج موافقة عُرضت بطاقة الاستئذان
-//    بدل الترجمة ولا create() قبل «موافق»، وتبدأ الترجمة من نقرة «موافق» نفسها كما في شريط الترجمة.
+//    بدل الترجمة ولا create() قبل «موافق»، وتبدأ الترجمة من نقرة «موافق» نفسها كما في شريط الترجمة؛ و«موافق» تقبل نقرة المستخدم الموثوقة وحدها (AD-27).
 import { useEffect, useRef, useState } from 'preact/hooks';
+import { isTrustedActivation } from '../../../shared/ui/user-activation';
 import { translateProtected } from '../../c/masking';
 import type { ProtectedTranslation } from '../../c/masking';
 import { getTranslationService, isAbort, onTranslationServiceChange } from '../../c/ui/service';
@@ -150,7 +151,7 @@ export function TranslateDraftSection({ draft, onInsert }: TranslateDraftProps) 
                 ))}
               </ul>
               <div class="actions">
-                <button type="button" class="btn btn-primary" data-action="consent-confirm" ref={confirmRef} onClick={() => confirm(view.service)}>
+                <button type="button" class="btn btn-primary" data-action="consent-confirm" ref={confirmRef} onClick={(event) => isTrustedActivation(event) && confirm(view.service)}>
                   {ask.card.confirmLabel}
                 </button>
                 <button type="button" class="btn" data-action="consent-decline" onClick={decline}>
