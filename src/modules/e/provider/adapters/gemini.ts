@@ -107,7 +107,9 @@ async function send<T>(call: ProviderCall, path: string, init: RequestInit, pars
     const raw = (Array.isArray(body) ? body[0] : body) as RawError | null;
     const { reasons, retryDelayMs } = detailsOf(raw?.error);
     const failure = failureOf(response.status, raw?.error, reasons);
-    const said = str(raw?.error?.message)?.slice(0, 240);
+    // التنقيح قبل القص: قصٌّ يقطع المفتاح يُبقي جزءًا منه لا يطابقه التنقيح بعدها (F-01).
+    const message = str(raw?.error?.message);
+    const said = message ? redactKey(message, call.key).slice(0, 240) : null;
     const tag = [`HTTP ${response.status}`, ...(reasons.length ? [reasons[0]] : [])].join('، ');
     const label = LABELS[failure] ?? 'ردّت Google برفض';
     return fail(failure, `${label} (${tag})${said ? `: ${said}` : ''}`, response.status, failure === 'rate-limit' || failure === 'overloaded' ? retryAtOf(response, retryDelayMs, call.now()) : null);
