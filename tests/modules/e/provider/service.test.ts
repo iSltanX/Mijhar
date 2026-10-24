@@ -5,7 +5,7 @@
 //  - طلب التحليل واحد لكل رسالة، إلى api.anthropic.com وحده، بالمفتاح وحده (لا رمز GitHub في ترويسة ولا جسم)، ولا مفتاح في أي رد ولا رسالة خطأ.
 //  - حدود المزوّد التقنية تُحترم: موعد إعادة المحاولة المعلن، ومفتاح رفضه المزوّد، وطلب جارٍ من القسم نفسه؛ ولا حد إنفاق من الإضافة (AD-31).
 //  - المودلات من المزوّد وقت التشغيل بمصدرها ووقتها، والافتراضي من القائمة نفسها (فئة sonnet)، والمتقاعد لا يُعرض.
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { PROVIDER_MODEL_KEY, createProviderRegistry } from '../../../../src/modules/e/provider';
 import type { AnalyzeInput } from '../../../../src/modules/e/provider';
 import { ANTHROPIC } from '../../../../src/modules/e/provider/adapters/anthropic';
@@ -80,6 +80,35 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
     const s = await providerSystem({ withKey: false });
     expect(await s.options.verify()).toMatchObject({ ok: false, failure: 'no-key', status: null });
     expect(s.provider.requests).toHaveLength(0);
+  });
+});
+
+describe('AD-15: في Firefox لا تحليل دون موافقة مشاركة محتوى المواقع (websiteContent)', () => {
+  it('صلاحية المضيف وحدها: التحقق يُرسل (لا محتوى فيه)، والحالة «غير ممنوحة»، والتحليل لا يُرسل ويُعلن السبب', async () => {
+    const s = await providerSystem({ target: 'firefox' });
+    expect((await s.options.verify()).ok).toBe(true);
+    expect(s.provider.requests).toHaveLength(1);
+    expect((await s.tab().status())?.permission).toBe(false);
+    const result = await s.tab().analyze(input());
+    expect(result).toMatchObject({ ok: false, failure: 'permission', status: null });
+    if (!result.ok) expect(result.message).toContain('مشاركة محتوى المواقع');
+    expect(s.provider.requests.filter((r) => r.method === 'POST')).toHaveLength(0);
+    expect(vi.mocked(s.permissions.contains)).toHaveBeenCalledWith({ origins: [ANTHROPIC_ORIGIN], data_collection: ['websiteContent'] });
+  });
+
+  it('بالموافقتين: طلب تحليل واحد كما في عائلة Chromium', async () => {
+    const s = await providerSystem({ target: 'firefox', collected: ['websiteContent'] });
+    await s.options.verify();
+    expect((await s.tab().status())?.permission).toBe(true);
+    expect((await s.tab().analyze(input())).ok).toBe(true);
+    expect(s.provider.requests.filter((r) => r.method === 'POST')).toHaveLength(1);
+  });
+
+  it('عائلة Chromium لا تشترطها ولا تطلبها', async () => {
+    const s = await providerSystem();
+    await s.options.verify();
+    expect((await s.tab().analyze(input())).ok).toBe(true);
+    for (const [set] of vi.mocked(s.permissions.contains).mock.calls) expect(set).not.toHaveProperty('data_collection');
   });
 });
 

@@ -1,6 +1,6 @@
 # تقرير `T-11.6`: طبقة مزوّد التحليل وتجربة الموافقة وتدقيق الشبكة (`F-E9`)
 
-> الفرع `mj/21-provider-analysis`، 2026-10-24. مزوّد واحد (Anthropic، `DEC-09` ز-1) بتوجيه المالك؛ وإضافة مزوّدين آخرين خارج النطاق. ولا أسعار ولا تكلفة ولا حدود إنفاق (`AD-31`)، وزر الموافقة «إرسال للتحليل».
+> الفرع `mj/21-provider-analysis`، 2026-10-24. مزوّد واحد (Anthropic، `DEC-09` ز-1) بتوجيه المالك؛ وإضافة مزوّدين آخرين خارج النطاق. ولا أسعار ولا تكلفة ولا حدود إنفاق (`AD-31`)، وزر الموافقة «إرسال للتحليل». وبقرار المالك في إعلان Firefox (`AD-15`): «مشاركة محتوى المواقع» (`websiteContent`) اختيارية تُطلب في نقرة حفظ المفتاح.
 > لا مفتاح حقيقي ولا طلب إلى المزوّد الحقيقي: كل طلب إلى `api.anthropic.com` في الاختبارات والمتصفحات يخدمه `fixture-provider-mock` محليًا، والمفتاح والرمز مختلَقان يُركَّبان وقت التشغيل (فُحص الناتج: 0 ظهور لصيغتيهما).
 
 ## ما نُفِّذ
@@ -18,6 +18,7 @@
 | بطاقة المفتاح وإعدادات التحليل و«لماذا المفتاح؟» | `KeySection.tsx`، `section.tsx`، `src/options/guide/ProviderKeyGuide.tsx`، `src/options/OptionsApp.tsx`، `src/options/main.tsx` |
 | قلب مفتاح المزوّد إلى متاح في السجل والترحيب، وميزات التحليل الثلاث، وموضعا الإعدادات | `src/core/connections/{definitions,features,service,text}.ts`، `src/shared/onboarding/content.ts`، `src/core/ui-host/commands.ts` |
 | صلاحية مضيف اختيارية `https://api.anthropic.com/*` وحدها | `src/manifest/{chromium,firefox}.json`، `generate.mjs`؛ وتدقيق الترجمة يقبلها خارج مسارها وحده (`src/modules/c/network-audit/*`) |
+| إعلان Firefox (`AD-15`، قرار المالك): `data_collection_permissions` بـ`required: ["none"]` و`optional: ["websiteContent"]`؛ وتُطلب الموافقة مع صلاحية المضيف في طلب واحد من نقرة حفظ المفتاح قبل أي await، وتُسحب معها؛ والخلفية لا ترسل تحليلًا في Firefox دونها (والتحقق المعلن بلا محتوى فلا يحتاجها)؛ وعائلة Chromium بلا تغيير | `src/manifest/firefox.json`، `gate.ts` (`ProviderHostPermission`)، `service.ts` (`contentPermission`)، `KeySection.tsx`، `ui/ConsentSheet.tsx`، `src/options/main.tsx`، `src/background/main.ts`، `src/core/ui-host/browser-api.ts` (`data_collection`) |
 
 ## `AC-E9` بندًا بندًا
 
@@ -32,9 +33,18 @@
 | (٧) «إرسال للتحليل» يقبل التفعيل الحقيقي وحده | `ui.test.tsx` و`analysis.test.tsx` (`click()` وحدث مُنشأ لا يُصدران شيئًا، والنقرة الموثوقة تُصدر طلبًا واحدًا)؛ `tests/shared/user-activation.test.ts` (الحارس الساكن يشمل `ConsentSheet.tsx`)؛ المتصفحات: النقر البرمجي من عالم الصفحة مرفوض في «حلّل…» وفي «إرسال للتحليل»، ونقرة الفأرة وEnter وSpace الحقيقية تُصدر كلٌّ منها طلبًا واحدًا (ثلاثة لثلاثة) | اجتاز في الأربعة. وتقنيات الإتاحة **لم تُقَس مباشرة**: لا أداة هنا تقود قارئ شاشة؛ والزر `<button>` أصلي بلا اشتراط `event.detail`، وتفعيل تقنيات الإتاحة حدث click موثوق يولّده المتصفح كما لوحة المفاتيح |
 | (٨) «لماذا المفتاح؟» والترحيب | `ui.test.tsx` (الأماكن الثلاثة بأمثلة موسومة، والوجهة وما يُرسل وما يبقى دونه، بلا أسعار ولا «نسخ البرومبت» لأنها لم تُدمج، وتاريخ سياسة الاحتفاظ)؛ `tests/shared/onboarding/welcome.test.tsx` (قبل: «لم يُتح بعد» بلا رابط ولا Anthropic؛ وبعد: متاح برابط شرحه) | اجتاز |
 
+## إعلان Firefox (`AD-15`)
+
+| ما يُقاس | الدليل | النتيجة |
+| :--- | :--- | :--- |
+| الإعلان في الحزمة المبنية | `tests/build/build.test.ts` (`{ required: ['none'], optional: ['websiteContent'] }`، و`strict_min_version` 140 فأعلى)؛ و`npm run lint:firefox` | اجتاز؛ و`web-ext lint` بلا أخطاء ولا تحذيرات ولا ملاحظات |
+| الطلب في نقرة الحفظ نفسها مع المضيف قبل أي حفظ، ورفضه يحفظ المفتاح «غير متحقق منه» بلا طلب، والسحب يسحبهما معًا، وعائلة Chromium تطلب المضيف وحده | `ui.test.tsx` (4) | اجتاز |
+| لا تحليل في Firefox دون الموافقة (لا طلب، والسبب معلن)، وبها طلب واحد؛ وعائلة Chromium لا تشترطها | `service.test.ts` (3) | اجتاز |
+| في Firefox 158.0.1 على الحزمة: قبل الحفظ «غير ممنوحتين» والبطاقة تعلن الموافقة؛ ونقرة الحفظ الحقيقية منحت `websiteContent` (من `permissions.getAll()`)، ثم التحليل كما في غيره | `browser-provider-check.{txt,json}` | اجتاز؛ وفي Chrome وEdge وBrave لا إعلان ولا طلب لها |
+
 ## الاختبارات المسماة
 
-- `TEST-AI-01` (تكامل + تدقيق شبكة): `tests/modules/e/provider/service.test.ts` (12) و`browser/provider-check.mjs`.
+- `TEST-AI-01` (تكامل + تدقيق شبكة): `tests/modules/e/provider/service.test.ts` (15) و`browser/provider-check.mjs`.
 - `TEST-AI-02` (وحدة + مراجعة شيفرة): `service.test.ts` (المحوّل الثاني) و`request.test.ts` و`static.test.ts`.
 - `TEST-PRIV-04` (تدقيق شبكة + مراجعة شيفرة): المتصفحات الأربعة برمز GitHub ومفتاح المزوّد معًا: كل طلبات المزوّد (4) إلى `api.anthropic.com` من الخلفية بـ`x-api-key` وحده، بلا `Authorization` ولا رمز GitHub في ترويسة أو جسم؛ ولا مفتاح في أي طلب إلى `api.github.com`؛ ولا وجهة للإضافة غير `github.com` و`api.github.com` و`api.anthropic.com` (ومضيف أنماط صفحة GitHub المحفوظة `github.githubassets.com` تطلبه الصفحة نفسها: يرد في HTMLها ولا يرد في أي ملف من الحزمة، ويُسرد منفصلًا)؛ ولا سرّ في الكونسول.
 
@@ -42,17 +52,19 @@
 
 | الأمر | النتيجة | الدليل |
 | :--- | :--- | :--- |
-| `npx vitest run tests/modules/e/provider tests/modules/d/analysis` | 55/55 | `vitest-provider-analysis.txt` |
+| `npx vitest run tests/modules/e/provider tests/modules/d/analysis` | 62/62 | `vitest-provider-analysis.txt` |
 | `npx vitest run tests/modules/e` (انحدار الوحدة (هـ) بلا تعديل في التوقعات القائمة) | 220/220؛ ومنه `bundle-golden` 6/6 و`templates` 31/31 و`privacy-check` 21/21 و`prompts` 36/36 | `vitest-module-e-regression.txt`، `vitest-ad30-golden.txt` |
-| `node tests/modules/e/provider/browser/provider-check.mjs chrome edge brave firefox` | 91/91 (Chrome 156 وEdge 155 وBrave 156: 23؛ Firefox 158.0.1: 22) | `browser-provider-check.{txt,json}` |
+| `node tests/modules/e/provider/browser/provider-check.mjs chrome edge brave firefox` | 96/96 (Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1: 24 لكلٍّ) | `browser-provider-check.{txt,json}` |
 | `node tests/modules/e/browser/templates-check.mjs chrome edge brave firefox` (انحدار القوالب وتنبيه الأسرار على الحزمة الجديدة) | 127/127 | `regression/templates-check.txt` و`regression/browser-{templates,privacy}-check.json` |
 | `node tests/modules/e/browser/builder-check.mjs chrome edge brave firefox` (انحدار منشئ الحزمة) | 55/55 | `regression/builder-check.txt` و`regression/browser-builder-check.json` |
 | `node tests/core/connections/browser/connections-check.mjs chrome edge brave firefox` (سجل الاتصالات بعد قلب بطاقة المفتاح) | 124/124 | `regression/connections-check.txt` و`regression/browser-connections-check.json` |
 | `node scripts/network-audit.mjs static` (مسار الترجمة) | لا مخالفة ولا تحذير؛ `api.anthropic.com` صلاحية اختيارية وحدها | `translation-static-audit.txt` |
-| الطقم كاملًا `npx vitest run` | 2391 اجتازت و2 متخطى | — |
+| `npm run build` ثم `npm run lint:firefox` | بلا أخطاء ولا تحذيرات ولا ملاحظات | — |
+| الطقم كاملًا `npx vitest run` | 2398 اجتازت و2 متخطى | — |
 
 ## ما لم يُجرَ
 
 - طلب إلى `api.anthropic.com` الحقيقي بمفتاح حقيقي: لا مفتاح تجريبي في هذه الجلسة، ولا يُدخل مفتاح حي في متصفح آلي. المسار الحقيقي (الترويسات وCORS والرد) قاسته `T-0.5` (`evidence/T-0.5/report.md`)، والمحوّل يطابقه.
 - نافذة إذن المضيف في عائلة Chromium: لا تُقبل آليًا، فمُنحت الصلاحيتان في نسخة مشتقة؛ وطلبها في نقرة الحفظ نفسها قبل أي حفظ يقيسه `ui.test.tsx`.
 - تفعيل الزر بتقنيات الإتاحة (قارئ شاشة) لم يُقَس مباشرة (البند ٧ أعلاه).
+- نافذة موافقة Firefox نفسها (شكلها ونصها): قبِل التفضيل `extensions.webextOptionalPermissionPrompts=false` الطلب آليًا؛ فقيس أن نقرة الحفظ الحقيقية تطلب `websiteContent` وتمنحها، ولم تُقَس النافذة.

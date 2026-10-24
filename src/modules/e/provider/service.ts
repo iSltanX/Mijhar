@@ -6,7 +6,7 @@
 //    حصة تفرضها الإضافة (AD-31): إدارة الإنفاق للمستخدم عند المزوّد.
 //  - المودل المرسل إليه هو ما عرضته الموافقة: إن تغيّر بينهما لا يُرسل شيء.
 //  - صحة المفتاح تُسجَّل في سجل الاتصالات من الاستجابات الفعلية (تحقق واستعمال)، وقائمة المودلات تُحفظ في storage.session بمصدرها ووقتها.
-import type { PermissionsApi } from '../../../core/ui-host/browser-api';
+import type { PermissionsApi, PermissionsSet } from '../../../core/ui-host/browser-api';
 import type { ConnectionStatus, Verdict } from '../../../core/connections/health';
 import type { SecretStore, SessionStorageLike } from '../../../core/connections/secrets';
 import type { SettingsStore } from '../../../core/settings';
@@ -89,6 +89,11 @@ export interface ProviderServiceOptions {
   /** مخزن مفتاح المزوّد (الخلفية وحدها)؛ null بلا مخزن. */
   readonly keys: Pick<SecretStore, 'read' | 'info'> | null;
   readonly permissions: PermissionsApi | null;
+  /**
+   * موافقة نقل المحتوى التي يشترطها المتصفح للتحليل فوق صلاحية المضيف (Firefox: data_collection websiteContent، AD-15)؛ null حيث لا يشترطها.
+   * تُمنح مع صلاحية المضيف في نقرة حفظ المفتاح، و`permission` في الحالة يجمعهما. والتحقق (قائمة المودلات) لا يحمل محتوى فلا يحتاجها.
+   */
+  readonly contentPermission?: PermissionsSet | null;
   readonly fetch?: typeof fetch;
   /** سجل الاتصالات: حالة المفتاح وتسجيل صحته. */
   readonly connections: { status(): Promise<readonly ConnectionStatus[]>; observe(id: 'provider-key', verdict: Verdict | null): Promise<void> };
@@ -145,8 +150,9 @@ export class ProviderService {
   /** حالة المزوّد الآن، بلا أي طلب شبكة. */
   async status(): Promise<ProviderStatus> {
     const adapter = await this.provider();
+    const content = this.options.contentPermission;
     const [permission, statuses, models, choice] = await Promise.all([
-      this.options.permissions?.contains({ origins: [adapter.origin] }).catch(() => false) ?? Promise.resolve(false),
+      this.options.permissions?.contains({ origins: [adapter.origin], ...(content ?? {}) }).catch(() => false) ?? Promise.resolve(false),
       this.options.connections.status().catch(() => [] as readonly ConnectionStatus[]),
       this.cache.load(adapter.id).catch(() => null),
       this.choice(),
@@ -225,7 +231,14 @@ export class ProviderService {
       const status = await this.status();
       if (!status.model || status.model.id !== input.model) return local('model-changed', 'تغيّر المودل بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
       if (status.key?.health === 'expired') return local('expired-key', `رفض ${adapter.title} المفتاح المحفوظ من قبل (401)؛ لم يُرسل شيء. استبدله أو تحقق منه من الإعدادات.`);
-      if (!status.permission) return local('permission', `صلاحية ${adapter.host} غير ممنوحة؛ امنحها من بطاقة مفتاح المزوّد في الإعدادات. لم يُرسل شيء.`);
+      if (!status.permission) {
+        return local(
+          'permission',
+          this.options.contentPermission
+            ? `صلاحية ${adapter.host} أو موافقة المتصفح على مشاركة محتوى المواقع غير ممنوحة؛ امنحهما من بطاقة مفتاح المزوّد في الإعدادات. لم يُرسل شيء.`
+            : `صلاحية ${adapter.host} غير ممنوحة؛ امنحها من بطاقة مفتاح المزوّد في الإعدادات. لم يُرسل شيء.`,
+        );
+      }
       if (controller.signal.aborted) return local('aborted', 'أُوقف الطلب قبل إرساله؛ لم يُرسل شيء.');
       const got = await this.key();
       if (!('key' in got)) return got;

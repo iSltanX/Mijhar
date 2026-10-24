@@ -24,6 +24,10 @@ export interface ProviderSystemOptions {
   readonly withKey?: boolean;
   readonly withToken?: boolean;
   readonly now?: () => number;
+  /** هدف البناء؛ Firefox يشترط موافقة مشاركة محتوى المواقع للتحليل (AD-15). */
+  readonly target?: 'chromium' | 'firefox';
+  /** موافقات جمع البيانات الممنوحة مسبقًا (Firefox). */
+  readonly collected?: readonly string[];
 }
 
 export async function providerSystem(options: ProviderSystemOptions = {}) {
@@ -34,6 +38,7 @@ export async function providerSystem(options: ProviderSystemOptions = {}) {
     return new Response(JSON.stringify({ resources: { core: { limit: 5000, remaining: 4999, reset: 1 } } }), { status: 200, headers: { 'content-type': 'application/json', 'x-ratelimit-limit': '5000', 'x-ratelimit-remaining': '4999' } });
   });
   const permissions = fakePermissions([...(options.granted ?? [GITHUB_ORIGIN, ANTHROPIC_ORIGIN])]);
+  for (const d of options.collected ?? []) permissions.collected.add(d);
   const listeners: Array<(m: unknown, s: { tab?: TabLike; url?: string }, reply: (r?: unknown) => void) => unknown> = [];
   const api = {
     runtime: {
@@ -57,7 +62,7 @@ export async function providerSystem(options: ProviderSystemOptions = {}) {
   const cache = memoryModelsCache();
   await startBackground({
     api,
-    target: 'chromium',
+    target: options.target ?? 'chromium',
     binding: { area, changes: area },
     fetch: githubFetch as unknown as typeof fetch,
     providerFetch: provider.fetch,

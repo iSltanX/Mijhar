@@ -117,7 +117,15 @@ export function ConsentSheet({ prepared, destination, blocked = null, onConfirm,
       </p>
       {!destination.permission && (
         <p class="mj-note" data-tone="warning" data-consent-blocked="permission">
-          صلاحية <Ltr className="mono">{destination.host}</Ltr> غير ممنوحة؛ امنحها من بطاقة مفتاح المزوّد في الإعدادات.
+          {__TARGET__ === 'firefox' ? (
+            <>
+              صلاحية <Ltr className="mono">{destination.host}</Ltr> أو موافقة Firefox على مشاركة محتوى المواقع غير ممنوحة؛ امنحهما من بطاقة مفتاح المزوّد في الإعدادات.
+            </>
+          ) : (
+            <>
+              صلاحية <Ltr className="mono">{destination.host}</Ltr> غير ممنوحة؛ امنحها من بطاقة مفتاح المزوّد في الإعدادات.
+            </>
+          )}
         </p>
       )}
       {blocked && (

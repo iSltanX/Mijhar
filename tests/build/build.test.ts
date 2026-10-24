@@ -61,9 +61,10 @@ describe('مفاتيح كل هدف', () => {
   });
 
   // AD-15: لا تجمع الإضافة بيانات ولا ترسلها إلى المطوّر أو طرف ثالث؛ كل وحدة تغيّر ذلك تراجع هذا الإعلان.
-  it('Firefox: يعلن عدم جمع بيانات ويشترط 140 فأعلى لدعم هذا الإعلان', () => {
+  it('Firefox: لا جمع بيانات مطلوب، ومشاركة محتوى المواقع اختيارية، ويشترط 140 فأعلى لدعم هذا الإعلان', () => {
     const { gecko } = readManifest('firefox').browser_specific_settings;
-    expect(gecko.data_collection_permissions).toEqual({ required: ['none'] });
+    // AD-15 (MJ21): لا جمع مطلوب؛ ومشاركة محتوى المواقع اختيارية تُطلب في نقرة حفظ مفتاح المزوّد، ولا تحليل في Firefox دونها.
+    expect(gecko.data_collection_permissions).toEqual({ required: ['none'], optional: ['websiteContent'] });
     expect(Number.parseInt(gecko.strict_min_version, 10)).toBeGreaterThanOrEqual(140);
   });
 

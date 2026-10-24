@@ -126,6 +126,8 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     permissions: api.permissions ?? null,
     ...(options.providerFetch ? { fetch: options.providerFetch } : {}),
     connections,
+    // Firefox: لا تحليل دون موافقة مشاركة محتوى المواقع الاختيارية (AD-15)؛ والتحقق (قائمة المودلات) لا يحمل محتوى فلا يحتاجها.
+    contentPermission: target === 'firefox' ? { data_collection: ['websiteContent'] } : null,
     settings: () => ready.then(({ settings }) => settings),
     cache: options.modelsCache ?? extensionModelsCache(),
     onError: (error) => console.error('[mijhar] طبقة المزوّد', error),

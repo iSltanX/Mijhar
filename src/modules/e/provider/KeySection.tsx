@@ -3,7 +3,8 @@
 //  - الحقل غير متحكَّم به: المفتاح لا يدخل حالة المكوّن، ويُقرأ من الحقل عند الحفظ ثم يُفرَّغ، ولا يُعرض بعد الحفظ ولا جزء منه.
 //  - الحفظ يكتب في مخزنه الموثوق مباشرة (مفتاحاه المستقلان)، والخلفية تقرؤه لطلباتها؛ فلا يعبر المفتاح أي رسالة.
 //  - إضافة المفتاح لا تبدأ أي تحليل: الطلب الوحيد بعدها طلب التحقق المعلن هنا قبل الحفظ (قائمة المودلات، بلا محتوى). وصلاحية مضيف المزوّد
-//    الاختيارية تُطلب في نقرة الحفظ نفسها قبل أي await (VER-05)، وإن رُفضت حُفظ المفتاح «غير متحقق منه» ولم يُرسل شيء.
+//    الاختيارية تُطلب في نقرة الحفظ نفسها قبل أي await (VER-05)، وإن رُفضت حُفظ المفتاح «غير متحقق منه» ولم يُرسل شيء. وفي Firefox تُطلب معها
+//    في الطلب نفسه موافقة مشاركة محتوى المواقع (websiteContent، AD-15)، فلا تحليل دونها.
 //  - لا سعر ولا تكلفة ولا حد إنفاق (AD-31).
 import type { ComponentChild } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
@@ -22,7 +23,7 @@ import { PROVIDERS } from './registry';
 export interface KeySectionProps {
   readonly store: Pick<SecretStore, 'info' | 'save' | 'clear' | 'sessionAvailable' | 'diskAvailable'>;
   readonly port: ProviderPort;
-  /** صلاحية مضيف المزوّد المختار. */
+  /** صلاحية مضيف المزوّد المختار (ومعها في Firefox موافقة مشاركة محتوى المواقع). */
   readonly permission: ProviderHostPermission;
   readonly target: 'chromium' | 'firefox';
   readonly header?: ComponentChild;
@@ -89,6 +90,8 @@ export function KeySection({ store, port, permission, target, header, status, on
     onChange?.();
   };
 
+  const grantName = (host: string): string => (permission.dataCollection.length ? `صلاحية ${host} وموافقة مشاركة محتوى المواقع` : `صلاحية ${host}`);
+
   /** صلاحية المضيف تُطلب في النقرة نفسها قبل أي await؛ وتُعاد null حين تكون ممنوحة أصلًا. */
   const askPermission = (): Promise<boolean> => (granted ? Promise.resolve(true) : permission.request().catch(() => false));
 
@@ -111,7 +114,7 @@ export function KeySection({ store, port, permission, target, header, status, on
         field.value = '';
         setInfo(saved);
         if (!ok) {
-          setMessage({ tone: 'info', text: `حُفظ المفتاح في ${PLACE_TEXT[saved.place]} ولم يُتحقق منه: لم تُمنح صلاحية ${adapter.host}، فلم يُرسل شيء.` });
+          setMessage({ tone: 'info', text: `حُفظ المفتاح في ${PLACE_TEXT[saved.place]} ولم يُتحقق منه: لم تُمنح ${grantName(adapter.host)}، فلم يُرسل شيء.` });
           onChange?.();
           return;
         }
@@ -129,7 +132,7 @@ export function KeySection({ store, port, permission, target, header, status, on
       .then(async (ok) => {
         setGranted(ok);
         if (!ok) {
-          setMessage({ tone: 'info', text: `لم تُمنح صلاحية ${adapter?.host ?? 'المزوّد'}؛ لم يُرسل شيء.` });
+          setMessage({ tone: 'info', text: `لم تُمنح ${grantName(adapter?.host ?? 'المزوّد')}؛ لم يُرسل شيء.` });
           return;
         }
         await verify();
@@ -176,6 +179,7 @@ export function KeySection({ store, port, permission, target, header, status, on
   const shown = status && status.health !== 'none' ? status : null;
   const dependents = dependentsOf('provider-key');
   const host = adapter?.host ?? 'api.anthropic.com';
+  const content = permission.dataCollection.length > 0;
 
   return (
     <section ref={ref} class="section provider-key" aria-labelledby="mj-conn-provider-key-title" data-section="provider-key">
@@ -191,13 +195,21 @@ export function KeySection({ store, port, permission, target, header, status, on
           {stateLabel}
         </span>{' '}
         <span class="status" data-state={granted ? 'granted' : granted === false ? 'denied' : 'pending'} data-provider-permission={granted ? 'granted' : granted === false ? 'denied' : 'checking'}>
-          صلاحية <Ltr className="mono">{host}</Ltr>: {granted ? 'ممنوحة' : granted === false ? 'غير ممنوحة' : 'جارٍ التحقق…'}
+          صلاحية <Ltr className="mono">{host}</Ltr>
+          {content && ' وموافقة مشاركة محتوى المواقع'}: {granted ? (content ? 'ممنوحتان' : 'ممنوحة') : granted === false ? (content ? 'غير ممنوحتين' : 'غير ممنوحة') : 'جارٍ التحقق…'}
         </span>
       </p>
       <p class="notice" data-verify-request="">
         عند الحفظ والتحقق يُرسَل {adapter?.verifyRequest ?? 'طلب تحقق واحد'} وإضافة المفتاح لا تبدأ أي تحليل: لا يُرسل شيء من صفحاتك إلا بعد موافقتك على كل طلب في
         قسمه.
       </p>
+      {content && (
+        <p class="notice" data-content-consent="">
+          في Firefox تُطلب في نقرة الحفظ نفسها، مع صلاحية <Ltr className="mono">{host}</Ltr>، موافقة «مشاركة محتوى المواقع» (
+          <Ltr className="mono">websiteContent</Ltr>) التي تعلنها الإضافة اختيارية: التحليل يرسل محتوى من صفحات GitHub بعد موافقتك على كل طلب، فلا يُرسل
+          تحليل دونها. وتُسحب مع الصلاحية من هنا أو من إدارة الإضافات في Firefox.
+        </p>
+      )}
 
       <form class="key-form" onSubmit={save} data-key-form="">
         <fieldset>
@@ -238,6 +250,7 @@ export function KeySection({ store, port, permission, target, header, status, on
           {granted && (
             <button type="button" class="btn" data-action="key-revoke" disabled={busy} onClick={revoke}>
               اسحب صلاحية {host}
+              {content && ' وموافقة محتوى المواقع'}
             </button>
           )}
         </div>

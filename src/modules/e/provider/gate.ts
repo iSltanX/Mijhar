@@ -1,6 +1,7 @@
 // بوابة طلبات المزوّد (T-11.6، AC-E9 (٤)، AD-19): كل طلب يمر بها إلى مضيف المحوّل وحده، بعد صلاحية المضيف الاختيارية الممنوحة بنقر صريح،
 // بلا ملفات تعريف ارتباط ولا مرجِع، فلا يصل المفتاح ولا المحتوى إلى وجهة أخرى. وصلاحية المضيف تُطلب من معالج نقر في صفحة الإعدادات وحدها
-// (لا await قبلها، VER-05)، وتُقرأ من المتصفح في كل مرة ولا تُخزَّن.
+// (لا await قبلها، VER-05)، وتُقرأ من المتصفح في كل مرة ولا تُخزَّن. وفي Firefox تُطلب معها في الطلب نفسه موافقة مشاركة محتوى المواقع
+// (data_collection: websiteContent، AD-15)، لأن التحليل يرسل ما يوافق عليه المستخدم من الصفحة إلى المزوّد.
 import type { PermissionsApi, PermissionsSet } from '../../../core/ui-host/browser-api';
 import type { GatedFetch, ProviderAdapter } from './types';
 
@@ -33,15 +34,20 @@ export function redactKey(text: string, key: string | null): string {
   return key && key.length >= 8 ? text.split(key).join('‹المفتاح›') : text;
 }
 
-/** صلاحية مضيف المزوّد الاختيارية: تُطلب وتُسحب من صفحة الإعدادات، وحالتها من المتصفح في كل مرة. */
+/**
+ * صلاحية مضيف المزوّد الاختيارية، ومعها في Firefox موافقة جمع البيانات الاختيارية (websiteContent): تُطلبان معًا في نقرة واحدة وتُسحبان معًا من صفحة
+ * الإعدادات، وحالتهما من المتصفح في كل مرة.
+ */
 export class ProviderHostPermission {
   private readonly set: PermissionsSet;
 
   constructor(
     private readonly api: PermissionsApi,
     readonly origin: string,
+    /** موافقات جمع البيانات المطلوبة معها (Firefox: websiteContent)؛ فارغة في عائلة Chromium. */
+    readonly dataCollection: readonly string[] = [],
   ) {
-    this.set = { origins: [origin] };
+    this.set = { origins: [origin], ...(dataCollection.length ? { data_collection: [...dataCollection] } : {}) };
   }
 
   has(): Promise<boolean> {
@@ -58,7 +64,7 @@ export class ProviderHostPermission {
   }
 
   subscribe(listener: (granted: boolean) => void): () => void {
-    const mentions = (set: PermissionsSet): boolean => (set.origins ?? []).includes(this.origin);
+    const mentions = (set: PermissionsSet): boolean => (set.origins ?? []).includes(this.origin) || (set.data_collection ?? []).some((d) => this.dataCollection.includes(d));
     const added = (set: PermissionsSet): void => {
       if (mentions(set)) listener(true);
     };

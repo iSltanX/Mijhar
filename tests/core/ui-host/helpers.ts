@@ -28,6 +28,8 @@ type Listener = (set: PermissionsSet) => void;
 
 export interface FakePermissions extends PermissionsApi {
   granted: Set<string>;
+  /** موافقات جمع البيانات الممنوحة (Firefox: data_collection). */
+  collected: Set<string>;
   request: ReturnType<typeof vi.fn<(set: PermissionsSet) => Promise<boolean>>>;
   remove: ReturnType<typeof vi.fn<(set: PermissionsSet) => Promise<boolean>>>;
   /** ما يجيب به المستخدم في نافذة الطلب. */
@@ -41,16 +43,19 @@ export function fakePermissions(initial: string[] = []): FakePermissions {
   const removed = new Set<Listener>();
   const fake: FakePermissions = {
     granted: new Set(initial),
+    collected: new Set(),
     answer: true,
-    contains: vi.fn(async (set: PermissionsSet) => (set.origins ?? []).every((o) => fake.granted.has(o))),
+    contains: vi.fn(async (set: PermissionsSet) => (set.origins ?? []).every((o) => fake.granted.has(o)) && (set.data_collection ?? []).every((d) => fake.collected.has(d))),
     request: vi.fn(async (set: PermissionsSet) => {
       if (!fake.answer) return false;
       for (const o of set.origins ?? []) fake.granted.add(o);
+      for (const d of set.data_collection ?? []) fake.collected.add(d);
       for (const l of added) l(set);
       return true;
     }),
     remove: vi.fn(async (set: PermissionsSet) => {
       for (const o of set.origins ?? []) fake.granted.delete(o);
+      for (const d of set.data_collection ?? []) fake.collected.delete(d);
       for (const l of removed) l(set);
       return true;
     }),
@@ -58,6 +63,7 @@ export function fakePermissions(initial: string[] = []): FakePermissions {
     onRemoved: { addListener: (l: Listener) => void removed.add(l), removeListener: (l: Listener) => void removed.delete(l) },
     external(kind, set) {
       for (const o of set.origins ?? []) (kind === 'added' ? fake.granted.add(o) : fake.granted.delete(o));
+      for (const d of set.data_collection ?? []) (kind === 'added' ? fake.collected.add(d) : fake.collected.delete(d));
       for (const l of kind === 'added' ? added : removed) l(set);
     },
   };

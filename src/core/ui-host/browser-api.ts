@@ -9,6 +9,8 @@ export interface ExtEvent<L extends (...args: any[]) => unknown> {
 export interface PermissionsSet {
   origins?: string[];
   permissions?: string[];
+  /** Firefox 140 فأعلى: موافقات جمع البيانات الاختيارية (data_collection_permissions.optional)، MJ21. */
+  data_collection?: string[];
 }
 
 export interface PermissionsApi {

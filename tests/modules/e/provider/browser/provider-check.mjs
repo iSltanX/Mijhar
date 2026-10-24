@@ -11,6 +11,8 @@
 //      ولا Authorization؛ ولا مفتاح في طلب إلى GitHub؛ ولا سرّ في الكونسول ولا الناتج.
 //   5. بحذف المفتاح: القسم كامل بلا نص تحليل، والخيار معلَّلًا.
 // صلاحيتا api.github.com وapi.anthropic.com ممنوحتان في نسخة مشتقة (نافذة الإذن لا تُقبل آليًا)؛ وطلبها في نقرة الحفظ يقيسه ui.test.tsx.
+// وفي Firefox تبقى موافقة «مشاركة محتوى المواقع» (websiteContent) اختيارية كما في الحزمة (AD-15): لا تُمنح قبل الحفظ فتُعرض الصلاحية «غير ممنوحتين»،
+// وتطلبها نقرة الحفظ الحقيقية مع المضيف (extensions.webextOptionalPermissionPrompts=false يقبل الطلب بلا نافذة)، ولا تحليل قبلها.
 // الاستعمال: node tests/modules/e/provider/browser/provider-check.mjs [chrome edge brave firefox] [--out-dir evidence/T-11.6]
 import fs from 'node:fs';
 import os from 'node:os';
@@ -75,8 +77,10 @@ async function scenario(d, target, checks, network) {
   const posts = () => network.extra.filter((r) => r.method === 'POST');
 
   // 1. الإعدادات.
-  const card = await waitUntil(() => d.options(`const c = document.querySelector('[data-connection="provider-key"]'); const g = c?.querySelector('[data-provider-permission]')?.getAttribute('data-provider-permission'); return c && g && g !== 'checking' ? { permission: g, announce: c.querySelector('[data-verify-request]')?.textContent ?? '', guide: c.querySelector('[data-action="provider-key-guide"]')?.getAttribute('href') ?? null, input: Boolean(c.querySelector('#mj-key-input')) } : null;`), 10000);
+  const card = await waitUntil(() => d.options(`const c = document.querySelector('[data-connection="provider-key"]'); const g = c?.querySelector('[data-provider-permission]')?.getAttribute('data-provider-permission'); return c && g && g !== 'checking' ? { permission: g, announce: c.querySelector('[data-verify-request]')?.textContent ?? '', guide: c.querySelector('[data-action="provider-key-guide"]')?.getAttribute('href') ?? null, input: Boolean(c.querySelector('#mj-key-input')), content: c.querySelector('[data-content-consent]')?.textContent ?? null } : null;`), 10000);
   check('بطاقة المفتاح: حقله، وطلب التحقق معلن قبل الحفظ، و«لماذا المفتاح؟» فيها', card?.input && card.announce.includes('GET https://api.anthropic.com/v1/models') && card.announce.includes('لا تبدأ أي تحليل') && card.guide === '#guide/provider-key', card);
+  if (target === 'firefox') check('Firefox (AD-15): قبل الحفظ صلاحية المضيف وحدها لا تكفي («غير ممنوحتين»)، والبطاقة تعلن موافقة «مشاركة محتوى المواقع» (websiteContent) التي تطلبها نقرة الحفظ', card?.permission === 'denied' && card.content?.includes('websiteContent'), card);
+  else check('عائلة Chromium: لا موافقة محتوى مواقع تُعلن ولا تُطلب', card?.permission === 'granted' && card.content === null, card);
   check('لا طلب إلى المزوّد قبل الحفظ', network.extra.length === 0, network.extra);
 
   // 2. الرمز ثم المفتاح بالواجهة.
@@ -87,6 +91,10 @@ async function scenario(d, target, checks, network) {
   await d.click('[data-action="key-save"]');
   const verified = await waitUntil(() => d.options(`const n = document.querySelector('[data-key-check]'); return n?.getAttribute('data-health') === 'healthy' ? { text: n.textContent, html: document.documentElement.outerHTML } : null;`), 12000);
   check('المفتاح «سليم» بعد التحقق، ولا مفتاح في DOM الإعدادات', verified && !hasSecret(verified.html), verified && { text: verified.text });
+  if (target === 'firefox') {
+    const perms = await d.options(`return { all: JSON.parse(globalThis_.JSON.stringify(await globalThis_.browser.permissions.getAll())), shown: document.querySelector('[data-provider-permission]')?.getAttribute('data-provider-permission') ?? null };`);
+    check('Firefox (AD-15): نقرة الحفظ نفسها منحت موافقة «مشاركة محتوى المواقع» (websiteContent) مع صلاحية المضيف، والبطاقة «ممنوحتان»', perms?.all?.data_collection?.includes('websiteContent') && perms.shown === 'granted', perms);
+  }
   await sleep(1500);
   const afterAdd = network.extra.map((r) => ({ method: r.method, path: r.path, from: r.from }));
   check('AC-E9 (١): بعد إضافة المفتاح طلب واحد إلى المزوّد هو التحقق المعلن GET /v1/models من الخلفية، ولا تحليل', afterAdd.length === 1 && afterAdd[0].method === 'GET' && afterAdd[0].path === '/v1/models?limit=100' && afterAdd[0].from === 'background', afterAdd);

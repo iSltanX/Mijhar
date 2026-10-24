@@ -122,11 +122,11 @@ describe('بطاقة مفتاح المزوّد (AC-E9 (١) و(٤))', () => {
     models: null,
     retryAt: null,
   };
-  function setup(answer = true) {
+  function setup(answer = true, { firefox = false, granted = [] as string[] } = {}) {
     const store = new SecretStore({ session: memoryArea(), disk: memoryArea() });
-    const perms = fakePermissions([]);
+    const perms = fakePermissions(granted);
     perms.answer = answer;
-    const permission = new ProviderHostPermission(perms, 'https://api.anthropic.com/*');
+    const permission = new ProviderHostPermission(perms, 'https://api.anthropic.com/*', firefox ? ['websiteContent'] : []);
     const order: string[] = [];
     const save = vi.spyOn(store, 'save').mockImplementation(async (...args) => {
       order.push('save');
@@ -136,6 +136,7 @@ describe('بطاقة مفتاح المزوّد (AC-E9 (١) و(٤))', () => {
       order.push('request');
       if (!perms.answer) return false;
       for (const o of set.origins ?? []) perms.granted.add(o);
+      for (const d of set.data_collection ?? []) perms.collected.add(d);
       return true;
     });
     const port: ProviderPort = {
@@ -147,7 +148,7 @@ describe('بطاقة مفتاح المزوّد (AC-E9 (١) و(٤))', () => {
       analyze: vi.fn(),
       cancel: vi.fn(),
     };
-    act(() => render(<KeySection store={store} port={port} permission={permission} target="chromium" />, container));
+    act(() => render(<KeySection store={store} port={port} permission={permission} target={firefox ? 'firefox' : 'chromium'} />, container));
     return { store, perms, port, order, save };
   }
   const submit = async (value: string) => {
@@ -196,6 +197,58 @@ describe('بطاقة مفتاح المزوّد (AC-E9 (١) و(٤))', () => {
     expect(s.order).toEqual(['request', 'save']);
     expect(s.port.verify).not.toHaveBeenCalled();
     expect($('[data-key-message]').textContent).toContain('لم يُتحقق منه');
+  });
+
+  it('عائلة Chromium: الطلب صلاحية المضيف وحدها، ولا ذكر لموافقة محتوى المواقع', async () => {
+    const s = setup();
+    await flush();
+    expect(container.querySelector('[data-content-consent]')).toBeNull();
+    expect($('[data-provider-permission]').textContent).not.toContain('محتوى المواقع');
+    await submit(KEY);
+    expect(s.perms.request).toHaveBeenCalledWith({ origins: ['https://api.anthropic.com/*'] });
+  });
+
+  it('Firefox (AD-15): الإعلان يذكر موافقة «مشاركة محتوى المواقع» قبل الحفظ، والنقرة نفسها تطلبها مع صلاحية المضيف قبل أي حفظ، ثم الحفظ ثم التحقق', async () => {
+    const s = setup(true, { firefox: true });
+    await flush();
+    const notice = $('[data-content-consent]').textContent ?? '';
+    expect(notice).toContain('websiteContent');
+    expect(notice).toContain('فلا يُرسل تحليل دونها');
+    expect($('[data-provider-permission]').textContent).toContain('غير ممنوحتين');
+    await submit(KEY);
+    expect(s.order).toEqual(['request']);
+    expect(s.perms.request).toHaveBeenCalledTimes(1);
+    expect(s.perms.request).toHaveBeenCalledWith({ origins: ['https://api.anthropic.com/*'], data_collection: ['websiteContent'] });
+    await flush();
+    expect(s.order).toEqual(['request', 'save', 'verify']);
+    expect($('[data-provider-permission]').getAttribute('data-provider-permission')).toBe('granted');
+    expect($('[data-provider-permission]').textContent).toContain('ممنوحتان');
+    expect(s.port.analyze).not.toHaveBeenCalled();
+  });
+
+  it('Firefox: صلاحية المضيف وحدها لا تكفي، فتُطلب الموافقتان في نقرة الحفظ؛ ورفضهما يحفظ المفتاح «غير متحقق منه» بلا طلب', async () => {
+    const s = setup(false, { firefox: true, granted: ['https://api.anthropic.com/*'] });
+    await flush();
+    expect($('[data-provider-permission]').getAttribute('data-provider-permission')).toBe('denied');
+    await submit(KEY);
+    await flush();
+    expect(s.order).toEqual(['request', 'save']);
+    expect(s.port.verify).not.toHaveBeenCalled();
+    expect($('[data-key-message]').textContent).toContain('موافقة مشاركة محتوى المواقع');
+  });
+
+  it('Firefox: السحب يسحب صلاحية المضيف وموافقة محتوى المواقع معًا', async () => {
+    const s = setup(true, { firefox: true });
+    await flush();
+    await submit(KEY);
+    await flush();
+    const revoke = $('[data-action="key-revoke"]');
+    expect(revoke.textContent).toContain('محتوى المواقع');
+    act(() => revoke.click());
+    await flush();
+    expect(s.perms.remove).toHaveBeenCalledWith({ origins: ['https://api.anthropic.com/*'], data_collection: ['websiteContent'] });
+    expect(s.perms.collected.size).toBe(0);
+    expect($('[data-provider-permission]').getAttribute('data-provider-permission')).toBe('denied');
   });
 
   it('المسح يسرد ما يتعطل وحده: التحليل في أقسامه الثلاثة', async () => {

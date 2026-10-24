@@ -857,14 +857,14 @@
         },
         {
           "method": "GET",
-          "path": "/repos/octo-owner/private-demo/branches/main",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
           "from": "background",
           "origin": null,
           "auth": "saved"
         },
         {
           "method": "GET",
-          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "path": "/repos/octo-owner/private-demo/branches/main",
           "from": "background",
           "origin": null,
           "auth": "saved"

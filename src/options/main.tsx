@@ -28,7 +28,8 @@ const port = runtimePort(api.runtime);
 const connections = runtimeConnectionsPort(api.runtime);
 const providerKeys = connectionSecretStore('provider-key');
 const provider = runtimeProviderPort(api.runtime);
-const providerPermission = api.permissions ? new ProviderHostPermission(api.permissions, PROVIDERS[0]?.origin ?? 'https://api.anthropic.com/*') : null;
+// Firefox: موافقة مشاركة محتوى المواقع (websiteContent) تُطلب مع صلاحية المضيف في نقرة الحفظ نفسها (AD-15).
+const providerPermission = api.permissions ? new ProviderHostPermission(api.permissions, PROVIDERS[0]?.origin ?? 'https://api.anthropic.com/*', __TARGET__ === 'firefox' ? ['websiteContent'] : []) : null;
 
 void mountExtensionPage((settings) => (
   <OptionsApp
