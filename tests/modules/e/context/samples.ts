@@ -56,9 +56,10 @@ export function apiFor(headSha: string): ApiPrData {
   };
   const runs = fixture.prs[0]?.checkRuns.runs.slice(0, 5) ?? [];
   const items: CheckItem[] = runs.map((r) => ({ name: r.name, id: r.id, classification: classifyCheckRun(r), required: null, detail: null, source: 'api' }));
+  // حالة الوصول والربط (MJ18، T-11.5) كما يعيدها readPrApi لقراءة عامة ناجحة بلا رمز وفرع غير محمي.
   return {
     readAt: NOW,
-    pull: have({ number: 4242, state: 'open', draft: false, merged: false, mergeable: false, mergeableState: 'dirty', headSha, baseRef: 'main' }),
+    pull: have({ number: 4242, state: 'open', draft: false, merged: false, mergeable: false, mergeableState: 'dirty', headSha, baseRef: 'main', headRef: 'feature/ui-refresh' }),
     checks: have({ items, checkRunsTotal: items.length, statusesTotal: 0, checkRunsRead: items.length, statusesRead: 0, partial: false, noneReported: false }),
     required: missing('الفرع غير محمي'),
     rate: null,
@@ -68,6 +69,8 @@ export function apiFor(headSha: string): ApiPrData {
       `https://api.github.com/repos/octo/demo/commits/${headSha}/status`,
       'https://api.github.com/repos/octo/demo/branches/main',
     ],
+    access: { pull: { kind: 'read', authenticated: false }, checks: { kind: 'read', authenticated: false }, required: { kind: 'unavailable', authenticated: false, reason: 'الفرع غير محمي' } },
+    binding: { repo: 'octo/demo', branch: 'feature/ui-refresh', commit: headSha, readAt: NOW },
   };
 }
 
