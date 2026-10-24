@@ -47,7 +47,7 @@ describe('حالة الوصول لكل إشارة', () => {
     expect(new Set(texts).size).toBe(kinds.length);
     for (const text of texts) {
       expect(text).toContain(UNKNOWN_TEXT);
-      expect(text).toContain('لا ناجحة ولا خالية من المشكلات');
+      expect(text).toContain('ولا تُعدّ نجاحًا ولا خلوًّا من المشكلات');
       expect(text).not.toMatch(/قُرئت|نجحت|كلها ناجحة|لا مشكلات/);
     }
     expect(accessText('الفحوص من API', { kind: 'read', authenticated: true })).toBe('الفحوص من API: قُرئت بالرمز.');

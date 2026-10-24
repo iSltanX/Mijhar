@@ -106,6 +106,8 @@ export async function connectionSystem(reply: (call: Call, index: number) => Rep
     keySession,
     keyDisk,
     healthLog,
+    /** storage.local للإضافة كما تراه الخلفية والإعدادات والتصدير. */
+    area,
     tabs,
     windows,
     tabMessages,

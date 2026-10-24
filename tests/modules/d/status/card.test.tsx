@@ -80,7 +80,7 @@ async function card(reply: (call: Call, i: number) => Reply, options: { token?: 
 
 /** نص البطاقة لا يدّعي نجاحًا للفحوص ولا خلوًّا من المشكلات من بيانات API لم تُقرأ. */
 const noFalseSuccess = (text: string) => {
-  expect(text).not.toMatch(/كل الفحوص ناجحة|(?<!ولا )خالية من المشكلات|لا مشكلات في/);
+  expect(text).not.toMatch(/كل الفحوص ناجحة|خالية من المشكلات|لا مشكلات في/);
 };
 
 describe('TEST-PR-06: لكل حالة نصها، ولا نجاح لما لم يُقرأ', () => {

@@ -69,7 +69,8 @@ const clock = (ms: number): string => new Date(ms).toLocaleTimeString('en-GB', {
 
 /** جملة الحالة لجزء من البيانات («فحوص API»…). كل حالة غير «قُرئت» تعلن قيمه «غير معروف» ولا تَعِد بنجاح ولا خلو من المشكلات. */
 export function accessText(part: string, access: AccessState): string {
-  const unknown = `قيمه ${UNKNOWN_TEXT}، لا ناجحة ولا خالية من المشكلات`;
+  // بلفظ AC-D8: لا تُعرض نجاحًا ولا خلوًّا من المشكلات.
+  const unknown = `قيمه ${UNKNOWN_TEXT}، ولا تُعدّ نجاحًا ولا خلوًّا من المشكلات`;
   switch (access.kind) {
     case 'read':
       return `${part}: قُرئت${access.authenticated ? ' بالرمز' : ''}.`;
