@@ -1,0 +1,14 @@
+  dist/firefox/sidepanel.js: 745387 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
+
+المخالفات: 0
+التحذيرات: 0
+
+النتيجة: اجتاز (لا مخالفة).
+chrome availability downloadable downloadable
+chrome translated done done done translated
+chrome 156.0.8078.47: محرك جاهز · طلبات الشبكة في التشغيل 0 · مخالفات 0 · تسرب 0 · الضابط كُشف
+edge unavailable المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. 
+edge 155.0.4283.60: محرك غير متاح · طلبات الشبكة في التشغيل 0 · مخالفات 0 · تسرب 0 · الضابط كُشف
+brave availability downloadable downloadable
+brave translated done done done translated
+brave 156.0.8078.48: محرك جاهز · طلبات الشبكة في التشغيل 0 · مخالفات 0 · تسرب 0 · الضابط كُشف

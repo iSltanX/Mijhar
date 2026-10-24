@@ -96,7 +96,8 @@
       ],
       "merge_model": "Sonnet 5.5",
       "gate": "اختبارات modules/c وmodules/e مجتمعة، وتدقيق شبكة كامل لمسار الترجمة بعد الدمج.",
-      "manual": "لا شيء."
+      "manual": "لا شيء.",
+      "review": "evidence/wave-G/review.md"
     },
     {
       "id": "H",

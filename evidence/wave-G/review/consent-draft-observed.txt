@@ -1,0 +1,3 @@
+REVIEW-G state=downloadable granted=false -> service=absent button=false status="المحرك غير متاح: لم يُفعَّل محرك ترجمة محلي. هذا القسم اختياري، والقسم الثابت أعلاه يعمل كاملًا بدونه." createCalls=0
+REVIEW-G state=downloadable granted=true -> service=ready button=true status=null createCalls=0
+REVIEW-G state=available granted=false -> service=ready button=true status=null createCalls=0

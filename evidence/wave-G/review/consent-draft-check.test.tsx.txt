@@ -1,0 +1,57 @@
+// @vitest-environment jsdom
+// @vitest-environment-options {"url": "https://github.com/octo/demo/pull/7"}
+// فحص مراجعة الموجة G (اجتماع MJ16 مع MJ13): «ترجمة مسودتي» (modules/f/phrasebank/translate-draft.tsx) تستهلك خدمة الترجمة المشتركة،
+// وMJ16 أضافت إلى عقدها حالة جديدة availability().state === 'consent'. السؤال: ماذا يعرض القسم حين تكون الحزمة downloadable (ملف تعريف جديد في Chrome وBrave)؟
+// الفحص رصدي: يطبع ما يعرضه القسم لكل حالة، ويؤكد أن لا create() ولا شبكة في أي منها.
+import { act } from 'preact/test-utils';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { setTranslationService } from '../../../../src/modules/c/ui';
+import { ManagedTranslationEngine } from '../../../../src/modules/c/model-manager';
+import { TranslatorApiEngine } from '../../../../src/modules/c/engines';
+import { FakeTranslatorApi } from '../../c/engines/fake-translator';
+import { ROOT, click, field, flush, loadHtml, mountComposer, panelRoot, triggerFor } from '../composer/helpers';
+import type { Live } from '../composer/helpers';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const FIXTURE = path.join(ROOT, 'tests/modules/f/composer/fixtures/fixture-editors.html');
+let live: Live | null = null;
+afterEach(() => {
+  live?.manager.stop();
+  live = null;
+  setTranslationService(null);
+  vi.unstubAllGlobals();
+});
+
+async function openWith(state: string, grant: boolean) {
+  const fake = new FakeTranslatorApi({ state });
+  const inner = new TranslatorApiEngine(fake.asGlobal(), { retryDelaysMs: [0, 0, 0] });
+  const managed = new ManagedTranslationEngine(inner, () => inner.status());
+  if (grant) managed.grantConsent();
+  setTranslationService(managed);
+  loadHtml(FIXTURE);
+  window.history.replaceState({}, '', 'https://github.com/octo/demo/pull/7');
+  field('new_comment_field').value = 'Please translate this draft.';
+  live = await mountComposer();
+  await click(triggerFor('new_comment_field'), 8);
+  for (let i = 0; i < 3; i += 1) await act(async () => void (await flush(8)));
+  const section = panelRoot().querySelector<HTMLElement>('[data-section="translate-draft"]')!;
+  return {
+    fake,
+    service: section.dataset.service,
+    status: section.querySelector('[data-translate-status]')?.textContent?.replace(/\s+/g, ' ').trim() ?? null,
+    hasButton: Boolean(section.querySelector('[data-action="translate-draft"]')),
+  };
+}
+
+describe('MJ16 × MJ13: «ترجمة مسودتي» مع المحرك المُدار', () => {
+  it.each([
+    ['downloadable', false],
+    ['downloadable', true],
+    ['available', false],
+  ] as const)('الحزمة %s والموافقة %s', async (state, grant) => {
+    const r = await openWith(state, grant);
+    fs.appendFileSync(path.join(ROOT, 'evidence/wave-G/review/consent-draft-observed.txt'), `REVIEW-G state=${state} granted=${grant} -> service=${r.service} button=${r.hasButton} status=${JSON.stringify(r.status)} createCalls=${r.fake.createCalls}\n`);
+    expect(r.fake.createCalls).toBe(0);
+  });
+});

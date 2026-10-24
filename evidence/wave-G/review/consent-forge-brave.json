@@ -1,0 +1,25 @@
+{
+  "key": "brave",
+  "steps": {
+    "availabilityAtStart": "downloadable",
+    "cardShownAfterRealClick": true,
+    "forgedClick": {
+      "found": true,
+      "firedAt": 1792819787177,
+      "isTrusted": false,
+      "activation": {
+        "isActive": false,
+        "hasBeenActive": true
+      }
+    },
+    "barAfterForged": {
+      "phase": "error",
+      "note": "تعذّرت الترجمة: يلزم ضغط زر الترجمة نفسه ليبدأ المتصفح تنزيل حزمة اللغة؛ أعد الضغط.",
+      "consent": null,
+      "translations": 0
+    },
+    "availabilityAfterForged": "downloadable"
+  },
+  "version": "156.0.8078.48",
+  "forgeStartedDownload": false
+}

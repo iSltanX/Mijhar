@@ -1,0 +1,24 @@
+# اختبار تطفير بوابة الموافقة (MJ16): تعطيل شرط 'consent' في availability() ثم تشغيل tests/modules/c/model-manager
+الشرط الأصلي: if (state === 'downloadable' && !this.consented) return { state: 'consent', ... }
+53:    if (state === 'downloadable' && !this.consented) return { state: 'consent', card: consentCard() };
+بعد التطفير:
+53:    if (false && state === 'downloadable' && !this.consented) return { state: 'consent', card: consentCard() };
+   1       Tests  14 failed | 37 passed (51)
+   1  FAIL  tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > الحزمة downloadable ← consent وبطاقة، ولا create() ولا ترجمة؛ والسؤال نفسه استعلام فقط
+   1  FAIL  tests/modules/c/model-manager/managed-engine.test.ts > availability: بطاقة الاستئذان قبل أي تنزيل > الموافقة لتنزيل واحد: بعد أن تُرصد الحزمة منزّلة تسقط، فإن زالت من المتصفح لاحقًا عادت البطاقة
+   1  FAIL  tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > NetworkError أثناء تنزيل الحزمة ← رسالة انقطاع الاتصال، وتسقط الموافقة فتُسأل من جديد
+   1  FAIL  tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > QuotaExceededError قبل ثبوت الحزمة ← رسالة امتلاء التخزين، وتسقط الموافقة
+   1  FAIL  tests/modules/c/model-manager/managed-engine.test.ts > انقطاع الشبكة وامتلاء القرص (محاكاة) > الإلغاء أثناء الإنشاء يمرّ AbortError كما هو، وتسقط الموافقة (المتصفح قد لا يكون نزّل شيئًا)
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > الأخطاء: رسائل واضحة في الشريط، والأصل باقٍ، ويُسأل المستخدم من جديد > امتلاء القرص ← رسالة المساحة
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > الأخطاء: رسائل واضحة في الشريط، والأصل باقٍ، ويُسأل المستخدم من جديد > انقطاع الشبكة أثناء التنزيل ← رسالة الاتصال، ثم البطاقة من جديد ثم النجاح حين يعود الاتصال
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > الأخطاء: رسائل واضحة في الشريط، والأصل باقٍ، ويُسأل المستخدم من جديد > شبكة مقطوعة (create() معلّق) ← بعد المهلة رسالة التأخر في الشريط بدل «جارٍ الترجمة» بلا نهاية، والأصل باقٍ
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > «ليس الآن» يُخفي البطاقة ويعيد الزر، ولا create() أبدًا
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > «موافق» تبدأ الترجمة من النقرة نفسها: create() مرة واحدة والفقرات السبع عشرة تُترجم
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > الضغط الأول يعرض البطاقة (الحجم غير معلن) بدل الزر، ولا create() بعد
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > الشريط: بطاقة الاستئذان قبل أن ينزّل المتصفح الحزمة (الحزمة downloadable) > بعد الموافقة مرة لا تُسأل ثانية: شريط آخر يترجم من أول ضغط بلا بطاقة
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > بطاقة التحديد > «ترجمة المحدد» والحزمة غير منزّلة ← بطاقة الاستئذان، ولا create() حتى الموافقة، ثم الترجمة
+   1  FAIL  tests/modules/c/model-manager/ui.test.tsx > بطاقة التحديد > «ليس الآن» يغلق البطاقة بلا create()
+   1  Test Files  2 failed | 2 passed (4)
+   1 ⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+--- بعد الاستعادة:
+الملف مطابق للالتزام (استُعيد)

@@ -1,0 +1,25 @@
+{
+  "key": "chrome",
+  "steps": {
+    "availabilityAtStart": "downloadable",
+    "cardShownAfterRealClick": true,
+    "forgedClick": {
+      "found": true,
+      "firedAt": 1792819764021,
+      "isTrusted": false,
+      "activation": {
+        "isActive": false,
+        "hasBeenActive": true
+      }
+    },
+    "barAfterForged": {
+      "phase": "error",
+      "note": "تعذّرت الترجمة: يلزم ضغط زر الترجمة نفسه ليبدأ المتصفح تنزيل حزمة اللغة؛ أعد الضغط.",
+      "consent": null,
+      "translations": 0
+    },
+    "availabilityAfterForged": "downloadable"
+  },
+  "version": "156.0.8078.47",
+  "forgeStartedDownload": false
+}

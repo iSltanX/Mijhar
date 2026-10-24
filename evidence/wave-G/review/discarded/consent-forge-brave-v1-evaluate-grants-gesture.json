@@ -1,0 +1,20 @@
+{
+  "key": "brave",
+  "steps": {
+    "availabilityAtStart": "downloadable",
+    "cardShownAfterRealClick": true,
+    "forgedClick": {
+      "found": true,
+      "isTrusted": false
+    },
+    "barAfterForged": {
+      "phase": "working",
+      "note": "جارٍ الترجمة… 0 من 17",
+      "consent": null,
+      "translations": 0
+    },
+    "availabilityAfterForged": "downloadable"
+  },
+  "version": "156.0.8078.48",
+  "forgeStartedDownload": false
+}

@@ -1,0 +1,11 @@
+brave 156.0.8078.48 availability عند البدء = downloadable
+البطاقة ظاهرة بعد نقرة حقيقية = true
+نقرة مزوّرة = { found: true, isTrusted: false }
+الشريط بعد التزوير = {
+  phase: 'working',
+  note: 'جارٍ الترجمة… 0 من 17',
+  consent: null,
+  translations: 0
+}
+availability بعد التزوير = downloadable
+✓ التزوير لم يبدأ تنزيلًا ولا ترجمة (الحزمة ما زالت downloadable)

@@ -1,0 +1,68 @@
+# فحوص أمنية ساكنة على الشجرة المجمّعة — 2026-10-24T05:19:35Z
+
+## 1) من يستورد network-audit خارج مجلده (يجب: فارغ)
+(eval):1: no matches found: --include=*.ts
+(انتهى)
+
+## 2) آثار أداة التدقيق وقوائم المضيفات في الحزم المبنية (يجب: 0)
+attachNetworkRecorder  dist/chromium: 0
+attachNetworkRecorder  dist/firefox: 0
+CLOUD_TRANSLATION_HOSTS  dist/chromium: 0
+CLOUD_TRANSLATION_HOSTS  dist/firefox: 0
+classifyRequests  dist/chromium: 0
+classifyRequests  dist/firefox: 0
+translate.googleapis.com  dist/chromium: 0
+translate.googleapis.com  dist/firefox: 0
+api.openai.com  dist/chromium: 0
+api.openai.com  dist/firefox: 0
+api.deepl.com  dist/chromium: 0
+api.deepl.com  dist/firefox: 0
+libretranslate  dist/chromium: 0
+libretranslate  dist/firefox: 0
+
+## 3) واجهات الشبكة في مسار الترجمة (يجب: فارغ)
+(انتهى)
+
+## 4) واجهات الشبكة في src/modules/e كله (يجب: فارغ)
+(انتهى)
+
+## 5) فرق المانيفست والاعتماديات عن main (يجب: فارغ)
+(انتهى)
+
+## 6) صلاحية downloads / مضيفات في dist/chromium/manifest.json
+chromium permissions= ['sidePanel', 'storage'] optional= None hosts= ['https://github.com/*'] optional_hosts= ['https://api.github.com/*']
+firefox permissions= ['storage'] optional= None hosts= ['https://github.com/*'] optional_hosts= ['https://api.github.com/*']
+
+## إعادة 1) من يستورد network-audit خارج مجلده (يجب: فارغ)
+(انتهى)
+
+## إعادة 2) عدّ آثار الأداة في كل ملفات dist (تكرارًا؛ يجب: 0)
+attachNetworkRecorder  dist/chromium: ملفات 0
+attachNetworkRecorder  dist/firefox: ملفات 0
+CLOUD_TRANSLATION_HOSTS  dist/chromium: ملفات 0
+CLOUD_TRANSLATION_HOSTS  dist/firefox: ملفات 0
+classifyRequests  dist/chromium: ملفات 0
+classifyRequests  dist/firefox: ملفات 0
+translate.googleapis.com  dist/chromium: ملفات 0
+translate.googleapis.com  dist/firefox: ملفات 0
+api.openai.com  dist/chromium: ملفات 0
+api.openai.com  dist/firefox: ملفات 0
+api.deepl.com  dist/chromium: ملفات 0
+api.deepl.com  dist/firefox: ملفات 0
+api.anthropic.com  dist/chromium: ملفات 0
+api.anthropic.com  dist/firefox: ملفات 0
+libretranslate  dist/chromium: ملفات 0
+libretranslate  dist/firefox: ملفات 0
+
+## كل ملفات js في dist وأحجامها
+ 6479694 total
+ 1385008 dist/chromium/content.js
+ 1385007 dist/firefox/content.js
+  869169 dist/chromium/sidepanel.js
+  869167 dist/firefox/sidepanel.js
+  334102 dist/chromium/background.js
+  334100 dist/firefox/background.js
+  332492 dist/chromium/options.js
+  332489 dist/firefox/options.js
+  319081 dist/chromium/reader.js
+  319079 dist/firefox/reader.js
