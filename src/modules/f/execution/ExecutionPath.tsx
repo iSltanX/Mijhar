@@ -217,7 +217,8 @@ export function ExecutionPath({ page, deps, onActive }: { page: PathPage; deps: 
             </span>
           </label>
           <p class="notice" data-write-when="">
-            تُطلب صلاحية الكتابة المنفصلة (Contents وPull requests «Read and write» لهذا المستودع) عند «نفّذ» وحده، ولا تُستعمل في أي قراءة أو تحليل.
+            تُطلب صلاحية الكتابة المنفصلة (<Ltr>Contents</Ltr> و<Ltr>Pull requests</Ltr>: <Ltr>Read and write</Ltr> لهذا المستودع) عند «نفّذ» وحده، ولا تُستعمل في أي
+            قراءة أو تحليل.
           </p>
           <button type="button" class="btn btn-primary btn-block" data-consent="exec-run" disabled={!stage.approved} onClick={(event) => execute(event)}>
             نفّذ: أنشئ الفرع وافتح الطلب
@@ -374,7 +375,7 @@ function ScopeFacts({ plan, prepared, issue }: { plan: WritePlan; prepared: Prep
       </dd>
       <dt>الملف</dt>
       <dd data-scope-file="">
-        <Ltr className="mono">{plan.path}</Ltr> · {plan.fileSha === null ? 'ملف جديد' : 'ملف واحد'} (<Ltr>{`−${diff.deletions} +${diff.additions}`}</Ltr>)
+        <Ltr className="mono">{plan.path}</Ltr> · {plan.fileSha === null ? 'ملف جديد' : 'ملف واحد'} <Ltr>{`(−${diff.deletions} +${diff.additions})`}</Ltr>
       </dd>
       <dt>طلب الدمج</dt>
       <dd data-scope-pull="">

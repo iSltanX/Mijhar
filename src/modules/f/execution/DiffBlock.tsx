@@ -18,12 +18,14 @@ export function DiffBlock({ path, before, after, isNew }: DiffBlockProps) {
         <Ltr className="mono">{path}</Ltr>
         <span>
           {isNew && <span data-new-file="">ملف جديد · </span>}
-          <span class="del-count" data-deletions={diff.deletions}>
-            −{diff.deletions}
-          </span>{' '}
-          <span class="add-count" data-additions={diff.additions}>
-            +{diff.additions}
-          </span>
+          <Ltr>
+            <span class="del-count" data-deletions={diff.deletions}>
+              −{diff.deletions}
+            </span>{' '}
+            <span class="add-count" data-additions={diff.additions}>
+              +{diff.additions}
+            </span>
+          </Ltr>
         </span>
       </figcaption>
       <div class="diff-body" dir="ltr">

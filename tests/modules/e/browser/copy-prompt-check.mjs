@@ -144,7 +144,8 @@ async function scenario(session, key, checks, shots) {
   check('«تم النسخ» يظهر في الزر بعد النجاح', done && (await d.github(`return ${R}.querySelector('[data-label]').textContent.trim();`)) === 'تم النسخ', await rootText(d));
   if (chromium) {
     const text = await clipboard();
-    const must = ['# تحديد الخطوة التالية: feat: refresh the settings UI', '## المصدر', '- المستودع: `octo/demo`', '## نتائج الفحوص', '## المعلومات الناقصة', 'اعتمد على ما ورد أعلاه وحده'];
+    // MJ22 (AC-F7 (٣)): العنوان «# القالب» وحده، والموضوع بين حدّي المحتوى المنقول.
+    const must = ['# تحديد الخطوة التالية\n', '⟦محتوى منقول من الصفحة⟧\nالموضوع: feat: refresh the settings UI\n⟦/محتوى منقول من الصفحة⟧', '## المصدر', '- المستودع: `octo/demo`', '## نتائج الفحوص', '## المعلومات الناقصة', 'اعتمد على ما ورد أعلاه وحده'];
     const missingLines = must.filter((m) => !String(text).includes(m));
     check('الحافظة فيها برومبت القالب التلقائي لطلب الدمج (الخطوة التالية) كاملًا بقسم «المعلومات الناقصة»', text && missingLines.length === 0, { missingLines, head: String(text).slice(0, 120) });
   } else skip('قراءة محتوى الحافظة', 'Firefox: لا قراءة للحافظة بلا مطالبة لصق؛ المنسوخ مثبت في اختبار الوحدة نصًّا بنص، والنجاح هنا من وعد writeText نفسه');
@@ -163,7 +164,7 @@ async function scenario(session, key, checks, shots) {
   const menuClosed = await d.github(`return ${R}.querySelector('[data-template-menu]') === null;`);
   await d.clickShadow(HOST, COPY);
   await waitUntil(async () => (await stateOf(d)) === 'success', 8000);
-  check('اختيار «تشخيص الخطأ» يغلق القائمة وينسخ برومبته', menuClosed && (!chromium || String(await clipboard()).startsWith('# تشخيص الخطأ: feat: refresh the settings UI')), { menuClosed, head: chromium ? String(await clipboard()).slice(0, 80) : null });
+  check('اختيار «تشخيص الخطأ» يغلق القائمة وينسخ برومبته', menuClosed && (!chromium || String(await clipboard()).startsWith('# تشخيص الخطأ\n')), { menuClosed, head: chromium ? String(await clipboard()).slice(0, 80) : null });
 
   // 4. فشل الحافظة الحقيقي: نقرة بلا نشاط مستخدم (بعد انقضاء التفعيل العابر) فترفض الواجهتان (T-0.5).
   // منح قراءة الحافظة في Playwright يمنح معها الكتابة بلا نشاط (clipboardReadWrite)، فيُسحب قبل الحقن ويُعاد بعده.
@@ -215,8 +216,8 @@ async function scenario(session, key, checks, shots) {
 
   // 6. مشكلة ومهمة Actions حقيقيتان.
   for (const [url, label, head] of [
-    ['https://github.com/salktbi902/etos/issues/1', 'صفحة مشكلة حقيقية', '# فهم المشكلة: Local Debug'],
-    ['https://github.com/microsoft/vscode/actions/runs/39905618450/job/120256773911', 'صفحة مهمة Actions حقيقية', '# تشخيص الخطأ:'],
+    ['https://github.com/salktbi902/etos/issues/1', 'صفحة مشكلة حقيقية', '# فهم المشكلة\n'],
+    ['https://github.com/microsoft/vscode/actions/runs/39905618450/job/120256773911', 'صفحة مهمة Actions حقيقية', '# تشخيص الخطأ\n'],
   ]) {
     await d.openGithub(url);
     const ok = await waitUntil(() => d.github(`return Boolean(${R}?.querySelector('${COPY}'));`), 15000);
