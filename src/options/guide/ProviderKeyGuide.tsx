@@ -138,6 +138,14 @@ export function ProviderKeyGuide({ onBack, onAdd, descriptors = PROVIDER_DESCRIP
                 <a href={d.policy.url} {...external}>
                   {d.policy.label}
                 </a>
+                {d.policy.also && (
+                  <>
+                    {' و'}
+                    <a href={d.policy.also.url} {...external}>
+                      {d.policy.also.label}
+                    </a>
+                  </>
+                )}
                 ): {d.policy.summary}
               </span>
             </li>

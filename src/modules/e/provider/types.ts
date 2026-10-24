@@ -19,6 +19,8 @@ export interface ProviderPolicy {
   readonly readOn: string;
   /** ما تقوله الصفحة في جملة. */
   readonly summary: string;
+  /** صفحة رسمية ثانية تُسند شطرًا من الملخص لا تتناوله الأولى (COR-AUD-03)، وتُعرض بجانبها حيث يُعرض رابط السياسة. */
+  readonly also?: { readonly url: string; readonly label: string };
 }
 
 /**

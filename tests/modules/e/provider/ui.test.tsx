@@ -123,6 +123,9 @@ describe('تجربة الموافقة (AC-E9 (٢) و(٧))', () => {
   });
 });
 
+// روابط سياسة المزوّد وحدها: الصفحة وما يُسند شطرًا من ملخصها (COR-AUD-03).
+const policyLinks = (d: typeof ANTHROPIC): string[] => [d.policy.url, ...(d.policy.also ? [d.policy.also.url] : [])];
+
 describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', () => {
   it('الأماكن الثلاثة بمثال موسوم لكل منها، والوجهة وما يُرسل وما يبقى دونه؛ بلا أسعار ولا روابطها ولا ميزة لم تُدمج', () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch');
@@ -144,7 +147,7 @@ describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', (
     expect(text).not.toMatch(NO_MONEY);
     expect(text).not.toContain('نسخ البرومبت');
     const links = [...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href') ?? '');
-    expect(links).toEqual([ANTHROPIC.policy.url]);
+    expect(links).toEqual(policyLinks(ANTHROPIC));
     expect(container.querySelector('[data-retention]')?.textContent).toContain('2026-10-24');
     expect(fetchSpy).not.toHaveBeenCalled();
   });
@@ -166,14 +169,14 @@ describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', (
     expect(both).toContain('(Anthropic أو Google Gemini)');
     expect(both).toContain('(api.anthropic.com أو generativelanguage.googleapis.com)');
     expect(both).toContain(GEMINI.policy.summary);
-    expect([...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href'))).toEqual([ANTHROPIC.policy.url, GEMINI.policy.url]);
+    expect([...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href'))).toEqual([...policyLinks(ANTHROPIC), ...policyLinks(GEMINI)]);
     // الموجة L: السجل المشحون بالمحوّلات الثلاثة بترتيب الدمج (MJ24 ثم MJ25).
     render(null, container);
     act(() => render(<ProviderKeyGuide onBack={() => {}} onAdd={() => {}} />, container));
     const shipped = container.textContent ?? '';
     expect(shipped).toContain('(Anthropic أو OpenAI أو Google Gemini)');
     expect(shipped).toContain('(api.anthropic.com أو api.openai.com أو generativelanguage.googleapis.com)');
-    expect([...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href'))).toEqual([ANTHROPIC.policy.url, OPENAI.policy.url, GEMINI.policy.url]);
+    expect([...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href'))).toEqual([...policyLinks(ANTHROPIC), ...policyLinks(OPENAI), ...policyLinks(GEMINI)]);
   });
 
   it('يُفتح من #guide/provider-key داخل الإعدادات، و«أضف مفتاحًا» يعود إلى بطاقة المفتاح', async () => {

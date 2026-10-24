@@ -389,6 +389,14 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
           <a href={descriptor.policy.url} target="_blank" rel="noopener noreferrer" data-provider-policy="">
             {descriptor.policy.label}
           </a>
+          {descriptor.policy.also && (
+            <>
+              {' و'}
+              <a href={descriptor.policy.also.url} target="_blank" rel="noopener noreferrer" data-provider-policy="">
+                {descriptor.policy.also.label}
+              </a>
+            </>
+          )}
         </p>
         <p>
           <span class="status" data-state={info ? 'granted' : info === null ? 'denied' : 'pending'} data-key-state={info ? info.place : info === null ? 'none' : 'checking'} role="status">
