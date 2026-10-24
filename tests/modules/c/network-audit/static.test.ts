@@ -71,7 +71,7 @@ describe('auditManifest', () => {
   it.each(['chromium', 'firefox'])('مانيفست المصدر %s: لا مخالفة ولا تحذير، ومضيفاته github.com وapi.github.com ومضيف مزوّد التحليل الاختياري (MJ21) وحدها', (name) => {
     const result = auditManifest(manifest(name));
     expect(result.findings).toEqual([]);
-    expect([...new Set(result.hosts.map((h: { host: string }) => h.host))].sort()).toEqual(['api.anthropic.com', 'api.github.com', 'api.openai.com', 'github.com']);
+    expect([...new Set(result.hosts.map((h: { host: string }) => h.host))].sort()).toEqual(['api.anthropic.com', 'api.github.com', 'api.openai.com', 'generativelanguage.googleapis.com', 'github.com']);
   });
 
   it('مضيف مزوّد التحليل (MJ21): صلاحية اختيارية وحدها مقبولة، وفي host_permissions مخالفة؛ وفي شيفرة مسار الترجمة مخالفة وخارجه مقبول', () => {
@@ -80,6 +80,13 @@ describe('auditManifest', () => {
     const files = (path: string) => [{ path, text: 'const u = "https://api.anthropic.com/v1/messages";' }];
     expect(auditSources(files('src/modules/c/engines/x.ts')).findings).toEqual([expect.objectContaining({ severity: 'violation', rule: 'cloud-translation-host' })]);
     expect(auditSources(files('src/modules/e/provider/x.ts')).findings).toEqual([]);
+    // MJ25 (T-11.12): مضيف Google Gemini مضيف تحليل كـAnthropic: صلاحية اختيارية وحدها، ومخالفة في مسار الترجمة.
+    expect(auditManifest({ optional_host_permissions: ['https://generativelanguage.googleapis.com/*'] }).findings).toEqual([]);
+    expect(auditManifest({ host_permissions: ['https://generativelanguage.googleapis.com/*'] }).findings).toEqual([expect.objectContaining({ severity: 'violation', rule: 'cloud-translation-host' })]);
+    const gemini = (path: string) => [{ path, text: 'const u = "https://generativelanguage.googleapis.com/v1beta/models";' }];
+    expect(auditSources(gemini('src/modules/c/engines/x.ts')).findings).toEqual([expect.objectContaining({ severity: 'violation', rule: 'cloud-translation-host' })]);
+    expect(auditSources(gemini('src/modules/e/provider/x.ts')).findings).toEqual([]);
+    // مضيف سحابي لم يُدمج محوّله يبقى مخالفة في مسار التحليل نفسه (MJ24 بدّلت مثال MJ25 بعد أن صار OpenAI مدمجًا).
     expect(auditSources([{ path: 'src/modules/e/provider/x.ts', text: 'const u = "https://api.mistral.ai/v1";' }]).findings).toEqual([expect.objectContaining({ severity: 'violation' })]);
   });
 

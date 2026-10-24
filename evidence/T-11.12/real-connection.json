@@ -1,0 +1,84 @@
+{
+  "test": "TEST-AI-09",
+  "mode": "اتصال حقيقي بمفتاح تجريبي من المالك (Chrome)",
+  "measuredAt": "2026-10-24T17:37:03.056Z",
+  "steps": {
+    "verify": {
+      "card": {
+        "health": "healthy",
+        "key": "session",
+        "models": [],
+        "source": "من قائمة Google Gemini (https://generativelanguage.googleapis.com/v1beta/models) كما قُرئت 2026-10-24 17:37 UTC؛ تُعرض المودلات المتوافقة مع التحليل وحدها (0 من 46)، وتُحدَّث عند كل تحقق من المفتاح."
+      },
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1beta/models",
+          "query": "?pageSize=1000",
+          "status": 200,
+          "error": null,
+          "models": 60,
+          "nextPage": false
+        }
+      ]
+    },
+    "beforeProbe": {
+      "usableModels": 0,
+      "blockedNotice": true,
+      "candidates": 46
+    },
+    "probes": [
+      {
+        "model": "gemini-2.5-flash",
+        "status": 404,
+        "error": {
+          "code": 404,
+          "status": "NOT_FOUND",
+          "message": "This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Int",
+          "reasons": []
+        },
+        "becameOption": false
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "status": 200,
+        "error": null,
+        "becameOption": true
+      }
+    ],
+    "consent": {
+      "title": "إرسال هذا إلى Google Gemini للتحليل؟",
+      "destination": "الوجهةGoogle Gemini · Gemini 3.5 Flash Lite عبر مفتاحك، إلى generativelanguage.googleapis.com وحده · سياسته في البيانات: ai.google.dev/gemini-api/terms"
+    },
+    "analysis": {
+      "outcome": {
+        "kind": "result",
+        "text": "تحليل مقترح من المزوّداحتمال يحتاج تحققًافشل فحص Compile & Hygiene برمز خروج 1 دون توفر تفاصيل السجل.مثبت من المصدراقتباسات وردت حرفيًا فيما أُرسل من الصفحة (لا ما يقوله النموذج عنها):[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1.السبب المحتملProcess completed with exit code 1.[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1. — ورد في المصدرالإصلاح والخطوة التاليةفحص سجل الخطأ الكامل للخطوة 14 Compile & Hygiene عبر الرابط المتاح للتحقق من السبب الجذري.المعلومات الناقصةنص السجل الكامل للفحص الفاشلالتغييرات المرتبطة بالمستودعمقتطفات الأدلة التفصيليةوما أعلنته الطبقة قبل الإرسال: 3 بندًامقتطف الخطأ (غير متاح): نص السجل محجوب عن غير المسجَّل في هذه الصفحةالتغييرات المرتبطة: صفحة المهمة لا تعرض التغييراتمقتطفات الأدلة: لم يُضف مقتطف دليل من تحديد في الصفحةgemini-3.5-flash-lite · Google Gemini · إلى generativelanguage.googleapis.com · طُلب 20:37:11أعد التحليلأخفِاقتراح نموذج لا يحل محل حقيقة مرصودة، ولا يُنفَّذ منه أمر تلقائيًا.",
+        "meta": "gemini-3.5-flash-lite · Google Gemini · إلى generativelanguage.googleapis.com · طُلب 20:37:11"
+      },
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1beta/models/gemini-3.5-flash-lite:generateContent",
+          "query": "",
+          "status": 200,
+          "error": null,
+          "models": null,
+          "nextPage": false
+        }
+      ]
+    }
+  },
+  "browser": "Chrome 156.0.8078.47",
+  "chosenModel": "gemini-3.5-flash-lite",
+  "extensionErrors": {
+    "runtime": [],
+    "manifest": []
+  },
+  "consoleHasKey": false,
+  "allRequestsFromBackground": true,
+  "keyInUrlOrBody": false,
+  "requestHosts": [
+    "generativelanguage.googleapis.com"
+  ]
+}

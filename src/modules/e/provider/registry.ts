@@ -3,10 +3,11 @@
 // مزوّدًا لم يُدمج محوّله ولا يبقى محوّل بلا وصف. ولا تمس إضافة محوّل شيفرة الأقسام (d/analysis وما يعرضه).
 // والمودل يُختار من قائمة المزوّد وقت التشغيل: لا معرّف مودل ولا سعر في الشيفرة (AC-E9 (٣)، AD-31).
 import { ANTHROPIC_ADAPTER } from './adapters/anthropic';
+import { GEMINI_ADAPTER } from './adapters/gemini';
 import { OPENAI_ADAPTER } from './adapters/openai';
 import type { ProviderAdapter } from './types';
 
-export const PROVIDER_ADAPTERS: readonly ProviderAdapter[] = [ANTHROPIC_ADAPTER, OPENAI_ADAPTER];
+export const PROVIDER_ADAPTERS: readonly ProviderAdapter[] = [ANTHROPIC_ADAPTER, OPENAI_ADAPTER, GEMINI_ADAPTER];
 
 export interface ProviderRegistry {
   readonly list: readonly ProviderAdapter[];

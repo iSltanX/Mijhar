@@ -21,7 +21,9 @@ const anthropic = ['sk', 'ant', 'api03', 'Zx9Yw8Vu7Ts6Rq5Po4Nm3Lk2Ji1Hg0Fe-Dc_Ba
 
 describe('نمط openai-key في القائمة المعرّفة', () => {
   it('هو الثامن بعد anthropic-key، ويرصد كل شكل مرصود لمفتاح OpenAI بموضعه الكامل', () => {
-    expect(SECRET_PATTERNS.map((p) => p.id).slice(-2)).toEqual(['anthropic-key', 'openai-key']);
+    // الموجة L: Google Gemini (MJ25) بعده في القائمة، فالفحص بموضعه بعد anthropic-key لا بآخر القائمة.
+    const ids = SECRET_PATTERNS.map((p) => p.id);
+    expect(ids.slice(ids.indexOf('anthropic-key'), ids.indexOf('anthropic-key') + 2)).toEqual(['anthropic-key', 'openai-key']);
     for (const [name, key] of Object.entries(forms)) {
       const text = `OPENAI_API_KEY=${key}\n`;
       const found = scanText(text);

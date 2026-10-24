@@ -23,6 +23,8 @@ export const SECRET_PATTERNS: readonly SecretPattern[] = [
   // MJ24 (T-11.11): مفتاح OpenAI. لا تعلن وثائقه بادئة ولا طولًا (evidence/T-11.11/docs-read.md)، فالنمط تحذيري متساهل: sk- ثم 20 حرفًا فأكثر من حروف المفتاح،
   // ولا يلتقط مفتاح Anthropic (له نمطه) ولا أسماء عادية قصيرة (sk-learn). وبادئاته المرصودة (sk-proj- وsk-svcacct- وsk-admin-) داخلة فيه.
   { id: 'openai-key', label: 'مفتاح OpenAI API (sk-)', regex: /(?<![A-Za-z0-9])sk-(?!ant-)[A-Za-z0-9_-]{20,}/g },
+  // MJ25 (T-11.12): صيغتا مفتاح Google Gemini: AIza… المعتادة وAQ.… التي يصدرها AI Studio الآن؛ الطول الأدنى تحذيري كغيره.
+  { id: 'gemini-key', label: 'مفتاح Google Gemini API (AIza أو AQ.)', regex: /(?<![A-Za-z0-9])(?:AIza[A-Za-z0-9_-]{30,}|AQ\.[A-Za-z0-9_-]{30,})/g },
 ];
 
 export interface Finding {

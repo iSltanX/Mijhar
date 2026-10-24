@@ -1,0 +1,814 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "checks": [
+      {
+        "name": "AC-E10 (٣) وAC-E12: بطاقة «مزوّد التحليل» واحدة، وقائمتها فيها Anthropic وGoogle Gemini المدموجان",
+        "ok": true
+      },
+      {
+        "name": "اختيار Google Gemini: مفتاحه «لا مفتاح»، ومضيفه، وطلب التحقق المعلن قبل الحفظ يذكر الطلب والمضيف ولا يحمل شيئًا من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): بعد حفظ المفتاح طلب واحد إلى Gemini هو التحقق المعلن GET /v1beta/models من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في ترويسة x-goog-api-key وحدها لا في العنوان ولا الجسم؛ ولا Authorization ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
+        "ok": true
+      },
+      {
+        "name": "كل مفتاح إلى مضيفه: طلب Anthropic واحد بمفتاحه (x-api-key) إلى مضيفه، ولم يصل Gemini طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى Gemini: مفتاحه «سليم» ومودلاته كما هي، وملخص المزوّدين يذكر Anthropic سليمًا؛ والتبديل لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّدين",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): النقر البرمجي من عالم الصفحة لا يفتح الموافقة",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المختار فعلًا: Google Gemini ومضيفه ومودله، ولا ذكر لـAnthropic، والزر «إرسال للتحليل»",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): «إرسال للتحليل» بالنقر البرمجي لا يُصدر طلبًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): نقرة حقيقية تُصدر طلب generateContent واحدًا للمودل المعروض من الخلفية، والنتيجة في الطبقة الثالثة موسومة «احتمال» بمودلها ومضيفها",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في الترويسة وحدها؛ والجسم بلا المفتاح ولا الرمز ولا مفتاح Anthropic، وبتعليمات النظام وحد المخرجات",
+        "ok": true
+      },
+      {
+        "name": "حجب الأمان يُعرض سببًا واضحًا (SAFETY) لا تحليلًا، وطلب واحد بلا إعادة تلقائية ولا تحويل إلى Anthropic",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات Gemini إلى مضيفه من الخلفية بمفتاحه وحده، بلا مفتاح مزوّد آخر ولا رمز GitHub ولا Authorization",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: طلب Anthropic واحد بمفتاحه وحده، بلا مفتاح Gemini ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "لا مفتاح ولا رمز في أي طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "AC-D9: بحذف مفتاح المختار يبقى القسم كاملًا ولا نص تحليل ولا خيار إرسال، ولا طلب جديد إلى أي مزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: لا وجهة للإضافة غير github.com وapi.github.com وapi.anthropic.com وgenerativelanguage.googleapis.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "providers": [
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "GET",
+          "path": "/v1beta/models?pageSize=1000",
+          "query": "?pageSize=1000",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "api.anthropic.com",
+          "method": "GET",
+          "path": "/v1/models?limit=100",
+          "query": "?limit=100",
+          "from": "background",
+          "key": "anthropic-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  },
+  "edge": {
+    "label": "Edge",
+    "checks": [
+      {
+        "name": "AC-E10 (٣) وAC-E12: بطاقة «مزوّد التحليل» واحدة، وقائمتها فيها Anthropic وGoogle Gemini المدموجان",
+        "ok": true
+      },
+      {
+        "name": "اختيار Google Gemini: مفتاحه «لا مفتاح»، ومضيفه، وطلب التحقق المعلن قبل الحفظ يذكر الطلب والمضيف ولا يحمل شيئًا من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): بعد حفظ المفتاح طلب واحد إلى Gemini هو التحقق المعلن GET /v1beta/models من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في ترويسة x-goog-api-key وحدها لا في العنوان ولا الجسم؛ ولا Authorization ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
+        "ok": true
+      },
+      {
+        "name": "كل مفتاح إلى مضيفه: طلب Anthropic واحد بمفتاحه (x-api-key) إلى مضيفه، ولم يصل Gemini طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى Gemini: مفتاحه «سليم» ومودلاته كما هي، وملخص المزوّدين يذكر Anthropic سليمًا؛ والتبديل لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّدين",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): النقر البرمجي من عالم الصفحة لا يفتح الموافقة",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المختار فعلًا: Google Gemini ومضيفه ومودله، ولا ذكر لـAnthropic، والزر «إرسال للتحليل»",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): «إرسال للتحليل» بالنقر البرمجي لا يُصدر طلبًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): نقرة حقيقية تُصدر طلب generateContent واحدًا للمودل المعروض من الخلفية، والنتيجة في الطبقة الثالثة موسومة «احتمال» بمودلها ومضيفها",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في الترويسة وحدها؛ والجسم بلا المفتاح ولا الرمز ولا مفتاح Anthropic، وبتعليمات النظام وحد المخرجات",
+        "ok": true
+      },
+      {
+        "name": "حجب الأمان يُعرض سببًا واضحًا (SAFETY) لا تحليلًا، وطلب واحد بلا إعادة تلقائية ولا تحويل إلى Anthropic",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات Gemini إلى مضيفه من الخلفية بمفتاحه وحده، بلا مفتاح مزوّد آخر ولا رمز GitHub ولا Authorization",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: طلب Anthropic واحد بمفتاحه وحده، بلا مفتاح Gemini ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "لا مفتاح ولا رمز في أي طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "AC-D9: بحذف مفتاح المختار يبقى القسم كاملًا ولا نص تحليل ولا خيار إرسال، ولا طلب جديد إلى أي مزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: لا وجهة للإضافة غير github.com وapi.github.com وapi.anthropic.com وgenerativelanguage.googleapis.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "providers": [
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "GET",
+          "path": "/v1beta/models?pageSize=1000",
+          "query": "?pageSize=1000",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "api.anthropic.com",
+          "method": "GET",
+          "path": "/v1/models?limit=100",
+          "query": "?limit=100",
+          "from": "background",
+          "key": "anthropic-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  },
+  "brave": {
+    "label": "Brave",
+    "checks": [
+      {
+        "name": "AC-E10 (٣) وAC-E12: بطاقة «مزوّد التحليل» واحدة، وقائمتها فيها Anthropic وGoogle Gemini المدموجان",
+        "ok": true
+      },
+      {
+        "name": "اختيار Google Gemini: مفتاحه «لا مفتاح»، ومضيفه، وطلب التحقق المعلن قبل الحفظ يذكر الطلب والمضيف ولا يحمل شيئًا من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): بعد حفظ المفتاح طلب واحد إلى Gemini هو التحقق المعلن GET /v1beta/models من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في ترويسة x-goog-api-key وحدها لا في العنوان ولا الجسم؛ ولا Authorization ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
+        "ok": true
+      },
+      {
+        "name": "كل مفتاح إلى مضيفه: طلب Anthropic واحد بمفتاحه (x-api-key) إلى مضيفه، ولم يصل Gemini طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى Gemini: مفتاحه «سليم» ومودلاته كما هي، وملخص المزوّدين يذكر Anthropic سليمًا؛ والتبديل لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّدين",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): النقر البرمجي من عالم الصفحة لا يفتح الموافقة",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المختار فعلًا: Google Gemini ومضيفه ومودله، ولا ذكر لـAnthropic، والزر «إرسال للتحليل»",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): «إرسال للتحليل» بالنقر البرمجي لا يُصدر طلبًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): نقرة حقيقية تُصدر طلب generateContent واحدًا للمودل المعروض من الخلفية، والنتيجة في الطبقة الثالثة موسومة «احتمال» بمودلها ومضيفها",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في الترويسة وحدها؛ والجسم بلا المفتاح ولا الرمز ولا مفتاح Anthropic، وبتعليمات النظام وحد المخرجات",
+        "ok": true
+      },
+      {
+        "name": "حجب الأمان يُعرض سببًا واضحًا (SAFETY) لا تحليلًا، وطلب واحد بلا إعادة تلقائية ولا تحويل إلى Anthropic",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات Gemini إلى مضيفه من الخلفية بمفتاحه وحده، بلا مفتاح مزوّد آخر ولا رمز GitHub ولا Authorization",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: طلب Anthropic واحد بمفتاحه وحده، بلا مفتاح Gemini ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "لا مفتاح ولا رمز في أي طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "AC-D9: بحذف مفتاح المختار يبقى القسم كاملًا ولا نص تحليل ولا خيار إرسال، ولا طلب جديد إلى أي مزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: لا وجهة للإضافة غير github.com وapi.github.com وapi.anthropic.com وgenerativelanguage.googleapis.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "providers": [
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "GET",
+          "path": "/v1beta/models?pageSize=1000",
+          "query": "?pageSize=1000",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "api.anthropic.com",
+          "method": "GET",
+          "path": "/v1/models?limit=100",
+          "query": "?limit=100",
+          "from": "background",
+          "key": "anthropic-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  },
+  "firefox": {
+    "label": "Firefox",
+    "checks": [
+      {
+        "name": "AC-E10 (٣) وAC-E12: بطاقة «مزوّد التحليل» واحدة، وقائمتها فيها Anthropic وGoogle Gemini المدموجان",
+        "ok": true
+      },
+      {
+        "name": "اختيار Google Gemini: مفتاحه «لا مفتاح»، ومضيفه، وطلب التحقق المعلن قبل الحفظ يذكر الطلب والمضيف ولا يحمل شيئًا من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "Firefox (AD-15): نقرة الحفظ منحت موافقة «مشاركة محتوى المواقع» (websiteContent) مع المضيف، والبطاقة «ممنوحتان»",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): بعد حفظ المفتاح طلب واحد إلى Gemini هو التحقق المعلن GET /v1beta/models من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في ترويسة x-goog-api-key وحدها لا في العنوان ولا الجسم؛ ولا Authorization ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٣) وDEC-13 ن-4: المرشَّحون بـsupportedGenerationMethods وحدهم (بلا مودل التضمين) كلٌّ بزر «افحص التوافق»، ولا مودل خيارًا للتحليل ولا افتراضي قبل الفحص (BLK-MODEL-COMPAT)، والبطاقة تعلن طلب الفحص قبل إرساله",
+        "ok": true
+      },
+      {
+        "name": "لا فحص تلقائي: طلب Gemini الوحيد حتى الآن هو التحقق",
+        "ok": true
+      },
+      {
+        "name": "الفحص الصريح الناجح: طلب POST واحد من الخلفية إلى generateContent للمودل بنص «ping» وحده (لا محتوى ولا تعليمات نظام) والمفتاح في الترويسة وحدها؛ فصار المودل خيارًا",
+        "ok": true
+      },
+      {
+        "name": "الفحص الفاشل (404 «لم يعد متاحًا للمستخدمين الجدد»): يُعرض سببه ولا يصير المودل خيارًا؛ والقائمة مودل واحد",
+        "ok": true
+      },
+      {
+        "name": "كل مفتاح إلى مضيفه: طلب Anthropic واحد بمفتاحه (x-api-key) إلى مضيفه، ولم يصل Gemini طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى Gemini: مفتاحه «سليم» ومودلاته كما هي، وملخص المزوّدين يذكر Anthropic سليمًا؛ والتبديل لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّدين",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): النقر البرمجي من عالم الصفحة لا يفتح الموافقة",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المختار فعلًا: Google Gemini ومضيفه ومودله، ولا ذكر لـAnthropic، والزر «إرسال للتحليل»",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E9 (٧): «إرسال للتحليل» بالنقر البرمجي لا يُصدر طلبًا",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٢): نقرة حقيقية تُصدر طلب generateContent واحدًا للمودل المعروض من الخلفية، والنتيجة في الطبقة الثالثة موسومة «احتمال» بمودلها ومضيفها",
+        "ok": true
+      },
+      {
+        "name": "AC-E12 (٤): المفتاح في الترويسة وحدها؛ والجسم بلا المفتاح ولا الرمز ولا مفتاح Anthropic، وبتعليمات النظام وحد المخرجات",
+        "ok": true
+      },
+      {
+        "name": "حجب الأمان يُعرض سببًا واضحًا (SAFETY) لا تحليلًا، وطلب واحد بلا إعادة تلقائية ولا تحويل إلى Anthropic",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات Gemini إلى مضيفه من الخلفية بمفتاحه وحده، بلا مفتاح مزوّد آخر ولا رمز GitHub ولا Authorization",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: طلب Anthropic واحد بمفتاحه وحده، بلا مفتاح Gemini ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "لا مفتاح ولا رمز في أي طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "AC-D9: بحذف مفتاح المختار يبقى القسم كاملًا ولا نص تحليل ولا خيار إرسال، ولا طلب جديد إلى أي مزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: لا وجهة للإضافة غير github.com وapi.github.com وapi.anthropic.com وgenerativelanguage.googleapis.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      }
+    ],
+    "browserVersion": "158.0.1",
+    "extensionErrors": null,
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        }
+      ],
+      "providers": [
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "GET",
+          "path": "/v1beta/models?pageSize=1000",
+          "query": "?pageSize=1000",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-flash:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 98
+        },
+        {
+          "host": "api.anthropic.com",
+          "method": "GET",
+          "path": "/v1/models?limit=100",
+          "query": "?limit=100",
+          "from": "background",
+          "key": "anthropic-key",
+          "authorization": false,
+          "bytes": 0
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "method": "POST",
+          "path": "/v1beta/models/mock-gem-2:generateContent",
+          "query": "",
+          "from": "background",
+          "key": "gemini-key",
+          "authorization": false,
+          "bytes": 3476
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/fluidicon.png",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911"
+      ],
+      "blockedExternalHosts": [
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com",
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  }
+}

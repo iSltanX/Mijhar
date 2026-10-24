@@ -1,0 +1,404 @@
+{
+  "measuredAt": "2026-10-24T16:36:33.192Z",
+  "host": "generativelanguage.googleapis.com",
+  "key": "غير صالح عمدًا (مختلَق، ليس مفتاح أحد)",
+  "content": "لا محتوى: «ping» وحده في طلب التوليد",
+  "runs": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "context": "service worker الخلفية",
+      "results": [
+        {
+          "name": "تحقق: GET models (بلا محتوى)",
+          "status": 400,
+          "type": "basic",
+          "ms": 428,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": null,
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=104",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        },
+        {
+          "name": "تحليل: POST generateContent (نص «ping» وحده)",
+          "status": 400,
+          "type": "basic",
+          "ms": 351,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": "chrome-extension://oofmjplianclfcjlgdboajbmkkipbfmf",
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=23",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "context": "service worker الخلفية",
+      "results": [
+        {
+          "name": "تحقق: GET models (بلا محتوى)",
+          "status": 400,
+          "type": "basic",
+          "ms": 450,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": null,
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=106",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        },
+        {
+          "name": "تحليل: POST generateContent (نص «ping» وحده)",
+          "status": 400,
+          "type": "basic",
+          "ms": 365,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": "chrome-extension://jmmkkoccegldlggkennchpahbojildpk",
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=20",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "context": "service worker الخلفية",
+      "results": [
+        {
+          "name": "تحقق: GET models (بلا محتوى)",
+          "status": 400,
+          "type": "basic",
+          "ms": 428,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": null,
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=99",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        },
+        {
+          "name": "تحليل: POST generateContent (نص «ping» وحده)",
+          "status": 400,
+          "type": "basic",
+          "ms": 352,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": "chrome-extension://cghcbbfbjkhjiegoipdfajggkfekahbo",
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=23",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "context": "صفحة الخلفية",
+      "results": [
+        {
+          "name": "تحقق: GET models (بلا محتوى)",
+          "status": 400,
+          "type": "basic",
+          "ms": 409,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": null,
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=25",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        },
+        {
+          "name": "تحليل: POST generateContent (نص «ping» وحده)",
+          "status": 400,
+          "type": "basic",
+          "ms": 476,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8",
+            "access-control-allow-origin": null,
+            "retry-after": null,
+            "x-goog-request-params": null,
+            "server-timing": "gfet4t7; dur=95",
+            "vary": "Origin, X-Origin, Referer"
+          },
+          "error": {
+            "code": 400,
+            "status": "INVALID_ARGUMENT",
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [
+              {
+                "type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "API_KEY_INVALID",
+                "domain": "googleapis.com",
+                "keys": [
+                  "@type",
+                  "reason",
+                  "domain",
+                  "metadata"
+                ]
+              },
+              {
+                "type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                "reason": null,
+                "domain": null,
+                "keys": [
+                  "@type",
+                  "locale",
+                  "message"
+                ]
+              }
+            ]
+          },
+          "bodyKeys": [
+            "error"
+          ],
+          "urlCarriesKey": false
+        }
+      ]
+    }
+  ]
+}

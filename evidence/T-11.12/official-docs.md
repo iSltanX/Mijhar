@@ -1,0 +1,22 @@
+# وثائق Google Gemini الرسمية المقروءة قبل المحوّل (`AC-E12` (١)، `RISK-15`، `RISK-16`)
+
+قُرئت كلها في **2026-10-24** قبل كتابة سطر من المحوّل، عبر جلب الصفحات الرسمية. ما لم تذكره الصفحة صراحةً مكتوب هنا «لم تذكره» ولم يُفترض؛ وما حُسم بالقياس بدل الوثائق مذكور بدليله.
+
+| الصفحة | الرابط | ما أُخذ منها |
+| :--- | :--- | :--- |
+| `models.list` | <https://ai.google.dev/api/models> | `GET https://generativelanguage.googleapis.com/v1beta/models`؛ المعاملان `pageSize` (الافتراضي 50 والأقصى 1000) و`pageToken`؛ الرد `models[]` و`nextPageToken` (غيابه = لا صفحات أخرى)؛ في كل مودل `name` («models/{model}») و`displayName` و`inputTokenLimit` و`outputTokenLimit` و`supportedGenerationMethods[]` (مثل `generateContent`) و`version`. أمثلتها تمرّر المفتاح في `?key=` ولم تذكر الترويسة. |
+| `models.generateContent` | <https://ai.google.dev/api/generate-content> | `POST …/v1beta/models/{model}:generateContent`؛ الجسم `contents[]` و`systemInstruction` (نص فقط) و`generationConfig` (أمثلة REST فيها `maxOutputTokens`)؛ الرد `candidates[]` (`content` و`finishReason` و`safetyRatings`) و`promptFeedback.blockReason` (`SAFETY` و`OTHER` و`BLOCKLIST` و`PROHIBITED_CONTENT` و`IMAGE_SAFETY`) و`usageMetadata` (`promptTokenCount` و`candidatesTokenCount` و`totalTokenCount`…) و`modelVersion`. قيم `finishReason`: `STOP` و`MAX_TOKENS` و`SAFETY` و`RECITATION` و`LANGUAGE` و`OTHER` و`BLOCKLIST` و`PROHIBITED_CONTENT` و`SPII` و`MALFORMED_FUNCTION_CALL` وغيرها. لم تعرّف الصفحة (في الجزء المقروء) حقول `GenerationConfig` تفصيلًا. |
+| مفتاح API | <https://ai.google.dev/gemini-api/docs/api-key> | مثال REST يرسل المفتاح في الترويسة `x-goog-api-key` لا في العنوان؛ وتنصح بألا يُكشف المفتاح في جهة العميل في الإنتاج. |
+| استكشاف الأخطاء | <https://ai.google.dev/gemini-api/docs/troubleshooting> | 400 `INVALID_ARGUMENT` (مفتاح غير صالح أو صياغة خاطئة: لا إعادة)، 403 `PERMISSION_DENIED` (مشروع/مفتاح مقيّد أو مبلَّغ عن تسريبه)، 429 `RESOURCE_EXHAUSTED` (إعادة بتراجع أُسّي)، 503 `UNAVAILABLE` (إعادة)، 5xx. لم تعرض شكل جسم الخطأ ولا `RetryInfo`. |
+| أخطاء الواجهة | <https://ai.google.dev/gemini-api/docs/api-errors> | جدول رموز الحالة وأسبابها، **بشكل جسم `{error:{code,message}}` برموز snake_case** يخص الواجهة الأحدث (`interactions`) ولا يطابق ما ردّه `generateContent` فعليًا (انظر القياس أدناه)؛ ولم تذكر `RetryInfo` ولا `retryDelay` ولا `retry-after`. |
+| شروط الخدمة الإضافية | <https://ai.google.dev/gemini-api/terms> | الخدمات غير المدفوعة: قد تستعمل Google المُرسَل والمُولَّد لتحسين منتجاتها وتقنيات التعلم الآلي، وقد يقرأه مراجعون بشر بعد فصله عن الحساب والمفتاح والمشروع، و«لا تُرسل معلومات حساسة أو سرية أو شخصية إلى الخدمات غير المدفوعة». المدفوعة: لا تستعمله لتحسين منتجاتها، وتسجّله مدة محدودة لكشف المخالفات والالتزام القانوني. **مصدر `policy.summary` في الوصف** (`RISK-16`): يُعرض كما قالته الصفحة ولا يدّعي مِجهَر عنها ما لم تقله، ولا يعرف أي فئة يستعمل المستخدم. |
+
+## ما حُسم بالقياس لا بالوثائق
+
+| السؤال | الجواب المقيس (2026-10-24) | الدليل |
+| :--- | :--- | :--- |
+| هل تقرأ الواجهة المفتاح من الترويسة `x-goog-api-key` في `models.list` و`generateContent`؟ | نعم: بلا مفتاح يردّ 403 «Method doesn't allow unregistered callers»، وبمفتاح غير صالح في الترويسة يردّ 400 «API key not valid» (بالنتيجة نفسها لو كان في `?key=`)؛ فالخادم قرأ الترويسة. والمحوّل يستعمل الترويسة وحدها فلا يظهر المفتاح في عنوان. | [`header-control.txt`](header-control.txt) |
+| ما رمز رد المفتاح غير الصالح؟ | **400** `INVALID_ARGUMENT` وفي `error.details` عنصر `ErrorInfo` بسبب `API_KEY_INVALID` — **لا 401**. فالمحوّل يصنّف «مفتاح مرفوض» بسبب `API_KEY_*` في التفاصيل لا برمز الحالة. | [`direct-access.json`](direct-access.json) |
+| شكل جسم الخطأ في `generateContent` | `{error:{code:<عدد>,message,status:<نص>,details:[{@type:…ErrorInfo,reason,domain,metadata},{@type:…LocalizedMessage,locale,message}]}}` — الشكل الكلاسيكي لا شكل صفحة `api-errors`. | [`direct-access.json`](direct-access.json) |
+| `retry-after` و`RetryInfo` في 429 | لم يُقَسا (لا يمكن إثارة 429 ببيانات مشروع حقيقي ولا مفتاح). المحوّل يقرأ `retry-after` إن وُجد، وإلا مدة `google.rpc.RetryInfo` بصيغة «27s» إن وُجدت؛ وهي من أدلة المنتديات (ثانوية، ليست من الوثائق الرسمية)، فلا يُدّعى أن Google تعلنها. وبغيرهما `retryAt = null` ولا يُخمَّن موعد. | `gemini.test.ts` (محاكاة) |
+| صيغة المفتاح | وثائق Gemini لا تعلن صيغة له. وُجد بالاتصال الحقيقي أن مفتاح AI Studio الحالي بصيغة `AQ.` + 50 حرفًا لا `AIza…` (ومنتديات Google تقول إن AI Studio صار يصدرها وحدها؛ دليل ثانوي). فالمحوّل يقبل الصيغتين فحصًا محليًا تحذيريًا قبل أي إرسال، والحكم لردّ الخادم. | [`real-connection.json`](real-connection.json) |
