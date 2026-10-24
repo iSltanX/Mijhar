@@ -523,6 +523,41 @@ describe('AC-E10 (٦): الصلاحيات، وFirefox بموافقة واحدة 
     expect(container.querySelector('[data-action="content-revoke"]')).toBeNull();
   });
 
+  // BLK-AUD-02: التحقق (قائمة النماذج) لا يحمل محتوى من الصفحات، فيحتاج صلاحية المضيف وحدها (privacy.md#sent، help.md).
+  it('Firefox: «تحقق من المفتاح» يطلب صلاحية المضيف وحدها بلا websiteContent، ويتحقق والموافقة غير ممنوحة', async () => {
+    const s = await setup({ firefox: true });
+    await s.stores.get('mock-b')?.save(fakeMockKey('mock-b'), 'session');
+    await s.choose('mock-b');
+    act(() => $('[data-action="key-check"]').click());
+    await flush();
+    expect(s.order).toEqual(['request:https://api.mock-b.test/*', 'verify:mock-b']);
+    expect(s.perms.collected.has('websiteContent')).toBe(false);
+    expect($('[data-key-message]').textContent).toContain('قبِل Mock B المفتاح');
+  });
+
+  it('Firefox: المضيف ممنوح والموافقة لا: «تحقق من المفتاح» يتحقق بلا أي نافذة', async () => {
+    const s = await setup({ firefox: true, granted: [B.origin] });
+    await s.stores.get('mock-b')?.save(fakeMockKey('mock-b'), 'session');
+    await s.choose('mock-b');
+    act(() => $('[data-action="key-check"]').click());
+    await flush();
+    expect(s.perms.request).not.toHaveBeenCalled();
+    expect(s.order).toEqual(['verify:mock-b']);
+  });
+
+  it('Firefox: رفض صلاحية المضيف في «تحقق من المفتاح» لا يرسل شيئًا ولا يذكر موافقة محتوى المواقع', async () => {
+    const s = await setup({ firefox: true, answer: false });
+    await s.stores.get('mock-b')?.save(fakeMockKey('mock-b'), 'session');
+    await s.choose('mock-b');
+    act(() => $('[data-action="key-check"]').click());
+    await flush();
+    expect(s.order).toEqual(['request:https://api.mock-b.test/*']);
+    expect(s.port.verify).not.toHaveBeenCalled();
+    const text = $('[data-key-message]').textContent ?? '';
+    expect(text).toContain('لم تُمنح صلاحية api.mock-b.test');
+    expect(text).not.toContain('محتوى المواقع');
+  });
+
   it('رفض النافذة: يُحفظ المفتاح «غير متحقق منه» في مخزن المختار ولا يُرسل شيء', async () => {
     const s = await setup({ answer: false });
     await s.choose('mock-b');

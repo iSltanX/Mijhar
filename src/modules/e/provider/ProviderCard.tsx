@@ -193,15 +193,16 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
       .finally(() => setBusy(false));
   };
 
+  /** التحقق (قائمة النماذج) لا يحمل محتوى من الصفحات: صلاحية المضيف وحدها، بلا موافقة محتوى المواقع (BLK-AUD-02، privacy.md#sent). */
   const recheck = () => {
-    const asked = askPermission();
+    const asked = granted?.host ? Promise.resolve(true) : permission.requestHost().catch(() => false);
     setBusy(true);
     setMessage(null);
     asked
       .then(async (ok) => {
         await readPermission();
         if (!ok) {
-          setMessage({ tone: 'info', text: `لم تُمنح ${grantName}؛ لم يُرسل شيء.` });
+          setMessage({ tone: 'info', text: `لم تُمنح صلاحية ${descriptor.host}؛ لم يُرسل شيء.` });
           return;
         }
         await verify();
