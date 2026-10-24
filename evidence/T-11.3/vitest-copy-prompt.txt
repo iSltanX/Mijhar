@@ -1,0 +1,38 @@
+ ✓ tests/modules/e/copy-prompt/static.test.ts > TEST-CTX-07 (ساكن): لا اتصال ولا مفتاح ولا رمز > لا شبكة ولا رسائل ولا طبقة طلبات ولا اتصالات في ملفات الوحدة
+ ✓ tests/modules/e/copy-prompt/static.test.ts > TEST-CTX-07 (ساكن): لا اتصال ولا مفتاح ولا رمز > لا استيراد من طبقة الاتصالات والمفاتيح (core/connections) ولا من رمز الوصول ولا من مزوّد التحليل
+ ✓ tests/modules/e/copy-prompt/static.test.ts > TEST-CTX-07 (ساكن): لا اتصال ولا مفتاح ولا رمز > لا تمرّر قراءة API إلى الطبقة (AD-30): استدعاء prepareContext بلا extras ولا apiRead، ولا لمس للجامع
+ ✓ tests/modules/e/copy-prompt/static.test.ts > TEST-CTX-07 (ساكن): لا اتصال ولا مفتاح ولا رمز > لا يعرض صندوق نص: لا textarea ولا input ولا pre ولا contenteditable في واجهة الوحدة، والحقل المؤقت للبديل في clipboard.ts وحده
+ ✓ tests/modules/e/copy-prompt/static.test.ts > TEST-CTX-07 (ساكن): لا اتصال ولا مفتاح ولا رمز > لا يبني جمعًا ولا تنقيحًا ولا اقتطاعًا ولا بناء برومبت لنفسه: يستهلك الطبقة وقوالب البرومبت وحدهما
+ ✓ tests/modules/e/copy-prompt/static.test.ts > TEST-CTX-07 (ساكن): لا اتصال ولا مفتاح ولا رمز > لا يكتب في التخزين ولا يقرأ الملاحظات أو الروابط المحفوظة: القراءة كسولة للإعدادات المعلنة وحدها
+ ✓ tests/modules/e/copy-prompt/clipboard.test.ts > copyText > writeText تنجح: يُكتب النص نفسه كاملًا ولا يُمَس البديل
+ ✓ tests/modules/e/copy-prompt/clipboard.test.ts > copyText > writeText تُرفض (NotAllowedError) فينجح البديل من حقل في جذر الظل: نجاح فعلي بطريقته، والحقل يُزال والتركيز يعود
+ ✓ tests/modules/e/copy-prompt/clipboard.test.ts > copyText > الطريقتان تفشلان: فشل بسبب الرفض ثم فشل البديل، ولا نجاح
+ ✓ tests/modules/e/copy-prompt/clipboard.test.ts > copyText > execCommand ترمي: فشل لا استثناء
+ ✓ tests/modules/e/copy-prompt/clipboard.test.ts > copyText > لا navigator.clipboard (سياق لا يسمح بها): يُجرَّب البديل أولًا ثم يُعلن السبب
+ ✓ tests/modules/e/copy-prompt/clipboard.test.ts > clipboardReason > أسماء الأخطاء الموثّقة في T-0.5 بأسبابها
+ ✓ tests/modules/e/copy-prompt/settings-section.test.tsx > القالب الافتراضي > تلقائي أولًا؛ والتلقائي لكل نوع صفحة، والاختيار الصريح يغلبه
+ ✓ tests/modules/e/copy-prompt/settings-section.test.tsx > القالب الافتراضي > يُعرَّف المفتاحان بقيمهما الافتراضية، ولا يُعرَّف حد الأسطر مرتين إن عرّفته مرحلة أخرى قبلها
+ ✓ tests/modules/e/copy-prompt/settings-section.test.tsx > التسجيل في الملفين المشتركين > الوحدة في BUILTIN_MODULES بمعرّف فريد تحت الوحدة (هـ)، والقسم في SETTINGS_SECTIONS لصفحة الإعدادات واللوحة الأصلية لا للدرج
+ ✓ tests/modules/e/copy-prompt/settings-section.test.tsx > التسجيل في الملفين المشتركين > مفتاح الوحدة مفعَّل افتراضيًا، وإيقافه يوقف الوحدة وحدها لا الوحدة (هـ) كلها
+ ✓ tests/modules/e/copy-prompt/settings-section.test.tsx > القسم في صفحة الإعدادات > مفتاح الظهور والقالب وحد الأسطر، وتغييرها يُحفظ بقيم صالحة
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الحالات: تحميل ثم نجاح بعد نجاح الكتابة وحده > تظهر حالة التحميل أثناء الكتابة، ولا «تم النسخ» قبل أن تُنجز الحافظة، وبعدها نجاح
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الحالات: تحميل ثم نجاح بعد نجاح الكتابة وحده > المنسوخ هو برومبت القالب التلقائي لنوع الصفحة، كما تبنيه الطبقة بحجب الأسرار وبلا أي شبكة
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الحالات: تحميل ثم نجاح بعد نجاح الكتابة وحده > القالب التلقائي لكل نوع صفحة: طلب الدمج الخطوة التالية، والمشكلة الفهم، ومهمة Actions التشخيص
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الحالات: تحميل ثم نجاح بعد نجاح الكتابة وحده > القالب الافتراضي من الإعدادات يغلب التلقائي، وحد الأسطر من الإعدادات يمرّ إلى الطبقة
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الفشل: يُعلن بسببه ويُعرض البديل اليدوي ولا يظهر التأكيد > رفض الحافظة: حالة فشل بسببها، بلا «تم النسخ»، وبديل التنزيل ملفًا محليًا بنقر
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الفشل: يُعلن بسببه ويُعرض البديل اليدوي ولا يظهر التأكيد > وعد الحافظة يُرفض بخطأ: فشل بسببه لا تأكيد، ثم نقرة جديدة تنجح
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الفشل: يُعلن بسببه ويُعرض البديل اليدوي ولا يظهر التأكيد > فشل التجهيز نفسه يُعلن بسببه ولا يستدعي الحافظة ولا يعرض بديل تنزيل (لا شيء مجهّز)
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > قائمة القوالب > خمسة قوالب بأوصافها، والحالي معلَّم، والاختيار يغيّر ما يُنسخ لتلك الصفحة وحدها
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > قائمة القوالب > لوحة المفاتيح: الأسهم تنقل التركيز، وEscape تغلق وتعيده إلى السهم، وTab تغلق
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > قائمة القوالب > النقر خارج الزر يغلق القائمة، وتبديل القالب يمحو تأكيد النسخ السابق
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > المحتوى الخاص: تنبيه مختصر لا صندوق نص > أنماط سرّية في الوصف: تُحجب في المنسوخ ويظهر تنبيه بعددها وأنماطها ولا يظهر أي نص منها
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > المحتوى الخاص: تنبيه مختصر لا صندوق نص > بلا أنماط سرّية: لا تنبيه
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الموضع وغياب الشبكة وإعدادات الوحدة > في صفحة الطلب يوضع بعد بطاقة ملخص الحالة، وبعد شريط حزمة السياق إن غابت، ولا يزيد البطاقة ارتفاعًا
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الموضع وغياب الشبكة وإعدادات الوحدة > في صفحة المشكلة بعد شريط حزمة السياق
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الموضع وغياب الشبكة وإعدادات الوحدة > لا تُركَّب في صفحة لا سياق لها (مقارنة وصفحة الصفحة الرئيسية للمستودع)
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الموضع وغياب الشبكة وإعدادات الوحدة > يعمل بالإعدادات الافتراضية بلا تخزين ولا مفاتيح ولا رمز: لا شبكة في الجمع والنسخ
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > الموضع وغياب الشبكة وإعدادات الوحدة > إعادة إدراج المضيف إن أزالته الصفحة
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > اسم ملف البديل > القالب والمستودع والرقم بحروف آمنة
+ ✓ tests/modules/e/copy-prompt/copy-prompt.test.tsx > اسم ملف البديل > معرّف الوحدة تحت الوحدة (هـ)
+ Test Files  4 passed (4)
+      Tests  36 passed (36)

@@ -290,7 +290,7 @@ describe('المحتوى الخاص: تنبيه مختصر لا صندوق نص'
 });
 
 describe('الموضع وغياب الشبكة وإعدادات الوحدة', () => {
-  it('في صفحة الطلب يوضع بعد بطاقة ملخص الحالة، وبعد شريط حزمة السياق إن غابت، ولا يزيد البطاقة ارتفاعًا', async () => {
+  it('في صفحة الطلب يوضع بعد بطاقة ملخص الحالة مباشرة (والارتفاعات تُقاس في المتصفحات الحقيقية)', async () => {
     const { manager, errors } = await mountOn(SAMPLES.pr, [
       createPrStatusModule({ debounceMs: 5, fetchDetails: async () => null as never, api: null, staleMs: () => 300_000 }),
       createContextBuilderModule({ now: () => NOW }),
