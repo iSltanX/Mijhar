@@ -172,3 +172,22 @@ describe('TEST-SEC-06 (آلي): الكتابة ثلاث عمليات برمز ا
     expect(checkPlan(plan())).toEqual({ ok: true });
   });
 });
+
+describe('انقطاع الشبكة أثناء الكتابة', () => {
+  it('انقطاع بعد إنشاء الفرع: لا يُدّعى أن الخطوة لم تحدث، ولا طلب بعده', async () => {
+    const s = await execSystem();
+    s.net.mockImplementationOnce(async (url: string | URL | Request, init: RequestInit = {}) => {
+      const u = new URL(String(url));
+      s.calls.push({ method: init.method ?? 'GET', path: u.pathname, auth: 'write', body: null });
+      return new Response(JSON.stringify({ ref: 'refs/heads/x' }), { status: 201 });
+    });
+    s.net.mockImplementationOnce(async () => {
+      throw new TypeError('Failed to fetch');
+    });
+    const out = await s.panel.exec.run(plan());
+    expect(out.branch.created).toBe(true);
+    expect(out.failure).toMatchObject({ step: 'file', status: null });
+    expect(out.failure?.message).toContain('لا يُعرف إن نُفّذت هذه الخطوة');
+    expect(s.net).toHaveBeenCalledTimes(2);
+  });
+});

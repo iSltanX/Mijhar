@@ -25,7 +25,11 @@ export const WRITE_OPERATIONS: Readonly<Record<WriteStep, { readonly method: 'PO
 export interface WriteDeps {
   readonly permissions: PermissionsApi;
   readonly fetch?: typeof fetch;
+  /** مهلة الطلب الواحد (ms)؛ فلا يبقى طلب معلّق يحجز خطوة التنفيذ. */
+  readonly timeoutMs?: number;
 }
+
+export const WRITE_TIMEOUT_MS = 60_000;
 
 const encodePath = (path: string): string => path.split('/').map(encodeURIComponent).join('/');
 
@@ -61,6 +65,7 @@ export function sendWrite(step: WriteStep, plan: WritePlan, token: string, deps:
       credentials: 'omit',
       referrerPolicy: 'no-referrer',
       cache: 'no-store',
+      signal: AbortSignal.timeout(deps.timeoutMs ?? WRITE_TIMEOUT_MS),
     },
     { permissions: deps.permissions, ...(deps.fetch ? { fetch: deps.fetch } : {}) },
   );

@@ -130,7 +130,9 @@ export class ExecutionService {
         return { response: await sendWrite(step, plan, token as string, deps) };
       } catch (error) {
         if (error instanceof PermissionNotGrantedError) return { error: stop(step, null, `${STEP_TEXT[step]}: ${error.message}`) };
-        return { error: stop(step, null, `${STEP_TEXT[step]}: تعذّر الوصول إلى GitHub (${error instanceof Error ? error.message : String(error)}).`) };
+        // انقطاع أو انتهاء مهلة بعد الإرسال: لا يُعرف إن نفّذها GitHub، فلا يُدّعى أنها لم تحدث.
+        const name = error instanceof Error ? error.name : 'Error';
+        return { error: stop(step, null, `${STEP_TEXT[step]}: تعذّر الوصول إلى GitHub أو انتهت المهلة (${name})؛ لا يُعرف إن نُفّذت هذه الخطوة، فراجع المستودع قبل أي إعادة.`) };
       }
     };
 
