@@ -1,0 +1,149 @@
+{
+ "inventory": {
+  "source": {
+   "state": "collected",
+   "count": 1,
+   "note": null
+  },
+  "branch": {
+   "state": "collected",
+   "count": 2,
+   "note": null
+  },
+  "description": {
+   "state": "collected",
+   "count": 1,
+   "note": null
+  },
+  "comments": {
+   "state": "collected",
+   "count": 2,
+   "note": null
+  },
+  "checks": {
+   "state": "collected",
+   "count": 14,
+   "note": null
+  },
+  "error": {
+   "state": "collected",
+   "count": 2,
+   "note": null
+  },
+  "snippets": {
+   "state": "collected",
+   "count": 1,
+   "note": null
+  },
+  "status": {
+   "state": "collected",
+   "count": 5,
+   "note": null
+  },
+  "log": {
+   "state": "collected",
+   "count": 5,
+   "note": null
+  },
+  "changes": {
+   "state": "collected",
+   "count": 12,
+   "note": "أعداد من ترويسة الطلب؛ أسماء الملفات وأسطرها في تبويب «Files changed»"
+  },
+  "links": {
+   "state": "collected",
+   "count": 4,
+   "note": null
+  }
+ },
+ "gaps": [
+  {
+   "part": "التعليقات",
+   "kind": "collapsed",
+   "reason": "تعليق مطوي لـspam-bot (أخفاه صاحبه أو المشرف) لم يُجمع؛ افتحه في الصفحة ثم أعد الجمع"
+  },
+  {
+   "part": "التعليقات",
+   "kind": "not-loaded",
+   "reason": "12 عنصرًا مخفيًا في الخط الزمني لم تحمّله الصفحة («Load more»)"
+  }
+ ],
+ "secrets": {
+  "policy": "mask",
+  "hits": [
+   {
+    "part": "العنوان",
+    "patternId": "aws-access-key",
+    "label": "معرّف مفتاح AWS (AKIA أو ASIA)",
+    "count": 1
+   },
+   {
+    "part": "الوصف",
+    "patternId": "slack-token",
+    "label": "رمز Slack (xox…)",
+    "count": 1
+   },
+   {
+    "part": "التعليقات",
+    "patternId": "bearer",
+    "label": "ترويسة Bearer",
+    "count": 1
+   },
+   {
+    "part": "نتائج الفحوص",
+    "patternId": "github-token",
+    "label": "رمز GitHub (ghp_ وgho_ وghu_ وghs_ وghr_)",
+    "count": 1
+   },
+   {
+    "part": "مقتطف الخطأ",
+    "patternId": "github-token",
+    "label": "رمز GitHub (ghp_ وgho_ وghu_ وghs_ وghr_)",
+    "count": 1
+   },
+   {
+    "part": "مقتطفات الأدلة",
+    "patternId": "github-token",
+    "label": "رمز GitHub (ghp_ وgho_ وghu_ وghs_ وghr_)",
+    "count": 1
+   },
+   {
+    "part": "الحالة والموانع",
+    "patternId": "github-token",
+    "label": "رمز GitHub (ghp_ وgho_ وghu_ وghs_ وghr_)",
+    "count": 1
+   },
+   {
+    "part": "السجل",
+    "patternId": "github-fine-grained",
+    "label": "رمز GitHub دقيق الحبيبات (github_pat_)",
+    "count": 4
+   }
+  ],
+  "total": 11
+ },
+ "limits": {
+  "description": 400,
+  "comment": 400,
+  "error": 400,
+  "snippet": 400,
+  "log": 400,
+  "changes": 400
+ },
+ "partHeadings": {
+  "subject": "feat: refresh the settings UI [محجوب: aws-access-key]",
+  "repo": "2 سطرًا",
+  "branch": "2 سطرًا",
+  "description": "العنوان والوصف",
+  "comments": "التعليقات المختارة (2 من 2)",
+  "checks": "نتائج الفحوص (ناجح 3، فاشل 2، قيد التشغيل 1، متجاوز 5، ملغى 1، لم يُشغَّل 1، غير معروف 1)",
+  "failedChecks": "الفحوص الفاشلة (2 من 14)",
+  "error": "مقتطف الخطأ",
+  "snippets": "مقتطفات الأدلة (1)",
+  "status": "الحالة والموانع (4 يمنع، 1 قد يمنع)",
+  "log": "مقتطفات السجل (قُرئ 501 سطرًا)",
+  "causes": "ما استخرجه محلل السجل",
+  "changes": "التغييرات (12 ملفًا، +1204، −87)",
+  "links": "روابط الأدلة (4)"
+ }
+}
