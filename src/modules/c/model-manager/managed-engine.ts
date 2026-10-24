@@ -48,6 +48,8 @@ export class ManagedTranslationEngine implements TranslationService {
       return { state: 'unavailable', reason: `${ENGINE_MESSAGES.checkFailed}: ${error instanceof Error ? error.message : String(error)}` };
     }
     this.packPresent = state === 'available';
+    // الموافقة لتنزيل واحد: متى رُصدت الحزمة منزّلة سقطت، فإن زالت لاحقًا (حذفها المستخدم من المتصفح) سُئل من جديد.
+    if (this.packPresent) this.consented = false;
     if (state === 'downloadable' && !this.consented) return { state: 'consent', card: consentCard() };
     return base;
   }

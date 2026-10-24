@@ -52,7 +52,7 @@
     "readme": [
       {
         "attempt": 1,
-        "ms": 6787,
+        "ms": 10357,
         "phase": "done",
         "note": "تُرجمت 17 من 17 فقرة.",
         "translations": 17,
@@ -63,7 +63,7 @@
     ],
     "availabilityAfterTranslate": "available",
     "comment": {
-      "ms": 512,
+      "ms": 521,
       "phase": "done",
       "translations": 2,
       "warnings": 0,
@@ -102,12 +102,12 @@
     },
     {
       "type": "browser_ui",
-      "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html",
+      "url": "chrome://omnibox-popup.top-chrome/",
       "title": "Omnibox Popup"
     },
     {
       "type": "browser_ui",
-      "url": "chrome://omnibox-popup.top-chrome/",
+      "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html",
       "title": "Omnibox Popup"
     },
     {
@@ -217,8 +217,8 @@
           },
           "postData": null,
           "hasPostData": false,
-          "requestId": "15140.6",
-          "t": 1792817114617,
+          "requestId": "18588.6",
+          "t": 1792817964136,
           "target": {
             "type": "page",
             "url": "about:blank"
@@ -243,8 +243,8 @@
           },
           "postData": "The side panel opens from the toolbar",
           "hasPostData": true,
-          "requestId": "15140.7",
-          "t": 1792817114617,
+          "requestId": "18588.7",
+          "t": 1792817964136,
           "target": {
             "type": "page",
             "url": "about:blank"
@@ -298,7 +298,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 9
+      "t": 4
     },
     {
       "url": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
@@ -308,17 +308,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 25
-    },
-    {
-      "url": "https://github.com/favicon.ico",
-      "method": "GET",
-      "type": "Other",
-      "target": {
-        "type": "page",
-        "url": "about:blank"
-      },
-      "t": 79
+      "t": 18
     },
     {
       "url": "chrome-extension://aknlmgjonkeomalefiopfoffdlblflpm/fonts/IBMPlexSansArabic-Regular.woff2",
@@ -328,7 +318,17 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 90
+      "t": 101
+    },
+    {
+      "url": "https://github.com/favicon.ico",
+      "method": "GET",
+      "type": "Other",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 101
     },
     {
       "url": "chrome-extension://aknlmgjonkeomalefiopfoffdlblflpm/fonts/IBMPlexSansArabic-Bold.woff2",
@@ -338,7 +338,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 12322
+      "t": 15919
     },
     {
       "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
@@ -348,7 +348,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 15911
+      "t": 19494
     },
     {
       "url": "https://collector.invalid/log",
@@ -358,7 +358,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 15911
+      "t": 19494
     }
   ],
   "extensionTargetsSeen": 2

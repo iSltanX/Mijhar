@@ -85,6 +85,7 @@ function selectionFn() {
     selected: document.getSelection()?.toString() ?? '',
     button: at(root?.querySelector('[data-action="translate-selection"]')),
     copyButton: at(root?.querySelector('[data-action="copy-masked"]')),
+    confirmButton: at(root?.querySelector('[data-action="consent-confirm"]')),
     card: card && { status: card.getAttribute('data-status'), translation, arabic: /[؀-ۿ]/.test(translation ?? ''), notice: card.querySelector('[data-section="notice"]')?.textContent ?? null, copyNote: card.querySelector('[data-section="copy-note"]')?.textContent ?? null },
   };
 }
@@ -149,6 +150,10 @@ async function translateBar(d, index) {
       if (!at) return { attempts, error: 'لا زر ترجمة', bar: (await d.eval(barsFn))[index] };
       const before = (await d.eval(barsFn))[index]?.note;
       await d.click(at.x, at.y);
+      // الحزمة غير منزّلة: بطاقة الاستئذان (T-4.4) تسبق create()؛ الموافقة بنقرة فعلية ثانية.
+      await sleep(500);
+      const confirm = await d.eval(buttonFn, { index, action: 'consent-confirm' });
+      if (confirm) await d.click(confirm.x, confirm.y);
       started = Boolean(await waitFor(async () => {
         const now = (await d.eval(barsFn))[index];
         return now?.phase === 'working' || now?.phase === 'done' || now?.note !== before;
@@ -200,6 +205,9 @@ for (const key of keys) {
         const sel = await d.eval(selectionFn);
         if (sel.button) {
           await d.click(sel.button.x, sel.button.y);
+          await sleep(500);
+          const consent = await d.eval(selectionFn);
+          if (consent.confirmButton) await d.click(consent.confirmButton.x, consent.confirmButton.y);
           r.selection = (await waitFor(async () => {
             const s = await d.eval(selectionFn);
             return s.card && s.card.status !== 'working' ? s : null;

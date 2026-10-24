@@ -52,7 +52,7 @@
     "readme": [
       {
         "attempt": 1,
-        "ms": 8326,
+        "ms": 10114,
         "phase": "done",
         "note": "تُرجمت 17 من 17 فقرة.",
         "translations": 17,
@@ -72,7 +72,7 @@
       "consentShown": false
     },
     "issue": {
-      "ms": 513,
+      "ms": 517,
       "phase": "done",
       "translations": 2,
       "warnings": 0,
@@ -207,8 +207,8 @@
           },
           "postData": null,
           "hasPostData": false,
-          "requestId": "15198.6",
-          "t": 1792817143567,
+          "requestId": "18650.6",
+          "t": 1792817994917,
           "target": {
             "type": "page",
             "url": "about:blank"
@@ -233,8 +233,8 @@
           },
           "postData": "The side panel opens from the toolbar",
           "hasPostData": true,
-          "requestId": "15198.7",
-          "t": 1792817143567,
+          "requestId": "18650.7",
+          "t": 1792817994917,
           "target": {
             "type": "page",
             "url": "about:blank"
@@ -268,14 +268,14 @@
   },
   "blockedByHarness": [
     {
-      "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
-      "method": "GET",
-      "type": "fetch"
-    },
-    {
       "url": "https://collector.invalid/log",
       "method": "POST",
       "type": "ping"
+    },
+    {
+      "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+      "method": "GET",
+      "type": "fetch"
     }
   ],
   "totalRecorded": 7,
@@ -288,7 +288,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 7
+      "t": 8
     },
     {
       "url": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
@@ -298,7 +298,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 33
+      "t": 26
     },
     {
       "url": "https://github.com/favicon.ico",
@@ -308,7 +308,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 71
+      "t": 65
     },
     {
       "url": "chrome-extension://aknlmgjonkeomalefiopfoffdlblflpm/fonts/IBMPlexSansArabic-Regular.woff2",
@@ -318,7 +318,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 92
+      "t": 86
     },
     {
       "url": "chrome-extension://aknlmgjonkeomalefiopfoffdlblflpm/fonts/IBMPlexSansArabic-Bold.woff2",
@@ -328,7 +328,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 13914
+      "t": 15710
     },
     {
       "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
@@ -338,7 +338,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 17456
+      "t": 19235
     },
     {
       "url": "https://collector.invalid/log",
@@ -348,7 +348,7 @@
         "type": "page",
         "url": "about:blank"
       },
-      "t": 17456
+      "t": 19235
     }
   ],
   "extensionTargetsSeen": 2

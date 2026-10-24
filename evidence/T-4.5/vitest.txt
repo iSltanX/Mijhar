@@ -1,0 +1,61 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj16-02bdc6
+
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > classifyRequests > نافذة بلا طلبات تجتاز 1ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > classifyRequests > موارد الإضافة وdata: وblob: وabout: ليست اتصالًا 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > classifyRequests > أي طلب شبكة تحت ج-2 مخالفة: لا مضيف مسموح حتى github.com (مسار الترجمة لا يتصل بشيء) 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > classifyRequests > مضيف ترجمة سحابي مخالفة مسماة 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > classifyRequests > مضيف النموذج المعلن مسموح (بعد موافقة) وما سواه مخالفة: القاعدة نفسها لو كان الخيار ج-1 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > classifyRequests > WebSocket (webSocketCreated) يُحسب اتصالًا 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > classifyRequests > isNetworkRequest وhostOf 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > findLeaks (نص الصفحة في الطلب) > عبارة من النص في عنوان الطلب مرمَّزة بـURL أو بـ+ تُكشف 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > findLeaks (نص الصفحة في الطلب) > في الجسم وفي الترويسات، بلا حساسية لحالة الأحرف ولا للمسافات 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > findLeaks (نص الصفحة في الطلب) > طلب بلا أثر من النص لا يُعدّ تسربًا، والعبارة القصيرة جدًا تُتجاهل 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > findLeaks (نص الصفحة في الطلب) > طلب إلى مورد إضافة لا يُفحص (ليس شبكة) 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > findLeaks (نص الصفحة في الطلب) > normalizeForSearch يفك الترميز مرتين ويوحّد المسافات 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > auditWindow (الحكم) > نافذة نظيفة تجتاز 0ms
+ ✓ tests/modules/c/network-audit/dynamic.test.ts > auditWindow (الحكم) > الضابط الإيجابي: طلب سحابي بنص الصفحة في العنوان وإشارة بجسم النص ← لا تجتاز، ومخالفتان وتسربان 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > السياسة تحت DEC-03 ج-2 > لا مضيف نموذج معلن للإضافة: المتصفح ينزّل حزمة لغته بنفسه 1ms
+ ✓ tests/modules/c/network-audit/static.test.ts > السياسة تحت DEC-03 ج-2 > قائمة الكشف تغطي مزودي الترجمة السحابية الشائعين وواجهات النماذج المستضافة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > السياسة تحت DEC-03 ج-2 > مطابقة المضيف: هو أو نطاق فرعي، والنطاق الأوسع يغطي ما تحته 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > https://github.com/* ← github.com 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > https://api.github.com/* ← api.github.com 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > https://*.deepl.com/* ← deepl.com 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > *://example.org/path ← example.org 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > <all_urls> ← null 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > https://*/* ← null 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > permission-name ← null 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > hostOfMatchPattern وhostsInText > مضيفات الروابط الصريحة في نص 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > مانيفست المصدر chromium: لا مخالفة ولا تحذير، ومضيفاته github.com وapi.github.com وحدهما 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > مانيفست المصدر firefox: لا مخالفة ولا تحذير، ومضيفاته github.com وapi.github.com وحدهما 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > مضيف ترجمة سحابي في host_permissions أو optional_host_permissions مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > صلاحية النطاق الكامل («https://*.deepl.com/*») مخالفة لأنها تغطي مضيف الخدمة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > مطابقة سكربت المحتوى أو الموارد المتاحة لمضيف سحابي مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > صلاحية تشمل كل المواقع (<all_urls>) مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > صلاحية تشمل كل المواقع (*://*/*) مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > صلاحية تشمل كل المواقع (https://*/*) مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > مضيف لم تعلنه السياسة تحذير لا مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > CSP: مضيف سحابي مخالفة، ومضيف آخر وتنفيذ ديناميكي تحذيران 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditManifest > externally_connectable مخالفة (الإضافة لا تقبل اتصالًا خارجيًا) 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > stripComments > يحذف شرح الكتل والأسطر ويُبقي الروابط والسلاسل 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > استدعاء شبكة في مسار الترجمة مخالفة، وخارجه جرد بلا مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > XMLHttpRequest في مسار الترجمة مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > navigator.sendBeacon("u", d) في مسار الترجمة مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > new WebSocket(u) في مسار الترجمة مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > new EventSource(u) في مسار الترجمة مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > importScripts(u) في مسار الترجمة مخالفة 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > ذكر fetch في تعليق أو كلمة fetchData لا يُحسب 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > مضيف ترجمة سحابي في أي ملف مخالفة، ورابط آخر في مسار الترجمة تحذير 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditSources > شيفرة src الفعلية: لا مخالفة في مسار الترجمة ولا مضيف ترجمة سحابي في أي ملف 17ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditBundle > كلمة WebAssembly وحدها (مصطلح محمي من الترجمة) ليست محركًا 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditBundle > WebAssembly.instantiate(buf) ← أثر محرك خارج ج-2 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditBundle > import("./ort.wasm") ← أثر محرك خارج ج-2 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditBundle > import("onnxruntime-web") ← أثر محرك خارج ج-2 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditBundle > browser.trial.ml.createEngine() ← أثر محرك خارج ج-2 0ms
+ ✓ tests/modules/c/network-audit/static.test.ts > auditBundle > مضيف ترجمة سحابي في الحزمة مخالفة، وfetch وحدها تُعدّ ولا تُحسب 0ms
+
+ Test Files  2 passed (2)
+      Tests  52 passed (52)
+   Start at  08:02:47
+   Duration  125ms (tests 49%, import 26%, transform 19%, worker 6%)
+

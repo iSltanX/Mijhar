@@ -67,6 +67,19 @@ describe('availability: بطاقة الاستئذان قبل أي تنزيل', (
     expect(fake.createCalls).toBe(1);
   });
 
+  it('الموافقة لتنزيل واحد: بعد أن تُرصد الحزمة منزّلة تسقط، فإن زالت من المتصفح لاحقًا عادت البطاقة', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable' });
+    const engine = managed(fake);
+    expect((await engine.availability()).state).toBe('consent');
+    engine.grantConsent();
+    expect(await engine.availability()).toEqual({ state: 'ready' });
+    fake.state = 'available';
+    expect(await engine.availability()).toEqual({ state: 'ready' });
+    fake.state = 'downloadable';
+    expect((await engine.availability()).state).toBe('consent');
+    expect(fake.createCalls).toBe(0);
+  });
+
   it.each(['available', 'downloading'])('الحزمة %s ← ready مباشرة بلا بطاقة', async (state) => {
     const fake = new FakeTranslatorApi({ state });
     expect(await managed(fake).availability()).toEqual({ state: 'ready' });
