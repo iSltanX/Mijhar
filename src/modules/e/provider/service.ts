@@ -14,7 +14,7 @@
 //  - صحة كل مفتاح تُسجَّل في سجل الاتصالات لمزوّده من الاستجابات الفعلية (تحقق واستعمال)، وقائمة المودلات تُحفظ في storage.session بمصدرها ووقتها.
 import type { PermissionsApi, PermissionsSet } from '../../../core/ui-host/browser-api';
 import type { ConnectionStatus, Verdict } from '../../../core/connections/health';
-import type { SecretStore, SessionStorageLike } from '../../../core/connections/secrets';
+import type { SecretInfo, SecretStore, SessionStorageLike } from '../../../core/connections/secrets';
 import type { SettingsStore } from '../../../core/settings';
 import { providerInfo } from './catalog';
 import { bindKey, gatedFetch, redactKey } from './gate';
@@ -41,6 +41,8 @@ export interface ModelsCache {
   save(list: ModelsList): Promise<void>;
   loadTest(provider: string): Promise<ModelTest | null>;
   saveTest(test: ModelTest): Promise<void>;
+  /** يحذف قائمة المزوّد ونتيجة اختباره (مُسح مفتاحه، COR-AUD-02). */
+  forget(provider: string): Promise<void>;
 }
 
 export function memoryModelsCache(): ModelsCache & { lists: Map<string, ModelsList>; tests: Map<string, ModelTest> } {
@@ -53,6 +55,10 @@ export function memoryModelsCache(): ModelsCache & { lists: Map<string, ModelsLi
     save: async (l) => void lists.set(l.provider, l),
     loadTest: async (p) => tests.get(p) ?? null,
     saveTest: async (t) => void tests.set(t.provider, t),
+    forget: async (p) => {
+      lists.delete(p);
+      tests.delete(p);
+    },
   };
 }
 
@@ -99,6 +105,19 @@ export function sessionModelsCache(session: SessionStorageLike): ModelsCache {
     },
     saveTest(test) {
       return serial(async () => session.set({ [MODEL_TESTS_KEY]: { ...(await read(MODEL_TESTS_KEY)), [test.provider]: test } }));
+    },
+    forget(provider) {
+      return serial(async () => {
+        const items: Record<string, unknown> = {};
+        for (const key of [MODELS_CACHE_KEY, MODEL_TESTS_KEY]) {
+          const all = await read(key);
+          if (!Object.prototype.hasOwnProperty.call(all, provider)) continue;
+          const rest = { ...all };
+          delete rest[provider];
+          items[key] = rest;
+        }
+        if (Object.keys(items).length > 0) await session.set(items);
+      });
     },
   };
 }
@@ -229,7 +248,7 @@ export class ProviderService {
     if (!adapter) return null;
     const d = adapter.descriptor;
     const content = this.options.contentPermission ?? null;
-    const [hostPermission, contentPermission, key, models, choice, providers, test, keySavedAt] = await Promise.all([
+    const [hostPermission, contentPermission, key, cached, choice, providers, test, saved] = await Promise.all([
       this.contains({ origins: [d.origin] }),
       content ? this.contains(content) : Promise.resolve(null),
       this.options.connections.keyStatus(d.id).catch(() => null),
@@ -237,8 +256,12 @@ export class ProviderService {
       this.choice(d.id),
       this.summaries(),
       this.cache.loadTest(d.id).catch(() => null),
-      this.keySavedAt(adapter),
+      this.keyInfo(adapter),
     ]);
+    const keySavedAt = saved ? saved.savedAt : null;
+    // لا مفتاح محفوظ (مُسح من الإعدادات): قائمته ونتيجة اختباره لمفتاح مُسح، فلا تُعرض وتُحذف من الجلسة (COR-AUD-02). وتعذّر القراءة ليس غيابًا.
+    const models = saved === null ? null : cached;
+    if (saved === null && (cached || test)) await this.cache.forget(d.id).catch((error: unknown) => this.options.onError?.(error));
     return {
       provider: providerInfo(d),
       selected: adapter === selected,
@@ -264,10 +287,15 @@ export class ProviderService {
     return { id: choice, displayName: models?.models.find((m) => m.id === choice)?.displayName ?? choice };
   }
 
+  /** معلومات مفتاح المزوّد المحفوظ (بلا المفتاح)، أو null إن لم يُحفظ، أو undefined إن تعذّرت قراءته. */
+  private async keyInfo(adapter: ProviderAdapter): Promise<SecretInfo | null | undefined> {
+    const store = this.options.keys(adapter.descriptor.id);
+    return store ? store.info().catch(() => undefined) : null;
+  }
+
   /** وقت حفظ مفتاح المزوّد الحالي (يقرن نتيجة الاختبار بالمفتاح الذي اختُبر به)، أو null. */
   private async keySavedAt(adapter: ProviderAdapter): Promise<number | null> {
-    const info = await this.options.keys(adapter.descriptor.id)?.info().catch(() => null);
-    return info ? info.savedAt : null;
+    return (await this.keyInfo(adapter))?.savedAt ?? null;
   }
 
   private summaries(): Promise<ProviderSummary[]> {
