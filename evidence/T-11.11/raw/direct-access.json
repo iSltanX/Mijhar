@@ -1,0 +1,409 @@
+{
+  "measuredAt": "2026-10-24T16:37:53.277Z",
+  "host": "https://api.openai.com",
+  "key": "غير صالح عمدًا (مختلَق)، بلا أي محتوى؛ النص «ping» وحده",
+  "runs": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "hostPermission": "في المانيفست",
+      "probe": {
+        "context": "service-worker",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 414,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 1482,
+            "headers": {
+              "content-type": "text/plain",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error",
+              "status"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "hostPermission": "غائبة (ضابط سلبي)",
+      "probe": {
+        "context": "service-worker",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "cors",
+            "ms": 755,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": false,
+            "threw": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "ms": 670
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "hostPermission": "في المانيفست",
+      "probe": {
+        "context": "service-worker",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 429,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 265,
+            "headers": {
+              "content-type": "text/plain",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error",
+              "status"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "hostPermission": "غائبة (ضابط سلبي)",
+      "probe": {
+        "context": "service-worker",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "cors",
+            "ms": 797,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": false,
+            "threw": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "ms": 1059
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "hostPermission": "في المانيفست",
+      "probe": {
+        "context": "service-worker",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 424,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 283,
+            "headers": {
+              "content-type": "text/plain",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error",
+              "status"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "hostPermission": "غائبة (ضابط سلبي)",
+      "probe": {
+        "context": "service-worker",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "cors",
+            "ms": 684,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": false,
+            "threw": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "ms": 582
+          }
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "hostPermission": "في المانيفست",
+      "grantedAtRuntime": [
+        "https://api.openai.com/*"
+      ],
+      "probe": {
+        "context": "background-page",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 425,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": true,
+            "status": 401,
+            "type": "basic",
+            "ms": 791,
+            "headers": {
+              "content-type": "text/plain",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error",
+              "status"
+            ]
+          }
+        ]
+      },
+      "contextPermissions": true
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "hostPermission": "غائبة (ضابط سلبي)",
+      "grantedAtRuntime": [],
+      "probe": {
+        "context": "background-page",
+        "results": [
+          {
+            "name": "GET /v1/models (التحقق المعلن)",
+            "ok": true,
+            "status": 401,
+            "type": "cors",
+            "ms": 702,
+            "headers": {
+              "content-type": "application/json",
+              "access-control-allow-origin": null,
+              "retry-after": null,
+              "x-ratelimit-reset-requests": null,
+              "x-ratelimit-reset-tokens": null,
+              "x-request-id": "موجود"
+            },
+            "error": {
+              "type": "invalid_request_error",
+              "code": "invalid_api_key",
+              "message": "Incorrect API key provided: sk-inval****************robe. You can find your API key at https://platform.openai.com/account/api-keys."
+            },
+            "bodyKeys": [
+              "error"
+            ]
+          },
+          {
+            "name": "POST /v1/responses (نقطة التحليل، «ping» وحده)",
+            "ok": false,
+            "threw": {
+              "name": "TypeError",
+              "message": "NetworkError when attempting to fetch resource."
+            },
+            "ms": 596
+          }
+        ]
+      },
+      "contextPermissions": true
+    }
+  ]
+}

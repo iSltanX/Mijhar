@@ -20,6 +20,9 @@ export const SECRET_PATTERNS: readonly SecretPattern[] = [
   { id: 'slack-token', label: 'رمز Slack (xox…)', regex: /(?<![A-Za-z0-9])xox[abprs]-[A-Za-z0-9-]{10,}/g },
   // AD-30 (H-5): صيغة مفتاح مزوّد التحليل المعتمد في DEC-09، فيحجبه المنقّح المشترك من كل محتوى قبل أي إرسال ويرصده تنبيه الحزمة.
   { id: 'anthropic-key', label: 'مفتاح Anthropic API (sk-ant-)', regex: /(?<![A-Za-z0-9])sk-ant-[A-Za-z0-9_-]{16,}/g },
+  // MJ24 (T-11.11): مفتاح OpenAI. لا تعلن وثائقه بادئة ولا طولًا (evidence/T-11.11/docs-read.md)، فالنمط تحذيري متساهل: sk- ثم 20 حرفًا فأكثر من حروف المفتاح،
+  // ولا يلتقط مفتاح Anthropic (له نمطه) ولا أسماء عادية قصيرة (sk-learn). وبادئاته المرصودة (sk-proj- وsk-svcacct- وsk-admin-) داخلة فيه.
+  { id: 'openai-key', label: 'مفتاح OpenAI API (sk-)', regex: /(?<![A-Za-z0-9])sk-(?!ant-)[A-Za-z0-9_-]{20,}/g },
 ];
 
 export interface Finding {

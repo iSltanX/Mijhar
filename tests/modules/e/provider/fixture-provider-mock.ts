@@ -194,3 +194,120 @@ export function mockHostsFetch(options: { readonly probeFails?: readonly string[
   };
   return { fetch: fetch as unknown as typeof globalThis.fetch, requests };
 }
+
+// ——— مضيف OpenAI وهمي محلي (MJ24، T-11.11، AC-E11 (٥)) ———
+// يحاكي api.openai.com بلا شبكة: GET /v1/models (قائمة بلا إعلان توافق كالواجهة الرسمية، فيها متقاعد وآخر يُعلن إيقافه)، وPOST /v1/responses لفحص
+// التوافق وللتحليل؛ ويسجّل كل طلب بعنوانه وترويساته وجسمه. معرّفات المودلات وهمية عمدًا، والمفتاح يُركَّب وقت التشغيل. لا يُحسب مضيفًا حقيقيًا.
+
+/** مفتاح بصيغة OpenAI يُركَّب وقت التشغيل (لا مفتاح بصيغته في المستودع). */
+export const fakeOpenAiKey = (tag = 'A'): string => ['sk', 'proj', `${tag}MIJHAROPENAIMOCK`.repeat(4)].join('-');
+
+const DAY = 86_400;
+const SECONDS_NOW = 1_800_000_000;
+export const OPENAI_MOCK_MODELS = [
+  { id: 'mock-chat-2', object: 'model', created: SECONDS_NOW - 10 * DAY, owned_by: 'mock' },
+  { id: 'mock-embed-1', object: 'model', created: SECONDS_NOW - 40 * DAY, owned_by: 'mock' },
+  { id: 'mock-sunset-1', object: 'model', created: SECONDS_NOW - 90 * DAY, owned_by: 'mock', shutdown_date: '2099-01-01' },
+  { id: 'mock-gone-1', object: 'model', created: SECONDS_NOW - 400 * DAY, owned_by: 'mock', shutdown_date: '2020-01-01' },
+] as const;
+
+export type OpenAiOutcome = 'ok' | '401' | '403' | '404' | '413' | '429' | '429-quota' | '500' | '503' | 'context' | 'html';
+
+export interface OpenAiScenario {
+  models?: OpenAiOutcome;
+  analyze?: OpenAiOutcome;
+  /** نتيجة فحص التوافق الصريح (POST /v1/responses بـ«ping» وحده). */
+  probe?: OpenAiOutcome;
+  /** مودلات يرفضها الفحص والتحليل بـ400 (لا تدعم النقطة). */
+  unsupported?: readonly string[];
+  retryAfter?: number;
+  echoKey?: boolean;
+  delayMs?: number;
+  /** نص الرد (الافتراضي بالبنية المطلوبة). */
+  reply?: (prompt: string) => string;
+  /** يغيّر جسم رد التحليل الناجح (status وincomplete_details وoutput…). */
+  respond?: (base: Record<string, unknown>) => Record<string, unknown>;
+}
+
+export interface OpenAiRecorded {
+  readonly url: string;
+  readonly method: string;
+  readonly headers: Readonly<Record<string, string>>;
+  readonly body: string | null;
+  readonly credentials: RequestCredentials | undefined;
+}
+
+export function openAiMock(scenario: OpenAiScenario = {}) {
+  const requests: OpenAiRecorded[] = [];
+  const fetch = async (input: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
+    const url = String(input);
+    const headers = Object.fromEntries(new Headers(init.headers).entries());
+    const body = typeof init.body === 'string' ? init.body : null;
+    requests.push({ url, method: init.method ?? 'GET', headers, body, credentials: init.credentials });
+    if (init.signal?.aborted) throw Object.assign(new Error('aborted'), { name: 'AbortError' });
+    if (scenario.delayMs) {
+      await new Promise<void>((resolve, reject) => {
+        const timer = setTimeout(resolve, scenario.delayMs);
+        init.signal?.addEventListener('abort', () => {
+          clearTimeout(timer);
+          reject(Object.assign(new Error('aborted'), { name: 'AbortError' }));
+        });
+      });
+    }
+    const key = (headers.authorization ?? '').replace(/^Bearer /, '');
+    const echo = scenario.echoKey ? ` (key ${key})` : '';
+    const fail = (outcome: OpenAiOutcome): Response => {
+      const err = (type: string, code: string | null, message: string, status: number, extra: Record<string, string> = {}) => json(status, { error: { type, code, param: null, message: `${message}${echo}` } }, extra);
+      switch (outcome) {
+        case '401':
+          return err('invalid_request_error', 'invalid_api_key', 'Incorrect API key provided', 401);
+        case '403':
+          return err('invalid_request_error', 'unsupported_country_region_territory', 'Country, region, or territory not supported', 403);
+        case '404':
+          return err('invalid_request_error', 'model_not_found', 'The model does not exist or you do not have access to it', 404);
+        case '413':
+          return err('invalid_request_error', null, 'Request too large', 413);
+        case '429':
+          return err('rate_limit_error', 'rate_limit_exceeded', 'Rate limit reached for requests', 429, scenario.retryAfter ? { 'retry-after': String(scenario.retryAfter) } : {});
+        case '429-quota':
+          return err('rate_limit_error', 'credit_balance_exhausted', 'Prepaid credits are depleted', 429);
+        case '500':
+          return err('server_error', null, 'The server had an error while processing your request', 500);
+        case '503':
+          return err('service_unavailable_error', 'server_is_overloaded', 'The model is temporarily overloaded', 503, scenario.retryAfter ? { 'retry-after': String(scenario.retryAfter) } : {});
+        case 'context':
+          return err('invalid_request_error', 'context_length_exceeded', 'This request exceeds the context window', 400);
+        case 'html':
+          return new Response('<html>gateway</html>', { status: 502, headers: { 'content-type': 'text/html' } });
+        default:
+          return err('invalid_request_error', null, 'bad request', 400);
+      }
+    };
+    const path = new URL(url).pathname;
+    if (path === '/v1/models') {
+      const outcome = scenario.models ?? 'ok';
+      return outcome === 'ok' ? json(200, { object: 'list', data: OPENAI_MOCK_MODELS }) : fail(outcome);
+    }
+    if (path === '/v1/responses') {
+      const sent = JSON.parse(body ?? '{}') as { model?: string; input?: string };
+      if (scenario.unsupported?.includes(sent.model ?? '')) return json(400, { error: { type: 'invalid_request_error', code: null, param: 'model', message: `Model ${sent.model} is not supported by this endpoint${echo}` } });
+      // فحص التوافق («ping» وحده) ونقطة التحليل واحدة؛ ولكل منهما نتيجته في السيناريو.
+      const outcome = sent.input === 'ping' ? (scenario.probe ?? 'ok') : (scenario.analyze ?? 'ok');
+      if (outcome !== 'ok') return fail(outcome);
+      const text = (scenario.reply ?? structuredReply)(sent.input ?? '');
+      const base = {
+        id: 'resp_mock',
+        object: 'response',
+        status: 'completed',
+        incomplete_details: null,
+        error: null,
+        model: sent.model,
+        output: [{ type: 'reasoning', summary: [] }, { type: 'message', role: 'assistant', status: 'completed', content: [{ type: 'output_text', text, annotations: [] }] }],
+        usage: { input_tokens: 900, output_tokens: 140, total_tokens: 1040 },
+      };
+      return json(200, scenario.respond ? scenario.respond(base) : base);
+    }
+    return json(404, { error: { type: 'invalid_request_error', code: null, message: 'not found' } });
+  };
+  return { fetch: fetch as unknown as typeof globalThis.fetch, requests };
+}

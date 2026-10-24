@@ -1,0 +1,412 @@
+{
+  "key": "brave",
+  "version": "156.0.8078.48",
+  "mounted": [
+    {
+      "index": 0,
+      "case": "readme",
+      "phase": "idle",
+      "note": ""
+    },
+    {
+      "index": 1,
+      "case": "issue-description",
+      "phase": "idle",
+      "note": ""
+    },
+    {
+      "index": 2,
+      "case": "comment-body-1",
+      "phase": "idle",
+      "note": ""
+    },
+    {
+      "index": 3,
+      "case": "comment-body-2",
+      "phase": "idle",
+      "note": ""
+    },
+    {
+      "index": 4,
+      "case": "comment-body-legacy",
+      "phase": "idle",
+      "note": ""
+    }
+  ],
+  "engineReady": true,
+  "steps": {
+    "availabilityAtMount": "downloadable",
+    "availabilityAfterIdle": "downloadable",
+    "cardShown": {
+      "consent": "تحتاج الترجمة المحلية إلى حزمة لغة ينزّلها المتصفحالحجم: غير معلن من المتصفح.الوجهة: يخزّنها المتصفح في ملفاته ولا تصل الإضافة إلى موضعها.يلزم اتصال بالإنترنت أثناء تنزيل المتصفح للحزمة عند أول استعمال.لا ترسل الإضافة نص الصفحة إلى أي جهة، ولا يبدأ شيء قبل موافقتك.موافق، نزّل الحزمة وترجمليس الآن",
+      "actions": [
+        "consent-confirm",
+        "consent-decline"
+      ]
+    },
+    "availabilityWhileCard": "downloadable",
+    "afterDecline": {
+      "consent": null,
+      "availability": "downloadable"
+    },
+    "readme": [
+      {
+        "attempt": 1,
+        "ms": 11813,
+        "phase": "done",
+        "note": "تُرجمت 17 من 17 فقرة.",
+        "translations": 17,
+        "warnings": 0,
+        "arabic": 17,
+        "tokenLeak": false
+      }
+    ],
+    "availabilityAfterTranslate": "available",
+    "comment": {
+      "ms": 506,
+      "phase": "done",
+      "translations": 2,
+      "warnings": 0,
+      "arabic": 2,
+      "tokenLeak": false,
+      "consentShown": false
+    },
+    "issue": {
+      "ms": 508,
+      "phase": "done",
+      "translations": 2,
+      "warnings": 0,
+      "arabic": 2,
+      "tokenLeak": false,
+      "consentShown": false
+    },
+    "selection": {
+      "status": "translated",
+      "translation": "تفتح اللوحة الجانبية من شريط الأدوات.",
+      "arabic": true,
+      "notice": null,
+      "consent": null,
+      "copyNote": null
+    }
+  },
+  "targets": [
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": "about:blank"
+    },
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": "about:blank"
+    },
+    {
+      "type": "service_worker",
+      "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/background.js",
+      "title": "Service Worker chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/background.js"
+    },
+    {
+      "type": "service_worker",
+      "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/background.js",
+      "title": "Service Worker chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/background.js"
+    },
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": ""
+    },
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": "about:blank"
+    }
+  ],
+  "windows": {
+    "baseline": {
+      "note": "ما يطلبه الاختبار والمتصفح للصفحة نفسها (مستند العينة وأيقونتها)، لا الإضافة",
+      "requests": [
+        {
+          "url": "https://github.com/octo/mijhar-demo/issues/7",
+          "method": "GET",
+          "type": "Document",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "https://github.com/favicon.ico",
+          "method": "GET",
+          "type": "Other",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        }
+      ]
+    },
+    "run": {
+      "note": "من بدء تحميل العينة حتى نهاية الترجمة والتحديد والنسخ (التركيب والاستئذان والتنزيل والفقرات) بعد استبعاد baseline: لا طلب شبكة مسموح ولا أثر من نص الصفحة",
+      "total": 6,
+      "ignored": 6,
+      "network": 0,
+      "allowed": [],
+      "violations": [],
+      "leaks": [],
+      "pass": true,
+      "requests": [
+        {
+          "url": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+          "method": "GET",
+          "type": "Image",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/IBMPlexSansArabic-Regular.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/Almarai-Bold.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/Almarai-Regular.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/Cairo-Bold.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/IBMPlexSansArabic-Bold.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        }
+      ]
+    },
+    "control": {
+      "note": "ضابط إيجابي: طلبان تسريبيان متعمدان يجب أن يُكشفا",
+      "total": 2,
+      "ignored": 0,
+      "network": 2,
+      "allowed": [],
+      "violations": [
+        {
+          "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+          "method": "GET",
+          "type": "Fetch",
+          "initiator": "script",
+          "documentURL": "https://github.com/octo/mijhar-demo/issues/7",
+          "headers": {
+            "sec-ch-ua-platform": "\"macOS\"",
+            "Referer": "https://github.com/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"Brave\";v=\"156\"",
+            "Accept-Language": "en-US",
+            "sec-ch-ua-mobile": "?0"
+          },
+          "postData": null,
+          "hasPostData": false,
+          "requestId": "52836.10",
+          "t": 1792860594727,
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          },
+          "host": "translate.googleapis.com",
+          "rule": "cloud-translation-host"
+        },
+        {
+          "url": "https://collector.invalid/log",
+          "method": "POST",
+          "type": "Ping",
+          "initiator": "script",
+          "documentURL": "https://github.com/octo/mijhar-demo/issues/7",
+          "headers": {
+            "sec-ch-ua-platform": "\"macOS\"",
+            "Referer": "https://github.com/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"Brave\";v=\"156\"",
+            "Content-Type": "text/plain;charset=UTF-8",
+            "sec-ch-ua-mobile": "?0",
+            "Accept-Language": "en-US"
+          },
+          "postData": "The side panel opens from the toolbar",
+          "hasPostData": true,
+          "requestId": "52836.11",
+          "t": 1792860594727,
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          },
+          "host": "collector.invalid",
+          "rule": "host-not-allowed"
+        }
+      ],
+      "leaks": [
+        {
+          "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+          "host": "translate.googleapis.com",
+          "where": "url",
+          "canary": "This extension helps Arabic readers understand repositories"
+        },
+        {
+          "url": "https://collector.invalid/log",
+          "host": "collector.invalid",
+          "where": "body",
+          "canary": "The side panel opens from the toolbar"
+        }
+      ],
+      "pass": false
+    }
+  },
+  "control": {
+    "detectedCloudHost": true,
+    "detectedHostNotAllowed": true,
+    "leaks": 2,
+    "detected": true
+  },
+  "blockedByHarness": [
+    {
+      "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+      "method": "GET",
+      "type": "fetch"
+    },
+    {
+      "url": "https://collector.invalid/log",
+      "method": "POST",
+      "type": "ping"
+    }
+  ],
+  "totalRecorded": 10,
+  "fullLog": [
+    {
+      "url": "https://github.com/octo/mijhar-demo/issues/7",
+      "method": "GET",
+      "type": "Document",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 6
+    },
+    {
+      "url": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+      "method": "GET",
+      "type": "Image",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 26
+    },
+    {
+      "url": "https://github.com/favicon.ico",
+      "method": "GET",
+      "type": "Other",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 85
+    },
+    {
+      "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/IBMPlexSansArabic-Regular.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 129
+    },
+    {
+      "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/Almarai-Bold.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 129
+    },
+    {
+      "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/Almarai-Regular.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 131
+    },
+    {
+      "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/Cairo-Bold.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 150
+    },
+    {
+      "url": "chrome-extension://lenmiofnjgfjedlmcpckmpbimnpejhoa/fonts/IBMPlexSansArabic-Bold.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 17537
+    },
+    {
+      "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+      "method": "GET",
+      "type": "Fetch",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 20957
+    },
+    {
+      "url": "https://collector.invalid/log",
+      "method": "POST",
+      "type": "Ping",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 20957
+    }
+  ],
+  "extensionTargetsSeen": 2
+}
