@@ -1,0 +1,318 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: الحزمة فيها المستودع والرابط والفرع والالتزام والعنوان والوصف والتعليقات والفحوص ومقتطف الخطأ",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: نص محدد في تعليق يُضاف مقتطفًا بمصدره ويدخل الحزمة",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: إلغاء «نتائج الفحوص» يُخرجها من الحزمة، وإعادته تعيدها",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: القسم في الواجهة يسرد المطوي وغير المحمّل والقائمة المطوية والمقتطع بعدد أسطره",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: والقسم نفسه في الحزمة ببنوده",
+        "ok": true
+      },
+      {
+        "name": "PB-05: تحديث المعاينة عند التبديل < 20ms (الوسيط 0.20ms، p95 0.30ms، 3208 حرفًا)",
+        "ok": true
+      },
+      {
+        "name": "«انسخ الحزمة» بنقر فعلي يعلن النجاح (الحافظة في فعل المستخدم)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى github.com أثناء الجمع والتبديل والنسخ",
+        "ok": true
+      },
+      {
+        "name": "صفحة مشكلة حقيقية: العنوان والوصف والتعليقات، بلا قسم فحوص",
+        "ok": true
+      },
+      {
+        "name": "صفحة مهمة Actions حقيقية: الخطوات ومقتطف الخطأ من التنبيهات",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [],
+      "githubPaths": [
+        "/octo/demo/pull/4242",
+        "/salktbi902/etos/issues/1",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "github.githubassets.com"
+      ]
+    }
+  },
+  "edge": {
+    "label": "Edge",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: الحزمة فيها المستودع والرابط والفرع والالتزام والعنوان والوصف والتعليقات والفحوص ومقتطف الخطأ",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: نص محدد في تعليق يُضاف مقتطفًا بمصدره ويدخل الحزمة",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: إلغاء «نتائج الفحوص» يُخرجها من الحزمة، وإعادته تعيدها",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: القسم في الواجهة يسرد المطوي وغير المحمّل والقائمة المطوية والمقتطع بعدد أسطره",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: والقسم نفسه في الحزمة ببنوده",
+        "ok": true
+      },
+      {
+        "name": "PB-05: تحديث المعاينة عند التبديل < 20ms (الوسيط 0.20ms، p95 0.50ms، 3208 حرفًا)",
+        "ok": true
+      },
+      {
+        "name": "«انسخ الحزمة» بنقر فعلي يعلن النجاح (الحافظة في فعل المستخدم)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى github.com أثناء الجمع والتبديل والنسخ",
+        "ok": true
+      },
+      {
+        "name": "صفحة مشكلة حقيقية: العنوان والوصف والتعليقات، بلا قسم فحوص",
+        "ok": true
+      },
+      {
+        "name": "صفحة مهمة Actions حقيقية: الخطوات ومقتطف الخطأ من التنبيهات",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [],
+      "githubPaths": [
+        "/octo/demo/pull/4242",
+        "/salktbi902/etos/issues/1",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "github.githubassets.com"
+      ]
+    }
+  },
+  "brave": {
+    "label": "Brave",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: الحزمة فيها المستودع والرابط والفرع والالتزام والعنوان والوصف والتعليقات والفحوص ومقتطف الخطأ",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: نص محدد في تعليق يُضاف مقتطفًا بمصدره ويدخل الحزمة",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: إلغاء «نتائج الفحوص» يُخرجها من الحزمة، وإعادته تعيدها",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: القسم في الواجهة يسرد المطوي وغير المحمّل والقائمة المطوية والمقتطع بعدد أسطره",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: والقسم نفسه في الحزمة ببنوده",
+        "ok": true
+      },
+      {
+        "name": "PB-05: تحديث المعاينة عند التبديل < 20ms (الوسيط 0.20ms، p95 0.40ms، 3208 حرفًا)",
+        "ok": true
+      },
+      {
+        "name": "«انسخ الحزمة» بنقر فعلي يعلن النجاح (الحافظة في فعل المستخدم)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى github.com أثناء الجمع والتبديل والنسخ",
+        "ok": true
+      },
+      {
+        "name": "صفحة مشكلة حقيقية: العنوان والوصف والتعليقات، بلا قسم فحوص",
+        "ok": true
+      },
+      {
+        "name": "صفحة مهمة Actions حقيقية: الخطوات ومقتطف الخطأ من التنبيهات",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [],
+      "githubPaths": [
+        "/octo/demo/pull/4242",
+        "/salktbi902/etos/issues/1",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "github.githubassets.com"
+      ]
+    }
+  },
+  "firefox": {
+    "label": "Firefox",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: الحزمة فيها المستودع والرابط والفرع والالتزام والعنوان والوصف والتعليقات والفحوص ومقتطف الخطأ",
+        "ok": true
+      },
+      {
+        "name": "AC-E1: نص محدد في تعليق يُضاف مقتطفًا بمصدره ويدخل الحزمة",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: إلغاء «نتائج الفحوص» يُخرجها من الحزمة، وإعادته تعيدها",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: القسم في الواجهة يسرد المطوي وغير المحمّل والقائمة المطوية والمقتطع بعدد أسطره",
+        "ok": true
+      },
+      {
+        "name": "AC-E2: والقسم نفسه في الحزمة ببنوده",
+        "ok": true
+      },
+      {
+        "name": "PB-05: تحديث المعاينة عند التبديل < 20ms (الوسيط 0.00ms، p95 1.00ms، 3208 حرفًا)",
+        "ok": true
+      },
+      {
+        "name": "«انسخ الحزمة» بنقر فعلي يعلن النجاح (الحافظة في فعل المستخدم)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى github.com أثناء الجمع والتبديل والنسخ",
+        "ok": true
+      },
+      {
+        "name": "صفحة مشكلة حقيقية: العنوان والوصف والتعليقات، بلا قسم فحوص",
+        "ok": true
+      },
+      {
+        "name": "صفحة مهمة Actions حقيقية: الخطوات ومقتطف الخطأ من التنبيهات",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: صفر طلبات إلى api.github.com",
+        "ok": true
+      }
+    ],
+    "browserVersion": "158.0.1",
+    "extensionErrors": null,
+    "network": {
+      "api": [],
+      "githubPaths": [
+        "/octo/demo/pull/4242",
+        "/favicon.ico",
+        "/salktbi902/etos/issues/1",
+        "/fluidicon.png",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911"
+      ],
+      "blockedExternalHosts": [
+        "avatars.githubusercontent.com",
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com",
+        "github.githubassets.com"
+      ]
+    }
+  }
+}

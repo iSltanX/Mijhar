@@ -98,6 +98,27 @@ describe('محدّد القوالب', () => {
     ui.manager.stop();
   });
 
+  it('PB-05 مع القوالب والفحص: تحديث المعاينة عند تبديل خيار أقل من 20ms (الوسيط على 30 تبديلًا، كل العناصر مختارة، قالب المراجعة)', async () => {
+    const ui = await mounted();
+    await ui.click('input[data-template="review"]');
+    const checks = ui.q<HTMLInputElement>('input[data-item="checks"]') as HTMLInputElement;
+    const times: number[] = [];
+    for (let i = 0; i < 30; i += 1) {
+      const before = ui.preview();
+      const t0 = performance.now();
+      checks.click();
+      for (let k = 0; k < 50 && ui.preview() === before; k += 1) await Promise.resolve();
+      if (ui.preview() === before) await flush();
+      times.push(performance.now() - t0);
+      expect(ui.preview()).not.toBe(before);
+    }
+    const sorted = [...times].sort((a, b) => a - b);
+    const median = sorted[Math.floor(sorted.length / 2)] ?? Infinity;
+    console.info(`PB-05 (jsdom، قالب المراجعة + الفاحص): median ${median.toFixed(2)}ms · max ${sorted.at(-1)?.toFixed(2)}ms (n=${times.length})`);
+    expect(median).toBeLessThan(20);
+    ui.manager.stop();
+  });
+
   it('قسم «ما تعذّر جمعه أو اقتُطع لطوله» في الواجهة وفي الحزمة معًا مع كل قالب', async () => {
     const ui = await mounted();
     for (const t of TEMPLATES) {
