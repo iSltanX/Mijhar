@@ -105,16 +105,37 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
   const provider = providerState && providerState.provider.id !== id ? undefined : providerState;
   const [message, setMessage] = useState<Message | null>(null);
   const [confirming, setConfirming] = useState(false);
+  // قراءة بدأت لمزوّد سابق (عملية لم تنته قبل التبديل) أو سبقتها قراءة أحدث لا تكتب فوق المعروض الآن (F-05).
+  const reads = useRef({ id, info: 0, status: 0 });
+  reads.current.id = id;
 
   const readPermission = useCallback(
     () =>
       permission.state().then(
-        (value) => setGranted(value),
-        () => setGranted({ host: false, content: permission.dataCollection.length ? false : null }),
+        (value) => reads.current.id === id && setGranted(value),
+        () => reads.current.id === id && setGranted({ host: false, content: permission.dataCollection.length ? false : null }),
       ),
-    [permission],
+    [permission, id],
   );
-  const readStatus = useCallback(() => port.status(id).then((value) => setProvider(value)), [port, id]);
+  const readStatus = useCallback((): Promise<void> => {
+    if (reads.current.id !== id) return Promise.resolve();
+    const n = (reads.current.status += 1);
+    return port.status(id).then((value) => {
+      if (reads.current.id === id && reads.current.status === n) setProvider(value);
+    });
+  }, [port, id]);
+  const putInfo = useCallback((value: SecretInfo | null) => {
+    reads.current.info += 1;
+    setInfo(value);
+  }, []);
+  const readInfo = useCallback((): Promise<void> => {
+    if (reads.current.id !== id) return Promise.resolve();
+    const n = (reads.current.info += 1);
+    const put = (value: SecretInfo | null) => {
+      if (reads.current.id === id && reads.current.info === n) setInfo(value);
+    };
+    return store.info().then(put, () => put(null));
+  }, [store, id]);
 
   // تغيير المزوّد: كل ما يُعرض يُقرأ من جديد لمزوّده هو، والحقل يُفرَّغ فلا يُحفظ مفتاح في مخزن غير الذي لُصق له.
   useEffect(() => {
@@ -125,25 +146,47 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
     setMessage(null);
     setConfirming(false);
     if (input.current) input.current.value = '';
-    store.info().then(
-      (value) => alive && setInfo(value),
-      () => alive && setInfo(null),
-    );
+    void readInfo();
     void permission.state().then(
       (value) => alive && setGranted(value),
       () => alive && setGranted({ host: false, content: permission.dataCollection.length ? false : null }),
     );
-    void port.status(id).then((value) => alive && setProvider(value));
+    void readStatus();
     const unsubscribe = permission.subscribe(() => void readPermission());
     return () => {
       alive = false;
       unsubscribe();
     };
-  }, [store, permission, port, id, readPermission]);
+  }, [store, permission, port, id, readPermission, readInfo, readStatus]);
 
   useEffect(() => {
     void readStatus();
   }, [choice, readStatus]);
+
+  // المفتاح يُمسح أو يُستبدل من صفحة إعدادات أخرى، ولا حدث تغيّر للأسرار: يُقرأ هو وحالته من جديد حين تصل حالة السجل الأحدث من الأب،
+  // وحين تعود هذه الصفحة إلى الواجهة؛ فلا تبقى حالة مفتاح ممسوح ولا نتيجة اختبار مفتاح سابق (F-05).
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    void readInfo();
+    void readStatus();
+  }, [status]);
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      void readInfo();
+      void readStatus();
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('focus', onVisible);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('focus', onVisible);
+    };
+  }, [readInfo, readStatus]);
 
   const verify = async (): Promise<void> => {
     const result = await port.verify(id);
@@ -180,7 +223,7 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
         await readPermission();
         const saved = await store.save(parsed.key, place);
         field.value = '';
-        setInfo(saved);
+        putInfo(saved);
         if (!ok) {
           setMessage({ tone: 'info', text: `حُفظ مفتاح ${descriptor.title} في ${PLACE_TEXT[saved.place]} ولم يُتحقق منه: لم تُمنح ${grantName}، فلم يُرسل شيء.` });
           await readStatus();
@@ -219,7 +262,7 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
     store
       .clear()
       .then(() => {
-        setInfo(null);
+        putInfo(null);
         setMessage({ tone: 'info', text: `مُسح مفتاح ${descriptor.title} من ذاكرة الجلسة ومن القرص. وتبقى مفاتيح المزوّدين الآخرين والأقسام و«نسخ البرومبت» ورمز GitHub كما هي.` });
       })
       .catch((error: unknown) => setMessage({ tone: 'danger', text: `تعذّر مسح المفتاح كاملًا: ${error instanceof Error ? error.message : 'خطأ غير معروف'}` }))
