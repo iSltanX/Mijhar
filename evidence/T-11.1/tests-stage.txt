@@ -1,0 +1,10 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj18-9ae1f4
+
+Not implemented: Window's scrollTo() method
+
+ Test Files  6 passed (6)
+      Tests  48 passed (48)
+   Start at  12:13:22
+   Duration  1.90s (tests 38%, transform 26%, import 20%, environment 14%)
+

@@ -141,12 +141,17 @@ describe('التحقق والمسح', () => {
     expect(ui.q('[data-token-check]')?.textContent).toContain('api.github.com');
   });
 
-  it('«امسح الرمز» يمحوه من الجلسة والقرص ويُبلغ الخلفية بقراءة الحالة', async () => {
+  it('«امسح الرمز» يسرد ما يتعطل وحده ثم يمحوه من الجلسة والقرص ويُبلغ الخلفية بقراءة الحالة', async () => {
     const ui = await mount();
     await ui.type(TOKEN);
     ui.disk.value = { token: TOKEN, savedAt: 1 };
     ui.port.status.mockClear();
     await ui.click('[data-action="token-clear"]');
+    // MJ18 (AC-11.1 ‏(٥)): لا مسح قبل التأكيد، والتأكيد يسمّي ما يتعطل وحده وما يبقى.
+    expect(ui.session.value).not.toBeNull();
+    expect(ui.q('[data-token-confirm] [data-disables]')?.textContent).toContain('مستودع خاص');
+    expect(ui.q('[data-token-confirm] [data-keeps]')?.textContent).toContain('حزمة السياق');
+    await ui.click('[data-action="token-clear-confirm"]');
     expect(ui.session.value).toBeNull();
     expect(ui.disk.value).toBeNull();
     expect(ui.port.status).toHaveBeenCalled();

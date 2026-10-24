@@ -45,8 +45,10 @@ export interface ExtensionApi {
     sendMessage(tabId: number, message: unknown): Promise<unknown>;
     query(query: { active?: boolean; currentWindow?: boolean; lastFocusedWindow?: boolean }): Promise<TabLike[]>;
     create(properties: { url: string }): Promise<TabLike>;
+    /** MJ18 (T-11.1): العودة إلى تبويب الميزة بعد الربط. */
+    update?(tabId: number, properties: { active?: boolean }): Promise<TabLike | undefined>;
   };
-  windows?: { getCurrent(): Promise<{ id?: number }> };
+  windows?: { getCurrent(): Promise<{ id?: number }>; update?(windowId: number, properties: { focused?: boolean }): Promise<unknown> };
   commands?: {
     getAll(): Promise<CommandInfo[]>;
     onCommand: ExtEvent<(command: string, tab?: TabLike) => void>;

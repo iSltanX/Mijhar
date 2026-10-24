@@ -35,7 +35,8 @@ export interface ActionsChecks {
   readonly partial: boolean;
 }
 
-export type ActionsResult = ({ readonly ok: true; readonly value: ActionsChecks } | { readonly ok: false; readonly reason: string }) & { readonly requests: readonly string[] };
+/** failure: نتيجة الطلب الذي فشل (بلا الرمز)، لتُصنَّف حالة وصوله (T-11.5). */
+export type ActionsResult = ({ readonly ok: true; readonly value: ActionsChecks } | { readonly ok: false; readonly reason: string; readonly failure?: PublicApiResult<unknown> }) & { readonly requests: readonly string[] };
 
 /** أقصى عدد تشغيلات تُقرأ مهامها لالتزام واحد. */
 export const MAX_ACTIONS_RUNS = 10;
@@ -65,14 +66,14 @@ export async function readActionsChecks(port: PublicApiPort, base: string, headS
   const runsPath = `${base}/actions/runs?head_sha=${encodeURIComponent(headSha)}`;
   const requests: string[] = [runsPath];
   const runs = await port.getAll<RawRun>(runsPath, 'workflow_runs', 1);
-  if (!runs.ok) return { ok: false, reason: `تشغيلات Actions: ${reasonOf(runs)}`, requests };
+  if (!runs.ok) return { ok: false, reason: `تشغيلات Actions: ${reasonOf(runs)}`, failure: runs, requests };
   const ids = runs.data.items.map((r) => r.id).filter((id): id is number => typeof id === 'number');
   const chosen = ids.slice(0, MAX_ACTIONS_RUNS);
   const paths = chosen.map((id) => `${base}/actions/runs/${id}/jobs`);
   requests.push(...paths);
   const jobsResults = await Promise.all(paths.map((path) => port.getAll<RawJob>(path, 'jobs', 1)));
   const failed = jobsResults.find((r) => !r.ok);
-  if (failed && !failed.ok) return { ok: false, reason: `مهام Actions: ${failed.message}`, requests };
+  if (failed && !failed.ok) return { ok: false, reason: `مهام Actions: ${failed.message}`, failure: failed, requests };
 
   const items: CheckItem[] = [];
   let jobsTotal: number | null = 0;

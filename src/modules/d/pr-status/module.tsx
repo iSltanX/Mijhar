@@ -5,9 +5,22 @@
 //    وحدها (core/api)؛ وفشل أيٍّ منهما يُعلَن «غير متاح» بسببه ولا يُعرض نجاحًا.
 //  - وقت آخر قراءة يتجدد بأول قراءة، وبتحديث حي (تغيّرت قيمة مقروءة بعد تعديل أجرته الصفحة)، وبإعادة القراءة الصريحة؛ ولا يتجدد بتعديلات
 //    لا تغيّر شيئًا، فيظهر التقادم (PP-01) حين تسكت الصفحة.
+//  - MJ18 (T-11.5): كل قراءة API مربوطة بالمستودع وفرع الرأس والتزامه ووقتها، ولا تُعرض على غير ما قُرئت له؛ ولكل جزء حالة وصوله بنصها،
+//    وما لم يُقرأ «غير معروف». وفشل قراءة أحدث (حد أو رمز) لا يمحو آخر قراءة ناجحة لنفس الالتزام: تبقى بوقتها ويُعلن الفشل.
+//  - MJ18 (T-11.1): قراءة المستودع الخاص خيار يحتاج ربطًا يظهر في لوحة API معلَّلًا (بوابة)، ويفتح موضع الرمز في الإعدادات ثم تعيد الخلفية
+//    إلى هذا التبويب وتبلغه، فتُقرأ حالة الاتصال من جديد ويُركَّز زر القراءة دون إرسال طلب.
 import { mountSurface } from '../../../core/ui-host/surface';
 import { extensionApi } from '../../../core/ui-host/browser-api';
+import type { ExtEvent } from '../../../core/ui-host/browser-api';
 import { OPEN_OPTIONS_MESSAGE } from '../../../core/ui-host/commands';
+import type { OpenOptionsMessage } from '../../../core/ui-host/commands';
+import { isConnectionsChanged, runtimeConnectionsPort } from '../../../core/connections/port';
+import type { ConnectionsPort } from '../../../core/connections/port';
+import type { Health } from '../../../core/connections/health';
+import { GATE_CSS } from '../../../core/connections/ui/styles';
+import { compareBinding } from '../status/binding';
+import type { ReadBinding } from '../status/binding';
+import { STATUS_CSS } from '../status/view';
 import { createSettingsRegistry } from '../../../core/ui-host/units';
 import { openSettings } from '../../../core/ui-host/settings-runtime';
 import { runtimePort } from '../../../core/api/port';
@@ -17,7 +30,7 @@ import { readPrApi } from '../blockers/api-read';
 import type { ApiPrData } from '../blockers/api-read';
 import { explainBlockers, readDomEvidence } from '../blockers/explain';
 import { collapsedInfo, freshnessAlerts, isLiveChange, readFacts } from '../blockers/freshness';
-import { apiMatchesHead, mergeApi } from '../blockers/merge';
+import { mergeApi } from '../blockers/merge';
 import { BLOCKERS_CSS } from '../blockers/style';
 import { ApiPanel, BlockersView, FreshnessBadge } from '../blockers/view';
 import { PR_STATUS_MODULE_ID } from './ids';
@@ -48,6 +61,12 @@ export interface PrStatusOptions {
   readonly tickMs?: number;
   /** يفتح صفحة الإعدادات (منح الصلاحية هناك لا في الصفحة). */
   readonly openSettings?: () => void;
+  /** MJ18: سجل الاتصالات (حالة الرمز). الافتراضي رسائل إلى الخلفية؛ وnull بلا بوابة. */
+  readonly connections?: ConnectionsPort | null;
+  /** MJ18: يفتح موضع ربط الرمز في الإعدادات للعودة إلى هذه الميزة. */
+  readonly openConnect?: () => void;
+  /** MJ18: رسائل الخلفية إلى التبويب (إشعار العودة بعد الربط). الافتراضي runtime.onMessage. */
+  readonly runtimeMessages?: ExtEvent<(message: unknown) => unknown> | null;
 }
 
 /** نتيجة جلب لالتزام (مفتاحها رابط الجزء الحامل لـsha) تبقى صالحة عبر إعادات التركيب فلا يتكرر الطلب. */
@@ -77,6 +96,31 @@ function defaultOpenSettings(): void {
     void extensionApi().runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE });
   } catch {
     // خارج الإضافة (اختبار): لا شيء.
+  }
+}
+
+function defaultConnections(): ConnectionsPort | null {
+  try {
+    return runtimeConnectionsPort(extensionApi().runtime);
+  } catch {
+    return null;
+  }
+}
+
+/** موضع الرمز في الإعدادات مع معرّف الميزة من القائمة المغلقة، لا عنوان. */
+function defaultOpenConnect(): void {
+  try {
+    void extensionApi().runtime.sendMessage({ type: OPEN_OPTIONS_MESSAGE, target: 'token', feature: 'd.pr-status.private' } satisfies OpenOptionsMessage);
+  } catch {
+    // خارج الإضافة (اختبار): لا شيء.
+  }
+}
+
+function defaultRuntimeMessages(): ExtEvent<(message: unknown) => unknown> | null {
+  try {
+    return extensionApi().runtime.onMessage as unknown as ExtEvent<(message: unknown) => unknown>;
+  } catch {
+    return null;
   }
 }
 
@@ -116,6 +160,8 @@ export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionMo
   const now = options.now ?? (() => Date.now());
   const staleMs = options.staleMs ?? settingsStaleMs();
   let port: PublicApiPort | null | undefined = options.api;
+  let connections: ConnectionsPort | null | undefined = options.connections;
+  let messages: ExtEvent<(message: unknown) => unknown> | null | undefined = options.runtimeMessages;
   return {
     id: PR_STATUS_MODULE_ID,
     title: 'ملخص حالة طلب الدمج',
@@ -123,7 +169,22 @@ export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionMo
     selectors: PR_STATUS_SELECTORS,
     mount(ctx) {
       if (port === undefined) port = defaultPort();
-      new PrStatusController(ctx, { fetchDetails, debounceMs, cache, cacheMs, now, staleMs, tickMs: options.tickMs ?? 15_000, api: port, openSettings: options.openSettings ?? defaultOpenSettings }).start();
+      if (connections === undefined) connections = defaultConnections();
+      if (messages === undefined) messages = defaultRuntimeMessages();
+      new PrStatusController(ctx, {
+        fetchDetails,
+        debounceMs,
+        cache,
+        cacheMs,
+        now,
+        staleMs,
+        tickMs: options.tickMs ?? 15_000,
+        api: port,
+        openSettings: options.openSettings ?? defaultOpenSettings,
+        connections,
+        openConnect: options.openConnect ?? defaultOpenConnect,
+        messages,
+      }).start();
     },
   };
 }
@@ -138,6 +199,9 @@ interface ControllerDeps {
   readonly tickMs: number;
   readonly api: PublicApiPort | null;
   readonly openSettings: () => void;
+  readonly connections: ConnectionsPort | null;
+  readonly openConnect: () => void;
+  readonly messages: ExtEvent<(message: unknown) => unknown> | null;
 }
 
 type ReadReason = 'initial' | 'mutation' | 'fetched' | 'explicit' | 'tick' | 'api';
@@ -152,9 +216,13 @@ class PrStatusController {
   private facts: Map<string, string> | null = null;
   private domReadAt: number;
   private liveUpdateAt: number | null = null;
+  /** القراءة المعروضة: الأحدث، أو آخر قراءة ناجحة إن فشلت الأحدث. */
   private apiData: ApiPrData | null = null;
+  /** القراءة الأحدث حين فشلت بعد قراءة ناجحة (تُعلن ولا تمحوها). */
+  private apiAttempt: ApiPrData | null = null;
   private apiStatus: PublicApiStatus | null = null;
   private apiLoading = false;
+  private tokenHealth: Health | null = null;
 
   constructor(
     private readonly ctx: ModuleContext,
@@ -190,6 +258,40 @@ class PrStatusController {
         () => {},
       );
     }
+    this.readConnections();
+    // العودة بعد الربط (AC-11.1 ‏(٣)): تقرأ حالة الاتصال من جديد وتركّز زر القراءة؛ ولا طلب إلى API قبل نقر المستخدم.
+    const messages = this.deps.messages;
+    if (messages) {
+      const listener = (message: unknown): undefined => {
+        if (!isConnectionsChanged(message) || ctx.signal.aborted) return undefined;
+        void this.reconnected();
+        return undefined;
+      };
+      messages.addListener(listener);
+      ctx.onTeardown(() => messages.removeListener(listener));
+    }
+  }
+
+  private readConnections(): Promise<void> {
+    const { connections } = this.deps;
+    if (!connections) return Promise.resolve();
+    return connections.status().then(
+      (list) => {
+        if (this.ctx.signal.aborted) return;
+        this.tokenHealth = list.find((s) => s.id === 'github-token')?.health ?? null;
+        this.refresh('tick');
+      },
+      () => {},
+    );
+  }
+
+  private async reconnected(): Promise<void> {
+    const status = await this.deps.api?.status().catch(() => null);
+    if (this.ctx.signal.aborted) return;
+    if (status) this.apiStatus = status;
+    await this.readConnections();
+    this.refresh('tick');
+    this.surface?.shadow.querySelector<HTMLElement>('[data-action="api-read"], [data-action="open-settings"]')?.focus();
   }
 
   private schedule(): void {
@@ -240,19 +342,26 @@ class PrStatusController {
     const { ctx, deps } = this;
     if (!this.surface) {
       const spot = (this.anchor = this.place());
-      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: D_CARD_CSS + BLOCKERS_CSS, label: 'ملخص حالة طلب الدمج' });
+      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: D_CARD_CSS + BLOCKERS_CSS + STATUS_CSS + GATE_CSS, label: 'ملخص حالة طلب الدمج' });
     } else if (!this.surface.host.isConnected && this.anchor) {
       // أعادت الصفحة رسم حاويتها فأزالت المضيف: يُعاد إدراجه في موضعه الجديد.
       const spot = (this.anchor = this.place());
       ctx.mutations.insert(spot.parent, this.surface.host, spot.before);
     }
-    // هوية الالتزام في كل رسم (VR-03): قراءة API لرأس غير الظاهر (ومنها رد متأخر بعد دفع التزام) لا تدخل الملخص ولا الموانع.
-    const matched = apiMatchesHead(summary, this.apiData);
+    // هوية القراءة في كل رسم (VR-03، T-11.5): قراءة API لمستودع أو فرع أو التزام غير الظاهر (ومنها رد متأخر بعد دفع التزام) لا تدخل الملخص
+    // ولا الموانع، ويُعلن أنها لالتزام آخر.
+    const page: ReadBinding = {
+      repo: ctx.page.owner && ctx.page.repo ? `${ctx.page.owner}/${ctx.page.repo}` : null,
+      branch: summary.head.available ? summary.head.value.branch : null,
+      commit: summary.headSha,
+      readAt: null,
+    };
+    const binding = this.apiData?.pull.available ? { read: this.apiData.binding, page, match: compareBinding(this.apiData.binding, page) } : null;
+    const matched = Boolean(binding?.match.same);
     const api = matched ? this.apiData : null;
-    const merged = mergeApi(summary, this.apiData);
+    const merged = mergeApi(summary, api);
     const report = explainBlockers(merged, readDomEvidence(ctx.document, ctx.selectors), api);
     const apiRead = Boolean(api?.pull.available);
-    const mismatch = this.apiData?.pull.available && !matched ? { apiHead: this.apiData.pull.value.headSha, pageHead: summary.headSha } : null;
     const alerts = freshnessAlerts(
       { now: deps.now(), domReadAt: this.domReadAt, apiReadAt: apiRead ? (api?.readAt ?? null) : null, liveUpdateAt: this.liveUpdateAt, staleMs: deps.staleMs() },
       collapsedInfo(merged, apiRead ? api : null),
@@ -274,7 +383,21 @@ class PrStatusController {
           />
         }
         blockers={<BlockersView report={report} />}
-        footer={canApi ? <ApiPanel status={this.apiStatus} loading={this.apiLoading} data={this.apiData} mismatch={mismatch} onRead={() => this.readApi()} onOpenSettings={deps.openSettings} /> : null}
+        footer={
+          canApi ? (
+            <ApiPanel
+              status={this.apiStatus}
+              loading={this.apiLoading}
+              data={this.apiData}
+              attempt={this.apiAttempt}
+              binding={binding}
+              tokenHealth={this.tokenHealth}
+              onRead={() => this.readApi()}
+              onOpenSettings={deps.openSettings}
+              onConnect={deps.connections ? deps.openConnect : null}
+            />
+          ) : null
+        }
       />,
     );
   }
@@ -297,9 +420,14 @@ class PrStatusController {
     readPrApi(port, owner, repo, number, deps.now).then(
       async (data) => {
         if (ctx.signal.aborted) return;
-        this.apiData = data;
+        // BLK-RATELIMIT-AUTH: فشل أحدث لا يمحو آخر قراءة ناجحة؛ تبقى بوقتها ويُعلن الفشل. ولا تُعرض على التزام آخر (الربط في كل رسم).
+        if (data.pull.available || !this.apiData?.pull.available) {
+          this.apiData = data;
+          this.apiAttempt = null;
+        } else this.apiAttempt = data;
         this.apiLoading = false;
         this.apiStatus = await port.status().catch(() => this.apiStatus);
+        await this.readConnections();
         this.refresh('api');
       },
       () => {
