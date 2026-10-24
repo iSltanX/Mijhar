@@ -1,0 +1,77 @@
+{
+  "measuredAt": "2026-10-24T04:44:57.213Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "page": {
+    "href": "https://github.com/octo/mijhar-demo/issues/7",
+    "fixture": "tests/modules/c/ui/fixtures/fixture-translate-en.html"
+  },
+  "canaries": [
+    "This extension helps Arabic readers understand repositories",
+    "The side panel opens from the toolbar",
+    "I can reproduce this with",
+    "and the fix is not in that build yet"
+  ],
+  "results": [
+    {
+      "key": "chrome",
+      "version": "156.0.8078.47",
+      "engineReady": true,
+      "run": {
+        "network": 0,
+        "violations": 0,
+        "leaks": 0,
+        "pass": true
+      },
+      "control": {
+        "detectedCloudHost": true,
+        "detectedHostNotAllowed": true,
+        "leaks": 2,
+        "detected": true
+      }
+    },
+    {
+      "key": "edge",
+      "version": "155.0.4283.60",
+      "engineReady": false,
+      "run": {
+        "network": 0,
+        "violations": 0,
+        "leaks": 0,
+        "pass": true
+      },
+      "control": {
+        "detectedCloudHost": true,
+        "detectedHostNotAllowed": true,
+        "leaks": 2,
+        "detected": true
+      }
+    },
+    {
+      "key": "brave",
+      "version": "156.0.8078.48",
+      "engineReady": true,
+      "run": {
+        "network": 0,
+        "violations": 0,
+        "leaks": 0,
+        "pass": true
+      },
+      "control": {
+        "detectedCloudHost": true,
+        "detectedHostNotAllowed": true,
+        "leaks": 2,
+        "detected": true
+      }
+    }
+  ],
+  "firefox": {
+    "dynamic": "لم يُجرَ",
+    "reason": "Marionette لا يرصد الشبكة ولا يعترض الطلبات، فلا تُقدَّم العينة من عنوان GitHub ولا يُسجَّل سجل؛ يبقى فحصه ساكنًا (المانيفست والحزمة dist/firefox)"
+  }
+}

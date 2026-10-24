@@ -4,10 +4,11 @@ import { selectLocalEngine, TranslatorApiEngine } from '../engines';
 import { setTranslationService } from '../ui/service';
 import type { TranslationService } from '../ui/service';
 import { ManagedTranslationEngine } from './managed-engine';
+import type { ManagedEngineOptions } from './managed-engine';
 
-export function installManagedTranslationEngine(scope: object = globalThis): TranslationService {
+export function installManagedTranslationEngine(scope: object = globalThis, options: ManagedEngineOptions = {}): TranslationService {
   const engine = selectLocalEngine(scope);
-  const managed = engine instanceof TranslatorApiEngine ? new ManagedTranslationEngine(engine, () => engine.status()) : engine;
+  const managed = engine instanceof TranslatorApiEngine ? new ManagedTranslationEngine(engine, () => engine.status(), options) : engine;
   setTranslationService(managed);
   return managed;
 }

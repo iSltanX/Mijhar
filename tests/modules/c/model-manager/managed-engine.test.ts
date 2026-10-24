@@ -2,7 +2,8 @@
 // تنزيل، ورسائل واضحة لانقطاع الشبكة وامتلاء القرص وعدم الدعم، وسقوط الموافقة بعد فشل لم تكتمل فيه الحزمة.
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ENGINE_MESSAGES, TranslatorApiEngine } from '../../../../src/modules/c/engines';
-import { installManagedTranslationEngine, ManagedTranslationEngine, MODEL_MESSAGES } from '../../../../src/modules/c/model-manager';
+import { DEFAULT_STALL_MS, installManagedTranslationEngine, ManagedTranslationEngine, MODEL_MESSAGES } from '../../../../src/modules/c/model-manager';
+import type { ManagedEngineOptions } from '../../../../src/modules/c/model-manager';
 import { getTranslationService, setTranslationService } from '../../../../src/modules/c/ui';
 import { FakeTranslatorApi } from '../engines/fake-translator';
 
@@ -14,9 +15,9 @@ afterEach(() => {
 /** سياق لا يُقرأ منه غير Translator. */
 const scopeWith = (translator: unknown): object => ({ Translator: translator });
 
-function managed(fake: FakeTranslatorApi, options?: ConstructorParameters<typeof TranslatorApiEngine>[1]): ManagedTranslationEngine {
+function managed(fake: FakeTranslatorApi, options?: ConstructorParameters<typeof TranslatorApiEngine>[1], engine: ManagedEngineOptions = {}): ManagedTranslationEngine {
   const inner = new TranslatorApiEngine(fake.asGlobal(), options ?? { retryDelaysMs: [0, 0, 0] });
-  return new ManagedTranslationEngine(inner, () => inner.status());
+  return new ManagedTranslationEngine(inner, () => inner.status(), engine);
 }
 
 describe('التركيب عند بدء سكربت المحتوى', () => {
@@ -142,6 +143,52 @@ describe('انقطاع الشبكة وامتلاء القرص (محاكاة)', (
     const engine = managed(fake);
     expect((await engine.availability()).state).toBe('unavailable');
     await expect(engine.translate('Hello', {})).rejects.toMatchObject({ message: ENGINE_MESSAGES.notReady });
+  });
+});
+
+describe('مهلة التأخر (شبكة مقطوعة: create() يبقى معلّقًا ولا يرفض)', () => {
+  const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
+  it('المهلة الافتراضية 60 ثانية', () => {
+    expect(DEFAULT_STALL_MS).toBe(60_000);
+  });
+
+  it('الحزمة لم تثبت وcreate() لا يكتمل في المهلة ← رسالة التأخر، والموافقة باقية، ولا create() ثانية عند إعادة الضغط', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable', createDelayMs: 120 });
+    const engine = managed(fake, undefined, { stallMs: 20 });
+    engine.grantConsent();
+    await expect(engine.translate('Hello', {})).rejects.toMatchObject({ message: MODEL_MESSAGES.downloadStalled, code: 'stalled' });
+    // الموافقة باقية: لا بطاقة جديدة لتنزيل قائم.
+    expect(await engine.availability()).toEqual({ state: 'ready' });
+    // بعد اكتمال الإنشاء المعلَّق تنجح الضغطة التالية بالمترجم نفسه.
+    await sleep(160);
+    await expect(engine.translate('Hello', {})).resolves.toContain('Hello');
+    expect(fake.createCalls).toBe(1);
+  });
+
+  it('الحزمة available (رُصدت) ← لا مهلة: ترجمة بطيئة الإنشاء تنجح', async () => {
+    const fake = new FakeTranslatorApi({ state: 'available', createDelayMs: 60 });
+    const engine = managed(fake, undefined, { stallMs: 10 });
+    expect(await engine.availability()).toEqual({ state: 'ready' });
+    await expect(engine.translate('Hello', {})).resolves.toContain('Hello');
+  });
+
+  it('stallMs: 0 يعطّل المهلة', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable', createDelayMs: 60 });
+    const engine = managed(fake, undefined, { stallMs: 0 });
+    engine.grantConsent();
+    await expect(engine.translate('Hello', {})).resolves.toContain('Hello');
+  });
+
+  it('الإلغاء قبل المهلة يمرّ AbortError لا رسالة التأخر', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable', createDelayMs: 200 });
+    const engine = managed(fake, undefined, { stallMs: 100 });
+    engine.grantConsent();
+    const controller = new AbortController();
+    const pending = engine.translate('Hello', { signal: controller.signal });
+    setTimeout(() => controller.abort(), 10);
+    await expect(pending).rejects.toMatchObject({ name: 'AbortError' });
+    await sleep(120);
   });
 });
 

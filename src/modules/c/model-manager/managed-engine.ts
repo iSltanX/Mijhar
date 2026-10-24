@@ -3,11 +3,22 @@
 //    الاستئذان، ولا تصير 'ready' إلا بعد grantConsent() من نقرة «موافق». وهكذا لا يُستدعى create() (الذي ينزّل) قبل فعل المستخدم ثم موافقته.
 //  - أخطاء الحزمة (انقطاع الشبكة، امتلاء القرص) تُترجَم إلى رسائل واضحة (errors.ts)، وتسقط الموافقة بعد فشل لم تكتمل فيه الحزمة أو بعد إلغاء،
 //    فيُسأل المستخدم من جديد قبل المحاولة التالية. ولا تسقط عند NotSupportedError المتقطع ولا NotAllowedError: الحزمة لم تُنزَّل لكنه وافق للتوّ.
+//  - مهلة تأخّر: ما دامت الحزمة لم تثبت فالترجمة الأولى تنتظر تنزيل المتصفح. قاس الاختبار الحقيقي (شبكة مقطوعة بوكيل غير موجود) أن create() لا يرفض بل يبقى معلّقًا،
+//    فيبقى الشريط عند «جارٍ الترجمة… 0 من N» بلا تفسير. فبعد stallMs (60 ثانية، قابلة للضبط، لم تُقَس على اتصال بطيء) تُرمى رسالة التأخر؛ ولا يُلغى طلب
+//    المتصفح (المترجم قيد الإنشاء يبقى محفوظًا فتعيد الضغطة التالية انتظاره لا تنزيلًا جديدًا)، ولا تسقط الموافقة.
 //  - ما سوى ذلك يمرّ كما هو: الترجمة والإلغاء بـAbortSignal وسائر الأخطاء.
 import { ENGINE_MESSAGES, EngineError } from '../engines';
 import type { Availability, TranslateContext, TranslationService } from '../ui/service';
 import { consentCard } from './consent';
 import { classifyModelError } from './errors';
+import { MODEL_MESSAGES } from './messages';
+
+export interface ManagedEngineOptions {
+  /** مهلة انتظار تنزيل الحزمة بالمللي ثانية قبل رسالة التأخر؛ 0 يعطّلها. */
+  readonly stallMs?: number;
+}
+
+export const DEFAULT_STALL_MS = 60_000;
 
 export class ManagedTranslationEngine implements TranslationService {
   readonly id: string;
@@ -20,6 +31,7 @@ export class ManagedTranslationEngine implements TranslationService {
     private readonly inner: TranslationService,
     /** حالة الزوج en→ar كما يعلنها المتصفح (TranslatorApiEngine.status). */
     private readonly status: () => Promise<string>,
+    private readonly options: ManagedEngineOptions = {},
   ) {
     this.id = inner.id;
     this.label = inner.label;
@@ -47,11 +59,37 @@ export class ManagedTranslationEngine implements TranslationService {
 
   async translate(maskedText: string, context: TranslateContext = {}): Promise<string> {
     try {
-      const output = await this.inner.translate(maskedText, context);
+      const output = await this.run(maskedText, context);
       this.packPresent = true;
       return output;
     } catch (error) {
       throw this.explain(error);
+    }
+  }
+
+  /** الترجمة بالمحرك، وقبل ثبوت الحزمة تحت مهلة التأخر. */
+  private async run(maskedText: string, context: TranslateContext): Promise<string> {
+    const stallMs = this.options.stallMs ?? DEFAULT_STALL_MS;
+    if (this.packPresent || stallMs <= 0) return this.inner.translate(maskedText, context);
+    const own = new AbortController();
+    const forward = (): void => own.abort(context.signal?.reason);
+    if (context.signal?.aborted) forward();
+    else context.signal?.addEventListener('abort', forward, { once: true });
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const stalled = new Promise<never>((_resolve, reject) => {
+      timer = setTimeout(() => {
+        own.abort();
+        reject(new EngineError(MODEL_MESSAGES.downloadStalled, 'stalled'));
+      }, stallMs);
+    });
+    const work = this.inner.translate(maskedText, { signal: own.signal });
+    // بعد التأخر يرفض الانتظار الداخلي بـAbortError: لا يُترك رفضًا غير ملتقَط.
+    work.catch(() => undefined);
+    try {
+      return await Promise.race([work, stalled]);
+    } finally {
+      clearTimeout(timer);
+      context.signal?.removeEventListener('abort', forward);
     }
   }
 

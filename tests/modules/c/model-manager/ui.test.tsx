@@ -9,6 +9,7 @@ import { act } from 'preact/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ENGINE_MESSAGES, TranslatorApiEngine } from '../../../../src/modules/c/engines';
 import { ManagedTranslationEngine, MODEL_MESSAGES } from '../../../../src/modules/c/model-manager';
+import type { ManagedEngineOptions } from '../../../../src/modules/c/model-manager';
 import { setTranslationService } from '../../../../src/modules/c/ui';
 import { FIXTURE, barBefore, bars, barNote, flush, hosts, loadHtml, mountTranslate, phase, press, translations } from '../ui/helpers';
 import type { Live } from '../ui/helpers';
@@ -40,9 +41,9 @@ const noNetwork = (): void => {
   expect(network.beacon).not.toHaveBeenCalled();
 };
 
-function managed(fake: FakeTranslatorApi): ManagedTranslationEngine {
+function managed(fake: FakeTranslatorApi, options: ManagedEngineOptions = {}): ManagedTranslationEngine {
   const inner = new TranslatorApiEngine(fake.asGlobal(), { retryDelaysMs: [0, 0, 0] });
-  return new ManagedTranslationEngine(inner, () => inner.status());
+  return new ManagedTranslationEngine(inner, () => inner.status(), options);
 }
 
 async function mountWith(engine: ManagedTranslationEngine): Promise<Live> {
@@ -183,6 +184,19 @@ describe('الأخطاء: رسائل واضحة في الشريط، والأصل
     await press(bar, 'consent-confirm', 80);
     expect(phase(bar)).toBe('error');
     expect(barNote(bar)).toContain(MODEL_MESSAGES.storageFull);
+  });
+
+  it('شبكة مقطوعة (create() معلّق) ← بعد المهلة رسالة التأخر في الشريط بدل «جارٍ الترجمة» بلا نهاية، والأصل باقٍ', async () => {
+    const fake = new FakeTranslatorApi({ state: 'downloadable', createDelayMs: 400 });
+    await mountWith(managed(fake, { stallMs: 30 }));
+    const bar = barBefore(COMMENT1);
+    await press(bar, 'translate');
+    await press(bar, 'consent-confirm', 5);
+    expect(phase(bar)).toBe('working');
+    await act(async () => void (await flush(80)));
+    expect(phase(bar)).toBe('error');
+    expect(barNote(bar)).toContain(`تعذّرت الترجمة: ${MODEL_MESSAGES.downloadStalled}`);
+    expect(translations()).toHaveLength(0);
   });
 
   it('عدم الدعم (unavailable) ← السبب الصريح وزر النسخ، بلا بطاقة ولا create()', async () => {
