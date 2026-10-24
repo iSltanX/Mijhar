@@ -1,0 +1,11 @@
+{
+  "note": "ضابط إيجابي: علامة محوّل OpenAI (max_output_tokens) أُلحقت بنسخة من content.js؛ يجب أن يكشفها التدقيق",
+  "findings": [
+    {
+      "severity": "violation",
+      "rule": "adapter-outside-background",
+      "where": "dist/chromium/content.js",
+      "detail": "علامة محوّل openai (max_output_tokens) خارج الخلفية"
+    }
+  ]
+}

@@ -39,11 +39,12 @@ const simPlugin = {
   transform(code, id) {
     const file = id.split('?')[0].split(path.sep).join('/');
     const inject = (from, to) => {
-      if (!code.includes(from)) throw new Error(`لم يُعثر على سطر السجل في ${file}`);
+      if (!(typeof from === 'string' ? code.includes(from) : from.test(code))) throw new Error(`لم يُعثر على سطر السجل في ${file}`);
       return `import { SIM_B } from ${JSON.stringify(SIM)};\n${code.replace(from, to)}`;
     };
-    if (file.endsWith('/src/modules/e/provider/catalog.ts')) return inject('= [ANTHROPIC];', '= [ANTHROPIC, SIM_B.descriptor];');
-    if (file.endsWith('/src/modules/e/provider/registry.ts')) return inject('= [ANTHROPIC_ADAPTER];', '= [ANTHROPIC_ADAPTER, SIM_B];');
+    // يُلحَق Mock B بآخر القائمة أيًّا كان ما دُمج قبله (Anthropic وOpenAI…): لا يرتبط الفحص بنص السطر.
+    if (file.endsWith('/src/modules/e/provider/catalog.ts')) return inject(/(PROVIDER_DESCRIPTORS[^=\n]*= \[[^\]]*)\];/, '$1, SIM_B.descriptor];');
+    if (file.endsWith('/src/modules/e/provider/registry.ts')) return inject(/(PROVIDER_ADAPTERS[^=\n]*= \[[^\]]*)\];/, '$1, SIM_B];');
     return null;
   },
 };
@@ -119,7 +120,8 @@ async function scenario(session, checks) {
 
   // 1.
   const start = await until((c) => c.health !== 'checking');
-  check('القائمة فيها المزوّدان (Anthropic ومحوّل وهمي ثانٍ مدموج في بناء المحاكاة)، والمختار Anthropic', start?.providers.join(',') === 'anthropic,mock-b' && start.provider === 'anthropic', start);
+  // المزوّدون المشحونون (Anthropic ثم ما دُمج بعده) ثم Mock B في آخر القائمة؛ فلا يرتبط الفحص بعدد المدموجين.
+  check('القائمة فيها Anthropic أولًا ومحوّل وهمي مدموج في بناء المحاكاة آخرًا، والمختار Anthropic', start?.providers[0] === 'anthropic' && start.providers.at(-1) === 'mock-b' && start.provider === 'anthropic', start);
   await d.fill('#mj-key-input', A_KEY);
   await d.click('[data-action="key-save"]');
   const aHealthy = await until((c) => c.provider === 'anthropic' && c.health === 'healthy' && c.models.length > 0);

@@ -64,7 +64,10 @@ describe('TEST-SEC-06 (١): رمز الكتابة سرّ منفصل لا يقر�
   });
 
   it('ترويسة Bearer تُبنى في عميل القراءة وبوابة الكتابة وحدهما، والبوابة بلا GET ولا DELETE ولا PATCH ولا merge', () => {
-    expect(using(/Bearer \$\{/)).toEqual(['src/core/api/client.ts', 'src/core/guardrails/write-gate.ts']);
+    // MJ24: محوّل OpenAI يبني Authorization: Bearer بمفتاح OpenAI نفسه (ترويسته الموثَّقة)، لا بسرّ GitHub: يستلم مفتاح مزوّده وحده من bindKey (AC-E10 (٢))، ولا يستورد شيئًا من
+    // عميل GitHub ولا مخزن رمزيه (يفرضه اختبار عزل الأسرار في provider/static.test.ts).
+    expect(using(/Bearer \$\{/)).toEqual(['src/core/api/client.ts', 'src/core/guardrails/write-gate.ts', 'src/modules/e/provider/adapters/openai.ts']);
+    expect(code(read('src/modules/e/provider/adapters/openai.ts'))).not.toMatch(/core\/api|connections\/(keys|secrets)|write-gate|github/i);
     const gate = code(read('src/core/guardrails/write-gate.ts'));
     expect(gate).not.toMatch(/'GET'|"GET"|DELETE|PATCH|\/merge|\/pulls\/\$\{|state:\s*'closed'/);
     expect(new Set([...gate.matchAll(/'(GET|POST|PUT|PATCH|DELETE|HEAD)'/g)].map((m) => m[1]))).toEqual(new Set(['POST', 'PUT']));

@@ -12,6 +12,7 @@ import { act } from 'preact/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ConsentSheet, prepareAnalysis } from '../../../../src/modules/e/provider';
 import { ANTHROPIC } from '../../../../src/modules/e/provider/descriptors/anthropic';
+import { OPENAI } from '../../../../src/modules/e/provider/descriptors/openai';
 import { ProviderKeyGuide } from '../../../../src/options/guide/ProviderKeyGuide';
 import { OptionsApp } from '../../../../src/options/OptionsApp';
 import { trustedClick } from '../../../shared/trusted-click';
@@ -132,8 +133,8 @@ describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', (
       expect(place.querySelector('.example')?.textContent).toMatch(/^مثال: /);
     }
     const text = container.textContent ?? '';
-    expect(text).toContain('مضيف المزوّد الذي اخترته وحده (api.anthropic.com)');
-    expect(text).toContain('من المزوّد الذي تختاره (Anthropic)');
+    expect(text).toContain('مضيف المزوّد الذي اخترته وحده (api.anthropic.com أو api.openai.com)');
+    expect(text).toContain('من المزوّد الذي تختاره (Anthropic أو OpenAI)');
     expect(text).toContain('ولا يُرسل مفتاح مزوّد إلى غيره');
     expect(text).toContain('لا يُرفق رمز GitHub بالطلب');
     expect(text).toContain('تُنقَّح لاكتشاف الأسرار');
@@ -141,7 +142,7 @@ describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', (
     expect(text).not.toMatch(NO_MONEY);
     expect(text).not.toContain('نسخ البرومبت');
     const links = [...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href') ?? '');
-    expect(links).toEqual([ANTHROPIC.policy.url]);
+    expect(links).toEqual([ANTHROPIC.policy.url, OPENAI.policy.url]);
     expect(container.querySelector('[data-retention]')?.textContent).toContain('2026-10-24');
     expect(fetchSpy).not.toHaveBeenCalled();
   });
@@ -155,7 +156,7 @@ describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', (
     expect([...container.querySelectorAll('[data-retention-provider]')].map((li) => li.getAttribute('data-retention-provider'))).toEqual(['anthropic', 'mock-b']);
     render(null, container);
     act(() => render(<ProviderKeyGuide onBack={() => {}} onAdd={() => {}} />, container));
-    expect(container.textContent).not.toMatch(/OpenAI|Gemini|Google/);
+    expect(container.textContent).not.toMatch(/Gemini|Google/);
   });
 
   it('يُفتح من #guide/provider-key داخل الإعدادات، و«أضف مفتاحًا» يعود إلى بطاقة المفتاح', async () => {

@@ -4,9 +4,10 @@
 // إضافة مزوّد = ملف وصف في descriptors/ وسطر هنا، ومحوّله في adapters/ وسطر في registry.ts، وصلاحية مضيفه في المانيفست؛ ويفرض اختبار أن لكل وصف
 // محوّلًا واحدًا بالوصف نفسه وصلاحية مضيف، فلا تعرض القائمة مزوّدًا لم يُدمج محوّله. ولا تمس شيفرة الأقسام. ولا سعر هنا (AD-31) ولا اسم مودل (DEC-13).
 import { ANTHROPIC } from './descriptors/anthropic';
+import { OPENAI } from './descriptors/openai';
 import type { ProviderDescriptor, ProviderInfo } from './types';
 
-export const PROVIDER_DESCRIPTORS: readonly ProviderDescriptor[] = [ANTHROPIC];
+export const PROVIDER_DESCRIPTORS: readonly ProviderDescriptor[] = [ANTHROPIC, OPENAI];
 
 export const descriptorById = (id: string, list: readonly ProviderDescriptor[] = PROVIDER_DESCRIPTORS): ProviderDescriptor | null => list.find((d) => d.id === id) ?? null;
 

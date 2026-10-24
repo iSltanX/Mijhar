@@ -89,7 +89,7 @@ describe('AD-30 (٢): صيغة مفتاح المزوّد في قائمة الح�
   const fakeKey = ['sk', 'ant', 'api03', 'Zx9Yw8Vu7Ts6Rq5Po4Nm3Lk2Ji1Hg0Fe-Dc_Ba9876543210'].join('-');
 
   it('النمط السابع في القائمة المعرّفة، ويرصد المفتاح المختلَق وحده بموضعه', () => {
-    expect(SECRET_PATTERNS.map((p) => p.id)).toEqual(['github-token', 'github-fine-grained', 'bearer', 'aws-access-key', 'private-key', 'slack-token', 'anthropic-key']);
+    expect(SECRET_PATTERNS.map((p) => p.id)).toEqual(['github-token', 'github-fine-grained', 'bearer', 'aws-access-key', 'private-key', 'slack-token', 'anthropic-key', 'openai-key']);
     const text = `export ANTHROPIC_API_KEY=${fakeKey}\nsk-ant-short`;
     const found = scanText(text);
     expect(found).toHaveLength(1);
