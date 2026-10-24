@@ -1,0 +1,44 @@
+{
+  "cardAfterClick": {
+    "permission": "denied",
+    "message": "قبِل Anthropic المفتاح وقُرئت 1 مودلات متاحة له. لم يبدأ أي تحليل ولم يُرسل شيء من صفحاتك. | قبِل المزوّد المفتاح.",
+    "revokeButton": false
+  },
+  "before": {
+    "origins": [
+      "https://github.com/*"
+    ],
+    "data_collection": [],
+    "permissions": [
+      "storage"
+    ]
+  },
+  "analyzeAfterClick": {
+    "ok": false,
+    "failure": "permission"
+  },
+  "directRemoveBoth": {
+    "result": true,
+    "after": {
+      "origins": [
+        "https://github.com/*"
+      ],
+      "data_collection": [],
+      "permissions": [
+        "storage"
+      ]
+    }
+  },
+  "directRemoveOriginOnly": {
+    "result": true,
+    "after": {
+      "origins": [
+        "https://github.com/*"
+      ],
+      "data_collection": [],
+      "permissions": [
+        "storage"
+      ]
+    }
+  }
+}

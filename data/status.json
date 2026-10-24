@@ -1025,9 +1025,10 @@
         "evidence/T-11.6/report.md",
         "evidence/wave-I/modules/provider/",
         "evidence/wave-I/manual-round.json",
-        "evidence/wave-I/gate.md"
+        "evidence/wave-I/gate.md",
+        "evidence/T-11.6/firefox-native-consent/report.md"
       ],
-      "note": "AC-E9 (١)–(٣) بمضيف مزوّد وهمي محلي (fixture-provider-mock)، لا اتصال حقيقي: بعد حفظ المفتاح طلب التحقق المعلن وحده GET /v1/models من الخلفية، ولا تحليل قبل «إرسال للتحليل»، والموافقة تبيّن المحتوى وحجمه وما استُبعد والوجهة والمودل، والمودلات من المزوّد وقت التشغيل بمصدرها؛ ولا سعر ولا تكلفة في الشيفرة (AD-31). 96/96 في الأربعة على الشجرة المجمّعة، والجولة اليدوية في Chrome: الموافقة في قسم الفحوص وصفحة المشكلة قبل أي طلب تحليل. ولم يُجرَ بمفتاح حقيقي."
+      "note": "AC-E9 (١)–(٣) بمضيف مزوّد وهمي محلي (fixture-provider-mock)، لا اتصال حقيقي: بعد حفظ المفتاح طلب التحقق المعلن وحده GET /v1/models من الخلفية، ولا تحليل قبل «إرسال للتحليل»، والموافقة تبيّن المحتوى وحجمه وما استُبعد والوجهة والمودل، والمودلات من المزوّد وقت التشغيل بمصدرها؛ ولا سعر ولا تكلفة في الشيفرة (AD-31). 96/96 في الأربعة على الشجرة المجمّعة، والجولة اليدوية في Chrome: الموافقة في قسم الفحوص وصفحة المشكلة قبل أي طلب تحليل. ولم يُجرَ بمفتاح حقيقي. وفي Firefox بلا قبول آلي (بعد الدمج): نافذة الإذن الأصلية تُعرض بمضيف المزوّد و«محتوى الموقع»، والرفض والسحب يمنعان التحليل في الخلفية بلا طلب، والقبول يتيحه (18/18)."
     },
     "TEST-AI-02": {
       "status": "passed",
@@ -1074,6 +1075,46 @@
       "note": ""
     },
     "TEST-SEC-07": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-04": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-05": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-06": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-07": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-08": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-09": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-AI-10": {
+      "status": "planned",
+      "evidence": [],
+      "note": ""
+    },
+    "TEST-PRIV-05": {
       "status": "planned",
       "evidence": [],
       "note": ""
