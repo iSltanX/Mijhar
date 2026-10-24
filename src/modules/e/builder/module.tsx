@@ -1,18 +1,16 @@
 // الوحدة e.builder: منشئ حزمة السياق في صفحة طلب الدمج والمشكلة ومهمة Actions (T-6.1). شريط صغير بعد الترويسة يفتح نافذة
 // «تجهيز حزمة السياق» داخل جذر Shadow DOM عبر ctx.mutations، فتُزال بإيقاف الوحدة.
-//  - الجمع عند فتح النافذة وعند «أعد الجمع» وحدهما، من DOM الصفحة، بلا أي طلب شبكة (لا fetch في هذه الوحدة).
-//  - مقتطفات الأدلة: آخر نص حدّده المستخدم في الصفحة (خارج واجهتنا) يُضاف بنقر صريح.
+//  - الجمع عند فتح النافذة وعند «أعد الجمع» وحدهما، بجامع طبقة السياق المشتركة (T-11.2)، بلا أي طلب شبكة (لا fetch في هذه الوحدة).
+//  - مقتطفات الأدلة: آخر نص حدّده المستخدم في الصفحة (خارج واجهتنا) يقرؤه الجامع (readSelection) ويُضاف بنقر صريح.
 //  - النسخ يدوي بنقر (AD-06): writeText في معالج النقر نفسه، والبديل execCommand('copy') من حقل المعاينة داخل جذر الظل (evidence/T-0.5).
 //  - التنزيل `.md` (T-6.2) محلي بنقر أيضًا: Blob ورابط blob: وعنصر a[download] داخل جذر الظل، بلا صلاحية downloads ولا شبكة.
 import type { ExtensionModule, ModuleContext } from '../../../core';
 import { mountSurface } from '../../../core/ui-host/surface';
 import { JOB_PAGE_SELECTORS, isJobPath } from '../../d/log-parser/job-page';
 import { PR_STATUS_SELECTORS } from '../../d/pr-status/extract';
-import { squash } from '../../d/pr-status/value';
+import { CONTEXT_SELECTORS, collectContext, pageKind, readSelection } from '../context';
+import type { ContextPageKind, ContextSource, Snippet } from '../context';
 import { PRIVACY_CSS } from '../privacy-check';
-import type { Snippet } from './build';
-import { BUILDER_SELECTORS, collectContext } from './collect';
-import type { ContextPageKind, ContextSource } from './collect';
 import { BUILDER_MODULE_ID } from './ids';
 import { BUILDER_CSS } from './style';
 import { BuilderPanel } from './view';
@@ -85,15 +83,13 @@ export async function downloadMarkdown(text: string, fileName: string, host: Par
   }
 }
 
-const kindOf = (type: string): ContextPageKind => (type === 'pr' ? 'pr' : type === 'issue' ? 'issue' : 'job');
-
 export function createContextBuilderModule(options: BuilderOptions = {}): ExtensionModule {
   return {
     id: BUILDER_MODULE_ID,
     title: 'منشئ حزمة السياق',
     pages: ['pr', 'issue', 'actions-run'],
     shouldMount: (page) => page.type !== 'actions-run' || isJobPath(page.href),
-    selectors: [...PR_STATUS_SELECTORS, ...JOB_PAGE_SELECTORS, ...BUILDER_SELECTORS, ANCHOR, JOB_ANCHOR],
+    selectors: [...PR_STATUS_SELECTORS, ...JOB_PAGE_SELECTORS, ...CONTEXT_SELECTORS, ANCHOR, JOB_ANCHOR],
     mount(ctx) {
       new BuilderController(ctx, options).start();
     },
@@ -116,7 +112,7 @@ class BuilderController {
     private readonly options: BuilderOptions,
   ) {
     this.now = options.now ?? (() => Date.now());
-    this.kind = kindOf(ctx.page.type);
+    this.kind = pageKind(ctx.page) ?? 'job';
   }
 
   start(): void {
@@ -143,16 +139,10 @@ class BuilderController {
 
   /** آخر نص محدد خارج واجهتنا، ومصدره (تعليق بصاحبه، أو سجل، أو الصفحة). */
   private trackSelection(): void {
-    const selection = this.ctx.document.getSelection();
-    const text = selection?.toString().trim() ?? '';
-    if (!text || !selection?.anchorNode) return;
-    const anchor = selection.anchorNode.nodeType === 1 ? (selection.anchorNode as Element) : selection.anchorNode.parentElement;
-    if (!anchor || (this.surface && this.surface.host.contains(anchor))) return;
-    const comment = anchor.closest('.react-issue-comment, .js-comment-container, [data-testid="issue-body"]');
-    const author = squash(comment?.querySelector('a.author, [data-testid="avatar-link"]')?.textContent);
-    const where = comment ? (author ? `تعليق ${author}` : 'تعليق') : anchor.closest('#logs, check-steps, .CheckRun, annotation-message') ? 'سجل المهمة' : 'الصفحة';
+    const selected = readSelection(this.ctx.document, this.surface?.host ?? null);
+    if (!selected) return;
     const had = this.pending !== null;
-    this.pending = { text, where };
+    this.pending = selected;
     if (!had && this.open) this.draw();
   }
 

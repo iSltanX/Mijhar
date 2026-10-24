@@ -1,16 +1,17 @@
-// توليد حزمة بقالب (T-6.2، F-E3): دالة نقية بلا شبكة ولا حالة، تستهلك أجزاء المنشئ (buildParts) نفسها فيطابق اختيارها وحدودها واقتطاعها
-// الحزمة العامة، وتضع الأقسام المعرّفة للقالب بترتيبها. القسم الذي لم يُختر أو لم يتوفر يبقى بعنوانه ويقول ذلك صراحة، فلا يُختلق محتوى.
-// قسم «ما تعذّر جمعه أو اقتُطع لطوله» الإلزامي يُلحق بكل قالب بالبنود نفسها.
-import { DEFAULT_LIMITS, GAPS_HEADING, allGaps, buildParts, footerLines, gapsSection, partHeading, sectionLines } from '../builder/build';
-import type { BuiltBundle, BundleParts, Limits, Snippet } from '../builder/build';
-import type { ContextSource } from '../builder/collect';
+// توليد حزمة بقالب (T-6.2، F-E3): دالة نقية بلا شبكة ولا حالة، تعرض بنية طبقة السياق المشتركة (T-11.2) نفسها التي تعرضها الحزمة العامة
+// (bundleContext) فيطابق اختيارها وحدودها واقتطاعها الحزمة، وتضع الأقسام المعرّفة للقالب بترتيبها. القسم الذي لم يُختر أو لم يتوفر يبقى بعنوانه
+// ويقول ذلك صراحة، فلا يُختلق محتوى. قسم «ما تعذّر جمعه أو اقتُطع لطوله» الإلزامي يُلحق بكل قالب بالبنود نفسها.
+import { DEFAULT_LIMITS, bundleContext, footerLines } from '../builder/build';
+import type { BuiltBundle, Limits } from '../builder/build';
+import { GAPS_HEADING, gapsSection, partHeading, sectionLines } from '../context';
+import type { ContextParts, ContextSource, Snippet } from '../context';
 import { EMPTY_SECTION_LINE, templateOf } from './definitions';
 import type { PageKey, SectionSpec, TemplateDef, TemplateId } from './definitions';
 
 /** عناوين الأقسام كما تظهر في الحزمة الناتجة، بترتيبها (للاختبار والواجهة). القسم الإلزامي في آخرها. */
 export const templateHeadings = (id: TemplateId): string[] => [...templateOf(id).sections.map((s) => s.heading), GAPS_HEADING];
 
-function pageBody(key: PageKey, parts: BundleParts): { body: readonly string[]; detail: string | null } {
+function pageBody(key: PageKey, parts: ContextParts): { body: readonly string[]; detail: string | null } {
   switch (key) {
     case 'source':
       return { body: [...parts.repo, ...parts.branch], detail: null };
@@ -27,7 +28,7 @@ function pageBody(key: PageKey, parts: BundleParts): { body: readonly string[]; 
   }
 }
 
-function sectionOf(spec: SectionSpec, parts: BundleParts): string[] {
+function sectionOf(spec: SectionSpec, parts: ContextParts): string[] {
   switch (spec.kind) {
     case 'fixed':
       return sectionLines(spec.heading, spec.lines);
@@ -50,10 +51,9 @@ export function renderTemplate(
   collectedAt?: number,
 ): BuiltBundle {
   const template = typeof def === 'string' ? templateOf(def) : def;
-  const parts = buildParts(source, snippets, selected, limits);
+  const { parts, gaps } = bundleContext(source, snippets, selected, limits);
   const lines: string[] = [`# ${template.titlePrefix}: ${parts.subject}`, '', `قالب: ${template.label} (${template.english})`, ''];
   for (const spec of template.sections) lines.push(...sectionOf(spec, parts));
-  const gaps = allGaps(source, parts);
   lines.push(...gapsSection(gaps), ...footerLines(collectedAt));
   return { text: lines.join('\n'), gaps };
 }

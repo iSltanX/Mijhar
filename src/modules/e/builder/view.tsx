@@ -3,13 +3,14 @@
 // T-6.2: محدّد القوالب الأربعة، والمعاينة قابلة للتعديل اليدوي وما تحمله هو ما يُنسخ أو يُنزَّل `.md` (تعديلاتها لا يستبدلها تغيير الاختيار).
 // T-6.3: لافتة البيانات الخاصة والفاحص التحذيري على نص المعاينة الحالي (بتعديلاتها)، ولا يغيّر الفاحص شيئًا منه.
 import { useMemo, useRef, useState } from 'preact/hooks';
+import { GAPS_HEADING, ITEM } from '../context';
+import type { ContextSource, Gap, Snippet } from '../context';
 import { PrivacyCheck, scanText } from '../privacy-check';
 import type { Finding } from '../privacy-check';
 import { TEMPLATES, bundleFileName, renderTemplate } from '../templates';
 import type { TemplateId } from '../templates';
-import type { ContextSource, Gap } from './collect';
-import { GAPS_HEADING, ITEM, availableItems, buildBundle } from './build';
-import type { Limits, Snippet } from './build';
+import { availableItems, buildBundle } from './build';
+import type { Limits } from './build';
 
 export type CopyResult = 'copied' | 'failed';
 /** «downloaded» يعني أن التنزيل طُلب من المتصفح، لا أن الملف وصل مجلد التنزيلات (لا يُعرف ذلك من الصفحة). */
