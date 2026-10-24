@@ -1,0 +1,21 @@
+== tsc
+tsc: 0 أخطاء
+== vitest
+ Test Files  137 passed (137)
+      Tests  2200 passed | 2 skipped (2202)
+== build
+chromium: dist/chromium
+firefox: dist/firefox
+== web-ext lint
+errors          0              
+notices         0              
+warnings        0              
+== load-check
+
+| المتصفح | الإصدار | الحزمة | النتيجة | الحالة | أخطاء المانيفست | أخطاء التشغيل | التحذيرات | الخلفية |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Chrome | 156.0.8078.47 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Edge | 155.0.4283.60 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Brave | 156.0.8078.48 | `dist/chromium` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | service worker بدأ |
+| Firefox | 158.0.1 | `dist/firefox` | نجح | ENABLED | لا شيء | لا شيء | لا شيء | الخلفية تعمل |
+
