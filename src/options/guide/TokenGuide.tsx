@@ -209,11 +209,6 @@ export function TokenGuide({ onBack }: TokenGuideProps) {
               <td>ما توافق عليه من سياق الصفحة</td>
             </tr>
             <tr>
-              <th scope="row">التكلفة</th>
-              <td>مجاني</td>
-              <td>بحسب الاستخدام على حسابك لدى المزوّد</td>
-            </tr>
-            <tr>
               <th scope="row">هل يلزم؟</th>
               <td>لا</td>
               <td>لا</td>

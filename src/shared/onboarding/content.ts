@@ -43,7 +43,7 @@ export const OPTIONAL_CONNECTIONS: readonly OptionalConnection[] = [
     status: 'available',
     facts: [
       { icon: 'lock', text: 'قراءة فقط، ويُرسل إلى GitHub وحده' },
-      { icon: 'check', text: 'مجاني، تنشئه من حسابك في GitHub' },
+      { icon: 'check', text: 'تنشئه من حسابك في GitHub' },
     ],
     guide: { target: 'guide/github-token', label: 'كيف أحصل على الرمز؟' },
     setup: 'token',
@@ -61,5 +61,5 @@ export const OPTIONAL_CONNECTIONS: readonly OptionalConnection[] = [
 /** الفرق بين الاتصالين بحسب ما أُتيح منهما. */
 export const connectionsDifference = (connections: readonly OptionalConnection[] = OPTIONAL_CONNECTIONS): string =>
   connections.every((c) => c.status === 'available')
-    ? 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، والمفتاح يتيح تحليلًا نصيًّا عند مزوّد خارجي تدفع له. لا يغني أحدهما عن الآخر.'
+    ? 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، والمفتاح يتيح تحليلًا نصيًّا عند مزوّد خارجي بمفتاح من حسابك لديه. لا يغني أحدهما عن الآخر.'
     : 'الرمز يتيح لمِجهَر قراءة بيانات GitHub نيابةً عنك، ولا علاقة له بأي تحليل أو مزوّد.';
