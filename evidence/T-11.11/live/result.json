@@ -1,0 +1,88 @@
+{
+  "measuredAt": "2026-10-24T17:27:39.368Z",
+  "host": "https://api.openai.com",
+  "steps": {
+    "format": {
+      "ok": true,
+      "length": 164
+    },
+    "verify": {
+      "ok": true,
+      "status": 200,
+      "models": 97,
+      "allUnknown": true,
+      "source": "https://api.openai.com/v1/models",
+      "newest": [
+        "gpt-6.1-sol",
+        "gpt-6-luna",
+        "gpt-6-sol",
+        "gpt-live-1",
+        "gpt-image-2.5-sunburst-2026-09-08",
+        "gpt-image-2.5-flare-2026-09-08",
+        "gpt-image-2.5-sunburst",
+        "gpt-image-2.5-flare"
+      ]
+    },
+    "probes": [
+      {
+        "model": "gpt-6.1-sol",
+        "ok": true,
+        "status": 200
+      },
+      {
+        "model": "gpt-6-luna",
+        "ok": true,
+        "status": 200
+      }
+    ],
+    "analyze": {
+      "model": "gpt-6.1-sol",
+      "ms": 8525,
+      "ok": true,
+      "status": 200,
+      "reply": {
+        "model": "gpt-6.1-sol",
+        "stopReason": "completed",
+        "usage": {
+          "input": 700,
+          "output": 477
+        },
+        "chars": 1600,
+        "structured": true,
+        "cut": false,
+        "findings": [
+          {
+            "text": "السبب المباشر للفشل هو اختلاف استجابة /api/v1/reports في ثلاثة حقول، واستجابة /api/v1/export في حقل واحد عن اللقطات المرجعية.",
+            "evidence": [
+              {
+                "found": true,
+                "text": "FAIL /api/v1/reports — payload did not match snapshot (3 fields differ)"
+              },
+              {
+                "found": true,
+                "text": "FAIL /api/v1/export — payload did not match snapshot (1 field differs)"
+              }
+            ]
+          },
+          {
+            "text": "أنهى الفحص العملية برمز خروج 1 بعد تسجيل استجابات غير متوقعة لمسارين من أصل 12. قد يكون السبب تغييرًا غير مقصود في الاستجابات أو لقطات مرجعية لم تعد مواكبة لتغي",
+            "evidence": [
+              {
+                "found": true,
+                "text": "Verification failed: 2 of 12 endpoints returned unexpected payloads"
+              },
+              {
+                "found": true,
+                "text": "##[error]Process completed with exit code 1."
+              }
+            ]
+          }
+        ],
+        "steps": 3,
+        "missing": 4,
+        "excerpt": "{\n  \"summary\": \"فشل فحص verify-preview بسبب عدم تطابق استجابات مسارين مع اللقطات المرجعية؛ سبب اختلاف الحقول لم يتضح من السجل.\",\n  \"findings\": [\n    {\n      \"text\": \"السبب المباشر للفشل هو اختلاف استجابة /api/v1/reports في ثلاثة حقول، واستجابة /api/v1/export في حقل واحد عن اللقطات المرجعية.\",\n      \"evidence\": [\n        \"FAIL /api/v1/reports — payload did not match snapshot (3 fields differ)\",\n   "
+      }
+    }
+  },
+  "verdict": "اجتاز"
+}
