@@ -10,6 +10,7 @@
 SRC="$1"; TAG_AT="${2:-}"
 FIX=91640ab        # إصلاح G-1
 FIX2=34c70ef       # إصلاح G-2 وقرار G-4 (AD-27 وAD-28)
+FIX3=83e0c83       # الترحيب ودليل الرمز ومواصفات الشرح والإبلاغ (AD-29)
 work=$(mktemp -d "${TMPDIR:-/tmp}/mj-h-sim.XXXXXX")
 trap 'rm -rf "$work"' EXIT
 git clone -q --no-hardlinks "$SRC" "$work/sim" || exit 2
@@ -17,7 +18,7 @@ cd "$work/sim" || exit 2
 git config user.email sim@example.invalid; git config user.name sim
 REMOTE_MAIN=$(git -C "$SRC" rev-parse origin/main)       # ما يعتمده التطبيق للفروع التلقائية في هذا المستودع
 if [ -n "$TAG_AT" ]; then git tag -f mj-H/base "$(git rev-parse "$TAG_AT")" >/dev/null; fi
-echo "main=$(git rev-parse --short main) · mj-H/base=$(git rev-parse --short mj-H/base) · origin/main(التطبيق)=$(git rev-parse --short "$REMOTE_MAIN") · الإصلاحان $FIX و$FIX2"
+echo "main=$(git rev-parse --short main) · mj-H/base=$(git rev-parse --short mj-H/base) · origin/main(التطبيق)=$(git rev-parse --short "$REMOTE_MAIN") · الإصلاحان $FIX و$FIX2 · ودمج AD-29 $FIX3"
 fail=0
 ok() { if eval "$2"; then echo "  ✓ $1"; else echo "  ✗ $1"; fail=1; fi; }
 
@@ -43,6 +44,8 @@ for ID in MJ18 MJ19; do
     ok "إصلاح G-2 ($FIX2) من أسلاف رأس الفرع" 'git merge-base --is-ancestor $FIX2 HEAD'
     ok "زرّا «موافق» في الفرع يمران بـisTrustedActivation (consent-panel.tsx وtranslate-draft.tsx)" 'git show HEAD:src/modules/c/model-manager/consent-panel.tsx | grep -q "isTrustedActivation(event) && onConfirm()" && git show HEAD:src/modules/f/phrasebank/translate-draft.tsx | grep -q "isTrustedActivation(event) && confirm(view.service)"'
     ok "AD-27 وAD-28 في data/plan.json الفرع، وAD-28 في تعليمات MJ19 وAD-27 في معايير MJ21 وMJ22" 'git show HEAD:data/plan.json | grep -q "\"AD-28\"" && git show HEAD:Docs/MJ/stages/MJ19.md | grep -q "AD-28" && git show HEAD:Docs/MJ/stages/MJ21.md | grep -q "AD-27" && git show HEAD:Docs/MJ/stages/MJ22.md | grep -q "AD-27"'
+    ok "دمج AD-29 ($FIX3) من أسلاف رأس الفرع، وفيه الترحيب ودليل الرمز" 'git merge-base --is-ancestor $FIX3 HEAD && git cat-file -e HEAD:src/shared/onboarding/Welcome.tsx && git cat-file -e HEAD:src/options/guide/TokenGuide.tsx'
+    ok "AD-29 وDEC-12 في data/plan.json الفرع، والبند (٧) من AC-11.1 في MJ18 والبند (٨) من AC-E9 في MJ21" 'git show HEAD:data/plan.json | grep -q "\"AD-29\"" && git show HEAD:data/plan.json | grep -q "\"DEC-12\"" && git show HEAD:Docs/MJ/stages/MJ18.md | grep -q "(٧) مدخل «كيف تحصل على الرمز؟»" && git show HEAD:Docs/MJ/stages/MJ21.md | grep -q "(٨) صفحة «لماذا مفتاح مزوّد التحليل؟»"'
     ok "وسم الموجة السابقة mj-G/base من أسلاف الرأس" 'git merge-base --is-ancestor mj-G/base HEAD'
     ok "فرق المرحلة main...HEAD فارغ (الإصلاح لا يُنسب إلى المرحلة)" '[ -z "$(git diff --name-only main...HEAD)" ]'
     for dep in ${=DEPENDS}; do
@@ -61,5 +64,8 @@ ok "والإصلاح غائب عنه فعلًا" '! git merge-base --is-ancestor
 echo "== ضابط سلبي ثانٍ: رأس عند 67816ae (الأساس بعد G-1 وقبل G-2)"
 ok "الأساس الحالي يرفضه (ليس من أسلافه)" '! git merge-base --is-ancestor mj-H/base 67816ae'
 ok "وإصلاح G-2 غائب عنه فعلًا" '! git merge-base --is-ancestor $FIX2 67816ae'
+echo "== ضابط سلبي ثالث: رأس عند 8e27432 (الأساس بعد G-2 وقبل AD-29)"
+ok "الأساس الحالي يرفضه (ليس من أسلافه)" '! git merge-base --is-ancestor mj-H/base 8e27432'
+ok "ودمج AD-29 غائب عنه فعلًا" '! git merge-base --is-ancestor $FIX3 8e27432'
 echo "== النتيجة: $([ $fail = 0 ] && echo 'كل الفحوص اجتازت' || echo 'سقط فحص')"
 exit $fail
