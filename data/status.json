@@ -1095,19 +1095,33 @@
       "note": "AC-F7 (٣): عنوان ووصف وتعليق بسجل ملصوق وسجل مهمة وردّ مزوّد، كلٌّ يحاول تغيير إعداد أو طلب سرّ أو توسيع صلاحية أو فتح طلب دمج: كل المنقول بين حدّي «⟦محتوى منقول من الصفحة⟧» وتزويرهما مُبطل، وتعليمات مِجهَر خارجها؛ وفي التشغيل الكامل طلب واحد إلى المزوّد بنقرة المستخدم ولا permissions.request ولا كتابة تخزين ولا رسالة ولا شبكة ولا إدراج في حقل التعليق، والرد نص بلا عناصر."
     },
     "TEST-AI-04": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.10/report.md",
+        "evidence/wave-K/gate/provider-isolation.txt",
+        "evidence/wave-K/gate/vitest-gate.txt",
+        "evidence/wave-K/gate.md"
+      ],
+      "note": "AC-E10 (١) و(٢) — محاكاة بمحوّلين وهميين ومفاتيح مختلَقة: لكل مزوّد مفتاحا تخزين مستقلان (Anthropic بالتاريخيين mijhar.secret.providerKey وproviderKey بلا ترحيل، وغيره بمعرّفه)، والتحقق يقرأ مخزن مزوّده وحده ويحمل مفتاحه وحده إلى مضيفه، والتبديل والحذف وسحب المضيف ورفض المفتاح تخص مزوّدها، وbindKey يرمي لمفتاح مزوّد آخر قبل أي طلب؛ وعلى الحزمتين المبنيتين ترويسات المحوّل ومساراته في background.js وحده ومخزن الأسرار في background.js وoptions.js وحدهما، بضابط إيجابي (I-2)."
     },
     "TEST-AI-05": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.10/report.md",
+        "evidence/wave-K/gate/browser-sim-check.json",
+        "evidence/wave-K/gate/vitest-gate.txt",
+        "evidence/wave-K/gate.md"
+      ],
+      "note": "AC-E10 (٣) و(٤) و(٥) و(٨) — محاكاة: بطاقة «مزوّد التحليل» واحدة بدل البطاقة والقسم المنفصلين، وتبديل المزوّد يعرض مفتاحه ومودلاته وحالته هو؛ والمتوافق وحده خيار (DEC-13 ن-3) وBLK-MODEL-COMPAT معلَّلًا والفحص الصريح؛ والموافقة تعكس المزوّد والمودل والمحتوى الفعلية وتغيّر أيٍّ منها بعد العرض يعيدها ولا يُرسل؛ ولا تحويل ولا إعادة؛ وسياق التحليل بحد PP-03 (I-3). وفي Chrome على بناء محاكاة بمحوّل وهمي محقون وقت البناء: التبديل والعزل والموافقة الفعلية وطلب واحد إلى مضيف المختار بمفتاحه."
     },
     "TEST-AI-06": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-11.10/firefox-native-consent/report.md",
+        "evidence/wave-K/gate/firefox-native-consent/",
+        "evidence/wave-K/gate.md"
+      ],
+      "note": "AC-E10 (٦) و(٧): صلاحية مضيف المزوّد تُطلب في نقرة الحفظ قبل أي await ومعها في Firefox موافقة websiteContent الواحدة، على نافذة Firefox 158.0.1 الأصلية بلا قبول آلي؛ وسحب المضيف من البطاقة يخصه وتبقى الموافقة، وسحب الموافقة يخص الكل ويبقى المضيف، والخلفية ترفض بلا طلب في الحالتين؛ والبطاقة تذكر تسمية Firefox «مطوِّر الامتداد». ونصوص الترحيب و«لماذا المفتاح؟» من السجل. الحزمة المشحونة فيها Anthropic وحده؛ وتعدد المزوّدين على الصلاحيات محاكاة. نقرة يد بشرية على زر النافذة لم تُجرَ (click() من سياق المتصفح)."
     },
     "TEST-AI-07": {
       "status": "planned",
@@ -1125,9 +1139,15 @@
       "note": ""
     },
     "TEST-AI-10": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/wave-K/gate/browser-provider-check.json",
+        "evidence/wave-K/gate/copy-prompt-chromium/",
+        "evidence/wave-K/gate/copy-prompt-firefox/",
+        "evidence/wave-K/gate/vitest-full.txt",
+        "evidence/wave-K/gate.md"
+      ],
+      "note": "AC-E10 (٩): انحدار Anthropic في المتصفحات الأربعة على الحزمة المشحونة (provider-check)، و«نسخ البرومبت» بلا مفتاح، وسجل الاتصالات، ومسار الإنجاز، وAD-28 الحرفي 6/6، والطقم كاملًا؛ ولا تغيير لمن لا مفتاح له."
     },
     "TEST-PRIV-05": {
       "status": "planned",
