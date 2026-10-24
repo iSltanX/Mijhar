@@ -1,12 +1,13 @@
 {
-  "at": "2026-10-24T16:12:05.978Z",
+  "at": "2026-10-24T16:27:44.168Z",
   "browser": "Firefox 158.0.1",
   "headless": false,
   "promptPref": true,
   "blocked": [
     "firefox.settings.services.mozilla.com",
     "firefox-settings-attachments.cdn.mozilla.net",
-    "content-signature-2.cdn.mozilla.net"
+    "content-signature-2.cdn.mozilla.net",
+    "archive.mozilla.org"
   ],
   "providerRequests": [
     "GET /v1/models?limit=100",
@@ -325,7 +326,8 @@
       "detail": [
         "firefox.settings.services.mozilla.com",
         "firefox-settings-attachments.cdn.mozilla.net",
-        "content-signature-2.cdn.mozilla.net"
+        "content-signature-2.cdn.mozilla.net",
+        "archive.mozilla.org"
       ]
     }
   ],

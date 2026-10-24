@@ -1,0 +1,82 @@
+[
+  {
+    "target": "chromium",
+    "files": [
+      "background.js",
+      "content.js",
+      "options.js",
+      "reader.js",
+      "sidepanel.js"
+    ],
+    "adapters": {
+      "anthropic": {
+        "anthropic-dangerous-direct-browser-access": [
+          "background.js"
+        ],
+        "anthropic-version": [
+          "background.js"
+        ],
+        "x-api-key": [
+          "background.js"
+        ],
+        "/v1/messages": [
+          "background.js"
+        ],
+        "/v1/models?limit=": [
+          "background.js"
+        ]
+      }
+    },
+    "secrets": {
+      "mijhar-secrets": [
+        "background.js",
+        "options.js"
+      ],
+      "mijhar.secret.": [
+        "background.js",
+        "options.js"
+      ]
+    },
+    "findings": []
+  },
+  {
+    "target": "firefox",
+    "files": [
+      "background.js",
+      "content.js",
+      "options.js",
+      "reader.js",
+      "sidepanel.js"
+    ],
+    "adapters": {
+      "anthropic": {
+        "anthropic-dangerous-direct-browser-access": [
+          "background.js"
+        ],
+        "anthropic-version": [
+          "background.js"
+        ],
+        "x-api-key": [
+          "background.js"
+        ],
+        "/v1/messages": [
+          "background.js"
+        ],
+        "/v1/models?limit=": [
+          "background.js"
+        ]
+      }
+    },
+    "secrets": {
+      "mijhar-secrets": [
+        "background.js",
+        "options.js"
+      ],
+      "mijhar.secret.": [
+        "background.js",
+        "options.js"
+      ]
+    },
+    "findings": []
+  }
+]

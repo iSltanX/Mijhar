@@ -1,0 +1,13 @@
+{
+  "open": "showing",
+  "shown": true,
+  "id": "addon-webext-permissions-notification",
+  "notificationId": "addon-webext-permissions",
+  "header": "يطلب  يطلب مِجهَر إعدادات إضافية",
+  "text": "يطلب مِجهَر إعدادات إضافيةالأذونات الجديدة:الوصول إلى بياناتك للمواقع في نطاق api.anthropic.comتجميع بيانات جديدة:إعدادات اختيارية:اطّلع على المزيد",
+  "items": [
+    "الوصول إلى بياناتك للمواقع في نطاق api.anthropic.com"
+  ],
+  "primary": "اسمح",
+  "secondary": "ارفض"
+}

@@ -1,0 +1,18 @@
+tree 0e3f261 main-ahead=0
+build exit=0 1s
+typecheck exit=0 1s
+vitest-gate exit=0 5s
+ad28 exit=0 1s
+vitest-full exit=0 29s
+web-ext-lint exit=0 3s
+provider-isolation exit=0 0s
+static-audit exit=0 0s
+load-check exit=0 18s
+provider-check exit=0 35s
+copy-prompt-chromium exit=0 55s
+copy-prompt-firefox exit=0 28s
+connections-check exit=0 30s
+exec-check exit=0 82s
+sim-check exit=0 4s
+firefox-native exit=0 8s
+done
