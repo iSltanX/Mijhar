@@ -98,6 +98,8 @@ export interface ModelsList {
   readonly source: string;
   /** أعلن المزوّد صفحات أخرى لم تُقرأ. */
   readonly partial: boolean;
+  /** وقت حفظ المفتاح الذي قُرئت به، تقرنها به الخدمة حين تحفظها في الجلسة؛ فلا تُعرض لمفتاح غيره (COR-AUD-02). */
+  readonly keySavedAt?: number;
 }
 
 /**

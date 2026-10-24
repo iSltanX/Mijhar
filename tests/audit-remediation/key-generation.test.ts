@@ -30,7 +30,7 @@ async function anthropic(fetch: typeof globalThis.fetch) {
 }
 
 /** fetch يعلّق أول طلب بالمفتاح القديم حتى يُفرج عنه، ويرد عليه بما يُعطى؛ وما سواه للمحاكي الناجح. */
-function heldOldKey(reply: () => Response | Promise<Response>) {
+function heldOldKey(reply: (url: RequestInfo | URL, init: RequestInit) => Response | Promise<Response>) {
   const success = providerMock();
   let release!: () => void;
   let entered!: () => void;
@@ -45,7 +45,7 @@ function heldOldKey(reply: () => Response | Promise<Response>) {
       pending = false;
       entered();
       await held;
-      return reply();
+      return reply(url, init);
     }
     return success.fetch(url, init);
   }) as typeof globalThis.fetch;
@@ -74,7 +74,7 @@ describe('F-03: نسبة الردود إلى جيل المفتاح الذي أُ
 
   it('نجاح متأخر بالمفتاح القديم لا يجعل البديل (غير المتحقَّق منه) سليمًا ولا يحفظ قائمته له', async () => {
     const success = providerMock();
-    const net = heldOldKey(() => success.fetch('https://api.anthropic.com/v1/models', { headers: { 'x-api-key': fakeKey('OLD') } }));
+    const net = heldOldKey((url, init) => success.fetch(url, init));
     const h = await anthropic(net.fetch);
     const oldRequest = h.service.verify('anthropic');
     await net.started;
@@ -159,5 +159,62 @@ describe('F-03: نسبة الردود إلى جيل المفتاح الذي أُ
     expect(shown?.key?.savedAt).toBe(replacement.savedAt);
     expect(shown?.test).toBeNull();
     expect(shown?.key?.health).toBe('unverified');
+  });
+});
+
+/** تحليل بالمفتاح القديم يُعلَّق عند الشبكة، ثم يُحفظ البديل (ويُتحقق منه إن طُلب) قبل أن يعود رده. */
+async function lateAnalysis(reply: Parameters<typeof heldOldKey>[0], verifyReplacement: boolean) {
+  const net = heldOldKey(reply);
+  const h = await anthropic(net.fetch);
+  await h.settings.set(modelSettingKey('anthropic'), 'mock-sonnet-2');
+  const late = h.service.analyze(input('before-replace'), 'tab-1');
+  await net.started;
+  const replacement = await h.store.save(fakeKey('NEW'), 'session');
+  if (verifyReplacement) expect((await h.service.verify('anthropic')).ok).toBe(true);
+  net.release();
+  return { ...h, net, replacement, result: await late };
+}
+
+const rejected = (status: number, type: string, headers: Record<string, string> = {}) => () =>
+  new Response(JSON.stringify({ type: 'error', error: { type, message: 'synthetic old key failure' } }), { status, headers });
+
+describe('F-03 (الجولة الثانية): تحليل طُلب بالمفتاح القديم وعاد بعد استبداله', () => {
+  it('نجاحه يُعاد لصاحبه بالمزوّد والنموذج الذي وافق عليهما، ولا يمس صحة البديل ولا قائمته ولا اختباره ولا موعده', async () => {
+    const success = providerMock();
+    const h = await lateAnalysis((url, init) => success.fetch(url, init), true);
+    expect(h.result.ok).toBe(true);
+    if (!h.result.ok) return;
+    expect(h.result.data).toMatchObject({ provider: 'Anthropic', host: 'api.anthropic.com', model: 'mock-sonnet-2' });
+    expect(h.result.data.completedAt).toBeGreaterThanOrEqual(h.result.data.requestedAt);
+    expect(await h.connections.keyStatus('anthropic')).toMatchObject({ health: 'healthy', savedAt: h.replacement.savedAt });
+    expect(h.cache.lists.get('anthropic')?.keySavedAt).toBe(h.replacement.savedAt);
+    expect(h.cache.tests.size).toBe(0);
+    expect((await h.service.status('anthropic'))?.retryAt).toBeNull();
+    expect(h.net.tokens).toEqual([fakeKey('OLD'), fakeKey('NEW')]);
+  });
+
+  it('رفضه بـ401 يُبلَّغ أنه لمفتاح استُبدل لا أن البديل مرفوض، ولا يجعل البديل منتهيًا، ويُرسل التحليل التالي بالبديل', async () => {
+    const h = await lateAnalysis(rejected(401, 'authentication_error'), true);
+    expect(h.result).toMatchObject({ ok: false, failure: 'key-changed', status: 401, retryAt: null });
+    expect((await h.connections.keyStatus('anthropic')).health).toBe('healthy');
+    const next = await h.service.analyze(input('after-replace'), 'tab-1');
+    expect(next.ok).toBe(true);
+    expect(h.net.tokens.at(-1)).toBe(fakeKey('NEW'));
+  });
+
+  it('429 بموعد إعادة محاولة لا يُعرض موعده ولا يحجب البديل (غير المتحقَّق منه)، ويُرسل التحليل التالي به', async () => {
+    const h = await lateAnalysis(rejected(429, 'rate_limit_error', { 'retry-after': '90' }), false);
+    expect(h.result).toMatchObject({ ok: false, failure: 'key-changed', status: 429, retryAt: null });
+    expect((await h.service.status('anthropic'))?.retryAt).toBeNull();
+    expect((await h.connections.keyStatus('anthropic')).health).toBe('unverified');
+    const next = await h.service.analyze(input('after-replace'), 'tab-1');
+    expect(next.ok).toBe(true);
+    expect(h.net.tokens).toEqual([fakeKey('OLD'), fakeKey('NEW')]);
+  });
+
+  it('ما لا يخص المفتاح (تعذّر الاتصال) يُعاد كما هو: لا يُنسب إلى الاستبدال', async () => {
+    const h = await lateAnalysis(() => Promise.reject(new TypeError('synthetic network down')), false);
+    expect(h.result).toMatchObject({ ok: false, failure: 'network' });
+    expect((await h.connections.keyStatus('anthropic')).health).toBe('unverified');
   });
 });

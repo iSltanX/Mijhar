@@ -30,35 +30,64 @@ import type { ModelTest, ModelsList, ProviderAdapter, ProviderFailure, ProviderR
 export const ANALYSIS_OUTPUT_TOKENS = 4096;
 /** مهلة تقنية للطلب الواحد؛ والمستخدم يوقفه قبلها متى شاء. */
 export const ANALYSIS_TIMEOUT_MS = 180_000;
+/** رفض يحكم على المفتاح الذي أُرسل به الطلب لا على المحتوى أو الشبكة. */
+const KEY_BOUND: ReadonlySet<ProviderFailure> = new Set<ProviderFailure>(['unauthorized', 'forbidden', 'not-found', 'rate-limit']);
 
 export const MODELS_CACHE_KEY = 'mijhar.provider.models';
 /** آخر «اختبر النموذج» لكل مزوّد (DEC-13 ن-5)، في ذاكرة الجلسة مع القوائم. */
 export const MODEL_TESTS_KEY = 'mijhar.provider.tests';
 
-/** قائمة النماذج المقروءة لكل مزوّد، وآخر اختبار نموذج لكل مزوّد. */
+/** وقت حفظ مفتاح المزوّد الآن: رقم، أو null إن لم يُحفظ، أو undefined إن تعذّرت قراءته. */
+export type KeyNow = () => Promise<number | null | undefined>;
+
+/**
+ * قائمة النماذج المقروءة لكل مزوّد، وآخر اختبار نموذج لكل مزوّد؛ وكلاهما مقرون بوقت حفظ المفتاح الذي صدر به (keySavedAt). والكتابة والحذف يتواليان
+ * في طابور واحد، ومع كلٍّ منهما now يُقرأ داخل الطابور: فلا تُكتب نتيجة مفتاح استُبدل أو مُسح بعد أن حُذف ما يخصه، ولا يحذف تنظيفُ مفتاحٍ قديم ما حُفظ
+ * لبديله (COR-AUD-02).
+ */
 export interface ModelsCache {
   load(provider: string): Promise<ModelsList | null>;
-  save(list: ModelsList): Promise<void>;
+  /** مع now: لا تُكتب إلا إن كان مفتاحها (keySavedAt) هو المحفوظ حين يحين دورها في الطابور. */
+  save(list: ModelsList, now?: KeyNow): Promise<void>;
   loadTest(provider: string): Promise<ModelTest | null>;
-  saveTest(test: ModelTest): Promise<void>;
-  /** يحذف قائمة المزوّد ونتيجة اختباره (مُسح مفتاحه، COR-AUD-02). */
-  forget(provider: string): Promise<void>;
+  saveTest(test: ModelTest, now?: KeyNow): Promise<void>;
+  /** يحذف قائمة المزوّد ونتيجة اختباره المقرونتين بغير مفتاحه المحفوظ حين يحين دوره في الطابور (مُسح أو استُبدل)؛ وتعذّر قراءة المفتاح: لا حذف. */
+  forget(provider: string, now: KeyNow): Promise<void>;
 }
+
+/** ما يُبقيه التنظيف: قيمة مقرونة بالمفتاح المحفوظ الآن نفسه. وما لا قرين له (محفوظ قبل القرن) لا يُنسب إلى مفتاح، فيُحذف. */
+const ownedBy = (value: unknown, keep: number | null): boolean => keep !== null && (value as { keySavedAt?: unknown } | null)?.keySavedAt === keep;
+
+function serialQueue(): <T>(task: () => Promise<T>) => Promise<T> {
+  let queue: Promise<unknown> = Promise.resolve();
+  return <T>(task: () => Promise<T>): Promise<T> => {
+    const run = queue.then(task, task);
+    queue = run.catch(() => undefined);
+    return run;
+  };
+}
+
+/** يكتب إن لم يُذكر now، أو كان المفتاح المحفوظ الآن هو الذي صدرت به القيمة. */
+const writable = async (keySavedAt: number | undefined, now?: KeyNow): Promise<boolean> => !now || (keySavedAt !== undefined && (await now()) === keySavedAt);
 
 export function memoryModelsCache(): ModelsCache & { lists: Map<string, ModelsList>; tests: Map<string, ModelTest> } {
   const lists = new Map<string, ModelsList>();
   const tests = new Map<string, ModelTest>();
+  const serial = serialQueue();
   return {
     lists,
     tests,
     load: async (p) => lists.get(p) ?? null,
-    save: async (l) => void lists.set(l.provider, l),
+    save: (l, now) => serial(async () => void ((await writable(l.keySavedAt, now)) && lists.set(l.provider, l))),
     loadTest: async (p) => tests.get(p) ?? null,
-    saveTest: async (t) => void tests.set(t.provider, t),
-    forget: async (p) => {
-      lists.delete(p);
-      tests.delete(p);
-    },
+    saveTest: (t, now) => serial(async () => void ((await writable(t.keySavedAt, now)) && tests.set(t.provider, t))),
+    forget: (p, now) =>
+      serial(async () => {
+        const keep = await now();
+        if (keep === undefined) return;
+        if (!ownedBy(lists.get(p), keep)) lists.delete(p);
+        if (!ownedBy(tests.get(p), keep)) tests.delete(p);
+      }),
   };
 }
 
@@ -85,33 +114,34 @@ export function sessionModelsCache(session: SessionStorageLike): ModelsCache {
     return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
   };
   // كل مفتاح يجمع المزوّدين في كائن واحد، فالكتابة قراءة ثم تعديل ثم كتابة؛ وكتابتان متداخلتان تمحو الثانية الأولى. فتتوالى في الخلفية (F-07).
-  let queue: Promise<unknown> = Promise.resolve();
-  const serial = <T>(task: () => Promise<T>): Promise<T> => {
-    const run = queue.then(task, task);
-    queue = run.catch(() => undefined);
-    return run;
-  };
+  const serial = serialQueue();
   return {
     async load(provider) {
       const list = (await read(MODELS_CACHE_KEY))[provider];
       return isList(list) ? withCompatibility(list) : null;
     },
-    save(list) {
-      return serial(async () => session.set({ [MODELS_CACHE_KEY]: { ...(await read(MODELS_CACHE_KEY)), [list.provider]: list } }));
+    save(list, now) {
+      return serial(async () => {
+        if (await writable(list.keySavedAt, now)) await session.set({ [MODELS_CACHE_KEY]: { ...(await read(MODELS_CACHE_KEY)), [list.provider]: list } });
+      });
     },
     async loadTest(provider) {
       const test = (await read(MODEL_TESTS_KEY))[provider];
       return isTest(test) && test.provider === provider ? test : null;
     },
-    saveTest(test) {
-      return serial(async () => session.set({ [MODEL_TESTS_KEY]: { ...(await read(MODEL_TESTS_KEY)), [test.provider]: test } }));
-    },
-    forget(provider) {
+    saveTest(test, now) {
       return serial(async () => {
+        if (await writable(test.keySavedAt, now)) await session.set({ [MODEL_TESTS_KEY]: { ...(await read(MODEL_TESTS_KEY)), [test.provider]: test } });
+      });
+    },
+    forget(provider, now) {
+      return serial(async () => {
+        const keep = await now();
+        if (keep === undefined) return;
         const items: Record<string, unknown> = {};
         for (const key of [MODELS_CACHE_KEY, MODEL_TESTS_KEY]) {
           const all = await read(key);
-          if (!Object.prototype.hasOwnProperty.call(all, provider)) continue;
+          if (!Object.prototype.hasOwnProperty.call(all, provider) || ownedBy(all[provider], keep)) continue;
           const rest = { ...all };
           delete rest[provider];
           items[key] = rest;
@@ -193,8 +223,10 @@ export class ProviderService {
   /** الطلب الجاري لكل قسم في تبويب. */
   private readonly inflight = new Map<string, string>();
   private readonly controllers = new Map<string, AbortController>();
-  /** موعد إعادة المحاولة الذي أعلنه المزوّد لكل مزوّد (ذاكرة العامل؛ ويُستعاد بعد إيقاظه من سجل صحة المفتاح، F-06). */
-  private readonly retryAt = new Map<string, number>();
+  /**
+   * موعد إعادة المحاولة الذي أعلنه المزوّد لكل مزوّد، ووقت حفظ المفتاح الذي أُعلن له (ذاكرة العامل؛ ويُستعاد بعد إيقاظه من سجل صحة المفتاح، F-06).
+   */
+  private readonly retryAt = new Map<string, { readonly at: number; readonly savedAt: number }>();
 
   constructor(private readonly options: ProviderServiceOptions) {
     this.registry = options.registry ?? createProviderRegistry();
@@ -218,23 +250,31 @@ export class ProviderService {
   }
 
   /**
-   * موعد إعادة المحاولة المعلن الذي لم يحن بعد، أو null (AD-31). ما في الذاكرة أولًا؛ وإلا فمن سجل صحة المفتاح المحفوظ، فلا يُسقطه إيقاظ عامل الخلفية
-   * (F-06). والسجل لا يُعطي موعدًا إلا لجيل المفتاح الحالي نفسه وقبل حلوله (resolveStatus)، فلا يُنسب موعد مفتاح استُبدل إلى بديله.
+   * موعد إعادة المحاولة المعلن الذي لم يحن بعد لمفتاح المزوّد المحفوظ الآن، أو null (AD-31). ما في الذاكرة أولًا إن أُعلن لهذا المفتاح نفسه؛ وإلا فمن
+   * سجل صحة المفتاح المحفوظ، فلا يُسقطه إيقاظ عامل الخلفية (F-06). والسجل لا يُعطي موعدًا إلا لجيل المفتاح الحالي نفسه وقبل حلوله (resolveStatus)؛
+   * فلا يُنسب موعد مفتاح استُبدل أو مُسح إلى بديله، لا من الذاكرة ولا من السجل (COR-AUD-02). وتعذّر قراءة المفتاح يُبقي ما في الذاكرة.
    */
-  private async cooldown(provider: string): Promise<number | null> {
-    let at = this.retryAt.get(provider);
-    if (at === undefined) {
-      const key = await this.options.connections.keyStatus(provider).catch(() => null);
-      const saved = key?.health === 'rate-limited' ? key.detail.retryAt : null;
-      if (typeof saved !== 'number') return null;
-      at = saved;
-      this.retryAt.set(provider, at);
+  private async cooldown(adapter: ProviderAdapter): Promise<number | null> {
+    const provider = adapter.descriptor.id;
+    const info = await this.keyInfo(adapter);
+    let entry = this.retryAt.get(provider);
+    if (entry && info !== undefined && entry.savedAt !== info?.savedAt) {
+      this.retryAt.delete(provider);
+      entry = undefined;
     }
-    if (this.now() >= at) {
+    if (!entry) {
+      if (!info) return null;
+      const key = await this.options.connections.keyStatus(provider).catch(() => null);
+      const saved = key?.health === 'rate-limited' && key.savedAt === info.savedAt ? key.detail.retryAt : null;
+      if (typeof saved !== 'number') return null;
+      entry = { at: saved, savedAt: info.savedAt };
+      this.retryAt.set(provider, entry);
+    }
+    if (this.now() >= entry.at) {
       this.retryAt.delete(provider);
       return null;
     }
-    return at;
+    return entry.at;
   }
 
   private contains(set: PermissionsSet): Promise<boolean> {
@@ -259,9 +299,12 @@ export class ProviderService {
       this.keyInfo(adapter),
     ]);
     const keySavedAt = saved ? saved.savedAt : null;
-    // لا مفتاح محفوظ (مُسح من الإعدادات): قائمته ونتيجة اختباره لمفتاح مُسح، فلا تُعرض وتُحذف من الجلسة (COR-AUD-02). وتعذّر القراءة ليس غيابًا.
-    const models = saved === null ? null : cached;
-    if (saved === null && (cached || test)) await this.cache.forget(d.id).catch((error: unknown) => this.options.onError?.(error));
+    // القائمة ونتيجة الاختبار مقرونتان بوقت حفظ المفتاح الذي صدرتا به: لا تُعرضان لغيره (مفتاح مُسح أو استُبدل) وتُحذفان من الجلسة (COR-AUD-02).
+    // المسح والاستبدال يجريان في صفحة الإعدادات على مخزن المفتاح مباشرة، فالحذف مؤجل إلى أول قراءة حالة لهذا المزوّد تليهما، لا فوري؛ ويُعاد فيه
+    // قراءة المفتاح داخل طابور الكتابة فلا يُحذف ما حُفظ لبديل. وتعذّر قراءة المفتاح ليس غيابًا ولا استبدالًا فلا يُحذف معه شيء (ولا تُعرض قائمة).
+    const models = cached && ownedBy(cached, keySavedAt) ? cached : null;
+    const stale = (cached && !ownedBy(cached, keySavedAt)) || (test && !ownedBy(test, keySavedAt));
+    if (saved !== undefined && stale) await this.cache.forget(d.id, this.keyNow(adapter)).catch((error: unknown) => this.options.onError?.(error));
     return {
       provider: providerInfo(d),
       selected: adapter === selected,
@@ -273,7 +316,7 @@ export class ProviderService {
       choice,
       models,
       test: testFor(test, choice, keySavedAt),
-      retryAt: await this.cooldown(d.id),
+      retryAt: await this.cooldown(adapter),
       providers,
     };
   }
@@ -291,6 +334,14 @@ export class ProviderService {
   private async keyInfo(adapter: ProviderAdapter): Promise<SecretInfo | null | undefined> {
     const store = this.options.keys(adapter.descriptor.id);
     return store ? store.info().catch(() => undefined) : null;
+  }
+
+  /** وقت حفظ مفتاح المزوّد يُقرأ حين يُستدعى (داخل طابور كتابة الجلسة)، وundefined إن تعذّرت قراءته. */
+  private keyNow(adapter: ProviderAdapter): KeyNow {
+    return async () => {
+      const info = await this.keyInfo(adapter);
+      return info === undefined ? undefined : (info?.savedAt ?? null);
+    };
   }
 
   /** وقت حفظ مفتاح المزوّد الحالي (يقرن نتيجة الاختبار بالمفتاح الذي اختُبر به)، أو null. */
@@ -337,12 +388,18 @@ export class ProviderService {
     return { ok: false, failure: 'key-changed', status, message: `استُبدل مفتاح ${adapter.descriptor.title} المحفوظ أثناء الطلب؛ لم تُنسب نتيجته إلى المفتاح الجديد. أعد المحاولة به.`, retryAt: null };
   }
 
-  private note(adapter: ProviderAdapter, result: ProviderResult<unknown>): void {
-    if (!result.ok && result.retryAt !== null) this.retryAt.set(adapter.descriptor.id, result.retryAt);
+  /**
+   * موعد إعادة المحاولة المعلن في الرد، للمفتاح الذي أُرسل به الطلب؛ ولا يُسجَّل إن استُبدل منذ قُرئ، فلا يحل رد متأخر لمفتاح قديم محل موعد بديله
+   * (COR-AUD-02). وإن جرى الاستبدال بعد الفحص فموعده مقرون بمفتاحه، ويُسقطه cooldown حين يقرأ غيره ويستعيد موعد البديل من سجل صحته.
+   */
+  private async note(adapter: ProviderAdapter, result: ProviderResult<unknown>, key: KeySnapshot): Promise<void> {
+    if (result.ok || result.retryAt === null || (await this.replaced(adapter, key))) return;
+    this.retryAt.set(adapter.descriptor.id, { at: result.retryAt, savedAt: key.savedAt });
   }
 
-  private save(list: ModelsList): Promise<void> {
-    return this.cache.save(list).catch((error: unknown) => this.options.onError?.(error));
+  /** القائمة مقرونة بالمفتاح الذي قُرئت به، ولا تُكتب إن لم يعد هو المحفوظ حين يحين دورها في طابور الجلسة. */
+  private save(adapter: ProviderAdapter, list: ModelsList): Promise<void> {
+    return this.cache.save(list, this.keyNow(adapter)).catch((error: unknown) => this.options.onError?.(error));
   }
 
   /**
@@ -352,17 +409,17 @@ export class ProviderService {
   async verify(id: string, suggest = true): Promise<VerifyResponse> {
     const adapter = this.registry.byId(id);
     if (!adapter) return local('invalid-request', 'مزوّد غير معروف؛ لم يُرسل شيء.');
-    const wait = await this.cooldown(adapter.descriptor.id);
+    const wait = await this.cooldown(adapter);
     if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
     const result = await adapter.listModels(this.call(adapter, got));
-    this.note(adapter, result);
+    await this.note(adapter, result, got);
     await this.observe(adapter, providerVerdict(result, 'verify', adapter.descriptor.host), got);
     if (await this.replaced(adapter, got)) return this.changed(adapter, result.status);
     if (!result.ok) return result;
-    const list = result.data;
-    await this.save(list);
+    const list: ModelsList = { ...result.data, keySavedAt: got.savedAt };
+    await this.save(adapter, list);
     if (suggest && !(await this.choice(adapter.descriptor.id))) {
       const fallback = defaultModel(list);
       if (fallback) await (await this.options.settings()).set(modelSettingKey(adapter.descriptor.id), fallback.id).catch((error: unknown) => this.options.onError?.(error));
@@ -378,12 +435,12 @@ export class ProviderService {
   async probe(id: string, model: string): Promise<ProbeResponse> {
     const adapter = this.registry.byId(id);
     if (!adapter?.probe || !isModelId(model)) return local('invalid-request', 'لا اختبار نموذج لهذا المزوّد، أو المعرّف غير صالح؛ لم يُرسل شيء.');
-    const wait = await this.cooldown(adapter.descriptor.id);
+    const wait = await this.cooldown(adapter);
     if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
     const result = await adapter.probe(this.call(adapter, got), model);
-    this.note(adapter, result);
+    await this.note(adapter, result, got);
     await this.observe(adapter, providerVerdict(result, 'usage', adapter.descriptor.host), got);
     // صلاحية المضيف غير ممنوحة: البوابة رفضت قبل أي طلب، فلا نتيجة اختبار.
     if (!result.ok && result.failure === 'permission') return { ...result, message: redactKey(result.message, got.token) };
@@ -397,7 +454,7 @@ export class ProviderService {
       message: result.ok ? '' : redactKey(result.message, got.token),
       at: this.now(),
     };
-    await this.cache.saveTest(test).catch((error: unknown) => this.options.onError?.(error));
+    await this.cache.saveTest(test, this.keyNow(adapter)).catch((error: unknown) => this.options.onError?.(error));
     return { ok: true, data: test };
   }
 
@@ -427,7 +484,7 @@ export class ProviderService {
       const d = adapter.descriptor;
       // لا تحويل إلى مزوّد غير الذي عرضته الموافقة (AC-E10 (٥)).
       if (d.id !== input.provider) return local('provider-changed', 'تغيّر المزوّد المختار بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
-      const wait = await this.cooldown(d.id);
+      const wait = await this.cooldown(adapter);
       if (wait !== null) return local('cooldown', `أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.`, wait);
       const status = await this.status(d.id);
       if (!status?.model || status.model.id !== input.model) return local('model-changed', 'تغيّر النموذج في حقله أو صار فارغًا بعد عرض الموافقة؛ لم يُرسل شيء. راجع الموافقة من جديد.');
@@ -448,9 +505,14 @@ export class ProviderService {
       timer = setTimeout(() => controller.abort(), this.options.timeoutMs ?? ANALYSIS_TIMEOUT_MS);
       const requestedAt = this.now();
       const result = await adapter.analyze(this.call(adapter, got, controller.signal), { model: input.model, system: input.system, prompt: input.prompt, maxTokens });
-      this.note(adapter, result);
+      await this.note(adapter, result, got);
       await this.observe(adapter, providerVerdict(result, 'usage', d.host), got);
-      if (!result.ok) return { ...result, message: redactKey(result.message, got.token) };
+      if (!result.ok) {
+        // الطلب يبقى لصاحبه بالموافقة والمزوّد والنموذج الذي أُرسل بها، ولو استُبدل المفتاح أثناءه (لا إلغاء): ونجاحه يُعاد كما هو (F-03). أما رفض يخص
+        // المفتاح الذي أُرسل به (401 و403 و404 و429 أو موعد إعادة محاولة) فيُبلَّغ أنه لمفتاح استُبدل، لا أن البديل مرفوض أو محجوب إلى موعد.
+        if ((result.retryAt !== null || KEY_BOUND.has(result.failure)) && (await this.replaced(adapter, got))) return this.changed(adapter, result.status);
+        return { ...result, message: redactKey(result.message, got.token) };
+      }
       return { ok: true, status: result.status, data: { ...result.data, provider: d.title, host: d.host, requestedAt, completedAt: this.now() } };
     } finally {
       if (timer) clearTimeout(timer);
