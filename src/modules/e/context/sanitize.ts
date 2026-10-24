@@ -7,6 +7,7 @@
 //     - flag (حزمة السياق، AD-28): لا يغيّر النص ويعدّ المواضع؛ فالحزمة تُعرض في معاينة قابلة للتعديل فوقها لافتة T-6.3 وإخلاؤها «لا يزيل
 //       أي نص»، وفاحصها يظلّل ما يرصده بموضعه في النص الذي سيُنسخ.
 // دالة نقية بلا شبكة ولا حالة.
+import type { Blocker } from '../../d/blockers/explain';
 import type { LogAnalysis } from '../../d/log-parser/parse';
 import { groupMessages } from '../../d/log-parser/view';
 import { scanText } from '../privacy-check/scan';
@@ -127,6 +128,9 @@ export interface SanitizedContext {
   readonly status: PrStatus | null;
   readonly log: SanitizedLog | null;
   readonly changes: SanitizedChanges | null;
+  /** قيم GitHub في مقتطف الخطأ وفي الحالة والموانع كما وردت، بلا صياغة مِجهَر (F-04)؛ للمختار منهما وحده، محجوبةً كأصلها دون أن
+   *  تُعدّ أسرارها مرة ثانية. */
+  readonly verbatim: { readonly error: readonly string[]; readonly status: readonly string[] };
   /** ما كان متاحًا في المجموع قبل الاختيار (للجرد: «لم يُختر» غير «لم يصل»)، بلا أي محتوى. */
   readonly available: Readonly<Record<'repo' | 'branch' | 'title' | 'description' | 'checks' | 'error' | 'status' | 'log' | 'changes', boolean>> & { readonly comments: number; readonly snippets: number };
   /** فجوات الجمع (كلها، اختير جزؤها أم لا). */
@@ -253,6 +257,16 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
     });
     return value;
   };
+  // نسخ حرفية لنصوص مرّت على pass: تُحجب مثلها ولا تُعدّ، فلا يتغير عدد الأسرار ولا البرومبت.
+  const muted = <T>(value: T): T => (policy === 'mask' ? mapStrings(value, (text) => maskText(text, () => {})) : value);
+  const status = source.status && has(ITEM.status) ? source.status : null;
+  const quotedOf = (list: readonly Blocker[]): string[] => list.flatMap((b) => b.evidence.flatMap((e) => e.quoted ?? []));
+  const withoutQuoted = (list: readonly Blocker[]): Blocker[] => list.map((b) => ({ ...b, evidence: b.evidence.map(({ quoted: _quoted, ...e }) => e) }));
+
+  const verbatim = {
+    error: error === null ? [] : (source.verbatim?.error ?? []).filter((v) => error.includes(v)),
+    status: status === null ? [] : [...(source.verbatim?.review ? [source.verbatim.review] : []), ...quotedOf(status.report.blockers), ...quotedOf(status.report.attention)],
+  };
 
   const SOURCE = 'المصدر';
   const GAPS = 'ما تعذّر جمعه';
@@ -268,9 +282,10 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
     checks: source.checks && has(ITEM.checks) ? pass(source.checks, 'نتائج الفحوص') : null,
     error: error === null ? null : pass(error, 'مقتطف الخطأ'),
     snippets: pass(chosen, 'مقتطفات الأدلة'),
-    status: source.status && has(ITEM.status) ? pass(source.status, 'الحالة والموانع') : null,
+    status: status === null ? null : pass({ ...status, report: { ...status.report, blockers: withoutQuoted(status.report.blockers), attention: withoutQuoted(status.report.attention) } }, 'الحالة والموانع'),
     log: log === null ? null : pass(log, 'السجل'),
     changes: changes === null ? null : pass(changes, 'التغييرات'),
+    verbatim: muted(verbatim),
     available: {
       repo: Boolean(source.repo),
       branch: Boolean(source.branch),

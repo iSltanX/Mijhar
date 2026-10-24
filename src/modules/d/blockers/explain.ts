@@ -24,6 +24,9 @@ export interface Evidence {
   readonly text: string;
   /** ما يضيفه مِجهَر بالعربية بجوار النص المنقول (تصنيف الفحص مثلًا)، منفصلًا عنه. */
   readonly note?: string;
+  /** قيم GitHub في text كما وردت، بلا صياغة مِجهَر حولها («شارة الحالة: » و« — » و« (Required)» و«الحقل = »)؛ وحدها يُقبل منها
+   *  اقتباس النموذج دليلًا (F-04). فارغ أو غائب حين يكون النص كله من صياغة مِجهَر. */
+  readonly quoted?: readonly string[];
 }
 
 export interface Blocker {
@@ -90,6 +93,9 @@ function quote(box: Element, re: RegExp): string | null {
   return text ? (text.length > 240 ? `${text.slice(0, 240)}…` : text) : null;
 }
 
+/** النص المنقول من الصفحة بلا علامة الاقتطاع التي يضيفها quote. */
+const verbatimOf = (text: string): string => (text.length > 240 && text.endsWith('…') ? text.slice(0, -1) : text);
+
 const rowText = (item: CheckItem): string => `${item.name}${item.detail ? ` — ${item.detail}` : ''}${item.required ? ' (Required)' : ''}`;
 
 // طلبات readPrApi بترتيبها: الطلب، ثم check-runs، ثم commit status (عنصره بلا معرّف)، ثم الفرع (VR-19).
@@ -121,7 +127,7 @@ export function explainBlockers(summary: PrSummary, dom: DomEvidence, api: ApiPr
 
   // المسودة: الترويسة أو API.
   if (dom.stateLabel && (dom.stateLabel.status === 'pullDraft' || /^draft\b/i.test(dom.stateLabel.text))) {
-    add(blocker('draft', 'الطلب مسودة، ولا تُدمج المسودة قبل إعلانها جاهزة للمراجعة', 'blocks', [{ source: 'dom', where: HEADER, text: `شارة الحالة: ${dom.stateLabel.text || dom.stateLabel.status}` }]));
+    add(blocker('draft', 'الطلب مسودة، ولا تُدمج المسودة قبل إعلانها جاهزة للمراجعة', 'blocks', [{ source: 'dom', where: HEADER, text: `شارة الحالة: ${dom.stateLabel.text || dom.stateLabel.status}`, quoted: dom.stateLabel.text ? [dom.stateLabel.text] : [] }]));
   }
   const pullPath = api?.requests[0] ?? 'GitHub API';
   if (pull?.draft) add(blocker('draft', 'الطلب مسودة، ولا تُدمج المسودة قبل إعلانها جاهزة للمراجعة', 'blocks', [{ source: 'api', where: pullPath, text: 'draft = true' }]));
@@ -130,13 +136,13 @@ export function explainBlockers(summary: PrSummary, dom: DomEvidence, api: ApiPr
   if (dom.mergebox) {
     for (const phrase of MERGEBOX_PHRASES) {
       const text = quote(dom.mergebox, phrase.re);
-      if (text) add(blocker(phrase.id, phrase.title, phrase.certainty, [{ source: 'dom', where: MERGEBOX, text }]));
+      if (text) add(blocker(phrase.id, phrase.title, phrase.certainty, [{ source: 'dom', where: MERGEBOX, text, quoted: [verbatimOf(text)] }]));
     }
   }
 
   // طلب التغييرات من قائمة المراجعين في الشريط الجانبي (تظهر لكل زائر)، حين لا يذكره صندوق الدمج.
   if (summary.reviews.available && summary.reviews.value.state === 'changes-requested' && summary.reviews.value.source === 'sidebar') {
-    add(blocker('changes-requested', 'طلب مراجعٌ تغييرات', 'may-block', [{ source: 'dom', where: 'قائمة المراجعين في الشريط الجانبي', text: summary.reviews.value.evidence }]));
+    add(blocker('changes-requested', 'طلب مراجعٌ تغييرات', 'may-block', [{ source: 'dom', where: 'قائمة المراجعين في الشريط الجانبي', text: summary.reviews.value.evidence, quoted: [summary.reviews.value.evidence] }]));
   }
 
   // mergeable_state من API بقيمتها.
@@ -177,7 +183,7 @@ export function explainBlockers(summary: PrSummary, dom: DomEvidence, api: ApiPr
   const requiredBad = items.filter((i) => i.required === true && (i.classification.category === 'failure' || i.classification.category === 'cancelled'));
   const requiredPending = items.filter((i) => i.required === true && (i.classification.category === 'running' || i.classification.category === 'not-run'));
   const requiredUnknown = items.filter((i) => i.required === true && i.classification.category === 'unknown');
-  const evidenceOf = (list: readonly CheckItem[]): Evidence[] => list.map((i) => ({ source: i.source === 'api' ? 'api' : 'dom', where: whereOf(i, api), text: rowText(i), note: `التصنيف: ${CATEGORY_LABELS[i.classification.category]}` }));
+  const evidenceOf = (list: readonly CheckItem[]): Evidence[] => list.map((i) => ({ source: i.source === 'api' ? 'api' : 'dom', where: whereOf(i, api), text: rowText(i), note: `التصنيف: ${CATEGORY_LABELS[i.classification.category]}`, quoted: i.detail ? [i.name, i.detail] : [i.name] }));
   add(blocker('required-failed', 'فحص إلزامي لم ينجح', 'blocks', evidenceOf(requiredBad)));
   add(blocker('required-pending', 'فحص إلزامي لم يكتمل بعد', 'blocks', evidenceOf(requiredPending)));
   add(blocker('required-unknown', 'فحص إلزامي حالته غير معروفة', 'may-block', evidenceOf(requiredUnknown)));

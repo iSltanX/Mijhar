@@ -161,6 +161,8 @@ export interface ContextSource {
   readonly comments: readonly CommentInfo[];
   readonly checks: { readonly items: readonly CheckLine[]; readonly summary: string } | null;
   readonly errorExcerpt: readonly string[];
+  /** قيم GitHub في errorExcerpt وفي سطر المراجعات كما وردت، بلا صياغة مِجهَر حولها؛ منها وحدها يُقبل اقتباس النموذج دليلًا (F-04). */
+  readonly verbatim?: { readonly error: readonly string[]; readonly review: string | null };
   /** حالة الطلب وموانعه (طلب الدمج وحده). */
   readonly status: PrStatus | null;
   /** تحليل السجل بطبقاته الثلاث (T-5.3) إن مُرِّر نص السجل (أو غيابه بسببه) في الإضافات؛ وإلا null. */
@@ -371,6 +373,7 @@ function collectPr(doc: Document, selectors: SelectorsRegistry, page: PageState,
   const { checks } = summary;
   let checkPart: ContextSource['checks'] = null;
   const errorExcerpt: string[] = [];
+  const errorVerbatim: string[] = [];
   if (checks.items.length) {
     const items = checks.items.map((item): CheckLine => ({
       name: item.name,
@@ -385,7 +388,10 @@ function collectPr(doc: Document, selectors: SelectorsRegistry, page: PageState,
       .map(([category, n]) => `${CATEGORY_LABELS[category as keyof typeof CATEGORY_LABELS]} ${n}`)
       .join('، ');
     checkPart = { items, summary: counts };
-    for (const item of items.filter((i) => i.failed)) errorExcerpt.push(`${item.name}: ${item.detail ?? 'فشل بلا تفصيل في الصفحة'}`);
+    for (const item of items.filter((i) => i.failed)) {
+      errorExcerpt.push(`${item.name}: ${item.detail ?? 'فشل بلا تفصيل في الصفحة'}`);
+      errorVerbatim.push(item.name, ...(item.detail ? [item.detail] : []));
+    }
     if (items.some((i) => i.failed) && !logRead) gaps.push({ part: 'مقتطف الخطأ', kind: 'not-loaded', reason: 'نص سجل الفحص الفاشل لا تعرضه صفحة الطلب؛ افتح صفحة المهمة وجهّز الحزمة منها، أو أضف مقتطف السجل دليلًا' });
   } else if (checks.detailsUrl) {
     gaps.push({ part: 'نتائج الفحوص', kind: 'not-loaded', reason: 'صفوف الفحوص لم تحمّلها الصفحة بعد (تُقرأ في بطاقة حالة الطلب)' });
@@ -408,7 +414,8 @@ function collectPr(doc: Document, selectors: SelectorsRegistry, page: PageState,
   const totals = { files: valueOf(summary.files), additions: valueOf(summary.additions), deletions: valueOf(summary.deletions) };
   const changes: Changes | null = totals.files === null && totals.additions === null && totals.deletions === null ? null : { totals, files: [], complete: false };
 
-  return { kind: 'pr', ...b, branch: { head, base: baseRef, headSha: summary.headSha }, comments, checks: checkPart, errorExcerpt, status, log: logRead?.log ?? null, changes, gaps };
+  const verbatim = { error: errorVerbatim, review: review ? review.evidence : null };
+  return { kind: 'pr', ...b, branch: { head, base: baseRef, headSha: summary.headSha }, comments, checks: checkPart, errorExcerpt, verbatim, status, log: logRead?.log ?? null, changes, gaps };
 }
 
 function collectIssue(doc: Document, selectors: SelectorsRegistry, page: PageState): ContextSource {
@@ -432,9 +439,11 @@ function collectJob(doc: Document, selectors: SelectorsRegistry, page: PageState
     url: step.logUrl ? new URL(step.logUrl, GITHUB).href : null,
   }));
   const errorExcerpt: string[] = [];
+  const errorVerbatim: string[] = [];
   for (const a of job.annotations) {
     const where = a.step ? `${a.step.number !== null ? `الخطوة ${a.step.number}` : 'خطوة'}${a.step.name ? `: ${a.step.name}` : ''}${a.line !== null ? `، السطر ${a.line}` : ''}` : null;
     errorExcerpt.push(`[${a.level}]${where ? ` (${where})` : ''} ${a.message}`);
+    errorVerbatim.push(...(a.step?.name ? [a.step.name] : []), a.message);
   }
   // سجل ممرَّر نصُّه يغني عن إعلان أنه لم يُقرأ؛ وسجل ممرَّر غيابُه يُعلن بسببه.
   const logRead = extras.log ? readLog(extras.log, job.annotations) : null;
@@ -453,6 +462,7 @@ function collectJob(doc: Document, selectors: SelectorsRegistry, page: PageState
     comments: [],
     checks: items.length ? { items, summary: `${job.failedSteps.length} خطوة فاشلة من ${items.length}` } : null,
     errorExcerpt,
+    verbatim: { error: errorVerbatim, review: null },
     status: null,
     log: logRead?.log ?? null,
     changes: null,

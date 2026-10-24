@@ -44,13 +44,14 @@ const json = (status: number, body: unknown, headers: Record<string, string> = {
 const errorBody = (type: string, message: string) => ({ type: 'error', error: { type, message } });
 
 /**
- * أول سطر يحمل «error» أو «failure» مما نُقل من الصفحة (مقتطف الخطأ أو السجل)، دليلًا حرفيًا يرد فيه.
- * يُبحث فيما بين حدّي المنقول وحده متى وُجد، لا في نص القالب الذي يكتبه مجهر (F-04).
+ * أول سطر يحمل «error» أو «failure» أو «exit code» مما نُقل من الصفحة (السجل غالبًا)، دليلًا حرفيًا يرد فيه.
+ * يُبحث فيما بين حدّي المنقول وحده متى وُجد، لا في نص القالب الذي يكتبه مجهر (F-04)؛ وتُترك صياغة مجهر داخل الكتل: ترويسة كتلة السجل
+ * («# اسم الخطوة — الأسطر …») وبنود القوائم («- ✗ …») ووسم مقتطف الخطأ («[failure] (الخطوة …)»)، فليست من الصفحة.
  */
 export function firstErrorLine(prompt: string): string {
   const blocks = transported(prompt);
   const lines = (blocks.length > 0 ? blocks.join('\n') : prompt).split('\n');
-  return lines.find((l) => /error|failure/i.test(l) && l.trim().length > 12)?.replace(/^[>\s|0-9-]+/, '').trim() ?? lines[0] ?? '';
+  return lines.find((l) => !/^(#|- |\[)/.test(l) && /error|failure|exit code/i.test(l) && l.trim().length > 12)?.replace(/^[>\s|0-9-]+/, '').trim() ?? lines[0] ?? '';
 }
 
 export const structuredReply = (prompt: string): string =>

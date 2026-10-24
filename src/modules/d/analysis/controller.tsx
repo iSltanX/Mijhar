@@ -231,7 +231,7 @@ export class SectionAnalysis {
     void provider.analyze({ requestId, section: this.def.id, provider: status.provider.id, model: model.id, system: prepared.system, prompt: prepared.prompt }).then((response) => {
       const now = this.state;
       if (now.kind !== 'loading' || now.requestId !== requestId) return;
-      if (response.ok) this.set({ kind: 'result', outcome: response.data, parsed: parseAnalysis(response.data.text, prepared.prompt, response.data.stopReason), prepared });
+      if (response.ok) this.set({ kind: 'result', outcome: response.data, parsed: parseAnalysis(response.data.text, prepared, response.data.stopReason), prepared });
       else {
         this.set({ kind: 'failed', failure: response.failure, message: failureText(response.failure, response.message), retryAt: response.retryAt });
         if (['unauthorized', 'expired-key', 'permission', 'provider-changed', 'no-key', 'model-changed'].includes(response.failure)) void this.readHealth();
