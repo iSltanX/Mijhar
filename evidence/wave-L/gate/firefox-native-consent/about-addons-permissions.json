@@ -1,0 +1,48 @@
+{
+  "viewOpened": true,
+  "tabShown": "clicked",
+  "toggle": [
+    {
+      "label": "extension-enable-addon-button-label",
+      "pressed": true,
+      "id": "",
+      "dataPermission": ""
+    },
+    {
+      "label": "الوصول إلى بياناتك لموقع https://api.github.com",
+      "pressed": false,
+      "id": "permission-0",
+      "dataPermission": "https://api.github.com/*"
+    },
+    {
+      "label": "الوصول إلى بياناتك لموقع https://api.anthropic.com",
+      "pressed": true,
+      "id": "permission-1",
+      "dataPermission": "https://api.anthropic.com/*"
+    },
+    {
+      "label": "الوصول إلى بياناتك لموقع https://api.openai.com",
+      "pressed": false,
+      "id": "permission-2",
+      "dataPermission": "https://api.openai.com/*"
+    },
+    {
+      "label": "الوصول إلى بياناتك لموقع https://generativelanguage.googleapis.com",
+      "pressed": false,
+      "id": "permission-3",
+      "dataPermission": "https://generativelanguage.googleapis.com/*"
+    },
+    {
+      "label": "الوصول إلى بياناتك لموقع https://github.com",
+      "pressed": true,
+      "id": "permission-4",
+      "dataPermission": "https://github.com/*"
+    },
+    {
+      "label": "شارك محتوى الموقع الإلكتروني مع مطوِّر الامتداد",
+      "pressed": true,
+      "id": "permission-5",
+      "dataPermission": "websiteContent"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+  dist/firefox/sidepanel.js: 842639 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
+
+المخالفات: 0
+التحذيرات: 0
+
+النتيجة: اجتاز (لا مخالفة).

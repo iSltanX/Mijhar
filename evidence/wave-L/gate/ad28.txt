@@ -1,0 +1,15 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar
+
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-all: النص وبنود القسم الإلزامي كما كانت 46ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-no-checks-error: النص وبنود القسم الإلزامي كما كانت 15ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-none: النص وبنود القسم الإلزامي كما كانت 13ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > pr-tight-limits: النص وبنود القسم الإلزامي كما كانت 13ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > issue-all: النص وبنود القسم الإلزامي كما كانت 95ms
+ ✓ tests/modules/e/context/bundle-golden.test.ts > AD-28: الحزمة والقوالب الأربعة بعد النقل مطابقة حرفيًا لما قبله > job-all: النص وبنود القسم الإلزامي كما كانت 100ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  22:41:31
+   Duration  854ms (tests 38%, environment 34%, transform 14%, import 14%)
+

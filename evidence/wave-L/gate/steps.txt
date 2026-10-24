@@ -1,0 +1,20 @@
+tree 17a1067 main-ahead=0
+build exit=0 1s
+typecheck exit=0 1s
+vitest-gate exit=0 5s
+ad28 exit=0 2s
+vitest-full exit=0 43s
+web-ext-lint exit=0 3s
+provider-isolation-run exit=0 0s
+static-audit-run exit=0 0s
+load-check exit=0 20s
+provider-check exit=0 36s
+openai-check exit=0 33s
+gemini-check exit=0 48s
+model-field-check exit=0 34s
+copy-prompt-chromium exit=0 54s
+copy-prompt-firefox exit=0 28s
+connections-check exit=0 29s
+sim-check exit=0 4s
+firefox-native exit=0 8s
+done

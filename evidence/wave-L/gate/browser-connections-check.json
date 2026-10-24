@@ -1,0 +1,910 @@
+{
+  "static": {
+    "rows": [
+      {
+        "target": "chromium",
+        "file": "background",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar.secret.providerKey",
+          "mijhar-secrets",
+          "mijhar.connections.health",
+          "Authorization"
+        ]
+      },
+      {
+        "target": "chromium",
+        "file": "options",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar.secret.providerKey",
+          "mijhar-secrets"
+        ]
+      },
+      {
+        "target": "chromium",
+        "file": "content",
+        "found": []
+      },
+      {
+        "target": "chromium",
+        "file": "sidepanel",
+        "found": []
+      },
+      {
+        "target": "chromium",
+        "file": "reader",
+        "found": []
+      },
+      {
+        "target": "firefox",
+        "file": "background",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar.secret.providerKey",
+          "mijhar-secrets",
+          "mijhar.connections.health",
+          "Authorization"
+        ]
+      },
+      {
+        "target": "firefox",
+        "file": "options",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar.secret.providerKey",
+          "mijhar-secrets"
+        ]
+      },
+      {
+        "target": "firefox",
+        "file": "content",
+        "found": []
+      },
+      {
+        "target": "firefox",
+        "file": "sidepanel",
+        "found": []
+      },
+      {
+        "target": "firefox",
+        "file": "reader",
+        "found": []
+      }
+    ],
+    "ok": true
+  },
+  "chrome": {
+    "label": "Chrome",
+    "checks": [
+      {
+        "name": "بطاقة الرمز: نوعه ووجهته وما يحتاجه، «غير مربوط»، ومدخل «كيف تحصل على الرمز؟»",
+        "ok": true
+      },
+      {
+        "name": "مفتاح المزوّد متاح (MJ21): حقله و«لماذا المفتاح؟» في بطاقته، ولا تكلفة",
+        "ok": true
+      },
+      {
+        "name": "بيان الحفظ: مفتاح مستقل لكل سرّ و«غير مشفَّر» صريحًا، ولا ادعاء تشفير ولا إزالة مضمونة",
+        "ok": true
+      },
+      {
+        "name": "نص غير صالح: لا حفظ ولا طلب، والحالة «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "منتهٍ (401): شارته ونصه بعد التحقق، لا «سليم»",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: لا رمز في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "غير متاح (503): شارته ونصه",
+        "ok": true
+      },
+      {
+        "name": "سليم بعد قبول فعلي وحده: الحد 5000",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: طلبات السجل GET /rate_limit من الخلفية وحدها، واحد لكل تحقق (3)",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: الفحوص «ينقص الرمزَ Actions» و«غير معروف»، والطلب مقروء بمستودعه وفرعه والتزامه ووقته",
+        "ok": true
+      },
+      {
+        "name": "ناقص الصلاحيات من الاستعمال: شارته ونصه بالصلاحية والمستودع",
+        "ok": true
+      },
+      {
+        "name": "طلبات البطاقة من الخلفية بالرمز وبـGET وحدها",
+        "ok": true
+      },
+      {
+        "name": "متجاوز الحد: شارته ونصه بموعد إعادة المحاولة",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: تحقق «متجاوز الحد» طلب /rate_limit واحد من الخلفية",
+        "ok": true
+      },
+      {
+        "name": "السرّان في مفتاحين مستقلين في الجلسة",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session (فيها السرّان وسجل الصحة)",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local وIndexedDB عالمه (لأصل الصفحة) وDOM بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "مسح الرمز: التأكيد يسمّي ما يتعطل وحده، والمفتاح يبقى في مفتاحه، والرمز «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "حالة السجل عبر الرسائل بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "404 بلا رمز: «غير متاحة لهذا المستودع» وخيار الربط معلَّلًا في لوحة API وحدها، وبقية البطاقة كاملة",
+        "ok": true
+      },
+      {
+        "name": "نقرة «اربط» تحفظ الميزة من القائمة المغلقة مع تبويبها",
+        "ok": true
+      },
+      {
+        "name": "بعد الربط والتحقق: لافتة «عُد إلى …» باسم الميزة",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى تبويب الميزة: زر القراءة مركَّز والقراءة بالرمز متاحة، ولا طلب API",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة خارجية للإضافة غير github.com وapi.github.com",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": null
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasSecret": false
+  },
+  "edge": {
+    "label": "Edge",
+    "checks": [
+      {
+        "name": "بطاقة الرمز: نوعه ووجهته وما يحتاجه، «غير مربوط»، ومدخل «كيف تحصل على الرمز؟»",
+        "ok": true
+      },
+      {
+        "name": "مفتاح المزوّد متاح (MJ21): حقله و«لماذا المفتاح؟» في بطاقته، ولا تكلفة",
+        "ok": true
+      },
+      {
+        "name": "بيان الحفظ: مفتاح مستقل لكل سرّ و«غير مشفَّر» صريحًا، ولا ادعاء تشفير ولا إزالة مضمونة",
+        "ok": true
+      },
+      {
+        "name": "نص غير صالح: لا حفظ ولا طلب، والحالة «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "منتهٍ (401): شارته ونصه بعد التحقق، لا «سليم»",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: لا رمز في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "غير متاح (503): شارته ونصه",
+        "ok": true
+      },
+      {
+        "name": "سليم بعد قبول فعلي وحده: الحد 5000",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: طلبات السجل GET /rate_limit من الخلفية وحدها، واحد لكل تحقق (3)",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: الفحوص «ينقص الرمزَ Actions» و«غير معروف»، والطلب مقروء بمستودعه وفرعه والتزامه ووقته",
+        "ok": true
+      },
+      {
+        "name": "ناقص الصلاحيات من الاستعمال: شارته ونصه بالصلاحية والمستودع",
+        "ok": true
+      },
+      {
+        "name": "طلبات البطاقة من الخلفية بالرمز وبـGET وحدها",
+        "ok": true
+      },
+      {
+        "name": "متجاوز الحد: شارته ونصه بموعد إعادة المحاولة",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: تحقق «متجاوز الحد» طلب /rate_limit واحد من الخلفية",
+        "ok": true
+      },
+      {
+        "name": "السرّان في مفتاحين مستقلين في الجلسة",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session (فيها السرّان وسجل الصحة)",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local وIndexedDB عالمه (لأصل الصفحة) وDOM بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "مسح الرمز: التأكيد يسمّي ما يتعطل وحده، والمفتاح يبقى في مفتاحه، والرمز «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "حالة السجل عبر الرسائل بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "404 بلا رمز: «غير متاحة لهذا المستودع» وخيار الربط معلَّلًا في لوحة API وحدها، وبقية البطاقة كاملة",
+        "ok": true
+      },
+      {
+        "name": "نقرة «اربط» تحفظ الميزة من القائمة المغلقة مع تبويبها",
+        "ok": true
+      },
+      {
+        "name": "بعد الربط والتحقق: لافتة «عُد إلى …» باسم الميزة",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى تبويب الميزة: زر القراءة مركَّز والقراءة بالرمز متاحة، ولا طلب API",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة خارجية للإضافة غير github.com وapi.github.com",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": null
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasSecret": false
+  },
+  "brave": {
+    "label": "Brave",
+    "checks": [
+      {
+        "name": "بطاقة الرمز: نوعه ووجهته وما يحتاجه، «غير مربوط»، ومدخل «كيف تحصل على الرمز؟»",
+        "ok": true
+      },
+      {
+        "name": "مفتاح المزوّد متاح (MJ21): حقله و«لماذا المفتاح؟» في بطاقته، ولا تكلفة",
+        "ok": true
+      },
+      {
+        "name": "بيان الحفظ: مفتاح مستقل لكل سرّ و«غير مشفَّر» صريحًا، ولا ادعاء تشفير ولا إزالة مضمونة",
+        "ok": true
+      },
+      {
+        "name": "نص غير صالح: لا حفظ ولا طلب، والحالة «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "منتهٍ (401): شارته ونصه بعد التحقق، لا «سليم»",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: لا رمز في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "غير متاح (503): شارته ونصه",
+        "ok": true
+      },
+      {
+        "name": "سليم بعد قبول فعلي وحده: الحد 5000",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: طلبات السجل GET /rate_limit من الخلفية وحدها، واحد لكل تحقق (3)",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: الفحوص «ينقص الرمزَ Actions» و«غير معروف»، والطلب مقروء بمستودعه وفرعه والتزامه ووقته",
+        "ok": true
+      },
+      {
+        "name": "ناقص الصلاحيات من الاستعمال: شارته ونصه بالصلاحية والمستودع",
+        "ok": true
+      },
+      {
+        "name": "طلبات البطاقة من الخلفية بالرمز وبـGET وحدها",
+        "ok": true
+      },
+      {
+        "name": "متجاوز الحد: شارته ونصه بموعد إعادة المحاولة",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: تحقق «متجاوز الحد» طلب /rate_limit واحد من الخلفية",
+        "ok": true
+      },
+      {
+        "name": "السرّان في مفتاحين مستقلين في الجلسة",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session (فيها السرّان وسجل الصحة)",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local وIndexedDB عالمه (لأصل الصفحة) وDOM بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "مسح الرمز: التأكيد يسمّي ما يتعطل وحده، والمفتاح يبقى في مفتاحه، والرمز «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "حالة السجل عبر الرسائل بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "404 بلا رمز: «غير متاحة لهذا المستودع» وخيار الربط معلَّلًا في لوحة API وحدها، وبقية البطاقة كاملة",
+        "ok": true
+      },
+      {
+        "name": "نقرة «اربط» تحفظ الميزة من القائمة المغلقة مع تبويبها",
+        "ok": true
+      },
+      {
+        "name": "بعد الربط والتحقق: لافتة «عُد إلى …» باسم الميزة",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى تبويب الميزة: زر القراءة مركَّز والقراءة بالرمز متاحة، ولا طلب API",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة خارجية للإضافة غير github.com وapi.github.com",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": null
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasSecret": false
+  },
+  "firefox": {
+    "label": "Firefox",
+    "checks": [
+      {
+        "name": "بطاقة الرمز: نوعه ووجهته وما يحتاجه، «غير مربوط»، ومدخل «كيف تحصل على الرمز؟»",
+        "ok": true
+      },
+      {
+        "name": "مفتاح المزوّد متاح (MJ21): حقله و«لماذا المفتاح؟» في بطاقته، ولا تكلفة",
+        "ok": true
+      },
+      {
+        "name": "بيان الحفظ: مفتاح مستقل لكل سرّ و«غير مشفَّر» صريحًا، ولا ادعاء تشفير ولا إزالة مضمونة",
+        "ok": true
+      },
+      {
+        "name": "نص غير صالح: لا حفظ ولا طلب، والحالة «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "منتهٍ (401): شارته ونصه بعد التحقق، لا «سليم»",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: لا رمز في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "غير متاح (503): شارته ونصه",
+        "ok": true
+      },
+      {
+        "name": "سليم بعد قبول فعلي وحده: الحد 5000",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: طلبات السجل GET /rate_limit من الخلفية وحدها، واحد لكل تحقق (3)",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: الفحوص «ينقص الرمزَ Actions» و«غير معروف»، والطلب مقروء بمستودعه وفرعه والتزامه ووقته",
+        "ok": true
+      },
+      {
+        "name": "ناقص الصلاحيات من الاستعمال: شارته ونصه بالصلاحية والمستودع",
+        "ok": true
+      },
+      {
+        "name": "طلبات البطاقة من الخلفية بالرمز وبـGET وحدها",
+        "ok": true
+      },
+      {
+        "name": "متجاوز الحد: شارته ونصه بموعد إعادة المحاولة",
+        "ok": true
+      },
+      {
+        "name": "تدقيق الشبكة: تحقق «متجاوز الحد» طلب /rate_limit واحد من الخلفية",
+        "ok": true
+      },
+      {
+        "name": "السرّان في مفتاحين مستقلين في الجلسة",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session (فيها السرّان وسجل الصحة)",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local وIndexedDB عالمه (لأصل الصفحة) وDOM بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "مسح الرمز: التأكيد يسمّي ما يتعطل وحده، والمفتاح يبقى في مفتاحه، والرمز «غير مربوط»",
+        "ok": true
+      },
+      {
+        "name": "حالة السجل عبر الرسائل بلا سرّ",
+        "ok": true
+      },
+      {
+        "name": "404 بلا رمز: «غير متاحة لهذا المستودع» وخيار الربط معلَّلًا في لوحة API وحدها، وبقية البطاقة كاملة",
+        "ok": true
+      },
+      {
+        "name": "نقرة «اربط» تحفظ الميزة من القائمة المغلقة مع تبويبها",
+        "ok": true
+      },
+      {
+        "name": "بعد الربط والتحقق: لافتة «عُد إلى …» باسم الميزة",
+        "ok": true
+      },
+      {
+        "name": "العودة إلى تبويب الميزة: زر القراءة مركَّز والقراءة بالرمز متاحة، ولا طلب API",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة خارجية للإضافة غير github.com وapi.github.com",
+        "ok": true
+      }
+    ],
+    "browserVersion": "158.0.1",
+    "extensionErrors": null,
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "origin": null,
+          "auth": null
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        }
+      ],
+      "blockedExternalHosts": [
+        "archive.mozilla.org",
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com"
+      ]
+    },
+    "consoleHasSecret": false
+  }
+}
