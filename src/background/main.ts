@@ -7,11 +7,11 @@
 // الاستيراد من الملفات مباشرة لا من ../core: الخلفية لا ترسم واجهة، فلا تحمل Preact.
 import { extensionApi } from '../core/ui-host/browser-api';
 import type { ExtensionApi } from '../core/ui-host/browser-api';
-import { applySurface, OPEN_OPTIONS_MESSAGE, openPanel, PANEL_COMMAND, readSurfaceMirror } from '../core/ui-host/commands';
+import { applySurface, isOpenOptionsMessage, openPanel, optionsPageUrl, PANEL_COMMAND, readSurfaceMirror } from '../core/ui-host/commands';
 import type { PanelOutcome } from '../core/ui-host/commands';
 import { openSettings } from '../core/ui-host/settings-runtime';
 import type { OpenedSettings } from '../core/ui-host/settings-runtime';
-import { createSettingsRegistry, requestPanelTab, SURFACE_KEY } from '../core/ui-host/units';
+import { createSettingsRegistry, requestPanelTab, SURFACE_KEY, WELCOME_KEY } from '../core/ui-host/units';
 import type { Surface } from '../core/ui-host/units';
 import type { StorageBinding } from '../core/storage';
 import { defineSectionSettings } from '../options/sections';
@@ -69,6 +69,12 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     return publicApi;
   };
 
+  // AD-29: التثبيت الأول وحده يجهّز الترحيب لأول فتح للوحة؛ والتحديث لا يعيده. يُسجَّل في التقييم الأول (MV3).
+  api.runtime.onInstalled?.addListener((details) => {
+    if (details.reason !== 'install') return;
+    void ready.then(({ settings }) => settings.set(WELCOME_KEY, 'pending')).catch((error: unknown) => console.error('[mijhar] تعذّر تجهيز الترحيب', error));
+  });
+
   // VR-01: الوسيط ينتظر فتح المخزن (ومعه الترحيل) قبل أول كتابة.
   const notesBroker = new NotesBroker(() => ready.then(({ store }) => openParts(store)));
 
@@ -84,8 +90,12 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
       void handlePublicApiRequest(message, port).then(sendResponse, (error: unknown) => sendResponse({ ok: false, failure: 'network', status: null, message: String(error), retryAt: null, readAt: Date.now(), rate: null }));
       return true;
     }
-    if (typeof message === 'object' && message !== null && (message as { type?: unknown }).type === OPEN_OPTIONS_MESSAGE) void api.runtime.openOptionsPage?.();
-    else openReaderFor(api, message, sender); // MJ7 (T-2.5): وضع القراءة يفتح العارض في تبويب
+    if (isOpenOptionsMessage(message)) {
+      // AD-29: موضع من القائمة المغلقة يُفتح في تبويب جديد؛ وما عداه صفحة الإعدادات نفسها.
+      const url = message.target === undefined ? null : optionsPageUrl((path) => api.runtime.getURL(path), message.target);
+      if (url && api.tabs) void api.tabs.create({ url });
+      else void api.runtime.openOptionsPage?.();
+    } else openReaderFor(api, message, sender); // MJ7 (T-2.5): وضع القراءة يفتح العارض في تبويب
     return undefined;
   });
 

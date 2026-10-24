@@ -19,6 +19,26 @@ export const DRAWER_MESSAGE = 'mijhar:drawer';
 export const OPEN_OPTIONS_MESSAGE = 'mijhar:open-options';
 export const SURFACE_MIRROR_KEY = 'mijhar.ui.surface';
 
+/**
+ * مواضع في صفحة الإعدادات يفتحها الترحيب والإعدادات في اللوحة (AD-29): قسم الرمز، ودليله. قائمة مغلقة: الخلفية لا تفتح عنوانًا
+ * تركّبه رسالة من سكربت المحتوى، بل أحد هذه المواضع أو صفحة الإعدادات نفسها.
+ */
+export const OPTIONS_TARGETS = ['token', 'guide/github-token'] as const;
+export type OptionsTarget = (typeof OPTIONS_TARGETS)[number];
+
+export interface OpenOptionsMessage {
+  readonly type: typeof OPEN_OPTIONS_MESSAGE;
+  readonly target?: OptionsTarget;
+}
+
+export const isOpenOptionsMessage = (message: unknown): message is OpenOptionsMessage =>
+  typeof message === 'object' && message !== null && (message as OpenOptionsMessage).type === OPEN_OPTIONS_MESSAGE;
+
+/** عنوان صفحة الإعدادات على الموضع، أو null لموضع خارج القائمة. */
+export function optionsPageUrl(getURL: (path: string) => string, target: unknown): string | null {
+  return typeof target === 'string' && (OPTIONS_TARGETS as readonly string[]).includes(target) ? getURL(`options.html#${target}`) : null;
+}
+
 export type DrawerAction = 'toggle' | 'open' | 'close';
 export interface DrawerMessage {
   readonly type: typeof DRAWER_MESSAGE;

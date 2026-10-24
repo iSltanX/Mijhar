@@ -9,10 +9,12 @@ import type { SettingsStore } from '../core/settings';
 import { moduleEnabledKey } from '../core/settings';
 import type { CommandInfo } from '../core/ui-host/browser-api';
 import { PANEL_COMMAND } from '../core/ui-host/commands';
+import type { OptionsTarget } from '../core/ui-host/commands';
 import type { ApiGithubPermission } from '../core/ui-host/permissions';
-import { SURFACE_KEY, UNITS } from '../core/ui-host/units';
+import { SURFACE_KEY, UNITS, WELCOME_KEY } from '../core/ui-host/units';
 import type { Surface, UnitInfo } from '../core/ui-host/units';
 import { Ltr, Toggle } from '../shared/ui';
+import { Icon } from '../shared/ui/icons';
 import { useSetting } from '../shared/ui/useSetting';
 import { sectionsFor } from './sections';
 import type { SettingsSection, SettingsSurface } from './sections';
@@ -36,6 +38,8 @@ export interface SettingsTabProps {
   readonly level?: 2 | 3;
   /** أقسام فيها حقل سرّ: صفحة الإعدادات وحدها تمرّرها (MJ15، T-5.5). */
   readonly secretSections?: ComponentChildren;
+  /** يفتح صفحة الإعدادات على موضع (قسم الرمز أو دليله، AD-29): تبويب جديد من اللوحة والدرج، وتغيير العنوان في صفحة الإعدادات. */
+  readonly openOptionsAt?: (target: OptionsTarget) => void;
 }
 
 const LevelContext = createContext<2 | 3>(2);
@@ -279,6 +283,60 @@ function ShortcutSection({ shortcuts }: { shortcuts: ShortcutsCapability }) {
   );
 }
 
+// البداية والمساعدة (AD-29، الإطار P-58): إعادة الترحيب ودليل رمز GitHub. «جولة الترحيب» تكتب 'pending' فتعرضها اللوحة فورًا، أو عند
+// فتحها التالي إن كانت هذه صفحة الإعدادات. وفي الدرج زر يفتح الدليل في تبويب جديد، لا حقل فيه (DEC-04).
+function HelpSection({ settings, surface, openOptionsAt }: { settings: SettingsStore; surface: SettingsSurface; openOptionsAt?: (target: OptionsTarget) => void }) {
+  const [message, setMessage] = useState<string | null>(null);
+  const replay = () => {
+    setMessage(null);
+    settings.set(WELCOME_KEY, 'pending').then(
+      () => surface === 'options' && setMessage('تظهر جولة الترحيب في اللوحة عند فتحها التالي.'),
+      (error: unknown) => setMessage(`تعذّر الحفظ: ${describeError(error)}`),
+    );
+  };
+  return (
+    <section class="section" aria-labelledby="mj-help-title" data-section="help">
+      <Heading id="mj-help-title">البداية والمساعدة</Heading>
+      <div class="help-rows">
+        <div class="help-row">
+          <span class="label">
+            <strong>جولة الترحيب</strong>
+            <span class="muted small">التعريف بمِجهَر وما يعمل بلا إعداد، والإضافات الاختيارية.</span>
+          </span>
+          <button type="button" class="btn" data-action="welcome-replay" onClick={replay}>
+            <Icon name="play" />
+            اعرضها
+          </button>
+        </div>
+        {(surface === 'options' || openOptionsAt) && (
+          <div class="help-row">
+            <span class="label">
+              <strong>دليل رمز GitHub</strong>
+              <span class="muted small">فائدته، وطريقة إنشائه بأقل الصلاحيات، وحذفه.</span>
+            </span>
+            {surface === 'options' ? (
+              <a class="btn" href="#guide/github-token" data-action="token-guide-help">
+                افتح الدليل
+                <Icon name="chevron-left" />
+              </a>
+            ) : (
+              <button type="button" class="btn" data-action="token-guide-help" onClick={() => openOptionsAt?.('guide/github-token')}>
+                <Icon name="external-link" />
+                افتح الدليل
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+      {message && (
+        <p class="notice" role="status">
+          {message}
+        </p>
+      )}
+    </section>
+  );
+}
+
 function PrivacySection() {
   return (
     <section class="section" aria-labelledby="mj-privacy-title" data-section="privacy">
@@ -318,6 +376,7 @@ export function SettingsTab(props: SettingsTabProps) {
         <PermissionSection {...(props.permission ? { permission: props.permission } : {})} {...(props.openOptions ? { openOptions: props.openOptions } : {})} />
         {surface === 'options' && props.secretSections}
         {props.shortcuts && <ShortcutSection shortcuts={props.shortcuts} />}
+        <HelpSection settings={settings} surface={surface} {...(props.openOptionsAt ? { openOptionsAt: props.openOptionsAt } : {})} />
         <PrivacySection />
       </div>
     </LevelContext.Provider>

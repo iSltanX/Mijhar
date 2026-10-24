@@ -56,6 +56,16 @@ export const isPanelRequest = (value: unknown): value is PanelRequest | null =>
 export const isFreshPanelRequest = (request: PanelRequest | null, now: number = Date.now()): request is PanelRequest =>
   request !== null && now - request.at >= 0 && now - request.at <= PANEL_REQUEST_FRESH_MS;
 
+/**
+ * الترحيب عند أول فتح للوحة (AD-29): 'pending' تكتبه الخلفية عند التثبيت الأول (runtime.onInstalled، السبب install) أو يكتبه
+ * «جولة الترحيب» في الإعدادات، و'done' يكتبه إنهاؤه أو تجاوزه أو اختيار أي تبويب. الافتراضي 'done': تحديث الإضافة وأي مخزن بلا هذا
+ * المفتاح لا يُظهر الترحيب.
+ */
+export const WELCOME_KEY = 'ui.welcome';
+export const WELCOME_STATES = ['pending', 'done'] as const;
+export type WelcomeState = (typeof WELCOME_STATES)[number];
+export const isWelcomeState = (value: unknown): value is WelcomeState => typeof value === 'string' && (WELCOME_STATES as readonly string[]).includes(value);
+
 export const isUnitId = (value: unknown): value is UnitId => typeof value === 'string' && (UNIT_IDS as readonly string[]).includes(value);
 
 /** حرف الوحدة من معرّف ExtensionModule، أو undefined إن لم يتبع الاصطلاح. */
@@ -69,6 +79,7 @@ export function defineCoreSettings(registry: SettingsRegistry): SettingsRegistry
   for (const unit of UNITS) registry.defineModuleToggle(unit.id, UNIT_DEFAULT_ENABLED, `الوحدة (${unit.letter}): ${unit.title}`);
   registry.define<Surface>({ key: SURFACE_KEY, default: DEFAULT_SURFACE, validate: isSurface, description: 'مكان اللوحة' });
   registry.define<PanelRequest | null>({ key: PANEL_REQUEST_KEY, default: null, validate: isPanelRequest, description: 'طلب إظهار تبويب في اللوحة (يكتبه أمر فتح القاموس)' });
+  registry.define<WelcomeState>({ key: WELCOME_KEY, default: 'done', validate: isWelcomeState, description: 'الترحيب عند أول فتح للوحة' });
   return registry;
 }
 

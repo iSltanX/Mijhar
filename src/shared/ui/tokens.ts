@@ -148,6 +148,9 @@ export const COMPONENTS_CSS = `
 .mj-root .btn-primary { background: var(--mijhar-bg-brand); color: var(--mijhar-text-on-brand); border-color: var(--mijhar-bg-brand); }
 .mj-root .btn-primary:hover { background: var(--mijhar-bg-brand); filter: brightness(1.08); border-color: var(--mijhar-bg-brand); }
 .mj-root .btn-danger { color: var(--mijhar-text-danger); }
+.mj-root .btn-ghost { background: transparent; border-color: transparent; color: var(--mijhar-text-brand); }
+.mj-root .btn-ghost:hover { background: var(--mijhar-bg-subtle); border-color: transparent; }
+.mj-root .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .mj-root .icon-btn { min-width: 32px; padding: 0; font-size: 18px; line-height: 1; }
 
 .mj-root .tablist { display: flex; gap: var(--mijhar-space-4); padding: 0 var(--mijhar-space-12); border-bottom: 1px solid var(--mijhar-border-default); overflow-x: auto; scrollbar-width: thin; }
@@ -172,6 +175,11 @@ export const COMPONENTS_CSS = `
 .mj-root .notice { padding: var(--mijhar-space-8) var(--mijhar-space-12); border-radius: var(--mijhar-radius-6); background: var(--mijhar-bg-info-subtle); color: var(--mijhar-text-info); }
 .mj-root .notice[data-tone="danger"] { background: var(--mijhar-bg-danger-subtle); color: var(--mijhar-text-danger); }
 .mj-root .row { display: flex; align-items: center; gap: var(--mijhar-space-8); flex-wrap: wrap; }
+.mj-root .icon { flex: 0 0 auto; vertical-align: middle; }
+.mj-root a.btn { text-decoration: none; }
+.mj-root .help-row { display: flex; align-items: center; justify-content: space-between; gap: var(--mijhar-space-12); padding: var(--mijhar-space-8) 0; border-bottom: 1px solid var(--mijhar-border-muted); }
+.mj-root .help-row:last-child { border-bottom: none; }
+.mj-root .help-row .label { display: flex; flex-direction: column; gap: 2px; }
 
 .mj-root .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: var(--mijhar-space-12); padding: var(--mijhar-space-8) 0; border-bottom: 1px solid var(--mijhar-border-muted); }
 .mj-root .toggle-row:last-child { border-bottom: none; }

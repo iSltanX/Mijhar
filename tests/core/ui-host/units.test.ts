@@ -1,6 +1,6 @@
 // مفاتيح الوحدات الثماني وربطها بالوحدات البرمجية (جزء من TEST-CORE-06).
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_SURFACE, MemoryStorageArea, PANEL_REQUEST_KEY, SURFACE_KEY, SettingsRegistry, UNITS, UNIT_IDS, createSettingsRegistry, isModuleEnabled, moduleEnabledKey, unitOf } from '../../../src/core';
+import { DEFAULT_SURFACE, MemoryStorageArea, PANEL_REQUEST_KEY, SURFACE_KEY, SettingsRegistry, UNITS, UNIT_IDS, WELCOME_KEY, createSettingsRegistry, isModuleEnabled, moduleEnabledKey, unitOf } from '../../../src/core';
 import { memorySettings } from './helpers';
 
 describe('سجل الإعدادات الأساسي', () => {
@@ -13,7 +13,10 @@ describe('سجل الإعدادات الأساسي', () => {
     expect(registry.get(SURFACE_KEY)?.validate?.('sideways')).toBe(false);
     // مفتاح طلب تبويب اللوحة أضافته MJ10 (T-3.4) لأمر فتح القاموس: قيمته الافتراضية null.
     expect(registry.get(PANEL_REQUEST_KEY)?.default).toBeNull();
-    expect(registry.list()).toHaveLength(10);
+    // حالة الترحيب (AD-29): الافتراضي 'done' فلا يظهر إلا بعد تثبيت أول أو «جولة الترحيب».
+    expect(registry.get(WELCOME_KEY)?.default).toBe('done');
+    expect(registry.get(WELCOME_KEY)?.validate?.('maybe')).toBe(false);
+    expect(registry.list()).toHaveLength(11);
   });
 
   it('extend يضيف إعدادات الأقسام فوق الأساسي', () => {

@@ -30,17 +30,19 @@ export const TOKEN_FORMAT_MESSAGES: Readonly<Record<Exclude<TokenFormat, { ok: t
 export interface ReadPermission {
   /** الاسم كما يظهر في صفحة إنشاء الرمز على GitHub. */
   readonly name: string;
+  /** اسم معامل الصلاحية في رابط قالب إنشاء الرمز (docs.github.com: «Pre-filling fine-grained token details using URL parameters»). */
+  readonly param: string;
   readonly why: string;
 }
 
 /** الصلاحيات الدنيا لكل نقطة تقرؤها مِجهَر (evidence/T-0.5: x-accepted-github-permissions مع قبول الطلب برمز القراءة). كلها Read-only. */
 export const READ_PERMISSIONS: readonly ReadPermission[] = [
-  { name: 'Metadata', why: 'بيانات المستودع الأساسية؛ يضيفها GitHub تلقائيًا' },
-  { name: 'Contents', why: 'الفروع وحمايتها والملفات والمقارنة' },
-  { name: 'Pull requests', why: 'حالة طلب الدمج وقابليته للدمج' },
-  { name: 'Commit statuses', why: 'حالات الالتزام المجمَّعة' },
-  { name: 'Actions', why: 'مهام Actions وخطواتها في المستودعات الخاصة' },
-  { name: 'Issues', why: 'المشكلات وأعداد وسومها' },
+  { name: 'Metadata', param: 'metadata', why: 'بيانات المستودع الأساسية؛ يضيفها GitHub تلقائيًا' },
+  { name: 'Contents', param: 'contents', why: 'الفروع وحمايتها والملفات والمقارنة' },
+  { name: 'Pull requests', param: 'pull_requests', why: 'حالة طلب الدمج وقابليته للدمج' },
+  { name: 'Commit statuses', param: 'statuses', why: 'حالات الالتزام المجمَّعة' },
+  { name: 'Actions', param: 'actions', why: 'مهام Actions وخطواتها في المستودعات الخاصة' },
+  { name: 'Issues', param: 'issues', why: 'المشكلات وأعداد وسومها' },
 ];
 
 export const READ_ACCESS_LEVEL = 'Read-only';
