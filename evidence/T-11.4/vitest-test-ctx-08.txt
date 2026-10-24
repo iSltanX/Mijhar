@@ -1,0 +1,45 @@
+
+ RUN  v5.0.5 /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj19-ff25c8
+
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > خمسة قوالب بالأسماء العربية والإنجليزية المعتمدة في الخطة 1ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > understand: أقسامه المعرّفة بترتيبها، والعنوان، و«المعلومات الناقصة» آخرها ثم سطر الاعتماد على ما ورد 37ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > diagnose: أقسامه المعرّفة بترتيبها، والعنوان، و«المعلومات الناقصة» آخرها ثم سطر الاعتماد على ما ورد 16ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > review: أقسامه المعرّفة بترتيبها، والعنوان، و«المعلومات الناقصة» آخرها ثم سطر الاعتماد على ما ورد 13ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > next-step: أقسامه المعرّفة بترتيبها، والعنوان، و«المعلومات الناقصة» آخرها ثم سطر الاعتماد على ما ورد 12ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > handoff: أقسامه المعرّفة بترتيبها، والعنوان، و«المعلومات الناقصة» آخرها ثم سطر الاعتماد على ما ورد 13ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > understand: متن كل قسم من الصفحة هو جزء بنية السياق بعينه (لا عرض موازٍ)، والغائب سطر «لم يصل» وحده 11ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > diagnose: متن كل قسم من الصفحة هو جزء بنية السياق بعينه (لا عرض موازٍ)، والغائب سطر «لم يصل» وحده 10ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > review: متن كل قسم من الصفحة هو جزء بنية السياق بعينه (لا عرض موازٍ)، والغائب سطر «لم يصل» وحده 10ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > next-step: متن كل قسم من الصفحة هو جزء بنية السياق بعينه (لا عرض موازٍ)، والغائب سطر «لم يصل» وحده 11ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > handoff: متن كل قسم من الصفحة هو جزء بنية السياق بعينه (لا عرض موازٍ)، والغائب سطر «لم يصل» وحده 11ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: القوالب الخمسة وأقسامها المعرّفة على العينة المرجعية > القيم الصحيحة من العينة المرجعية في أقسام كل قالب 12ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > understand على العينة المرجعية: فجوات الجمع وما اقتُطع، وما حُجب من الأسرار بعدده وأجزائه 10ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > diagnose على العينة المرجعية: فجوات الجمع وما اقتُطع، وما حُجب من الأسرار بعدده وأجزائه 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > review على العينة المرجعية: فجوات الجمع وما اقتُطع، وما حُجب من الأسرار بعدده وأجزائه 10ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > next-step على العينة المرجعية: فجوات الجمع وما اقتُطع، وما حُجب من الأسرار بعدده وأجزائه 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > handoff على العينة المرجعية: فجوات الجمع وما اقتُطع، وما حُجب من الأسرار بعدده وأجزائه 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > understand على صفحة مشكلة: كل قسم لم يصل يُعلن بسببه (لا فحوص ولا سجل ولا تغييرات في صفحة المشكلة) 71ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > diagnose على صفحة مشكلة: كل قسم لم يصل يُعلن بسببه (لا فحوص ولا سجل ولا تغييرات في صفحة المشكلة) 53ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > review على صفحة مشكلة: كل قسم لم يصل يُعلن بسببه (لا فحوص ولا سجل ولا تغييرات في صفحة المشكلة) 50ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > next-step على صفحة مشكلة: كل قسم لم يصل يُعلن بسببه (لا فحوص ولا سجل ولا تغييرات في صفحة المشكلة) 44ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > handoff على صفحة مشكلة: كل قسم لم يصل يُعلن بسببه (لا فحوص ولا سجل ولا تغييرات في صفحة المشكلة) 47ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: قسم «المعلومات الناقصة» بما لم يُجمع وسببه في كل برومبت > صفحة المهمة (فحوص) وصفحة الفروق: السجل المحجوب والفرع غير المقروء والتغييرات بأسطرها كلٌّ في موضعه 111ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > understand: لا شيء من نص الصفحة خارج أجزاء البنية (المطوي والتنقل والترويسة) ولا السجل كاملًا 10ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > diagnose: لا شيء من نص الصفحة خارج أجزاء البنية (المطوي والتنقل والترويسة) ولا السجل كاملًا 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > review: لا شيء من نص الصفحة خارج أجزاء البنية (المطوي والتنقل والترويسة) ولا السجل كاملًا 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > next-step: لا شيء من نص الصفحة خارج أجزاء البنية (المطوي والتنقل والترويسة) ولا السجل كاملًا 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > handoff: لا شيء من نص الصفحة خارج أجزاء البنية (المطوي والتنقل والترويسة) ولا السجل كاملًا 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > ما لم يصل لا يُذكر: إلغاء الفحوص والخطأ والسجل والموانع (وأدلتها صفوف الفحوص) يُخلي البرومبت من كل قيمة منها ويعلنها ناقصة 11ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > understand: لا يبقى في البرومبت موضع مطابق لقائمة الأنماط المعرّفة، والمحجوب ظاهر بعلامته 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > diagnose: لا يبقى في البرومبت موضع مطابق لقائمة الأنماط المعرّفة، والمحجوب ظاهر بعلامته 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > review: لا يبقى في البرومبت موضع مطابق لقائمة الأنماط المعرّفة، والمحجوب ظاهر بعلامته 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > next-step: لا يبقى في البرومبت موضع مطابق لقائمة الأنماط المعرّفة، والمحجوب ظاهر بعلامته 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > handoff: لا يبقى في البرومبت موضع مطابق لقائمة الأنماط المعرّفة، والمحجوب ظاهر بعلامته 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > لا يُبنى برومبت من بنية لم تُحجب أسرارها (flag)، وpromptFor يحجب دائمًا 9ms
+ ✓ tests/modules/e/prompt-templates/prompts.test.ts > TEST-CTX-08: لا نص الصفحة كاملًا، ولا بيان لم يصل، ولا سرّ بعد التنقيح > القوالب نصوص محلية ثابتة: التوليد لا يطلب شيئًا من الشبكة ولا يحتاج مفتاحًا 738ms
+
+ Test Files  1 passed (1)
+      Tests  36 passed (36)
+   Start at  12:00:10
+   Duration  1.93s (tests 78%, environment 13%, transform 5%, import 4%)
+
