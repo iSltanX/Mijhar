@@ -129,7 +129,7 @@
 | يُستعمل | `https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data` | 200؛ من وصف مزوّد Anthropic في الشيفرة (الاحتفاظ) |
 | يُستعمل | `https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training` | 200؛ صفحة Anthropic الرسمية للتدريب، أُضيفت لأن صفحة الاحتفاظ لا تذكره |
 | يُستعمل | `https://developers.openai.com/api/docs/guides/your-data` | 200؛ من وصف OpenAI المدموج (`descriptors/openai.ts`) |
-| يُستعمل | `https://ai.google.dev/gemini-api/terms` | 200؛ من وصف Gemini المدموج (`descriptors/gemini.ts`)، وروجع نص الخدمات غير المدفوعة والمدفوعة والمنطقة الأوروبية عند دمج L |
+| يُستعمل | `https://ai.google.dev/gemini-api/terms` | 200؛ من وصف Gemini المدموج (`descriptors/gemini.ts`)، وروجع نص الخدمات غير المدفوعة والمدفوعة والمنطقة الأوروبية عند دمج L، وقُرئ مجددًا في 24 أكتوبر 2026 لـ`COR-AUD-04` (تعريف الخدمة المدفوعة: مشروع مرتبط بحساب فوترة نشط) |
 | يُستعمل | `https://github.com/settings/personal-access-tokens` و`…/new?…` (القالب المعبّأ) | صفحتا GitHub تتطلبان الدخول؛ الرابط من `src/options/guide/template-url.ts` |
 | لا يُستعمل | `https://github.com/iSltanX/Mijhar` | 404 للعموم: خاص (`AD-20`) |
 | لا يُستعمل | `https://github.com/iSltanX/app-reports/issues/new` | 404 للعموم: خاص بلا قوالب |
