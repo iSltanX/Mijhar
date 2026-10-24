@@ -20,7 +20,7 @@ function boundTo(change: Partial<ApiPrData['binding']>, headSha = HEAD): ApiPrDa
   return { ...api, binding: { ...api.binding, ...change } };
 }
 
-const missingOf = (ctx: ReturnType<typeof contextOf>): string[] => renderPrompt('next-step', ctx).missing;
+const missingOf = (ctx: ReturnType<typeof contextOf>): readonly string[] => renderPrompt('next-step', ctx).missing;
 
 describe('AD-30 (١): ربط قراءة API في الطبقة المشتركة', () => {
   it('قراءة API للمستودع والفرع والالتزام الظاهرة تدخل، وتحمل البنية ربطها وحالة كل جزء، والجزء غير المقروء «غير معروف» في الجرد و«المعلومات الناقصة»', () => {
