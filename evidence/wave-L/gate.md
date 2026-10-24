@@ -19,7 +19,7 @@
 | أنماط حجب صيغ المفاتيح الثلاث على «نسخ البرومبت» والتحليل | `tests/modules/e/wave-l-crossing.test.tsx` (جديد: Anthropic وOpenAI وGemini بصيغتيه في صفحة واحدة) ضمن `vitest-gate`؛ وطفرتا حذف `openai-key` و`gemini-key` أسقطتا 6 و7 اختبارات ([`review.md`](review.md)) | ✓ |
 | الصلاحيات الاختيارية الثلاث في المانيفستين وإعلان Firefox كما هو | `tests/core/ui-host/manifest.test.ts` ضمن `vitest-gate`؛ والتدقيق الساكن ← [`gate/static-audit.txt`](gate/static-audit.txt)؛ ونافذة Firefox الأصلية (انحدار Anthropic) ← [`gate/firefox-native.txt`](gate/firefox-native.txt) و[`gate/firefox-native-consent/`](gate/firefox-native-consent/) | `optional_host_permissions`: `api.github.com` و`api.anthropic.com` و`api.openai.com` و`generativelanguage.googleapis.com`؛ و`websiteContent` اختيارية؛ 0 مخالفات؛ والنافذة الأصلية 21/21 بلا قبول آلي |
 | عزل المحوّلات في `background.js` وحده (`I-2`) | `network-audit.mjs providers` ← [`gate/provider-isolation.txt`](gate/provider-isolation.txt)؛ وبعد CSS: [`gate/rerun/provider-isolation.txt`](gate/rerun/provider-isolation.txt) | 0 مخالفات (علامات Anthropic وOpenAI وGemini في `background.js` وحده، ومخزن الأسرار في الخلفية والإعدادات وحدهما) |
-| الاتصال الحقيقي (`TEST-AI-09`) | — | **لم يُجرَ في البوابة**: لا مفتاح تجريبي متاح لجلسة الدمج. والاتصالان الحقيقيان السابقان جزئيان ([`review.md`](review.md) `L-1` و`L-4`)، فلا يُسجَّل اجتيازًا للمسار الكامل في المتصفح |
+| الاتصال الحقيقي (`TEST-AI-09`) | بعد الإغلاق بمفتاحَي المالك: [`real/report.md`](real/report.md) | **أُجري بعد إغلاق الموجة** من خلفية الإضافة في Chrome إلى المضيفين الحقيقيين مباشرة: OpenAI وGemini كلٌّ: التحقق والقائمة والاختبار والتحليل 200 بالواجهة الجديدة. ولم يكن في البوابة نفسها (لم يكن مفتاح متاحًا وقتها) |
 
 ## حقل النموذج اليدوي (`DEC-13` ن-5) — ما طلب المالك اختباره خصوصًا
 
@@ -55,7 +55,7 @@
 
 ## ما لم يُجرَ ولماذا
 
-- **الاتصال الحقيقي داخل الإضافة** بمفتاح OpenAI أو Gemini بالواجهة الجديدة: لا مفتاح تجريبي متاح لهذه الجلسة، ولم يُطلب لصق سرّ. ولا يُعدّ نجاح OpenAI من Node ولا Gemini عبر وكيل قبل الواجهة الجديدة نجاحًا للمسار الكامل.
+- **الاتصال الحقيقي داخل الإضافة** لم يكن في البوابة (لا مفتاح وقتها)، ثم **أُجري بعد الإغلاق** بمفتاحين وضعهما المالك في ملفين خارج المستودع: [`real/report.md`](real/report.md) (Chrome وحده؛ لا Edge ولا Brave ولا Firefox ولا Anthropic بمفتاح حقيقي).
 - **نافذة Firefox الأصلية بمضيف OpenAI أو Gemini:** الفحص الأصلي لمضيف Anthropic، وأُعيد انحدارًا (21/21)؛ والآلية واحدة والإعلان لم يتغير.
 - **تدقيق الشبكة الديناميكي لمسار الترجمة** (`network-audit.mjs dynamic`) و**مسار الإنجاز** (`exec-check`): الموجة لا تمسّهما.
 - **إعادة الفحوص المتصفحية غير حقل النموذج بعد تعديل CSS** (`009ab54`): التعديل في سلسلة أنماط حزمة الإعدادات وحدها، لا DOM ولا منطق ولا شبكة؛ فأُعيد البناء والأنواع واختبارات المزوّد و`web-ext lint` والتدقيقان الساكنان والتحميل وفحص حقل النموذج في الأربعة.

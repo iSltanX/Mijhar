@@ -1,0 +1,102 @@
+{
+  "test": "TEST-AI-09",
+  "provider": "OpenAI",
+  "host": "api.openai.com",
+  "mode": "اتصال حقيقي من خلفية الإضافة في المتصفح إلى المضيف الحقيقي مباشرة (لا وكيل ولا رد وهمي)",
+  "measuredAt": "2026-10-24T20:33:21.709Z",
+  "model": "gpt-6.1-sol",
+  "steps": {
+    "verify": {
+      "health": "healthy",
+      "message": "قبِل OpenAI المفتاح وقُرئت قائمة نماذجه (97)؛ تعرضها بزر + بجانب حقل النموذج للمساعدة. لم يبدأ أي تحليل ولم يُرسل شيء من صفحاتك.",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": "",
+          "from": "background",
+          "status": 200,
+          "headers": [
+            "authorization"
+          ],
+          "keyInHeaderOnly": true,
+          "ping": false
+        }
+      ]
+    },
+    "list": {
+      "state": "list",
+      "count": 97,
+      "modelInList": true,
+      "newRequests": 0
+    },
+    "test": {
+      "typed": true,
+      "verdict": "accepted",
+      "text": "قبِل OpenAI النموذج في الاختبار (23:33).",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/responses",
+          "query": "",
+          "from": "background",
+          "status": 200,
+          "headers": [
+            "authorization",
+            "content-type"
+          ],
+          "keyInHeaderOnly": true,
+          "ping": true
+        }
+      ]
+    },
+    "consent": {
+      "lead": "سيُرسَل المحتوى الموضّح أدناه، بعد تنقيحه في متصفحك، إلى OpenAI (api.openai.com) عبر مفتاحك ليحلّله النموذج gpt-6.1-sol. لا يُرسل شيء قبل أن تختار «إرسال للتحليل».",
+      "destination": "الوجهةOpenAI · gpt-6.1-sol عبر مفتاحك، إلى api.openai.com وحده · سياسته في البيانات: developers.openai.com",
+      "sentBefore": 0
+    },
+    "analysis": {
+      "outcome": {
+        "kind": "result",
+        "meta": "gpt-6.1-sol · OpenAI · إلى api.openai.com · طُلب 23:33:28",
+        "quotes": [
+          "found",
+          "found",
+          "found",
+          "found"
+        ],
+        "text": "تحليل مقترح من المزوّداحتمال يحتاج تحققًافشلت الخطوة 14 «Compile & Hygiene» بكود خروج 1 عند السطر 2364؛ لا يثبت السياق السبب الجذري أو إصلاحًا محددًا.مثبت من المصدراقتباسات وردت حرفيًا فيما أُرسل من الصفحة (لا ما يقوله النموذج عنها):[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1.السجل غير متاح: التنبيهات الظاهرة وحدهالا يوجد سبب جذري مثبت من نص السجل وحده.14. Compile & Hygieneالسبب المحتملالفشل المثبت هو انتهاء العملية بكود 1 في الخطوة 14 عند السطر 2364؛ هذا موضع تنبيه الانتهاء، وليس بالضرورة موضع الخطأ الأصلي.[failure] (الخطوة 14: Compile & Hygiene، ال"
+      },
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/responses",
+          "query": "",
+          "from": "background",
+          "status": 200,
+          "headers": [
+            "authorization",
+            "content-type"
+          ],
+          "keyInHeaderOnly": true,
+          "ping": false
+        }
+      ]
+    }
+  },
+  "browser": "Chrome 156.0.8078.47",
+  "extensionErrors": {
+    "runtime": [],
+    "manifest": []
+  },
+  "consoleHasKey": false,
+  "allProviderRequestsFromBackground": true,
+  "keyInUrlOrBody": false,
+  "requestHosts": [
+    "api.openai.com"
+  ],
+  "blockedHosts": [
+    "github.githubassets.com"
+  ],
+  "githubApiAuth": []
+}

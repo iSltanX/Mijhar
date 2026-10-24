@@ -1,0 +1,99 @@
+{
+  "test": "TEST-AI-09",
+  "provider": "Google Gemini",
+  "host": "generativelanguage.googleapis.com",
+  "mode": "اتصال حقيقي من خلفية الإضافة في المتصفح إلى المضيف الحقيقي مباشرة (لا وكيل ولا رد وهمي)",
+  "measuredAt": "2026-10-24T20:33:59.392Z",
+  "model": "gemini-3.5-flash-lite",
+  "steps": {
+    "verify": {
+      "health": "healthy",
+      "message": "قبِل Google Gemini المفتاح وقُرئت قائمة نماذجه (46)؛ تعرضها بزر + بجانب حقل النموذج للمساعدة. لم يبدأ أي تحليل ولم يُرسل شيء من صفحاتك.",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1beta/models",
+          "query": "?pageSize=1000",
+          "from": "background",
+          "status": 200,
+          "headers": [
+            "x-goog-api-key"
+          ],
+          "keyInHeaderOnly": true,
+          "ping": false
+        }
+      ]
+    },
+    "list": {
+      "state": "list",
+      "count": 46,
+      "modelInList": true,
+      "newRequests": 0
+    },
+    "test": {
+      "typed": true,
+      "verdict": "accepted",
+      "text": "قبِل Google Gemini النموذج في الاختبار (23:34).",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1beta/models/gemini-3.5-flash-lite:generateContent",
+          "query": "",
+          "from": "background",
+          "status": 200,
+          "headers": [
+            "content-type",
+            "x-goog-api-key"
+          ],
+          "keyInHeaderOnly": true,
+          "ping": true
+        }
+      ]
+    },
+    "consent": {
+      "lead": "سيُرسَل المحتوى الموضّح أدناه، بعد تنقيحه في متصفحك، إلى Google Gemini (generativelanguage.googleapis.com) عبر مفتاحك ليحلّله النموذج Gemini 3.5 Flash Lite. لا يُرسل شيء قبل أن تختار «إرسال للتحليل».",
+      "destination": "الوجهةGoogle Gemini · Gemini 3.5 Flash Lite عبر مفتاحك، إلى generativelanguage.googleapis.com وحده · سياسته في البيانات: ai.google.dev/gemini-api/terms",
+      "sentBefore": 0
+    },
+    "analysis": {
+      "outcome": {
+        "kind": "result",
+        "meta": "gemini-3.5-flash-lite · Google Gemini · إلى generativelanguage.googleapis.com · طُلب 23:34:06",
+        "quotes": [
+          "found"
+        ],
+        "text": "تحليل مقترح من المزوّداحتمال يحتاج تحققًافشل فحص Compile & Hygiene (الخطوة 14) بكود الخروج 1 دون توفر تفاصيل السجل.مثبت من المصدراقتباسات وردت حرفيًا فيما أُرسل من الصفحة (لا ما يقوله النموذج عنها):[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1.السبب المحتملProcess completed with exit code 1.[failure] (الخطوة 14: Compile & Hygiene، السطر 2364) Process completed with exit code 1. — ورد في المصدرالإصلاح والخطوة التاليةفحص سجلات التشغيل الكاملة لمعرفة السبب الجذري للفشل في خطوة Compile & Hygiene.المعلومات الناقصةنص السجل التفصيلي لـ Compile & Hygieneالتغيي"
+      },
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1beta/models/gemini-3.5-flash-lite:generateContent",
+          "query": "",
+          "from": "background",
+          "status": 200,
+          "headers": [
+            "content-type",
+            "x-goog-api-key"
+          ],
+          "keyInHeaderOnly": true,
+          "ping": false
+        }
+      ]
+    }
+  },
+  "browser": "Chrome 156.0.8078.47",
+  "extensionErrors": {
+    "runtime": [],
+    "manifest": []
+  },
+  "consoleHasKey": false,
+  "allProviderRequestsFromBackground": true,
+  "keyInUrlOrBody": false,
+  "requestHosts": [
+    "generativelanguage.googleapis.com"
+  ],
+  "blockedHosts": [
+    "github.githubassets.com"
+  ],
+  "githubApiAuth": []
+}

@@ -85,6 +85,11 @@ export async function chromiumSession(key, { extDir, githubReply, apiReply, auth
       const entry = { host, method: request.method(), path: url.pathname + url.search, headers: await request.allHeaders(), body: request.postData() ?? null, from: request.serviceWorker() ? 'background' : 'page' };
       network.extra.push(entry);
       const r = await reply(entry);
+      // اتصال حقيقي (TEST-AI-09): الطلب يمضي من المتصفح نفسه إلى المضيف الحقيقي بلا رد وهمي ولا وكيل، ويُسجَّل رمز ردّه.
+      if (r === 'continue') {
+        void request.response().then((response) => void (entry.status = response?.status() ?? null), () => void (entry.status = null));
+        return route.continue();
+      }
       return route.fulfill({ status: r.status, contentType: 'application/json', headers: { 'access-control-allow-origin': '*', ...(r.headers ?? {}) }, body: typeof r.body === 'string' ? r.body : JSON.stringify(r.body ?? {}) });
     });
   }
