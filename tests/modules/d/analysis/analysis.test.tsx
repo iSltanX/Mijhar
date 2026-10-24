@@ -132,7 +132,7 @@ describe('AC-D9: التحليل في شرح سجل الفحص', () => {
     expect(f.provider.analyze).toHaveBeenCalledTimes(1);
     const sent = f.provider.analyze.mock.calls[0]?.[0] as AnalyzeInput;
     expect(sent).toMatchObject({ requestId: 'req-1', section: 'checks', model: 'mock-sonnet-2' });
-    expect(sent.prompt.split('\n')[0]).toMatch(/^# تشخيص الخطأ: /);
+    expect(sent.prompt.split('\n')[0]).toBe('# تشخيص الخطأ');
     expect(scanText(sent.prompt)).toEqual([]);
 
     const result = layer('possibility')?.querySelector('[data-analysis="result"]');

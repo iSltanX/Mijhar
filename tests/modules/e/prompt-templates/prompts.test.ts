@@ -10,6 +10,7 @@ import type { ContextStructure, Part } from '../../../../src/modules/e/context';
 import { scanText } from '../../../../src/modules/e/privacy-check';
 import { CLOSING_LINE, MISSING_HEADING, NOT_RECEIVED_LINE, PROMPTS, PROMPT_IDS, promptFor, promptHeadings, renderPrompt, sectionsFor } from '../../../../src/modules/e/prompt-templates';
 import type { PromptId } from '../../../../src/modules/e/prompt-templates';
+import { TRANSPORTED_CLOSE, TRANSPORTED_OPEN } from '../../../../src/core/guardrails';
 import { HEAD, LEAKY_LOG, LEAKY_SNIPPET, LOG, NOW, SAMPLES, apiFor, contextOf, fake, plantSecrets, sourceOf } from '../context/samples';
 
 /** البنية المرجعية: الطلب المرجعي وقراءة API لرأسه وسجل الاختبار برموزه الوهمية ومقتطف دليل برمز، وأسرار مزروعة في أجزاء الصفحة. */
@@ -18,7 +19,9 @@ const reference = (): ContextStructure => contextOf(SAMPLES.pr, { api: apiFor(HE
 const headingsOf = (text: string): string[] => text.split('\n').filter((l) => l.startsWith('## ')).map((l) => l.slice(3));
 const base = (heading: string): string => heading.replace(/ \(.*\)$/, '');
 
-/** متن قسم بعنوانه (بلا السطر الفارغ الأخير). */
+/**
+ * متن قسم بعنوانه (بلا السطر الفارغ الأخير). MJ22 (AC-F7 (٣)): ما نُقل من الصفحة بين حدّيه الصريحين، فيُتحقق منهما ويُعاد ما بينهما.
+ */
 function bodyOf(text: string, heading: string): string[] {
   const lines = text.split('\n');
   const at = lines.findIndex((l) => l.startsWith('## ') && base(l.slice(3)) === heading);
@@ -27,7 +30,9 @@ function bodyOf(text: string, heading: string): string[] {
   const end = rest.findIndex((l) => l.startsWith('## ') || l === '---');
   const body = rest.slice(0, end === -1 ? undefined : end);
   while (body.length && body[body.length - 1] === '') body.pop();
-  return body;
+  if (body[0] !== TRANSPORTED_OPEN) return body;
+  expect(body.at(-1), `${heading}: حدّ الإغلاق`).toBe(TRANSPORTED_CLOSE);
+  return body.slice(1, -1);
 }
 
 /** الأقسام المعرّفة لكل قالب على صفحة طلب الدمج، بترتيبها، و«المعلومات الناقصة» آخرها. */
@@ -56,7 +61,8 @@ describe('TEST-CTX-08: القوالب الخمسة وأقسامها المعرّ
     expect(headingsOf(text).map(base)).toEqual(EXPECTED[id]);
     expect(promptHeadings(id, 'pr')).toEqual(EXPECTED[id]);
     const def = PROMPTS.find((p) => p.id === id);
-    expect(text.split('\n')[0]).toBe(`# ${def?.label}: feat: refresh the settings UI ${maskOf('aws-access-key')}`);
+    expect(text.split('\n')[0]).toBe(`# ${def?.label}`);
+    expect(text).toContain(`${TRANSPORTED_OPEN}\nالموضوع: feat: refresh the settings UI ${maskOf('aws-access-key')}\n${TRANSPORTED_CLOSE}`);
     expect(text).toContain(`قالب البرومبت: ${def?.label} (${def?.english}) · طلب الدمج`);
     expect(text.split('\n').at(-1)).toBe(CLOSING_LINE);
     const found = headingsOf(text);

@@ -3,9 +3,11 @@
 //  - رمز GitHub للقراءة (T-5.5): متاح، ويُحفظ بمفتاحيه التاريخيين.
 //  - مفتاح مزوّد التحليل (MJ21، AC-E9): متاح مع طبقة التحليل. حقله وتحققه (طلب قائمة المودلات المعلن) وصلاحية مضيفه الاختيارية في بطاقته
 //    (src/modules/e/provider/KeySection.tsx)، ويُحفظ بمفتاحيه المستقلين (keys.ts). ولا أسعار ولا تكلفة هنا (AD-31).
+//  - صلاحية الكتابة في GitHub (MJ22، T-11.8، AD-19): سرّ ثالث منفصل عن رمز القراءة بمفتاحيه، لا يُستعمل إلا في خطوة التنفيذ من «تجهيز تعديل»
+//    ولا يحمله أي طلب قراءة ولا يُتحقق منه بطلب قراءة (AC-F7 (١))؛ بطاقته في src/modules/f/execution/WriteTokenSection.tsx.
 // لا مفاتيح تخزين هنا: هذا الملف وصف يصل سكربت المحتوى (بوابات الميزات)، ومفاتيح الأسرار في keys.ts للخلفية وصفحة الإعدادات وحدهما.
 
-export const CONNECTION_IDS = ['github-token', 'provider-key'] as const;
+export const CONNECTION_IDS = ['github-token', 'provider-key', 'github-write'] as const;
 export type ConnectionId = (typeof CONNECTION_IDS)[number];
 
 export const isConnectionId = (value: unknown): value is ConnectionId => typeof value === 'string' && (CONNECTION_IDS as readonly string[]).includes(value);
@@ -56,6 +58,18 @@ export const CONNECTIONS: readonly ConnectionDefinition[] = [
     enables: 'تحليل نصّي اختياري داخل الأقسام القائمة، بموافقتك على كل طلب.',
     needs: 'مفتاح API من حسابك لدى المزوّد، وصلاحية api.anthropic.com الاختيارية في هذه الصفحة.',
     disables: 'التحليل وحده؛ وتبقى الأقسام ونسخ حزمة السياق ورمز GitHub كما هي.',
+    availability: 'available',
+  },
+  {
+    id: 'github-write',
+    title: 'صلاحية الكتابة في GitHub',
+    noun: 'رمز الكتابة',
+    service: 'GitHub',
+    kind: 'رمز دقيق الحبيبات منفصل عن رمز القراءة، للكتابة في مستودع تختاره',
+    destination: 'api.github.com',
+    enables: 'خطوة التنفيذ وحدها في «تجهيز تعديل»: إنشاء فرع وكتابة ملف نصي واحد وفتح طلب دمج، بعد معاينة الفرق وموافقتك على النطاق.',
+    needs: 'رمز دقيق الحبيبات آخر غير رمز القراءة، بصلاحيتي Contents وPull requests «Read and write» للمستودع الذي تعدّله وحده، وصلاحية api.github.com الاختيارية.',
+    disables: 'خطوة التنفيذ وحدها؛ وتبقى معاينة الفرق و«نسخ الفرق» وكل قراءة وتحليل كما هي.',
     availability: 'available',
   },
 ];

@@ -8,6 +8,8 @@ import type { SecretKeys, SecretStore } from './secrets';
 export const SECRET_KEYS: Readonly<Record<ConnectionId, SecretKeys>> = {
   'github-token': { session: 'mijhar.secret.githubToken', disk: 'githubToken' },
   'provider-key': { session: 'mijhar.secret.providerKey', disk: 'providerKey' },
+  // MJ22 (T-11.8، AC-F7 (١)): رمز الكتابة بمفتاحيه المستقلين عن رمز القراءة؛ وبطاقته تحفظه في الجلسة وحدها.
+  'github-write': { session: 'mijhar.secret.githubWrite', disk: 'githubWrite' },
 };
 
 /** مخزن سرّ اتصال في سياق إضافة موثوق. */

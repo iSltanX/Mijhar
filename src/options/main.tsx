@@ -5,6 +5,8 @@
 //    ويركّز مدخل الدليل الذي فُتح منه.
 //  - MJ21 (T-11.6): جسم بطاقة «مفتاح مزوّد التحليل» بطاقة المفتاح (KeySection): تكتب المفتاح في مخزنه الموثوق مباشرة، وتطلب صلاحية مضيف المزوّد
 //    في نقرة الحفظ نفسها، والتحقق (قائمة المودلات) عبر منفذ الخلفية؛ و#guide/provider-key «لماذا المفتاح؟».
+//  - MJ22 (T-11.8): جسم بطاقة «صلاحية الكتابة في GitHub» (WriteTokenSection): تكتب رمز الكتابة في مخزنه المستقل (الجلسة وحدها) بنقرة موثوقة، ولا تتحقق
+//    منه بطلب قراءة؛ ورمز القراءة يُقرأ هنا لرفض حفظه نفسه سرًّا للكتابة وحدها.
 import { runtimePort } from '../core/api/port';
 import { connectionSecretStore } from '../core/connections/keys';
 import { runtimeConnectionsPort } from '../core/connections/port';
@@ -14,6 +16,7 @@ import { extensionTokenStore } from '../modules/d/token/store';
 import { TokenSection } from '../modules/d/token/TokenSection';
 import { ProviderHostPermission } from '../modules/e/provider/gate';
 import { KeySection } from '../modules/e/provider/KeySection';
+import { WriteTokenSection } from '../modules/f/execution/WriteTokenSection';
 import { runtimeProviderPort } from '../modules/e/provider/port';
 import { PROVIDERS } from '../modules/e/provider/registry';
 import { OptionsApp } from './OptionsApp';
@@ -27,6 +30,8 @@ const tokenStore = extensionTokenStore();
 const port = runtimePort(api.runtime);
 const connections = runtimeConnectionsPort(api.runtime);
 const providerKeys = connectionSecretStore('provider-key');
+const writeToken = connectionSecretStore('github-write');
+const readToken = async (): Promise<string | null> => (await tokenStore.read())?.token ?? null;
 const provider = runtimeProviderPort(api.runtime);
 // Firefox: موافقة مشاركة محتوى المواقع (websiteContent) تُطلب مع صلاحية المضيف في نقرة الحفظ نفسها (AD-15).
 const providerPermission = api.permissions ? new ProviderHostPermission(api.permissions, PROVIDERS[0]?.origin ?? 'https://api.anthropic.com/*', __TARGET__ === 'firefox' ? ['websiteContent'] : []) : null;
@@ -48,6 +53,8 @@ void mountExtensionPage((settings) => (
                 <TokenSection store={tokenStore} port={port} target={__TARGET__} header={header} status={status} onChange={refresh} />
               ) : id === 'provider-key' && providerPermission ? (
                 <KeySection store={providerKeys} port={provider} permission={providerPermission} target={__TARGET__} header={header} status={status} onChange={refresh} />
+              ) : id === 'github-write' ? (
+                <WriteTokenSection store={writeToken} readToken={readToken} permission={capabilities.permission ?? null} header={header} status={status} onChange={refresh} />
               ) : null
             }
           />

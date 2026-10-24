@@ -46,6 +46,14 @@ export const CONNECTED_FEATURES = [
     requires: ['provider-key'],
     benefit: 'ملخص مقترح للمشكلة وما ينقصها وخطوة تالية، موسوم «احتمال يحتاج تحققًا» بأدلته؛ ولا يُرسل شيء قبل موافقتك.',
   },
+  // MJ22 (T-11.8، AC-F6): خطوة التنفيذ وحدها من «تجهيز تعديل»؛ والمعاينة و«نسخ الفرق» بلا أي صلاحية كتابة.
+  {
+    id: 'f.execution.write',
+    title: 'نفّذ: أنشئ الفرع وافتح الطلب',
+    section: 'تجهيز تعديل',
+    requires: ['github-write'],
+    benefit: 'يُنشأ الفرع ويُكتب الملف الواحد ويُفتح طلب الدمج بعد موافقتك على النطاق؛ ولا يُدمج شيء ولا يُغلق.',
+  },
 ] as const satisfies readonly ConnectedFeature[];
 
 export type FeatureId = (typeof CONNECTED_FEATURES)[number]['id'];

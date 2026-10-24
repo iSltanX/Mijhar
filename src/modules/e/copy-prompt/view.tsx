@@ -1,8 +1,10 @@
 // زر «نسخ البرومبت» (T-11.3، F-E7): زر مقسوم صغير بلا صندوق نص ولا نافذة معاينة. الجزء الرئيسي ينسخ، والسهم يفتح قائمة القوالب الخمسة (Prompt template menu).
 // الحالات الأربع ظاهرة في الزر نفسه: افتراضي ← تحميل أثناء الجمع والتجهيز ← نجاح («تم النسخ» لا يظهر إلا بعد نجاح الكتابة فعليًا) أو فشل بسببه.
 // وتحته عند الحاجة ملاحظة سطرية مختصرة: الفشل مع البديل اليدوي (تنزيل ملف .md محلي)، والمحتوى الخاص المحجوب. لا يُعرض البرومبت في أي موضع.
+// MJ22 (AD-33، I-1): زر التنزيل البديل يبدأ تنزيلًا، فيقبل نقرة المستخدم الموثوقة وحدها (AD-27)؛ والنقر البرمجي من سكربت الصفحة لا ينزّل شيئًا.
 import { useLayoutEffect, useRef } from 'preact/hooks';
 import { Icon } from '../../../shared/ui/icons';
+import { isTrustedActivation } from '../../../shared/ui/user-activation';
 import { PROMPTS } from '../prompt-templates';
 import type { PromptId } from '../prompt-templates';
 import { LocalIcon } from './icons';
@@ -153,7 +155,7 @@ export function CopyPromptView(props: CopyPromptViewProps) {
             {props.canDownload && props.download === 'idle' && (
               <span>
                 بديل يدوي بلا حافظة:{' '}
-                <button type="button" class="cp-link" data-action="download-prompt" onClick={props.onDownload}>
+                <button type="button" class="cp-link" data-action="download-prompt" onClick={(event) => isTrustedActivation(event) && props.onDownload()}>
                   نزّل البرومبت ملفًا {props.fileName}
                 </button>
               </span>

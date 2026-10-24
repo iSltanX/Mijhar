@@ -79,7 +79,8 @@ describe('الحالات: تحميل ثم نجاح بعد نجاح الكتاب�
     await view().click('[data-action="copy-prompt"]');
     expect(r.copied).toHaveLength(1);
     expect(r.copied[0]).toBe(promptOf('next-step'));
-    expect(r.copied[0]).toContain('# تحديد الخطوة التالية: feat: refresh the settings UI');
+    expect(r.copied[0]).toContain('# تحديد الخطوة التالية\n');
+    expect(r.copied[0]).toContain('الموضوع: feat: refresh the settings UI');
     expect(r.copied[0]).toContain('## المعلومات الناقصة');
     // AD-30: لا قراءة API في البرومبت (لا تمرّر المرحلة قراءة API إلى الطبقة): المصدر الصفحة وحدها ولا ذكر لـGitHub API.
     expect(r.copied[0]).not.toMatch(/GitHub API|api\.github\.com/);
@@ -88,7 +89,7 @@ describe('الحالات: تحميل ثم نجاح بعد نجاح الكتاب�
   });
 
   it('القالب التلقائي لكل نوع صفحة: طلب الدمج الخطوة التالية، والمشكلة الفهم، ومهمة Actions التشخيص', async () => {
-    const heading: Record<string, string> = { pr: '# تحديد الخطوة التالية:', issue: '# فهم المشكلة:', checks: '# تشخيص الخطأ:' };
+    const heading: Record<string, string> = { pr: '# تحديد الخطوة التالية\n', issue: '# فهم المشكلة\n', checks: '# تشخيص الخطأ\n' };
     for (const key of ['pr', 'issue', 'checks'] as const) {
       const r = recorder();
       const { manager } = await mountOn(SAMPLES[key], [createCopyPromptModule({ copy: r.copy, settings: settings(), now: () => NOW })]);
@@ -105,7 +106,7 @@ describe('الحالات: تحميل ثم نجاح بعد نجاح الكتاب�
     await view().click('[data-action="copy-prompt"]');
     const structure = prepareContext(document, new SelectorsRegistry([...DEFAULT_SELECTORS, ...COLLECTOR_SELECTORS]), pageAt(SAMPLES.pr.href), { secrets: 'mask', collectedAt: NOW, limits: limitsOf(20) });
     expect(r.copied[0]).toBe(renderPrompt('handoff', structure!).text);
-    expect(r.copied[0]).toContain('# تسليم المهمة لجلسة برمجة:');
+    expect(r.copied[0]).toContain('# تسليم المهمة لجلسة برمجة\n');
     manager.stop();
   });
 });
@@ -203,7 +204,7 @@ describe('قائمة القوالب', () => {
     expect(ui.q('[data-section="copy-prompt"]')?.getAttribute('data-template')).toBe('diagnose');
     await ui.click('[data-action="copy-prompt"]');
     expect(r.copied[0]).toBe(promptOf('diagnose'));
-    expect(r.copied[0]).toContain('# تشخيص الخطأ:');
+    expect(r.copied[0]).toContain('# تشخيص الخطأ\n');
     manager.stop();
   });
 
