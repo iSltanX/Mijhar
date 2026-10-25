@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة B
 
 # MJ3 — تقنيع الرموز وبيانات القاموس
 
-> «ماذا ولماذا» في الخطة: [`T-4.2`](../../phases/phase-04-module-c.md#T-4.2) · [`T-3.1`](../../phases/phase-03-module-b.md#T-3.1)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-4.2`](../../../phases/phase-04-module-c.md#T-4.2) · [`T-3.1`](../../../phases/phase-03-module-b.md#T-3.1)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -49,8 +49,8 @@ resume: مغلقة — دُمجت في الموجة B
 
 ## المهام
 
-1. `T-4.2` — خط أنابيب تقنيع الكود والمصطلحات وفاحص سلامة الرموز بعد الترجمة (`F-C2`) ([التفاصيل ومعايير القبول](../../phases/phase-04-module-c.md#T-4.2)).
-2. `T-3.1` — نقل وتنقيح قاعدة بيانات القاموس من المشروع السابق وتوسيعها (بيانات بلا واجهة) ([التفاصيل ومعايير القبول](../../phases/phase-03-module-b.md#T-3.1)).
+1. `T-4.2` — خط أنابيب تقنيع الكود والمصطلحات وفاحص سلامة الرموز بعد الترجمة (`F-C2`) ([التفاصيل ومعايير القبول](../../../phases/phase-04-module-c.md#T-4.2)).
+2. `T-3.1` — نقل وتنقيح قاعدة بيانات القاموس من المشروع السابق وتوسيعها (بيانات بلا واجهة) ([التفاصيل ومعايير القبول](../../../phases/phase-03-module-b.md#T-3.1)).
 
 ## الاعتماديات
 
@@ -76,8 +76,8 @@ resume: مغلقة — دُمجت في الموجة B
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [الوحدة (ج)](../../phases/phase-04-module-c.md)، [الوحدة (ب)](../../phases/phase-03-module-b.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [الوحدة (ج)](../../../phases/phase-04-module-c.md)، [الوحدة (ب)](../../../phases/phase-03-module-b.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام

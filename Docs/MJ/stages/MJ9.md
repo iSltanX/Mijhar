@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة D
 
 # MJ9 — الملاحظات وكاشف README والمرشد والاكتشاف والدليل
 
-> «ماذا ولماذا» في الخطة: [`T-8.1`](../../phases/phase-08-module-g.md#T-8.1) · [`T-9.1`](../../phases/phase-09-module-h.md#T-9.1) · [`T-9.3`](../../phases/phase-09-module-h.md#T-9.3) · [`T-9.4`](../../phases/phase-09-module-h.md#T-9.4) · [`T-9.5`](../../phases/phase-09-module-h.md#T-9.5)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-8.1`](../../../phases/phase-08-module-g.md#T-8.1) · [`T-9.1`](../../../phases/phase-09-module-h.md#T-9.1) · [`T-9.3`](../../../phases/phase-09-module-h.md#T-9.3) · [`T-9.4`](../../../phases/phase-09-module-h.md#T-9.4) · [`T-9.5`](../../../phases/phase-09-module-h.md#T-9.5)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -49,11 +49,11 @@ resume: مغلقة — دُمجت في الموجة D
 
 ## المهام
 
-1. `T-8.1` — الملاحظات الخاصة على المستويات الخمسة (`F-G1`) ([التفاصيل ومعايير القبول](../../phases/phase-08-module-g.md#T-8.1)).
-2. `T-9.1` — كاشف `README` العربي وبيان نطاق الفحص (`F-H1`) ([التفاصيل ومعايير القبول](../../phases/phase-09-module-h.md#T-9.1)).
-3. `T-9.3` — مرشد أول مساهمة (`F-H3`) ([التفاصيل ومعايير القبول](../../phases/phase-09-module-h.md#T-9.3)).
-4. `T-9.4` — روابط اكتشاف المحتوى العربي و`Trending` وموسّع تهجئات `location` وضوابط عدم استنتاج الهوية (`F-H4`, `F-H6`) ([التفاصيل ومعايير القبول](../../phases/phase-09-module-h.md#T-9.4)).
-5. `T-9.5` — دليل موارد التعلّم العربية وآلية التحديث والمراجعة المحلية (`F-H5`) ([التفاصيل ومعايير القبول](../../phases/phase-09-module-h.md#T-9.5)).
+1. `T-8.1` — الملاحظات الخاصة على المستويات الخمسة (`F-G1`) ([التفاصيل ومعايير القبول](../../../phases/phase-08-module-g.md#T-8.1)).
+2. `T-9.1` — كاشف `README` العربي وبيان نطاق الفحص (`F-H1`) ([التفاصيل ومعايير القبول](../../../phases/phase-09-module-h.md#T-9.1)).
+3. `T-9.3` — مرشد أول مساهمة (`F-H3`) ([التفاصيل ومعايير القبول](../../../phases/phase-09-module-h.md#T-9.3)).
+4. `T-9.4` — روابط اكتشاف المحتوى العربي و`Trending` وموسّع تهجئات `location` وضوابط عدم استنتاج الهوية (`F-H4`, `F-H6`) ([التفاصيل ومعايير القبول](../../../phases/phase-09-module-h.md#T-9.4)).
+5. `T-9.5` — دليل موارد التعلّم العربية وآلية التحديث والمراجعة المحلية (`F-H5`) ([التفاصيل ومعايير القبول](../../../phases/phase-09-module-h.md#T-9.5)).
 
 ## الاعتماديات
 
@@ -84,8 +84,8 @@ resume: مغلقة — دُمجت في الموجة D
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [الوحدة (ز)](../../phases/phase-08-module-g.md)، [الوحدة (ح)](../../phases/phase-09-module-h.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [الوحدة (ز)](../../../phases/phase-08-module-g.md)، [الوحدة (ح)](../../../phases/phase-09-module-h.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام

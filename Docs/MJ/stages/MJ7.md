@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة D
 
 # MJ7 — بقية الوحدة (أ): العزل والخطوط والتبديل والقراءة والتاريخ
 
-> «ماذا ولماذا» في الخطة: [`T-2.2`](../../phases/phase-02-module-a.md#T-2.2) · [`T-2.3`](../../phases/phase-02-module-a.md#T-2.3) · [`T-2.4`](../../phases/phase-02-module-a.md#T-2.4) · [`T-2.5`](../../phases/phase-02-module-a.md#T-2.5) · [`T-2.6`](../../phases/phase-02-module-a.md#T-2.6)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-2.2`](../../../phases/phase-02-module-a.md#T-2.2) · [`T-2.3`](../../../phases/phase-02-module-a.md#T-2.3) · [`T-2.4`](../../../phases/phase-02-module-a.md#T-2.4) · [`T-2.5`](../../../phases/phase-02-module-a.md#T-2.5) · [`T-2.6`](../../../phases/phase-02-module-a.md#T-2.6)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -49,11 +49,11 @@ resume: مغلقة — دُمجت في الموجة D
 
 ## المهام
 
-1. `T-2.2` — عزل الكود والمسارات وأسماء الملفات و`#123` و`@mentions` والروابط (`F-A2`) ([التفاصيل ومعايير القبول](../../phases/phase-02-module-a.md#T-2.2)).
-2. `T-2.3` — الخطوط العربية المضمّنة المرخصة وضبط الطباعة (`F-A3`) ([التفاصيل ومعايير القبول](../../phases/phase-02-module-a.md#T-2.3)).
-3. `T-2.4` — زر تبديل `RTL/LTR` في حقول التحرير (`F-A4`) ([التفاصيل ومعايير القبول](../../phases/phase-02-module-a.md#T-2.4)).
-4. `T-2.5` — وضع القراءة لـMarkdown وإخفاء التشكيل في العرض فقط (`F-A5`) ([التفاصيل ومعايير القبول](../../phases/phase-02-module-a.md#T-2.5)).
-5. `T-2.6` — تلميح التاريخ الهجري وخيار شكل الأرقام (`F-A6`) ([التفاصيل ومعايير القبول](../../phases/phase-02-module-a.md#T-2.6)).
+1. `T-2.2` — عزل الكود والمسارات وأسماء الملفات و`#123` و`@mentions` والروابط (`F-A2`) ([التفاصيل ومعايير القبول](../../../phases/phase-02-module-a.md#T-2.2)).
+2. `T-2.3` — الخطوط العربية المضمّنة المرخصة وضبط الطباعة (`F-A3`) ([التفاصيل ومعايير القبول](../../../phases/phase-02-module-a.md#T-2.3)).
+3. `T-2.4` — زر تبديل `RTL/LTR` في حقول التحرير (`F-A4`) ([التفاصيل ومعايير القبول](../../../phases/phase-02-module-a.md#T-2.4)).
+4. `T-2.5` — وضع القراءة لـMarkdown وإخفاء التشكيل في العرض فقط (`F-A5`) ([التفاصيل ومعايير القبول](../../../phases/phase-02-module-a.md#T-2.5)).
+5. `T-2.6` — تلميح التاريخ الهجري وخيار شكل الأرقام (`F-A6`) ([التفاصيل ومعايير القبول](../../../phases/phase-02-module-a.md#T-2.6)).
 
 ## الاعتماديات
 
@@ -83,8 +83,8 @@ resume: مغلقة — دُمجت في الموجة D
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [الوحدة (أ)](../../phases/phase-02-module-a.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [الوحدة (أ)](../../../phases/phase-02-module-a.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام

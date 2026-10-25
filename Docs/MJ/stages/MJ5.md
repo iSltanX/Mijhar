@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة C
 
 # MJ5 — مضيف الواجهات واللوحة الجانبية والإعدادات
 
-> «ماذا ولماذا» في الخطة: [`T-1.4`](../../phases/phase-01-core.md#T-1.4)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-1.4`](../../../phases/phase-01-core.md#T-1.4)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -50,7 +50,7 @@ resume: مغلقة — دُمجت في الموجة C
 
 ## المهام
 
-1. `T-1.4` — طبقة مضيف الواجهات: Shadow DOM واللوحة الجانبية والدرج داخل الصفحة وصفحة الإعدادات بإطار الواجهة المعتمد ([التفاصيل ومعايير القبول](../../phases/phase-01-core.md#T-1.4)).
+1. `T-1.4` — طبقة مضيف الواجهات: Shadow DOM واللوحة الجانبية والدرج داخل الصفحة وصفحة الإعدادات بإطار الواجهة المعتمد ([التفاصيل ومعايير القبول](../../../phases/phase-01-core.md#T-1.4)).
 
 ## الاعتماديات
 
@@ -79,8 +79,8 @@ resume: مغلقة — دُمجت في الموجة C
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [البنية والنواة](../../phases/phase-01-core.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [البنية والنواة](../../../phases/phase-01-core.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام

@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة B
 
 # MJ4 — تجارب الجدوى الأربع
 
-> «ماذا ولماذا» في الخطة: [`T-0.1`](../../phases/phase-00-feasibility.md#T-0.1) · [`T-0.2`](../../phases/phase-00-feasibility.md#T-0.2) · [`T-0.3`](../../phases/phase-00-feasibility.md#T-0.3) · [`T-0.4`](../../phases/phase-00-feasibility.md#T-0.4)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-0.1`](../../../phases/phase-00-feasibility.md#T-0.1) · [`T-0.2`](../../../phases/phase-00-feasibility.md#T-0.2) · [`T-0.3`](../../../phases/phase-00-feasibility.md#T-0.3) · [`T-0.4`](../../../phases/phase-00-feasibility.md#T-0.4)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -48,10 +48,10 @@ resume: مغلقة — دُمجت في الموجة B
 
 ## المهام
 
-1. `T-0.1` — تجربة جدوى الوحدة (أ): المحددات والاتجاه ومحرر النص وإخفاء التشكيل ومسارات النسخ والبحث ([التفاصيل ومعايير القبول](../../phases/phase-00-feasibility.md#T-0.1)).
-2. `T-0.2` — تجربة جدوى الوحدة (ج): محركات الترجمة المحلية عبر المتصفحات ([التفاصيل ومعايير القبول](../../phases/phase-00-feasibility.md#T-0.2)).
-3. `T-0.3` — تجربة جدوى الوحدة (د): حالة الفحوص وسجلات الأخطاء من DOM مقابل API ([التفاصيل ومعايير القبول](../../phases/phase-00-feasibility.md#T-0.3)).
-4. `T-0.4` — تجربة جدوى استخراج المرساة والقوالب وشجرة الملفات من DOM (للوحدات (و) و(ز) و(ح)) ([التفاصيل ومعايير القبول](../../phases/phase-00-feasibility.md#T-0.4)).
+1. `T-0.1` — تجربة جدوى الوحدة (أ): المحددات والاتجاه ومحرر النص وإخفاء التشكيل ومسارات النسخ والبحث ([التفاصيل ومعايير القبول](../../../phases/phase-00-feasibility.md#T-0.1)).
+2. `T-0.2` — تجربة جدوى الوحدة (ج): محركات الترجمة المحلية عبر المتصفحات ([التفاصيل ومعايير القبول](../../../phases/phase-00-feasibility.md#T-0.2)).
+3. `T-0.3` — تجربة جدوى الوحدة (د): حالة الفحوص وسجلات الأخطاء من DOM مقابل API ([التفاصيل ومعايير القبول](../../../phases/phase-00-feasibility.md#T-0.3)).
+4. `T-0.4` — تجربة جدوى استخراج المرساة والقوالب وشجرة الملفات من DOM (للوحدات (و) و(ز) و(ح)) ([التفاصيل ومعايير القبول](../../../phases/phase-00-feasibility.md#T-0.4)).
 
 ## الاعتماديات
 
@@ -94,8 +94,8 @@ resume: مغلقة — دُمجت في الموجة B
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [تجارب الجدوى](../../phases/phase-00-feasibility.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [تجارب الجدوى](../../../phases/phase-00-feasibility.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام

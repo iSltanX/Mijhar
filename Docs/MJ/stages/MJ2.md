@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة B
 
 # MJ2 — اكتشاف الصفحة ودورة الحياة والتخزين
 
-> «ماذا ولماذا» في الخطة: [`T-1.2`](../../phases/phase-01-core.md#T-1.2) · [`T-1.3`](../../phases/phase-01-core.md#T-1.3)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-1.2`](../../../phases/phase-01-core.md#T-1.2) · [`T-1.3`](../../../phases/phase-01-core.md#T-1.3)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -50,8 +50,8 @@ resume: مغلقة — دُمجت في الموجة B
 
 ## المهام
 
-1. `T-1.2` — طبقة اكتشاف الصفحة (`PageDetector`) ومدير دورة حياة الوحدات (`LifecycleManager`) ([التفاصيل ومعايير القبول](../../phases/phase-01-core.md#T-1.2)).
-2. `T-1.3` — طبقة التخزين المحلي والترحيل وسجل الإعدادات (`Storage, Settings & Migration`) ([التفاصيل ومعايير القبول](../../phases/phase-01-core.md#T-1.3)).
+1. `T-1.2` — طبقة اكتشاف الصفحة (`PageDetector`) ومدير دورة حياة الوحدات (`LifecycleManager`) ([التفاصيل ومعايير القبول](../../../phases/phase-01-core.md#T-1.2)).
+2. `T-1.3` — طبقة التخزين المحلي والترحيل وسجل الإعدادات (`Storage, Settings & Migration`) ([التفاصيل ومعايير القبول](../../../phases/phase-01-core.md#T-1.3)).
 
 ## الاعتماديات
 
@@ -79,8 +79,8 @@ resume: مغلقة — دُمجت في الموجة B
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [البنية والنواة](../../phases/phase-01-core.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [البنية والنواة](../../../phases/phase-01-core.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام

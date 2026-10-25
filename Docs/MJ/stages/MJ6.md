@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة C
 
 # MJ6 — اتجاه النص وحارس الاستعادة
 
-> «ماذا ولماذا» في الخطة: [`T-2.1`](../../phases/phase-02-module-a.md#T-2.1) · [`T-2.7`](../../phases/phase-02-module-a.md#T-2.7)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-2.1`](../../../phases/phase-02-module-a.md#T-2.1) · [`T-2.7`](../../../phases/phase-02-module-a.md#T-2.7)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -48,8 +48,8 @@ resume: مغلقة — دُمجت في الموجة C
 
 ## المهام
 
-1. `T-2.1` — معالجة اتجاه النص العربي والمختلط (`F-A1`) ([التفاصيل ومعايير القبول](../../phases/phase-02-module-a.md#T-2.1)).
-2. `T-2.7` — نطاق كل إعداد، وإلغاء الأثر، ومحرك الاستعادة المقيد بحارس الملكية (`F-A7`) ([التفاصيل ومعايير القبول](../../phases/phase-02-module-a.md#T-2.7)).
+1. `T-2.1` — معالجة اتجاه النص العربي والمختلط (`F-A1`) ([التفاصيل ومعايير القبول](../../../phases/phase-02-module-a.md#T-2.1)).
+2. `T-2.7` — نطاق كل إعداد، وإلغاء الأثر، ومحرك الاستعادة المقيد بحارس الملكية (`F-A7`) ([التفاصيل ومعايير القبول](../../../phases/phase-02-module-a.md#T-2.7)).
 
 ## الاعتماديات
 
@@ -76,8 +76,8 @@ resume: مغلقة — دُمجت في الموجة C
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [الوحدة (أ)](../../phases/phase-02-module-a.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [الوحدة (أ)](../../../phases/phase-02-module-a.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام
