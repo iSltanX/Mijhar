@@ -25,7 +25,7 @@ const TOKEN = ['github', 'pat', `11FIELDMIJHARFAKE0000_${'xFakeModelFieldCheckOn
 const OPENAI_KEY = ['sk', 'proj', 'ModelFieldCheckFakeKey'.repeat(4)].join('-');
 const GEMINI_KEY = ['AIza', 'SyFakeModelFieldCheckKey01234567890'].join('');
 const ANTHROPIC_KEY = ['sk', 'ant', 'api03', 'ModelFieldCheckFakeAnthropicKey'.repeat(2)].join('-');
-const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|sk-ant-api03-[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{30,}/;
+const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|sk-ant-[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{30,}/;
 const hasSecret = (value) => SECRET_RE.test(typeof value === 'string' ? value : JSON.stringify(value ?? null));
 const OPENAI_HOST = 'api.openai.com';
 const GEMINI_HOST = 'generativelanguage.googleapis.com';
@@ -231,7 +231,7 @@ async function scenario(d, target, checks, network) {
   check('ولا تحويل إلى مزوّد آخر: لا طلب إلى Gemini ولا Anthropic بعد الرفض، والحقل باقٍ', on(GEMINI_HOST).length === 3 && on('api.anthropic.com').length === 1 && after?.field === GONE, { gemini: on(GEMINI_HOST).length, anthropic: on('api.anthropic.com').length, field: after?.field });
 
   // 6. الأسرار والوجهة (TEST-PRIV-05 بالمفاتيح الثلاثة ورمز GitHub معًا).
-  check('كل طلبات المزوّدين من الخلفية، وكل مفتاح إلى مضيفه وحده في ترويسته', network.extra.every((r) => r.from === 'background') && on(OPENAI_HOST).every((r) => r.headers.authorization === `Bearer ${OPENAI_KEY}` && !r.headers['x-goog-api-key'] && !r.headers['x-api-key']) && on(GEMINI_HOST).every((r) => r.headers['x-goog-api-key'] === GEMINI_KEY && !r.headers.authorization && !r.headers['x-api-key'] && !r.path.includes(GEMINI_KEY)) && on('api.anthropic.com').every((r) => r.headers['x-api-key'] === ANTHROPIC_KEY && !r.headers.authorization && !r.headers['x-goog-api-key']), network.extra.map((r) => ({ host: r.host, from: r.from })));
+  check('كل طلبات المزوّدين من الخلفية، وكل مفتاح إلى مضيفه وحده في ترويسته', network.extra.every((r) => r.from === 'background') && on(OPENAI_HOST).every((r) => r.headers.authorization === `Bearer ${OPENAI_KEY}` && !r.headers['x-goog-api-key'] && !r.headers['x-api-key']) && on(GEMINI_HOST).every((r) => r.headers['x-goog-api-key'] === GEMINI_KEY && !r.headers.authorization && !r.headers['x-api-key'] && !r.path.includes(GEMINI_KEY)) && on('api.anthropic.com').every((r) => r.headers.authorization === `Bearer ${ANTHROPIC_KEY}` && !r.headers['x-api-key'] && !r.headers['x-goog-api-key']), network.extra.map((r) => ({ host: r.host, from: r.from })));
   const others = { [OPENAI_HOST]: [ANTHROPIC_KEY, GEMINI_KEY, TOKEN], [GEMINI_HOST]: [ANTHROPIC_KEY, OPENAI_KEY, TOKEN], 'api.anthropic.com': [OPENAI_KEY, GEMINI_KEY, TOKEN] };
   const leaked = network.extra.filter((r) => (others[r.host] ?? []).some((secret) => JSON.stringify(r).includes(secret)));
   check('TEST-PRIV-05: لا مفتاح مزوّد آخر ولا رمز GitHub في أي طلب إلى أي مزوّد (العنوان والترويسات والجسم)', leaked.length === 0, leaked.map((r) => ({ host: r.host, path: r.path })));

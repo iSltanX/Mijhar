@@ -196,7 +196,7 @@ async function anthropic(reply: (token: string) => Promise<Response> | Response 
   const success = providerMock();
   const tokens: string[] = [];
   const fetch = (async (url: RequestInfo | URL, init: RequestInit = {}) => {
-    const token = new Headers(init.headers).get('x-api-key') ?? '';
+    const token = (new Headers(init.headers).get('authorization') ?? '').replace(/^Bearer /, '');
     tokens.push(token);
     return (await reply(token)) ?? success.fetch(url, init);
   }) as typeof globalThis.fetch;

@@ -85,7 +85,7 @@ export function providerMock(scenario: MockScenario = {}) {
         });
       });
     }
-    const key = headers['x-api-key'] ?? '';
+    const key = (headers.authorization ?? '').replace(/^Bearer /, '');
     const fail = (outcome: Outcome): Response => {
       const echo = scenario.echoKey ? ` (key ${key})` : '';
       if (outcome === '401') return json(401, errorBody('authentication_error', `invalid x-api-key${echo}`));

@@ -40,6 +40,11 @@ export interface ProviderDescriptor {
   /** ما يُلصق في الحقل ومن أين («مفتاح Anthropic API من Claude Console»). */
   readonly keyName: string;
   readonly keyFormat: KeyFormat;
+  /**
+   * AD-38: ترويسة اختيار مساحة العمل لمزوّد يقبل مفاتيح غير مقيّدة بمساحة عمل (Anthropic: anthropic-workspace-id)؛ وحين توجد يظهر في بطاقته حقل
+   * اختياري لمعرّفها يكتبه المستخدم ولا يُخمَّن، ويُرسل في كل طلب إليه. undefined: لا مساحات عمل عند المزوّد.
+   */
+  readonly workspaceHeader?: string;
   /** وصف طلب التحقق المعلن قبل الحفظ (AC-E9 (١)). */
   readonly verifyRequest: string;
   /** وصف طلب «اختبر النموذج» الاختياري للنموذج المكتوب (DEC-13 ن-5): نص ثابت لا يحمل شيئًا من الصفحات؛ أو null حين لا يدعمه المحوّل فلا يظهر الاختبار. */
@@ -125,6 +130,7 @@ export type ProviderFailure =
   | 'not-found'
   | 'too-large'
   | 'invalid'
+  | 'workspace'
   | 'rate-limit'
   | 'overloaded'
   | 'http'
@@ -173,6 +179,8 @@ export interface ProviderCall {
   readonly fetch: GatedFetch;
   readonly now: () => number;
   readonly signal?: AbortSignal;
+  /** AD-38: معرّف مساحة العمل كما أدخله المستخدم، لمزوّد له workspaceHeader؛ وغيابه = لا ترويسة (مفتاح مقيّد بمساحة عمل واحدة). */
+  readonly workspace?: string;
 }
 
 /**

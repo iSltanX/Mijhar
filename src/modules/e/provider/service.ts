@@ -22,7 +22,7 @@ import type { ProviderSecret } from './gate';
 import { defaultModel, isModelId, testFor, testVerdict } from './models';
 import { createProviderRegistry } from './registry';
 import type { ProviderRegistry } from './registry';
-import { PROVIDER_ID_KEY, modelSettingKey } from './settings';
+import { PROVIDER_ID_KEY, WORKSPACE_ID, modelSettingKey, workspaceSettingKey } from './settings';
 import type { AnalyzeInput, AnalyzeResponse, ProbeResponse, ProviderRequest, ProviderStatus, ProviderSummary, VerifyResponse } from './port';
 import type { ModelTest, ModelsList, ProviderAdapter, ProviderFailure, ProviderResult } from './types';
 
@@ -208,6 +208,9 @@ export function providerVerdict(result: ProviderResult<unknown>, mode: 'verify' 
       return { health: 'expired', detail: { status } };
     case 'forbidden':
       return { health: 'insufficient', detail: { status, reason: message } };
+    // AD-38: مساحة العمل لا المفتاح؛ فلا يُعدّ المفتاح مرفوضًا، ويبقى «غير متحقق منه» بسببها حتى يُدخل معرّفها أو يُصحَّح.
+    case 'workspace':
+      return mode === 'verify' ? { health: 'unverified', detail: { status, reason: `يلزم معرّف مساحة عمل صالح يصله المفتاح: ${message}` } } : null;
     case 'rate-limit':
       return { health: 'rate-limited', detail: { status, retryAt } };
     case 'overloaded':
@@ -407,11 +410,18 @@ export class ProviderService {
     }
   }
 
-  private call(adapter: ProviderAdapter, secret: ProviderSecret, signal?: AbortSignal) {
+  private call(adapter: ProviderAdapter, secret: ProviderSecret, workspace: string | null, signal?: AbortSignal) {
     if (!this.options.permissions) throw new Error('لا واجهة صلاحيات في هذا السياق');
     const key = bindKey(adapter.descriptor, secret);
     const fetch = gatedFetch(adapter.descriptor, { permissions: this.options.permissions, ...(this.options.fetch ? { fetch: this.options.fetch } : {}) });
-    return { key, fetch, now: this.now, ...(signal ? { signal } : {}) };
+    return { key, fetch, now: this.now, ...(signal ? { signal } : {}), ...(workspace ? { workspace } : {}) };
+  }
+
+  /** AD-38: معرّف مساحة العمل الذي أدخله المستخدم لمزوّد له ترويستها، أو null (لا يُخمَّن ولا يُقرأ من مكان آخر). */
+  private async workspaceOf(adapter: ProviderAdapter): Promise<string | null> {
+    if (!adapter.descriptor.workspaceHeader) return null;
+    const value = (await this.settings())?.get<string>(workspaceSettingKey(adapter.descriptor.id));
+    return typeof value === 'string' && WORKSPACE_ID.test(value) ? value : null;
   }
 
   private observe(adapter: ProviderAdapter, verdict: Verdict | null, key: KeySnapshot): Promise<void> {
@@ -470,7 +480,7 @@ export class ProviderService {
     if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
-    const result = await adapter.listModels(this.call(adapter, got));
+    const result = await adapter.listModels(this.call(adapter, got, await this.workspaceOf(adapter)));
     await this.note(adapter, result, got);
     await this.observe(adapter, providerVerdict(result, 'verify', adapter.descriptor.host), got);
     const change = await this.replaced(adapter, got);
@@ -497,7 +507,7 @@ export class ProviderService {
     if (wait !== null) return local('cooldown', 'أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.', wait);
     const got = await this.secret(adapter);
     if (!('token' in got)) return got;
-    const result = await adapter.probe(this.call(adapter, got), model);
+    const result = await adapter.probe(this.call(adapter, got, await this.workspaceOf(adapter)), model);
     await this.note(adapter, result, got);
     await this.observe(adapter, providerVerdict(result, 'usage', adapter.descriptor.host), got);
     // صلاحية المضيف غير ممنوحة: البوابة رفضت قبل أي طلب، فلا نتيجة اختبار.
@@ -563,7 +573,8 @@ export class ProviderService {
       const maxTokens = declared !== null && declared > 0 ? Math.min(ANALYSIS_OUTPUT_TOKENS, declared) : ANALYSIS_OUTPUT_TOKENS;
       timer = setTimeout(() => controller.abort(), this.options.timeoutMs ?? ANALYSIS_TIMEOUT_MS);
       const requestedAt = this.now();
-      const result = await adapter.analyze(this.call(adapter, got, controller.signal), { model: input.model, system: input.system, prompt: input.prompt, maxTokens });
+      const workspace = await this.workspaceOf(adapter);
+      const result = await adapter.analyze(this.call(adapter, got, workspace, controller.signal), { model: input.model, system: input.system, prompt: input.prompt, maxTokens });
       await this.note(adapter, result, got);
       await this.observe(adapter, providerVerdict(result, 'usage', d.host), got);
       if (!result.ok) {

@@ -39,7 +39,7 @@ function heldOldKey(reply: (url: RequestInfo | URL, init: RequestInit) => Respon
   const tokens: string[] = [];
   let pending = true;
   const fetch = (async (url: RequestInfo | URL, init: RequestInit = {}) => {
-    const token = new Headers(init.headers).get('x-api-key') ?? '';
+    const token = (new Headers(init.headers).get('authorization') ?? '').replace(/^Bearer /, '');
     tokens.push(token);
     if (pending && token === fakeKey('OLD')) {
       pending = false;

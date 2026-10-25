@@ -12,14 +12,17 @@ export const PROVIDER_DESCRIPTORS: readonly ProviderDescriptor[] = [ANTHROPIC, O
 
 export const descriptorById = (id: string, list: readonly ProviderDescriptor[] = PROVIDER_DESCRIPTORS): ProviderDescriptor | null => list.find((d) => d.id === id) ?? null;
 
-/** يفحص صيغة المفتاح محليًا دون أي طلب. */
+/**
+ * يفحص صيغة الإدخال محليًا دون أي طلب: شكل مفتاح المزوّد، لا صلاحه. ما يُعرف أنه ليس مفتاحًا لهذا المزوّد (مفتاح إدارة، مفتاح مزوّد آخر) يُرفض أولًا؛
+ * والحكم على المفتاح نفسه (صالح، مرفوض، يلزمه مساحة عمل) للتحقق من المزوّد بعد الحفظ (AD-38).
+ */
 export function checkKey(descriptor: Pick<ProviderDescriptor, 'keyFormat'>, input: string): { readonly ok: true; readonly key: string } | { readonly ok: false; readonly reason: string } {
   const key = input.trim();
   if (!key) return { ok: false, reason: 'الحقل فارغ.' };
   const { pattern, rejects, mismatch } = descriptor.keyFormat;
-  if (pattern.test(key)) return { ok: true, key };
   const known = rejects.find((r) => key.startsWith(r.prefix));
-  return { ok: false, reason: known ? known.reason : mismatch };
+  if (known) return { ok: false, reason: known.reason };
+  return pattern.test(key) ? { ok: true, key } : { ok: false, reason: mismatch };
 }
 
 /** المزوّد كما يعبر الرسائل (بلا نمط الصيغة). */

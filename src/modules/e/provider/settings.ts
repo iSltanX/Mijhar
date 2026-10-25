@@ -14,6 +14,12 @@ const HISTORICAL_PROVIDER = 'anthropic';
 /** مفتاح المودل المختار لمزوّد. */
 export const modelSettingKey = (provider: string): string => (provider === HISTORICAL_PROVIDER ? PROVIDER_MODEL_KEY : `${PROVIDER_MODEL_KEY}.${provider}`);
 
+/** AD-38: معرّف مساحة العمل لمزوّد له workspaceHeader؛ ليس سرًّا (يظهر في Claude Console)، ويكتبه المستخدم ولا يُخمَّن. الفارغ = بلا ترويسة. */
+export const workspaceSettingKey = (provider: string): string => `e.provider.workspace.${provider}`;
+/** صيغة معرّف مساحة العمل في Claude Console (wrkspc_…)؛ والحكم عليه (موجود، متاح للمفتاح) للمزوّد. */
+export const WORKSPACE_ID = /^wrkspc_[A-Za-z0-9]{8,64}$/;
+export const isWorkspaceChoice = (value: unknown): value is string => value === '' || (typeof value === 'string' && WORKSPACE_ID.test(value));
+
 export const isProviderId = (value: unknown): value is string => typeof value === 'string' && PROVIDER_DESCRIPTORS.some((p) => p.id === value);
 
 const isModelChoice = (value: unknown): value is string => value === '' || isModelId(value);
@@ -32,5 +38,13 @@ export function defineProviderSettings(registry: SettingsRegistry, list: readonl
       validate: isModelChoice,
       description: `معرّف نموذج التحليل لدى ${provider.title} كما يكتبه المستخدم أو يختاره من قائمته؛ والفارغ لا تحليل معه`,
     });
+    if (provider.workspaceHeader) {
+      registry.define<string>({
+        key: workspaceSettingKey(provider.id),
+        default: '',
+        validate: isWorkspaceChoice,
+        description: `معرّف مساحة العمل لدى ${provider.title} لمفتاح غير مقيّد بمساحة عمل (ترويسة ${provider.workspaceHeader})؛ والفارغ بلا ترويسة`,
+      });
+    }
   }
 }

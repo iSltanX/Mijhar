@@ -13,7 +13,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { build } from 'vite';
-import { ENTRIES, FONTS_DIR, PAGES } from '../../../../../scripts/build.mjs';
+import { ENTRIES, FONTS_DIR, ICONS_DIR, ICON_SIZES, PAGES } from '../../../../../scripts/build.mjs';
 import { generateManifest } from '../../../../../src/manifest/generate.mjs';
 import { ROOT, chromiumSession, sleep, waitUntil } from '../../../d/token/browser/drivers.mjs';
 
@@ -24,7 +24,7 @@ const outDir = outIndex === -1 ? null : path.resolve(args.splice(outIndex, 2)[1]
 const A_KEY = ['sk', 'ant', 'api03', 'SimCheckFakeAnthropicKey'.repeat(3)].join('-');
 const B_KEY = `bkey-${'simcheckfake'.repeat(2)}`;
 const SIM_HOST = 'api.mock-b.test';
-const SECRET_RE = /sk-ant-api03-[A-Za-z0-9_-]{20,}|bkey-[a-z0-9]{12,}/;
+const SECRET_RE = /sk-ant-[A-Za-z0-9_-]{20,}|bkey-[a-z0-9]{12,}/;
 const hasSecret = (value) => SECRET_RE.test(typeof value === 'string' ? value : JSON.stringify(value ?? null));
 const SIM = path.join(ROOT, 'tests/modules/e/provider/browser/sim-provider.ts');
 
@@ -68,6 +68,9 @@ async function simBuild() {
   delete manifest.optional_host_permissions;
   fs.writeFileSync(path.join(dir, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   for (const page of PAGES) fs.copyFileSync(path.join(ROOT, page.source), path.join(dir, page.file));
+  // أيقونات المانيفست وزر الشريط (MJ26): بدونها يرفض Chromium تحميل البناء («Could not load icon»)، كما ينسخها scripts/build.mjs.
+  fs.mkdirSync(path.join(dir, 'icons'), { recursive: true });
+  for (const size of ICON_SIZES) fs.copyFileSync(path.join(ROOT, ICONS_DIR, `icon-${size}.png`), path.join(dir, 'icons', `icon-${size}.png`));
   const fonts = path.join(ROOT, FONTS_DIR);
   if (fs.existsSync(fonts)) {
     fs.mkdirSync(path.join(dir, 'fonts'), { recursive: true });
@@ -167,7 +170,7 @@ async function scenario(session, checks) {
   await d.clickShadow(LOG, '[data-action="consent-confirm"]');
   await waitUntil(() => d.github(`return Boolean(${IN_LOG('[data-analysis="result"]')}) || null;`), 10000);
   const posts = network.extra.filter((r) => r.method === 'POST');
-  check('الإرسال طلب واحد إلى مضيف Mock B بمفتاحه وحده، ولا شيء إلى Anthropic', posts.length === 1 && posts[0].host === SIM_HOST && posts[0].headers['x-mock-key'] === B_KEY && !posts[0].headers['x-api-key'] && !(posts[0].body ?? '').includes(A_KEY), posts.map((r) => ({ host: r.host, path: r.path })));
+  check('الإرسال طلب واحد إلى مضيف Mock B بمفتاحه وحده، ولا شيء إلى Anthropic', posts.length === 1 && posts[0].host === SIM_HOST && posts[0].headers['x-mock-key'] === B_KEY && !posts[0].headers['x-api-key'] && !posts[0].headers.authorization && !(posts[0].body ?? '').includes(A_KEY), posts.map((r) => ({ host: r.host, path: r.path })));
 
   // 4.
   await page.bringToFront();
@@ -181,7 +184,7 @@ async function scenario(session, checks) {
   check('العودة إلى Anthropic: مفتاحه «سليم» ونموذجه في حقله كما هو، وMock B «لا مفتاح» في الملخص', Boolean(back) && back.model === 'mock-sonnet-2' && back.others.includes('Mock B — لا مفتاح'), back);
 
   // 5.
-  const crossed = network.extra.filter((r) => (r.host === SIM_HOST ? JSON.stringify(r).includes(A_KEY) || Boolean(r.headers['x-api-key']) : JSON.stringify(r).includes(B_KEY) || Boolean(r.headers['x-mock-key'])));
+  const crossed = network.extra.filter((r) => (r.host === SIM_HOST ? JSON.stringify(r).includes(A_KEY) || Boolean(r.headers['x-api-key']) || Boolean(r.headers.authorization) : JSON.stringify(r).includes(B_KEY) || Boolean(r.headers['x-mock-key'])));
   check('لا مفتاح مزوّد في أي طلب إلى مضيف غيره', crossed.length === 0, crossed.map((r) => ({ host: r.host, path: r.path })));
   check('كل طلبات المزوّدين من الخلفية', network.extra.every((r) => r.from === 'background'), network.extra.map((r) => r.from));
   await sleep(300);
@@ -202,7 +205,7 @@ try {
   result.error = String(error?.stack ?? error);
 } finally {
   if (session) {
-    result.network = session.network.extra.map((r) => ({ host: r.host, method: r.method, path: r.path, from: r.from, key: r.headers['x-api-key'] === A_KEY ? 'anthropic' : r.headers['x-mock-key'] === B_KEY ? 'mock-b' : r.headers['x-api-key'] || r.headers['x-mock-key'] ? 'other' : null }));
+    result.network = session.network.extra.map((r) => ({ host: r.host, method: r.method, path: r.path, from: r.from, key: r.headers.authorization === `Bearer ${A_KEY}` ? 'anthropic' : r.headers['x-mock-key'] === B_KEY ? 'mock-b' : r.headers.authorization || r.headers['x-api-key'] || r.headers['x-mock-key'] ? 'other' : null }));
     result.blocked = [...session.network.blocked].sort();
     result.consoleHasSecret = hasSecret(session.consoleText());
     await session.close();
