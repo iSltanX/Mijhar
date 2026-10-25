@@ -23,9 +23,10 @@ export const reportPermissions = (target: 'chromium' | 'firefox'): { origins: st
 
 export type ReportResponse = SendOutcome | { readonly ok: false; readonly failure: 'refused'; readonly status: null };
 
-export async function handleReportRequest(message: unknown, fromExtensionPage: boolean, deps: SendDeps): Promise<ReportResponse> {
+/** hasSecret: فاحص صيغ الأسرار المعروفة (privacy-check)؛ نص فيه ما يطابقها يُرفض هنا أيضًا وإن تجاوز منع الصفحة (MJ26، مراجعة ذاتية). */
+export async function handleReportRequest(message: unknown, fromExtensionPage: boolean, deps: SendDeps, hasSecret: (text: string) => boolean = () => false): Promise<ReportResponse> {
   const m = message as Partial<ReportSendMessage>;
-  if (!fromExtensionPage || m.op !== 'send' || !isReportPayload(m.payload) || !isIdempotencyKey(m.key)) return { ok: false, failure: 'refused', status: null };
+  if (!fromExtensionPage || m.op !== 'send' || !isReportPayload(m.payload) || !isIdempotencyKey(m.key) || hasSecret(m.payload.description)) return { ok: false, failure: 'refused', status: null };
   return sendReport(m.payload, m.key, deps);
 }
 

@@ -15,6 +15,7 @@ import type { PermissionsApi } from '../../core/ui-host/browser-api';
 import { SURFACE_KEY, UNITS } from '../../core/ui-host/units';
 import { Ltr } from '../../shared/ui';
 import { Icon } from '../../shared/ui/icons';
+import { scanText } from '../../modules/e/privacy-check';
 import { isTrustedActivation } from '../../shared/ui/user-activation';
 import { useStyles } from '../../shared/ui/useStyles';
 
@@ -75,13 +76,16 @@ export function ReportPage({ settings, permissions, target, port, onBack, diagno
   }, [settings, diagnostics]);
 
   const error = formError({ kind, description: text });
+  // صيغ الأسرار المعروفة في النص (فاحص privacy-check التحذيري): لا يُرسل البلاغ ولا يُنسخ وفيه ما يشبه رمزًا أو مفتاحًا (MJ26، مراجعة ذاتية).
+  const secrets = useMemo(() => [...new Set(scanText(text).map((f) => f.label))], [text]);
+  const blocked = secrets.length > 0;
   const payload = useMemo(() => (diag ? buildPayload({ kind, description: text.trim() || '…' }, diag) : null), [diag, kind, text]);
   const body = payload ? serialise(payload) : '';
   // مفتاح عدم التكرار لهذا الجسم بعينه: يُعاد في كل محاولة له، وجسم مختلف يأخذ مفتاحًا جديدًا (فلا يجيب الخادم برقم بلاغ سابق عن نص معدَّل).
   const key = useMemo(() => newKey(), [body]);
 
   const send = (event: Event) => {
-    if (!isTrustedActivation(event) || busy || error || !payload || !permissions) return;
+    if (!isTrustedActivation(event) || busy || error || blocked || !payload || !permissions) return;
     // الصلاحية أول ما في النقرة قبل أي await (المتصفح يرفض الطلب خارج فعل المستخدم).
     const asked = permissions.request(reportPermissions(target)).catch(() => false);
     const sending = payload;
@@ -97,7 +101,7 @@ export function ReportPage({ settings, permissions, target, port, onBack, diagno
   };
 
   const copyReport = () => {
-    if (!payload || error) return;
+    if (!payload || error || blocked) return;
     (copy ?? ((t: string) => navigator.clipboard.writeText(t)))(body).then(
       () => setOutcome({ state: 'copied' }),
       () => setOutcome({ state: 'copy-failed' }),
@@ -138,6 +142,11 @@ export function ReportPage({ settings, permissions, target, port, onBack, diagno
         <p id="mj-report-warn" class="notice" data-tone="warning">
           لا تلصق رمزًا أو مفتاحًا أو محتوى من مستودع خاص. يُرسل نصك كما كتبته.
         </p>
+        {blocked && (
+          <p class="notice" data-tone="danger" role="alert" data-report-secret="">
+            في نصك ما يشبه {secrets.join('، ')}. احذفه قبل الإرسال أو النسخ؛ لا يحتاج البلاغ رمزًا ولا مفتاحًا.
+          </p>
+        )}
       </section>
 
       <section class="report-card" aria-labelledby="mj-report-sent-title" data-report-review="">
@@ -169,10 +178,10 @@ export function ReportPage({ settings, permissions, target, port, onBack, diagno
       </section>
 
       <div class="report-actions">
-        <button type="button" class="btn btn-primary" data-action="report-send" disabled={busy || Boolean(error) || !payload} onClick={send}>
+        <button type="button" class="btn btn-primary" data-action="report-send" disabled={busy || Boolean(error) || blocked || !payload} onClick={send}>
           {busy ? 'يُرسل…' : 'أرسل البلاغ'}
         </button>
-        <button type="button" class="btn" data-action="report-copy" disabled={busy || Boolean(error) || !payload} onClick={copyReport}>
+        <button type="button" class="btn" data-action="report-copy" disabled={busy || Boolean(error) || blocked || !payload} onClick={copyReport}>
           انسخ البلاغ بدل إرساله
         </button>
       </div>

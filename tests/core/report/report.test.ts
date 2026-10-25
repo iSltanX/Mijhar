@@ -166,6 +166,13 @@ describe('الخلفية: من صفحة الإضافة وحدها، وبجسم �
     const ok = await handleReportRequest({ type: 'mijhar/report', op: 'send', payload, key: KEY }, true, { fetch: async () => new Response('{"id":3}', { status: 201 }), granted: async () => true });
     expect(ok).toEqual({ ok: true, id: 3, replayed: false });
   });
+  it('وصف فيه صيغة سرّ معروفة يُرفض في الخلفية أيضًا بلا طلب (وإن تجاوز منع الصفحة)', async () => {
+    const fetch = vi.fn();
+    const secret = buildPayload({ kind: 'bug', description: `المفتاح ${'sk-ant-'}${'x'.repeat(24)}` }, DIAG);
+    const hasSecret = (t: string) => /sk-ant-/.test(t);
+    expect(await handleReportRequest({ type: 'mijhar/report', op: 'send', payload: secret, key: KEY }, true, { fetch, granted: async () => true }, hasSecret)).toMatchObject({ failure: 'refused' });
+    expect(fetch).not.toHaveBeenCalled();
+  });
   it('الصلاحيات: المضيف وحده في Chromium، ومعه technicalAndInteraction في Firefox', () => {
     expect(reportPermissions('chromium')).toEqual({ origins: ['https://app-reports.isultantf.workers.dev/*'] });
     expect(reportPermissions('firefox')).toEqual({ origins: ['https://app-reports.isultantf.workers.dev/*'], data_collection: ['technicalAndInteraction'] });

@@ -105,6 +105,20 @@ describe('الإبلاغ عن مشكلة', () => {
     expect((ui.port.send.mock.calls[2] as unknown[])[1]).not.toBe(k1);
   });
 
+  it('نص فيه ما يشبه رمزًا أو مفتاحًا: تنبيه باسم الصيغة، ولا إرسال ولا نسخ ولا صلاحية حتى يُحذف', async () => {
+    const ui = await mount();
+    await ui.type(`الرمز ${'ghp_'}${'a'.repeat(36)} لا يعمل`);
+    expect(ui.q('[data-report-secret]')?.textContent).toContain('رمز GitHub');
+    expect(ui.q<HTMLButtonElement>('[data-action="report-send"]').disabled).toBe(true);
+    expect(ui.q<HTMLButtonElement>('[data-action="report-copy"]').disabled).toBe(true);
+    await ui.click('[data-action="report-send"]');
+    expect(ui.permissions.request).not.toHaveBeenCalled();
+    expect(ui.port.send).not.toHaveBeenCalled();
+    await ui.type('الرمز لا يعمل');
+    expect(ui.q('[data-report-secret]')).toBeNull();
+    expect(ui.q<HTMLButtonElement>('[data-action="report-send"]').disabled).toBe(false);
+  });
+
   it('«انسخ البلاغ» ينسخ النص الكامل نفسه بلا صلاحية ولا طلب', async () => {
     const ui = await mount();
     await ui.type('وصف');
