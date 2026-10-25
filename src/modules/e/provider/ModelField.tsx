@@ -25,6 +25,8 @@ export interface ModelFieldProps {
   readonly onCommit: (value: string) => void;
   /** للمزوّد مفتاح محفوظ (فتُجلب قائمته ويُختبر نموذجه). */
   readonly hasKey: boolean;
+  /** هوية المفتاح المحفوظ (savedAt)، أو null بلا مفتاح؛ وتغيّرها (استبدال أو مسح) يُسقط ما بدأ بالمفتاح السابق. */
+  readonly keyId?: number | null;
   /** قائمة نماذجه المقروءة في الجلسة، أو null. */
   readonly list: ModelsList | null;
   /** نتيجة آخر اختبار للنموذج المحفوظ بالمفتاح الحالي (من الخلفية)، أو null. */
@@ -108,7 +110,7 @@ const reason = (message: string): string => message.trim().replace(/[.。؛;:،]
 type ListPhase = { readonly kind: 'idle' } | { readonly kind: 'loading' } | { readonly kind: 'failed'; readonly message: string };
 type Running = { readonly model: string } | null;
 
-export function ModelField({ descriptor, settingKey, value, onCommit, hasKey, list, test, busy, fetchList, runTest }: ModelFieldProps) {
+export function ModelField({ descriptor, settingKey, value, onCommit, hasKey, keyId, list, test, busy, fetchList, runTest }: ModelFieldProps) {
   const uid = useId();
   const ids = { input: `mj-model-${uid}`, list: `mj-model-list-${uid}`, help: `mj-model-help-${uid}`, live: `mj-model-live-${uid}` };
   const root = useRef<HTMLDivElement>(null);
@@ -130,6 +132,21 @@ export function ModelField({ descriptor, settingKey, value, onCommit, hasKey, li
     setDraft(value);
     setInvalid(false);
   }, [value]);
+
+  // جلب قائمة أو اختبار بدأ بمفتاح سابق لا يكتب حالته ولا رسالته بعد استبدال المفتاح أو مسحه، ولا يُبقي الحقل منشغلًا به (F-05)؛ والقائمة
+  // ونتيجة الاختبار نفسهما تصلان مع حالة المزوّد مقرونتين بالمفتاح.
+  const epoch = useRef({ key: keyId, n: 0 });
+  useEffect(() => {
+    if (epoch.current.key === keyId) return;
+    epoch.current = { key: keyId, n: epoch.current.n + 1 };
+    setPhase({ kind: 'idle' });
+    setUnsent(null);
+    setRunning(null);
+  }, [keyId]);
+  const current = () => {
+    const n = epoch.current.n;
+    return () => epoch.current.n === n;
+  };
 
   const models = listedModels(list);
   const typed = draft.trim();
@@ -164,10 +181,11 @@ export function ModelField({ descriptor, settingKey, value, onCommit, hasKey, li
   };
 
   const load = () => {
+    const live = current();
     setPhase({ kind: 'loading' });
     fetchList().then(
-      (outcome) => setPhase(outcome.ok ? { kind: 'idle' } : { kind: 'failed', message: outcome.message }),
-      () => setPhase({ kind: 'failed', message: 'تعذّر الوصول إلى خلفية الإضافة' }),
+      (outcome) => live() && setPhase(outcome.ok ? { kind: 'idle' } : { kind: 'failed', message: outcome.message }),
+      () => live() && setPhase({ kind: 'failed', message: 'تعذّر الوصول إلى خلفية الإضافة' }),
     );
   };
 
@@ -220,14 +238,15 @@ export function ModelField({ descriptor, settingKey, value, onCommit, hasKey, li
     if (!isTrustedActivation(event) || !descriptor.probeRequest || running || busy || !hasKey || !isModelId(typed)) return;
     commit(typed);
     const model = typed;
+    const live = current();
     setUnsent(null);
     setRunning({ model });
     runTest(model)
       .then(
-        (outcome) => setUnsent(outcome.ok ? null : { model, message: outcome.message }),
-        () => setUnsent({ model, message: 'تعذّر الوصول إلى خلفية الإضافة' }),
+        (outcome) => live() && setUnsent(outcome.ok ? null : { model, message: outcome.message }),
+        () => live() && setUnsent({ model, message: 'تعذّر الوصول إلى خلفية الإضافة' }),
       )
-      .finally(() => setRunning(null));
+      .finally(() => live() && setRunning(null));
   };
 
   const shownTest = test && test.model === typed ? test : null;

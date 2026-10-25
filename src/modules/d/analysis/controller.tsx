@@ -209,7 +209,7 @@ export class SectionAnalysis {
     void provider
       .status()
       .then((fresh) => {
-        if (this.state !== shown) return;
+        if (this.ctx.signal.aborted || this.state !== shown) return;
         if (!fresh || fresh.provider.id !== shownStatus.provider.id || fresh.model?.id !== shownStatus.model?.id) {
           this.set({ kind: 'consent', prepared: shown.prepared, status: fresh, changed: 'تغيّر المزوّد المختار أو المودل منذ عُرضت الموافقة؛ هذه الوجهة الآن. لم يُرسل شيء.' });
           return;
@@ -224,13 +224,14 @@ export class SectionAnalysis {
   private send(prepared: PreparedAnalysis, status: ProviderStatus): void {
     const provider = this.deps.provider;
     const model = status.model;
-    if (!provider || !model) return;
+    // واجهة زالت (تعطيل الوحدة أو مغادرة الصفحة) لا تُرسل شيئًا: set لا يغيّر الحالة بعد الإغلاق، فلا يُعتمد عليها هنا (F-02).
+    if (!provider || !model || this.ctx.signal.aborted) return;
     const requestId = this.newId();
     this.set({ kind: 'loading', requestId, prepared, status });
     void provider.analyze({ requestId, section: this.def.id, provider: status.provider.id, model: model.id, system: prepared.system, prompt: prepared.prompt }).then((response) => {
       const now = this.state;
       if (now.kind !== 'loading' || now.requestId !== requestId) return;
-      if (response.ok) this.set({ kind: 'result', outcome: response.data, parsed: parseAnalysis(response.data.text, prepared.prompt, response.data.stopReason), prepared });
+      if (response.ok) this.set({ kind: 'result', outcome: response.data, parsed: parseAnalysis(response.data.text, prepared, response.data.stopReason), prepared });
       else {
         this.set({ kind: 'failed', failure: response.failure, message: failureText(response.failure, response.message), retryAt: response.retryAt });
         if (['unauthorized', 'expired-key', 'permission', 'provider-changed', 'no-key', 'model-changed'].includes(response.failure)) void this.readHealth();

@@ -185,7 +185,7 @@ export function AnalysisBlock({ def, state, health, onOpen, onConfirm, onCancel,
             destination={{
               provider: state.status?.provider.title ?? 'المزوّد',
               host: state.status?.provider.host ?? 'المزوّد',
-              ...(state.status ? { policy: { url: state.status.provider.policy.url, label: state.status.provider.policy.label } } : {}),
+              ...(state.status ? { policy: state.status.provider.policy } : {}),
               model: state.status?.model ?? null,
               permission: Boolean(state.status?.permission),
             }}

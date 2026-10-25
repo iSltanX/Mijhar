@@ -19,6 +19,8 @@ export interface ProviderPolicy {
   readonly readOn: string;
   /** ما تقوله الصفحة في جملة. */
   readonly summary: string;
+  /** صفحة رسمية ثانية تُسند شطرًا من الملخص لا تتناوله الأولى (COR-AUD-03)، وتُعرض بجانبها حيث يُعرض رابط السياسة. */
+  readonly also?: { readonly url: string; readonly label: string };
 }
 
 /**
@@ -96,12 +98,15 @@ export interface ModelsList {
   readonly source: string;
   /** أعلن المزوّد صفحات أخرى لم تُقرأ. */
   readonly partial: boolean;
+  /** وقت حفظ المفتاح الذي قُرئت به، تقرنها به الخدمة حين تحفظها في الجلسة؛ فلا تُعرض لمفتاح غيره (COR-AUD-02). */
+  readonly keySavedAt?: number;
 }
 
 /**
  * أسباب الفشل المصنَّفة. محلية (لم يُرسل طلب): permission وno-key وkey-read وexpired-key وbusy وcooldown وmodel-changed وprovider-changed
  * وincompatible وinvalid-request. ومن المزوّد: unauthorized (401) وforbidden (403) وnot-found وtoo-large وinvalid وrate-limit (429) وoverloaded
- * (529 أو 5xx) وhttp وnetwork وaborted.
+ * (529 أو 5xx) وhttp وnetwork وaborted. وkey-changed: استُبدل المفتاح المحفوظ أثناء طلب تحقق أو اختبار، فلا تُنسب نتيجته إلى البديل؛ أو أثناء تحليل
+ * رفضه المزوّد رفضًا يخص المفتاح القديم (401 و403 و404 و429 أو موعد إعادة محاولة)، فلا يُبلَّغ أن البديل مرفوض (F-03).
  */
 export type ProviderFailure =
   | 'permission'
@@ -123,7 +128,8 @@ export type ProviderFailure =
   | 'overloaded'
   | 'http'
   | 'network'
-  | 'aborted';
+  | 'aborted'
+  | 'key-changed';
 
 export type ProviderResult<T> =
   | { readonly ok: true; readonly status: number; readonly data: T }

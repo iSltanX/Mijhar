@@ -1,10 +1,18 @@
 // قراءة رد المزوّد للعرض (T-11.6، AC-E9 (٥)): فصل المثبت من المصدر عن الاحتمال. كل ما يقترحه النموذج «احتمال يحتاج تحققًا»؛ والمثبت من المصدر
-// هو الاقتباس الذي ورد حرفيًا فيما أُرسل فعلًا (يُتحقق منه هنا لا من قول النموذج)، والاقتباس الذي لم يرد فيه يُعلن أنه لم يرد ولا يُعدّ دليلًا.
+// هو الاقتباس الذي ورد حرفيًا في نص الصفحة المرسل (يُتحقق منه هنا لا من قول النموذج)، والاقتباس الذي لم يرد فيه يُعلن أنه لم يرد ولا يُعدّ دليلًا.
+// نص الصفحة المرسل (F-04) قيمٌ نُقلت من الصفحة كما هي (sources من القالب) ووردت داخل كتلة منقولة؛ فلا يُعدّ مصدرًا ما كتبه مِجهَر خارج الكتل
+// (التعليمات و«المعلومات الناقصة» وسطر الختام) ولا ما كتبه داخلها (العناوين والتسميات والتصنيف ووقت الجمع والقيم البديلة وعلامات الحجب).
 // وما نقص: ما يعلنه النموذج، مع ما أعلنته الطبقة نفسها قبل الإرسال (يعرضه القسم). الرد نصٌّ يُعرض فقط: لا يُنفَّذ منه شيء ولا يُفسَّر HTML.
+
+import { transported } from '../../../core/guardrails/boundaries';
+import { maskOf } from '../context';
 
 export interface EvidenceQuote {
   readonly text: string;
-  /** ورد حرفيًا (بعد توحيد المسافات) فيما أُرسل إلى المزوّد. */
+  /**
+   * ورد حرفيًا (بعد توحيد المسافات وإسقاط علامة الاقتباس «> » أول السطر) في قيمة واحدة من قيم الصفحة المرسلة، وفي كتلة منقولة من البرومبت كما أُرسل.
+   * الاقتباس الذي يمتد عبر قيمتين يصلهما تنسيق مِجهَر، أو يشمل علامة حجب، لا يُعدّ دليلًا.
+   */
   readonly found: boolean;
 }
 
@@ -31,7 +39,11 @@ const MAX_ITEMS = 12;
 const MAX_EVIDENCE = 6;
 const MIN_QUOTE = 4;
 
-const normalize = (text: string): string => text.replace(/\s+/g, ' ').trim();
+const normalize = (text: string): string => text.replace(/^[ \t]*> ?/gm, '').replace(/\s+/g, ' ').trim();
+/** علامة الحجب نص كتبه مِجهَر مكان السر: تقسم القيمة فلا يعبرها اقتباس. */
+const escaped = (text: string): string => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const [MASK_OPEN = '', MASK_CLOSE = ''] = maskOf('\u0000').split('\u0000');
+const MASK = new RegExp(`${escaped(MASK_OPEN)}[^${escaped(MASK_CLOSE)}]*${escaped(MASK_CLOSE)}`, 'g');
 const unquote = (text: string): string => text.trim().replace(/^[«"'`“]+|[»"'`”]+$/g, '').trim();
 
 const strings = (value: unknown, max = MAX_ITEMS): string[] =>
@@ -55,12 +67,22 @@ function jsonOf(text: string): unknown {
   }
 }
 
-export function parseAnalysis(text: string, sent: string, stopReason: string | null = null): ParsedAnalysis {
+/** ما أُرسل: البرومبت وقيم الصفحة المنقولة فيه (PreparedAnalysis). */
+export interface SentAnalysis {
+  readonly prompt: string;
+  readonly sources: readonly string[];
+}
+
+/** يُقبل الاقتباس دليلًا إن ورد في قيمة واحدة من قيم الصفحة وفي كتلة منقولة واحدة مما أُرسل فعلًا، كلٌّ على حدة. */
+export function parseAnalysis(text: string, sent: SentAnalysis, stopReason: string | null = null): ParsedAnalysis {
   const cut = stopReason === 'max_tokens';
-  const body = normalize(sent);
+  const blocks = transported(sent.prompt).map(normalize);
+  const values = sent.sources.flatMap((v) => v.split(MASK)).map(normalize).filter((v) => v.length >= MIN_QUOTE);
   const evidenceOf = (raw: string): EvidenceQuote => {
     const clean = unquote(raw);
-    return { text: clean, found: clean.length >= MIN_QUOTE && body.includes(normalize(clean)) };
+    const wanted = normalize(clean);
+    const found = wanted.length >= MIN_QUOTE && values.some((v) => v.includes(wanted)) && blocks.some((block) => block.includes(wanted));
+    return { text: clean, found };
   };
   const parsed = jsonOf(text) as { summary?: unknown; findings?: unknown; next_steps?: unknown; missing?: unknown } | null;
   if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.findings)) {

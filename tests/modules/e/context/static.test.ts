@@ -138,7 +138,8 @@ describe('TEST-CTX-05 (ساكن): لا مسار جمع أو تنقيح أو بن
     // ما لا محتوى فيه من الصفحة: النوع والرقم والحدود وتقرير الأسرار والإتاحة (أعداد وأعلام).
     const NOT_CONTENT = new Set(['kind', 'number', 'limits', 'secrets', 'available']);
     expect(fields.length).toBeGreaterThan(15);
-    const unpassed = fields.filter(([key, value]) => !NOT_CONTENT.has(key) && !value.includes('pass(')).map(([key]) => key);
+    // verbatim نسخ حرفية لقيم مرّت على pass في حقلها: تمرّ على muted (حجبٌ مثله بلا عدّ ثانٍ للأسرار، F-04).
+    const unpassed = fields.filter(([key, value]) => !NOT_CONTENT.has(key) && !value.includes('pass(') && !(key === 'verbatim' && value.includes('muted('))).map(([key]) => key);
     expect(unpassed).toEqual([]);
   });
 });

@@ -64,10 +64,12 @@ describe('AC-E9 (٢) و(٤): ما يُرسل وما تعرضه الموافقة'
 });
 
 describe('AC-E9 (٥): فصل المثبت من المصدر عن الاحتمال، وبيان ما نقص', () => {
-  const prompt = renderPrompt('diagnose', reference().ctx).text;
+  const built = renderPrompt('diagnose', reference().ctx);
+  const prompt = built.text;
+  const sent = { prompt, sources: built.sources };
 
   it('رد بالبنية: البنود والخطوات وما نقص؛ والاقتباس الوارد حرفيًا «مثبت»، والمختلَق «لم يرد»', () => {
-    const parsed = parseAnalysis(structuredReply(prompt), prompt, 'end_turn');
+    const parsed = parseAnalysis(structuredReply(prompt), sent, 'end_turn');
     expect(parsed.structured).toBe(true);
     expect(parsed.summary).toBe('فشل البناء بخطأ مترجم.');
     expect(parsed.findings).toHaveLength(2);
@@ -82,17 +84,17 @@ describe('AC-E9 (٥): فصل المثبت من المصدر عن الاحتما�
 
   it('رد داخل سياج ```json يُقرأ، والمسافات لا تمنع مطابقة الاقتباس', () => {
     const quote = `   ${firstErrorLine(prompt).replace(/ /g, '  ')}   `;
-    const parsed = parseAnalysis(`\`\`\`json\n${JSON.stringify({ findings: [{ text: 'x', evidence: [quote] }] })}\n\`\`\``, prompt);
+    const parsed = parseAnalysis(`\`\`\`json\n${JSON.stringify({ findings: [{ text: 'x', evidence: [quote] }] })}\n\`\`\``, sent);
     expect(parsed.findings[0]?.evidence[0]?.found).toBe(true);
   });
 
   it('رد بلا البنية (ومنه الرد المعادي) يُعرض نصًّا واحدًا كما هو ولا يُفسَّر؛ وتوقف عند حد الطول يُعلن', () => {
-    const parsed = parseAnalysis(HOSTILE_REPLY, prompt, 'max_tokens');
+    const parsed = parseAnalysis(HOSTILE_REPLY, sent, 'max_tokens');
     expect(parsed).toMatchObject({ structured: false, findings: [], steps: [], missing: [], raw: HOSTILE_REPLY, cut: true });
   });
 
   it('اقتباس قصير جدًا لا يُعدّ دليلًا وإن ورد', () => {
-    const parsed = parseAnalysis(JSON.stringify({ findings: [{ text: 'x', evidence: ['## '] }] }), prompt);
+    const parsed = parseAnalysis(JSON.stringify({ findings: [{ text: 'x', evidence: ['## '] }] }), sent);
     expect(parsed.findings[0]?.evidence[0]?.found).toBe(false);
   });
 });

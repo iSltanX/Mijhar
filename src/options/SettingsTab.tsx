@@ -342,8 +342,12 @@ function PrivacySection() {
     <section class="section" aria-labelledby="mj-privacy-title" data-section="privacy">
       <Heading id="mj-privacy-title">الخصوصية</Heading>
       <p class="muted">
-        يعمل مِجهَر على صفحات <Ltr className="mono">github.com</Ltr> وحدها، ويعالج ما تعرضه محليًا في متصفحك. إعداداتك محفوظة في هذا المتصفح، ولا
-        تُرسل إلى أي خدمة.
+        يعمل مِجهَر على صفحات <Ltr className="mono">github.com</Ltr> وحدها، ويعالج ما تعرضه داخل متصفحك، ويقرأ من GitHub نفسه ما يحتاجه. إعداداتك
+        وملاحظاتك محفوظة في هذا المتصفح، ولا تُرسل إلى أي خدمة.
+      </p>
+      <p class="muted" data-privacy-optional="">
+        وليس كل شيء محليًا: لا يتصل بـ <Ltr className="mono">api.github.com</Ltr> إلا بطلبك بعد أن تمنح صلاحيته الاختيارية بنفسك، ولا يرسل محتوى من
+        الصفحة إلى مزوّد التحليل الذي تختاره إلا بطلبك وموافقتك على كل طلب.
       </p>
     </section>
   );

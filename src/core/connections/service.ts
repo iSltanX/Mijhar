@@ -15,7 +15,7 @@ import { resolveStatus, verdictFromUsage, verdictFromVerification } from './heal
 import type { ConnectionStatus, HealthRecord, Verdict } from './health';
 import { CONNECTIONS_CHANGED_MESSAGE } from './port';
 import type { ConnectionsChangedMessage, ConnectionsRequest, PendingReturn } from './port';
-import type { SecretStore, SessionStorageLike } from './secrets';
+import type { SecretInfo, SecretStore, SessionStorageLike } from './secrets';
 
 export const HEALTH_LOG_KEY = 'mijhar.connections.health';
 
@@ -124,8 +124,26 @@ export class ConnectionsService {
     return (await this.options.providerKeys?.store(provider)?.info().catch(() => null)) ?? null;
   }
 
-  private async resolveProvider(provider: string, records: Map<string, HealthRecord>, now: number): Promise<ConnectionStatus> {
-    return resolveStatus('provider-key', await this.providerInfo(provider), records.get(recordKey('provider-key', provider)) ?? null, now, provider);
+  /** معلومات السرّ المحفوظ، أو null إن لم يُحفظ، أو undefined إن تعذّرت قراءته (فلا يُحكم بغيابه). */
+  private async infoOf(store: Pick<SecretStore, 'info'> | null | undefined): Promise<SecretInfo | null | undefined> {
+    return store ? store.info().catch(() => undefined) : null;
+  }
+
+  /**
+   * سجلات أسرار لم تعد محفوظة: تُحذف من الجلسة فلا يبقى ما اشتُق من سرّ مُسح إلى إغلاق المتصفح (COR-AUD-02). المسح يجري في صفحة الإعدادات على مخزن
+   * السرّ مباشرة، فأول ما ترى الخلفية غيابه قراءة الحالة التي تليه. لا كتابة إن لم يُحذف شيء.
+   */
+  private async forget(records: Map<string, HealthRecord>, keys: readonly string[]): Promise<void> {
+    let gone = false;
+    for (const key of keys) gone = records.delete(key) || gone;
+    if (gone) await this.log.save([...records.values()]).catch((error: unknown) => this.options.onError?.(error));
+  }
+
+  private async resolveProvider(provider: string, records: Map<string, HealthRecord>, now: number, absent: string[]): Promise<ConnectionStatus> {
+    const info = await this.infoOf(this.options.providerKeys?.store(provider));
+    const key = recordKey('provider-key', provider);
+    if (info === null) absent.push(key);
+    return resolveStatus('provider-key', info ?? null, records.get(key) ?? null, now, provider);
   }
 
   /** حالة كل الاتصالات الآن؛ ومفتاح مزوّد التحليل بحالة مفتاح المزوّد المختار. */
@@ -134,19 +152,29 @@ export class ConnectionsService {
       const records = await this.loaded();
       const now = this.now();
       const providers = this.options.providerKeys;
-      return Promise.all(
+      const absent: string[] = [];
+      const statuses = await Promise.all(
         CONNECTION_IDS.map(async (id) => {
-          if (id === 'provider-key' && providers) return this.resolveProvider(await providers.selected(), records, now);
-          const info = (await this.options.stores[id]?.info().catch(() => null)) ?? null;
-          return resolveStatus(id, info, records.get(id) ?? null, now);
+          if (id === 'provider-key' && providers) return this.resolveProvider(await providers.selected(), records, now, absent);
+          const info = await this.infoOf(this.options.stores[id]);
+          if (info === null) absent.push(id);
+          return resolveStatus(id, info ?? null, records.get(id) ?? null, now);
         }),
       );
+      await this.forget(records, absent);
+      return statuses;
     });
   }
 
   /** حالة مفتاح مزوّد بعينه (لبطاقة «مزوّد التحليل» وخدمته)، بلا مفتاحه. */
   keyStatus(provider: string): Promise<ConnectionStatus> {
-    return this.serial(async () => this.resolveProvider(provider, await this.loaded(), this.now()));
+    return this.serial(async () => {
+      const records = await this.loaded();
+      const absent: string[] = [];
+      const status = await this.resolveProvider(provider, records, this.now(), absent);
+      await this.forget(records, absent);
+      return status;
+    });
   }
 
   /**
@@ -167,14 +195,15 @@ export class ConnectionsService {
 
   /**
    * MJ21 (T-11.6): يسجّل حكمًا على صحة اتصال من استجابة مرّت بالخلفية (مفتاح المزوّد: التحقق والاستعمال)، لوقت حفظ سرّه الحالي. null أو لا سرّ
-   * محفوظ: لا شيء. MJ23: provider لمفتاح مزوّد التحليل، فيُسجَّل لمزوّده وحده.
+   * محفوظ: لا شيء. MJ23: provider لمفتاح مزوّد التحليل، فيُسجَّل لمزوّده وحده. savedAt: وقت حفظ السرّ الذي أُرسل به الطلب؛ إن استُبدل السرّ قبل الرد
+   * فالحكم للسرّ القديم ولا يُكتب على البديل (F-03).
    */
-  observe(id: ConnectionId, verdict: Verdict | null, provider?: string): Promise<void> {
+  observe(id: ConnectionId, verdict: Verdict | null, provider?: string, savedAt?: number): Promise<void> {
     return this.serial(async () => {
       if (!verdict) return;
       const scoped = id === 'provider-key' && provider !== undefined && this.options.providerKeys;
       const info = scoped ? await this.providerInfo(provider) : await this.options.stores[id]?.info().catch(() => null);
-      if (!info) return;
+      if (!info || (savedAt !== undefined && info.savedAt !== savedAt)) return;
       await this.write(id, info.savedAt, verdict, scoped ? provider : undefined);
     });
   }

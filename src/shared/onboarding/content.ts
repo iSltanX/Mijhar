@@ -20,7 +20,7 @@ export const WELCOME_FEATURES: readonly WelcomeFeature[] = [
   { icon: 'note', title: 'سياقك وملاحظاتك', text: 'حزمة سياق للمهمة تراجعها وتنسخها لأي نموذج، وملاحظات خاصة تبقى في متصفحك.' },
 ];
 
-export const WELCOME_PRIVACY = 'يعالج ما تعرضه الصفحة داخل متصفحك، ولا يتصل بأي خدمة إلا حين تطلب ذلك بنفسك.';
+export const WELCOME_PRIVACY = 'يعالج ما تعرضه الصفحة داخل متصفحك، وقد يقرأ من github.com نفسه ما لا تعرضه، ولا يتصل بغيره إلا حين تطلب ذلك بنفسك.';
 
 export interface OptionalConnection {
   readonly id: 'github-token' | 'provider-key';

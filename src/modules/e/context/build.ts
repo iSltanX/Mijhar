@@ -37,6 +37,8 @@ export interface ContextParts {
   readonly causes: Part | null;
   readonly changes: Part | null;
   readonly links: Part | null;
+  /** قيم الصفحة في subject وrepo وbranch كما وردت (F-04)؛ ونظيرها في كل جزء آخر حقله source. اسم نوع الصفحة البديل عن العنوان ليس منها. */
+  readonly verbatim: { readonly subject: readonly string[]; readonly repo: readonly string[]; readonly branch: readonly string[] };
 }
 
 /** source: المستودع والرابط؛ branch: الفرع والتزام الرأس (أو طرفا المقارنة والالتزام). */
@@ -86,6 +88,7 @@ function statusPart(s: SanitizedContext): Part | null {
   ];
   for (const b of report.blockers) body.push(...lines(b, 'يمنع'));
   for (const b of report.attention) body.push(...lines(b, 'قد يمنع'));
+  const source = s.verbatim.status;
   if (report.state === 'explained' && !report.blockers.length && !report.attention.length) body.push('- لا مانع دمج في الأدلة المقروءة.');
   for (const note of report.notes) body.push(`- ${note}`);
   body.push(`- مصدر الأدلة: ${s.status.apiReadAt !== null ? `الصفحة وGitHub API (قُرئت ${utcStamp(s.status.apiReadAt)})` : 'الصفحة وحدها'}.`, `- ${METHOD_NOTICE}`);
@@ -96,7 +99,7 @@ function statusPart(s: SanitizedContext): Part | null {
     if (api.matched) for (const part of api.parts) body.push(`  - ${part.text}`);
   }
   const counted = report.blockers.length + report.attention.length;
-  return { heading: 'الحالة والموانع', detail: counted ? `${report.blockers.length} يمنع، ${report.attention.length} قد يمنع` : null, body };
+  return { heading: 'الحالة والموانع', detail: counted ? `${report.blockers.length} يمنع، ${report.attention.length} قد يمنع` : null, body, source };
 }
 
 function logParts(s: SanitizedContext): { log: Part | null; causes: Part | null } {
@@ -105,7 +108,9 @@ function logParts(s: SanitizedContext): { log: Part | null; causes: Part | null 
   const a = analysis.availability;
   const detail = a.state === 'full' ? `قُرئ ${a.lines} سطرًا` : a.state === 'truncated' ? `مقتطع: قُرئ ${a.readLines}${a.totalLines !== null ? ` من ${a.totalLines}` : ''} سطرًا` : 'السجل غير متاح: التنبيهات الظاهرة وحدها';
   let log: Part | null = null;
-  if (excerpt !== null) log = { heading: 'مقتطفات السجل', detail, body: [fence(excerpt)] };
+  // من ترويسات الكتل («# الخطوة — السطر …») اسم الخطوة وحده؛ ومن الأسطر نصها بلا رقمها ولا علامة السطر المقصود.
+  const logSource = analysis.messages.flatMap((m) => [...(m.step ? [m.step] : []), m.text, ...m.context.map((c) => c.text)]);
+  if (excerpt !== null) log = { heading: 'مقتطفات السجل', detail, body: [fence(excerpt)], source: logSource };
   else if (a.state !== 'unavailable') log = { heading: 'مقتطفات السجل', detail, body: ['- لم تُرصد في السجل المقروء رسالة خطأ ولا سطر طابق نمطًا.'] };
 
   const body: string[] = [];
@@ -121,7 +126,13 @@ function logParts(s: SanitizedContext): { log: Part | null; causes: Part | null 
     }
   } else body.push(`- ${NO_ROOT_CAUSE_TEXT}.`);
   for (const p of analysis.possibilities) body.push(`- **${p.tag}**: ${p.text} (بُني على: ${p.basis}${p.quote ? `؛ السطر ${p.quote.line}: «${p.quote.text}»` : ''})`);
-  return { log, causes: { heading: 'ما استخرجه محلل السجل', detail: null, body } };
+  // السبب والاحتمال وأساسه وعنوان النمط صياغة مِجهَر؛ والمنقول: أسطر الدليل وما كمّل السبب منها واسم الخطوة.
+  const causesSource = [
+    ...(step?.name ? [step.name] : []),
+    ...analysis.rootCauses.flatMap((c) => [c.evidence.text, ...(c.detail ? [c.detail] : [])]),
+    ...analysis.possibilities.flatMap((p) => (p.quote ? [p.quote.text] : [])),
+  ];
+  return { log, causes: { heading: 'ما استخرجه محلل السجل', detail: null, body, source: causesSource } };
 }
 
 function changesPart(s: SanitizedContext): Part | null {
@@ -131,18 +142,31 @@ function changesPart(s: SanitizedContext): Part | null {
   const counts = totalsText(totals);
   if (!files.length && counts) body.push(`- ${counts} (${s.kind === 'pr' ? 'من ترويسة الطلب؛ أسماء الملفات وأسطرها في تبويب «Files changed» لم تُجمع من صفحة المحادثة' : 'كما تعرضها الصفحة'}).`);
   if (patch !== null) body.push('', fence(patch, 'diff'));
-  return body.length ? { heading: 'التغييرات', detail: counts, body } : null;
+  // ترويسة «diff --git» يركّبها المنقّح لكل ملف؛ والمنقول المسار وأسطر الفروق بعدها.
+  const hunks = patch === null ? [] : patch.split(/^diff --git a\/.*$/m).map((h) => h.replace(/^\n|\n$/g, '')).filter(Boolean);
+  return body.length ? { heading: 'التغييرات', detail: counts, body, source: [...files.map((f) => f.path), ...hunks] } : null;
 }
 
 function linksPart(s: SanitizedContext): Part | null {
   const links: string[] = [];
+  const source: string[] = [];
   if (s.repo) {
+    source.push(s.url);
+    if (s.branch?.headSha && s.kind !== 'diff') source.push(s.branch.headSha);
     links.push(`- ${PAGE_TEXT[s.kind]}${s.number !== null ? ` #${s.number}` : ''}: ${s.url}`);
     if (s.branch?.headSha && s.kind !== 'diff') links.push(`- التزام الرأس: https://github.com/${s.repo}/commit/${s.branch.headSha}`);
   }
-  for (const c of s.comments) if (/^issuecomment-\d+$/.test(c.id)) links.push(`- تعليق ${c.author ?? 'بلا اسم'}: ${s.url}#${c.id}`);
-  for (const item of s.checks?.items ?? []) if (item.failed && item.url) links.push(`- سجل ${item.name}: ${item.url}`);
-  return links.length ? { heading: 'روابط الأدلة', detail: String(links.length), body: links } : null;
+  for (const c of s.comments) {
+    if (!/^issuecomment-\d+$/.test(c.id)) continue;
+    links.push(`- تعليق ${c.author ?? 'بلا اسم'}: ${s.url}#${c.id}`);
+    source.push(...(c.author ? [c.author] : []), s.url);
+  }
+  for (const item of s.checks?.items ?? []) {
+    if (!item.failed || !item.url) continue;
+    links.push(`- سجل ${item.name}: ${item.url}`);
+    source.push(item.name, item.url);
+  }
+  return links.length ? { heading: 'روابط الأدلة', detail: String(links.length), body: links, source } : null;
 }
 
 /** أجزاء العرض من المجموع المنقّح وحده. */
@@ -167,7 +191,7 @@ export function formatParts(s: SanitizedContext): ContextParts {
       if (body.length) body.push('');
       body.push(quote(s.description));
     }
-    description = { heading: 'العنوان والوصف', detail: null, body };
+    description = { heading: 'العنوان والوصف', detail: null, body, source: [...(s.title ? [s.title] : []), ...(s.description !== null ? [s.description] : [])] };
   }
 
   let comments: Part | null = null;
@@ -177,18 +201,21 @@ export function formatParts(s: SanitizedContext): ContextParts {
       if (body.length) body.push('');
       body.push(`### ${comment.author ?? 'بلا اسم'}${comment.at ? ` — ${comment.at}` : ''}`, '', quote(comment.text));
     }
-    comments = { heading: 'التعليقات المختارة', detail: `${s.comments.length} من ${s.available.comments}`, body };
+    const source = s.comments.flatMap((c) => [...(c.author ? [c.author] : []), ...(c.at ? [c.at] : []), c.text]);
+    comments = { heading: 'التعليقات المختارة', detail: `${s.comments.length} من ${s.available.comments}`, body, source };
   }
 
   let checks: Part | null = null;
   let failedChecks: Part | null = null;
   if (s.checks) {
-    checks = { heading: 'نتائج الفحوص', detail: s.checks.summary || null, body: s.checks.items.map(checkLine) };
+    // التصنيف و✗ و«إلزامي» صياغة مِجهَر؛ والمنقول اسم الفحص وتفصيله.
+    const sourceOf = (items: readonly CheckLine[]): string[] => items.flatMap((i) => [i.name, ...(i.detail ? [i.detail] : [])]);
+    checks = { heading: 'نتائج الفحوص', detail: s.checks.summary || null, body: s.checks.items.map(checkLine), source: sourceOf(s.checks.items) };
     const failed = s.checks.items.filter((i) => i.failed);
-    failedChecks = { heading: 'الفحوص الفاشلة', detail: `${failed.length} من ${s.checks.items.length}`, body: failed.length ? failed.map(checkLine) : ['- لا فحص فاشل في الصفوف المقروءة.'] };
+    failedChecks = { heading: 'الفحوص الفاشلة', detail: `${failed.length} من ${s.checks.items.length}`, body: failed.length ? failed.map(checkLine) : ['- لا فحص فاشل في الصفوف المقروءة.'], source: sourceOf(failed) };
   }
 
-  const error: Part | null = s.error !== null ? { heading: 'مقتطف الخطأ', detail: null, body: [fence(s.error)] } : null;
+  const error: Part | null = s.error !== null ? { heading: 'مقتطف الخطأ', detail: null, body: [fence(s.error)], source: s.verbatim.error } : null;
 
   let snippets: Part | null = null;
   if (s.snippets.length) {
@@ -197,7 +224,7 @@ export function formatParts(s: SanitizedContext): ContextParts {
       if (body.length) body.push('');
       body.push(`### ${i + 1}. من ${snippet.where}`, '', fence(snippet.text));
     });
-    snippets = { heading: 'مقتطفات الأدلة', detail: String(s.snippets.length), body };
+    snippets = { heading: 'مقتطفات الأدلة', detail: String(s.snippets.length), body, source: s.snippets.map((snippet) => snippet.text) };
   }
 
   return {
@@ -214,6 +241,11 @@ export function formatParts(s: SanitizedContext): ContextParts {
     ...logParts(s),
     changes: changesPart(s),
     links: linksPart(s),
+    verbatim: {
+      subject: s.title ? [s.title] : [],
+      repo: s.repo ? [s.repo, s.url] : [],
+      branch: s.branch ? [s.branch.head, s.branch.base, s.branch.headSha].filter((v): v is string => v !== null) : [],
+    },
   };
 }
 

@@ -28,6 +28,8 @@ export interface ConsentSummary {
 export interface PreparedAnalysis {
   readonly system: string;
   readonly prompt: string;
+  /** قيم الصفحة المنقولة في البرومبت كما هي (F-04): ما يُقبل منه اقتباس الرد دليلًا. لا تُرسل؛ تبقى محلية. */
+  readonly sources: readonly string[];
   readonly consent: ConsentSummary;
 }
 
@@ -64,6 +66,7 @@ export function prepareAnalysis(ctx: ContextStructure, spec: AnalysisSpec): Prep
   return {
     system,
     prompt: built.text,
+    sources: built.sources,
     consent: {
       template: promptOf(spec.template).label,
       parts: receivedSections(built.text),

@@ -2,6 +2,7 @@
 // التحقق المعلن، وقراءة المودلات بلا إعلان توافق (فحص صريح لا استنتاج من الاسم)، وفحص التوافق، والتحليل وتفسير الرد، وتصنيف الأخطاء بنصها المنقّح
 // من المفتاح وموعد إعادة المحاولة المعلن، وأن المفتاح في ترويسة الطلب إلى api.openai.com وحده.
 import { describe, expect, it, vi } from 'vitest';
+import { bounded } from '../../../../src/core/guardrails/boundaries';
 import { OPENAI_ADAPTER } from '../../../../src/modules/e/provider/adapters/openai';
 import { checkKey } from '../../../../src/modules/e/provider/catalog';
 import { OPENAI } from '../../../../src/modules/e/provider/descriptors/openai';
@@ -20,7 +21,9 @@ function call(scenario: OpenAiScenario = {}, granted = true) {
   const permissions = fakePermissions(granted ? [OPENAI.origin] : []);
   return { mock, c: { key: KEY, fetch: gatedFetch(OPENAI, { permissions, fetch: mock.fetch }), now: () => NOW } };
 }
-const REQUEST = { model: 'mock-chat-2', system: 'تعليمات', prompt: 'error TS2322: x', maxTokens: 4096 };
+// البرومبت كما تبنيه الطبقة: ما نُقل من الصفحة بين حدّيه، فاقتباسه دليل من المصدر (F-04).
+const REQUEST = { model: 'mock-chat-2', system: 'تعليمات', prompt: bounded(['error TS2322: x']).join('\n'), maxTokens: 4096 };
+const SENT = { prompt: REQUEST.prompt, sources: ['error TS2322: x'] };
 
 describe('صيغة المفتاح تُفحص محليًا من وصف المزوّد', () => {
   it('يقبل صيغ sk- ويرفض الفارغ ومفتاح الإدارة ومفتاح Anthropic وغيرهما، بلا إرسال', () => {
@@ -108,7 +111,7 @@ describe('التحليل وتفسير الرد', () => {
     expect(r.ok).toBe(true);
     const req = mock.requests[0];
     expect(req).toMatchObject({ url: 'https://api.openai.com/v1/responses', method: 'POST', credentials: 'omit' });
-    expect(JSON.parse(req?.body ?? '{}')).toEqual({ model: 'mock-chat-2', instructions: 'تعليمات', input: 'error TS2322: x', max_output_tokens: 4096, store: false });
+    expect(JSON.parse(req?.body ?? '{}')).toEqual({ model: 'mock-chat-2', instructions: 'تعليمات', input: REQUEST.prompt, max_output_tokens: 4096, store: false });
     expect(req?.headers).toMatchObject({ authorization: `Bearer ${KEY}`, 'content-type': 'application/json' });
     expect(`${req?.url}${req?.body}`).not.toContain(KEY);
     expect(mock.requests).toHaveLength(1);
@@ -127,7 +130,7 @@ describe('التحليل وتفسير الرد', () => {
     expect(r.data).toMatchObject({ model: 'mock-chat-2', stopReason: 'completed', usage: { input: 900, output: 140 } });
     expect(JSON.stringify(r.data)).not.toMatch(/cost|price|usd|تكلف|سعر/i);
     // يفسَّر إلى عقد العرض القائم: الاقتباس الوارد حرفيًا مثبت، والذي لم يرد يُعلن أنه لم يرد.
-    const parsed = parseAnalysis(r.data.text, REQUEST.prompt, r.data.stopReason);
+    const parsed = parseAnalysis(r.data.text, SENT, r.data.stopReason);
     expect(parsed.structured).toBe(true);
     expect(parsed.findings[0]?.evidence.map((e) => e.found)).toEqual([true, false]);
     expect(parsed.missing).toEqual(['لم يُرسل السجل كاملًا.']);
@@ -138,7 +141,7 @@ describe('التحليل وتفسير الرد', () => {
     const r = await OPENAI_ADAPTER.analyze(c, REQUEST);
     if (!r.ok) throw new Error('فشل');
     expect(r.data.stopReason).toBe('max_tokens');
-    expect(parseAnalysis(r.data.text, REQUEST.prompt, r.data.stopReason).cut).toBe(true);
+    expect(parseAnalysis(r.data.text, SENT, r.data.stopReason).cut).toBe(true);
   });
 
   it('بلا نص: الرفض والتصفية وحد الطول قبل أي نص وردّ فارغ كلها فشل معلن «invalid» لا تحليل فارغ', async () => {

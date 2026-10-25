@@ -11,12 +11,13 @@ import { Ltr } from '../../../../shared/ui/compat/Ltr';
 import { Icon } from '../../../../shared/ui/icons';
 import { isTrustedActivation } from '../../../../shared/ui/user-activation';
 import type { PreparedAnalysis } from '../request';
+import type { ProviderPolicy } from '../types';
 
 export interface ConsentDestination {
   readonly provider: string;
   readonly host: string;
   /** صفحة سياسة المزوّد الرسمية في البيانات (من سجله الوصفي)، أو غائبة. */
-  readonly policy?: { readonly url: string; readonly label: string };
+  readonly policy?: Pick<ProviderPolicy, 'url' | 'label' | 'also'>;
   /** المودل الذي سيُرسل إليه، أو null حين لم تُقرأ قائمة المودلات بعد. */
   readonly model: { readonly id: string; readonly displayName: string } | null;
   /** صلاحية مضيف المزوّد ممنوحة. */
@@ -111,6 +112,14 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
                     <a href={destination.policy.url} target="_blank" rel="noopener noreferrer" data-consent-policy="">
                       {destination.policy.label}
                     </a>
+                    {destination.policy.also && (
+                      <>
+                        {' و'}
+                        <a href={destination.policy.also.url} target="_blank" rel="noopener noreferrer" data-consent-policy="">
+                          {destination.policy.also.label}
+                        </a>
+                      </>
+                    )}
                   </>
                 )}
               </>

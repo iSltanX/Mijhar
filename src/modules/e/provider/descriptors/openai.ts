@@ -22,7 +22,7 @@ export const OPENAI: ProviderDescriptor = {
     mismatch: 'لا يطابق صيغة مفتاح OpenAI API (يبدأ بـsk-). تأكد أنك نسخته كاملًا.',
   },
   verifyRequest: `طلب واحد GET https://${HOST}/v1/models يقرأ قائمة المودلات المتاحة لمفتاحك، ولا يحمل شيئًا من صفحاتك.`,
-  // قائمة مودلات OpenAI الرسمية لا تعلن أي نقطة تدعمها (id وcreated وowned_by وshutdown_date وحدها)؛ فيثبت التوافق بفحص صريح يبدؤه المستخدم (DEC-13 ن-3، HYP-22).
+  // قائمة مودلات OpenAI الرسمية لا تعلن أي نقطة تدعمها (id وcreated وowned_by وshutdown_date وحدها)؛ فلا يُستنتج توافق ولا يحجب نموذجًا يكتبه المستخدم، و«اختبر النموذج» بهذا الطلب اختياري لا شرط للحفظ ولا للتحليل (DEC-13 ن-5، HYP-22).
   probeRequest: `طلب واحد POST https://${HOST}/v1/responses بنص ثابت «ping» وحده وحد مخرجات 16 رمزًا وبلا حفظ للرد (store=false)، لا يحمل شيئًا من صفحاتك.`,
   policy: {
     url: 'https://developers.openai.com/api/docs/guides/your-data',

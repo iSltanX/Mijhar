@@ -81,7 +81,7 @@ describe('TEST-PR-03: الموانع بأدلتها', () => {
     expect(r.blockers.map((b) => b.id).sort()).toEqual(['conflicts', 'required-failed', 'required-pending', 'review-required']);
     expect(r.attention.map((b) => b.id)).toEqual(['behind']);
     const byId = Object.fromEntries([...r.blockers, ...r.attention].map((b) => [b.id, b]));
-    expect(byId.conflicts?.evidence).toEqual([{ source: 'dom', where: 'صندوق الدمج', text: 'This branch has conflicts that must be resolved' }]);
+    expect(byId.conflicts?.evidence).toEqual([{ source: 'dom', where: 'صندوق الدمج', text: 'This branch has conflicts that must be resolved', quoted: ['This branch has conflicts that must be resolved'] }]);
     expect(byId['review-required']?.evidence[0]?.text).toBe('Review required');
     expect(byId.behind?.evidence[0]?.text).toBe('This branch is out-of-date with the base branch');
     expect(byId['required-failed']?.evidence.map((e) => [e.text, e.note])).toEqual([['ci / lint (pull_request) — Failing after 4m (Required)', 'التصنيف: فاشل']]);
@@ -145,7 +145,7 @@ describe('TEST-PR-03: الموانع بأدلتها', () => {
       label.setAttribute('data-status', 'pullDraft');
       label.lastChild!.textContent = 'Draft';
     });
-    expect(draft.blockers.find((b) => b.id === 'draft')?.evidence).toEqual([{ source: 'dom', where: 'ترويسة الطلب', text: 'شارة الحالة: Draft' }]);
+    expect(draft.blockers.find((b) => b.id === 'draft')?.evidence).toEqual([{ source: 'dom', where: 'ترويسة الطلب', text: 'شارة الحالة: Draft', quoted: ['Draft'] }]);
     const merged = report('fixture-pr-complex.html', null, (doc) => doc.querySelector('[data-component="StateLabel"]')!.setAttribute('data-status', 'pullMerged'));
     expect(merged).toMatchObject({ state: 'closed', blockers: [], attention: [] });
   });

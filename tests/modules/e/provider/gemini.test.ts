@@ -7,6 +7,7 @@
 import { describe, expect, it } from 'vitest';
 import { MemoryStorageArea, SettingsStore, Store, createSettingsRegistry } from '../../../../src/core';
 import { SecretStore } from '../../../../src/core/connections/secrets';
+import { bounded } from '../../../../src/core/guardrails/boundaries';
 import { ConnectionsService, memoryHealthLog } from '../../../../src/core/connections/service';
 import { PROVIDER_ID_KEY, PROVIDER_DESCRIPTORS, defineProviderSettings, modelSettingKey } from '../../../../src/modules/e/provider';
 import { GEMINI_ADAPTER } from '../../../../src/modules/e/provider/adapters/gemini';
@@ -31,7 +32,9 @@ function setup(scenario: GeminiScenario = {}, granted = true) {
   const permissions = fakePermissions(granted ? [GEMINI.origin] : []);
   return { mock, permissions, c: { key: KEY, fetch: gatedFetch(GEMINI, { permissions, fetch: mock.fetch }), now: () => NOW } };
 }
-const REQUEST = { model: 'mock-gem-2', system: 'تعليمات', prompt: 'error TS2322: النوع غير متوافق', maxTokens: 4096 };
+// البرومبت كما تبنيه الطبقة: ما نُقل من الصفحة بين حدّيه، فاقتباسه دليل من المصدر (F-04).
+const REQUEST = { model: 'mock-gem-2', system: 'تعليمات', prompt: bounded(['error TS2322: النوع غير متوافق']).join('\n'), maxTokens: 4096 };
+const SENT = { prompt: REQUEST.prompt, sources: ['error TS2322: النوع غير متوافق'] };
 
 describe('الوصف وصيغة المفتاح (AC-E12 (٤))', () => {
   it('مضيف Gemini وصلاحيته الاختيارية وسياسته الرسمية وطلب التحقق المعلن بلا اسم ترويسة ولا مفتاح', () => {
@@ -187,7 +190,7 @@ describe('التحليل', () => {
     if (!r.ok) return;
     expect(r.data).toMatchObject({ model: 'mock-gem-2-001', stopReason: 'end_turn', usage: { input: 1200, output: 180 } });
     expect(JSON.stringify(r.data)).not.toMatch(/cost|price|usd|تكلف|سعر/i);
-    const parsed = parseAnalysis(r.data.text, REQUEST.prompt, r.data.stopReason);
+    const parsed = parseAnalysis(r.data.text, SENT, r.data.stopReason);
     expect(parsed.structured).toBe(true);
     expect(parsed.findings[0]?.evidence.map((e) => e.found)).toEqual([true, false]);
     expect(parsed.missing).toEqual(['لم يُرسل السجل كاملًا.']);
@@ -197,7 +200,7 @@ describe('التحليل', () => {
   it('MAX_TOKENS يُعلن قطعًا (max_tokens)، وأجزاء «التفكير» لا تدخل نص التحليل', async () => {
     const cut = await GEMINI_ADAPTER.analyze(setup({ analyze: 'max-tokens' }).c, REQUEST);
     expect(cut.ok && cut.data.stopReason).toBe('max_tokens');
-    if (cut.ok) expect(parseAnalysis(cut.data.text, REQUEST.prompt, cut.data.stopReason).cut).toBe(true);
+    if (cut.ok) expect(parseAnalysis(cut.data.text, SENT, cut.data.stopReason).cut).toBe(true);
     const thought = await GEMINI_ADAPTER.analyze(setup({ analyze: 'thinking' }).c, REQUEST);
     expect(thought.ok && thought.data.text).not.toContain('تفكير داخلي');
     expect(thought.ok && thought.data.text).toContain('summary');
