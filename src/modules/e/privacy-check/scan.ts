@@ -16,8 +16,9 @@ export const SECRET_PATTERNS: readonly SecretPattern[] = [
   { id: 'github-fine-grained', label: 'رمز GitHub بصلاحيات محددة (github_pat_)', regex: /(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{16,}/g },
   { id: 'bearer', label: 'ترويسة Bearer', regex: /(?<![A-Za-z0-9])Bearer\s+[A-Za-z0-9\-._~+/]{16,}=*/g },
   { id: 'aws-access-key', label: 'معرّف مفتاح AWS (AKIA أو ASIA)', regex: /(?<![A-Za-z0-9])(?:AKIA|ASIA)[0-9A-Z]{16}(?![A-Za-z0-9])/g },
-  // الكتلة كاملة لا ترويستها وحدها: من BEGIN إلى أول END (مطابقة كسولة فلا تبتلع ما بين كتلتين)، وإن لم يأتِ END (كتلة ناقصة أو اقتطعها حد الأسطر) فإلى نهاية النص المفحوص.
-  { id: 'private-key', label: 'مفتاح خاص (PRIVATE KEY)', regex: /-----BEGIN [A-Z ]*PRIVATE KEY(?: BLOCK)?-----[\s\S]*?(?:-----END [A-Z ]*PRIVATE KEY(?: BLOCK)?-----|$)/g },
+  // MJ-TA-01: الكتلة كاملة لا ترويستها وحدها: من BEGIN إلى أول END (مطابقة كسولة لا تعبر ترويسة BEGIN أخرى). وبلا END (كتلة ناقصة) تمدّها scanText على
+  // الأسطر التالية ما دامت تشبه جسم المفتاح (keyBodyEnd)، فلا يُمحى ما بعدها من نثر أو سجل.
+  { id: 'private-key', label: 'مفتاح خاص (PRIVATE KEY)', regex: /-----BEGIN [A-Z ]*PRIVATE KEY(?: BLOCK)?-----(?:(?:(?!-----BEGIN )[\s\S])*?-----END [A-Z ]*PRIVATE KEY(?: BLOCK)?-----)?/g },
   { id: 'slack-token', label: 'رمز Slack (xox…)', regex: /(?<![A-Za-z0-9])xox[abprs]-[A-Za-z0-9-]{10,}/g },
   // AD-30 (H-5): صيغة مفتاح مزوّد التحليل المعتمد في DEC-09، فيحجبه المنقّح المشترك من كل محتوى قبل أي إرسال ويرصده تنبيه الحزمة.
   { id: 'anthropic-key', label: 'مفتاح Anthropic API (sk-ant-)', regex: /(?<![A-Za-z0-9])sk-ant-[A-Za-z0-9_-]{16,}/g },
@@ -37,6 +38,34 @@ export interface Finding {
   /** رقم السطر (يبدأ من 1) وعمود البداية (يبدأ من 1). */
   readonly line: number;
   readonly column: number;
+}
+
+/**
+ * سطر من جسم مفتاح: بادئة اقتباس أو فرق أو إزاحة أو طابع وقت سجل Actions أو رقم سطر المقتطف («> 12 | »)، ثم base64 وحده أو ترويسة PEM قديمة
+ * (Proc-Type وDEK-Info…)، أو سطر فارغ. ما سواه (نثر بمسافات، سطر ##[error]، سياج شيفرة، ترويسة أخرى) ينهي الكتلة الناقصة.
+ */
+const KEY_BODY_LINE = /^(?:\d{4}-\d{2}-\d{2}T[\d:.]+Z[ \t]+)?[ \t>|+-]*(?:\d+ \| [ \t]*)?(?:[A-Za-z0-9+/=]+|(?:Proc-Type|DEK-Info|Comment|Version|Hash):[^\n]*)?[ \t\r]*$/;
+/** بقية سطر الترويسة: فراغ أو base64 وحده (كتلة على سطر واحد)؛ وإلا فالترويسة مذكورة في نثر، فلا تُمد الكتلة. */
+const KEY_HEADER_REST = /^[ \t\r]*(?:[A-Za-z0-9+/=]+[ \t\r]*)?$/;
+
+/** نهاية كتلة مفتاح بلا تذييل تبدأ ترويستها عند end: آخر سطر يشبه الجسم بعدها (بلا الأسطر الفارغة في آخرها). */
+function keyBodyEnd(text: string, end: number): number {
+  const eol = (from: number): number => {
+    const nl = text.indexOf('\n', from);
+    return nl === -1 ? text.length : nl;
+  };
+  const headerEnd = eol(end);
+  if (!KEY_HEADER_REST.test(text.slice(end, headerEnd))) return end;
+  let last = text.slice(end, headerEnd).trim() ? headerEnd : end;
+  let at = headerEnd;
+  while (at < text.length) {
+    const next = eol(at + 1);
+    const line = text.slice(at + 1, next);
+    if (!KEY_BODY_LINE.test(line)) break;
+    if (line.trim()) last = next;
+    at = next;
+  }
+  return last;
 }
 
 /** أبعد ما يُعرض من النص حول الموضع المرصود في قائمة الأنماط. */
@@ -62,7 +91,7 @@ export function scanText(text: string, extra: readonly SecretPattern[] = []): Fi
     const flags = pattern.regex.flags.includes('g') ? pattern.regex.flags : `${pattern.regex.flags}g`;
     for (const m of text.matchAll(new RegExp(pattern.regex.source, flags))) {
       const start = m.index ?? 0;
-      const end = start + m[0].length;
+      const end = pattern.id === 'private-key' && !m[0].includes('-----END ') ? keyBodyEnd(text, start + m[0].length) : start + m[0].length;
       if (end === start) continue;
       const lineIndex = lineOf(start);
       found.push({ patternId: pattern.id, label: pattern.label, start, end, line: lineIndex + 1, column: start - (lineStarts[lineIndex] as number) + 1 });

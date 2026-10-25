@@ -23,10 +23,10 @@ export interface ConsentDestination {
   /** صلاحية مضيف المزوّد ممنوحة. */
   readonly permission: boolean;
   /**
-   * MJ-F-02: حال مفتاح المزوّد المختار: usable (محفوظ لم يُرفض، ومنه غير المتحقق منه)، missing (لا مفتاح أو تعذّرت قراءة حاله)، expired (رفضه المزوّد).
-   * لا إرسال بغير usable. الافتراضي usable.
+   * MJ-F-02: حال مفتاح المزوّد المختار: usable (محفوظ لم يُرفض، ومنه غير المتحقق منه)، missing (لا مفتاح)، expired (رفضه المزوّد)، unknown (تعذّرت قراءة
+   * حاله). لا إرسال بغير usable. الافتراضي usable.
    */
-  readonly key?: 'usable' | 'missing' | 'expired';
+  readonly key?: 'usable' | 'missing' | 'expired' | 'unknown';
 }
 
 export interface ConsentSheetProps {
@@ -172,7 +172,9 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
         <p class="mj-note" data-tone="warning" data-consent-blocked="key">
           {keyState === 'expired'
             ? `رفض ${destination.provider} المفتاح المحفوظ (منتهٍ أو ملغى)؛ استبدله أو تحقق منه من بطاقة «مزوّد التحليل» في الإعدادات.`
-            : `لا مفتاح محفوظ لـ${destination.provider}؛ أضفه من بطاقة «مزوّد التحليل» في الإعدادات.`}
+            : keyState === 'unknown'
+              ? `تعذّرت قراءة حال مفتاح ${destination.provider} الآن، فلا يُرسل شيء؛ أعد المحاولة أو افتح بطاقة «مزوّد التحليل» في الإعدادات.`
+              : `لا مفتاح محفوظ لـ${destination.provider}؛ أضفه من بطاقة «مزوّد التحليل» في الإعدادات.`}
         </p>
       )}
       {blocked && (

@@ -173,15 +173,23 @@ const PRIVATE_KEY = SECRET_PATTERNS.find((p) => p.id === 'private-key');
 const KEY_MASK = maskOf('private-key');
 
 /**
- * MJ-TA-01: يحجب كتل المفاتيح الخاصة كاملة (الترويسة والجسم والتذييل؛ وبلا تذييل إلى نهاية النص) قبل أي اقتطاع أو تنسيق، فلا يقطع حدُّ الأسطر
+ * MJ-TA-01: يحجب كتل المفاتيح الخاصة كاملة (الترويسة والجسم والتذييل؛ وبلا تذييل ما يليها من أسطر تشبه الجسم) قبل أي اقتطاع أو تنسيق، فلا يقطع حدُّ الأسطر
  * كتلةً فيبقى جسمها بلا ترويسة. keepLines يُبقي عدد الأسطر (للسجل الخام: أرقام أسطره ونوافذ محلله)؛ وإلا تصير الكتلة موضعًا واحدًا. onBlock لكل كتلة.
  */
 export function redactKeyBlocks(text: string, options: { readonly keepLines?: boolean; readonly onBlock?: () => void } = {}): string {
   if (!PRIVATE_KEY) return text;
-  return text.replace(new RegExp(PRIVATE_KEY.regex.source, PRIVATE_KEY.regex.flags), (m) => {
+  const blocks = scanText(text).filter((f) => f.patternId === PRIVATE_KEY.id);
+  if (!blocks.length) return text;
+  let out = '';
+  let at = 0;
+  for (const block of blocks) {
+    if (block.start < at) continue;
     options.onBlock?.();
-    return options.keepLines ? KEY_MASK + '\n'.repeat((m.match(/\n/g) ?? []).length) : KEY_MASK;
-  });
+    const lines = options.keepLines ? (text.slice(block.start, block.end).match(/\n/g) ?? []).length : 0;
+    out += text.slice(at, block.start) + KEY_MASK + '\n'.repeat(lines);
+    at = block.end;
+  }
+  return out + text.slice(at);
 }
 
 /** عدد الكتل المحجوبة سلفًا في نص (السجل يُحجب عند جمعه، collect.ts). */
@@ -257,8 +265,8 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
   let log: SanitizedLog | null = null;
   if (source.log && has(ITEM.log)) {
     const raw = logExcerpt(source.log);
-    // السجل الخام حُجبت كتله عند جمعه (قبل أن يقتطع محلله نوافذه)، فتُعدّ هنا مرة واحدة من المقتطف.
-    if (raw !== null && policy === 'mask') for (let i = keyMasks(raw); i > 0; i -= 1) count('السجل', keyHit);
+    // السجل الخام حُجبت كتله عند جمعه (قبل أن يقتطع محلله نوافذه، بأي سياسة)، فتُعدّ هنا مرة واحدة من المقتطف.
+    if (raw !== null) for (let i = keyMasks(raw); i > 0; i -= 1) count('السجل', keyHit);
     log = { analysis: source.log, excerpt: raw === null ? null : clipped(raw, limits.log, 'مقتطفات السجل', 'السجل') };
     if (source.log.moreMessages) cuts.push({ part: 'مقتطفات السجل', kind: 'truncated', reason: `عُرضت أول ${source.log.messages.length} رسالة، وبقيت ${source.log.moreMessages} لم تُعرض` });
     if (source.log.moreRootCauses) cuts.push({ part: 'الأسباب المثبتة', kind: 'truncated', reason: `عُرض أول ${source.log.rootCauses.length} سبب، وبقي ${source.log.moreRootCauses} لم يُعرض` });
@@ -267,7 +275,8 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
   let changes: SanitizedChanges | null = null;
   if (source.changes && has(ITEM.changes)) {
     const lines: string[] = [];
-    for (const f of source.changes.files) if (f.patch) lines.push(`diff --git a/${f.path} b/${f.path}`, f.patch);
+    // كل ملف وحده: كتلة ناقصة في فرق ملف لا تمتد إلى فروق ما بعده.
+    for (const f of source.changes.files) if (f.patch) lines.push(`diff --git a/${f.path} b/${f.path}`, unkeyed(f.patch, 'التغييرات'));
     changes = {
       totals: source.changes.totals,
       files: source.changes.files.map(({ patch: _patch, ...file }) => file),

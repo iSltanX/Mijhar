@@ -24,8 +24,8 @@ export interface AnalysisBlockProps {
 
 const clock = (ms: number): string => new Date(ms).toLocaleTimeString('en-GB', { hour12: false });
 const count = (n: number): string => n.toLocaleString('en-US');
-/** حال مفتاح المزوّد في الموافقة (MJ-F-02): بلا حال مقروءة أو بلا مفتاح «missing»، ومرفوض «expired»، وما سواهما (ومنه غير المتحقق منه) يُرسل به. */
-const keyState = (health: Health | null): 'usable' | 'missing' | 'expired' => (health === null || health === 'none' ? 'missing' : health === 'expired' ? 'expired' : 'usable');
+/** حال مفتاح المزوّد في الموافقة (MJ-F-02): بلا حال مقروءة «unknown»، وبلا مفتاح «missing»، ومرفوض «expired»، وما سواها (ومنه غير المتحقق منه) يُرسل به. */
+const keyState = (health: Health | null): 'usable' | 'missing' | 'expired' | 'unknown' => (health === null ? 'unknown' : health === 'none' ? 'missing' : health === 'expired' ? 'expired' : 'usable');
 const KEY_FAILURES = new Set(['unauthorized', 'forbidden', 'expired-key', 'no-key', 'permission', 'key-read', 'key-changed', 'not-found', 'model-changed', 'provider-changed', 'incompatible']);
 
 function Tag() {

@@ -104,7 +104,7 @@ export interface ProviderPort {
 const unreachable = (failure: ProviderFailure, message: string): { ok: false; failure: ProviderFailure; status: null; message: string; retryAt: null } => ({ ok: false, failure, status: null, message, retryAt: null });
 
 /** لم تصل الرسالة أي مستمع: لم يبدأ شيء. وما سواه (أُغلق المنفذ قبل الرد، أو رد فارغ) قد يلي إرسالًا إلى المزوّد (MJ-TA-H01). */
-const notDelivered = (error: unknown): boolean => /Receiving end does not exist/i.test(error instanceof Error ? error.message : String(error));
+const notDelivered = (error: unknown): boolean => /Receiving end does not exist|Extension context invalidated/i.test(error instanceof Error ? error.message : String(error));
 
 /** منفذ الصفحات وسكربت المحتوى: رسائل إلى الخلفية. تعذّر الرسالة نفسها فشل معلن لا نجاح. */
 export function runtimeProviderPort(runtime: Pick<ExtensionApi['runtime'], 'sendMessage'>): ProviderPort {

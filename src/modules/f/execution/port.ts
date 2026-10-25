@@ -54,7 +54,7 @@ export const notRun = (name: string, step: WriteStep | 'precheck', message: stri
 });
 
 /** لم تصل الرسالة أي مستمع (لا خلفية تستقبل): لم يبدأ شيء. وما سواه (أُغلق المنفذ قبل الرد، أو رد فارغ) قد يلي تنفيذًا. */
-export const notDelivered = (error: unknown): boolean => /Receiving end does not exist/i.test(error instanceof Error ? error.message : String(error));
+export const notDelivered = (error: unknown): boolean => /Receiving end does not exist|Extension context invalidated/i.test(error instanceof Error ? error.message : String(error));
 
 /** الخطة وصلت الخلفية ثم انقطعت القناة قبل ردّها (MJ-TA-H01): لا يُدّعى أن شيئًا لم يُكتب. */
 export const unconfirmedRun = (name: string): RunOutcome => ({

@@ -80,9 +80,14 @@ class CompareController {
     if (!this.facts || !this.impact) {
       const { parent, before } = this.spot();
       // أعادت الصفحة رسم حاويتها فأبعدت المضيفين (MJ-F-01): يعيد keep كلًّا قبل المرساة الجديدة، الملخص أولًا ثم الأثر كما رُكّبا.
-      const keep = { anchor: () => this.anchorSpot(), fallback: () => this.spot() };
-      this.facts = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'ملخص الملفات والتغييرات المؤكدة', keep });
-      this.impact = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'تفسير الأثر', keep });
+      const anchor = (): Spot | null => this.anchorSpot();
+      this.facts = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'ملخص الملفات والتغييرات المؤكدة', keep: { anchor, fallback: () => this.spot() } });
+      // والاحتياطي للأثر بعد الملخص إن كان في الصفحة، فلا ينقلب ترتيبهما.
+      const afterFacts = (): Spot => {
+        const host = this.facts?.host;
+        return host?.isConnected && host.parentNode ? { parent: host.parentNode, before: host.nextSibling } : this.spot();
+      };
+      this.impact = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'تفسير الأثر', keep: { anchor, fallback: afterFacts } });
     }
     this.facts.render(<CompareFacts summary={summary} />);
     this.impact.render(<CompareImpact summary={summary} />);

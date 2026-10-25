@@ -190,10 +190,11 @@ export class SectionAnalysis {
   /** موافقة معروضة: تُقرأ وجهتها (ومنها حال المفتاح) من جديد في مكانها، بلا إعادة عرض تنقل التركيز. */
   private refreshConsent(): void {
     const shown = this.state;
-    if (shown.kind !== 'consent' || shown.status === undefined) return;
+    // أثناء «إرسال للتحليل» يقرأ confirm الوجهة بنفسه، فلا يُستبدل ما عرضه (وإلا توقف بصمت).
+    if (shown.kind !== 'consent' || shown.status === undefined || this.confirming) return;
     void this.deps.provider?.status().then((status) => {
       const now = this.state;
-      if (now.kind === 'consent' && now.prepared === shown.prepared) this.set({ ...now, status });
+      if (now.kind === 'consent' && now.prepared === shown.prepared && !this.confirming) this.set({ ...now, status });
     });
   }
 
