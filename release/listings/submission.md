@@ -4,6 +4,30 @@
 >
 > العلامات: **[قرار]** ينتظر المالك، و`⟨…⟩` قيمة لا تُملأ إلا بعد وجودها فعلًا.
 
+## الاسم في المتاجر: من أين يأتي وكيف يتغير
+
+العنوان «مِجهَر - مساعدك على GitHub» والوصف القصير في [`store-listing.ar.md`](store-listing.ar.md#الاسم). ومصدرهما الواحد حقلا `name` و`description` في `src/manifest/chromium.json` و`src/manifest/firefox.json` (لا ملفات ترجمة في المشروع)، ويكتبهما `src/manifest/generate.mjs` في `dist/*/manifest.json` كما هما، ويحرسهما `tests/build/build.test.ts`. قُرئ التوثيق الرسمي في 2026-10-25:
+
+| المتجر | من أين يأتي العنوان | كيف يتغير | الحد |
+| :--- | :--- | :--- | :--- |
+| Chrome Web Store | حقل `name` في المانيفست: يظهر في المتجر ونافذة التثبيت و`chrome://extensions`. والوصف القصير من `description` | لا تُعدَّل بيانات المانيفست في لوحة المطوّر بعد الرفع: تُعدَّل في المانيفست وتُرفع حزمة بنسخة أعلى | `name` حتى 75، و`description` حتى 132، و`short_name` يُستحسن حتى 12 |
+| Microsoft Edge Add-ons | حقلا `name` و`description` يملآن «Extension name» و«Short description» في Partner Center، وهما للقراءة فقط هناك | تحديث المانيفست ثم رفع حزمة جديدة (بنسخة أعلى إن كانت تحديثًا) | 45 للاسم بحسب MDN |
+| Firefox Add-ons (AMO) | الاسم من المانيفست يعرّف الإضافة في Firefox وفي AMO، وحقل «Name» في خطوة «Describe Add-on» عند التقديم، ويُشتق منه رابط الصفحة (slug) | يُراجَع حقل الاسم في صفحة القائمة في Developer Hub؛ ولم أجد في التوثيق الرسمي هل تحدّثه نسخة جديدة آليًا، فيُتحقق منه بعد الرفع | 45، والملخص حتى 250 |
+
+- **عنوان زر الإضافة** (`action.default_title`، وفي Firefox `sidebar_action.default_title`) منفصل عن عنوان المتجر، ويبقى «مِجهَر». و`short_name` «مِجهَر» حيث يضيق المكان.
+- **ما يلزم لاحقًا:** لم تُرفع الإضافة إلى أي متجر، فيأخذ أول رفع للحزم الجديدة (1.0.0) العنوان الجديد مباشرة دون رفع نسخة. ولا يتغير عنوان منشور بتعديل الملفات محليًا. وبعد القبول: التحقق أن صفحة كل متجر تعرض العنوان الجديد، ومراجعة حقل الاسم في AMO.
+- **المراجع:** [Chrome: manifest name](https://developer.chrome.com/docs/extensions/reference/manifest/name) · [Chrome: short_name](https://developer.chrome.com/docs/extensions/reference/manifest/short-name) · [Chrome: description](https://developer.chrome.com/docs/extensions/reference/manifest/description) · [Chrome: Prepare your extension](https://developer.chrome.com/docs/webstore/prepare) · [Chrome: Creating a great listing page](https://developer.chrome.com/docs/webstore/best-listing) · [Edge: Publish an extension](https://learn.microsoft.com/en-us/microsoft-edge/extensions/publish/publish-extension) · [MDN: manifest name](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/name) · [MDN: short_name](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/short_name) · [AMO: Submitting an add-on](https://extensionworkshop.com/documentation/publish/submitting-an-add-on/) · [AMO: Create an appealing listing](https://extensionworkshop.com/documentation/develop/create-an-appealing-listing/)
+
+## بطاقة المستودع على GitHub
+
+نسخة مرجعية من وصف المستودع `iSltanX/Mijhar` وموضوعاته كما طُبّقت على GitHub في 2026-10-25 بأمر المالك (`gh repo edit`). الوصف يظهر تحت اسم المستودع في بطاقته وقائمة المستودعات، وهو غير مقدمة README. ولا تكتبه ولا تفرغه أي أداة في المستودع (لا سكربت ولا سير عمل يستدعي `gh repo edit` أو واجهة الموضوعات)؛ فإن تغيّر فبيد من يملك صلاحية المستودع، ويُعاد من هنا. والمستودع خاص (`AD-36`): لا يراهما إلا من يملك الوصول، ولا يجعله تحسينهما قابلًا للاكتشاف.
+
+```text
+إضافة متصفح تجعل GitHub أوضح بالعربية: تصحّح اتجاه النص، وتشرح الواجهة في مكانها، وتلخّص حالة طلب الدمج وسبب فشل الفحوص.
+```
+
+الموضوعات (10): `browser-extension` · `chrome-extension` · `firefox-addon` · `manifest-v3` · `github` · `github-actions` · `pull-requests` · `code-review` · `arabic` · `rtl`. أحرف لاتينية صغيرة وأرقام وشرطات، حتى 50 حرفًا لكل موضوع وحتى 20 موضوعًا ([Classifying your repository with topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics)). وكلها لميزة منفَّذة: الإضافة بصيغة Manifest V3 لعائلة Chromium وFirefox، وتقرأ سجل Actions، وتلخّص طلبات الدمج وتساعد في مراجعة تغييراتها، وتعالج اتجاه العربية.
+
 ## الغرض الواحد
 
 لـChrome وEdge:
@@ -51,7 +75,7 @@
 
 | الحقل | القيمة |
 | :--- | :--- |
-| سياسة الخصوصية | `⟨https://bysltan.com/Mjhr/privacy بعد نشر الصفحة⟩`؛ ونصها من [`Docs/Site/privacy.md`](../../Docs/Site/privacy.md) (ومنه [`PRIVACY.md`](../../PRIVACY.md) في المستودع). **المتاجر الثلاثة تطلب رابطًا يعمل، فلا يُقدَّم مِجهَر قبل نشر هذه الصفحة في الموقع.** |
+| سياسة الخصوصية | `⟨https://bysltan.com/Mjhr/privacy بعد نشر الصفحة⟩` (نُفّذت الصفحات الثلاث في مستودع الموقع `WebSiteSultan` ودُمجت محليًا في 2026-10-25، ولم تُنشر)؛ ونصها من [`Docs/Site/privacy.md`](../../Docs/Site/privacy.md) (ومنه [`PRIVACY.md`](../../PRIVACY.md) في المستودع). **المتاجر الثلاثة تطلب رابطًا يعمل، فلا يُقدَّم مِجهَر قبل نشر هذه الصفحة في الموقع.** |
 | الصفحة الرئيسية | `⟨https://bysltan.com/Mjhr بعد نشرها⟩` |
 | الدعم | `isultanby@gmail.com`، و«الإبلاغ عن مشكلة» داخل الإضافة (`DEC-12`: قناة `iSltanX/app-reports` الخاصة عبر خادمها، بُني في `MJ26`)، و`⟨https://bysltan.com/Mjhr/support بعد نشرها⟩`. ولا يوضع رابط المستودع في حقل عام (404 لمن لا يملك الوصول). |
 | المستودع | لا يُذكر في أي حقل: `iSltanX/Mijhar` يبقى خاصًّا بقرار المالك (`AD-36`، 2026-10-25)، ورابطه يعطي 404 للعموم. |

@@ -1,6 +1,6 @@
 # مواصفات صفحات مِجهَر في الموقع
 
-> للتنفيذ لاحقًا داخل مستودع موقع bysltan.com، على نسق صفحات رصد (`/rasd` و`/rasd/privacy` و`/rasd/support`). لا تطبيق ويب مستقل، ولا تغيير في بنية مشروع مِجهَر. النصوص في [`mijhar.md`](mijhar.md) و[`privacy.md`](privacy.md) و[`help.md`](help.md)، والإطارات في [`README.md`](README.md#إطارات-figma).
+> **نُفِّذت في 2026-10-25** داخل مستودع موقع bysltan.com (`WebSiteSultan`)، على نسق صفحات رصد (`/rasd` و`/rasd/privacy` و`/rasd/support`)، ودُمجت محليًا في `main` هناك، **ولم تُنشر**؛ والتفصيل وما خالف المواصفة في [القسم 11](#11-التنفيذ-في-websitesultan-2026-10-25). لا تطبيق ويب مستقل، ولا تغيير في بنية مشروع مِجهَر. النصوص في [`mijhar.md`](mijhar.md) و[`privacy.md`](privacy.md) و[`help.md`](help.md)، والإطارات في [`README.md`](README.md#إطارات-figma).
 
 ## 1. الصفحات والمسارات
 
@@ -102,11 +102,13 @@
 | الموضع | الاسم المقترح | القياس المعروض |
 | :--- | :--- | :--- |
 | البطل | لا صورة: عيّنة العدسة نص حي (القسم 10.3) بدل صورة «قبل وبعد»؛ ولقطة `01-reading` في صف «القراءة» وحده | 584 عرضًا |
-| القراءة | `reading_direction--light` / `--dark` (من `01-reading`) | 584×400 |
-| الشرح | `explain_merge-button--light` / `--dark` (من `02-explain`: بطاقة شرح تبويب Code) | 584×400 |
-| الحالة | `status_log-proven-cause--light` / `--dark` (من `04-log`، أو `03-status`) | 584×400 |
-| السياق | `context_copy-prompt--light` / `--dark` (من `05-context`) | 584×400 |
-| الملاحظات | `notes_line-note--light` / `--dark` (من `06-notes`: ملاحظة على الملف، فيُكتب التعليق «ملاحظاتك على الصفحة» لا «على السطر») | 584×400 |
+| القراءة | `reading-light.png` / `reading-dark.png` (من `01-reading`) | 584×400 |
+| الشرح | `explain-light.png` / `explain-dark.png` (من `02-explain`: بطاقة شرح تبويب Code) | 584×400 |
+| الحالة | `status-light.png` / `status-dark.png` (من `04-log`: السبب المثبت، كإطار `P-04`) | 584×400 |
+| السياق | `context-light.png` / `context-dark.png` (من `05-context`) | 584×400 |
+| الملاحظات | `notes-light.png` / `notes-dark.png` (من `06-notes`: ملاحظة على الملف، فيُكتب التعليق «ملاحظاتك على الصفحة» لا «على السطر») | 584×400 |
+
+والملفات في `public/Mjhr/shots/` بمستودع الموقع، مقتطعة بدقة مضاعفة 1168×800 بلا تعديل غير القص، وإزاحات القص في [`release/screenshots/README.md`](../../release/screenshots/README.md#صور-صفحة-الموقع).
 
 - تُعرض بـ`<picture>` يختار الوضع بـ`prefers-color-scheme` ويحترم `data-theme`، ونصها البديل من تعليق الصورة في `mijhar.md`.
 - لا تظهر في اللقطات بيانات مستودع خاص ولا رمز ولا مفتاح ولا اسم مستخدم حقيقي: التُقطت فوق صفحات GitHub عامة محفوظة بأسماء ومحتوى تجريبيين، وطريقتها في [`release/screenshots/README.md`](../../release/screenshots/README.md).
@@ -248,3 +250,19 @@
 - الأنماط في `mjhr.css` بالرموز (القسم 2)، ولا سكربت مضمَّن جديد: سياسة `script-src` في `next.config.ts` تسمح بسكربتات Next وحدها، والخطوط محلية (`font-src 'self'`).
 - الحالات المرجعية: `W-16` و`W-17` و`W-18` في القسم G من [صفحة الموقع في Figma](https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=214-7972)، والمكوّنات في `G-00`.
 - يُفحص عند التنفيذ: لوحة المفاتيح وقارئ الشاشة على العيّنة، واللمس على جهاز حقيقي، و`prefers-reduced-motion`، والوضعان، و`forced-colors`، وCLS وLCP في Lighthouse.
+
+## 11. التنفيذ في `WebSiteSultan` (2026-10-25)
+
+> نُفِّذت الصفحات الثلاث وعيّنة العدسة وأفكار القسم 10 المختارة في الفرع `feat/mjhr` بمستودع الموقع، ودُمجت محليًا في `main` هناك بالضم (Squash) كطريقة المستودع، **بلا رفع ولا نشر**. فالعلامات «[ينتظر التنفيذ]» في القسم 10 صارت منفَّذة في الشيفرة، وتبقى «منشورة» بعد نشر الموقع وحده.
+
+- **الملفات:** `src/app/(mjhr)/layout.tsx` و`mjhr.css` (الرموز بأدوار القسم 2 من `tokens.ts`، والوضعان بـ`prefers-color-scheme` و`data-theme`)، و`src/app/(mjhr)/Mjhr/{page,privacy/page,support/page}.tsx`، و`src/components/mjhr/*` (`LensSpecimen.tsx` و`RouteDiagram.tsx` بلا سكربت و`ShortcutEcho.tsx` و`SlideIndex.tsx` والرأس والتذييل والصفحتان الفرعيتان)، و`src/lib/mjhr/{routes,aliases,copy}.ts`، و`src/lib/fonts-mjhr.ts`، والصور في `public/Mjhr/`.
+- **النصوص:** الصفحة التعريفية من [`mijhar.md`](mijhar.md) في `src/lib/mjhr/copy.ts`. ونصا الخصوصية والمساعدة **مولَّدان** من [`privacy.md`](privacy.md) و[`help.md`](help.md) إلى `src/lib/mjhr/legal-text.ts` بالأمر `node scripts/mjhr/legal-text.mjs --source <هذا المجلد>` في مستودع الموقع، بقواعد `scripts/privacy.mjs` نفسها (حذف الرأس وعلامات الحالة وجدول الأدلة، و«متاح» ← «مضمّن في الإصدار 1.0.0»)، ويسجّل الالتزام الذي وُلّد منه؛ فأي تعديل هنا يُتبع بإعادة التوليد هناك.
+- **المسارات:** `/Mjhr` بحالته، و`/mjhr` و`/mijhar` وفرعيتاهما تتحوّل **301** في `proxy.ts` (لا `redirects()` في `next.config.ts` لأنها تردّ 308 والموقع يشترط 301)، و`Mjhr` و`mjhr` و`mijhar` في `RESERVED_SLUGS`، والثلاث في `sitemap.xml`.
+- **ما خالف المواصفة أو حسمه التنفيذ:**
+  - «الخصوصية» في رأس الصفحتين الفرعيتين تشير إلى `/Mjhr/privacy` لا `/Mjhr#privacy`، وهي «الحالية» فيها كما يرسمها `W-05`.
+  - سطر السريان قبل النشر: «نص الإصدار 1.0.0 — يُكتب تاريخ السريان عند نشر الصفحة.»، ويُكتب التاريخ بإعادة التوليد بـ`--effective "تسري من …"` قبل النشر.
+  - المزوّدون الثلاثة «مضمّن في الإصدار 1.0.0» لا «متاح» (القسم 5)، ومعهم سطر حقل النموذج اليدوي وزر + من `help.md`.
+  - روابط الرجوع أسفل الصفحتين ثلاثة: إلى مِجهَر، وإلى الصفحة الأخرى، وإلى الموقع الرئيسي.
+  - خط الكود IBM Plex Mono من ملفات الموقع القائمة (لا Geist Mono).
+  - لم يُعدَّل شيء في Figma: لم يحتج التنفيذ تغيير مواصفة.
+- **فُحص:** بناء الموقع الإنتاجي، و`tsc` و`eslint`، واختبارات الوحدة (`mjhr-legal-text` و`mjhr-routes` و`slug` و`proxy-redirects`)، و`tests/e2e/mjhr.spec.ts` (الحاسوب والجوال)، وفحص سلوك العدسة في Chrome بلا واجهة (الدخول 1.8 ث، ولوحة المفاتيح، والمؤشر، والتحديد، والأوضاع بارتفاع ثابت، والإيقاف بإدخال، وتقليل الحركة، وبلا سكربت، واللمس)، ولقطات الحاسوب والجوال بالوضعين بلا فيض أفقي.

@@ -33,10 +33,15 @@ describe.each(['chromium', 'firefox'])('حزمة %s', (target) => {
     for (const file of referenced) expect(fs.existsSync(path.join(outRoot, target, file)), file).toBe(true);
   });
 
-  it('مانيفست V3 بالاسم المعتمد في DEC-06 ونسخة package.json', () => {
+  it('مانيفست V3 بالاسم المعتمد في DEC-06 وعنوان المتجر (AD-39) ونسخة package.json', () => {
     const manifest = readManifest(target);
     expect(manifest.manifest_version).toBe(3);
-    expect(manifest.name).toBe('مِجهَر');
+    // عنوان المتجر وصفي، والهوية المختصرة في short_name وعنوان الزر: لا يُستبدل الاسم القصير بالطويل في الأماكن الضيقة.
+    expect(manifest.name).toBe('مِجهَر - مساعدك على GitHub');
+    expect(manifest.name.length).toBeLessThanOrEqual(45);
+    expect(manifest.short_name).toBe('مِجهَر');
+    expect((manifest.action ?? manifest.sidebar_action).default_title).toBe('مِجهَر');
+    expect(manifest.description.length).toBeLessThanOrEqual(132);
     expect(manifest.version).toBe(pkg.version);
   });
 
