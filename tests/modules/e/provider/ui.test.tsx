@@ -148,7 +148,7 @@ describe('«لماذا مفتاح مزوّد التحليل؟» (AC-E9 (٨))', (
     expect(text).not.toContain('نسخ البرومبت');
     const links = [...container.querySelectorAll('a[href^="http"]')].map((a) => a.getAttribute('href') ?? '');
     expect(links).toEqual(policyLinks(ANTHROPIC));
-    expect(container.querySelector('[data-retention]')?.textContent).toContain('2026-10-24');
+    expect(container.querySelector('[data-retention]')?.textContent).toContain('2026-10-25');
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 

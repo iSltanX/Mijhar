@@ -22,7 +22,7 @@ export const ANTHROPIC: ProviderDescriptor = {
   policy: {
     url: 'https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data',
     label: 'الاحتفاظ في privacy.claude.com',
-    readOn: '2026-10-24',
+    readOn: '2026-10-25',
     summary: 'يحذف مدخلات API ومخرجاتها من خوادمه خلال 30 يومًا مع استثناءات يذكرها، ولا يدرّب نماذجه عليها في المنتجات التجارية ما لم تأذن.',
     // شطر التدريب في مقالة شقيقة لا في مقالة الاحتفاظ (Docs/Site/privacy.md).
     also: { url: 'https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training', label: 'التدريب في privacy.claude.com' },

@@ -37,4 +37,11 @@ describe('COR-AUD-01: بيان الحفظ والعزل يشمل الأسرار �
     expect(where).toContain('غير مشفَّر');
     expect(item('[data-storage-disclosure]')).not.toMatch(/(?<!لا يدّعي مِجهَر )تشفيرًا|مُشفَّر(?!\S)|المشفّر/);
   });
+
+  it('ما يُشتق من السرّ (COR-AUD-02): في ذاكرة الجلسة، ولا يُستعمل بعد المسح أو الاستبدال، ويُحذف عند قراءة الحالة التالية لا فورًا', () => {
+    render(<StorageDisclosure />, container);
+    const derived = item('[data-storage="derived"]');
+    for (const part of ['ذاكرة الجلسة وحدها', 'قائمة النماذج', 'نتيجة اختبار النموذج', 'لا يُعرض شيء منها ولا يُستعمل', 'عند قراءة الحالة التالية']) expect(derived).toContain(part);
+    expect(derived).not.toMatch(/فورًا|مباشرة/);
+  });
 });

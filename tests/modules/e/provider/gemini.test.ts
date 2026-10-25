@@ -40,7 +40,7 @@ describe('الوصف وصيغة المفتاح (AC-E12 (٤))', () => {
   it('مضيف Gemini وصلاحيته الاختيارية وسياسته الرسمية وطلب التحقق المعلن بلا اسم ترويسة ولا مفتاح', () => {
     expect(GEMINI).toMatchObject({ id: 'gemini', host: GEMINI_HOST, origin: `https://${GEMINI_HOST}/*` });
     expect(GEMINI.policy.url).toBe('https://ai.google.dev/gemini-api/terms');
-    expect(GEMINI.policy.readOn).toBe('2026-10-24');
+    expect(GEMINI.policy.readOn).toBe('2026-10-25');
     expect(GEMINI.verifyRequest).toContain(`GET https://${GEMINI_HOST}/v1beta/models`);
     expect(GEMINI.verifyRequest).not.toMatch(/x-goog-api-key|AIza/);
     // DEC-13 ن-4: للفحص الصريح طلب معلن: POST بنص ثابت «ping» وحده بلا محتوى، بلا اسم ترويسة ولا مفتاح ولا مسار المودلات (علامات المحوّل).
