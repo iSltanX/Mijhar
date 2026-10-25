@@ -1,6 +1,7 @@
 // عرض التحليل داخل قسمه (T-11.7، AC-D9، الإطارات P-43 إلى P-49، مكوّن Analysis result): بوابة الربط بلا مفتاح، والخيار، والموافقة، وجارٍ،
-// والنتيجة، والتعذّر. النتيجة كلها «احتمال يحتاج تحققًا» بوسم نصّي لا لون وحده؛ والمثبت من المصدر هو الاقتباس الذي ورد حرفيًا فيما أُرسل؛ وما نقص
-// من النموذج ومن الطبقة قبل الإرسال؛ والمودل والمزوّد ووقت الطلب. الرد نصٌّ يُعرض فقط (Preact يهرب كل نص)، ولا يُنفَّذ منه شيء. لا تكلفة (AD-31).
+// والنتيجة، والتعذّر. النتيجة كلها «احتمال يحتاج تحققًا» بوسم نصّي لا لون وحده؛ والمثبت من الصفحة هو الاقتباس الذي ورد حرفيًا في محتوى الصفحة المرسل
+// (لا في عناوين مِجهَر وتسمياته داخل الطلب، F-04)؛ وما نقص من النموذج ومن الطبقة قبل الإرسال؛ والمودل والمزوّد ووقت الطلب. الرد نصٌّ يُعرض فقط
+// (Preact يهرب كل نص)، ولا يُنفَّذ منه شيء. لا تكلفة (AD-31).
 import { featureById } from '../../../core/connections/features';
 import type { Health } from '../../../core/connections/health';
 import { ConnectionGate } from '../../../core/connections/ui/ConnectionGate';
@@ -23,7 +24,7 @@ export interface AnalysisBlockProps {
 
 const clock = (ms: number): string => new Date(ms).toLocaleTimeString('en-GB', { hour12: false });
 const count = (n: number): string => n.toLocaleString('en-US');
-const KEY_FAILURES = new Set(['unauthorized', 'forbidden', 'expired-key', 'no-key', 'permission', 'key-read', 'not-found', 'model-changed', 'provider-changed', 'incompatible']);
+const KEY_FAILURES = new Set(['unauthorized', 'forbidden', 'expired-key', 'no-key', 'permission', 'key-read', 'key-changed', 'not-found', 'model-changed', 'provider-changed', 'incompatible']);
 
 function Tag() {
   return (
@@ -52,9 +53,9 @@ function Result({ def, state, onOpen, onHide }: { def: AnalysisSectionDef; state
       {sourced.length > 0 && (
         <div class="an-sourced" data-analysis-sourced="">
           <span class="an-badge" data-tag="sourced">
-            مثبت من المصدر
+            مثبت من الصفحة
           </span>
-          <span class="an-muted">اقتباسات وردت حرفيًا فيما أُرسل من الصفحة (لا ما يقوله النموذج عنها):</span>
+          <span class="an-muted">اقتباسات وردت حرفيًا في محتوى الصفحة الذي أُرسل، لا في عناوين مِجهَر وتسمياته ولا في كلام النموذج:</span>
           <ul>
             {sourced.map((e) => (
               <li key={e.text}>
@@ -77,7 +78,7 @@ function Result({ def, state, onOpen, onHide }: { def: AnalysisSectionDef; state
                       <ul class="an-evidence" aria-label="الأدلة التي بُني عليها">
                         {f.evidence.map((e) => (
                           <li key={e.text} data-evidence={e.found ? 'found' : 'not-found'}>
-                            <code dir="auto">{e.text}</code> — {e.found ? 'ورد في المصدر' : 'لم يرد حرفيًا فيما أُرسل؛ لا يُعدّ دليلًا'}
+                            <code dir="auto">{e.text}</code> — {e.found ? 'ورد في محتوى الصفحة' : 'لم يرد حرفيًا في محتوى الصفحة المرسل؛ لا يُعدّ دليلًا'}
                           </li>
                         ))}
                       </ul>

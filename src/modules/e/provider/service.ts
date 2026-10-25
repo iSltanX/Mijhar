@@ -215,6 +215,8 @@ const SECTION = /^[a-z][a-z0-9.-]{0,40}$/;
 
 /** المفتاح كما قُرئ للطلب، ومعه وقت حفظه من القراءة نفسها: هوية جيل المفتاح الذي تُنسب إليه نتيجة الطلب (F-03). */
 type KeySnapshot = ProviderSecret & { readonly savedAt: number };
+/** ما صار إليه المفتاح المحفوظ منذ قُرئ للطلب. */
+type KeyChange = 'replaced' | 'cleared' | 'unreadable';
 
 export class ProviderService {
   private readonly registry: ProviderRegistry;
@@ -344,11 +346,6 @@ export class ProviderService {
     };
   }
 
-  /** وقت حفظ مفتاح المزوّد الحالي (يقرن نتيجة الاختبار بالمفتاح الذي اختُبر به)، أو null. */
-  private async keySavedAt(adapter: ProviderAdapter): Promise<number | null> {
-    return (await this.keyInfo(adapter))?.savedAt ?? null;
-  }
-
   private summaries(): Promise<ProviderSummary[]> {
     return Promise.all(
       this.registry.list.map(async ({ descriptor: d }) => ({ id: d.id, title: d.title, host: d.host, health: (await this.options.connections.keyStatus(d.id).catch(() => null))?.health ?? null })),
@@ -379,13 +376,27 @@ export class ProviderService {
     return this.options.connections.observe('provider-key', verdict, adapter.descriptor.id, key.savedAt).catch((error: unknown) => this.options.onError?.(error));
   }
 
-  /** استُبدل المفتاح المحفوظ منذ قُرئ للطلب: نتيجة الطلب للمفتاح القديم، فلا تُحفظ ولا تُعرض للبديل (F-03). */
-  private async replaced(adapter: ProviderAdapter, key: KeySnapshot): Promise<boolean> {
-    return (await this.keySavedAt(adapter)) !== key.savedAt;
+  /**
+   * ما صار إليه المفتاح المحفوظ منذ قُرئ للطلب، أو null إن بقي هو: استُبدل، أو مُسح، أو تعذّرت قراءته. في الثلاث نتيجة الطلب للمفتاح القديم، فلا تُحفظ
+   * ولا تُعرض لغيره (F-03).
+   */
+  private async replaced(adapter: ProviderAdapter, key: KeySnapshot): Promise<KeyChange | null> {
+    const info = await this.keyInfo(adapter);
+    if (info === undefined) return 'unreadable';
+    if (info === null) return 'cleared';
+    return info.savedAt === key.savedAt ? null : 'replaced';
   }
 
-  private changed(adapter: ProviderAdapter, status: number | null): Fail {
-    return { ok: false, failure: 'key-changed', status, message: `استُبدل مفتاح ${adapter.descriptor.title} المحفوظ أثناء الطلب؛ لم تُنسب نتيجته إلى المفتاح الجديد. أعد المحاولة به.`, retryAt: null };
+  /** الرسالة بحسب ما حدث للمفتاح، فلا يُطلب إعادة المحاولة بمفتاح لم يعد محفوظًا. */
+  private changed(adapter: ProviderAdapter, change: KeyChange, status: number | null): Fail {
+    const t = adapter.descriptor.title;
+    const message =
+      change === 'replaced'
+        ? `استُبدل مفتاح ${t} أثناء الطلب، فنتيجته تخص المفتاح السابق ولم تُنسب إلى الحالي. أعد المحاولة ليُرسل بالمفتاح الحالي.`
+        : change === 'cleared'
+          ? `مُسح مفتاح ${t} أثناء الطلب، فلم تُحفظ نتيجته ولا مفتاح محفوظ الآن. أضف مفتاحًا من بطاقة «مزوّد التحليل» إن أردت المتابعة.`
+          : `تعذّرت قراءة مفتاح ${t} المحفوظ بعد الطلب، فلم تُنسب نتيجته إليه. افتح بطاقة «مزوّد التحليل» في الإعدادات وتحقق من المفتاح.`;
+    return { ok: false, failure: 'key-changed', status, message, retryAt: null };
   }
 
   /**
@@ -416,7 +427,8 @@ export class ProviderService {
     const result = await adapter.listModels(this.call(adapter, got));
     await this.note(adapter, result, got);
     await this.observe(adapter, providerVerdict(result, 'verify', adapter.descriptor.host), got);
-    if (await this.replaced(adapter, got)) return this.changed(adapter, result.status);
+    const change = await this.replaced(adapter, got);
+    if (change) return this.changed(adapter, change, result.status);
     if (!result.ok) return result;
     const list: ModelsList = { ...result.data, keySavedAt: got.savedAt };
     await this.save(adapter, list);
@@ -444,7 +456,8 @@ export class ProviderService {
     await this.observe(adapter, providerVerdict(result, 'usage', adapter.descriptor.host), got);
     // صلاحية المضيف غير ممنوحة: البوابة رفضت قبل أي طلب، فلا نتيجة اختبار.
     if (!result.ok && result.failure === 'permission') return { ...result, message: redactKey(result.message, got.token) };
-    if (await this.replaced(adapter, got)) return this.changed(adapter, result.status);
+    const change = await this.replaced(adapter, got);
+    if (change) return this.changed(adapter, change, result.status);
     const test: ModelTest = {
       provider: adapter.descriptor.id,
       model,
@@ -510,7 +523,8 @@ export class ProviderService {
       if (!result.ok) {
         // الطلب يبقى لصاحبه بالموافقة والمزوّد والنموذج الذي أُرسل بها، ولو استُبدل المفتاح أثناءه (لا إلغاء): ونجاحه يُعاد كما هو (F-03). أما رفض يخص
         // المفتاح الذي أُرسل به (401 و403 و404 و429 أو موعد إعادة محاولة) فيُبلَّغ أنه لمفتاح استُبدل، لا أن البديل مرفوض أو محجوب إلى موعد.
-        if ((result.retryAt !== null || KEY_BOUND.has(result.failure)) && (await this.replaced(adapter, got))) return this.changed(adapter, result.status);
+        const change = result.retryAt !== null || KEY_BOUND.has(result.failure) ? await this.replaced(adapter, got) : null;
+        if (change) return this.changed(adapter, change, result.status);
         return { ...result, message: redactKey(result.message, got.token) };
       }
       return { ok: true, status: result.status, data: { ...result.data, provider: d.title, host: d.host, requestedAt, completedAt: this.now() } };

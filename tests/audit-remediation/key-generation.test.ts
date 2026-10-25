@@ -218,3 +218,51 @@ describe('F-03 (الجولة الثانية): تحليل طُلب بالمفتا
     expect((await h.connections.keyStatus('anthropic')).health).toBe('unverified');
   });
 });
+
+describe('F-03: رسالة key-changed بحسب ما صار إليه المفتاح، فلا تطلب إعادة المحاولة بمفتاح غير محفوظ', () => {
+  it('استُبدل المفتاح أثناء التحليل: الرسالة تدعو إلى إعادة المحاولة بالمفتاح الحالي', async () => {
+    const h = await lateAnalysis(rejected(401, 'authentication_error'), false);
+    expect(h.result).toMatchObject({ ok: false, failure: 'key-changed' });
+    if (h.result.ok) return;
+    expect(h.result.message).toContain('استُبدل مفتاح Anthropic');
+    expect(h.result.message).toContain('بالمفتاح الحالي');
+  });
+
+  it('مُسح المفتاح أثناء التحليل: الرسالة تقول إن لا مفتاح محفوظًا ولا تطلب إعادة المحاولة', async () => {
+    const net = heldOldKey(rejected(401, 'authentication_error'));
+    const h = await anthropic(net.fetch);
+    await h.settings.set(modelSettingKey('anthropic'), 'mock-sonnet-2');
+    const late = h.service.analyze(input('before-clear'), 'tab-1');
+    await net.started;
+    await h.store.clear();
+    net.release();
+    const result = await late;
+    expect(result).toMatchObject({ ok: false, failure: 'key-changed', status: 401, retryAt: null });
+    if (result.ok) return;
+    expect(result.message).toContain('مُسح مفتاح Anthropic');
+    expect(result.message).toContain('لا مفتاح محفوظ الآن');
+    expect(result.message).not.toContain('أعد المحاولة');
+    expect((await h.connections.keyStatus('anthropic')).health).not.toBe('expired');
+  });
+
+  it('تعذّرت قراءة المفتاح بعد الطلب: تحيل الرسالة إلى بطاقة المزوّد، ولا تُحفظ القائمة لأي مفتاح', async () => {
+    const net = heldOldKey((url, init) => providerMock().fetch(url, init));
+    const h = await anthropic(net.fetch);
+    let broken = false;
+    const flaky: ProviderKeyStore = {
+      read: () => h.store.read(),
+      info: () => (broken ? Promise.reject(new Error('synthetic unreadable key')) : h.store.info()),
+    };
+    const service = new ProviderService({ keys: () => flaky, permissions: fakePermissions(['https://api.anthropic.com/*']), fetch: net.fetch, connections: h.connections, settings: async () => h.settings, cache: h.cache });
+    const pending = service.verify('anthropic');
+    await net.started;
+    broken = true;
+    net.release();
+    const result = await pending;
+    expect(result).toMatchObject({ ok: false, failure: 'key-changed' });
+    if (result.ok) return;
+    expect(result.message).toContain('تعذّرت قراءة مفتاح Anthropic');
+    expect(result.message).toContain('بطاقة «مزوّد التحليل»');
+    expect(await h.cache.load('anthropic')).toBeNull();
+  });
+});

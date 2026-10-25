@@ -33,6 +33,9 @@ test-results/
 playwright-report/
 screenshots/
 *.screenshot.png
+# لقطات الإصدار الحقيقية تُتتبَّع (release/README.md)، والحزم المبنية مولَّدة لا تُتتبَّع
+!release/screenshots/
+release/packages/
 
 # ملفات أسرار ومفاتيح وبيانات دخول وإعدادات محلية
 *.pem

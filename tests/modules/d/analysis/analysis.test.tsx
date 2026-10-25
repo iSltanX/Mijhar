@@ -161,7 +161,10 @@ describe('AC-D9: التحليل في شرح سجل الفحص', () => {
     expect(text(result?.querySelector('[data-analysis-part="findings"]'))).toContain('السبب المحتمل: خطأ أنواع في الملف المذكور.');
     const evidence = [...(result?.querySelectorAll('[data-evidence]') ?? [])].map((e) => e.getAttribute('data-evidence'));
     expect(evidence).toEqual(['found', 'not-found']);
-    expect(text(result?.querySelector('[data-analysis-sourced]'))).toContain('مثبت من المصدر');
+    expect(text(result?.querySelector('[data-analysis-sourced]'))).toContain('مثبت من الصفحة');
+    expect(text(result?.querySelector('[data-analysis-sourced]'))).toContain('لا في عناوين مِجهَر وتسمياته');
+    expect(text(result?.querySelector('[data-evidence="found"]'))).toContain('ورد في محتوى الصفحة');
+    expect(text(result?.querySelector('[data-evidence="not-found"]'))).toContain('لم يرد حرفيًا في محتوى الصفحة المرسل');
     expect(text(result?.querySelector('[data-analysis-part="missing"]'))).toContain('لم يُرسل السجل كاملًا.');
     expect(text(result?.querySelector('[data-analysis-part="missing"]'))).toContain('وما أعلنته الطبقة قبل الإرسال');
     const meta = text(result?.querySelector('[data-analysis-meta]'));

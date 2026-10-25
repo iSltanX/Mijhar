@@ -216,7 +216,7 @@ export function ApiPanel({ status, loading, data, attempt = null, onRead, onOpen
           {status.authenticated ? (
             <span data-api-auth="token">طلبات قراءة فقط برمز الوصول المحفوظ في الإضافة</span>
           ) : (
-            'أربعة طلبات عامة بلا رمز'
+            'طلبات قراءة عامة بلا رمز (أربعة، وتزيد إن طالت قائمة الفحوص)'
           )}
           {rate && rate.remaining !== null && rate.limit !== null && (
             <>

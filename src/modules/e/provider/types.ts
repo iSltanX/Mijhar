@@ -105,8 +105,9 @@ export interface ModelsList {
 /**
  * أسباب الفشل المصنَّفة. محلية (لم يُرسل طلب): permission وno-key وkey-read وexpired-key وbusy وcooldown وmodel-changed وprovider-changed
  * وincompatible وinvalid-request. ومن المزوّد: unauthorized (401) وforbidden (403) وnot-found وtoo-large وinvalid وrate-limit (429) وoverloaded
- * (529 أو 5xx) وhttp وnetwork وaborted. وkey-changed: استُبدل المفتاح المحفوظ أثناء طلب تحقق أو اختبار، فلا تُنسب نتيجته إلى البديل؛ أو أثناء تحليل
- * رفضه المزوّد رفضًا يخص المفتاح القديم (401 و403 و404 و429 أو موعد إعادة محاولة)، فلا يُبلَّغ أن البديل مرفوض (F-03).
+ * (529 أو 5xx) وhttp وnetwork وaborted. وkey-changed: استُبدل المفتاح المحفوظ أو مُسح أو تعذّرت قراءته أثناء طلب تحقق أو اختبار، فلا تُنسب نتيجته
+ * إلى غيره؛ أو أثناء تحليل رفضه المزوّد رفضًا يخص المفتاح القديم (401 و403 و404 و429 أو موعد إعادة محاولة)، فلا يُبلَّغ أن البديل مرفوض (F-03). ورسالته
+ * بحسب ما حدث للمفتاح، فلا تطلب إعادة المحاولة بمفتاح لم يعد محفوظًا.
  */
 export type ProviderFailure =
   | 'permission'

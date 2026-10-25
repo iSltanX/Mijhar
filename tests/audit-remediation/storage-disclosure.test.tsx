@@ -37,4 +37,14 @@ describe('COR-AUD-01: بيان الحفظ والعزل يشمل الأسرار �
     expect(where).toContain('غير مشفَّر');
     expect(item('[data-storage-disclosure]')).not.toMatch(/(?<!لا يدّعي مِجهَر )تشفيرًا|مُشفَّر(?!\S)|المشفّر/);
   });
+
+  it('ما يُشتق من السرّ (COR-AUD-02): القائمة والاختبار يُحذفان عند القراءة التالية، وسجل التحقق يُحذف بعد المسح ويبقى مهملًا بعد الاستبدال', () => {
+    render(<StorageDisclosure />, container);
+    const derived = item('[data-storage="derived"]');
+    for (const part of ['ذاكرة الجلسة وحدها', 'لا يُعرض ولا يُستعمل لغير السرّ الذي صدر عنه', 'قائمة النماذج ونتيجة اختبار النموذج عند قراءة الحالة التالية']) expect(derived).toContain(part);
+    // سجل الصحة: يحذفه status() إن لم يعد السرّ محفوظًا، ويتجاهله resolveStatus لسرّ بوقت حفظ آخر حتى يكتب فوقه أول حكم على البديل.
+    expect(derived).toContain('فتُحذف كذلك بعد المسح');
+    expect(derived).toContain('وبعد الاستبدال تبقى مهملة حتى يحل محلها أول تحقق من البديل أو تُمحى ذاكرة الجلسة');
+    expect(derived).not.toMatch(/فورًا|مباشرة/);
+  });
 });
