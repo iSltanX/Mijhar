@@ -1,0 +1,30 @@
+# المانيفست داخل الحزم النهائية
+== chromium/mijhar-1.0.0-chromium.zip
+{
+ "name": "مِجهَر - مساعدك على GitHub",
+ "short_name": "مِجهَر",
+ "description": "يصحّح اتجاه العربية، ويشرح الأزرار والمصطلحات في مكانها، ويلخّص ما يمنع دمج الطلب وسبب فشل الفحص. يعمل بلا حساب ولا مفتاح.",
+ "action_title": "مِجهَر",
+ "version": "1.0.0"
+}
+== firefox/mijhar-1.0.0-firefox.zip
+{
+ "name": "مِجهَر - مساعدك على GitHub",
+ "short_name": "مِجهَر",
+ "description": "يصحّح اتجاه العربية، ويشرح الأزرار والمصطلحات في مكانها، ويلخّص ما يمنع دمج الطلب وسبب فشل الفحص. يعمل بلا حساب ولا مفتاح.",
+ "action_title": "مِجهَر",
+ "sidebar_title": "مِجهَر",
+ "version": "1.0.0",
+ "gecko_id": "mijhar@bysltan.com"
+}
+== source.zip: src/manifest/*.json
+src/manifest/chromium.json name:   "name": "مِجهَر - مساعدك على GitHub",
+src/manifest/firefox.json name:   "name": "مِجهَر - مساعدك على GitHub",
+== shasum -c
+chromium/mijhar-1.0.0-chromium.zip: OK
+firefox/mijhar-1.0.0-firefox.zip: OK
+firefox/mijhar-1.0.0-source.zip: OK
+== zip -T
+No errors detected in compressed data of release/packages/chromium/mijhar-1.0.0-chromium.zip.
+No errors detected in compressed data of release/packages/firefox/mijhar-1.0.0-firefox.zip.
+No errors detected in compressed data of release/packages/firefox/mijhar-1.0.0-source.zip.
