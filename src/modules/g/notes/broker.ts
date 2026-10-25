@@ -4,6 +4,7 @@
 // حُذفت، ولا تُحفظ مرساة لملاحظة لم يعد سجلها موجودًا. المسار المباشر (المستودعان بلا كاتب) للخلفية نفسها ولاختبارات الوحدة.
 import type { Store } from '../../../core/storage';
 import { AnchorStore } from '../anchor/store';
+import { BookmarkNotFoundError, BookmarksRepository } from '../bookmarks/repository';
 import { DataImportError, NoBackupError } from '../export/errors';
 import { parseBundle } from '../export/format';
 import { BACKUP_NAME, planDelete, planImport, pruneBundle, snapshotBundle } from '../export/plan';
@@ -20,11 +21,13 @@ export interface NotesBrokerParts {
   readonly store: Store;
   readonly notes: NotesRepository;
   readonly anchors: AnchorStore;
+  /** MJ-TA-03: مستودع الروابط المباشر؛ الخلفية كاتبه الوحيد. */
+  readonly bookmarks: BookmarksRepository;
 }
 
 const failure = (error: unknown): NotesWriteResponse => {
   const e = error instanceof Error ? error : new Error(String(error));
-  return { ok: false, error: { name: e.name, message: e.message, ...(e instanceof NoteNotFoundError ? { id: e.id } : {}) } };
+  return { ok: false, error: { name: e.name, message: e.message, ...(e instanceof NoteNotFoundError || e instanceof BookmarkNotFoundError ? { id: e.id } : {}) } };
 };
 
 export class NotesBroker {
@@ -53,7 +56,7 @@ export class NotesBroker {
     return this.serial(({ anchors }) => anchors.pruneOrphans());
   }
 
-  private async run(request: NotesWriteRequest, { store, notes, anchors }: NotesBrokerParts): Promise<unknown> {
+  private async run(request: NotesWriteRequest, { store, notes, anchors, bookmarks }: NotesBrokerParts): Promise<unknown> {
     switch (request.op) {
       case 'note-create':
         return notes.create(request.draft);
@@ -75,6 +78,13 @@ export class NotesBroker {
         return this.deleteScope(store, request.scope);
       case 'data-restore':
         return this.restoreLast(store);
+      // MJ-TA-03: يُقرأ الرابط الحالي ويُتحقق من وجوده داخل الطابور، فلا يعيد تعديلٌ متأخر رابطًا حُذف.
+      case 'bookmark-create':
+        return bookmarks.create(request.draft);
+      case 'bookmark-update':
+        return bookmarks.update(request.id, request.patch);
+      case 'bookmark-remove':
+        return bookmarks.remove(request.id);
     }
   }
 
@@ -153,6 +163,6 @@ async function applyPlan(store: Store, plan: ImportPlan): Promise<void> {
 
 /** المستودعان المباشران فوق مخزن الخلفية. */
 export async function openParts(store: Store, options: NotesRepositoryOptions = {}): Promise<NotesBrokerParts> {
-  const [notes, anchors] = await Promise.all([NotesRepository.open(store, options), AnchorStore.open(store)]);
-  return { store, notes, anchors };
+  const [notes, anchors, bookmarks] = await Promise.all([NotesRepository.open(store, options), AnchorStore.open(store), BookmarksRepository.open(store, options.now ? { now: options.now } : {})]);
+  return { store, notes, anchors, bookmarks };
 }

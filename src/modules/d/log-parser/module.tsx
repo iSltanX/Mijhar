@@ -6,6 +6,7 @@
 //  - MJ21 (T-11.7، AC-D9): «حلّل الفشل واقترح الإصلاح» في الطبقة الثالثة وحدها: بلا مفتاح بوابة معلَّلة ولا نص تحليل؛ وبمفتاح موافقة ثم نتيجة
 //    موسومة بأدلتها. السياق من الطبقة المشتركة بالسجل المقروء إن قُرئ، ولا يُرسل شيء قبل «إرسال للتحليل».
 import { mountSurface } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import type { ExtensionModule, ModuleContext } from '../../../core';
 import { COLLECTOR_SELECTORS, prepareContext } from '../../e/context';
 import type { LogExtra } from '../../e/context';
@@ -137,9 +138,17 @@ class LogController {
       return;
     }
     if (!this.surface) {
-      const logs = ctx.selectors.resolve(ctx.document, 'd.job.logs')?.element;
-      const parent = logs?.parentNode ?? ctx.page.contentRoot ?? ctx.document.body;
-      this.surface = mountSurface(ctx, { parent, before: logs ?? parent.firstChild, styles: LOG_CSS + ANALYSIS_CSS, label: 'شرح سجل الفحص' });
+      const anchor = (): Spot | null => {
+        const logs = ctx.selectors.resolve(ctx.document, 'd.job.logs')?.element;
+        return logs?.parentNode ? { parent: logs.parentNode, before: logs } : null;
+      };
+      const fallback = (): Spot => {
+        const parent = ctx.page.contentRoot ?? ctx.document.body;
+        return { parent, before: parent.firstChild };
+      };
+      const spot = anchor() ?? fallback();
+      // إعادة رسم الصفحة تبعد المضيف (MJ-F-01): يعيده keep قبل السجل الجديد.
+      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: LOG_CSS + ANALYSIS_CSS, label: 'شرح سجل الفحص', keep: { anchor, fallback } });
     }
     this.surface.render(this.view(page, failed));
   }

@@ -148,15 +148,24 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     const token = tokens ? async () => (await tokens.read())?.token ?? null : undefined;
     const client = new PublicApiClient({ permissions: api.permissions, ...(options.fetch ? { fetch: options.fetch } : {}), ...(token ? { token } : {}) });
     const direct = directPort(client, api.permissions);
-    const observe = async <R extends PublicApiResult<unknown>>(path: string, result: R): Promise<R> => {
+    // MJ-TA-02: وقت حفظ الرمز عند بدء الطلب يرافق نتيجته، فرفضٌ متأخر لرمز استُبدل أثناء الطلب لا يُكتب على صحة البديل. يُقرأ قبل
+    // الطلب: إن استُبدل الرمز بين القراءتين سقط الحكم (لا يُسجَّل) ولا يُنسب إلى غير رمزه.
+    const savedAtNow = async (): Promise<number | undefined> => (await tokens?.info().catch(() => null))?.savedAt;
+    const observe = async <R extends PublicApiResult<unknown>>(path: string, result: R, savedAt: number | undefined): Promise<R> => {
       const { expiresAt } = await client.auth().catch(() => ({ expiresAt: null }));
-      await connections.observeGithub(path, result, expiresAt).catch((error: unknown) => console.error('[mijhar] تعذّر تسجيل صحة الرمز', error));
+      await connections.observeGithub(path, result, expiresAt, savedAt).catch((error: unknown) => console.error('[mijhar] تعذّر تسجيل صحة الرمز', error));
       return result;
     };
     publicApi = {
       status: () => direct.status(),
-      get: async (path) => observe(path, await direct.get(path)),
-      getAll: async (path, key, maxPages) => observe(path, await direct.getAll(path, key, maxPages)),
+      get: async (path) => {
+        const savedAt = await savedAtNow();
+        return observe(path, await direct.get(path), savedAt);
+      },
+      getAll: async (path, key, maxPages) => {
+        const savedAt = await savedAtNow();
+        return observe(path, await direct.getAll(path, key, maxPages), savedAt);
+      },
     };
     return publicApi;
   };

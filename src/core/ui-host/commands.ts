@@ -23,7 +23,15 @@ const isMac = (userAgent: string): boolean => /Macintosh|Mac OS X/.test(userAgen
 
 /** نص الاختصار الافتراضي الذي يسري على نظام المستخدم، كما يكتبه المتصفح (MacCtrl هو مفتاح Control). */
 export function shortcutLabel(defaultKey: string, macKey: string, userAgent: string = globalThis.navigator?.userAgent ?? ''): string {
-  return isMac(userAgent) ? macKey.replace('MacCtrl', 'Control') : defaultKey;
+  return isMac(userAgent) ? displayShortcut(macKey) : defaultKey;
+}
+
+/**
+ * الاختصار كما يعرضه مِجهَر من commands.getAll (MJ-F-03): Firefox يعيده بصيغة المانيفست («MacCtrl+Shift+G»)، وMacCtrl اسم داخلي لمفتاح Control
+ * في macOS؛ فيُعرض «Control» كما في المساعدة وREADME. وما تعيده عائلة Chromium (رموز ⌃⇧G، أو Alt+G) يبقى كما هو.
+ */
+export function displayShortcut(shortcut: string): string {
+  return shortcut.split('+').map((part) => (part === 'MacCtrl' ? 'Control' : part)).join('+');
 }
 
 export const DRAWER_MESSAGE = 'mijhar:drawer';

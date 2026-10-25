@@ -22,6 +22,11 @@ export interface ConsentDestination {
   readonly model: { readonly id: string; readonly displayName: string } | null;
   /** صلاحية مضيف المزوّد ممنوحة. */
   readonly permission: boolean;
+  /**
+   * MJ-F-02: حال مفتاح المزوّد المختار: usable (محفوظ لم يُرفض، ومنه غير المتحقق منه)، missing (لا مفتاح)، expired (رفضه المزوّد)، unknown (تعذّرت قراءة
+   * حاله). لا إرسال بغير usable. الافتراضي usable.
+   */
+  readonly key?: 'usable' | 'missing' | 'expired' | 'unknown';
 }
 
 export interface ConsentSheetProps {
@@ -46,7 +51,8 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
     title.current?.focus();
   }, []);
   const { consent } = prepared;
-  const ready = destination.model !== null && destination.permission && !blocked;
+  const keyState = destination.key ?? 'usable';
+  const ready = destination.model !== null && destination.permission && keyState === 'usable' && !blocked;
   const model = destination.model ? destination.model.displayName : 'نموذج لم يُحدَّد بعد';
   // يتغير المفتاح مع المحتوى أو الوجهة فيُعاد التركيز إلى العنوان عند إعادة العرض.
   useEffect(() => {
@@ -160,6 +166,15 @@ export function ConsentSheet({ prepared, destination, blocked = null, changed = 
               صلاحية <Ltr className="mono">{destination.host}</Ltr> غير ممنوحة؛ امنحها من بطاقة «مزوّد التحليل» في الإعدادات.
             </>
           )}
+        </p>
+      )}
+      {keyState !== 'usable' && (
+        <p class="mj-note" data-tone="warning" data-consent-blocked="key">
+          {keyState === 'expired'
+            ? `رفض ${destination.provider} المفتاح المحفوظ (منتهٍ أو ملغى)؛ استبدله أو تحقق منه من بطاقة «مزوّد التحليل» في الإعدادات.`
+            : keyState === 'unknown'
+              ? `تعذّرت قراءة حال مفتاح ${destination.provider} الآن، فلا يُرسل شيء؛ أعد المحاولة أو افتح بطاقة «مزوّد التحليل» في الإعدادات.`
+              : `لا مفتاح محفوظ لـ${destination.provider}؛ أضفه من بطاقة «مزوّد التحليل» في الإعدادات.`}
         </p>
       )}
       {blocked && (

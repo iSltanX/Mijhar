@@ -6,6 +6,10 @@
 //    مستودع خاص لقراءة بلا رمز)؛ ورفض الرمز (401) فشل معلن لا رجوع صامت إلى الوصول المجهول (evidence/T-0.5).
 //  - ترويسات x-ratelimit-* تُقرأ من كل استجابة؛ وعند النفاد لا يُرسل شيء حتى reset (لا طلب يُهدر ولا يُفترض رقم)، وبعد رفض بموعد
 //    إعادة (retry-after) لا يُرسل شيء قبله من أي مستهلك للعميل (VR-07). والحد لكل مورد: core للمسارات، وsearch للبحث (حد مستقل).
+//  - الحد الثانوي (MJ-TA-06): GitHub يرده 403 أو 429 والحد الأساسي لم ينفد، بترويسة retry-after (ثوانٍ أو تاريخ HTTP) أو برسالة
+//    «secondary rate limit»؛ فهو حد بموعده (وبلا موعد معلن دقيقة على الأقل كما يوصي GitHub) لا رفض صلاحية. و403 بلا شيء من ذلك رفض.
+//  - جيل الرمز (MJ-TA-02): لكل رمز يُقرأ رقم جيل يزيد بتغيّره أو مسحه؛ وردّ طلب أُرسل بجيل سابق (ولو وصل جسمه بعد الاستبدال) لا يكتب
+//    ذاكرة ETag ولا متعقّب الحد ولا موعد الانتهاء للجيل الحالي.
 //  - طلبات شرطية بـETag (If-None-Match) تقلل النقل؛ وهي تُحتسب من الحد الأساسي للطلبات العامة (VER-12، ومقيس في T-0.3)، فلا يُدّعى
 //    أنها توفّر الحد.
 //  - الفشل نتيجة مصنَّفة بسببها لا استثناء يتسرب، ولا يُعرض فشلٌ نجاحًا.
@@ -112,6 +116,8 @@ export class PublicApiClient {
   private readonly caches: Record<Mode, Map<string, Cached>> = { public: new Map(), token: new Map() };
   /** آخر رمز استُعمل (في ذاكرة الخلفية وحدها) ليُكشف تغيّره أو مسحه فتُفرَّغ حالة الموثَّق. */
   private lastToken: string | null = null;
+  /** جيل الرمز: يزيد بكل تغيّر أو مسح، فيُعرف الرد المتأخر لرمز سابق ولو عاد الرمز نفسه بعد غيره. */
+  private generation = 0;
   private expiresAt: number | null = null;
   private readonly fetchImpl: typeof fetch | undefined;
   private readonly now: () => number;
@@ -146,6 +152,7 @@ export class PublicApiClient {
       this.trackers.token = new RateLimitTracker();
       this.expiresAt = null;
       this.lastToken = token;
+      this.generation += 1;
     }
     return token;
   }
@@ -160,6 +167,9 @@ export class PublicApiClient {
       tokenError = error instanceof Error ? error.name : 'Error';
     }
     const mode: Mode = token ? 'token' : 'public';
+    const generation = this.generation;
+    // يُعاد فحصه عند كل كتابة في حالة العميل، لا مرة بعد وصول الترويسات: جسم الرد قد يصل بعد استبدال الرمز.
+    const current = (): boolean => generation === this.generation;
     const tracker = this.trackers[mode];
     const cache = this.caches[mode];
     const auth = token ? ({ authenticated: true } as const) : {};
@@ -193,30 +203,32 @@ export class PublicApiClient {
       return fail('network', error instanceof Error ? error.message : String(error));
     }
     // ردّ متأخر لرمز تغيّر أثناء الطلب لا يدخل ذاكرة الرمز الجديد ولا متعقّبه.
-    const current = token === this.lastToken;
     const readAt = this.now();
     const rate = readRateLimit(response.headers, readAt);
-    if (current) tracker.update(rate);
+    if (current()) tracker.update(rate);
     const { status } = response;
-    if (token && current) this.expiresAt = readTokenExpiry(response.headers) ?? this.expiresAt;
+    if (token && current()) this.expiresAt = readTokenExpiry(response.headers) ?? this.expiresAt;
 
     if (status === 304 && cached) {
-      if (current) this.touch(cache, path, cached);
+      if (current()) this.touch(cache, path, cached);
       return { ok: true, status, data: cached.data as T, fromCache: true, readAt, rate, ...auth };
     }
     if (status === 401 && token) return fail('unauthorized', 'رفض GitHub رمز الوصول المحفوظ (401): غير صالح أو منتهٍ أو ملغى. بدّله أو امسحه من الإعدادات؛ ولم يُعَد الطلب بلا رمز', status);
     if (status === 404) return fail('not-found', token ? 'المورد غير موجود أو لا يشمله الرمز (404)' : 'المورد غير موجود أو غير عام (404)', status);
-    if (status === 429 || (status === 403 && rate?.remaining === 0)) {
-      const retryAfter = Number(response.headers.get('retry-after'));
-      const retryAt = Number.isFinite(retryAfter) && retryAfter > 0 ? readAt + retryAfter * 1000 : rate?.reset ? rate.reset * 1000 : null;
-      if (retryAt !== null && current) tracker.cooldown(resource, retryAt);
-      return fail('rate-limit', await messageOf(response, 'بلغ حد الطلبات'), status, retryAt);
-    }
-    if (status === 403) {
+    if (status === 429 || status === 403) {
+      const message = await messageOf(response, '');
+      const retryAfter = readRetryAfter(response.headers, readAt);
+      const exhausted = rate?.remaining === 0;
+      const secondary = !exhausted && (status === 429 || retryAfter !== null || SECONDARY_LIMIT.test(message));
+      if (exhausted || secondary) {
+        const retryAt = retryAfter ?? (exhausted && rate?.reset ? rate.reset * 1000 : secondary ? readAt + SECONDARY_WAIT_MS : null);
+        if (retryAt !== null && current()) tracker.cooldown(resource, retryAt);
+        return fail('rate-limit', message || 'بلغ حد الطلبات', status, retryAt);
+      }
       // نقص صلاحية لنقطة بعينها (evidence/T-0.5): الترويسة تسمّي الصلاحية المطلوبة.
       const needed = token ? response.headers.get('x-accepted-github-permissions')?.trim() : null;
-      const message = await messageOf(response, 'رفض GitHub الطلب (403)');
-      return fail('forbidden', needed ? `${message} (الصلاحية المطلوبة: ${needed})` : message, status, null, needed || null);
+      const reason = message || 'رفض GitHub الطلب (403)';
+      return fail('forbidden', needed ? `${reason} (الصلاحية المطلوبة: ${needed})` : reason, status, null, needed || null);
     }
     if (!response.ok) return fail('http', await messageOf(response, `HTTP ${status}`), status);
     let data: T;
@@ -226,7 +238,7 @@ export class PublicApiClient {
       return fail('http', 'استجابة ليست JSON', status);
     }
     const etag = response.headers.get('etag');
-    if (etag && current) this.touch(cache, path, { etag, data });
+    if (etag && current()) this.touch(cache, path, { etag, data });
     return { ok: true, status, data, fromCache: false, readAt, rate, ...auth };
   }
 
@@ -264,6 +276,23 @@ export class PublicApiClient {
       cache.delete(oldest);
     }
   }
+}
+
+/** رسالة GitHub للحد الثانوي («You have exceeded a secondary rate limit»). */
+const SECONDARY_LIMIT = /secondary rate limit/i;
+/** «انتظر دقيقة على الأقل» حين لا يعلن GitHub موعدًا للحد الثانوي. */
+const SECONDARY_WAIT_MS = 60_000;
+
+/** retry-after بالثواني أو بتاريخ HTTP، موعدًا مطلقًا (ms) بعد الآن؛ وإلا null. */
+export function readRetryAfter(headers: Pick<Headers, 'get'>, now: number): number | null {
+  const raw = headers.get('retry-after')?.trim();
+  if (!raw) return null;
+  if (/^\d+$/.test(raw)) {
+    const seconds = Number(raw);
+    return seconds > 0 ? now + seconds * 1000 : null;
+  }
+  const at = Date.parse(raw);
+  return Number.isFinite(at) && at > now ? at : null;
 }
 
 async function messageOf(response: Response, fallback: string): Promise<string> {

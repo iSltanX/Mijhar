@@ -2,11 +2,16 @@
 // واللوحة والإعدادات) يرسل إليها حقول التعديل وحدها لا سجلًا كاملًا. وكل مخزن سياق يقرأ ويشترك في التغيّر كما كان.
 //  - الشكل يُفحص في الخلفية (parseNotesWriteRequest) ولا يُقبل سجل محسوب عند المرسل: المعرّف والطوابع والإصدار تحسبها الخلفية.
 //  - تعذّر الوصول إلى الخلفية يُفشل العملية ظاهرًا، ولا كتابة محلية بديلة أبدًا.
+//  - MJ-TA-03: وروابط «أكمل لاحقًا» (bookmarks.*) كذلك: إنشاؤها وتعديلها بحقوله المرسلة وحدها وحذفها في الطابور نفسه.
 import type { ExtensionApi } from '../../../core/ui-host/browser-api';
 import { isLineAnchor } from '../anchor/types';
 import { DataImportError, NoBackupError } from '../export/errors';
 import type { DeleteCounts, DeleteScope, ImportMode, ImportSummary } from '../export/plan';
 import type { LineAnchor } from '../anchor/types';
+import { BookmarkInputError, BookmarkNotFoundError } from '../bookmarks/repository';
+import type { BookmarksWriter } from '../bookmarks/repository';
+import { isBookmarkLevel, isBookmarkPosition, isBookmarkStatus } from '../bookmarks/types';
+import type { Bookmark, BookmarkDraft, BookmarkPatch } from '../bookmarks/types';
 import { NoteNotFoundError, NoteTextError } from './repository';
 import { ANCHOR_STATUSES, isNoteTarget } from './types';
 import type { Note, NoteDraft, NotePatch } from './types';
@@ -23,7 +28,11 @@ export type NotesWriteOperation =
   // تفحص وتحسب وتكتب من حالتها هي.
   | { readonly op: 'data-import'; readonly content: unknown; readonly mode: ImportMode }
   | { readonly op: 'data-delete'; readonly scope: DeleteScope }
-  | { readonly op: 'data-restore' };
+  | { readonly op: 'data-restore' }
+  // MJ-TA-03: روابط «أكمل لاحقًا».
+  | { readonly op: 'bookmark-create'; readonly draft: BookmarkDraft }
+  | { readonly op: 'bookmark-update'; readonly id: string; readonly patch: BookmarkPatch }
+  | { readonly op: 'bookmark-remove'; readonly id: string };
 
 export type NotesWriteRequest = NotesWriteOperation & { readonly type: typeof NOTES_WRITE_MESSAGE };
 
@@ -31,8 +40,8 @@ export type NotesWriteResponse =
   | { readonly ok: true; readonly value?: unknown }
   | { readonly ok: false; readonly error: { readonly name: string; readonly message: string; readonly id?: string } };
 
-/** ما يحتاجه مستودع الملاحظات ومخزن المراسي ليكتبا عبر الخلفية. */
-export interface NotesWriter {
+/** ما يحتاجه مستودع الملاحظات ومخزن المراسي ومستودع الروابط ليكتبوا عبر الخلفية. */
+export interface NotesWriter extends BookmarksWriter {
   createNote(draft: NoteDraft): Promise<Note>;
   updateNote(id: string, patch: NotePatch): Promise<Note>;
   removeNote(id: string): Promise<void>;
@@ -69,6 +78,39 @@ function isPatch(value: unknown): value is NotePatch {
     (value.text === undefined || typeof value.text === 'string') &&
     (value.anchorStatus === undefined || isStatus(value.anchorStatus)) &&
     (value.target === undefined || (isNoteTarget(value.target) && value.target.level === 'line'))
+  );
+}
+
+const isNullableString = (value: unknown): boolean => value === null || typeof value === 'string';
+const isStringList = (value: unknown): boolean => Array.isArray(value) && value.every((v) => typeof v === 'string');
+
+// شكل الرسالة وحده؛ والقيم تُفحص في المستودع المباشر بالخلفية (isBookmark وparseTags وحد الملاحظة) كما لو كُتبت محليًا.
+function isBookmarkDraft(value: unknown): value is BookmarkDraft {
+  if (!isRecord(value) || !onlyKeys(value, ['url', 'title', 'owner', 'repo', 'branch', 'refKind', 'level', 'position', 'status', 'tags', 'note'])) return false;
+  return (
+    typeof value.url === 'string' &&
+    isNullableString(value.title) &&
+    isNullableString(value.owner) &&
+    isNullableString(value.repo) &&
+    isNullableString(value.branch) &&
+    (value.refKind === 'sha' || value.refKind === 'ref' || value.refKind === 'unknown') &&
+    isBookmarkLevel(value.level) &&
+    (value.position === null || isBookmarkPosition(value.position)) &&
+    (value.status === undefined || isBookmarkStatus(value.status)) &&
+    (value.tags === undefined || isStringList(value.tags)) &&
+    (value.note === undefined || typeof value.note === 'string')
+  );
+}
+
+function isBookmarkPatch(value: unknown): value is BookmarkPatch {
+  if (!isRecord(value) || !onlyKeys(value, ['status', 'tags', 'note', 'title', 'position', 'branch'])) return false;
+  return (
+    (value.status === undefined || isBookmarkStatus(value.status)) &&
+    (value.tags === undefined || isStringList(value.tags)) &&
+    (value.note === undefined || typeof value.note === 'string') &&
+    (value.title === undefined || isNullableString(value.title)) &&
+    (value.position === undefined || value.position === null || isBookmarkPosition(value.position)) &&
+    (value.branch === undefined || isNullableString(value.branch))
   );
 }
 
@@ -116,6 +158,12 @@ export function parseNotesWriteRequest(message: unknown): NotesWriteRequest | nu
       return onlyKeys(message, ['type', 'op', 'scope']) && isDeleteScope(message.scope) ? (message as NotesWriteRequest) : null;
     case 'data-restore':
       return onlyKeys(message, ['type', 'op']) ? (message as NotesWriteRequest) : null;
+    case 'bookmark-create':
+      return onlyKeys(message, ['type', 'op', 'draft']) && isBookmarkDraft(message.draft) ? (message as NotesWriteRequest) : null;
+    case 'bookmark-update':
+      return onlyKeys(message, ['type', 'op', 'id', 'patch']) && isId(message.id) && isBookmarkPatch(message.patch) ? (message as NotesWriteRequest) : null;
+    case 'bookmark-remove':
+      return onlyKeys(message, ['type', 'op', 'id']) && isId(message.id) ? (message as NotesWriteRequest) : null;
     default:
       return null;
   }
@@ -129,6 +177,8 @@ function rebuild(error: unknown): Error {
   if (e.name === 'NoteTextError') return new NoteTextError(message);
   if (e.name === 'DataImportError') return Object.assign(new DataImportError([]), { message });
   if (e.name === 'NoBackupError') return new NoBackupError();
+  if (e.name === 'BookmarkNotFoundError') return new BookmarkNotFoundError(typeof e.id === 'string' ? e.id : '');
+  if (e.name === 'BookmarkInputError') return new BookmarkInputError(message);
   return new Error(message);
 }
 
@@ -154,5 +204,8 @@ export function runtimeNotesWriter(runtime: Pick<ExtensionApi['runtime'], 'sendM
     importBundle: async (content, mode) => (await send({ op: 'data-import', content, mode })) as ImportSummary,
     deleteData: async (scope) => (await send({ op: 'data-delete', scope })) as DeleteCounts,
     restoreImportBackup: async () => (await send({ op: 'data-restore' })) as ImportSummary,
+    createBookmark: async (draft) => (await send({ op: 'bookmark-create', draft })) as Bookmark,
+    updateBookmark: async (id, patch) => (await send({ op: 'bookmark-update', id, patch })) as Bookmark,
+    removeBookmark: async (id) => void (await send({ op: 'bookmark-remove', id })),
   };
 }

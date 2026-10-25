@@ -11,7 +11,7 @@ import type { ComponentChild } from 'preact';
 import type { ModuleContext } from '../../../core';
 import type { FeatureId } from '../../../core/connections/features';
 import type { Health } from '../../../core/connections/health';
-import { isConnectionsChanged, runtimeConnectionsPort } from '../../../core/connections/port';
+import { isConnectionsChanged, onTabReturn, runtimeConnectionsPort } from '../../../core/connections/port';
 import type { ConnectionsPort } from '../../../core/connections/port';
 import { extensionApi } from '../../../core/ui-host/browser-api';
 import type { ExtEvent } from '../../../core/ui-host/browser-api';
@@ -142,6 +142,11 @@ export class SectionAnalysis {
       messages.addListener(listener);
       this.ctx.onTeardown(() => messages.removeListener(listener));
     }
+    // MJ-F-02: ما غيّرته الإعدادات (مسح المفتاح، تبديل المزوّد، رفضه) يظهر عند العودة إلى التبويب بلا إعادة تحميل؛ وموافقة معروضة تُقرأ وجهتها من جديد.
+    onTabReturn(this.ctx, () => {
+      void this.readHealth();
+      this.refreshConsent();
+    });
     this.ctx.onTeardown(() => {
       if (this.state.kind === 'loading') void this.deps.provider?.cancel(this.state.requestId);
     });
@@ -180,6 +185,17 @@ export class SectionAnalysis {
       return;
     }
     this.show(prepared);
+  }
+
+  /** موافقة معروضة: تُقرأ وجهتها (ومنها حال المفتاح) من جديد في مكانها، بلا إعادة عرض تنقل التركيز. */
+  private refreshConsent(): void {
+    const shown = this.state;
+    // أثناء «إرسال للتحليل» يقرأ confirm الوجهة بنفسه، فلا يُستبدل ما عرضه (وإلا توقف بصمت).
+    if (shown.kind !== 'consent' || shown.status === undefined || this.confirming) return;
+    void this.deps.provider?.status().then((status) => {
+      const now = this.state;
+      if (now.kind === 'consent' && now.prepared === shown.prepared && !this.confirming) this.set({ ...now, status });
+    });
   }
 
   /** يعرض الموافقة بمحتوى مجهَّز ثم يقرأ وجهته (المزوّد المختار ومودله) من الخلفية. */

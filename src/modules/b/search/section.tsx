@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import { extensionApi } from '../../../core/ui-host/browser-api';
 import type { SettingsSection, SettingsSectionProps } from '../../../options/sections';
-import { shortcutLabel } from '../../../core/ui-host/commands';
+import { displayShortcut, shortcutLabel } from '../../../core/ui-host/commands';
 import { GLOSSARY_COMMAND, GLOSSARY_SHORTCUT, GLOSSARY_SHORTCUT_MAC } from './ids';
 
 /** اختصار الأمر الفعلي كما عيّنه المتصفح (قد يكون أعاد المستخدم ربطه أو لم يُعيَّن)، أو undefined إن تعذّر القراءة. */
@@ -15,7 +15,7 @@ export function useCommandShortcut(name: string): string | null | undefined {
       const commands = extensionApi().commands;
       if (!commands) return undefined;
       commands.getAll().then(
-        (all) => alive && setShortcut(all.find((c) => c.name === name)?.shortcut || null),
+        (all) => alive && setShortcut(displayShortcut(all.find((c) => c.name === name)?.shortcut ?? '') || null),
         () => alive && setShortcut(undefined),
       );
     } catch {

@@ -109,7 +109,19 @@ function logParts(s: SanitizedContext): { log: Part | null; causes: Part | null 
   const detail = a.state === 'full' ? `قُرئ ${a.lines} سطرًا` : a.state === 'truncated' ? `مقتطع: قُرئ ${a.readLines}${a.totalLines !== null ? ` من ${a.totalLines}` : ''} سطرًا` : 'السجل غير متاح: التنبيهات الظاهرة وحدها';
   let log: Part | null = null;
   // من ترويسات الكتل («# الخطوة — السطر …») اسم الخطوة وحده؛ ومن الأسطر نصها بلا رقمها ولا علامة السطر المقصود.
-  const logSource = analysis.messages.flatMap((m) => [...(m.step ? [m.step] : []), m.text, ...m.context.map((c) => c.text)]);
+  // MJ-TA-07: المصدر المنقول هو ما بقي في المقتطف بعد حد الأسطر وحده (لا النص الكامل قبل الاقتطاع)، فلا يُثبَّت اقتباسٌ سطرُه اقتُطع.
+  const sentLines = excerpt === null ? [] : excerpt.split('\n');
+  const sent = new Set(sentLines);
+  const isSent = (line: string): boolean => sent.has(`> ${line}`) || sentLines.some((l) => l.endsWith(` | ${line}`));
+  const keptPrefix = (text: string): string => {
+    const lines = text.split('\n');
+    const n = lines.findIndex((l) => !isSent(l));
+    return lines.filter((_, i) => n === -1 || i < n).join('\n');
+  };
+  const logSource = analysis.messages.flatMap((m) => {
+    const kept = keptPrefix(m.text);
+    return [...(m.step && sentLines.some((l) => l.startsWith(`# ${m.step}`)) ? [m.step] : []), ...(kept ? [kept] : []), ...m.context.filter((c) => isSent(c.text)).map((c) => c.text)];
+  });
   if (excerpt !== null) log = { heading: 'مقتطفات السجل', detail, body: [fence(excerpt)], source: logSource };
   else if (a.state !== 'unavailable') log = { heading: 'مقتطفات السجل', detail, body: ['- لم تُرصد في السجل المقروء رسالة خطأ ولا سطر طابق نمطًا.'] };
 

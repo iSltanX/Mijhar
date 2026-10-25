@@ -7,6 +7,7 @@
 //  - الموضع: صف رفيع في مضيفه الخاص يوضع بعد القسم المعني: بطاقة ملخص طلب الدمج (d.pr-status) أو شريط حزمة السياق (e.builder)؛ لا يُمَس جذر ظل وحدة أخرى.
 import type { ExtensionModule, ModuleContext, SelectorEntry } from '../../../core';
 import { mountSurface } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import { downloadMarkdown } from '../builder';
 import { COLLECTOR_SELECTORS, limitsOf, pageKind, prepareContext } from '../context';
 import type { ContextPageKind } from '../context';
@@ -97,30 +98,31 @@ class CopyPromptController {
   start(): void {
     const { ctx } = this;
     const spot = this.place();
-    this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: COPY_PROMPT_CSS, label: 'نسخ البرومبت' });
+    // أعادت الصفحة رسم حاويتها فأبعدت المضيف (MJ-F-01): يعيده keep إلى موضعه الجديد بحالته (القائمة والقالب المختار).
+    this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: COPY_PROMPT_CSS, label: 'نسخ البرومبت', keep: { anchor: () => this.anchorSpot(), fallback: () => this.place() } });
     ctx.listen(ctx.document, 'pointerdown', (event) => {
       const host = this.surface?.host;
       if (this.menuOpen && host && !(event as PointerEvent).composedPath().includes(host)) this.closeMenu();
-    });
-    // أعادت الصفحة رسم حاويتها فأزالت المضيف: يُعاد إدراجه في موضعه الجديد (كما تفعل بطاقة طلب الدمج).
-    ctx.observe(ctx.page.contentRoot ?? ctx.document.body, { childList: true, subtree: true }, () => {
-      const { surface } = this;
-      if (!surface || ctx.signal.aborted || surface.host.isConnected) return;
-      const next = this.place();
-      ctx.mutations.insert(next.parent, surface.host, next.before);
     });
     ctx.onTeardown(() => this.clearTimer());
     this.draw();
   }
 
-  /** بعد القسم المعني إن كان مركَّبًا، وإلا بعد الترويسة. */
-  private place(): { parent: Node; before: Node | null } {
+  /** بعد القسم المعني إن كان مركَّبًا، وإلا بعد الترويسة؛ وإلا أول الحاوية. */
+  private place(): Spot {
+    const spot = this.anchorSpot();
+    if (spot) return spot;
+    const parent = this.ctx.page.contentRoot ?? this.ctx.document.body;
+    return { parent, before: parent.firstChild };
+  }
+
+  private anchorSpot(): Spot | null {
     const { ctx } = this;
-    const after = (key: string): { parent: Node; before: Node | null } | null => {
+    const after = (key: string): Spot | null => {
       const el = ctx.selectors.resolve(ctx.document, key)?.element;
       return el?.parentNode ? { parent: el.parentNode, before: el.nextSibling } : null;
     };
-    const before = (key: string): { parent: Node; before: Node | null } | null => {
+    const before = (key: string): Spot | null => {
       const el = ctx.selectors.resolve(ctx.document, key)?.element;
       return el?.parentNode ? { parent: el.parentNode, before: el } : null;
     };
@@ -130,9 +132,7 @@ class CopyPromptController {
         : this.kind === 'job'
           ? (after('e.copy.bar') ?? before('e.copy.job-top') ?? before('d.job.logs'))
           : (after('e.copy.bar') ?? after('e.copy.header'));
-    if (spot) return spot;
-    const parent = ctx.page.contentRoot ?? ctx.document.body;
-    return { parent, before: parent.firstChild };
+    return spot;
   }
 
   private templateId(): PromptId {

@@ -3,6 +3,7 @@
 import type { ComponentChildren } from 'preact';
 import type { ExtensionModule, ModuleContext } from '../../../core/registry';
 import { mountSurface } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import type { UiSurface } from '../../../core/ui-host/surface';
 import { documentPageSource, pageInfoFromUrl } from '../../../shared/page';
 import type { PageInfo, PageSource } from '../../../shared/page';
@@ -68,7 +69,16 @@ class BookmarksPageRuntime {
   private attach(source: PageSource): void {
     const { ctx } = this;
     const parent = cardParent(ctx.document, ctx.selectors) ?? ctx.page.contentRoot ?? ctx.document.body;
-    this.surface = mountSurface(ctx, { parent, before: parent.firstChild, label: 'أكمل لاحقًا' });
+    // إعادة رسم الصفحة تبعد المضيف (MJ-F-01): يعيده keep إلى أول موضع البطاقة الجديد بحالته.
+    const anchor = (): Spot | null => {
+      const at = cardParent(ctx.document, ctx.selectors);
+      return at ? { parent: at, before: at.firstChild } : null;
+    };
+    const fallback = (): Spot => {
+      const at = ctx.page.contentRoot ?? ctx.document.body;
+      return { parent: at, before: at.firstChild };
+    };
+    this.surface = mountSurface(ctx, { parent, before: parent.firstChild, label: 'أكمل لاحقًا', keep: { anchor, fallback } });
     const unsubscribe = source.subscribe(() => this.refreshPage());
     ctx.onTeardown(() => {
       unsubscribe();

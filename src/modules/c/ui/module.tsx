@@ -59,6 +59,8 @@ interface Bar {
   copied: string | null;
   /** بطاقة الاستئذان قبل تنزيل المتصفح حزمة اللغة (T-4.4)، حتى يوافق المستخدم أو يتراجع. */
   consent: ConsentCard | null;
+  /** أُدرج مضيفه مرة: إعادته بعد أن أبعدته الصفحة بـreattach لا بـinsert (MJ-F-01). */
+  inserted: boolean;
 }
 
 const IDLE: SessionSnapshot = { phase: 'idle', mode: 'both', total: 0, done: 0, kept: 0, skipped: 0, truncated: false };
@@ -190,7 +192,7 @@ class TranslateController {
   private addBar(body: Element): void {
     const parts = createShadowHost(this.ctx.document, { name: BAR_HOST_NAME, hostCss: BAR_HOST_CSS, styles: BAR_CSS, label: 'ترجمة إلى العربية' });
     parts.root.classList.add('bar-root');
-    const bar: Bar = { body, kind: barKindOf(body), parts, session: null, snapshot: IDLE, unavailable: this.unavailable, copied: null, consent: null };
+    const bar: Bar = { body, kind: barKindOf(body), parts, session: null, snapshot: IDLE, unavailable: this.unavailable, copied: null, consent: null, inserted: false };
     this.bars.set(body, bar);
     this.insertBar(bar);
     this.paint(bar);
@@ -198,7 +200,11 @@ class TranslateController {
 
   private insertBar(bar: Bar): void {
     const parent = bar.body.parentNode;
-    if (parent) this.ctx.mutations.insert(parent, bar.parts.host, bar.body);
+    if (!parent) return;
+    // مضيف أُدرج ثم أبعدته الصفحة قد يبقى له أب في شجرة مفصولة، فلا يقبله insert (MJ-F-01).
+    if (bar.inserted) this.ctx.mutations.reattach(parent, bar.parts.host, bar.body);
+    else this.ctx.mutations.insert(parent, bar.parts.host, bar.body);
+    bar.inserted = true;
   }
 
   private removeBar(bar: Bar): void {

@@ -26,6 +26,10 @@ export interface RunOutcome {
   readonly pull: { readonly opened: boolean; readonly number: number | null; readonly url: string | null; readonly draft: boolean | null };
   /** أول ما تعذّر وسببه (منقّحًا من أي سرّ)، أو null. */
   readonly failure: { readonly step: WriteStep | 'precheck'; readonly status: number | null; readonly message: string } | null;
+  /**
+   * MJ-TA-H01: انقطعت قناة الخلفية بعد أن وصلتها الخطة، فلا يُعرف ما نُفّذ منها: الحقول أعلاه «لم يحدث» لأنها لم تُبلَّغ، لا لأنها لم تحدث.
+   */
+  readonly uncertain?: true;
 }
 
 export const isExecutionRequest = (message: unknown): message is ExecutionRequest => {
@@ -49,7 +53,20 @@ export const notRun = (name: string, step: WriteStep | 'precheck', message: stri
   failure: { step, status, message },
 });
 
-/** منفذ اللوحة: رسائل إلى الخلفية. تعذّر الرسالة نفسها فشل معلن لا نجاح، ولم يُكتب شيء. */
+/** لم تصل الرسالة أي مستمع (لا خلفية تستقبل): لم يبدأ شيء. وما سواه (أُغلق المنفذ قبل الرد، أو رد فارغ) قد يلي تنفيذًا. */
+export const notDelivered = (error: unknown): boolean => /Receiving end does not exist|Extension context invalidated/i.test(error instanceof Error ? error.message : String(error));
+
+/** الخطة وصلت الخلفية ثم انقطعت القناة قبل ردّها (MJ-TA-H01): لا يُدّعى أن شيئًا لم يُكتب. */
+export const unconfirmedRun = (name: string): RunOutcome => ({
+  ...notRun(
+    name,
+    'precheck',
+    'انقطع الاتصال بخلفية الإضافة قبل أن تردّ، فتعذّر التأكد من النتيجة: قد تكون بعض الخطوات نُفّذت. راجع المستودع في GitHub (الفرع والالتزام وطلبات الدمج) قبل أي إعادة.',
+  ),
+  uncertain: true,
+});
+
+/** منفذ اللوحة: رسائل إلى الخلفية. تعذّر الرسالة نفسها فشل معلن لا نجاح؛ ولا يُقال «لم يُكتب شيء» إلا إن لم تصل الرسالة أصلًا. */
 export function runtimeExecutionPort(runtime: Pick<ExtensionApi['runtime'], 'sendMessage'>): ExecutionPort {
   return {
     async status() {
@@ -62,9 +79,9 @@ export function runtimeExecutionPort(runtime: Pick<ExtensionApi['runtime'], 'sen
     async run(plan) {
       try {
         const reply = (await runtime.sendMessage({ type: EXECUTION_MESSAGE, op: 'run', plan } satisfies ExecutionRequest)) as RunOutcome | undefined;
-        return reply ?? notRun(plan.branch, 'precheck', 'لم تردّ خلفية الإضافة؛ لم يُكتب شيء.');
-      } catch {
-        return notRun(plan.branch, 'precheck', 'تعذّر الوصول إلى خلفية الإضافة؛ لم يُكتب شيء.');
+        return reply ?? unconfirmedRun(plan.branch);
+      } catch (error) {
+        return notDelivered(error) ? notRun(plan.branch, 'precheck', 'تعذّر الوصول إلى خلفية الإضافة؛ لم يُكتب شيء.') : unconfirmedRun(plan.branch);
       }
     },
   };

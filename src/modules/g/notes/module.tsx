@@ -3,6 +3,7 @@
 // المرساة تُحفظ عند إنشاء ملاحظة سطر من البطاقة، وتُعاد على الصفحة المفتوحة دون شبكة؛ والعلامة لا توضع لملاحظة لها مرساة إلا مطابقة.
 import type { ExtensionModule, ModuleContext } from '../../../core/registry';
 import { mountSurface } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import type { UiSurface } from '../../../core/ui-host/surface';
 import { documentPageSource, pageInfoFromUrl } from '../../../shared/page';
 import type { PageInfo, PageSource } from '../../../shared/page';
@@ -99,7 +100,16 @@ class NotesPageRuntime {
   private attach(context: NotesContext, source: PageSource): void {
     const { ctx } = this;
     const parent = cardParent(ctx.document, ctx.selectors) ?? ctx.page.contentRoot ?? ctx.document.body;
-    this.surface = mountSurface(ctx, { parent, before: parent.firstChild, label: 'ملاحظاتي الخاصة' });
+    // إعادة رسم الصفحة تبعد المضيف (MJ-F-01): يعيده keep إلى أول موضع البطاقة الجديد بحالته.
+    const cardSpot = (): Spot | null => {
+      const at = cardParent(ctx.document, ctx.selectors);
+      return at ? { parent: at, before: at.firstChild } : null;
+    };
+    const rootSpot = (): Spot => {
+      const at = ctx.page.contentRoot ?? ctx.document.body;
+      return { parent: at, before: at.firstChild };
+    };
+    this.surface = mountSurface(ctx, { parent, before: parent.firstChild, label: 'ملاحظاتي الخاصة', keep: { anchor: cardSpot, fallback: rootSpot } });
     const anchor = this.anchor;
     const markers = new LineMarkers({
       ctx,
