@@ -18,13 +18,13 @@
 
 ## الحزم (`TEST-PKG-01`)
 
-`npm run build && node scripts/package.mjs` يكتب إلى `release/packages/` (غير متتبَّع):
+`npm run build && node scripts/package.mjs` يكتب إلى `release/packages/` (غير متتبَّع). البصمات من بوابة M على `d038b36`:
 
 | الملف | الحجم | SHA-256 |
 | :--- | :--- | :--- |
-| `chromium/mijhar-1.0.0-chromium.zip` (Chrome Web Store وEdge Add-ons، ويُحمَّل في Brave) | 1774659 | `4f8557ce72ecb9894f352b865e62ed19472ac13538576da52c4bb2e8fae27711` |
-| `firefox/mijhar-1.0.0-firefox.zip` (Firefox Add-ons) | 1774768 | `a34be5045a69ad616dc28b93a9dac61a7084f31c5b566dc1b684cc56b0d6fe2b` |
-| `firefox/mijhar-1.0.0-source.zip` (الشيفرة المصدرية لمراجعي AMO) | 1821598 | `3eff3f68505d6cad92f3a186a214c6fefc19aed237c29c507cbd62eb928de31e` |
+| `chromium/mijhar-1.0.0-chromium.zip` (Chrome Web Store وEdge Add-ons، ويُحمَّل في Brave) | 1777722 | `03c296265855c25d979584008302de42966dcca25298ae186b2fbb988504eee6` |
+| `firefox/mijhar-1.0.0-firefox.zip` (Firefox Add-ons) | 1777833 | `25f59cf01207f7e29250c46c8333a730e92427bd0ffb5ddc1f9f8ae8ca380340` |
+| `firefox/mijhar-1.0.0-source.zip` (الشيفرة المصدرية لمراجعي AMO) | 1822151 | `ef52083b3169db5cc71438cc539998480afe326b3498cf61e7f4e44f98ef7837` |
 
 - **المحتوى:** الحزمة من قائمة مسموحة وحدها: المانيفست، وسكربتات الخلفية والمحتوى واللوحة والإعدادات والقارئ وصفحاتها، والخطوط وتراخيصها، والأيقونات الست، و`THIRD_PARTY_NOTICES.txt`. والسكربت يرفض قبل الكتابة أي ملف خارجها، وأي ملف خرائط أو مخفي أو مؤقت أو ملف تعريف متصفح أو اختبار أو دليل، وأي صيغة رمز أو مفتاح (GitHub وAnthropic وOpenAI وGoogle وAWS ومفتاح خاص)، وأي مسار مطلق من الجهاز. `node scripts/package.mjs --check` يعيد الفحص على الحزم المكتوبة: اجتاز.
 - **حزمة المصدر:** `src` و`scripts/build.mjs` و`scripts/notices.mjs` و`assets/fonts` وأيقونات `release/icons` و`package.json` و`package-lock.json` و`tsconfig.json` و`vite.config.ts` و`THIRD_PARTY_NOTICES.txt` و`SOURCE-README.txt` (أمرا البناء بالإنجليزية للمراجع). لا اختبارات ولا `node_modules` ولا `dist` ولا `evidence` ولا تقارير تدقيق ولا لقطات.

@@ -1,0 +1,395 @@
+{
+  "key": "edge",
+  "version": "155.0.4283.60",
+  "mounted": [
+    {
+      "index": 0,
+      "case": "readme",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+    },
+    {
+      "index": 1,
+      "case": "issue-description",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+    },
+    {
+      "index": 2,
+      "case": "comment-body-1",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+    },
+    {
+      "index": 3,
+      "case": "comment-body-2",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+    },
+    {
+      "index": 4,
+      "case": "comment-body-legacy",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها."
+    }
+  ],
+  "engineReady": false,
+  "steps": {
+    "bar": {
+      "index": 0,
+      "case": "readme",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+      "consent": null,
+      "actions": [
+        "translate",
+        "copy-masked"
+      ],
+      "translations": 0,
+      "warnings": 0,
+      "arabic": 0,
+      "tokenLeak": false
+    },
+    "afterTranslate": {
+      "index": 0,
+      "case": "readme",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+      "consent": null,
+      "actions": [
+        "translate",
+        "copy-masked"
+      ],
+      "translations": 0,
+      "warnings": 0,
+      "arabic": 0,
+      "tokenLeak": false
+    },
+    "afterCopy": {
+      "index": 0,
+      "case": "readme",
+      "phase": "idle",
+      "note": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها. نُسخ النص المقنَّع (17 فقرة)، وفيه 13 عنصرًا محميًا مستبدلًا برموز ⟦…⟧ لا تُنسخ قيمها.",
+      "consent": null,
+      "actions": [
+        "translate",
+        "copy-masked"
+      ],
+      "translations": 0,
+      "warnings": 0,
+      "arabic": 0,
+      "tokenLeak": false
+    },
+    "clipboard": "Mijhar Demo Project\n\nThis extension helps Arabic readers understand repositories. Run ⟦CODE_0⟧ first, then see the ⟦LINK_1⟧ for details.\n\nThanks ⟦USER_2⟧ for the review, see ⟦REF_3⟧ and edit ⟦PATH_4⟧ before opening a pull request.\n\nRead the docs ⟦LINK_5⟧ or ⟦LINK_6⟧ before you start.\n\nPress ⟦CODE_7⟧",
+    "selection": {
+      "status": "unavailable",
+      "translation": null,
+      "arabic": false,
+      "notice": "المحرك غير متاح: لا يوفر هذا المتصفح الترجمة المحلية من الإنجليزية إلى العربية. يمكنك نسخ النص مقنَّعًا وترجمته بأداة تختارها.",
+      "consent": null,
+      "copyNote": null
+    },
+    "selectionCopyNote": "نُسخ النص (1 فقرة)، ولا عنصر محميًا فيه."
+  },
+  "targets": [
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": "about:blank"
+    },
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": "about:blank"
+    },
+    {
+      "type": "service_worker",
+      "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/background.js",
+      "title": "Service Worker chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/background.js"
+    },
+    {
+      "type": "service_worker",
+      "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/background.js",
+      "title": "Service Worker chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/background.js"
+    },
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": ""
+    },
+    {
+      "type": "page",
+      "url": "about:blank",
+      "title": "about:blank"
+    }
+  ],
+  "windows": {
+    "baseline": {
+      "note": "ما يطلبه الاختبار والمتصفح للصفحة نفسها (مستند العينة وأيقونتها)، لا الإضافة",
+      "requests": [
+        {
+          "url": "https://github.com/octo/mijhar-demo/issues/7",
+          "method": "GET",
+          "type": "Document",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "https://github.com/favicon.ico",
+          "method": "GET",
+          "type": "Other",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        }
+      ]
+    },
+    "run": {
+      "note": "من بدء تحميل العينة حتى نهاية الترجمة والتحديد والنسخ (التركيب والاستئذان والتنزيل والفقرات) بعد استبعاد baseline: لا طلب شبكة مسموح ولا أثر من نص الصفحة",
+      "total": 5,
+      "ignored": 5,
+      "network": 0,
+      "allowed": [],
+      "violations": [],
+      "leaks": [],
+      "pass": true,
+      "requests": [
+        {
+          "url": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+          "method": "GET",
+          "type": "Image",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/IBMPlexSansArabic-Regular.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/Almarai-Bold.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/Almarai-Regular.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        },
+        {
+          "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/Cairo-Bold.woff2",
+          "method": "GET",
+          "type": "Font",
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          }
+        }
+      ]
+    },
+    "control": {
+      "note": "ضابط إيجابي: طلبان تسريبيان متعمدان يجب أن يُكشفا",
+      "total": 2,
+      "ignored": 0,
+      "network": 2,
+      "allowed": [],
+      "violations": [
+        {
+          "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+          "method": "GET",
+          "type": "Fetch",
+          "initiator": "script",
+          "documentURL": "https://github.com/octo/mijhar-demo/issues/7",
+          "headers": {
+            "sec-ch-ua-platform": "\"macOS\"",
+            "Referer": "https://github.com/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+            "sec-ch-ua": "\"Microsoft Edge\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+            "Accept-Language": "en-US",
+            "sec-ch-ua-mobile": "?0"
+          },
+          "postData": null,
+          "hasPostData": false,
+          "requestId": "71864.10",
+          "t": 1792906048760,
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          },
+          "host": "translate.googleapis.com",
+          "rule": "cloud-translation-host"
+        },
+        {
+          "url": "https://collector.invalid/log",
+          "method": "POST",
+          "type": "Ping",
+          "initiator": "script",
+          "documentURL": "https://github.com/octo/mijhar-demo/issues/7",
+          "headers": {
+            "sec-ch-ua-platform": "\"macOS\"",
+            "Referer": "https://github.com/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+            "sec-ch-ua": "\"Microsoft Edge\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+            "Content-Type": "text/plain;charset=UTF-8",
+            "sec-ch-ua-mobile": "?0",
+            "Accept-Language": "en-US"
+          },
+          "postData": "The side panel opens from the toolbar",
+          "hasPostData": true,
+          "requestId": "71864.11",
+          "t": 1792906048761,
+          "target": {
+            "type": "page",
+            "url": "about:blank"
+          },
+          "host": "collector.invalid",
+          "rule": "host-not-allowed"
+        }
+      ],
+      "leaks": [
+        {
+          "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+          "host": "translate.googleapis.com",
+          "where": "url",
+          "canary": "This extension helps Arabic readers understand repositories"
+        },
+        {
+          "url": "https://collector.invalid/log",
+          "host": "collector.invalid",
+          "where": "body",
+          "canary": "The side panel opens from the toolbar"
+        }
+      ],
+      "pass": false
+    }
+  },
+  "control": {
+    "detectedCloudHost": true,
+    "detectedHostNotAllowed": true,
+    "leaks": 2,
+    "detected": true
+  },
+  "blockedByHarness": [
+    {
+      "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+      "method": "GET",
+      "type": "fetch"
+    },
+    {
+      "url": "https://collector.invalid/log",
+      "method": "POST",
+      "type": "ping"
+    }
+  ],
+  "totalRecorded": 9,
+  "fullLog": [
+    {
+      "url": "https://github.com/octo/mijhar-demo/issues/7",
+      "method": "GET",
+      "type": "Document",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 11
+    },
+    {
+      "url": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+      "method": "GET",
+      "type": "Image",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 65
+    },
+    {
+      "url": "https://github.com/favicon.ico",
+      "method": "GET",
+      "type": "Other",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 147
+    },
+    {
+      "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/IBMPlexSansArabic-Regular.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 205
+    },
+    {
+      "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/Almarai-Bold.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 205
+    },
+    {
+      "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/Almarai-Regular.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 205
+    },
+    {
+      "url": "chrome-extension://cmaliieeclibpnjboecfkajdekcknkam/fonts/Cairo-Bold.woff2",
+      "method": "GET",
+      "type": "Font",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 227
+    },
+    {
+      "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&q=This%20extension%20helps%20Arabic%20readers%20understand%20repositories",
+      "method": "GET",
+      "type": "Fetch",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 5945
+    },
+    {
+      "url": "https://collector.invalid/log",
+      "method": "POST",
+      "type": "Ping",
+      "target": {
+        "type": "page",
+        "url": "about:blank"
+      },
+      "t": 5946
+    }
+  ],
+  "extensionTargetsSeen": 2
+}
