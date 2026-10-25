@@ -2,7 +2,7 @@
 import { useState } from 'preact/hooks';
 import type { BookmarksRepository } from '../repository';
 import { BOOKMARK_STATUSES, MAX_QUICK_NOTE_LENGTH, MAX_TAGS, STATUS_LABELS, parseTags } from '../types';
-import type { Bookmark, BookmarkStatus } from '../types';
+import type { Bookmark, BookmarkPatch, BookmarkStatus } from '../types';
 
 const describeError = (error: unknown): string => (error instanceof Error ? error.message : String(error));
 
@@ -15,6 +15,8 @@ export interface BookmarkEditorProps {
 }
 
 export function BookmarkEditor({ bookmark, repository, idPrefix, onDone }: BookmarkEditorProps) {
+  // ما كان عليه الرابط حين فُتح المحرر: يُرسل ما غيّره المستخدم وحده (MJ-TA-03)، فلا يمحو حفظٌ هنا ما عدّلته نافذة أخرى في حقل لم يُلمس هنا.
+  const [opened] = useState(() => ({ status: bookmark.status, tags: [...bookmark.tags], note: bookmark.note }));
   const [status, setStatus] = useState<BookmarkStatus>(bookmark.status);
   const [tags, setTags] = useState(bookmark.tags.join('، '));
   const [note, setNote] = useState(bookmark.note);
@@ -24,9 +26,19 @@ export function BookmarkEditor({ bookmark, repository, idPrefix, onDone }: Bookm
   const save = (event: Event): void => {
     event.preventDefault();
     if (busy) return;
+    const parsed = parseTags(tags);
+    const patch: BookmarkPatch = {
+      ...(status === opened.status ? {} : { status }),
+      ...(parsed.join('\n') === opened.tags.join('\n') ? {} : { tags: parsed }),
+      ...(note.trim() === opened.note.trim() ? {} : { note }),
+    };
+    if (Object.keys(patch).length === 0) {
+      onDone?.();
+      return;
+    }
     setBusy(true);
     setError(null);
-    repository.update(bookmark.id, { status, tags: parseTags(tags), note }).then(
+    repository.update(bookmark.id, patch).then(
       () => {
         setBusy(false);
         onDone?.();

@@ -5,6 +5,8 @@ import type { SettingDefinition } from '../../../core';
 import { extensionApi } from '../../../core/ui-host/browser-api';
 import type { ExtensionApi } from '../../../core/ui-host/browser-api';
 import { createShadowHost } from '../../../core/ui-host/shadow';
+import { keepAttached } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import { DIRECTION_SELECTORS, DIRECTION_SELECTOR_KEYS } from '../direction/selectors';
 import type { ModuleAFeature } from '../scope/feature';
 import { READING_OPEN_MESSAGE, isSnapshotRequest } from './messages';
@@ -66,10 +68,15 @@ export function createReadingFeature(options: ReadingFeatureOptions = {}): Modul
       api.runtime.onMessage.addListener(respond);
       ctx.onTeardown(() => api.runtime.onMessage.removeListener(respond));
 
-      // الزر قبل أول حاوية فيها نص؛ يعيد true إن وُضع.
-      const place = (): boolean => {
+      // قبل أول حاوية فيها نص، أو null.
+      const spot = (): Spot | null => {
         const first = snapshotContainers(doc, containerSelector).find((el) => (el.textContent ?? '').trim());
-        if (!first?.parentNode) return false;
+        return first?.parentNode ? { parent: first.parentNode, before: first } : null;
+      };
+      // الزر في موضعه؛ يعيد true إن وُضع. وإعادة رسم الصفحة تبعده (MJ-F-01): يعيده keepAttached إلى أول حاوية نصية جديدة، الزر نفسه.
+      const place = (): boolean => {
+        const at = spot();
+        if (!at) return false;
         const { host, root } = createShadowHost(doc, { name: READING_HOST_NAME, styles: ENTRY_CSS, label: 'وضع القراءة' });
         const bar = doc.createElement('div');
         bar.className = 'entry';
@@ -83,7 +90,8 @@ export function createReadingFeature(options: ReadingFeatureOptions = {}): Modul
         });
         bar.append(button);
         root.append(bar);
-        ctx.mutations.insert(first.parentNode, host, first);
+        ctx.mutations.insert(at.parent, host, at.before);
+        keepAttached(ctx, host, { anchor: spot });
         return true;
       };
       if (place()) return;

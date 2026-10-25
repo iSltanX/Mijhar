@@ -28,7 +28,9 @@ async function openDefault(): Promise<LaterContext> {
     defineBookmarksSettings(r);
   });
   const { store, settings } = await openSettings({ migrate: isExtensionPage(), registry });
-  const [bookmarks, notes] = await Promise.all([BookmarksRepository.open(store), NotesRepository.open(store, { writer: runtimeNotesWriter(extensionApi().runtime) })]);
+  // الخلفية الكاتب الوحيد للملاحظات والروابط (AD-25، MJ-TA-03).
+  const writer = runtimeNotesWriter(extensionApi().runtime);
+  const [bookmarks, notes] = await Promise.all([BookmarksRepository.open(store, { writer }), NotesRepository.open(store, { writer })]);
   return { store, settings, bookmarks, notes };
 }
 

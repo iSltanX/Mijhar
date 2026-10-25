@@ -24,6 +24,8 @@ export interface AnalysisBlockProps {
 
 const clock = (ms: number): string => new Date(ms).toLocaleTimeString('en-GB', { hour12: false });
 const count = (n: number): string => n.toLocaleString('en-US');
+/** حال مفتاح المزوّد في الموافقة (MJ-F-02): بلا حال مقروءة أو بلا مفتاح «missing»، ومرفوض «expired»، وما سواهما (ومنه غير المتحقق منه) يُرسل به. */
+const keyState = (health: Health | null): 'usable' | 'missing' | 'expired' => (health === null || health === 'none' ? 'missing' : health === 'expired' ? 'expired' : 'usable');
 const KEY_FAILURES = new Set(['unauthorized', 'forbidden', 'expired-key', 'no-key', 'permission', 'key-read', 'key-changed', 'not-found', 'model-changed', 'provider-changed', 'incompatible']);
 
 function Tag() {
@@ -194,6 +196,7 @@ export function AnalysisBlock({ def, state, health, onOpen, onConfirm, onCancel,
               ...(state.status ? { policy: state.status.provider.policy } : {}),
               model: state.status?.model ?? null,
               permission: Boolean(state.status?.permission),
+              ...(state.status ? { key: keyState(state.status.key?.health ?? null) } : {}),
             }}
             changed={state.changed ?? null}
             blocked={state.status === null ? 'تعذّر الوصول إلى خلفية الإضافة؛ لا يمكن الإرسال الآن.' : state.status.retryAt !== null ? `أعلن المزوّد موعدًا لإعادة المحاولة (${clock(state.status.retryAt)})؛ لا يُرسل شيء قبله.` : null}

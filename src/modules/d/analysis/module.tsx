@@ -3,6 +3,7 @@
 // الطبقة المشتركة محليًا، والطلب عبر الخلفية بعد الموافقة وحدها.
 import type { ExtensionModule, ModuleContext } from '../../../core';
 import { mountSurface } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import { COLLECTOR_SELECTORS, prepareContext } from '../../e/context';
 import { SectionAnalysis, defaultAnalysisDeps } from './controller';
 import type { SectionAnalysisDeps } from './controller';
@@ -44,14 +45,25 @@ class IssueAnalysis {
     this.draw();
   }
 
+  /** بعد ترويسة المشكلة، أو null إن لم تظهر. */
+  private anchorSpot(): Spot | null {
+    const header = this.ctx.selectors.resolve(this.ctx.document, 'd.analysis.anchor')?.element;
+    return header?.parentNode ? { parent: header.parentNode, before: header.nextSibling } : null;
+  }
+
+  private fallbackSpot(): Spot {
+    const parent = this.ctx.page.contentRoot ?? this.ctx.document.body;
+    return { parent, before: parent.firstChild };
+  }
+
   private draw(): void {
     const { ctx } = this;
     const view = this.analysis.view();
     if (view === null) return;
     if (!this.surface) {
-      const header = ctx.selectors.resolve(ctx.document, 'd.analysis.anchor')?.element;
-      const parent = header?.parentNode ?? ctx.page.contentRoot ?? ctx.document.body;
-      this.surface = mountSurface(ctx, { parent, before: header ? header.nextSibling : parent.firstChild, styles: ANALYSIS_CSS, label: 'فهم المشكلة' });
+      const spot = this.anchorSpot() ?? this.fallbackSpot();
+      // أعادت الصفحة رسم حاويتها فأبعدت المضيف (MJ-F-01): يعيده keep إلى موضعه الجديد بحالة التحليل.
+      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: ANALYSIS_CSS, label: 'فهم المشكلة', keep: { anchor: () => this.anchorSpot(), fallback: () => this.fallbackSpot() } });
     }
     this.surface.render(
       <section class="an-card" data-card="issue-analysis" aria-labelledby="mj-issue-analysis-title">

@@ -22,7 +22,7 @@ export interface ExecutionServiceOptions {
   readonly readToken: Pick<SecretStore, 'read'> | null;
   readonly permissions: PermissionsApi | null;
   readonly fetch?: typeof fetch;
-  readonly connections: { status(): Promise<readonly ConnectionStatus[]>; observe(id: 'github-write', verdict: Verdict | null): Promise<void> };
+  readonly connections: { status(): Promise<readonly ConnectionStatus[]>; observe(id: 'github-write', verdict: Verdict | null, provider?: undefined, savedAt?: number): Promise<void> };
   readonly onError?: (error: unknown) => void;
 }
 
@@ -73,8 +73,9 @@ export class ExecutionService {
     return { linked: isLinked(health), health, permission };
   }
 
-  private observe(verdict: Verdict | null): Promise<void> {
-    return this.options.connections.observe('github-write', verdict).catch((error: unknown) => this.options.onError?.(error));
+  /** savedAt: وقت حفظ الرمز الذي أُرسلت به العملية؛ إن استُبدل أثناءها فحكمها للقديم ولا يُكتب على البديل (MJ-TA-02). */
+  private observe(verdict: Verdict | null, savedAt: number): Promise<void> {
+    return this.options.connections.observe('github-write', verdict, undefined, savedAt).catch((error: unknown) => this.options.onError?.(error));
   }
 
   /** خطوة التنفيذ لخطة وافق عليها المستخدم. لا يرمي: كل تعذّر نتيجة معلنة بما حدث قبله. */
@@ -104,8 +105,11 @@ export class ExecutionService {
     const status = await this.status();
     if (status.health === 'expired') return notRun(plan.branch, 'precheck', 'رفض GitHub رمز الكتابة المحفوظ من قبل (401)؛ استبدله من الإعدادات. لم يُكتب شيء.');
     let token: string | null = null;
+    let savedAt = 0;
     try {
-      token = (await this.options.writeToken?.read())?.token ?? null;
+      const record = await this.options.writeToken?.read();
+      token = record?.token ?? null;
+      savedAt = record?.savedAt ?? 0;
     } catch (error) {
       return notRun(plan.branch, 'precheck', `تعذّرت قراءة رمز الكتابة المحفوظ (${error instanceof Error ? error.name : 'Error'})؛ لم يُكتب شيء.`);
     }
@@ -142,7 +146,7 @@ export class ExecutionService {
     {
       const { response } = branch;
       const message = await messageOf(response, `HTTP ${response.status}`);
-      await this.observe(writeVerdict(response.status, message));
+      await this.observe(writeVerdict(response.status, message), savedAt);
       if (response.status !== 201) return stop('branch', response.status, explain('branch', response.status, message));
       outcome.branch.created = true;
       outcome.branch.url = `${site}/tree/${encPath(plan.branch)}`;
@@ -153,7 +157,7 @@ export class ExecutionService {
     {
       const { response } = file;
       const message = await messageOf(response, `HTTP ${response.status}`);
-      await this.observe(writeVerdict(response.status, message));
+      await this.observe(writeVerdict(response.status, message), savedAt);
       if (response.status !== 200 && response.status !== 201) return stop('file', response.status, explain('file', response.status, message));
       const body = (await response.json().catch(() => null)) as { commit?: { sha?: unknown } } | null;
       const sha = typeof body?.commit?.sha === 'string' && /^[0-9a-f]{40}$/.test(body.commit.sha) ? body.commit.sha : null;
@@ -167,7 +171,7 @@ export class ExecutionService {
     {
       const { response } = pull;
       const message = await messageOf(response, `HTTP ${response.status}`);
-      await this.observe(writeVerdict(response.status, message));
+      await this.observe(writeVerdict(response.status, message), savedAt);
       if (response.status !== 201) return stop('pull', response.status, explain('pull', response.status, message));
       const body = (await response.json().catch(() => null)) as { number?: unknown; draft?: unknown } | null;
       const number = typeof body?.number === 'number' && Number.isInteger(body.number) && body.number > 0 ? body.number : null;

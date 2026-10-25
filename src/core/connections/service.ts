@@ -179,12 +179,12 @@ export class ConnectionsService {
 
   /**
    * يسجّل استجابة طلب GitHub مرّ بالخلفية: /rate_limit تحقق صريح، وغيره استعمال. expiresAt من حالة العميل بعد الطلب. لا يُسجَّل شيء
-   * حين لا سرّ محفوظ.
+   * حين لا سرّ محفوظ. savedAt: وقت حفظ الرمز المحفوظ عند بدء الطلب؛ إن استُبدل قبل الرد فالحكم للرمز القديم ولا يُكتب على البديل (MJ-TA-02).
    */
-  observeGithub(path: string, result: PublicApiResult<unknown>, expiresAt: number | null): Promise<void> {
+  observeGithub(path: string, result: PublicApiResult<unknown>, expiresAt: number | null, savedAt?: number): Promise<void> {
     return this.serial(async () => {
       const info = await this.options.stores['github-token']?.info().catch(() => null);
-      if (!info) return;
+      if (!info || (savedAt !== undefined && info.savedAt !== savedAt)) return;
       const records = await this.loaded();
       const current = records.get('github-token');
       const same = current && current.savedAt === info.savedAt ? current.health : null;

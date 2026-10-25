@@ -12,11 +12,12 @@
 //  - MJ21 (T-11.7): «راجع تغييرات الطلب» في ذيل البطاقة: بلا مفتاح بوابة معلَّلة ولا نص تحليل؛ وبمفتاح موافقة ثم مراجعة مقترحة بأدلتها. السياق من
 //    الطبقة المشتركة، وقراءة API تدخله بربطها بالمستودع والفرع والالتزام الظاهرة وحدها (AD-30)؛ ولا يُرسل شيء قبل «إرسال للتحليل».
 import { mountSurface } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import { extensionApi } from '../../../core/ui-host/browser-api';
 import type { ExtEvent } from '../../../core/ui-host/browser-api';
 import { OPEN_OPTIONS_MESSAGE } from '../../../core/ui-host/commands';
 import type { OpenOptionsMessage } from '../../../core/ui-host/commands';
-import { isConnectionsChanged, runtimeConnectionsPort } from '../../../core/connections/port';
+import { isConnectionsChanged, onTabReturn, runtimeConnectionsPort } from '../../../core/connections/port';
 import type { ConnectionsPort } from '../../../core/connections/port';
 import type { Health } from '../../../core/connections/health';
 import { GATE_CSS } from '../../../core/connections/ui/styles';
@@ -223,7 +224,6 @@ class PrStatusController {
   private pendingUrl: string | null = null;
   private timer: ReturnType<typeof setTimeout> | null = null;
   private ticker: ReturnType<typeof setInterval> | null = null;
-  private anchor: { parent: Node; before: Node | null } | null = null;
   private facts: Map<string, string> | null = null;
   private domReadAt: number;
   private liveUpdateAt: number | null = null;
@@ -285,6 +285,16 @@ class PrStatusController {
       messages.addListener(listener);
       ctx.onTeardown(() => messages.removeListener(listener));
     }
+    // PR-04 (MJ-F-02): صلاحية api.github.com أو الرمز اللذان غيّرتهما الإعدادات يظهران عند العودة إلى التبويب بلا إعادة تحميل، ولا يُنقل التركيز.
+    onTabReturn(ctx, () => void this.reread());
+  }
+
+  /** حالة الوصول إلى API والاتصال الآن، بلا طلب إلى GitHub. */
+  private async reread(): Promise<void> {
+    const status = await this.deps.api?.status().catch(() => null);
+    if (this.ctx.signal.aborted) return;
+    if (status) this.apiStatus = status;
+    await this.readConnections();
   }
 
   private readConnections(): Promise<void> {
@@ -301,10 +311,8 @@ class PrStatusController {
   }
 
   private async reconnected(): Promise<void> {
-    const status = await this.deps.api?.status().catch(() => null);
+    await this.reread();
     if (this.ctx.signal.aborted) return;
-    if (status) this.apiStatus = status;
-    await this.readConnections();
     this.refresh('tick');
     this.surface?.shadow.querySelector<HTMLElement>('[data-action="api-read"], [data-action="open-settings"]')?.focus();
   }
@@ -317,11 +325,15 @@ class PrStatusController {
     }, this.deps.debounceMs);
   }
 
-  private place(): { parent: Node; before: Node | null } {
+  /** بعد ترويسة الطلب، أو null إن لم تظهر. */
+  private anchorSpot(): Spot | null {
     const { ctx } = this;
     const header = ctx.selectors.resolve(ctx.document, 'd.pr.header')?.element;
-    if (header?.parentNode) return { parent: header.parentNode, before: header.nextSibling };
-    const parent = ctx.page.contentRoot ?? ctx.document.body;
+    return header?.parentNode ? { parent: header.parentNode, before: header.nextSibling } : null;
+  }
+
+  private fallbackSpot(): Spot {
+    const parent = this.ctx.page.contentRoot ?? this.ctx.document.body;
     return { parent, before: parent.firstChild };
   }
 
@@ -356,12 +368,16 @@ class PrStatusController {
   private draw(summary: PrSummary, loading: boolean): void {
     const { ctx, deps } = this;
     if (!this.surface) {
-      const spot = (this.anchor = this.place());
-      this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: D_CARD_CSS + BLOCKERS_CSS + STATUS_CSS + GATE_CSS + ANALYSIS_CSS, label: 'ملخص حالة طلب الدمج' });
-    } else if (!this.surface.host.isConnected && this.anchor) {
-      // أعادت الصفحة رسم حاويتها فأزالت المضيف: يُعاد إدراجه في موضعه الجديد.
-      const spot = (this.anchor = this.place());
-      ctx.mutations.insert(spot.parent, this.surface.host, spot.before);
+      const spot = this.anchorSpot() ?? this.fallbackSpot();
+      // أعادت الصفحة رسم حاويتها فأبعدت المضيف (MJ-F-01): يعيده keep إلى موضعه الجديد، ثم يُقرأ ما رسمته الصفحة فورًا (OPT-01: قسم الدمج
+      // يُحمَّل بعد الترويسة) لا عند التعديل التالي.
+      this.surface = mountSurface(ctx, {
+        parent: spot.parent,
+        before: spot.before,
+        styles: D_CARD_CSS + BLOCKERS_CSS + STATUS_CSS + GATE_CSS + ANALYSIS_CSS,
+        label: 'ملخص حالة طلب الدمج',
+        keep: { anchor: () => this.anchorSpot(), fallback: () => this.fallbackSpot(), onReattach: () => this.refresh('mutation') },
+      });
     }
     // هوية القراءة في كل رسم (VR-03، T-11.5): قراءة API لمستودع أو فرع أو التزام غير الظاهر (ومنها رد متأخر بعد دفع التزام) لا تدخل الملخص
     // ولا الموانع، ويُعلن أنها لالتزام آخر.

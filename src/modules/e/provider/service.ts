@@ -36,6 +36,15 @@ const KEY_BOUND: ReadonlySet<ProviderFailure> = new Set<ProviderFailure>(['unaut
 export const MODELS_CACHE_KEY = 'mijhar.provider.models';
 /** آخر «اختبر النموذج» لكل مزوّد (DEC-13 ن-5)، في ذاكرة الجلسة مع القوائم. */
 export const MODEL_TESTS_KEY = 'mijhar.provider.tests';
+/** موعد إعادة المحاولة المعلن لكل مزوّد (MJ-TA-05)، في ذاكرة الجلسة مع القوائم، مستقلًا عن صحة آخر طلب. */
+export const PROVIDER_RETRY_KEY = 'mijhar.provider.retry';
+
+/** موعد إعادة محاولة أعلنه مزوّد (Retry-After)، مقرونًا بوقت حفظ المفتاح الذي أُعلن له. */
+export interface RetryNote {
+  readonly provider: string;
+  readonly at: number;
+  readonly keySavedAt: number;
+}
 
 /** وقت حفظ مفتاح المزوّد الآن: رقم، أو null إن لم يُحفظ، أو undefined إن تعذّرت قراءته. */
 export type KeyNow = () => Promise<number | null | undefined>;
@@ -51,7 +60,13 @@ export interface ModelsCache {
   save(list: ModelsList, now?: KeyNow): Promise<void>;
   loadTest(provider: string): Promise<ModelTest | null>;
   saveTest(test: ModelTest, now?: KeyNow): Promise<void>;
-  /** يحذف قائمة المزوّد ونتيجة اختباره المقرونتين بغير مفتاحه المحفوظ حين يحين دوره في الطابور (مُسح أو استُبدل)؛ وتعذّر قراءة المفتاح: لا حذف. */
+  /**
+   * موعد إعادة المحاولة (MJ-TA-05): يبقى بعد إيقاظ العامل وبعد نجاح طلب متأخر، ولا يُكتب إلا إن كان مفتاحه هو المحفوظ حين يحين دوره، ولا يُستبدل
+   * بموعد أقرب لمفتاحه نفسه. ويُحذف بـforget مع ما يخص مفتاحًا مُسح أو استُبدل.
+   */
+  loadRetry(provider: string): Promise<RetryNote | null>;
+  saveRetry(note: RetryNote, now?: KeyNow): Promise<void>;
+  /** يحذف قائمة المزوّد ونتيجة اختباره وموعده المقرونة بغير مفتاحه المحفوظ حين يحين دوره في الطابور (مُسح أو استُبدل)؛ وتعذّر قراءة المفتاح: لا حذف. */
   forget(provider: string, now: KeyNow): Promise<void>;
 }
 
@@ -70,23 +85,36 @@ function serialQueue(): <T>(task: () => Promise<T>) => Promise<T> {
 /** يكتب إن لم يُذكر now، أو كان المفتاح المحفوظ الآن هو الذي صدرت به القيمة. */
 const writable = async (keySavedAt: number | undefined, now?: KeyNow): Promise<boolean> => !now || (keySavedAt !== undefined && (await now()) === keySavedAt);
 
-export function memoryModelsCache(): ModelsCache & { lists: Map<string, ModelsList>; tests: Map<string, ModelTest> } {
+const isRetry = (value: unknown): value is RetryNote => {
+  const v = value as Partial<RetryNote> | null;
+  return typeof v === 'object' && v !== null && typeof v.provider === 'string' && typeof v.at === 'number' && typeof v.keySavedAt === 'number';
+};
+
+/** الموعد الأبعد يحكم لمفتاحه نفسه، فلا يقدّمه رد أقرب وصل بعده؛ وموعد مفتاح آخر يُستبدل. */
+const laterRetry = (previous: unknown, next: RetryNote): boolean => !isRetry(previous) || previous.keySavedAt !== next.keySavedAt || previous.at < next.at;
+
+export function memoryModelsCache(): ModelsCache & { lists: Map<string, ModelsList>; tests: Map<string, ModelTest>; retries: Map<string, RetryNote> } {
   const lists = new Map<string, ModelsList>();
   const tests = new Map<string, ModelTest>();
+  const retries = new Map<string, RetryNote>();
   const serial = serialQueue();
   return {
     lists,
     tests,
+    retries,
     load: async (p) => lists.get(p) ?? null,
     save: (l, now) => serial(async () => void ((await writable(l.keySavedAt, now)) && lists.set(l.provider, l))),
     loadTest: async (p) => tests.get(p) ?? null,
     saveTest: (t, now) => serial(async () => void ((await writable(t.keySavedAt, now)) && tests.set(t.provider, t))),
+    loadRetry: async (p) => retries.get(p) ?? null,
+    saveRetry: (r, now) => serial(async () => void ((await writable(r.keySavedAt, now)) && laterRetry(retries.get(r.provider), r) && retries.set(r.provider, r))),
     forget: (p, now) =>
       serial(async () => {
         const keep = await now();
         if (keep === undefined) return;
         if (!ownedBy(lists.get(p), keep)) lists.delete(p);
         if (!ownedBy(tests.get(p), keep)) tests.delete(p);
+        if (!ownedBy(retries.get(p), keep)) retries.delete(p);
       }),
   };
 }
@@ -134,12 +162,23 @@ export function sessionModelsCache(session: SessionStorageLike): ModelsCache {
         if (await writable(test.keySavedAt, now)) await session.set({ [MODEL_TESTS_KEY]: { ...(await read(MODEL_TESTS_KEY)), [test.provider]: test } });
       });
     },
+    async loadRetry(provider) {
+      const note = (await read(PROVIDER_RETRY_KEY))[provider];
+      return isRetry(note) && note.provider === provider ? note : null;
+    },
+    saveRetry(note, now) {
+      return serial(async () => {
+        if (!(await writable(note.keySavedAt, now))) return;
+        const all = await read(PROVIDER_RETRY_KEY);
+        if (laterRetry(all[note.provider], note)) await session.set({ [PROVIDER_RETRY_KEY]: { ...all, [note.provider]: note } });
+      });
+    },
     forget(provider, now) {
       return serial(async () => {
         const keep = await now();
         if (keep === undefined) return;
         const items: Record<string, unknown> = {};
-        for (const key of [MODELS_CACHE_KEY, MODEL_TESTS_KEY]) {
+        for (const key of [MODELS_CACHE_KEY, MODEL_TESTS_KEY, PROVIDER_RETRY_KEY]) {
           const all = await read(key);
           if (!Object.prototype.hasOwnProperty.call(all, provider) || ownedBy(all[provider], keep)) continue;
           const rest = { ...all };
@@ -226,7 +265,8 @@ export class ProviderService {
   private readonly inflight = new Map<string, string>();
   private readonly controllers = new Map<string, AbortController>();
   /**
-   * موعد إعادة المحاولة الذي أعلنه المزوّد لكل مزوّد، ووقت حفظ المفتاح الذي أُعلن له (ذاكرة العامل؛ ويُستعاد بعد إيقاظه من سجل صحة المفتاح، F-06).
+   * موعد إعادة المحاولة الذي أعلنه المزوّد لكل مزوّد، ووقت حفظ المفتاح الذي أُعلن له (ذاكرة العامل؛ ويُستعاد بعد إيقاظه من ذاكرة الجلسة أو من سجل صحة
+   * المفتاح، F-06 وMJ-TA-05).
    */
   private readonly retryAt = new Map<string, { readonly at: number; readonly savedAt: number }>();
 
@@ -253,8 +293,9 @@ export class ProviderService {
 
   /**
    * موعد إعادة المحاولة المعلن الذي لم يحن بعد لمفتاح المزوّد المحفوظ الآن، أو null (AD-31). ما في الذاكرة أولًا إن أُعلن لهذا المفتاح نفسه؛ وإلا فمن
-   * سجل صحة المفتاح المحفوظ، فلا يُسقطه إيقاظ عامل الخلفية (F-06). والسجل لا يُعطي موعدًا إلا لجيل المفتاح الحالي نفسه وقبل حلوله (resolveStatus)؛
-   * فلا يُنسب موعد مفتاح استُبدل أو مُسح إلى بديله، لا من الذاكرة ولا من السجل (COR-AUD-02). وتعذّر قراءة المفتاح يُبقي ما في الذاكرة.
+   * ذاكرة الجلسة (MJ-TA-05: كل موعد معلن، ومنه 503، يُحفظ فيها مستقلًا عن صحة آخر طلب، فلا يُسقطه نجاح طلب متأخر ولا إيقاظ العامل)، ثم من سجل صحة
+   * المفتاح المحفوظ (F-06). وكلاهما لا يُعطي موعدًا إلا لجيل المفتاح الحالي نفسه وقبل حلوله؛ فلا يُنسب موعد مفتاح استُبدل أو مُسح إلى بديله
+   * (COR-AUD-02). وتعذّر قراءة المفتاح يُبقي ما في الذاكرة.
    */
   private async cooldown(adapter: ProviderAdapter): Promise<number | null> {
     const provider = adapter.descriptor.id;
@@ -266,8 +307,9 @@ export class ProviderService {
     }
     if (!entry) {
       if (!info) return null;
-      const key = await this.options.connections.keyStatus(provider).catch(() => null);
-      const saved = key?.health === 'rate-limited' && key.savedAt === info.savedAt ? key.detail.retryAt : null;
+      const noted = await this.cache.loadRetry(provider).catch(() => null);
+      const key = noted && noted.keySavedAt === info.savedAt ? null : await this.options.connections.keyStatus(provider).catch(() => null);
+      const saved = noted && noted.keySavedAt === info.savedAt ? noted.at : key?.health === 'rate-limited' && key.savedAt === info.savedAt ? key.detail.retryAt : null;
       if (typeof saved !== 'number') return null;
       entry = { at: saved, savedAt: info.savedAt };
       this.retryAt.set(provider, entry);
@@ -405,7 +447,11 @@ export class ProviderService {
    */
   private async note(adapter: ProviderAdapter, result: ProviderResult<unknown>, key: KeySnapshot): Promise<void> {
     if (result.ok || result.retryAt === null || (await this.replaced(adapter, key))) return;
-    this.retryAt.set(adapter.descriptor.id, { at: result.retryAt, savedAt: key.savedAt });
+    const provider = adapter.descriptor.id;
+    const current = this.retryAt.get(provider);
+    if (!current || current.savedAt !== key.savedAt || current.at < result.retryAt) this.retryAt.set(provider, { at: result.retryAt, savedAt: key.savedAt });
+    // MJ-TA-05: يُحفظ في الجلسة مستقلًا عن سجل الصحة، فلا يُسقطه إيقاظ العامل ولا نجاح طلب أقدم يصل بعده.
+    await this.cache.saveRetry({ provider, at: result.retryAt, keySavedAt: key.savedAt }, this.keyNow(adapter)).catch((error: unknown) => this.options.onError?.(error));
   }
 
   /** القائمة مقرونة بالمفتاح الذي قُرئت به، ولا تُكتب إن لم يعد هو المحفوظ حين يحين دورها في طابور الجلسة. */

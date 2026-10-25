@@ -27,8 +27,8 @@ export { openSettings } from './settings-runtime';
 export type { OpenedSettings, OpenSettingsOptions } from './settings-runtime';
 export { applyStyles, createShadowHost, deepActiveElement, githubTheme, HOST_ATTR, HOST_TAG, INLINE_HOST_CSS, STYLES_ATTR } from './shadow';
 export type { ShadowHostOptions, ShadowParts, StyleMode } from './shadow';
-export { mountSurface } from './surface';
-export type { SurfaceOptions, UiSurface } from './surface';
+export { KEEP_FALLBACK_MS, keepAttached, mountSurface } from './surface';
+export type { KeepContext, KeepOptions, Spot, SurfaceOptions, UiSurface } from './surface';
 export {
   createSettingsRegistry,
   DEFAULT_SURFACE,

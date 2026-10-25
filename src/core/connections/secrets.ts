@@ -5,6 +5,9 @@
 //  - القرص: IndexedDB بأصل الإضافة (قاعدة واحدة ومخزن واحد، ومفتاح سجل لكل سرّ)، لا storage.local التي يقرؤها سكربت المحتوى لإعداداته.
 //    غير مشفَّر، ويُتاح حيث يتيح المتصفح مستوى الوصول الموثوق (Firefox لا يتيحه فيبقى فيه ذاكرة الجلسة وحدها).
 //  - الحفظ في موضع يمحوه من الآخر، والحذف يمحوه من الاثنين. يكتبه ويحذفه سياق إضافة موثوق (الإعدادات)، وتقرؤه الخلفية؛ فلا يعبر رسالة.
+//  - الحفظ والحذف للسرّ الواحد متسلسلان بقفل بين سياقات الإضافة (Web Locks باسم السرّ) وبطابور في السياق نفسه (MJ-TA-04): حفظان من صفحتين
+//    إلى موضعين مختلفين لا يمحو تنظيفُ أحدهما ما كتبه الآخر، فيبقى آخر حفظ اكتمل.
+import type { LockManagerLike } from '../storage/store';
 
 export type SecretPlace = 'session' | 'disk';
 
@@ -132,7 +135,13 @@ export interface SecretStoreOptions {
   /** null: القرص غير متاح هنا (Firefox، أو سياق بلا IndexedDB). */
   readonly disk: SecretArea | null;
   readonly now?: () => number;
+  /** قفل بين سياقات أصل الإضافة (navigator.locks) واسمه لهذا السرّ؛ وبدونه طابور السياق نفسه وحده. */
+  readonly locks?: LockManagerLike | null;
+  readonly lockName?: string;
 }
+
+/** طوابير السياق نفسه لكل سرّ، بموضع جلسته (أو قرصه): مخزنان لسرّ واحد في سياق واحد يتشاركان طابورًا. */
+const realmQueues = new WeakMap<object, Promise<unknown>>();
 
 export class SecretPlaceUnavailableError extends Error {
   readonly code = 'secret-place-unavailable';
@@ -172,21 +181,39 @@ export class SecretStore {
   }
 
   /** يحفظه في المكان المختار ثم يمحوه من الآخر، فلا يبقى في مكانين. */
-  async save(token: string, place: SecretPlace): Promise<SecretInfo> {
+  save(token: string, place: SecretPlace): Promise<SecretInfo> {
     const target = place === 'disk' ? this.options.disk : this.options.session;
-    if (!target) throw new SecretPlaceUnavailableError(place);
+    if (!target) return Promise.reject(new SecretPlaceUnavailableError(place));
     const other = place === 'disk' ? this.options.session : this.options.disk;
-    const savedAt = this.now();
-    await target.set({ token, savedAt });
-    await other?.remove();
-    return { place, savedAt };
+    return this.exclusive(async () => {
+      const savedAt = this.now();
+      await target.set({ token, savedAt });
+      await other?.remove();
+      return { place, savedAt };
+    });
   }
 
   /** يمحوه من كل مواضع التخزين. يكمل الثاني ولو فشل الأول، ثم يرمي إن فشل أحدهما. */
-  async clear(): Promise<void> {
-    const results = await Promise.allSettled([this.options.session?.remove(), this.options.disk?.remove()]);
-    const failed = results.find((r): r is PromiseRejectedResult => r.status === 'rejected');
-    if (failed) throw failed.reason;
+  clear(): Promise<void> {
+    return this.exclusive(async () => {
+      const results = await Promise.allSettled([this.options.session?.remove(), this.options.disk?.remove()]);
+      const failed = results.find((r): r is PromiseRejectedResult => r.status === 'rejected');
+      if (failed) throw failed.reason;
+    });
+  }
+
+  // قفل بين السياقات ثم طابور السياق، بهذا الترتيب دائمًا (كما في Store).
+  private exclusive<T>(task: () => Promise<T>): Promise<T> {
+    const { locks, lockName } = this.options;
+    return locks && lockName ? locks.request(lockName, () => this.enqueue(task)) : this.enqueue(task);
+  }
+
+  private enqueue<T>(task: () => Promise<T>): Promise<T> {
+    const owner = this.options.session ?? this.options.disk;
+    if (!owner) return task();
+    const run = (realmQueues.get(owner) ?? Promise.resolve()).then(task, task);
+    realmQueues.set(owner, run.catch(() => undefined));
+    return run;
   }
 }
 
@@ -199,11 +226,13 @@ interface StorageNamespace {
  * IndexedDB؛ وإلا الجلسة وحدها.
  */
 export function extensionSecretStore(keys: SecretKeys, scope: typeof globalThis = globalThis): SecretStore {
-  const g = scope as { browser?: { storage?: StorageNamespace }; chrome?: { storage?: StorageNamespace }; indexedDB?: IDBFactory };
+  const g = scope as { browser?: { storage?: StorageNamespace }; chrome?: { storage?: StorageNamespace }; indexedDB?: IDBFactory; navigator?: { locks?: LockManagerLike } };
   const session = g.browser?.storage?.session ?? g.chrome?.storage?.session ?? null;
   const trustedLevel = typeof session?.setAccessLevel === 'function';
   return new SecretStore({
     session: session ? sessionSecretArea(session, keys.session) : null,
     disk: trustedLevel && g.indexedDB ? indexedDbSecretArea(g.indexedDB, keys.disk) : null,
+    locks: g.navigator?.locks ?? null,
+    lockName: `mijhar-secret:${keys.session}`,
   });
 }

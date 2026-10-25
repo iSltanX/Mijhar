@@ -10,6 +10,7 @@
 // وكل ما لم يُجمع يُسجَّل «فجوةً» بسببه: تعليق مطوي، وعناصر خط زمني لم تُحمَّل، وقائمة فحوص مطوية، وسجل محجوب أو لم يُقرأ، وملفات لم تُحمَّل.
 // الجامع وحده يقرأ محتوى الصفحة في الوحدة (هـ)، ولا قسم يجمع لنفسه (AD-22، TEST-CTX-05).
 import type { PageState, SelectorEntry, SelectorsRegistry } from '../../../core';
+import { redactKeyBlocks } from './sanitize';
 import { explainBlockers, readDomEvidence } from '../../d/blockers/explain';
 import type { BlockersReport } from '../../d/blockers/explain';
 import { collapsedInfo } from '../../d/blockers/freshness';
@@ -304,12 +305,14 @@ const valueOf = <T>(v: Value<T>): T | null => (v.available ? v.value : null);
 
 /** يحلّل السجل الممرَّر بطبقاته الثلاث، ويعيد ما يلزم إعلانه عنه: غيابه بسببه، أو اقتطاعه بعدد ما قُرئ. */
 function readLog(extra: LogExtra, annotations: readonly AnnotationInput[]): { log: LogAnalysis; gaps: Gap[] } {
+  // MJ-TA-01: كتل المفاتيح الخاصة تُحجب من السجل الخام وتنبيهاته قبل أن يقتطع المحلل نوافذ السياق حول أسطر الخطأ، فلا يبقى ذيل مفتاح (جسمه أو
+  // تذييله) في نافذة لا ترويسة فيها فلا يراه نمط الكتلة. عدد الأسطر محفوظ (أرقام الأسطر ونوافذها كما هي)، والعدّ في المنقّح من المقتطف.
   const log = analyzeLog({
-    text: extra.text,
+    text: extra.text === null ? null : redactKeyBlocks(extra.text, { keepLines: true }),
     ...(extra.unavailableReason ? { unavailableReason: extra.unavailableReason } : {}),
     source: extra.source ?? 'step-log',
     step: extra.step ?? null,
-    annotations,
+    annotations: annotations.map((a) => ({ ...a, message: redactKeyBlocks(a.message, { keepLines: true }) })),
     truncatedBySource: extra.truncatedBySource ?? null,
   });
   const gaps: Gap[] = [];

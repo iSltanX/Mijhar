@@ -16,7 +16,8 @@ export const SECRET_PATTERNS: readonly SecretPattern[] = [
   { id: 'github-fine-grained', label: 'رمز GitHub بصلاحيات محددة (github_pat_)', regex: /(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{16,}/g },
   { id: 'bearer', label: 'ترويسة Bearer', regex: /(?<![A-Za-z0-9])Bearer\s+[A-Za-z0-9\-._~+/]{16,}=*/g },
   { id: 'aws-access-key', label: 'معرّف مفتاح AWS (AKIA أو ASIA)', regex: /(?<![A-Za-z0-9])(?:AKIA|ASIA)[0-9A-Z]{16}(?![A-Za-z0-9])/g },
-  { id: 'private-key', label: 'ترويسة مفتاح خاص (PRIVATE KEY)', regex: /-----BEGIN [A-Z ]*PRIVATE KEY-----/g },
+  // الكتلة كاملة لا ترويستها وحدها: من BEGIN إلى أول END (مطابقة كسولة فلا تبتلع ما بين كتلتين)، وإن لم يأتِ END (كتلة ناقصة أو اقتطعها حد الأسطر) فإلى نهاية النص المفحوص.
+  { id: 'private-key', label: 'مفتاح خاص (PRIVATE KEY)', regex: /-----BEGIN [A-Z ]*PRIVATE KEY(?: BLOCK)?-----[\s\S]*?(?:-----END [A-Z ]*PRIVATE KEY(?: BLOCK)?-----|$)/g },
   { id: 'slack-token', label: 'رمز Slack (xox…)', regex: /(?<![A-Za-z0-9])xox[abprs]-[A-Za-z0-9-]{10,}/g },
   // AD-30 (H-5): صيغة مفتاح مزوّد التحليل المعتمد في DEC-09، فيحجبه المنقّح المشترك من كل محتوى قبل أي إرسال ويرصده تنبيه الحزمة.
   { id: 'anthropic-key', label: 'مفتاح Anthropic API (sk-ant-)', regex: /(?<![A-Za-z0-9])sk-ant-[A-Za-z0-9_-]{16,}/g },

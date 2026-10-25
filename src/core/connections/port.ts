@@ -40,6 +40,30 @@ const OPS: readonly ConnectionsOp[] = ['status', 'pending', 'return', 'dismiss']
 export const isConnectionsRequest = (message: unknown): message is ConnectionsRequest =>
   typeof message === 'object' && message !== null && (message as ConnectionsRequest).type === CONNECTIONS_MESSAGE && OPS.includes((message as ConnectionsRequest).op);
 
+/** مهلة دنيا بين قراءتين عند العودة (visibilitychange ثم focus يتتاليان في العودة الواحدة). */
+export const RETURN_THROTTLE_MS = 500;
+
+/**
+ * MJ-F-02: صفحة الإعدادات تكتب الأسرار ومخزنها مباشرة (مسح المفتاح، تبديل المزوّد، رفضه عند التحقق، منح صلاحية)، ولا تُبلَّغ تبويبات GitHub المفتوحة
+ * إلا بالعودة من بوابة الميزة نفسها (connections-changed). فيُعاد قراءة حالة الاتصال كلما عاد المستخدم إلى التبويب: صار مرئيًا أو استعاد التركيز (ومنه
+ * العودة من اللوحة الجانبية والتبويب مرئي). بلا طلب شبكة: الخلفية تقرأ حالتها المحفوظة. يُفك بإيقاف الوحدة.
+ */
+export function onTabReturn(
+  ctx: { readonly document: Document; readonly signal: AbortSignal; listen(target: EventTarget, type: string, listener: EventListener): void },
+  read: () => void,
+  now: () => number = () => Date.now(),
+): void {
+  let last = -Infinity;
+  const fire = (): void => {
+    if (ctx.signal.aborted || ctx.document.visibilityState === 'hidden' || now() - last < RETURN_THROTTLE_MS) return;
+    last = now();
+    read();
+  };
+  ctx.listen(ctx.document, 'visibilitychange', fire);
+  const view = ctx.document.defaultView;
+  if (view) ctx.listen(view, 'focus', fire);
+}
+
 export const isConnectionsChanged = (message: unknown): message is ConnectionsChangedMessage =>
   typeof message === 'object' && message !== null && (message as ConnectionsChangedMessage).type === CONNECTIONS_CHANGED_MESSAGE;
 

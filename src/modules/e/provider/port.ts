@@ -103,14 +103,18 @@ export interface ProviderPort {
 
 const unreachable = (failure: ProviderFailure, message: string): { ok: false; failure: ProviderFailure; status: null; message: string; retryAt: null } => ({ ok: false, failure, status: null, message, retryAt: null });
 
+/** لم تصل الرسالة أي مستمع: لم يبدأ شيء. وما سواه (أُغلق المنفذ قبل الرد، أو رد فارغ) قد يلي إرسالًا إلى المزوّد (MJ-TA-H01). */
+const notDelivered = (error: unknown): boolean => /Receiving end does not exist/i.test(error instanceof Error ? error.message : String(error));
+
 /** منفذ الصفحات وسكربت المحتوى: رسائل إلى الخلفية. تعذّر الرسالة نفسها فشل معلن لا نجاح. */
 export function runtimeProviderPort(runtime: Pick<ExtensionApi['runtime'], 'sendMessage'>): ProviderPort {
-  const send = async <R>(request: ProviderRequest, fallback: R): Promise<R> => {
+  /** fallback: حين لم تصل الرسالة؛ وlost: حين وصلت وانقطعت القناة قبل الرد (افتراضًا fallback لما لا يرسل شيئًا إلى المزوّد). */
+  const send = async <R>(request: ProviderRequest, fallback: R, lost: R = fallback): Promise<R> => {
     try {
       const response = await runtime.sendMessage(request);
-      return (response ?? fallback) as R;
-    } catch {
-      return fallback;
+      return (response ?? lost) as R;
+    } catch (error) {
+      return notDelivered(error) ? fallback : lost;
     }
   };
   return {
@@ -118,7 +122,12 @@ export function runtimeProviderPort(runtime: Pick<ExtensionApi['runtime'], 'send
     verify: (provider, options) =>
       send<VerifyResponse>({ type: PROVIDER_MESSAGE, op: 'verify', provider, ...(options?.suggest === false ? { suggest: false } : {}) }, unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة')),
     probe: (provider, model) => send<ProbeResponse>({ type: PROVIDER_MESSAGE, op: 'probe', provider, model }, unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة')),
-    analyze: (input) => send<AnalyzeResponse>({ type: PROVIDER_MESSAGE, op: 'analyze', ...input }, unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة؛ لم يُرسل شيء')),
+    analyze: (input) =>
+      send<AnalyzeResponse>(
+        { type: PROVIDER_MESSAGE, op: 'analyze', ...input },
+        unreachable('network', 'تعذّر الوصول إلى خلفية الإضافة؛ لم يُرسل شيء'),
+        unreachable('network', 'انقطع الاتصال بخلفية الإضافة قبل أن تردّ، فتعذّر التأكد إن كان الطلب قد أُرسل إلى المزوّد. أعد المحاولة إن احتجت.'),
+      ),
     cancel: async (requestId) => {
       await send<unknown>({ type: PROVIDER_MESSAGE, op: 'cancel', requestId }, null);
     },

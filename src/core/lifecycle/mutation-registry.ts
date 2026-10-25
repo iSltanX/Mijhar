@@ -35,6 +35,8 @@ const describe = (el: Element): string => `<${el.localName}${el.id ? `#${el.id}`
 
 export class MutationRecorder {
   private readonly entries: Entry[] = [];
+  /** ما أدرجه هذا السجل بـinsert: وحده يُعاد بـreattach. */
+  private readonly inserted = new WeakSet<Node>();
   private isClosed = false;
   private rejected = 0;
 
@@ -58,6 +60,7 @@ export class MutationRecorder {
     if (node.parentNode) throw new Error('insert: العقدة مرتبطة بأب؛ استعمل replace أو custom');
     if (this.reject()) return node;
     parent.insertBefore(node, before);
+    this.inserted.add(node);
     this.entries.push({
       label: 'insert',
       undo: () => {
@@ -67,6 +70,19 @@ export class MutationRecorder {
       },
     });
     return node;
+  }
+
+  /**
+   * يعيد عقدة أدرجها هذا السجل نفسه إلى موضع جديد بعد أن أبعدتها الصفحة (MJ-F-01): GitHub يستبدل بعد الإماهة الشجرة التي فيها المضيف، فيبقى
+   * مفصولًا عن المستند وله أب في الشجرة المفصولة. تُنزع من أبيها أيًّا كان ثم تُدرج. لا قيد جديد: عكس إدراجها الأول يزيلها من أي أب تكون فيه، فلا
+   * تتراكم القيود بتكرار الإعادة. لا يقبل عقدة لم يُدرجها (الصفحة لا تُنقل عقدها هنا)، ويعيد false بعد الإغلاق.
+   */
+  reattach(parent: Node, node: Node, before: Node | null = null): boolean {
+    if (!this.inserted.has(node)) throw new Error('reattach: العقدة لم يُدرجها هذا السجل؛ استعمل insert');
+    if (this.reject()) return false;
+    node.parentNode?.removeChild(node);
+    parent.insertBefore(node, before);
+    return true;
   }
 
   /** يستبدل عقدة موجودة بأخرى ويحفظ الأصل لإعادته. */

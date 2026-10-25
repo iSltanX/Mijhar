@@ -2,7 +2,7 @@
 // شقيقين: الملخص المؤكد وتفسير الأثر، فلا يحتوي أحدهما الآخر هيكليًا. يُدرجان قبل حاوية الفروقات عبر ctx.mutations فيُزالان بإيقاف
 // الوحدة، ويتجددان حين تُحمَّل ملفات إضافية في الصفحة. بلا أي طلب شبكة: الأرقام من الصفحة نفسها.
 import { mountSurface } from '../../../core/ui-host/surface';
-import type { UiSurface } from '../../../core/ui-host/surface';
+import type { Spot, UiSurface } from '../../../core/ui-host/surface';
 import type { ExtensionModule, ModuleContext } from '../../../core';
 import { COMPARE_MODULE_ID } from '../pr-status/ids';
 import { D_CARD_CSS } from '../pr-status/style';
@@ -61,12 +61,16 @@ class CompareController {
     }, this.debounceMs);
   }
 
-  private spot(): { parent: Node; before: Node | null } {
-    const { ctx } = this;
-    const anchor = ctx.selectors.resolve(ctx.document, 'd.compare.anchor')?.element;
-    if (anchor?.parentNode) return { parent: anchor.parentNode, before: anchor };
-    const parent = ctx.page.contentRoot ?? ctx.document.body;
+  private spot(): Spot {
+    const spot = this.anchorSpot();
+    if (spot) return spot;
+    const parent = this.ctx.page.contentRoot ?? this.ctx.document.body;
     return { parent, before: parent.firstChild };
+  }
+
+  private anchorSpot(): Spot | null {
+    const anchor = this.ctx.selectors.resolve(this.ctx.document, 'd.compare.anchor')?.element;
+    return anchor?.parentNode ? { parent: anchor.parentNode, before: anchor } : null;
   }
 
   private refresh(): void {
@@ -75,15 +79,10 @@ class CompareController {
     const summary = readCompare(ctx.document, ctx.selectors, ctx.page.href);
     if (!this.facts || !this.impact) {
       const { parent, before } = this.spot();
-      this.facts = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'ملخص الملفات والتغييرات المؤكدة' });
-      this.impact = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'تفسير الأثر' });
-    } else {
-      // أعادت الصفحة رسم حاويتها فأزالت المضيفين: يُعاد إدراجهما بالترتيب نفسه.
-      const detached = [this.facts, this.impact].filter((s) => !s.host.isConnected);
-      if (detached.length) {
-        const { parent, before } = this.spot();
-        for (const s of detached) ctx.mutations.insert(parent, s.host, before);
-      }
+      // أعادت الصفحة رسم حاويتها فأبعدت المضيفين (MJ-F-01): يعيد keep كلًّا قبل المرساة الجديدة، الملخص أولًا ثم الأثر كما رُكّبا.
+      const keep = { anchor: () => this.anchorSpot(), fallback: () => this.spot() };
+      this.facts = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'ملخص الملفات والتغييرات المؤكدة', keep });
+      this.impact = mountSurface(ctx, { parent, before, styles: D_CARD_CSS, label: 'تفسير الأثر', keep });
     }
     this.facts.render(<CompareFacts summary={summary} />);
     this.impact.render(<CompareImpact summary={summary} />);

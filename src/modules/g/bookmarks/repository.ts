@@ -1,5 +1,8 @@
 // مستودع الروابط المحفوظة فوق Store، على نمط مستودع الملاحظات: ذاكرة مؤقتة متزامنة تتبع أحداث التغيّر من كل السياقات (زر الصفحة
 // واللوحة وتبويب آخر)، وسجل لكل رابط. سجل غير صالح في التخزين يُهمل في العرض ويبقى كما هو (قد يكون من نسخة أحدث).
+// MJ-TA-03: الخلفية الكاتب الوحيد لسجلات bookmarks.* كما للملاحظات (AD-25): كل سياق آخر يمرّر writer فيُرسل الإنشاء والتعديل والحذف إلى
+// NotesBroker، فيتوالى في طابوره الواحد مع الحذف والاستيراد؛ فلا يدهس تعديلٌ تعديلًا من نافذة أخرى، ولا يعيد تعديلٌ متأخر رابطًا حُذف. والمسار
+// المباشر (بلا writer) للخلفية نفسها ولاختبارات الوحدة.
 import type { Store } from '../../../core/storage';
 import { BOOKMARK_PREFIX, BOOKMARK_SCHEMA_VERSION, MAX_QUICK_NOTE_LENGTH, MAX_TITLE_LENGTH, bookmarkRecordName, isBookmark, pageKey, parseTags } from './types';
 import type { Bookmark, BookmarkDraft, BookmarkPatch } from './types';
@@ -18,9 +21,18 @@ export class BookmarkInputError extends Error {
   }
 }
 
+/** ما يحتاجه المستودع ليكتب عبر الخلفية (runtimeNotesWriter يحققه). */
+export interface BookmarksWriter {
+  createBookmark(draft: BookmarkDraft): Promise<Bookmark>;
+  updateBookmark(id: string, patch: BookmarkPatch): Promise<Bookmark>;
+  removeBookmark(id: string): Promise<void>;
+}
+
 export interface BookmarksRepositoryOptions {
   readonly now?: () => Date;
   readonly newId?: () => string;
+  /** خارج الخلفية: الكتابة عبرها وحدها (MJ-TA-03). */
+  readonly writer?: BookmarksWriter;
 }
 
 const same = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.stringify(b);
@@ -47,6 +59,7 @@ export class BookmarksRepository {
   private unsubscribe: (() => void) | null = null;
   private readonly now: () => Date;
   private readonly newId: () => string;
+  private readonly writer: BookmarksWriter | null;
 
   private constructor(
     private readonly store: Store,
@@ -54,6 +67,7 @@ export class BookmarksRepository {
   ) {
     this.now = options.now ?? (() => new Date());
     this.newId = options.newId ?? randomId;
+    this.writer = options.writer ?? null;
   }
 
   static async open(store: Store, options: BookmarksRepositoryOptions = {}): Promise<BookmarksRepository> {
@@ -87,6 +101,11 @@ export class BookmarksRepository {
   }
 
   async create(draft: BookmarkDraft): Promise<Bookmark> {
+    if (this.writer) {
+      const created = await this.writer.createBookmark(draft);
+      this.apply(created.id, created);
+      return created;
+    }
     const stamp = this.now().toISOString();
     const bookmark: Bookmark = {
       id: this.newId(),
@@ -113,6 +132,11 @@ export class BookmarksRepository {
 
   async update(id: string, patch: BookmarkPatch): Promise<Bookmark> {
     const note = patch.note === undefined ? undefined : checkNote(patch.note);
+    if (this.writer) {
+      const updated = await this.writer.updateBookmark(id, patch);
+      this.apply(id, updated);
+      return updated;
+    }
     const next = await this.store.update<Bookmark | null>(bookmarkRecordName(id), null, (current) => {
       if (!current) throw new BookmarkNotFoundError(id);
       const merged: Bookmark = {
@@ -134,7 +158,8 @@ export class BookmarksRepository {
   }
 
   async remove(id: string): Promise<void> {
-    await this.store.remove(bookmarkRecordName(id));
+    if (this.writer) await this.writer.removeBookmark(id);
+    else await this.store.remove(bookmarkRecordName(id));
     this.apply(id, undefined);
   }
 

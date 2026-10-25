@@ -6,7 +6,8 @@
 //   release/packages/SHA256SUMS
 // يفحص كل حزمة قبل كتابتها: ملفات من قائمة مسموحة وحدها، ولا ملف خرائط ولا مخفي ولا مؤقت ولا ملف تعريف متصفح ولا اختبار ولا دليل، ولا صيغة رمز أو
 // مفتاح، ولا مسار مطلق من الجهاز. والحزمة المصدرية من قائمة مسموحة صريحة (لا node_modules ولا dist ولا evidence ولا تقارير تدقيق ولا لقطات).
-// الزمن في كل ملف ثابت (SOURCE_DATE)، والترتيب أبجدي، فتتطابق البصمات بين بناءين من الشجرة نفسها.
+// الزمن في كل ملف ثابت (SOURCE_DATE)، والترتيب أبجدي، وصلاحيات كل ملف 0644 (MJ-TA-O01: لا تتبع طريقة استخراج الشجرة)، فتتطابق البصمات بين
+// بناءين من الشجرة نفسها.
 // الاستعمال: npm run build && node scripts/package.mjs [--check]   (--check يفحص الحزم المكتوبة دون إعادة بنائها)
 import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -55,7 +56,7 @@ function scanContents(root, files) {
   return problems;
 }
 
-/** ينسخ الملفات إلى مجلد مؤقت بزمن ثابت ثم يضغطها بترتيبها؛ zip -X بلا سمات إضافية، و-D بلا مدخلات مجلدات. */
+/** ينسخ الملفات إلى مجلد مؤقت بزمن ثابت وصلاحيات ثابتة ثم يضغطها بترتيبها؛ zip -X بلا سمات إضافية، و-D بلا مدخلات مجلدات. */
 function zip(sourceRoot, files, target) {
   const stage = fs.mkdtempSync(path.join(os.tmpdir(), 'mijhar-package-'));
   try {
@@ -63,6 +64,7 @@ function zip(sourceRoot, files, target) {
       const to = path.join(stage, f);
       fs.mkdirSync(path.dirname(to), { recursive: true });
       fs.copyFileSync(path.join(sourceRoot, f), to);
+      fs.chmodSync(to, 0o644);
       execFileSync('touch', ['-t', SOURCE_DATE, to]);
     }
     fs.mkdirSync(path.dirname(target), { recursive: true });
@@ -110,6 +112,7 @@ No network access is needed by the build beyond installing the locked npm depend
 
 Layout: src/ (TypeScript and Preact), scripts/build.mjs (the build), assets/fonts (bundled fonts with their OFL texts),
 release/icons (manifest icons), THIRD_PARTY_NOTICES.txt (third-party licenses).
+src/modules/c/network-audit/*.mjs is a development-time network-audit tool used by the project's tests; no bundle imports it.
 Designed and developed by Sultan — https://bysltan.com
 `;
 

@@ -10,7 +10,7 @@
 import type { Blocker } from '../../d/blockers/explain';
 import type { LogAnalysis } from '../../d/log-parser/parse';
 import { groupMessages } from '../../d/log-parser/view';
-import { scanText } from '../privacy-check/scan';
+import { SECRET_PATTERNS, scanText } from '../privacy-check/scan';
 import type { Finding } from '../privacy-check/scan';
 import type { ChangedFile, Changes, CommentInfo, ContextPageKind, ContextSource, Gap, PrStatus, Snippet } from './collect';
 import { LINE_LIMIT_DEFAULT } from './settings';
@@ -169,6 +169,24 @@ export const maskOf = (patternId: string): string => `[محجوب: ${patternId}]
 /** MJ26 («الإبلاغ عن مشكلة»): أسماء صيغ الأسرار المعروفة في نص حر يكتبه المستخدم، بفاحص المنقّح نفسه لا بمسار موازٍ؛ لا يغيّر النص ولا يحجب. */
 export const secretKinds = (text: string): string[] => [...new Set(scanText(text).map((f) => f.label))];
 
+const PRIVATE_KEY = SECRET_PATTERNS.find((p) => p.id === 'private-key');
+const KEY_MASK = maskOf('private-key');
+
+/**
+ * MJ-TA-01: يحجب كتل المفاتيح الخاصة كاملة (الترويسة والجسم والتذييل؛ وبلا تذييل إلى نهاية النص) قبل أي اقتطاع أو تنسيق، فلا يقطع حدُّ الأسطر
+ * كتلةً فيبقى جسمها بلا ترويسة. keepLines يُبقي عدد الأسطر (للسجل الخام: أرقام أسطره ونوافذ محلله)؛ وإلا تصير الكتلة موضعًا واحدًا. onBlock لكل كتلة.
+ */
+export function redactKeyBlocks(text: string, options: { readonly keepLines?: boolean; readonly onBlock?: () => void } = {}): string {
+  if (!PRIVATE_KEY) return text;
+  return text.replace(new RegExp(PRIVATE_KEY.regex.source, PRIVATE_KEY.regex.flags), (m) => {
+    options.onBlock?.();
+    return options.keepLines ? KEY_MASK + '\n'.repeat((m.match(/\n/g) ?? []).length) : KEY_MASK;
+  });
+}
+
+/** عدد الكتل المحجوبة سلفًا في نص (السجل يُحجب عند جمعه، collect.ts). */
+const keyMasks = (text: string): number => text.split(KEY_MASK).length - 1;
+
 /** يحجب كل موضع مطابق (والمتراكبان موضع واحد)، ويبلغ كل مرصود. */
 function maskText(text: string, onFind: (finding: Finding) => void): string {
   const found = scanText(text);
@@ -213,22 +231,35 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
   const policy = options.secrets ?? 'mask';
   const has = (id: string): boolean => !options.selected || options.selected.has(id);
 
+  // الأسرار تُعدّ لكل جزء (3 أدناه)؛ وكتل المفاتيح الخاصة تُحجب وتُعدّ قبل الاقتطاع (MJ-TA-01).
+  const hits = new Map<string, { part: string; patternId: string; label: string; count: number }>();
+  const count = (part: string, f: Pick<Finding, 'patternId' | 'label'>): void => {
+    const key = `${part}|${f.patternId}`;
+    const hit = hits.get(key);
+    if (hit) hit.count += 1;
+    else hits.set(key, { part, patternId: f.patternId, label: f.label, count: 1 });
+  };
+  const keyHit = { patternId: 'private-key', label: PRIVATE_KEY?.label ?? 'private-key' };
+  const unkeyed = (text: string, part: string): string => (policy === 'mask' ? redactKeyBlocks(text, { onBlock: () => count(part, keyHit) }) : text);
+
   // 1-2. الاختيار ثم الاقتطاع، بترتيب الأجزاء (فيظهر ما اقتُطع بالترتيب نفسه في الواجهة وفي المخرج).
   const cuts: Gap[] = [];
-  const clipped = (text: string, max: number, part: string): string => {
-    const c = clip(text, max);
+  const clipped = (text: string, max: number, part: string, counted = part): string => {
+    const c = clip(unkeyed(text, counted), max);
     if (c.cut) cuts.push({ part, kind: 'truncated', reason: `بحد ${max} سطرًا`, cut: c.cut });
     return c.text;
   };
   const description = source.description && has(ITEM.description) ? clipped(source.description, limits.description, 'الوصف') : null;
-  const comments = source.comments.filter((c) => has(ITEM.comment(c.id))).map((c) => ({ ...c, text: clipped(c.text, limits.comment, `تعليق ${c.author ?? c.id}`) }));
+  const comments = source.comments.filter((c) => has(ITEM.comment(c.id))).map((c) => ({ ...c, text: clipped(c.text, limits.comment, `تعليق ${c.author ?? c.id}`, 'التعليقات') }));
   const error = source.errorExcerpt.length && has(ITEM.error) ? clipped(source.errorExcerpt.join('\n'), limits.error, 'مقتطف الخطأ') : null;
-  const chosen = snippets.filter((s) => has(ITEM.snippet(s.id))).map((s, i) => ({ ...s, text: clipped(s.text, limits.snippet, `مقتطف ${i + 1}`) }));
+  const chosen = snippets.filter((s) => has(ITEM.snippet(s.id))).map((s, i) => ({ ...s, text: clipped(s.text, limits.snippet, `مقتطف ${i + 1}`, 'مقتطفات الأدلة') }));
 
   let log: SanitizedLog | null = null;
   if (source.log && has(ITEM.log)) {
     const raw = logExcerpt(source.log);
-    log = { analysis: source.log, excerpt: raw === null ? null : clipped(raw, limits.log, 'مقتطفات السجل') };
+    // السجل الخام حُجبت كتله عند جمعه (قبل أن يقتطع محلله نوافذه)، فتُعدّ هنا مرة واحدة من المقتطف.
+    if (raw !== null && policy === 'mask') for (let i = keyMasks(raw); i > 0; i -= 1) count('السجل', keyHit);
+    log = { analysis: source.log, excerpt: raw === null ? null : clipped(raw, limits.log, 'مقتطفات السجل', 'السجل') };
     if (source.log.moreMessages) cuts.push({ part: 'مقتطفات السجل', kind: 'truncated', reason: `عُرضت أول ${source.log.messages.length} رسالة، وبقيت ${source.log.moreMessages} لم تُعرض` });
     if (source.log.moreRootCauses) cuts.push({ part: 'الأسباب المثبتة', kind: 'truncated', reason: `عُرض أول ${source.log.rootCauses.length} سبب، وبقي ${source.log.moreRootCauses} لم يُعرض` });
   }
@@ -241,18 +272,11 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
       totals: source.changes.totals,
       files: source.changes.files.map(({ patch: _patch, ...file }) => file),
       complete: source.changes.complete,
-      patch: lines.length ? clipped(lines.join('\n'), limits.changes, 'أسطر الفروق') : null,
+      patch: lines.length ? clipped(lines.join('\n'), limits.changes, 'أسطر الفروق', 'التغييرات') : null,
     };
   }
 
   // 3. الأسرار، جزءًا جزءًا.
-  const hits = new Map<string, { part: string; patternId: string; label: string; count: number }>();
-  const count = (part: string, f: Finding): void => {
-    const key = `${part}|${f.patternId}`;
-    const hit = hits.get(key);
-    if (hit) hit.count += 1;
-    else hits.set(key, { part, patternId: f.patternId, label: f.label, count: 1 });
-  };
   const pass = <T>(value: T, part: string): T => {
     if (policy === 'mask') return mapStrings(value, (text) => maskText(text, (f) => count(part, f)));
     visitStrings(value, (text) => {

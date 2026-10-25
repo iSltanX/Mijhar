@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from 'preact/hooks';
 import type { SettingsStore } from '../core/settings';
 import { moduleEnabledKey } from '../core/settings';
 import type { CommandInfo } from '../core/ui-host/browser-api';
-import { PANEL_COMMAND } from '../core/ui-host/commands';
+import { PANEL_COMMAND, displayShortcut } from '../core/ui-host/commands';
 import type { OptionsTarget } from '../core/ui-host/commands';
 import type { ApiGithubPermission } from '../core/ui-host/permissions';
 import { SURFACE_KEY, UNITS, WELCOME_KEY } from '../core/ui-host/units';
@@ -244,7 +244,7 @@ function ShortcutSection({ shortcuts }: { shortcuts: ShortcutsCapability }) {
   useEffect(() => {
     const read = () =>
       shortcuts.getAll().then(
-        (all) => setShortcut(all.find((c) => c.name === PANEL_COMMAND)?.shortcut || null),
+        (all) => setShortcut(displayShortcut(all.find((c) => c.name === PANEL_COMMAND)?.shortcut ?? '') || null),
         () => setShortcut(null),
       );
     void read();

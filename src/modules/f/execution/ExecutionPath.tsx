@@ -387,6 +387,9 @@ function ScopeFacts({ plan, prepared, issue }: { plan: WritePlan; prepared: Prep
   );
 }
 
+/** خانة لم تُبلَّغ نتيجتها بعد انقطاع القناة (MJ-TA-H01). */
+const UNKNOWN = 'غير معروف؛ راجع المستودع.';
+
 function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutcome; plan: WritePlan; copied: string | null; onCopy: () => void; onRestart: () => void }) {
   const repo = `${plan.owner}/${plan.repo}`;
   return (
@@ -398,6 +401,11 @@ function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutc
             {outcome.pull.draft ? ' مسودةً' : ''}.
           </strong>{' '}
           أُنشئ الفرع وكُتب <Ltr className="mono">{plan.path}</Ltr> وفُتح الطلب. لم يُدمج شيء ولم يُغلق شيء.
+        </p>
+      ) : outcome.uncertain ? (
+        <p class="notice" data-tone="danger" role="alert" data-failure-step={outcome.failure?.step} data-uncertain="">
+          <strong>تعذّر التأكد من النتيجة. </strong>
+          {outcome.failure?.message} ولم تُعَد أي محاولة تلقائيًا.
         </p>
       ) : (
         <p class="notice" data-tone="danger" role="alert" data-failure-step={outcome.failure?.step}>
@@ -413,6 +421,8 @@ function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutc
             <a href={outcome.branch.url} target="_blank" rel="noopener noreferrer">
               <Ltr className="mono">{outcome.branch.name}</Ltr>
             </a>
+          ) : outcome.uncertain ? (
+            UNKNOWN
           ) : (
             'لم يُنشأ.'
           )}
@@ -427,6 +437,8 @@ function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutc
             ) : (
               <Ltr className="mono">{plan.title}</Ltr>
             )
+          ) : outcome.uncertain ? (
+            UNKNOWN
           ) : (
             'لم يُكتب الملف.'
           )}
@@ -438,6 +450,8 @@ function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutc
               <Ltr className="mono">{`${repo}#${outcome.pull.number ?? '?'}`}</Ltr>
               {outcome.pull.draft ? ' (مسودة)' : ''}
             </>
+          ) : outcome.uncertain ? (
+            UNKNOWN
           ) : (
             'لم يُفتح.'
           )}

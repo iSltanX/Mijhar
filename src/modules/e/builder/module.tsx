@@ -6,6 +6,7 @@
 //  - التنزيل `.md` (T-6.2) محلي بنقر أيضًا: Blob ورابط blob: وعنصر a[download] داخل جذر الظل، بلا صلاحية downloads ولا شبكة.
 import type { ExtensionModule, ModuleContext } from '../../../core';
 import { mountSurface } from '../../../core/ui-host/surface';
+import type { Spot } from '../../../core/ui-host/surface';
 import { JOB_PAGE_SELECTORS, isJobPath } from '../../d/log-parser/job-page';
 import { PR_STATUS_SELECTORS } from '../../d/pr-status/extract';
 import { CONTEXT_SELECTORS, collectContext, pageKind, readSelection } from '../context';
@@ -118,12 +119,20 @@ class BuilderController {
   start(): void {
     const { ctx } = this;
     const spot = this.place();
-    this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: BUILDER_CSS + PRIVACY_CSS, label: 'حزمة السياق' });
+    // أعادت الصفحة رسم حاويتها فأبعدت المضيف (MJ-F-01): يعيده keep إلى موضعه الجديد بحالته (النافذة المفتوحة والمقتطفات).
+    this.surface = mountSurface(ctx, { parent: spot.parent, before: spot.before, styles: BUILDER_CSS + PRIVACY_CSS, label: 'حزمة السياق', keep: { anchor: () => this.anchorSpot(), fallback: () => this.place() } });
     ctx.listen(ctx.document, 'selectionchange', () => this.trackSelection());
     this.draw();
   }
 
-  private place(): { parent: Node; before: Node | null } {
+  private place(): Spot {
+    const spot = this.anchorSpot();
+    if (spot) return spot;
+    const parent = this.ctx.page.contentRoot ?? this.ctx.document.body;
+    return { parent, before: parent.firstChild };
+  }
+
+  private anchorSpot(): Spot | null {
     const { ctx } = this;
     if (this.kind === 'job') {
       const annotations = ctx.selectors.resolve(ctx.document, 'e.job.anchor')?.element;
@@ -132,9 +141,7 @@ class BuilderController {
       if (logs?.parentNode) return { parent: logs.parentNode, before: logs.parentNode.firstChild };
     }
     const header = ctx.selectors.resolve(ctx.document, 'e.anchor')?.element;
-    if (header?.parentNode) return { parent: header.parentNode, before: header.nextSibling };
-    const parent = ctx.page.contentRoot ?? ctx.document.body;
-    return { parent, before: parent.firstChild };
+    return header?.parentNode ? { parent: header.parentNode, before: header.nextSibling } : null;
   }
 
   /** آخر نص محدد خارج واجهتنا، ومصدره (تعليق بصاحبه، أو سجل، أو الصفحة). */
