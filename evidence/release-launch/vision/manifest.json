@@ -1,0 +1,61 @@
+{
+  "blockedHosts": [],
+  "shots": [
+    {
+      "file": "03-status--captioned--light--deuteranopia.png",
+      "scene": "03-status",
+      "caption": "لماذا لا يُدمج الطلب؟ الموانع والفحوص في بطاقة واحدة",
+      "kind": "captioned",
+      "theme": "light",
+      "width": 1280,
+      "height": 688,
+      "browser": "Chrome 156.0.8078.47",
+      "extension": "مِجهَر 1.0.0 (dist/chromium)",
+      "commit": "3e2e574",
+      "page": "https://github.com/mijhar-demo/arabic-docs/pull/12",
+      "at": "2026-10-25T12:13:57.824Z"
+    },
+    {
+      "file": "03-status--clean--light--deuteranopia.png",
+      "scene": "03-status",
+      "caption": "لماذا لا يُدمج الطلب؟ الموانع والفحوص في بطاقة واحدة",
+      "kind": "clean",
+      "theme": "light",
+      "width": 1280,
+      "height": 800,
+      "browser": "Chrome 156.0.8078.47",
+      "extension": "مِجهَر 1.0.0 (dist/chromium)",
+      "commit": "3e2e574",
+      "page": "https://github.com/mijhar-demo/arabic-docs/pull/12",
+      "at": "2026-10-25T12:14:02.984Z"
+    },
+    {
+      "file": "04-log--captioned--light--deuteranopia.png",
+      "scene": "04-log",
+      "caption": "سبب فشل الفحص مع السطر الذي يثبته من السجل",
+      "kind": "captioned",
+      "theme": "light",
+      "width": 1280,
+      "height": 688,
+      "browser": "Chrome 156.0.8078.47",
+      "extension": "مِجهَر 1.0.0 (dist/chromium)",
+      "commit": "3e2e574",
+      "page": "https://github.com/mijhar-demo/arabic-docs/actions/runs/1102/job/2204",
+      "at": "2026-10-25T12:14:07.838Z"
+    },
+    {
+      "file": "04-log--clean--light--deuteranopia.png",
+      "scene": "04-log",
+      "caption": "سبب فشل الفحص مع السطر الذي يثبته من السجل",
+      "kind": "clean",
+      "theme": "light",
+      "width": 1280,
+      "height": 800,
+      "browser": "Chrome 156.0.8078.47",
+      "extension": "مِجهَر 1.0.0 (dist/chromium)",
+      "commit": "3e2e574",
+      "page": "https://github.com/mijhar-demo/arabic-docs/actions/runs/1102/job/2204",
+      "at": "2026-10-25T12:14:12.684Z"
+    }
+  ]
+}
