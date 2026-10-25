@@ -47,7 +47,7 @@ import type { ProviderAdapter } from '../modules/e/provider/types';
 import { isNotesWriteRequest } from '../modules/g/notes/writer';
 import { isExecutionRequest } from '../modules/f/execution/port';
 import { handleReportRequest, isReportRequest, reportPermissions } from '../core/report/port';
-import { scanText } from '../modules/e/privacy-check';
+import { secretKinds } from '../modules/e/context';
 import { ExecutionService } from '../modules/f/execution/service';
 
 export interface BackgroundOptions {
@@ -224,7 +224,7 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
       void handleReportRequest(message, fromExtensionPage(sender), {
         fetch: (input, init) => reportFetch(input, init),
         granted: () => api.permissions?.contains(reportPermissions(target)) ?? Promise.resolve(false),
-      }, (text) => scanText(text).length > 0).then(sendResponse, () => sendResponse({ ok: false, failure: 'network', status: null }));
+      }, (text) => secretKinds(text).length > 0).then(sendResponse, () => sendResponse({ ok: false, failure: 'network', status: null }));
       return true;
     }
     if (isConnectionsRequest(message)) {

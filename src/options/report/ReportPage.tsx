@@ -15,7 +15,7 @@ import type { PermissionsApi } from '../../core/ui-host/browser-api';
 import { SURFACE_KEY, UNITS } from '../../core/ui-host/units';
 import { Ltr } from '../../shared/ui';
 import { Icon } from '../../shared/ui/icons';
-import { scanText } from '../../modules/e/privacy-check';
+import { secretKinds } from '../../modules/e/context';
 import { isTrustedActivation } from '../../shared/ui/user-activation';
 import { useStyles } from '../../shared/ui/useStyles';
 
@@ -76,8 +76,8 @@ export function ReportPage({ settings, permissions, target, port, onBack, diagno
   }, [settings, diagnostics]);
 
   const error = formError({ kind, description: text });
-  // صيغ الأسرار المعروفة في النص (فاحص privacy-check التحذيري): لا يُرسل البلاغ ولا يُنسخ وفيه ما يشبه رمزًا أو مفتاحًا (MJ26، مراجعة ذاتية).
-  const secrets = useMemo(() => [...new Set(scanText(text).map((f) => f.label))], [text]);
+  // صيغ الأسرار المعروفة في النص (فاحص المنقّح نفسه): لا يُرسل البلاغ ولا يُنسخ وفيه ما يشبه رمزًا أو مفتاحًا (MJ26، مراجعة ذاتية).
+  const secrets = useMemo(() => secretKinds(text), [text]);
   const blocked = secrets.length > 0;
   const payload = useMemo(() => (diag ? buildPayload({ kind, description: text.trim() || '…' }, diag) : null), [diag, kind, text]);
   const body = payload ? serialise(payload) : '';

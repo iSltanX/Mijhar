@@ -166,6 +166,9 @@ function logExcerpt(log: LogAnalysis): string | null {
 /** ما يحلّ محل الموضع المحجوب في mask. */
 export const maskOf = (patternId: string): string => `[محجوب: ${patternId}]`;
 
+/** MJ26 («الإبلاغ عن مشكلة»): أسماء صيغ الأسرار المعروفة في نص حر يكتبه المستخدم، بفاحص المنقّح نفسه لا بمسار موازٍ؛ لا يغيّر النص ولا يحجب. */
+export const secretKinds = (text: string): string[] => [...new Set(scanText(text).map((f) => f.label))];
+
 /** يحجب كل موضع مطابق (والمتراكبان موضع واحد)، ويبلغ كل مرصود. */
 function maskText(text: string, onFind: (finding: Finding) => void): string {
   const found = scanText(text);
