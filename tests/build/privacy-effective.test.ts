@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import {
   EFFECTIVE_PLACEHOLDER,
   effectiveDateOf,
+  effectiveSentence,
   formatArabicDate,
   isValidISODate,
   riyadhDate,
@@ -37,20 +38,21 @@ describe('تاريخ سريان الخصوصية', () => {
     expect(() => effectiveDateOf(source.replace(/- \*\*تاريخ السريان:\*\* .+/, '- **تاريخ السريان:** قريبًا'))).toThrow();
   });
 
-  it('التثبيت يستبدل السطر وحده، ويكتب PRIVACY.md «تسري من …» بالصيغة العربية', () => {
+  it('التثبيت يستبدل السطر وحده، ويكتب PRIVACY.md «تسري هذه السياسة اعتبارًا من …» بالصيغة العربية', () => {
     const set = setEffectiveDate(source, '2026-11-02');
     expect(effectiveDateOf(set)).toBe('2026-11-02');
     expect(set.split('\n').length).toBe(source.split('\n').length);
     expect(setEffectiveDate(set, '2026-11-03')).toContain('- **تاريخ السريان:** 2026-11-03');
     expect(formatArabicDate('2026-11-02')).toBe('2 نوفمبر 2026');
     const text = privacy(set);
-    expect(text).toContain('تسري من 2 نوفمبر 2026.');
+    expect(effectiveSentence('2026-10-26')).toBe('تسري هذه السياسة اعتبارًا من 26 أكتوبر 2026');
+    expect(text).toContain('\nتسري هذه السياسة اعتبارًا من 2 نوفمبر 2026\n');
     expect(text).not.toMatch(/⟨/);
   });
 
   it('قبل التثبيت لا يكتب PRIVACY.md سطر سريان ولا عبارة مؤقتة', () => {
     const text = privacy(source.replace(/- \*\*تاريخ السريان:\*\* .+/, `- **تاريخ السريان:** ${EFFECTIVE_PLACEHOLDER}`));
-    expect(text).not.toContain('تسري من');
+    expect(text).not.toContain('تسري هذه السياسة');
     expect(text).not.toMatch(/⟨|تاريخ النشر/);
   });
 });

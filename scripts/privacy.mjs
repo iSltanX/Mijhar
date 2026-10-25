@@ -6,7 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { effectiveDateOf, formatArabicDate } from './privacy-date.mjs';
+import { effectiveDateOf, effectiveSentence } from './privacy-date.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = 'Docs/Site/privacy.md';
@@ -51,7 +51,7 @@ export function generate(source = fs.readFileSync(path.join(ROOT, SOURCE), 'utf8
     '',
     `تصف هذه السياسة ما تحفظه إضافة مِجهَر على جهازك، وما ترسله، وإلى من، ومتى، كما تفعله شيفرة الإصدار ${version}. مِجهَر إضافة متصفح لصفحات GitHub، تصميم وتطوير سلطان ([bysltan.com](https://bysltan.com)).`,
     '',
-    ...(effective ? [`تسري من ${formatArabicDate(effective)}.`, ''] : []),
+    ...(effective ? [effectiveSentence(effective), ''] : []),
     `> هذا الملف مولَّد من [\`${SOURCE}\`](${SOURCE}) بالأمر \`node scripts/privacy.mjs\`؛ يُعدَّل المصدر ثم يُعاد التوليد، ولا يُحرَّر هنا.`,
     '',
   ];
