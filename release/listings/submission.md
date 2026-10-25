@@ -86,6 +86,7 @@
 
 ## Firefox Add-ons وحده
 
+- **التوافق: Firefox للحاسوب وحده** (`AD-40`). لا يُختار «Firefox for Android» في خطوة التوافق بنموذج AMO، ولا يحمل المانيفست `browser_specific_settings.gecko_android`: وجوده ولو فارغًا يعلن لـAMO توافق أندرويد، وغيابه يجعل AMO يعدّ الإضافة للحاسوب وحده ([Developing extensions for Firefox for Android](https://extensionworkshop.com/documentation/develop/developing-extensions-for-firefox-for-android/)، و[MDN: browser_specific_settings](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings)). ولم يُختبر مِجهَر على أندرويد.
 - **الترخيص:** يُختار في نموذج AMO **All Rights Reserved** (`all-rights-reserved`، «ليس مفتوح المصدر») بقرار المالك (`AD-36`، 2026-10-25)، مطابقًا لملف [`LICENSE`](../../LICENSE): «© 2026 تصميم وتطوير سلطان. جميع الحقوق محفوظة.» ولا يُختار ترخيص مفتوح المصدر. وتبقى الخطوط وPreact بتراخيصها في `THIRD_PARTY_NOTICES.txt` المشحون مع الحزمة.
 - **الشيفرة المصدرية:** الحزمة مجمّعة بـVite (`vite.config.ts`، بلا تصغير)، وسياسة AMO تطلب رفع المصدر حين تكون الشيفرة مولَّدة آليًا. حزمة المصدر `release/packages/firefox/mijhar-1.0.0-source.zip` (يبنيها `node scripts/package.mjs`) بلا أسرار ولا `node_modules` ولا `dist` ولا تقارير تدقيق، وفيها `SOURCE-README.txt` بهذه التعليمات للمراجع، بالإنجليزية لأن مراجعي AMO يقرؤونها؛ وبيئة AMO الافتراضية (Node 24.14 وnpm 11.9) تبنيها كما هي:
 

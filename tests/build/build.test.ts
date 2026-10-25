@@ -74,6 +74,11 @@ describe('مفاتيح كل هدف', () => {
     expect(Number.parseInt(gecko.strict_min_version, 10)).toBeGreaterThanOrEqual(140);
   });
 
+  // AD-40: الإصدار الحالي للحاسوب وحده. لا `gecko_android` (ولو فارغًا): وجوده يعلن لـAMO توافق Firefox على أندرويد، ولم يُختبر هناك.
+  it('Firefox: الحاسوب وحده — لا إعلان توافق مع Firefox على أندرويد', () => {
+    expect(Object.keys(readManifest('firefox').browser_specific_settings)).toEqual(['gecko']);
+  });
+
   it('Firefox: background.scripts وsidebar_action ومعرّف gecko دون مفاتيح Chromium', () => {
     const manifest = readManifest('firefox');
     expect(manifest.background).toEqual({ scripts: ['background.js'] });
