@@ -55,4 +55,4 @@
 4. الحزم في `packages/<المتصفح>/` وحزمة الشيفرة المصدرية لـAMO، مفحوصة بـ`node scripts/package.mjs --check` و`web-ext lint`.
 5. المتطلبات الرسمية مراجعة، ونصوص [`listings/`](listings/) مطابقة للسلوك المبني.
 
-وسُجّل مِجهَر في قناة البلاغات (`product:mijhar`، 2026-10-25)، وأُكملت فحوص زر الشريط والاختصارات في Chrome وEdge وBrave ([`evidence/release-launch/report.md`](../evidence/release-launch/report.md)). ويبقى للنشر وحده (بأمر المالك): بلاغ تجريبي واحد يثبت قبول القناة، ورفع الحزم إلى المتاجر، ونشر صفحة الخصوصية في `bysltan.com/Mjhr/privacy` قبل التقديم، وإضافة روابط المتاجر إلى README بعد قبولها. والتفصيل في [`Docs/MJ/stages/MJ26.md`](../Docs/MJ/stages/MJ26.md).
+وسُجّل مِجهَر في قناة البلاغات (`product:mijhar`، 2026-10-25) وأُثبتت ببلاغ تجريبي مغلق، وأُكملت فحوص زر الشريط والاختصارات في Chrome وEdge وBrave ([`evidence/release-launch/report.md`](../evidence/release-launch/report.md)). ويبقى للنشر وحده (بأمر المالك): رفع الحزم إلى المتاجر، ونشر صفحة الخصوصية في `bysltan.com/Mjhr/privacy` قبل التقديم، وإضافة روابط المتاجر إلى README بعد قبولها. والتفصيل في [`Docs/MJ/stages/MJ26.md`](../Docs/MJ/stages/MJ26.md).

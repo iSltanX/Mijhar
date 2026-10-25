@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-25T12:21:45.826Z",
+  "browser": "Chrome 156.0.8078.47",
+  "extension": "dist/chromium (غير معبَّأ، تثبيت مطوّر)",
+  "host": "app-reports.isultantf.workers.dev",
+  "review": {
+    "product": "mijhar",
+    "app_version": "1.0.0",
+    "os": "macos",
+    "os_version": "27.0.1",
+    "arch": "arm64",
+    "locale": "ar",
+    "kind": "other",
+    "description": "بلاغ تجريبي من نسخة تطوير لإثبات قناة البلاغات لمِجهَر بعد تسجيله (product:mijhar). يُغلق بعد التحقق.",
+    "diagnostics": {
+      "browser": "Google Chrome",
+      "browser_version": "156.0.8078.47",
+      "build_target": "chromium",
+      "surface": "native",
+      "disabled_units": "none"
+    },
+    "test": true
+  },
+  "guard": {
+    "productMijhar": true,
+    "testTrue": true,
+    "text": true,
+    "kind": "other"
+  },
+  "sent": true,
+  "result": {
+    "state": "sent",
+    "text": "وصل بلاغك برقم #11. احتفظ بالرقم إن أردت المتابعة؛ لا يُرسل إليك شيء ولا نطلب بريدًا."
+  },
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/v1/reports",
+      "from": "background",
+      "status": 201
+    }
+  ],
+  "blocked": []
+}
