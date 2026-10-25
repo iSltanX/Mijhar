@@ -13,7 +13,7 @@ export interface SecretPattern {
 /** القائمة المعرّفة. الحدود بنظرة خلفية لا \b ليُرصد الرمز بعد «_» كما في GH_TOKEN=ghp_…؛ والأطوال دنيا تحذيرية (لا طول التحقق الكامل). */
 export const SECRET_PATTERNS: readonly SecretPattern[] = [
   { id: 'github-token', label: 'رمز GitHub (ghp_ وgho_ وghu_ وghs_ وghr_)', regex: /(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{16,}/g },
-  { id: 'github-fine-grained', label: 'رمز GitHub دقيق الحبيبات (github_pat_)', regex: /(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{16,}/g },
+  { id: 'github-fine-grained', label: 'رمز GitHub بصلاحيات محددة (github_pat_)', regex: /(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{16,}/g },
   { id: 'bearer', label: 'ترويسة Bearer', regex: /(?<![A-Za-z0-9])Bearer\s+[A-Za-z0-9\-._~+/]{16,}=*/g },
   { id: 'aws-access-key', label: 'معرّف مفتاح AWS (AKIA أو ASIA)', regex: /(?<![A-Za-z0-9])(?:AKIA|ASIA)[0-9A-Z]{16}(?![A-Za-z0-9])/g },
   { id: 'private-key', label: 'ترويسة مفتاح خاص (PRIVATE KEY)', regex: /-----BEGIN [A-Z ]*PRIVATE KEY-----/g },

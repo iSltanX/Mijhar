@@ -522,13 +522,13 @@ async function main() {
 
     // ======================= د. إزالة الإضافة تمحو تخزينها (privacy.md#retention) =======================
     const used = await runAsync(`return Object.keys(await globalThis_.browser.storage.local.get(null)).sort();`);
+    // الإزالة تغلق تبويبات الإضافة كلها، فتُغلق نافذتها إن لم يبقَ فيها غيرها: يُفتح قبلها تبويب محايد يبقى، ويُنتقل إليه بعدها.
+    await setContext('content');
+    const { handle: keep } = await c.send('WebDriver:NewWindow', { type: 'tab' });
     await c.send('Addon:Uninstall', { id: addonId });
     await sleep(1000);
-    // الإزالة تغلق تبويبات الإضافة: يُنتقل إلى تبويب باقٍ ثم يُفتح تبويب جديد للإعدادات بعد إعادة التثبيت.
-    await setContext('content');
-    const { value: left } = await c.send('WebDriver:GetWindowHandles');
-    await c.send('WebDriver:SwitchToWindow', { handle: (left ?? [])[0] });
-    current = (left ?? [])[0];
+    await c.send('WebDriver:SwitchToWindow', { handle: keep });
+    current = keep;
     const { value: again } = await c.send('Addon:Install', { path: path.join(ROOT, 'dist/firefox'), temporary: true });
     const host2 = await chrome('return WebExtensionPolicy.getByID(arguments[0]).mozExtensionHostname', [again]);
     await setContext('content');

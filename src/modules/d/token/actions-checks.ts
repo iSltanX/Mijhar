@@ -41,7 +41,7 @@ export type ActionsResult = ({ readonly ok: true; readonly value: ActionsChecks 
 /** أقصى عدد تشغيلات تُقرأ مهامها لالتزام واحد. */
 export const MAX_ACTIONS_RUNS = 10;
 
-export const ACTIONS_ONLY_NOTE = 'فحوص المستودع الخاص من مهام Actions بالرمز؛ وفحوص التطبيقات الأخرى (check-runs) لا تُقرأ بالرمز دقيق الحبيبات فهي غير متاحة هنا.';
+export const ACTIONS_ONLY_NOTE = 'فحوص المستودع الخاص من مهام Actions بالرمز؛ وفحوص التطبيقات الأخرى (check-runs) لا تُقرأ برمز الوصول بصلاحيات محددة فهي غير متاحة هنا.';
 
 const FAILED_STEP = new Set(['failure', 'timed_out', 'cancelled', 'startup_failure']);
 

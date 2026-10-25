@@ -23,8 +23,8 @@ export function checkTokenFormat(input: string): TokenFormat {
 
 export const TOKEN_FORMAT_MESSAGES: Readonly<Record<Exclude<TokenFormat, { ok: true }>['reason'], string>> = {
   empty: 'الحقل فارغ.',
-  'not-fine-grained': 'هذا رمز كلاسيكي أو رمز تطبيق، ولا يُقبل: لا يمكن قصره على القراءة في المستودعات الخاصة. أنشئ رمزًا دقيق الحبيبات (Fine-grained) يبدأ بـgithub_pat_.',
-  format: 'لا يطابق صيغة الرمز دقيق الحبيبات (github_pat_…). تأكد أنك نسخته كاملًا.',
+  'not-fine-grained': 'هذا رمز كلاسيكي أو رمز تطبيق، ولا يُقبل: لا يمكن قصره على القراءة في المستودعات الخاصة. أنشئ رمز وصول بصلاحيات محددة (Fine-grained) يبدأ بـgithub_pat_.',
+  format: 'لا يطابق صيغة رمز الوصول بصلاحيات محددة (github_pat_…). تأكد أنك نسخته كاملًا.',
 };
 
 export interface ReadPermission {

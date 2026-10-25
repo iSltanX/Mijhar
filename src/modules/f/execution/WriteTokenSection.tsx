@@ -171,7 +171,7 @@ export function WriteTokenSection({ store, readToken, permission, header, status
         </p>
         <ul>
           <li>
-            في GitHub: رمز دقيق الحبيبات، <strong>Only select repositories</strong> بالمستودع الذي تعدّله وحده، وصلاحيتا <Ltr className="mono">Contents</Ltr> و
+            في GitHub: رمز وصول بصلاحيات محددة (Fine-grained)، <strong>Only select repositories</strong> بالمستودع الذي تعدّله وحده، وصلاحيتا <Ltr className="mono">Contents</Ltr> و
             <Ltr className="mono">Pull requests</Ltr> «Read and write» لا غير، ومدة قصيرة.
           </li>
           <li>يُحفظ في ذاكرة الجلسة وحدها: يُمحى بإغلاق المتصفح ولا يُكتب على القرص.</li>

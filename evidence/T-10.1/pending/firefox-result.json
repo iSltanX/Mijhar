@@ -1,8 +1,25 @@
 {
-  "at": "2026-10-25T04:17:05.389Z",
-  "error": "Error: WebDriver:ExecuteScript: no such window Browsing context has been discarded\n    at Object.send (file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:71:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async chrome (file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:225:15)\n    at async main (file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:523:19)\n    at async file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:538:14",
-  "passed": 21,
-  "failed": 2,
+  "at": "2026-10-25T04:53:51.145Z",
+  "browser": "Firefox 158.0.1",
+  "headless": false,
+  "promptPref": true,
+  "blocked": [
+    "firefox.settings.services.mozilla.com",
+    "firefox-settings-attachments.cdn.mozilla.net",
+    "content-signature-2.cdn.mozilla.net",
+    "archive.mozilla.org"
+  ],
+  "providerRequests": [
+    "GET /v1/models KEY (ok)",
+    "GET /v1/models KEY (rate)",
+    "GET /v1/models KEY (ok)",
+    "GET /v1/models KEY (ok)",
+    "POST /v1/responses KEY (ok)",
+    "GET /v1/models KEY2 (ok)"
+  ],
+  "githubApi": [],
+  "passed": 25,
+  "failed": 0,
   "notRun": 0,
   "steps": [
     {
@@ -22,12 +39,14 @@
           "https://api.github.com/*",
           "https://api.anthropic.com/*",
           "https://api.openai.com/*",
-          "https://generativelanguage.googleapis.com/*"
+          "https://generativelanguage.googleapis.com/*",
+          "https://app-reports.isultantf.workers.dev/*"
         ],
         "dc": {
           "has_previous_consent": false,
           "optional": [
-            "websiteContent"
+            "websiteContent",
+            "technicalAndInteraction"
           ],
           "required": [
             "none"
@@ -37,7 +56,7 @@
           "page": null,
           "preferred_environment": null,
           "scripts": [
-            "moz-extension://e806f9cd-feb7-4969-a4d6-fafbc1d267a1/background.js"
+            "moz-extension://3f19931f-a797-41db-86dc-52b13602c8f4/background.js"
           ],
           "service_worker": null,
           "type": null
@@ -143,7 +162,7 @@
       "detail": {
         "health": "rate-limited",
         "message": "لم يُتحقق من المفتاح: Rate limit reached for requests.",
-        "check": "تجاوز حد الطلبات الموثَّقة؛ لا يُرسل طلب قبل 2026-10-25 04:16 UTC. ما لم يُقرأ يُعلَن «غير معروف» ولا يُعرض نجاحًا."
+        "check": "تجاوز حد الطلبات الموثَّقة؛ لا يُرسل طلب قبل 2026-10-25 04:53 UTC. ما لم يُقرأ يُعلَن «غير معروف» ولا يُعرض نجاحًا."
       }
     },
     {
@@ -151,7 +170,7 @@
       "name": "الحالة من الخلفية قبل الإيقاف تعلن الموعد (retryAt)",
       "ok": true,
       "detail": {
-        "retryAt": 1792901786159
+        "retryAt": 1792904011564
       }
     },
     {
@@ -179,8 +198,8 @@
       "name": "الحالة بعد الإيقاظ تعلن الموعد نفسه مستعادًا من سجل صحة المفتاح",
       "ok": true,
       "detail": {
-        "before": 1792901786159,
-        "after": 1792901786159
+        "before": 1792904011564,
+        "after": 1792904011564
       }
     },
     {
@@ -214,17 +233,24 @@
     },
     {
       "part": "ج. النوافذ",
-      "name": "F-07: الاختبار من الأول والقائمة من الثاني متداخلان في الخلفية، وكلاهما مكتوب في ذاكرة الجلسة (لا يمحو أحدهما الآخر)",
-      "ok": false,
+      "name": "F-07: القائمة من الثاني والاختبار من الأول متداخلان في الخلفية، وكلاهما كُتب في ذاكرة الجلسة أثناء السباق (لا يمحو أحدهما الآخر)",
+      "ok": true,
       "detail": {
         "raced": [
           {
+            "method": "GET",
+            "path": "/v1/models",
+            "at": 1792904016541
+          },
+          {
             "method": "POST",
             "path": "/v1/responses",
-            "at": 1792901791141
+            "at": 1792904016955
           }
         ],
-        "models": true,
+        "raceStart": 1792904016123,
+        "modelsAt": 1792904017443,
+        "testAt": 1792904017859,
         "tests": {
           "model": "mock-chat-2",
           "verdict": "accepted"
@@ -232,11 +258,11 @@
         "statusTest": {
           "provider": "openai",
           "model": "mock-chat-2",
-          "keySavedAt": 1792901758835,
+          "keySavedAt": 1792903984264,
           "verdict": "accepted",
           "status": 200,
           "message": "",
-          "at": 1792901792044
+          "at": 1792904017859
         }
       }
     },
@@ -272,12 +298,26 @@
     {
       "part": "ج. النوافذ",
       "name": "الاستبدال من الثاني (المضيف ممنوح فلا نافذة): التحقق بالمفتاح الجديد وحده، والأول يعرضه «سليمًا» عند العودة بلا رسالة سابقة",
-      "ok": false,
+      "ok": true,
       "detail": {
-        "a": null,
+        "a": {
+          "provider": "openai",
+          "permission": "granted",
+          "key": "session",
+          "health": "healthy",
+          "message": "",
+          "checkText": "قبِل OpenAI المفتاح.",
+          "confirm": false,
+          "list": null,
+          "listed": [],
+          "test": null,
+          "testText": "",
+          "field": "mock-chat-2",
+          "busy": false
+        },
         "last": {
-          "path": "/v1/responses",
-          "key": "KEY"
+          "path": "/v1/models",
+          "key": "KEY2"
         }
       }
     },
@@ -324,11 +364,47 @@
         "state": "none",
         "confirm": false
       }
+    },
+    {
+      "part": "د. الإزالة",
+      "name": "إزالة الإضافة (Addon:Uninstall) ثم تثبيتها بالمعرّف نفسه: التخزين كتثبيت جديد، فلا إعداد ولا سرّ ولا حالة مما كُتب قبلها",
+      "ok": true,
+      "detail": {
+        "fresh": [
+          "mijhar:data:setting.ui.welcome",
+          "mijhar:meta"
+        ],
+        "beforeUninstall": [
+          "mijhar:data:setting.e.provider.id",
+          "mijhar:data:setting.e.provider.model.openai",
+          "mijhar:data:setting.ui.welcome",
+          "mijhar:meta"
+        ],
+        "after": {
+          "local": [
+            "mijhar:data:setting.ui.welcome",
+            "mijhar:meta"
+          ],
+          "session": []
+        }
+      }
+    },
+    {
+      "part": "الأسرار",
+      "name": "لا مفتاح ولا رمز في أي نتيجة مسجلة، وكل مضيف غير المحلية محجوب ومسرود",
+      "ok": true,
+      "detail": [
+        "firefox.settings.services.mozilla.com",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "content-signature-2.cdn.mozilla.net",
+        "archive.mozilla.org"
+      ]
     }
   ],
   "notes": [
     "أ1 الرفض: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)",
     "أ2 الرفض: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)",
-    "أ3 القبول: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)"
+    "أ3 القبول: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)",
+    "ج الاستبدال: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context) (مِجهَر يطلب جمع بيانات إضافيةالأذونات الجديدة:تجميع بيانات جديدة:يقول المطوِّر إ)"
   ]
 }

@@ -84,9 +84,12 @@ async function launch(key, extDir, network, mock, { headless = true } = {}) {
   const { id } = await cdp.send('Extensions.loadUnpacked', { path: extDir });
   const origin = `chrome-extension://${id}`;
   await waitUntil(async () => context.serviceWorkers().find((w) => w.url().startsWith(origin)) ?? null, 8000);
-  const open = async () => {
-    const page = await context.newPage();
-    await page.goto(`${origin}/options.html`);
+  const open = async (from) => {
+    // الصفحة الثانية تبويب في النافذة نفسها (tabs.create من صفحة الإضافة) كما يفتحها المستخدم، فالتبديل بينهما يطلق visibilitychange فعليًا.
+    const page = from
+      ? (await Promise.all([context.waitForEvent('page'), from.evaluate(() => chrome.tabs.create({ url: 'options.html' }))]))[0]
+      : await context.newPage();
+    if (!from) await page.goto(`${origin}/options.html`);
     await page.waitForSelector('#app[data-ready="true"]');
     return page;
   };
@@ -215,10 +218,6 @@ async function run(key) {
       const rateAt = Date.now();
       const s1 = await status(A);
       check('ب. الإيقاظ', 'المزوّد يردّ 429 بـRetry-After: طلب واحد، والحالة تعلن الموعد', Boolean(r1) && sent() === n0 + 1 && typeof s1?.retryAt === 'number', { retryAt: s1?.retryAt, message: r1?.message });
-      const w1 = s.worker();
-      await w1.evaluate(() => {
-        globalThis.__mj26Mark = 'before-stop';
-      });
       const cdp = await s.context.newCDPSession(A);
       const versions = new Map();
       cdp.on('ServiceWorker.workerVersionUpdated', ({ versions: list }) => {
@@ -231,13 +230,13 @@ async function run(key) {
       check('ب. الإيقاظ', 'عامل خدمة الإضافة أُوقف فعلًا (CDP ServiceWorker.stopWorker، وحالة النسخة stopped)', Boolean(running) && stopped === 'stopped', { running, status: running ? versions.get(running) : null });
       mock.mode = 'ok';
       const n1 = sent();
+      await sleep(500);
       await A.click('[data-action="key-check"]');
-      const w2 = await waitUntil(async () => ((w) => (w && w !== w1 ? w : null))(s.worker()), 8000);
-      const fresh = w2 ? await w2.evaluate(() => globalThis.__mj26Mark ?? null) : 'no-worker';
-      const r2 = await until(A, (x) => x.message.includes('أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.'));
+      const restarted = await waitUntil(async () => ([...versions.values()].includes('running') ? 'running' : null), 10000);
+      const r2 = await until(A, (x) => x.message.includes('أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.'), 15000);
       await sleep(600);
-      const s2 = await status(A);
-      check('ب. الإيقاظ', 'بعد الإيقاظ (عامل جديد بلا ذاكرة سابقة): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح', Boolean(w2) && fresh === null && Boolean(r2) && sent() === n1 && typeof s2?.retryAt === 'number' && Math.abs(s2.retryAt - s1.retryAt) < 2000, { fresh, message: r2?.message, sentAfter: sent() - n1, before: s1?.retryAt, after: s2?.retryAt });
+      const s2 = await waitUntil(async () => ((v) => (v && typeof v.retryAt === 'number' ? v : null))(await status(A)), 8000);
+      check('ب. الإيقاظ', 'بعد إيقاظ العامل الموقوف بنقرة «تحقق من المفتاح» (حالة النسخة running من جديد): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح', restarted === 'running' && Boolean(r2) && sent() === n1 && typeof s2?.retryAt === 'number' && Math.abs(s2.retryAt - s1.retryAt) < 2000, { restarted, message: r2?.message, sentAfter: sent() - n1, before: s1?.retryAt, after: s2?.retryAt });
       await A.screenshot({ path: path.join(SCREENS, `${key}-b-after-wake.png`) });
       const wait = rateAt + RETRY_SECONDS * 1000 + 1500 - Date.now();
       if (wait > 0) await sleep(wait);
@@ -247,7 +246,11 @@ async function run(key) {
       check('ب. الإيقاظ', 'بعد حلول الموعد: طلب واحد ويعود المفتاح «سليمًا»', Boolean(r3) && sent() === n2 + 1, { sent: sent() - n2 });
 
       // ---------- ج. أكثر من نافذة إعدادات ----------
-      const B = await s.open();
+      const B = await s.open(A);
+      // Playwright يحاكي التركيز لكل صفحة فتبقى visibilityState «visible» ولو لم يكن تبويبها نشطًا؛ تُطفأ المحاكاة لهاتين الصفحتين فيصير الظهور
+      // والتركيز من المتصفح نفسه عند تبديل التبويب.
+      for (const p of [A, B]) await (await s.context.newCDPSession(p)).send('Emulation.setFocusEmulationEnabled', { enabled: false });
+      await sleep(300);
       const b0 = await until(B, (x) => x.provider === 'openai' && x.key === 'session');
       check('ج. النوافذ', 'الصفحة الثانية تقرأ المفتاح المحفوظ نفسه', Boolean(b0), b0);
       const vis = await A.evaluate(() => document.visibilityState);

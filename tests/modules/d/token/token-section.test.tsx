@@ -119,7 +119,7 @@ describe('الحفظ: الجلسة افتراضًا، والقرص بنص صري
     await ui.type(classic);
     expect(ui.session.set).not.toHaveBeenCalled();
     expect(ui.port.get).not.toHaveBeenCalled();
-    expect(ui.q('[data-token-message]')?.textContent).toContain('دقيق الحبيبات');
+    expect(ui.q('[data-token-message]')?.textContent).toContain('بصلاحيات محددة');
     expect(ui.q('[data-token-message]')?.textContent).not.toContain(classic);
   });
 });

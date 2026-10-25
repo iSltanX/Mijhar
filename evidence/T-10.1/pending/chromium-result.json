@@ -1,17 +1,17 @@
 {
-  "at": "2026-10-25T04:15:53.527Z",
+  "at": "2026-10-25T04:52:58.326Z",
   "results": [
     {
       "key": "chrome",
       "label": "Chrome",
       "version": "156.0.8078.47",
-      "passed": 11,
-      "failed": 7,
+      "passed": 18,
+      "failed": 0,
       "steps": [
         {
           "part": "أ. الصلاحية",
-          "name": "«احفظ وتحقق» يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)، ونتيجته الفعلية من المتصفح مسجلة",
-          "ok": false,
+          "name": "«احفظ وتحقق» بنقرة فعلية يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)؛ وبعد الرفض المحاكى يُحفظ المفتاح «لم يُتحقق منه» بلا طلب",
+          "ok": true,
           "detail": {
             "requests": [
               {
@@ -20,17 +20,31 @@
                     "https://api.openai.com/*"
                   ]
                 },
-                "result": "pending"
+                "result": "رفض محاكى"
               }
             ],
-            "card": null
+            "card": {
+              "key": "session",
+              "message": "حُفظ مفتاح OpenAI في ذاكرة الجلسة ولم يُتحقق منه: لم تُمنح صلاحية api.openai.com، فلم يُرسل شيء."
+            }
           }
         },
         {
           "part": "أ. الصلاحية",
-          "name": "المتصفح بلا واجهة منح الصلاحية أو لم يُجب، فلم يُفحص مسار الرفض",
-          "ok": false,
-          "detail": null
+          "name": "«تحقق من المفتاح» بنقرة فعلية يطلب المضيف وحده، والرفض (محاكى) يعرض «لم تُمنح صلاحية api.openai.com؛ لم يُرسل شيء.» بلا أي طلب",
+          "ok": true,
+          "detail": {
+            "request": {
+              "set": {
+                "origins": [
+                  "https://api.openai.com/*"
+                ]
+              },
+              "result": "رفض محاكى"
+            },
+            "message": "لم تُمنح صلاحية api.openai.com؛ لم يُرسل شيء.",
+            "sent": 0
+          }
         },
         {
           "part": "ب. الإيقاظ",
@@ -45,28 +59,29 @@
           "name": "المزوّد يردّ 429 بـRetry-After: طلب واحد، والحالة تعلن الموعد",
           "ok": true,
           "detail": {
-            "retryAt": 1792901581534,
+            "retryAt": 1792903880264,
             "message": "لم يُتحقق من المفتاح: Rate limit reached for requests."
           }
         },
         {
           "part": "ب. الإيقاظ",
-          "name": "عامل الخدمة أُوقف فعلًا (CDP ServiceWorker.stopAllWorkers، وحدث close على العامل)",
-          "ok": false,
+          "name": "عامل خدمة الإضافة أُوقف فعلًا (CDP ServiceWorker.stopWorker، وحالة النسخة stopped)",
+          "ok": true,
           "detail": {
-            "stopped": false
+            "running": "0",
+            "status": "stopped"
           }
         },
         {
           "part": "ب. الإيقاظ",
-          "name": "بعد الإيقاظ (عامل جديد بلا ذاكرة سابقة): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
-          "ok": false,
+          "name": "بعد إيقاظ العامل الموقوف بنقرة «تحقق من المفتاح» (حالة النسخة running من جديد): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
+          "ok": true,
           "detail": {
-            "fresh": "no-worker",
+            "restarted": "running",
             "message": "لم يُتحقق من المفتاح: أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.",
             "sentAfter": 0,
-            "before": 1792901581534,
-            "after": 1792901581534
+            "before": 1792903880264,
+            "after": 1792903880264
           }
         },
         {
@@ -95,18 +110,25 @@
         },
         {
           "part": "ج. النوافذ",
-          "name": "F-07: الاختبار من الأولى والقائمة من الثانية متداخلان، وكلاهما مكتوب في ذاكرة الجلسة",
-          "ok": false,
+          "name": "F-07: القائمة من الثانية والاختبار من الأولى متداخلان في الخلفية، وكلاهما كُتب في ذاكرة الجلسة أثناء السباق",
+          "ok": true,
           "detail": {
             "raced": [
               {
+                "path": "/v1/models",
+                "at": 1792903883585
+              },
+              {
                 "path": "/v1/responses",
-                "at": 1792901584574
+                "at": 1792903883598
               }
             ],
+            "raceStart": 1792903883582,
+            "modelsAt": 1792903884488,
+            "testAt": 1792903884501,
             "test": {
-              "at": 1792901585476,
-              "keySavedAt": 1792901561366,
+              "at": 1792903884501,
+              "keySavedAt": 1792903860098,
               "message": "",
               "model": "mock-chat-2",
               "provider": "openai",
@@ -118,8 +140,18 @@
         {
           "part": "ج. النوافذ",
           "name": "F-05: المسح من الثانية ينعكس في الأولى عند العودة: لا مفتاح، ويُغلق تأكيد المسح، ولا رسالة ولا نتيجة للمفتاح الممسوح",
-          "ok": false,
-          "detail": null
+          "ok": true,
+          "detail": {
+            "provider": "openai",
+            "permission": "granted",
+            "key": "none",
+            "health": "none",
+            "message": "",
+            "checkText": "",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
         },
         {
           "part": "ج. النوافذ",
@@ -142,9 +174,9 @@
               "health": "healthy",
               "message": "",
               "checkText": "قبِل OpenAI المفتاح.",
-              "confirm": true,
+              "confirm": false,
               "listed": [],
-              "test": "accepted"
+              "test": null
             },
             "last": "KEY2"
           }
@@ -168,10 +200,10 @@
         {
           "part": "ج. النوافذ",
           "name": "PI-1: رمز GitHub حُفظ من الثانية فتعرضه بطاقة الأولى عند العودة دون إعادة تحميل",
-          "ok": false,
+          "ok": true,
           "detail": {
             "t0": "none",
-            "t1": "none"
+            "t1": "session"
           }
         },
         {
@@ -224,21 +256,22 @@
         }
       ],
       "notes": [
-        "أ: نتيجة permissions.request الفعلية في Chrome بلا واجهة = \"pending\"",
-        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible"
+        "أ (Chrome): الرفض محاكى بغلاف permissions.request لأن نافذة Chromium الأصلية لا تُجيب بلا واجهة؛ ووسائط الطلب حقيقية من نقرة فعلية.",
+        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible",
+        "ج (Chrome): حالة رمز الصفحة الثانية بعد الحفظ = session"
       ]
     },
     {
       "key": "edge",
       "label": "Edge",
       "version": "155.0.4283.60",
-      "passed": 11,
-      "failed": 7,
+      "passed": 18,
+      "failed": 0,
       "steps": [
         {
           "part": "أ. الصلاحية",
-          "name": "«احفظ وتحقق» يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)، ونتيجته الفعلية من المتصفح مسجلة",
-          "ok": false,
+          "name": "«احفظ وتحقق» بنقرة فعلية يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)؛ وبعد الرفض المحاكى يُحفظ المفتاح «لم يُتحقق منه» بلا طلب",
+          "ok": true,
           "detail": {
             "requests": [
               {
@@ -247,17 +280,31 @@
                     "https://api.openai.com/*"
                   ]
                 },
-                "result": "pending"
+                "result": "رفض محاكى"
               }
             ],
-            "card": null
+            "card": {
+              "key": "session",
+              "message": "حُفظ مفتاح OpenAI في ذاكرة الجلسة ولم يُتحقق منه: لم تُمنح صلاحية api.openai.com، فلم يُرسل شيء."
+            }
           }
         },
         {
           "part": "أ. الصلاحية",
-          "name": "المتصفح بلا واجهة منح الصلاحية أو لم يُجب، فلم يُفحص مسار الرفض",
-          "ok": false,
-          "detail": null
+          "name": "«تحقق من المفتاح» بنقرة فعلية يطلب المضيف وحده، والرفض (محاكى) يعرض «لم تُمنح صلاحية api.openai.com؛ لم يُرسل شيء.» بلا أي طلب",
+          "ok": true,
+          "detail": {
+            "request": {
+              "set": {
+                "origins": [
+                  "https://api.openai.com/*"
+                ]
+              },
+              "result": "رفض محاكى"
+            },
+            "message": "لم تُمنح صلاحية api.openai.com؛ لم يُرسل شيء.",
+            "sent": 0
+          }
         },
         {
           "part": "ب. الإيقاظ",
@@ -272,28 +319,29 @@
           "name": "المزوّد يردّ 429 بـRetry-After: طلب واحد، والحالة تعلن الموعد",
           "ok": true,
           "detail": {
-            "retryAt": 1792901652731,
+            "retryAt": 1792903921449,
             "message": "لم يُتحقق من المفتاح: Rate limit reached for requests."
           }
         },
         {
           "part": "ب. الإيقاظ",
-          "name": "عامل الخدمة أُوقف فعلًا (CDP ServiceWorker.stopAllWorkers، وحدث close على العامل)",
-          "ok": false,
+          "name": "عامل خدمة الإضافة أُوقف فعلًا (CDP ServiceWorker.stopWorker، وحالة النسخة stopped)",
+          "ok": true,
           "detail": {
-            "stopped": false
+            "running": "0",
+            "status": "stopped"
           }
         },
         {
           "part": "ب. الإيقاظ",
-          "name": "بعد الإيقاظ (عامل جديد بلا ذاكرة سابقة): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
-          "ok": false,
+          "name": "بعد إيقاظ العامل الموقوف بنقرة «تحقق من المفتاح» (حالة النسخة running من جديد): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
+          "ok": true,
           "detail": {
-            "fresh": "no-worker",
+            "restarted": "running",
             "message": "لم يُتحقق من المفتاح: أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.",
             "sentAfter": 0,
-            "before": 1792901652731,
-            "after": 1792901652731
+            "before": 1792903921449,
+            "after": 1792903921449
           }
         },
         {
@@ -322,18 +370,25 @@
         },
         {
           "part": "ج. النوافذ",
-          "name": "F-07: الاختبار من الأولى والقائمة من الثانية متداخلان، وكلاهما مكتوب في ذاكرة الجلسة",
-          "ok": false,
+          "name": "F-07: القائمة من الثانية والاختبار من الأولى متداخلان في الخلفية، وكلاهما كُتب في ذاكرة الجلسة أثناء السباق",
+          "ok": true,
           "detail": {
             "raced": [
               {
+                "path": "/v1/models",
+                "at": 1792903925040
+              },
+              {
                 "path": "/v1/responses",
-                "at": 1792901655829
+                "at": 1792903925074
               }
             ],
+            "raceStart": 1792903925035,
+            "modelsAt": 1792903925942,
+            "testAt": 1792903925978,
             "test": {
-              "at": 1792901656735,
-              "keySavedAt": 1792901632546,
+              "at": 1792903925978,
+              "keySavedAt": 1792903901281,
               "message": "",
               "model": "mock-chat-2",
               "provider": "openai",
@@ -345,8 +400,18 @@
         {
           "part": "ج. النوافذ",
           "name": "F-05: المسح من الثانية ينعكس في الأولى عند العودة: لا مفتاح، ويُغلق تأكيد المسح، ولا رسالة ولا نتيجة للمفتاح الممسوح",
-          "ok": false,
-          "detail": null
+          "ok": true,
+          "detail": {
+            "provider": "openai",
+            "permission": "granted",
+            "key": "none",
+            "health": "none",
+            "message": "",
+            "checkText": "",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
         },
         {
           "part": "ج. النوافذ",
@@ -369,9 +434,9 @@
               "health": "healthy",
               "message": "",
               "checkText": "قبِل OpenAI المفتاح.",
-              "confirm": true,
+              "confirm": false,
               "listed": [],
-              "test": "accepted"
+              "test": null
             },
             "last": "KEY2"
           }
@@ -395,10 +460,10 @@
         {
           "part": "ج. النوافذ",
           "name": "PI-1: رمز GitHub حُفظ من الثانية فتعرضه بطاقة الأولى عند العودة دون إعادة تحميل",
-          "ok": false,
+          "ok": true,
           "detail": {
             "t0": "none",
-            "t1": "none"
+            "t1": "session"
           }
         },
         {
@@ -451,21 +516,22 @@
         }
       ],
       "notes": [
-        "أ: نتيجة permissions.request الفعلية في Edge بلا واجهة = \"pending\"",
-        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible"
+        "أ (Edge): الرفض محاكى بغلاف permissions.request لأن نافذة Chromium الأصلية لا تُجيب بلا واجهة؛ ووسائط الطلب حقيقية من نقرة فعلية.",
+        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible",
+        "ج (Edge): حالة رمز الصفحة الثانية بعد الحفظ = session"
       ]
     },
     {
       "key": "brave",
       "label": "Brave",
       "version": "156.0.8078.48",
-      "passed": 11,
-      "failed": 7,
+      "passed": 18,
+      "failed": 0,
       "steps": [
         {
           "part": "أ. الصلاحية",
-          "name": "«احفظ وتحقق» يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)، ونتيجته الفعلية من المتصفح مسجلة",
-          "ok": false,
+          "name": "«احفظ وتحقق» بنقرة فعلية يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)؛ وبعد الرفض المحاكى يُحفظ المفتاح «لم يُتحقق منه» بلا طلب",
+          "ok": true,
           "detail": {
             "requests": [
               {
@@ -474,17 +540,31 @@
                     "https://api.openai.com/*"
                   ]
                 },
-                "result": "pending"
+                "result": "رفض محاكى"
               }
             ],
-            "card": null
+            "card": {
+              "key": "session",
+              "message": "حُفظ مفتاح OpenAI في ذاكرة الجلسة ولم يُتحقق منه: لم تُمنح صلاحية api.openai.com، فلم يُرسل شيء."
+            }
           }
         },
         {
           "part": "أ. الصلاحية",
-          "name": "المتصفح بلا واجهة منح الصلاحية أو لم يُجب، فلم يُفحص مسار الرفض",
-          "ok": false,
-          "detail": null
+          "name": "«تحقق من المفتاح» بنقرة فعلية يطلب المضيف وحده، والرفض (محاكى) يعرض «لم تُمنح صلاحية api.openai.com؛ لم يُرسل شيء.» بلا أي طلب",
+          "ok": true,
+          "detail": {
+            "request": {
+              "set": {
+                "origins": [
+                  "https://api.openai.com/*"
+                ]
+              },
+              "result": "رفض محاكى"
+            },
+            "message": "لم تُمنح صلاحية api.openai.com؛ لم يُرسل شيء.",
+            "sent": 0
+          }
         },
         {
           "part": "ب. الإيقاظ",
@@ -499,28 +579,29 @@
           "name": "المزوّد يردّ 429 بـRetry-After: طلب واحد، والحالة تعلن الموعد",
           "ok": true,
           "detail": {
-            "retryAt": 1792901723153,
+            "retryAt": 1792903962098,
             "message": "لم يُتحقق من المفتاح: Rate limit reached for requests."
           }
         },
         {
           "part": "ب. الإيقاظ",
-          "name": "عامل الخدمة أُوقف فعلًا (CDP ServiceWorker.stopAllWorkers، وحدث close على العامل)",
-          "ok": false,
+          "name": "عامل خدمة الإضافة أُوقف فعلًا (CDP ServiceWorker.stopWorker، وحالة النسخة stopped)",
+          "ok": true,
           "detail": {
-            "stopped": false
+            "running": "0",
+            "status": "stopped"
           }
         },
         {
           "part": "ب. الإيقاظ",
-          "name": "بعد الإيقاظ (عامل جديد بلا ذاكرة سابقة): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
-          "ok": false,
+          "name": "بعد إيقاظ العامل الموقوف بنقرة «تحقق من المفتاح» (حالة النسخة running من جديد): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
+          "ok": true,
           "detail": {
-            "fresh": "no-worker",
+            "restarted": "running",
             "message": "لم يُتحقق من المفتاح: أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.",
             "sentAfter": 0,
-            "before": 1792901723153,
-            "after": 1792901723153
+            "before": 1792903962098,
+            "after": 1792903962098
           }
         },
         {
@@ -549,18 +630,25 @@
         },
         {
           "part": "ج. النوافذ",
-          "name": "F-07: الاختبار من الأولى والقائمة من الثانية متداخلان، وكلاهما مكتوب في ذاكرة الجلسة",
-          "ok": false,
+          "name": "F-07: القائمة من الثانية والاختبار من الأولى متداخلان في الخلفية، وكلاهما كُتب في ذاكرة الجلسة أثناء السباق",
+          "ok": true,
           "detail": {
             "raced": [
               {
+                "path": "/v1/models",
+                "at": 1792903965463
+              },
+              {
                 "path": "/v1/responses",
-                "at": 1792901726241
+                "at": 1792903965503
               }
             ],
+            "raceStart": 1792903965459,
+            "modelsAt": 1792903966365,
+            "testAt": 1792903966405,
             "test": {
-              "at": 1792901727144,
-              "keySavedAt": 1792901702981,
+              "at": 1792903966405,
+              "keySavedAt": 1792903941932,
               "message": "",
               "model": "mock-chat-2",
               "provider": "openai",
@@ -572,8 +660,18 @@
         {
           "part": "ج. النوافذ",
           "name": "F-05: المسح من الثانية ينعكس في الأولى عند العودة: لا مفتاح، ويُغلق تأكيد المسح، ولا رسالة ولا نتيجة للمفتاح الممسوح",
-          "ok": false,
-          "detail": null
+          "ok": true,
+          "detail": {
+            "provider": "openai",
+            "permission": "granted",
+            "key": "none",
+            "health": "none",
+            "message": "",
+            "checkText": "",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
         },
         {
           "part": "ج. النوافذ",
@@ -596,9 +694,9 @@
               "health": "healthy",
               "message": "",
               "checkText": "قبِل OpenAI المفتاح.",
-              "confirm": true,
+              "confirm": false,
               "listed": [],
-              "test": "accepted"
+              "test": null
             },
             "last": "KEY2"
           }
@@ -622,10 +720,10 @@
         {
           "part": "ج. النوافذ",
           "name": "PI-1: رمز GitHub حُفظ من الثانية فتعرضه بطاقة الأولى عند العودة دون إعادة تحميل",
-          "ok": false,
+          "ok": true,
           "detail": {
             "t0": "none",
-            "t1": "none"
+            "t1": "session"
           }
         },
         {
@@ -678,8 +776,9 @@
         }
       ],
       "notes": [
-        "أ: نتيجة permissions.request الفعلية في Brave بلا واجهة = \"pending\"",
-        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible"
+        "أ (Brave): الرفض محاكى بغلاف permissions.request لأن نافذة Chromium الأصلية لا تُجيب بلا واجهة؛ ووسائط الطلب حقيقية من نقرة فعلية.",
+        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible",
+        "ج (Brave): حالة رمز الصفحة الثانية بعد الحفظ = session"
       ]
     }
   ]
