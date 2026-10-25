@@ -18,7 +18,9 @@ import { TokenSection } from '../modules/d/token/TokenSection';
 import { ProviderCard } from '../modules/e/provider/ProviderCard';
 import { WriteTokenSection } from '../modules/f/execution/WriteTokenSection';
 import { runtimeProviderPort } from '../modules/e/provider/port';
+import { runtimeReportPort } from '../core/report/port';
 import { OptionsApp } from './OptionsApp';
+import { ReportPage } from './report/ReportPage';
 import { mountExtensionPage, pageCapabilities } from './page';
 import { SETTINGS_SECTIONS } from './sections';
 import { SettingsTab } from './SettingsTab';
@@ -38,9 +40,12 @@ const providerKeys = (provider: string): SecretStore => {
 const writeToken = connectionSecretStore('github-write');
 const readToken = async (): Promise<string | null> => (await tokenStore.read())?.token ?? null;
 const provider = runtimeProviderPort(api.runtime);
+const reports = runtimeReportPort(api.runtime);
 
 void mountExtensionPage((settings) => (
   <OptionsApp
+    // MJ26 (DEC-12 ي-1): «الإبلاغ عن مشكلة» صفحة #report، والإرسال عبر الخلفية وحدها بصلاحية مضيف القناة.
+    report={(back) => <ReportPage settings={settings} permissions={api.permissions} target={__TARGET__} port={reports} onBack={back} />}
     settings={(openOptionsAt) => (
       <SettingsTab
         settings={settings}

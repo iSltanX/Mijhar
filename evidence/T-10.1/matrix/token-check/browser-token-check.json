@@ -1,0 +1,776 @@
+{
+  "static": {
+    "rows": [
+      {
+        "target": "chromium",
+        "file": "background",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar-secrets",
+          "Authorization",
+          "Bearer "
+        ]
+      },
+      {
+        "target": "chromium",
+        "file": "options",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar-secrets"
+        ]
+      },
+      {
+        "target": "chromium",
+        "file": "content",
+        "found": []
+      },
+      {
+        "target": "chromium",
+        "file": "sidepanel",
+        "found": []
+      },
+      {
+        "target": "chromium",
+        "file": "reader",
+        "found": []
+      },
+      {
+        "target": "firefox",
+        "file": "background",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar-secrets",
+          "Authorization",
+          "Bearer "
+        ]
+      },
+      {
+        "target": "firefox",
+        "file": "options",
+        "found": [
+          "mijhar.secret.githubToken",
+          "mijhar-secrets"
+        ]
+      },
+      {
+        "target": "firefox",
+        "file": "content",
+        "found": []
+      },
+      {
+        "target": "firefox",
+        "file": "sidepanel",
+        "found": []
+      },
+      {
+        "target": "firefox",
+        "file": "reader",
+        "found": []
+      }
+    ],
+    "ok": true
+  },
+  "chrome": {
+    "label": "Chrome",
+    "checks": [
+      {
+        "name": "قسم الرمز في صفحة الإعدادات بقائمة Read-only الست ولا صلاحية كتابة",
+        "ok": true
+      },
+      {
+        "name": "الافتراضي ذاكرة الجلسة ولا رمز محفوظ",
+        "ok": true
+      },
+      {
+        "name": "Chromium: القرص متاح بنص «غير مشفَّر»",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "الحفظ في الجلسة ثم التحقق: قبِل GitHub الرمز (5000)",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: الحقل فارغ ولا رمز في DOM صفحة الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "التحقق /rate_limit من الخلفية بالرمز",
+        "ok": true
+      },
+      {
+        "name": "الرمز في ذاكرة الجلسة وحدها: لا في storage.local ولا في IndexedDB",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: IndexedDB في عالمه لأصل الصفحة وبلا رمز",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "DOM صفحة GitHub وجذور الظل بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: المصدر «DOM + API (بالرمز)» وفحوص Actions للمستودع الخاص بمصدرها",
+        "ok": true
+      },
+      {
+        "name": "لوحة API في البطاقة تعلن القراءة بالرمز (من حالة الخلفية، بلا الرمز)",
+        "ok": true
+      },
+      {
+        "name": "كل طلبات البطاقة إلى api.github.com من الخلفية بالرمز وبـGET، ولا شيء من الصفحة",
+        "ok": true
+      },
+      {
+        "name": "مسارات القراءة وحدها (لا كتابة)",
+        "ok": true
+      },
+      {
+        "name": "بعد قراءة البطاقة: DOM الصفحة وما وصل سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "الحفظ على القرص: في IndexedDB الإضافة وحدها، لا في الجلسة ولا storage.local",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يجد رمز القرص (IndexedDB عالمه لأصل الصفحة)",
+        "ok": true
+      },
+      {
+        "name": "المسح يمحوه من الجلسة والقرص",
+        "ok": true
+      },
+      {
+        "name": "بعد المسح: الطلب بلا Authorization، والبطاقة تعمل على الصفحة وتعلن 404 بلا خطأ موقِف",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا رمز في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": null
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasToken": false
+  },
+  "edge": {
+    "label": "Edge",
+    "checks": [
+      {
+        "name": "قسم الرمز في صفحة الإعدادات بقائمة Read-only الست ولا صلاحية كتابة",
+        "ok": true
+      },
+      {
+        "name": "الافتراضي ذاكرة الجلسة ولا رمز محفوظ",
+        "ok": true
+      },
+      {
+        "name": "Chromium: القرص متاح بنص «غير مشفَّر»",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "الحفظ في الجلسة ثم التحقق: قبِل GitHub الرمز (5000)",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: الحقل فارغ ولا رمز في DOM صفحة الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "التحقق /rate_limit من الخلفية بالرمز",
+        "ok": true
+      },
+      {
+        "name": "الرمز في ذاكرة الجلسة وحدها: لا في storage.local ولا في IndexedDB",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: IndexedDB في عالمه لأصل الصفحة وبلا رمز",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "DOM صفحة GitHub وجذور الظل بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: المصدر «DOM + API (بالرمز)» وفحوص Actions للمستودع الخاص بمصدرها",
+        "ok": true
+      },
+      {
+        "name": "لوحة API في البطاقة تعلن القراءة بالرمز (من حالة الخلفية، بلا الرمز)",
+        "ok": true
+      },
+      {
+        "name": "كل طلبات البطاقة إلى api.github.com من الخلفية بالرمز وبـGET، ولا شيء من الصفحة",
+        "ok": true
+      },
+      {
+        "name": "مسارات القراءة وحدها (لا كتابة)",
+        "ok": true
+      },
+      {
+        "name": "بعد قراءة البطاقة: DOM الصفحة وما وصل سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "الحفظ على القرص: في IndexedDB الإضافة وحدها، لا في الجلسة ولا storage.local",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يجد رمز القرص (IndexedDB عالمه لأصل الصفحة)",
+        "ok": true
+      },
+      {
+        "name": "المسح يمحوه من الجلسة والقرص",
+        "ok": true
+      },
+      {
+        "name": "بعد المسح: الطلب بلا Authorization، والبطاقة تعمل على الصفحة وتعلن 404 بلا خطأ موقِف",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا رمز في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": null
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasToken": false
+  },
+  "brave": {
+    "label": "Brave",
+    "checks": [
+      {
+        "name": "قسم الرمز في صفحة الإعدادات بقائمة Read-only الست ولا صلاحية كتابة",
+        "ok": true
+      },
+      {
+        "name": "الافتراضي ذاكرة الجلسة ولا رمز محفوظ",
+        "ok": true
+      },
+      {
+        "name": "Chromium: القرص متاح بنص «غير مشفَّر»",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "الحفظ في الجلسة ثم التحقق: قبِل GitHub الرمز (5000)",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: الحقل فارغ ولا رمز في DOM صفحة الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "التحقق /rate_limit من الخلفية بالرمز",
+        "ok": true
+      },
+      {
+        "name": "الرمز في ذاكرة الجلسة وحدها: لا في storage.local ولا في IndexedDB",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: IndexedDB في عالمه لأصل الصفحة وبلا رمز",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "DOM صفحة GitHub وجذور الظل بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: المصدر «DOM + API (بالرمز)» وفحوص Actions للمستودع الخاص بمصدرها",
+        "ok": true
+      },
+      {
+        "name": "لوحة API في البطاقة تعلن القراءة بالرمز (من حالة الخلفية، بلا الرمز)",
+        "ok": true
+      },
+      {
+        "name": "كل طلبات البطاقة إلى api.github.com من الخلفية بالرمز وبـGET، ولا شيء من الصفحة",
+        "ok": true
+      },
+      {
+        "name": "مسارات القراءة وحدها (لا كتابة)",
+        "ok": true
+      },
+      {
+        "name": "بعد قراءة البطاقة: DOM الصفحة وما وصل سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "الحفظ على القرص: في IndexedDB الإضافة وحدها، لا في الجلسة ولا storage.local",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يجد رمز القرص (IndexedDB عالمه لأصل الصفحة)",
+        "ok": true
+      },
+      {
+        "name": "المسح يمحوه من الجلسة والقرص",
+        "ok": true
+      },
+      {
+        "name": "بعد المسح: الطلب بلا Authorization، والبطاقة تعمل على الصفحة وتعلن 404 بلا خطأ موقِف",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا رمز في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "auth": null
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasToken": false
+  },
+  "firefox": {
+    "label": "Firefox",
+    "checks": [
+      {
+        "name": "قسم الرمز في صفحة الإعدادات بقائمة Read-only الست ولا صلاحية كتابة",
+        "ok": true
+      },
+      {
+        "name": "الافتراضي ذاكرة الجلسة ولا رمز محفوظ",
+        "ok": true
+      },
+      {
+        "name": "Firefox: القرص محجوب ويُعلن قيد setAccessLevel",
+        "ok": true
+      },
+      {
+        "name": "بطاقة طلب الدمج مركَّبة في صفحة github.com",
+        "ok": true
+      },
+      {
+        "name": "المسبار مثبت في عالم سكربت المحتوى",
+        "ok": true
+      },
+      {
+        "name": "الحفظ في الجلسة ثم التحقق: قبِل GitHub الرمز (5000)",
+        "ok": true
+      },
+      {
+        "name": "بعد الحفظ: الحقل فارغ ولا رمز في DOM صفحة الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "التحقق /rate_limit من الخلفية بالرمز",
+        "ok": true
+      },
+      {
+        "name": "الرمز في ذاكرة الجلسة وحدها: لا في storage.local ولا في IndexedDB",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى لا يقرأ storage.session",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: storage.local بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "سكربت المحتوى: IndexedDB في عالمه لأصل الصفحة وبلا رمز",
+        "ok": true
+      },
+      {
+        "name": "أحداث storage.onChanged ورسائل runtime.onMessage التي وصلت سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "DOM صفحة GitHub وجذور الظل بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "البطاقة: المصدر «DOM + API (بالرمز)» وفحوص Actions للمستودع الخاص بمصدرها",
+        "ok": true
+      },
+      {
+        "name": "لوحة API في البطاقة تعلن القراءة بالرمز (من حالة الخلفية، بلا الرمز)",
+        "ok": true
+      },
+      {
+        "name": "كل طلبات البطاقة إلى api.github.com من الخلفية بالرمز وبـGET، ولا شيء من الصفحة",
+        "ok": true
+      },
+      {
+        "name": "مسارات القراءة وحدها (لا كتابة)",
+        "ok": true
+      },
+      {
+        "name": "بعد قراءة البطاقة: DOM الصفحة وما وصل سكربت المحتوى بلا رمز",
+        "ok": true
+      },
+      {
+        "name": "المسح يمحوه من الجلسة والقرص",
+        "ok": true
+      },
+      {
+        "name": "بعد المسح: الطلب بلا Authorization، والبطاقة تعمل على الصفحة وتعلن 404 بلا خطأ موقِف",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا رمز في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.github.com من الصفحة أو سكربت المحتوى",
+        "ok": true
+      }
+    ],
+    "browserVersion": "158.0.1",
+    "extensionErrors": null,
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/check-runs?per_page=100&page=1",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/commits/5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912/status?per_page=100&page=1",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/branches/main",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs?head_sha=5f0c2a9e1d3b4c6a7e8f9012a3b4c5d6e7f80912&per_page=100&page=1",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/actions/runs/9100/jobs?per_page=100&page=1",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo-owner/private-demo/pulls/7",
+          "from": "background",
+          "origin": null,
+          "auth": null
+        }
+      ],
+      "blockedExternalHosts": [
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com"
+      ]
+    },
+    "consoleHasToken": false
+  }
+}

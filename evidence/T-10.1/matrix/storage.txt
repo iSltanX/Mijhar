@@ -1,0 +1,13 @@
+Chrome 156.0.8078.47 / baseline: تمت التجارب · TEST-CORE-04 اجتاز
+Chrome 156.0.8078.47 / optional: تمت التجارب
+Chrome 156.0.8078.47 / declared: تمت التجارب
+Edge 155.0.4283.60 / baseline: تمت التجارب · TEST-CORE-04 اجتاز
+Edge 155.0.4283.60 / optional: تمت التجارب
+Edge 155.0.4283.60 / declared: تمت التجارب
+Brave 156.0.8078.48 / baseline: تمت التجارب · TEST-CORE-04 اجتاز
+Brave 156.0.8078.48 / optional: تمت التجارب
+Brave 156.0.8078.48 / declared: تمت التجارب
+Firefox 158.0.1 / baseline: تمت التجارب
+Firefox 158.0.1 / optional: تمت التجارب
+Firefox 158.0.1 / declared: تمت التجارب
+كُتبت النتائج الخام والتقرير في evidence/T-10.1/matrix/storage

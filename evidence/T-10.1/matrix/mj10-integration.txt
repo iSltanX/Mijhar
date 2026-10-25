@@ -1,0 +1,9 @@
+  ✗ Chrome · وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل: {"counts":{"card":0,"highlight":0,"bar":5,"translation":0,"selection":1,"composerButtons":1,"composerPanel":0},"html":{"equal":true}}
+Chrome 156.0.8078.47: 26/27 فحصًا · أخطاء الكونسول 0
+  ✗ Edge · وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل: {"counts":{"card":0,"highlight":0,"bar":5,"translation":0,"selection":1,"composerButtons":1,"composerPanel":0},"html":{"equal":true}}
+Edge 155.0.4283.60: 26/27 فحصًا · أخطاء الكونسول 0
+  ✗ Brave · وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل: {"counts":{"card":0,"highlight":0,"bar":5,"translation":0,"selection":1,"composerButtons":1,"composerPanel":0},"html":{"equal":true}}
+Brave 156.0.8078.48: 26/27 فحصًا · أخطاء الكونسول 0
+  ✗ Firefox · وحدة الترجمة (ج) ساكنة: لا شريط ولا ترجمة ولا زر تحديد في الحزمة المشحونة (لا محرك مسجَّل)، وDOM الصفحة كما أُرسل: {"counts":{"card":0,"highlight":0,"bar":5,"translation":0,"selection":1,"composerButtons":1,"composerPanel":0},"html":{"equal":true}}
+Firefox 158.0.1: 25/26 فحصًا · أخطاء الكونسول 0
+المجموع: 103/107 فحصًا اجتاز

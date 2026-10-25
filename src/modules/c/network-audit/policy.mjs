@@ -48,6 +48,9 @@ export const DECLARED_MANIFEST_HOSTS = /** @type {readonly string[]} */ (['githu
  */
 export const ANALYSIS_PROVIDER_HOSTS = /** @type {readonly string[]} */ (['api.anthropic.com', 'api.openai.com', 'generativelanguage.googleapis.com']);
 
+/** MJ26 (DEC-12 ي-1): خادم قناة البلاغات، صلاحية مضيف اختيارية وحدها تطلبها صفحة «الإبلاغ عن مشكلة» في نقرة الإرسال؛ وفي أي حقل آخر مخالفة كغيره. */
+export const REPORT_CHANNEL_HOSTS = /** @type {readonly string[]} */ (['app-reports.isultantf.workers.dev']);
+
 /** مجلدات الشيفرة التي هي «مسار الترجمة»: لا يجوز فيها استدعاء شبكة ولا مضيف خارجي. */
 export const TRANSLATION_PATH_DIRS = /** @type {readonly string[]} */ ([
   'src/modules/c/engines/',

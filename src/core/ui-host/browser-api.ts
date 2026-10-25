@@ -62,6 +62,10 @@ export interface ExtensionApi {
     open(options: { windowId?: number; tabId?: number }): Promise<void>;
     setOptions(options: { enabled?: boolean; path?: string; tabId?: number }): Promise<void>;
   };
+  /** زر شريط الأدوات (MJ26): نقرته تفتح اللوحة كما يفتحها الاختصار؛ وهي فعل مستخدم فيُقبل فيها sidePanel.open وsidebarAction.toggle. */
+  action?: {
+    onClicked: ExtEvent<(tab?: TabLike) => void>;
+  };
   /** Firefox (VER-11). */
   sidebarAction?: {
     open(): Promise<void>;

@@ -12,7 +12,8 @@ export const BASE_HOST = 'https://github.com/*';
 // وتضيف المرحلة التي تحتاج مضيفًا آخر (المزوّد أو النموذج) سطره هنا. api.anthropic.com: مزوّد التحليل (MJ21، DEC-09، AD-19)، تطلبه بطاقة المفتاح.
 // api.openai.com: مزوّد التحليل الثاني (MJ24، T-11.11، AD-32)، بالتدفق نفسه.
 // generativelanguage.googleapis.com: مزوّد التحليل Google Gemini (MJ25، T-11.12، AD-32).
-export const OPTIONAL_HOSTS = ['https://api.github.com/*', 'https://api.anthropic.com/*', 'https://api.openai.com/*', 'https://generativelanguage.googleapis.com/*'];
+// app-reports.isultantf.workers.dev: خادم قناة البلاغات (MJ26، DEC-12 ي-1)، تطلبه صفحة «الإبلاغ عن مشكلة» في نقرة «أرسل البلاغ» الأولى.
+export const OPTIONAL_HOSTS = ['https://api.github.com/*', 'https://api.anthropic.com/*', 'https://api.openai.com/*', 'https://generativelanguage.googleapis.com/*', 'https://app-reports.isultantf.workers.dev/*'];
 
 // أنماط المضيف الأساسية: ما يُمنح عند التثبيت. أما optional_host_permissions فتُطلب عند الحاجة ولا تُفحص هنا.
 export function primaryHostPatterns(manifest) {

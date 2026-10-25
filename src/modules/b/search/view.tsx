@@ -20,7 +20,8 @@ import { defaultBridge } from './bridge';
 import type { LocateBridge } from './bridge';
 import { CATEGORY_IDS, CATEGORY_LABELS, buildSearchIndex, categoryCounts, search } from './engine';
 import type { SearchHit } from './engine';
-import { GLOSSARY_SHORTCUT, GLOSSARY_TAB } from './ids';
+import { shortcutLabel } from '../../../core/ui-host/commands';
+import { GLOSSARY_SHORTCUT, GLOSSARY_SHORTCUT_MAC, GLOSSARY_TAB } from './ids';
 import type { LocateResult } from './locate';
 import { whereIs } from './paths';
 import { SEARCH_CSS, SEARCH_STYLE_ID } from './styles';
@@ -203,7 +204,7 @@ export function GlossarySearchView({ settings, bridge, entries = GLOSSARY_ENTRIE
       <div class="gsearch" ref={root}>
         <h3 id="mj-gs-title">البحث في القاموس</h3>
         <p class="muted">
-          ابحث بالعربية أو الإنجليزية أو بمرادف (مثل «كوميت» أو «PR»). يُفتح من أي صفحة بـ<kbd>{GLOSSARY_SHORTCUT}</kbd> (اختصار افتراضي مؤقت).
+          ابحث بالعربية أو الإنجليزية أو بمرادف (مثل «كوميت» أو «PR»). يُفتح من أي صفحة بـ<kbd>{shortcutLabel(GLOSSARY_SHORTCUT, GLOSSARY_SHORTCUT_MAC)}</kbd> (اختصار افتراضي تغيّره من صفحة اختصارات المتصفح).
         </p>
         <div class="search-box" role="search">
           <label class="sr-only" for="mj-gs-input">
@@ -309,7 +310,7 @@ export function GlossarySearchDrawerNotice() {
   return (
     <NativeOnlyNotice
       feature="البحث في القاموس"
-      extra={`خانة البحث في القاموس في اللوحة الجانبية الأصلية للمتصفح. وأمر «ابحث في قاموس مِجهَر» (${GLOSSARY_SHORTCUT}) يفتح مكان اللوحة المختار، فما دام مكانها «الدرج» يفتح هذا الدرج؛ لتصل إلى الخانة غيّر «مكان اللوحة» من الإعدادات.`}
+      extra={`خانة البحث في القاموس في اللوحة الجانبية الأصلية للمتصفح. وأمر «ابحث في قاموس مِجهَر» (${shortcutLabel(GLOSSARY_SHORTCUT, GLOSSARY_SHORTCUT_MAC)}) يفتح مكان اللوحة المختار، فما دام مكانها «الدرج» يفتح هذا الدرج؛ لتصل إلى الخانة غيّر «مكان اللوحة» من الإعدادات.`}
     />
   );
 }

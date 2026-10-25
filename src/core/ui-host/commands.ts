@@ -12,8 +12,19 @@ import { isSurface } from './units';
 import type { Surface } from './units';
 
 export const PANEL_COMMAND = 'toggle-panel';
-/** اختصار افتراضي مؤقت؛ تحسم قيمته النهائية DEC-08 في T-10.2. يُكتب في المانيفست ويُختبر تطابقه. */
+/**
+ * الاختصار الافتراضي النهائي (DEC-08 ح-2، MJ26): Alt+G في Windows وLinux وChromeOS، وControl+Shift+G في macOS لأن Option+حرف فيه يكتب رمزًا
+ * (Option+G = ©) فيتعارض مع الكتابة. يُكتب في المانيفست ويُختبر تطابقه، ويعيد المستخدم ربطه من صفحة اختصارات المتصفح.
+ */
 export const PANEL_SHORTCUT = 'Alt+G';
+export const PANEL_SHORTCUT_MAC = 'MacCtrl+Shift+G';
+
+const isMac = (userAgent: string): boolean => /Macintosh|Mac OS X/.test(userAgent);
+
+/** نص الاختصار الافتراضي الذي يسري على نظام المستخدم، كما يكتبه المتصفح (MacCtrl هو مفتاح Control). */
+export function shortcutLabel(defaultKey: string, macKey: string, userAgent: string = globalThis.navigator?.userAgent ?? ''): string {
+  return isMac(userAgent) ? macKey.replace('MacCtrl', 'Control') : defaultKey;
+}
 
 export const DRAWER_MESSAGE = 'mijhar:drawer';
 export const OPEN_OPTIONS_MESSAGE = 'mijhar:open-options';
@@ -23,7 +34,7 @@ export const SURFACE_MIRROR_KEY = 'mijhar.ui.surface';
  * مواضع في صفحة الإعدادات يفتحها الترحيب والإعدادات في اللوحة والأقسام (AD-29): قسم الرمز ودليله، وبطاقة مفتاح المزوّد و«لماذا المفتاح؟» (MJ21).
  * قائمة مغلقة: الخلفية لا تفتح عنوانًا تركّبه رسالة من سكربت المحتوى، بل أحد هذه المواضع أو صفحة الإعدادات نفسها.
  */
-export const OPTIONS_TARGETS = ['token', 'guide/github-token', 'provider-key', 'guide/provider-key'] as const;
+export const OPTIONS_TARGETS = ['token', 'guide/github-token', 'provider-key', 'guide/provider-key', 'about', 'report'] as const;
 export type OptionsTarget = (typeof OPTIONS_TARGETS)[number];
 
 export interface OpenOptionsMessage {

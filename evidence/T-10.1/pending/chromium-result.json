@@ -1,0 +1,686 @@
+{
+  "at": "2026-10-25T04:15:53.527Z",
+  "results": [
+    {
+      "key": "chrome",
+      "label": "Chrome",
+      "version": "156.0.8078.47",
+      "passed": 11,
+      "failed": 7,
+      "steps": [
+        {
+          "part": "أ. الصلاحية",
+          "name": "«احفظ وتحقق» يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)، ونتيجته الفعلية من المتصفح مسجلة",
+          "ok": false,
+          "detail": {
+            "requests": [
+              {
+                "set": {
+                  "origins": [
+                    "https://api.openai.com/*"
+                  ]
+                },
+                "result": "pending"
+              }
+            ],
+            "card": null
+          }
+        },
+        {
+          "part": "أ. الصلاحية",
+          "name": "المتصفح بلا واجهة منح الصلاحية أو لم يُجب، فلم يُفحص مسار الرفض",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "المضيف ممنوح: الحفظ يرسل طلب التحقق المعلن وحده من الخلفية والمفتاح «سليم»",
+          "ok": true,
+          "detail": [
+            "GET /v1/models background"
+          ]
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "المزوّد يردّ 429 بـRetry-After: طلب واحد، والحالة تعلن الموعد",
+          "ok": true,
+          "detail": {
+            "retryAt": 1792901581534,
+            "message": "لم يُتحقق من المفتاح: Rate limit reached for requests."
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "عامل الخدمة أُوقف فعلًا (CDP ServiceWorker.stopAllWorkers، وحدث close على العامل)",
+          "ok": false,
+          "detail": {
+            "stopped": false
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "بعد الإيقاظ (عامل جديد بلا ذاكرة سابقة): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
+          "ok": false,
+          "detail": {
+            "fresh": "no-worker",
+            "message": "لم يُتحقق من المفتاح: أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.",
+            "sentAfter": 0,
+            "before": 1792901581534,
+            "after": 1792901581534
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "بعد حلول الموعد: طلب واحد ويعود المفتاح «سليمًا»",
+          "ok": true,
+          "detail": {
+            "sent": 1
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "الصفحة الثانية تقرأ المفتاح المحفوظ نفسه",
+          "ok": true,
+          "detail": {
+            "provider": "openai",
+            "permission": "granted",
+            "key": "session",
+            "health": "healthy",
+            "message": "",
+            "checkText": "قبِل OpenAI المفتاح.",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "F-07: الاختبار من الأولى والقائمة من الثانية متداخلان، وكلاهما مكتوب في ذاكرة الجلسة",
+          "ok": false,
+          "detail": {
+            "raced": [
+              {
+                "path": "/v1/responses",
+                "at": 1792901584574
+              }
+            ],
+            "test": {
+              "at": 1792901585476,
+              "keySavedAt": 1792901561366,
+              "message": "",
+              "model": "mock-chat-2",
+              "provider": "openai",
+              "status": 200,
+              "verdict": "accepted"
+            }
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "F-05: المسح من الثانية ينعكس في الأولى عند العودة: لا مفتاح، ويُغلق تأكيد المسح، ولا رسالة ولا نتيجة للمفتاح الممسوح",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "COR-AUD-02: القائمة ونتيجة الاختبار للمفتاح الممسوح حُذفتا من ذاكرة الجلسة عند قراءة الحالة التالية، بلا طلب",
+          "ok": true,
+          "detail": {
+            "mijhar.provider.models": {},
+            "mijhar.provider.tests": {}
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "الاستبدال من الثانية: التحقق بالمفتاح الجديد وحده، والأولى تعرضه «سليمًا» بلا رسالة سابقة",
+          "ok": true,
+          "detail": {
+            "a2": {
+              "provider": "openai",
+              "permission": "granted",
+              "key": "session",
+              "health": "healthy",
+              "message": "",
+              "checkText": "قبِل OpenAI المفتاح.",
+              "confirm": true,
+              "listed": [],
+              "test": "accepted"
+            },
+            "last": "KEY2"
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "تبديل المزوّد إلى Gemini من الثانية ينعكس في الأولى بلا رسالة من OpenAI",
+          "ok": true,
+          "detail": {
+            "provider": "gemini",
+            "permission": "denied",
+            "key": "none",
+            "health": "none",
+            "message": "",
+            "checkText": "",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "PI-1: رمز GitHub حُفظ من الثانية فتعرضه بطاقة الأولى عند العودة دون إعادة تحميل",
+          "ok": false,
+          "detail": {
+            "t0": "none",
+            "t1": "none"
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "PI-1: مسح الرمز من الثانية ينعكس في الأولى عند العودة",
+          "ok": true,
+          "detail": {
+            "t2": "none"
+          }
+        },
+        {
+          "part": "الشبكة",
+          "name": "كل طلب إلى المزوّد من الخلفية، ولا مضيف خارجي غير المعترَض",
+          "ok": true,
+          "detail": {
+            "blocked": [],
+            "from": [
+              "background"
+            ]
+          }
+        },
+        {
+          "part": "د. الإزالة",
+          "name": "إزالة الإضافة (management.uninstallSelf) ثم تثبيتها بالمعرّف نفسه: التخزين كتثبيت جديد، فلا إعداد ولا سرّ ولا حالة مما كُتب قبلها",
+          "ok": true,
+          "detail": {
+            "fresh": [
+              "mijhar:data:setting.ui.welcome",
+              "mijhar:meta"
+            ],
+            "beforeUninstall": [
+              "mijhar:data:setting.e.provider.id",
+              "mijhar:data:setting.e.provider.model.openai",
+              "mijhar:data:setting.ui.welcome",
+              "mijhar:meta"
+            ],
+            "after": {
+              "local": [
+                "mijhar:data:setting.ui.welcome",
+                "mijhar:meta"
+              ],
+              "session": []
+            }
+          }
+        },
+        {
+          "part": "الأسرار",
+          "name": "لا مفتاح ولا رمز في أي نتيجة مسجلة",
+          "ok": true
+        }
+      ],
+      "notes": [
+        "أ: نتيجة permissions.request الفعلية في Chrome بلا واجهة = \"pending\"",
+        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible"
+      ]
+    },
+    {
+      "key": "edge",
+      "label": "Edge",
+      "version": "155.0.4283.60",
+      "passed": 11,
+      "failed": 7,
+      "steps": [
+        {
+          "part": "أ. الصلاحية",
+          "name": "«احفظ وتحقق» يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)، ونتيجته الفعلية من المتصفح مسجلة",
+          "ok": false,
+          "detail": {
+            "requests": [
+              {
+                "set": {
+                  "origins": [
+                    "https://api.openai.com/*"
+                  ]
+                },
+                "result": "pending"
+              }
+            ],
+            "card": null
+          }
+        },
+        {
+          "part": "أ. الصلاحية",
+          "name": "المتصفح بلا واجهة منح الصلاحية أو لم يُجب، فلم يُفحص مسار الرفض",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "المضيف ممنوح: الحفظ يرسل طلب التحقق المعلن وحده من الخلفية والمفتاح «سليم»",
+          "ok": true,
+          "detail": [
+            "GET /v1/models background"
+          ]
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "المزوّد يردّ 429 بـRetry-After: طلب واحد، والحالة تعلن الموعد",
+          "ok": true,
+          "detail": {
+            "retryAt": 1792901652731,
+            "message": "لم يُتحقق من المفتاح: Rate limit reached for requests."
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "عامل الخدمة أُوقف فعلًا (CDP ServiceWorker.stopAllWorkers، وحدث close على العامل)",
+          "ok": false,
+          "detail": {
+            "stopped": false
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "بعد الإيقاظ (عامل جديد بلا ذاكرة سابقة): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
+          "ok": false,
+          "detail": {
+            "fresh": "no-worker",
+            "message": "لم يُتحقق من المفتاح: أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.",
+            "sentAfter": 0,
+            "before": 1792901652731,
+            "after": 1792901652731
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "بعد حلول الموعد: طلب واحد ويعود المفتاح «سليمًا»",
+          "ok": true,
+          "detail": {
+            "sent": 1
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "الصفحة الثانية تقرأ المفتاح المحفوظ نفسه",
+          "ok": true,
+          "detail": {
+            "provider": "openai",
+            "permission": "granted",
+            "key": "session",
+            "health": "healthy",
+            "message": "",
+            "checkText": "قبِل OpenAI المفتاح.",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "F-07: الاختبار من الأولى والقائمة من الثانية متداخلان، وكلاهما مكتوب في ذاكرة الجلسة",
+          "ok": false,
+          "detail": {
+            "raced": [
+              {
+                "path": "/v1/responses",
+                "at": 1792901655829
+              }
+            ],
+            "test": {
+              "at": 1792901656735,
+              "keySavedAt": 1792901632546,
+              "message": "",
+              "model": "mock-chat-2",
+              "provider": "openai",
+              "status": 200,
+              "verdict": "accepted"
+            }
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "F-05: المسح من الثانية ينعكس في الأولى عند العودة: لا مفتاح، ويُغلق تأكيد المسح، ولا رسالة ولا نتيجة للمفتاح الممسوح",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "COR-AUD-02: القائمة ونتيجة الاختبار للمفتاح الممسوح حُذفتا من ذاكرة الجلسة عند قراءة الحالة التالية، بلا طلب",
+          "ok": true,
+          "detail": {
+            "mijhar.provider.models": {},
+            "mijhar.provider.tests": {}
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "الاستبدال من الثانية: التحقق بالمفتاح الجديد وحده، والأولى تعرضه «سليمًا» بلا رسالة سابقة",
+          "ok": true,
+          "detail": {
+            "a2": {
+              "provider": "openai",
+              "permission": "granted",
+              "key": "session",
+              "health": "healthy",
+              "message": "",
+              "checkText": "قبِل OpenAI المفتاح.",
+              "confirm": true,
+              "listed": [],
+              "test": "accepted"
+            },
+            "last": "KEY2"
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "تبديل المزوّد إلى Gemini من الثانية ينعكس في الأولى بلا رسالة من OpenAI",
+          "ok": true,
+          "detail": {
+            "provider": "gemini",
+            "permission": "denied",
+            "key": "none",
+            "health": "none",
+            "message": "",
+            "checkText": "",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "PI-1: رمز GitHub حُفظ من الثانية فتعرضه بطاقة الأولى عند العودة دون إعادة تحميل",
+          "ok": false,
+          "detail": {
+            "t0": "none",
+            "t1": "none"
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "PI-1: مسح الرمز من الثانية ينعكس في الأولى عند العودة",
+          "ok": true,
+          "detail": {
+            "t2": "none"
+          }
+        },
+        {
+          "part": "الشبكة",
+          "name": "كل طلب إلى المزوّد من الخلفية، ولا مضيف خارجي غير المعترَض",
+          "ok": true,
+          "detail": {
+            "blocked": [],
+            "from": [
+              "background"
+            ]
+          }
+        },
+        {
+          "part": "د. الإزالة",
+          "name": "إزالة الإضافة (management.uninstallSelf) ثم تثبيتها بالمعرّف نفسه: التخزين كتثبيت جديد، فلا إعداد ولا سرّ ولا حالة مما كُتب قبلها",
+          "ok": true,
+          "detail": {
+            "fresh": [
+              "mijhar:data:setting.ui.welcome",
+              "mijhar:meta"
+            ],
+            "beforeUninstall": [
+              "mijhar:data:setting.e.provider.id",
+              "mijhar:data:setting.e.provider.model.openai",
+              "mijhar:data:setting.ui.welcome",
+              "mijhar:meta"
+            ],
+            "after": {
+              "local": [
+                "mijhar:data:setting.ui.welcome",
+                "mijhar:meta"
+              ],
+              "session": []
+            }
+          }
+        },
+        {
+          "part": "الأسرار",
+          "name": "لا مفتاح ولا رمز في أي نتيجة مسجلة",
+          "ok": true
+        }
+      ],
+      "notes": [
+        "أ: نتيجة permissions.request الفعلية في Edge بلا واجهة = \"pending\"",
+        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible"
+      ]
+    },
+    {
+      "key": "brave",
+      "label": "Brave",
+      "version": "156.0.8078.48",
+      "passed": 11,
+      "failed": 7,
+      "steps": [
+        {
+          "part": "أ. الصلاحية",
+          "name": "«احفظ وتحقق» يطلب صلاحية api.openai.com وحدها في Chromium (لا data_collection)، ونتيجته الفعلية من المتصفح مسجلة",
+          "ok": false,
+          "detail": {
+            "requests": [
+              {
+                "set": {
+                  "origins": [
+                    "https://api.openai.com/*"
+                  ]
+                },
+                "result": "pending"
+              }
+            ],
+            "card": null
+          }
+        },
+        {
+          "part": "أ. الصلاحية",
+          "name": "المتصفح بلا واجهة منح الصلاحية أو لم يُجب، فلم يُفحص مسار الرفض",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "المضيف ممنوح: الحفظ يرسل طلب التحقق المعلن وحده من الخلفية والمفتاح «سليم»",
+          "ok": true,
+          "detail": [
+            "GET /v1/models background"
+          ]
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "المزوّد يردّ 429 بـRetry-After: طلب واحد، والحالة تعلن الموعد",
+          "ok": true,
+          "detail": {
+            "retryAt": 1792901723153,
+            "message": "لم يُتحقق من المفتاح: Rate limit reached for requests."
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "عامل الخدمة أُوقف فعلًا (CDP ServiceWorker.stopAllWorkers، وحدث close على العامل)",
+          "ok": false,
+          "detail": {
+            "stopped": false
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "بعد الإيقاظ (عامل جديد بلا ذاكرة سابقة): لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»، والموعد مستعاد من سجل صحة المفتاح",
+          "ok": false,
+          "detail": {
+            "fresh": "no-worker",
+            "message": "لم يُتحقق من المفتاح: أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.",
+            "sentAfter": 0,
+            "before": 1792901723153,
+            "after": 1792901723153
+          }
+        },
+        {
+          "part": "ب. الإيقاظ",
+          "name": "بعد حلول الموعد: طلب واحد ويعود المفتاح «سليمًا»",
+          "ok": true,
+          "detail": {
+            "sent": 1
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "الصفحة الثانية تقرأ المفتاح المحفوظ نفسه",
+          "ok": true,
+          "detail": {
+            "provider": "openai",
+            "permission": "granted",
+            "key": "session",
+            "health": "healthy",
+            "message": "",
+            "checkText": "قبِل OpenAI المفتاح.",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "F-07: الاختبار من الأولى والقائمة من الثانية متداخلان، وكلاهما مكتوب في ذاكرة الجلسة",
+          "ok": false,
+          "detail": {
+            "raced": [
+              {
+                "path": "/v1/responses",
+                "at": 1792901726241
+              }
+            ],
+            "test": {
+              "at": 1792901727144,
+              "keySavedAt": 1792901702981,
+              "message": "",
+              "model": "mock-chat-2",
+              "provider": "openai",
+              "status": 200,
+              "verdict": "accepted"
+            }
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "F-05: المسح من الثانية ينعكس في الأولى عند العودة: لا مفتاح، ويُغلق تأكيد المسح، ولا رسالة ولا نتيجة للمفتاح الممسوح",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "COR-AUD-02: القائمة ونتيجة الاختبار للمفتاح الممسوح حُذفتا من ذاكرة الجلسة عند قراءة الحالة التالية، بلا طلب",
+          "ok": true,
+          "detail": {
+            "mijhar.provider.models": {},
+            "mijhar.provider.tests": {}
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "الاستبدال من الثانية: التحقق بالمفتاح الجديد وحده، والأولى تعرضه «سليمًا» بلا رسالة سابقة",
+          "ok": true,
+          "detail": {
+            "a2": {
+              "provider": "openai",
+              "permission": "granted",
+              "key": "session",
+              "health": "healthy",
+              "message": "",
+              "checkText": "قبِل OpenAI المفتاح.",
+              "confirm": true,
+              "listed": [],
+              "test": "accepted"
+            },
+            "last": "KEY2"
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "تبديل المزوّد إلى Gemini من الثانية ينعكس في الأولى بلا رسالة من OpenAI",
+          "ok": true,
+          "detail": {
+            "provider": "gemini",
+            "permission": "denied",
+            "key": "none",
+            "health": "none",
+            "message": "",
+            "checkText": "",
+            "confirm": false,
+            "listed": [],
+            "test": null
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "PI-1: رمز GitHub حُفظ من الثانية فتعرضه بطاقة الأولى عند العودة دون إعادة تحميل",
+          "ok": false,
+          "detail": {
+            "t0": "none",
+            "t1": "none"
+          }
+        },
+        {
+          "part": "ج. النوافذ",
+          "name": "PI-1: مسح الرمز من الثانية ينعكس في الأولى عند العودة",
+          "ok": true,
+          "detail": {
+            "t2": "none"
+          }
+        },
+        {
+          "part": "الشبكة",
+          "name": "كل طلب إلى المزوّد من الخلفية، ولا مضيف خارجي غير المعترَض",
+          "ok": true,
+          "detail": {
+            "blocked": [],
+            "from": [
+              "background"
+            ]
+          }
+        },
+        {
+          "part": "د. الإزالة",
+          "name": "إزالة الإضافة (management.uninstallSelf) ثم تثبيتها بالمعرّف نفسه: التخزين كتثبيت جديد، فلا إعداد ولا سرّ ولا حالة مما كُتب قبلها",
+          "ok": true,
+          "detail": {
+            "fresh": [
+              "mijhar:data:setting.ui.welcome",
+              "mijhar:meta"
+            ],
+            "beforeUninstall": [
+              "mijhar:data:setting.e.provider.id",
+              "mijhar:data:setting.e.provider.model.openai",
+              "mijhar:data:setting.ui.welcome",
+              "mijhar:meta"
+            ],
+            "after": {
+              "local": [
+                "mijhar:data:setting.ui.welcome",
+                "mijhar:meta"
+              ],
+              "session": []
+            }
+          }
+        },
+        {
+          "part": "الأسرار",
+          "name": "لا مفتاح ولا رمز في أي نتيجة مسجلة",
+          "ok": true
+        }
+      ],
+      "notes": [
+        "أ: نتيجة permissions.request الفعلية في Brave بلا واجهة = \"pending\"",
+        "ج: حالة ظهور الصفحة الأولى بعد فتح الثانية = visible"
+      ]
+    }
+  ]
+}

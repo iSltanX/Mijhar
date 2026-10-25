@@ -193,7 +193,7 @@ describe('(٣) العودة إلى الميزة التي طلبت الربط', (
     expect(await s.connections.pending()).toBeNull();
     await s.tabRuntime.sendMessage({ type: OPEN_OPTIONS_MESSAGE, target: 'javascript:alert(1)', feature: 'd.pr-status.private' });
     expect(s.tabs.create.mock.calls.map(([p]) => p.url)).toEqual(['chrome-extension://mijhar/options.html#token', 'chrome-extension://mijhar/options.html#token']);
-    expect(OPTIONS_TARGETS).toEqual(['token', 'guide/github-token', 'provider-key', 'guide/provider-key']);
+    expect(OPTIONS_TARGETS).toEqual(['token', 'guide/github-token', 'provider-key', 'guide/provider-key', 'about', 'report']);
     expect(await s.connections.returnToFeature()).toBe(true);
     expect(await s.connections.returnToFeature()).toBe(false);
   });

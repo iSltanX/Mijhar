@@ -38,7 +38,7 @@ describe('المانيفستان وإعلان Firefox', () => {
 
   it('إعلان Firefox كما هو: websiteContent اختيارية وحدها، ولا مطلوب غير none', () => {
     const manifest = JSON.parse(read('src/manifest/firefox.json')) as { browser_specific_settings: { gecko: { data_collection_permissions: { required: string[]; optional?: string[] } } } };
-    expect(manifest.browser_specific_settings.gecko.data_collection_permissions).toEqual({ required: ['none'], optional: ['websiteContent'] });
+    expect(manifest.browser_specific_settings.gecko.data_collection_permissions).toEqual({ required: ['none'], optional: ['websiteContent', 'technicalAndInteraction'] });
   });
 });
 

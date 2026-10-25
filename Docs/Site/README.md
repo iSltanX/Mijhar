@@ -1,6 +1,6 @@
 # صفحات مِجهَر في الموقع: حزمة التسليم
 
-> تصميم ونصوص لثلاث صفحات تُنشر لاحقًا ضمن bysltan.com: `/mijhar` و`/mijhar/privacy` و`/mijhar/help`. **لم يُنفَّذ شيء في الموقع ولم يُنشر.** أُعدّت في 2026-10-24 على الفرع `claude/microscope-pages-privacy-68a2b0` من `main` المحلي عند `37d86c0`، دون مسّ فروع `MJ24` و`MJ25` ولا ملفاتهما.
+> تصميم ونصوص لثلاث صفحات تُنشر لاحقًا ضمن bysltan.com: `/Mjhr` و`/Mjhr/privacy` و`/Mjhr/support`. **لم يُنفَّذ شيء في الموقع ولم يُنشر.** أُعدّت في 2026-10-24 على الفرع `claude/microscope-pages-privacy-68a2b0` من `main` المحلي عند `37d86c0`، دون مسّ فروع `MJ24` و`MJ25` ولا ملفاتهما.
 
 ## الملفات
 
@@ -75,17 +75,17 @@
 | الإطار | الرابط |
 | :--- | :--- |
 | W-00 دليل الصفحات وعلامات المطابقة | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=159-7886> |
-| **A — `/mijhar`** | |
+| **A — `/Mjhr`** | |
 | W-01 الحاسوب · فاتح | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=142-829> |
 | W-02 الحاسوب · داكن | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=143-25488> |
 | W-03 الجوال · فاتح | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=143-2677> |
 | W-04 الجوال · داكن | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=143-26040> |
-| **B — `/mijhar/privacy`** | |
+| **B — `/Mjhr/privacy`** | |
 | W-05 الحاسوب · فاتح | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=155-7802> |
 | W-06 الحاسوب · داكن | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=155-8623> |
 | W-07 الجوال · فاتح (الفهرس مطوي) | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=155-8250> |
 | W-08 الجوال · داكن (الفهرس مفتوح) | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=155-9030> |
-| **C — `/mijhar/help`** | |
+| **C — `/Mjhr/support`** | |
 | W-09 الحاسوب · فاتح | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=157-7835> |
 | W-10 الحاسوب · داكن | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=157-8535> |
 | W-11 الجوال · فاتح | <https://www.figma.com/design/D7FBsBSCEyY3gRgOqZ4xYp/?node-id=157-8225> |
@@ -118,7 +118,7 @@
 3. كذلك «دليل المستخدم بالعربية» في `T-10.2` يبدأ من [`help.md`](help.md) ولا يُكتب دليل ثانٍ.
 4. أُضيف مرجع بذلك في `Docs/MJ/stages/MJ26.md` (قسم «المراجع»)، والمرحلة لم تبدأ. ولم يُسجَّل قرار في `data/plan.json` لأن تحريره لمنسّق الدمج؛ والنص المقترح لتسجيله عند الدمج:
 
-> **`AD-35` — صفحات مِجهَر في الموقع ومصدر واحد لنص الخصوصية:** صُمّمت `/mijhar` و`/mijhar/privacy` و`/mijhar/help` في الصفحة «مجهر — صفحات الموقع» من ملف Figma المعتمد بألوان الإضافة نفسها (`src/shared/ui/tokens.ts`)، ونصوصها في `Docs/Site/`. و`Docs/Site/privacy.md` المصدر الواحد لنص الخصوصية: يكتب منه `T-10.2` ملف `PRIVACY.md` ويحدّثهما معًا، و`Docs/Site/help.md` أساس دليل المستخدم. ولا يُنشر شيء منها قبل أمر المالك.
+> **`AD-35` — صفحات مِجهَر في الموقع ومصدر واحد لنص الخصوصية:** صُمّمت `/Mjhr` و`/Mjhr/privacy` و`/Mjhr/support` في الصفحة «مجهر — صفحات الموقع» من ملف Figma المعتمد بألوان الإضافة نفسها (`src/shared/ui/tokens.ts`)، ونصوصها في `Docs/Site/`. و`Docs/Site/privacy.md` المصدر الواحد لنص الخصوصية: يكتب منه `T-10.2` ملف `PRIVACY.md` ويحدّثهما معًا، و`Docs/Site/help.md` أساس دليل المستخدم. ولا يُنشر شيء منها قبل أمر المالك.
 
 ## قناة الإبلاغ عن مشكلة
 

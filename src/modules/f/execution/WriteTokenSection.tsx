@@ -16,6 +16,7 @@ import type { ApiGithubPermission } from '../../../core/ui-host/permissions';
 import { checkTokenFormat, TOKEN_FORMAT_MESSAGES } from '../../d/token/format';
 import { Ltr } from '../../../shared/ui';
 import { isTrustedActivation } from '../../../shared/ui/user-activation';
+import { useOnVisible } from '../../../shared/ui/useOnVisible';
 import { useStyles } from '../../../shared/ui/useStyles';
 
 export const WRITE_TOKEN_NEW_URL = 'https://github.com/settings/personal-access-tokens/new';
@@ -87,6 +88,12 @@ export function WriteTokenSection({ store, readToken, permission, header, status
       unsubscribe();
     };
   }, [store, permission]);
+
+  // الرمز يُحفظ أو يُمسح من صفحة إعدادات أخرى: يُقرأ من جديد حين تعود هذه الصفحة إلى الواجهة (PI-1)، ويُغلق تأكيد مسح رمز لم يعد هو المحفوظ.
+  useOnVisible(() => {
+    store.info().then(setInfo, () => setInfo(null));
+  });
+  useEffect(() => setConfirming(false), [info?.savedAt]);
 
   // موافقة على صلاحية الكتابة: نقرة موثوقة وحدها، وطلب الصلاحية الاختيارية أول ما فيها قبل أي await (VER-05).
   const save = (event: Event) => {

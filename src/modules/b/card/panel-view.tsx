@@ -8,7 +8,7 @@ import type { PanelViewProps } from '../../../sidepanel/views';
 import { useSetting } from '../../../shared/ui/useSetting';
 import { moduleEnabledKey } from '../../../core/settings';
 import { CARD_MODULE_ID } from './ids';
-import { EXPLAIN_MESSAGE, EXPLAIN_MODE, EXPLAIN_SHORTCUT } from './mode';
+import { EXPLAIN_MESSAGE, EXPLAIN_MODE, EXPLAIN_SHORTCUT, explainShortcutAvailable } from './mode';
 import type { ExplainAction, ExplainMode } from './mode';
 
 export interface ExplainBridge {
@@ -97,9 +97,11 @@ export function ExplainToggleView({ settings, bridge }: PanelViewProps & { bridg
           {active === null ? 'غير معروف' : active ? 'مفعَّل' : 'غير مفعَّل'}
         </span>
       </div>
-      <p class="muted small">
-        أو اضغط <kbd>{EXPLAIN_SHORTCUT}</kbd> داخل صفحة GitHub (اختصار افتراضي مؤقت).
-      </p>
+      {explainShortcutAvailable() && (
+        <p class="muted small">
+          أو اضغط <kbd>{EXPLAIN_SHORTCUT}</kbd> داخل صفحة GitHub.
+        </p>
+      )}
       {!usable && (
         <p class="notice" data-notice="disabled">
           بطاقة الشرح موقوفة؛ شغّلها من «الإعدادات والخصوصية».

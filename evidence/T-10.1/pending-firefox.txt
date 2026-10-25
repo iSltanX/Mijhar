@@ -1,0 +1,33 @@
+  ✓ [إعداد] ملف تعريف جديد بلا قبول آلي: extensions.webextOptionalPermissionPrompts على قيمته الافتراضية (true)
+  ✓ [إعداد] الحزمة المشحونة كما هي: api.openai.com اختيارية، وwebsiteContent اختيارية، والخلفية صفحة أحداث (background.scripts)
+  ✓ [أ. الصلاحية] البداية: OpenAI مختار بلا مفتاح ولا صلاحية، ولا طلب إلى المزوّد
+  ✓ [أ. الصلاحية] «احفظ وتحقق» يُظهر النافذة الأصلية بمضيف api.openai.com وبند مشاركة محتوى المواقع معًا
+  ✓ [أ. الصلاحية] رفض نافذة الحفظ: المفتاح محفوظ «لم يُتحقق منه» بلا أي طلب
+  ✓ [أ. الصلاحية] «تحقق من المفتاح» يُظهر النافذة الأصلية بمضيف api.openai.com وحده، بلا بند مشاركة محتوى المواقع (BLK-AUD-02)
+  ✓ [أ. الصلاحية] رفضها يعرض «لم تُمنح صلاحية api.openai.com؛ لم يُرسل شيء.» بلا أي طلب، ولا صلاحية ممنوحة
+  ✓ [أ. الصلاحية] «تحقق من المفتاح» ثانيةً يُظهر النافذة نفسها (المضيف وحده)
+  ✓ [أ. الصلاحية] قبولها يمنح المضيف وحده (لا websiteContent)، ويُرسل طلب التحقق المعلن وحده (GET /v1/models بالمفتاح)، والمفتاح «سليم»
+  ✓ [ب. الإيقاظ] المزوّد يردّ 429 بـRetry-After: طلب واحد، والبطاقة تعلن حد الطلبات وموعده
+  ✓ [ب. الإيقاظ] الحالة من الخلفية قبل الإيقاف تعلن الموعد (retryAt)
+  ✓ [ب. الإيقاظ] صفحة الخلفية أُنهيت فعلًا (terminateBackground كما في about:debugging) فزالت ذاكرتها
+  ✓ [ب. الإيقاظ] بعد إيقاظ الخلفية بنقرة «تحقق من المفتاح»: لا طلب قبل الموعد، والرسالة «أعلن المزوّد موعدًا لإعادة المحاولة؛ لم يُرسل شيء قبله.»
+  ✓ [ب. الإيقاظ] الحالة بعد الإيقاظ تعلن الموعد نفسه مستعادًا من سجل صحة المفتاح
+  ✓ [ب. الإيقاظ] بعد حلول الموعد: «تحقق من المفتاح» يرسل طلبًا واحدًا ويعود المفتاح «سليمًا»
+  ✓ [ج. النوافذ] التبويب الثاني يقرأ المفتاح المحفوظ نفسه (OpenAI، الجلسة)
+  ✗ [ج. النوافذ] F-07: الاختبار من الأول والقائمة من الثاني متداخلان في الخلفية، وكلاهما مكتوب في ذاكرة الجلسة (لا يمحو أحدهما الآخر) — {"raced":[{"method":"POST","path":"/v1/responses","at":1792901791141}],"models":true,"tests":{"model":"mock-chat-2","verdict":"accepted"},"statusTest":{"provider":"openai","model":"mock-chat-2","keySavedAt":1792901758835,"verdict":"accepted","status":200,"message":"","at":1792901792044}}
+  ✓ [ج. النوافذ] F-05: المسح من التبويب الثاني ينعكس في الأول عند العودة: لا مفتاح، ويُغلق تأكيد المسح المفتوح، ولا رسالة ولا نتيجة للمفتاح الممسوح
+  ✓ [ج. النوافذ] COR-AUD-02: القائمة ونتيجة الاختبار للمفتاح الممسوح حُذفتا من ذاكرة الجلسة عند قراءة الحالة التالية، بلا أي طلب
+  ✗ [ج. النوافذ] الاستبدال من الثاني (المضيف ممنوح فلا نافذة): التحقق بالمفتاح الجديد وحده، والأول يعرضه «سليمًا» عند العودة بلا رسالة سابقة — {"a":null,"last":{"path":"/v1/responses","key":"KEY"}}
+  ✓ [ج. النوافذ] تبديل المزوّد إلى Gemini من الثاني ينعكس في الأول، بلا رسالة من OpenAI
+  ✓ [ج. النوافذ] PI-1: رمز GitHub حُفظ من الثاني فتعرضه بطاقة الأول عند العودة إليه دون إعادة تحميل
+  ✓ [ج. النوافذ] PI-1: مسح الرمز من الثاني ينعكس في الأول عند العودة
+Error: WebDriver:ExecuteScript: no such window Browsing context has been discarded
+    at Object.send (file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:71:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async chrome (file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:225:15)
+    at async main (file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:523:19)
+    at async file:///Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/evidence/T-10.1/pending/firefox-check.mjs:538:14
+Firefox: 21 اجتاز · 2 فشل · 0 لم يُجرَ
+ملاحظة: أ1 الرفض: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)
+ملاحظة: أ2 الرفض: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)
+ملاحظة: أ3 القبول: click() على زر النافذة الأصلية من سياق المتصفح (تعذّرت نقرة Marionette: WebDriver:GetShadowRoot: unsupported operation Only supported in content context)

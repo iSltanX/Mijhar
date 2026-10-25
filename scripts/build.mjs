@@ -28,6 +28,11 @@ export const PAGES = [
 
 // الخطوط المضمّنة ونصوص تراخيصها (T-2.3): تُنسخ كما هي إلى fonts/ في كل حزمة.
 export const FONTS_DIR = 'assets/fonts';
+// أيقونات المانيفست وزر شريط الأدوات (MJ26، AD-13): صادرات R-15 في release/icons، تُنسخ إلى icons/ في كل حزمة (لا شعار المتجر).
+export const ICONS_DIR = 'release/icons';
+export const ICON_SIZES = [16, 32, 48, 64, 96, 128];
+// إشعارات الأطراف الثالثة (AC-10.3): يولّدها scripts/notices.mjs في الجذر، وتُنسخ إلى جذر كل حزمة.
+export const NOTICES_FILE = 'THIRD_PARTY_NOTICES.txt';
 
 export async function buildTarget(target, outRoot = path.join(ROOT, 'dist')) {
   const outDir = path.join(outRoot, target);
@@ -60,6 +65,9 @@ export async function buildTarget(target, outRoot = path.join(ROOT, 'dist')) {
     fs.mkdirSync(path.join(outDir, 'fonts'), { recursive: true });
     for (const file of fs.readdirSync(fontsDir)) if (/\.(woff2|txt)$/.test(file)) fs.copyFileSync(path.join(fontsDir, file), path.join(outDir, 'fonts', file));
   }
+  fs.mkdirSync(path.join(outDir, 'icons'), { recursive: true });
+  for (const size of ICON_SIZES) fs.copyFileSync(path.join(ROOT, ICONS_DIR, `icon-${size}.png`), path.join(outDir, 'icons', `icon-${size}.png`));
+  fs.copyFileSync(path.join(ROOT, NOTICES_FILE), path.join(outDir, NOTICES_FILE));
   return outDir;
 }
 

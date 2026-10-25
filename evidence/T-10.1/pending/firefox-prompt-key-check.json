@@ -1,0 +1,11 @@
+{
+  "open": "showing",
+  "shown": true,
+  "id": "addon-webext-permissions-notification",
+  "text": "يطلب مِجهَر إعدادات إضافيةالأذونات الجديدة:الوصول إلى بياناتك للمواقع في نطاق api.openai.comتجميع بيانات جديدة:إعدادات اختيارية:اطّلع على المزيد",
+  "items": [
+    "الوصول إلى بياناتك للمواقع في نطاق api.openai.com"
+  ],
+  "primary": "اسمح",
+  "secondary": "ارفض"
+}

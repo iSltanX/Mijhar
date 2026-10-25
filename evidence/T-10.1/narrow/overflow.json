@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "vw": 360,
+    "overflow": 0,
+    "culprits": []
+  },
+  "#guide/github-token": {
+    "vw": 360,
+    "overflow": 0,
+    "culprits": []
+  },
+  "#guide/provider-key": {
+    "vw": 360,
+    "overflow": 0,
+    "culprits": []
+  },
+  "#report": {
+    "vw": 360,
+    "overflow": 0,
+    "culprits": []
+  }
+}

@@ -16,6 +16,7 @@ import type { ConnectionStatus, HealthTone, Verdict } from '../../../core/connec
 import { healthText, utcText } from '../../../core/connections/text';
 import { CONNECTIONS_CSS } from '../../../core/connections/ui/styles';
 import { Ltr } from '../../../shared/ui';
+import { useOnVisible } from '../../../shared/ui/useOnVisible';
 import { useStyles } from '../../../shared/ui/useStyles';
 import { READ_ACCESS_LEVEL, READ_PERMISSIONS, TOKEN_FORMAT_MESSAGES, TOKEN_LIMITS, checkTokenFormat } from './format';
 import type { TokenInfo, TokenPlace, TokenStore } from './store';
@@ -88,6 +89,12 @@ export function TokenSection({ store, port, target, now = () => Date.now(), head
       alive = false;
     };
   }, [store]);
+
+  // الرمز يُحفظ أو يُمسح من صفحة إعدادات أخرى: يُقرأ من جديد حين تعود هذه الصفحة إلى الواجهة (PI-1)، ويُغلق تأكيد مسح رمز لم يعد هو المحفوظ.
+  useOnVisible(() => {
+    store.info().then(setInfo, () => setInfo(null));
+  });
+  useEffect(() => setConfirming(false), [info?.savedAt]);
 
   const verify = async (): Promise<void> => {
     const result = await port.get('/rate_limit');

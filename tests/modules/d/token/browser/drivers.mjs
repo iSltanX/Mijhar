@@ -412,6 +412,8 @@ export async function firefoxSession({ extDir, githubReply, apiReply, authLabel 
       browserVersion: capabilities.browserVersion,
       d,
       network,
+      // سكربت في سياق chrome المميّز (قياس ذاكرة عملية المحتوى في TEST-PERF-01، MJ26).
+      chrome: chromeScript,
       async consoleText() {
         return (await chromeScript(`return Services.console.getMessageArray().map((m) => m.message ?? (m.errorMessage ? m.errorMessage + ' @ ' + m.sourceName : String(m)));`)).join('\n');
       },

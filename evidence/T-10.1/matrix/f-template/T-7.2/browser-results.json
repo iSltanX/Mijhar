@@ -1,0 +1,1999 @@
+{
+  "measuredAt": "2026-10-25T04:07:49.075Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)؛ نقر وكتابة فعليان؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "narrow": {
+        "inViewport": true,
+        "overflowX": 0
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "Issue Form: وضع النموذج بتسمية الحقل المفتوح ولا حقول المساعد الخمسة العامة",
+      "ok": true,
+      "detail": {
+        "template": "issue-form",
+        "label": "Steps to reproduce"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "حقول النموذج الأخرى للاطلاع بأنواعها وإلزامها",
+      "ok": true,
+      "detail": [
+        "Version · حقل نصي · إلزامي",
+        "Steps to reproduce · منطقة نص · إلزامي · هنا",
+        "Expected behavior · منطقة نص · إلزامي",
+        "Browser · قائمة منسدلة",
+        "Terms · مربعات اختيار · إلزامي"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "المعاينة خطوات مرقّمة بلا ترويسات",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "أُدرج في الحقل المفتوح وحده بالصيغة نفسها",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "أحداث input موثوقة من أمر التحرير الحقيقي (insertText) وعلى الحقل المفتوح وحده",
+      "ok": true,
+      "detail": [
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "كل الحقول الأخرى في النموذج كما هي (النصي والمنطقة الأخرى والقائمة ومربع الموافقة)",
+      "ok": true,
+      "detail": {
+        "before": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        },
+        "after": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "التراجع الأصلي Ctrl/⌘+Z يتراجع عن الإدراج (سجل التراجع الأصلي)",
+      "ok": true,
+      "detail": {
+        "value": "",
+        "start": 0,
+        "end": 0,
+        "focused": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "زر «التراجع عن آخر إدراج» يعيد الحقل حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "فتحه من «Expected behavior» يبدّل الدليل إلى ذلك الحقل",
+      "ok": true,
+      "detail": "Expected behavior"
+    },
+    {
+      "browser": "Chrome",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال في كل ما سبق",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "قالب Markdown: يُتعرَّف عليه ويُبيَّن العنوان المقابل لكل حقل",
+      "ok": true,
+      "detail": {
+        "template": "markdown",
+        "mapping": {
+          "expected": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "actual": "«Description»",
+          "steps": "«How to test»",
+          "environment": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "evidence": "«Screenshots»"
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "المعاينة هي المسودة بعد ملء القالب كاملة",
+      "ok": true,
+      "detail": "edits"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "الحقل بعد الإدراج يطابق المعاينة حرفيًا، والقالب الأصلي تتابع جزئي منه (لا حرف حُذف)",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "ترويسات القالب وقوائم التحقق وتعليقاته باقية",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "ثلاثة إدراجات بأمر التحرير الحقيقي: input موثوق insertText لكل منها",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "زر التراجع عن الإدراج المتعدد يعيد القالب حرفيًا",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "والتراجع بأمر التحرير الحقيقي: deleteContentBackward موثوق",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "change",
+          "inputType": null,
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر إرسال الطلب",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "هيكل غير معروف: بيان صريح ولا أزرار إدراج ولا تراجع",
+      "ok": true,
+      "detail": {
+        "template": "unknown",
+        "buttons": [
+          "close",
+          "copy-text"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "معاينة النص للنسخ اليدوي",
+      "ok": true,
+      "detail": "copy"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "زر النسخ ينسخ نص المعاينة ولا يلمس الصفحة",
+      "ok": true,
+      "detail": {
+        "copied": 1
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F2",
+      "name": "كل حقول الصفحة كما هي وما من حدث input عليها ولا إرسال",
+      "ok": true,
+      "detail": {
+        "log": []
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "T-7.1",
+      "name": "بلاغ عادي: لا وضع قالب (يعمل المساعد كما في T-7.1) وقسما المساعد الثابت والاختياري ظاهران",
+      "ok": true,
+      "detail": {
+        "template": "none",
+        "sections": [
+          "static",
+          "translate-draft"
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F3",
+      "name": "اختيار العبارة يعرضها في المعاينة (كتلة suggestion) ولا يمس الحقل ولا يطلق input",
+      "ok": true,
+      "detail": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F3",
+      "name": "الإدراج من المعاينة بأمر التحرير الحقيقي (input موثوق insertText)",
+      "ok": true,
+      "detail": {
+        "value": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```\n"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F3",
+      "name": "والتراجع يعيد الحقل فارغًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F3",
+      "name": "العبارة بالإنجليزية",
+      "ok": true,
+      "detail": "Nice work adding tests; they make this much easier to review."
+    },
+    {
+      "browser": "Chrome",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F3",
+      "name": "الحقول الأخرى كما هي",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "غياب المحرك: «المحرك غير متاح» والقسم الاختياري بلا زر ترجمة",
+      "ok": true,
+      "detail": {
+        "state": "absent",
+        "status": "المحرك غير متاح: لم يُفعَّل محرك ترجمة محلي. هذا القسم اختياري، والقسم الثابت أعلاه يعمل كاملًا بدونه."
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "قسمان شقيقان: الثابت والاختياري",
+      "ok": true,
+      "detail": [
+        "static",
+        "translate-draft"
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "القسم الثابت يعمل كاملًا مع غياب المحرك (بنك العبارات والإدراج)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "محرك غير متاح بسبب: السبب ظاهر",
+      "ok": true,
+      "detail": "المحرك غير متاح: النموذج لم يُنزَّل"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "القسم الثابت متطابق حرفيًا (DOM) في حالات المحرك الثلاث: غائب وجاهز وغير متاح",
+      "ok": true,
+      "detail": {
+        "lengths": [
+          5060,
+          5060,
+          5060
+        ]
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "لا استدعاء للمحرك قبل النقر",
+      "ok": true,
+      "detail": {
+        "present": true,
+        "calls": 0,
+        "received": []
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "المسودة تُقنَّع قبل المحرك: لا كود ولا مسار ولا رابط يبلغه",
+      "ok": true,
+      "detail": [
+        "Run ⟦CODE_0⟧ in ⟦PATH_1⟧ and read ⟦LINK_2⟧ before you merge."
+      ]
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "نتيجة سليمة للمراجعة وأزرار الإدراج معطَّلة حتى تؤكد المراجعة",
+      "ok": true,
+      "detail": "translated"
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "لا إدراج قبل المراجعة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "بعد المراجعة: يُدرج الأصل المفكوك التقنيع (الكود والمسار والرابط) بلا مسح المسودة، بأمر التحرير الحقيقي",
+      "ok": true,
+      "detail": {
+        "value": "Run `npm test` in src/app.js and read https://example.com/docs before you merge.\n\nترجمة: Run `npm test` in src/app.js and read https://example.com/docs before y"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "والتراجع يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "AC-F5",
+      "name": "محرك يخلّ بالرموز: يبقى الأصل مع تنبيه ولا إدراج ولا نص مشوَّه",
+      "ok": true,
+      "detail": "original-kept"
+    },
+    {
+      "browser": "Chrome",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة (وضع القالب) داخل النافذة الضيقة بلا تمرير أفقي للصفحة وزر الإدراج قابل للبلوغ",
+      "ok": true,
+      "detail": {
+        "overflowX": 0,
+        "inViewport": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "Issue Form: وضع النموذج بتسمية الحقل المفتوح ولا حقول المساعد الخمسة العامة",
+      "ok": true,
+      "detail": {
+        "template": "issue-form",
+        "label": "Steps to reproduce"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "حقول النموذج الأخرى للاطلاع بأنواعها وإلزامها",
+      "ok": true,
+      "detail": [
+        "Version · حقل نصي · إلزامي",
+        "Steps to reproduce · منطقة نص · إلزامي · هنا",
+        "Expected behavior · منطقة نص · إلزامي",
+        "Browser · قائمة منسدلة",
+        "Terms · مربعات اختيار · إلزامي"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "المعاينة خطوات مرقّمة بلا ترويسات",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "أُدرج في الحقل المفتوح وحده بالصيغة نفسها",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "أحداث input موثوقة من أمر التحرير الحقيقي (insertText) وعلى الحقل المفتوح وحده",
+      "ok": true,
+      "detail": [
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "كل الحقول الأخرى في النموذج كما هي (النصي والمنطقة الأخرى والقائمة ومربع الموافقة)",
+      "ok": true,
+      "detail": {
+        "before": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        },
+        "after": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "التراجع الأصلي Ctrl/⌘+Z يتراجع عن الإدراج (سجل التراجع الأصلي)",
+      "ok": true,
+      "detail": {
+        "value": "",
+        "start": 0,
+        "end": 0,
+        "focused": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "زر «التراجع عن آخر إدراج» يعيد الحقل حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "فتحه من «Expected behavior» يبدّل الدليل إلى ذلك الحقل",
+      "ok": true,
+      "detail": "Expected behavior"
+    },
+    {
+      "browser": "Edge",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال في كل ما سبق",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "قالب Markdown: يُتعرَّف عليه ويُبيَّن العنوان المقابل لكل حقل",
+      "ok": true,
+      "detail": {
+        "template": "markdown",
+        "mapping": {
+          "expected": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "actual": "«Description»",
+          "steps": "«How to test»",
+          "environment": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "evidence": "«Screenshots»"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "المعاينة هي المسودة بعد ملء القالب كاملة",
+      "ok": true,
+      "detail": "edits"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "الحقل بعد الإدراج يطابق المعاينة حرفيًا، والقالب الأصلي تتابع جزئي منه (لا حرف حُذف)",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "ترويسات القالب وقوائم التحقق وتعليقاته باقية",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "ثلاثة إدراجات بأمر التحرير الحقيقي: input موثوق insertText لكل منها",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "زر التراجع عن الإدراج المتعدد يعيد القالب حرفيًا",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "والتراجع بأمر التحرير الحقيقي: deleteContentBackward موثوق",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "change",
+          "inputType": null,
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر إرسال الطلب",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "هيكل غير معروف: بيان صريح ولا أزرار إدراج ولا تراجع",
+      "ok": true,
+      "detail": {
+        "template": "unknown",
+        "buttons": [
+          "close",
+          "copy-text"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "معاينة النص للنسخ اليدوي",
+      "ok": true,
+      "detail": "copy"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "زر النسخ ينسخ نص المعاينة ولا يلمس الصفحة",
+      "ok": true,
+      "detail": {
+        "copied": 1
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F2",
+      "name": "كل حقول الصفحة كما هي وما من حدث input عليها ولا إرسال",
+      "ok": true,
+      "detail": {
+        "log": []
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "T-7.1",
+      "name": "بلاغ عادي: لا وضع قالب (يعمل المساعد كما في T-7.1) وقسما المساعد الثابت والاختياري ظاهران",
+      "ok": true,
+      "detail": {
+        "template": "none",
+        "sections": [
+          "static",
+          "translate-draft"
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F3",
+      "name": "اختيار العبارة يعرضها في المعاينة (كتلة suggestion) ولا يمس الحقل ولا يطلق input",
+      "ok": true,
+      "detail": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F3",
+      "name": "الإدراج من المعاينة بأمر التحرير الحقيقي (input موثوق insertText)",
+      "ok": true,
+      "detail": {
+        "value": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```\n"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F3",
+      "name": "والتراجع يعيد الحقل فارغًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F3",
+      "name": "العبارة بالإنجليزية",
+      "ok": true,
+      "detail": "Nice work adding tests; they make this much easier to review."
+    },
+    {
+      "browser": "Edge",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F3",
+      "name": "الحقول الأخرى كما هي",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "غياب المحرك: «المحرك غير متاح» والقسم الاختياري بلا زر ترجمة",
+      "ok": true,
+      "detail": {
+        "state": "absent",
+        "status": "المحرك غير متاح: لم يُفعَّل محرك ترجمة محلي. هذا القسم اختياري، والقسم الثابت أعلاه يعمل كاملًا بدونه."
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "قسمان شقيقان: الثابت والاختياري",
+      "ok": true,
+      "detail": [
+        "static",
+        "translate-draft"
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "القسم الثابت يعمل كاملًا مع غياب المحرك (بنك العبارات والإدراج)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "محرك غير متاح بسبب: السبب ظاهر",
+      "ok": true,
+      "detail": "المحرك غير متاح: النموذج لم يُنزَّل"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "القسم الثابت متطابق حرفيًا (DOM) في حالات المحرك الثلاث: غائب وجاهز وغير متاح",
+      "ok": true,
+      "detail": {
+        "lengths": [
+          5060,
+          5060,
+          5060
+        ]
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "لا استدعاء للمحرك قبل النقر",
+      "ok": true,
+      "detail": {
+        "present": true,
+        "calls": 0,
+        "received": []
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "المسودة تُقنَّع قبل المحرك: لا كود ولا مسار ولا رابط يبلغه",
+      "ok": true,
+      "detail": [
+        "Run ⟦CODE_0⟧ in ⟦PATH_1⟧ and read ⟦LINK_2⟧ before you merge."
+      ]
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "نتيجة سليمة للمراجعة وأزرار الإدراج معطَّلة حتى تؤكد المراجعة",
+      "ok": true,
+      "detail": "translated"
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "لا إدراج قبل المراجعة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "بعد المراجعة: يُدرج الأصل المفكوك التقنيع (الكود والمسار والرابط) بلا مسح المسودة، بأمر التحرير الحقيقي",
+      "ok": true,
+      "detail": {
+        "value": "Run `npm test` in src/app.js and read https://example.com/docs before you merge.\n\nترجمة: Run `npm test` in src/app.js and read https://example.com/docs before y"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "والتراجع يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "AC-F5",
+      "name": "محرك يخلّ بالرموز: يبقى الأصل مع تنبيه ولا إدراج ولا نص مشوَّه",
+      "ok": true,
+      "detail": "original-kept"
+    },
+    {
+      "browser": "Edge",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة (وضع القالب) داخل النافذة الضيقة بلا تمرير أفقي للصفحة وزر الإدراج قابل للبلوغ",
+      "ok": true,
+      "detail": {
+        "overflowX": 0,
+        "inViewport": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "Issue Form: وضع النموذج بتسمية الحقل المفتوح ولا حقول المساعد الخمسة العامة",
+      "ok": true,
+      "detail": {
+        "template": "issue-form",
+        "label": "Steps to reproduce"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "حقول النموذج الأخرى للاطلاع بأنواعها وإلزامها",
+      "ok": true,
+      "detail": [
+        "Version · حقل نصي · إلزامي",
+        "Steps to reproduce · منطقة نص · إلزامي · هنا",
+        "Expected behavior · منطقة نص · إلزامي",
+        "Browser · قائمة منسدلة",
+        "Terms · مربعات اختيار · إلزامي"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "المعاينة خطوات مرقّمة بلا ترويسات",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "أُدرج في الحقل المفتوح وحده بالصيغة نفسها",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "أحداث input موثوقة من أمر التحرير الحقيقي (insertText) وعلى الحقل المفتوح وحده",
+      "ok": true,
+      "detail": [
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "كل الحقول الأخرى في النموذج كما هي (النصي والمنطقة الأخرى والقائمة ومربع الموافقة)",
+      "ok": true,
+      "detail": {
+        "before": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        },
+        "after": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "التراجع الأصلي Ctrl/⌘+Z يتراجع عن الإدراج (سجل التراجع الأصلي)",
+      "ok": true,
+      "detail": {
+        "value": "",
+        "start": 0,
+        "end": 0,
+        "focused": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "زر «التراجع عن آخر إدراج» يعيد الحقل حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "فتحه من «Expected behavior» يبدّل الدليل إلى ذلك الحقل",
+      "ok": true,
+      "detail": "Expected behavior"
+    },
+    {
+      "browser": "Brave",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال في كل ما سبق",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "قالب Markdown: يُتعرَّف عليه ويُبيَّن العنوان المقابل لكل حقل",
+      "ok": true,
+      "detail": {
+        "template": "markdown",
+        "mapping": {
+          "expected": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "actual": "«Description»",
+          "steps": "«How to test»",
+          "environment": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "evidence": "«Screenshots»"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "المعاينة هي المسودة بعد ملء القالب كاملة",
+      "ok": true,
+      "detail": "edits"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "الحقل بعد الإدراج يطابق المعاينة حرفيًا، والقالب الأصلي تتابع جزئي منه (لا حرف حُذف)",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "ترويسات القالب وقوائم التحقق وتعليقاته باقية",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "ثلاثة إدراجات بأمر التحرير الحقيقي: input موثوق insertText لكل منها",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "زر التراجع عن الإدراج المتعدد يعيد القالب حرفيًا",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "والتراجع بأمر التحرير الحقيقي: deleteContentBackward موثوق",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "change",
+          "inputType": null,
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر إرسال الطلب",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "هيكل غير معروف: بيان صريح ولا أزرار إدراج ولا تراجع",
+      "ok": true,
+      "detail": {
+        "template": "unknown",
+        "buttons": [
+          "close",
+          "copy-text"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "معاينة النص للنسخ اليدوي",
+      "ok": true,
+      "detail": "copy"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "زر النسخ ينسخ نص المعاينة ولا يلمس الصفحة",
+      "ok": true,
+      "detail": {
+        "copied": 1
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F2",
+      "name": "كل حقول الصفحة كما هي وما من حدث input عليها ولا إرسال",
+      "ok": true,
+      "detail": {
+        "log": []
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "T-7.1",
+      "name": "بلاغ عادي: لا وضع قالب (يعمل المساعد كما في T-7.1) وقسما المساعد الثابت والاختياري ظاهران",
+      "ok": true,
+      "detail": {
+        "template": "none",
+        "sections": [
+          "static",
+          "translate-draft"
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F3",
+      "name": "اختيار العبارة يعرضها في المعاينة (كتلة suggestion) ولا يمس الحقل ولا يطلق input",
+      "ok": true,
+      "detail": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F3",
+      "name": "الإدراج من المعاينة بأمر التحرير الحقيقي (input موثوق insertText)",
+      "ok": true,
+      "detail": {
+        "value": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```\n"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F3",
+      "name": "والتراجع يعيد الحقل فارغًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F3",
+      "name": "العبارة بالإنجليزية",
+      "ok": true,
+      "detail": "Nice work adding tests; they make this much easier to review."
+    },
+    {
+      "browser": "Brave",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F3",
+      "name": "الحقول الأخرى كما هي",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "غياب المحرك: «المحرك غير متاح» والقسم الاختياري بلا زر ترجمة",
+      "ok": true,
+      "detail": {
+        "state": "absent",
+        "status": "المحرك غير متاح: لم يُفعَّل محرك ترجمة محلي. هذا القسم اختياري، والقسم الثابت أعلاه يعمل كاملًا بدونه."
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "قسمان شقيقان: الثابت والاختياري",
+      "ok": true,
+      "detail": [
+        "static",
+        "translate-draft"
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "القسم الثابت يعمل كاملًا مع غياب المحرك (بنك العبارات والإدراج)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "محرك غير متاح بسبب: السبب ظاهر",
+      "ok": true,
+      "detail": "المحرك غير متاح: النموذج لم يُنزَّل"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "القسم الثابت متطابق حرفيًا (DOM) في حالات المحرك الثلاث: غائب وجاهز وغير متاح",
+      "ok": true,
+      "detail": {
+        "lengths": [
+          5060,
+          5060,
+          5060
+        ]
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "لا استدعاء للمحرك قبل النقر",
+      "ok": true,
+      "detail": {
+        "present": true,
+        "calls": 0,
+        "received": []
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "المسودة تُقنَّع قبل المحرك: لا كود ولا مسار ولا رابط يبلغه",
+      "ok": true,
+      "detail": [
+        "Run ⟦CODE_0⟧ in ⟦PATH_1⟧ and read ⟦LINK_2⟧ before you merge."
+      ]
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "نتيجة سليمة للمراجعة وأزرار الإدراج معطَّلة حتى تؤكد المراجعة",
+      "ok": true,
+      "detail": "translated"
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "لا إدراج قبل المراجعة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "بعد المراجعة: يُدرج الأصل المفكوك التقنيع (الكود والمسار والرابط) بلا مسح المسودة، بأمر التحرير الحقيقي",
+      "ok": true,
+      "detail": {
+        "value": "Run `npm test` in src/app.js and read https://example.com/docs before you merge.\n\nترجمة: Run `npm test` in src/app.js and read https://example.com/docs before y"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "والتراجع يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "AC-F5",
+      "name": "محرك يخلّ بالرموز: يبقى الأصل مع تنبيه ولا إدراج ولا نص مشوَّه",
+      "ok": true,
+      "detail": "original-kept"
+    },
+    {
+      "browser": "Brave",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة (وضع القالب) داخل النافذة الضيقة بلا تمرير أفقي للصفحة وزر الإدراج قابل للبلوغ",
+      "ok": true,
+      "detail": {
+        "overflowX": 0,
+        "inViewport": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "Issue Form: وضع النموذج بتسمية الحقل المفتوح ولا حقول المساعد الخمسة العامة",
+      "ok": true,
+      "detail": {
+        "template": "issue-form",
+        "label": "Steps to reproduce"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "حقول النموذج الأخرى للاطلاع بأنواعها وإلزامها",
+      "ok": true,
+      "detail": [
+        "Version · حقل نصي · إلزامي",
+        "Steps to reproduce · منطقة نص · إلزامي · هنا",
+        "Expected behavior · منطقة نص · إلزامي",
+        "Browser · قائمة منسدلة",
+        "Terms · مربعات اختيار · إلزامي"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "المعاينة خطوات مرقّمة بلا ترويسات",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "أُدرج في الحقل المفتوح وحده بالصيغة نفسها",
+      "ok": true,
+      "detail": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "أحداث input موثوقة من أمر التحرير الحقيقي (insertText) وعلى الحقل المفتوح وحده",
+      "ok": true,
+      "detail": [
+        {
+          "target": "issue_form_steps",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "كل الحقول الأخرى في النموذج كما هي (النصي والمنطقة الأخرى والقائمة ومربع الموافقة)",
+      "ok": true,
+      "detail": {
+        "before": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        },
+        "after": {
+          "issue[title]": "[Bug]: ",
+          "issue_form_version": "2.0.1",
+          "issue_form_steps": "1. Open github.com\n2. Press Alt+G\n3. Watch the sidebar\n",
+          "issue_form_expected": "It should open the sidebar.",
+          "issue_form_browser": "Firefox",
+          "issue_form_terms": false,
+          "issue[labels][]": false
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "التراجع الأصلي Ctrl/⌘+Z يتراجع عن الإدراج (سجل التراجع الأصلي)",
+      "ok": true,
+      "detail": {
+        "value": "",
+        "start": 0,
+        "end": 0,
+        "focused": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "زر «التراجع عن آخر إدراج» يعيد الحقل حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "فتحه من «Expected behavior» يبدّل الدليل إلى ذلك الحقل",
+      "ok": true,
+      "detail": "Expected behavior"
+    },
+    {
+      "browser": "Firefox",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال في كل ما سبق",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "قالب Markdown: يُتعرَّف عليه ويُبيَّن العنوان المقابل لكل حقل",
+      "ok": true,
+      "detail": {
+        "template": "markdown",
+        "mapping": {
+          "expected": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "actual": "«Description»",
+          "steps": "«How to test»",
+          "environment": "لا عنوان مقابل — يُلحق في آخر المسودة بعنوانه إن كتبتَ فيه",
+          "evidence": "«Screenshots»"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "المعاينة هي المسودة بعد ملء القالب كاملة",
+      "ok": true,
+      "detail": "edits"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "الحقل بعد الإدراج يطابق المعاينة حرفيًا، والقالب الأصلي تتابع جزئي منه (لا حرف حُذف)",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "ترويسات القالب وقوائم التحقق وتعليقاته باقية",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "ثلاثة إدراجات بأمر التحرير الحقيقي: input موثوق insertText لكل منها",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "insertText",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "زر التراجع عن الإدراج المتعدد يعيد القالب حرفيًا",
+      "ok": true,
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "والتراجع بأمر التحرير الحقيقي: deleteContentBackward موثوق",
+      "ok": true,
+      "detail": [
+        {
+          "target": "pull_request_body",
+          "type": "change",
+          "inputType": null,
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        },
+        {
+          "target": "pull_request_body",
+          "type": "input",
+          "inputType": "deleteContentBackward",
+          "trusted": true
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر إرسال الطلب",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "هيكل غير معروف: بيان صريح ولا أزرار إدراج ولا تراجع",
+      "ok": true,
+      "detail": {
+        "template": "unknown",
+        "buttons": [
+          "close",
+          "copy-text"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "معاينة النص للنسخ اليدوي",
+      "ok": true,
+      "detail": "copy"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "زر النسخ ينسخ نص المعاينة ولا يلمس الصفحة",
+      "ok": true,
+      "detail": {
+        "copied": 1
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F2",
+      "name": "كل حقول الصفحة كما هي وما من حدث input عليها ولا إرسال",
+      "ok": true,
+      "detail": {
+        "log": []
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "T-7.1",
+      "name": "بلاغ عادي: لا وضع قالب (يعمل المساعد كما في T-7.1) وقسما المساعد الثابت والاختياري ظاهران",
+      "ok": true,
+      "detail": {
+        "template": "none",
+        "sections": [
+          "static",
+          "translate-draft"
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F3",
+      "name": "اختيار العبارة يعرضها في المعاينة (كتلة suggestion) ولا يمس الحقل ولا يطلق input",
+      "ok": true,
+      "detail": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F3",
+      "name": "الإدراج من المعاينة بأمر التحرير الحقيقي (input موثوق insertText)",
+      "ok": true,
+      "detail": {
+        "value": "يمكن تبسيط هذا السطر هكذا:\n\n```suggestion\n<النسخة المبسطة>\n```\n"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F3",
+      "name": "والتراجع يعيد الحقل فارغًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F3",
+      "name": "العبارة بالإنجليزية",
+      "ok": true,
+      "detail": "Nice work adding tests; they make this much easier to review."
+    },
+    {
+      "browser": "Firefox",
+      "page": "لا نشر",
+      "name": "لا submit ولا نقر على زر الإرسال",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F3",
+      "name": "الحقول الأخرى كما هي",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "غياب المحرك: «المحرك غير متاح» والقسم الاختياري بلا زر ترجمة",
+      "ok": true,
+      "detail": {
+        "state": "absent",
+        "status": "المحرك غير متاح: لم يُفعَّل محرك ترجمة محلي. هذا القسم اختياري، والقسم الثابت أعلاه يعمل كاملًا بدونه."
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "قسمان شقيقان: الثابت والاختياري",
+      "ok": true,
+      "detail": [
+        "static",
+        "translate-draft"
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "القسم الثابت يعمل كاملًا مع غياب المحرك (بنك العبارات والإدراج)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "محرك غير متاح بسبب: السبب ظاهر",
+      "ok": true,
+      "detail": "المحرك غير متاح: النموذج لم يُنزَّل"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "القسم الثابت متطابق حرفيًا (DOM) في حالات المحرك الثلاث: غائب وجاهز وغير متاح",
+      "ok": true,
+      "detail": {
+        "lengths": [
+          5060,
+          5060,
+          5060
+        ]
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "لا استدعاء للمحرك قبل النقر",
+      "ok": true,
+      "detail": {
+        "present": true,
+        "calls": 0,
+        "received": []
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "المسودة تُقنَّع قبل المحرك: لا كود ولا مسار ولا رابط يبلغه",
+      "ok": true,
+      "detail": [
+        "Run ⟦CODE_0⟧ in ⟦PATH_1⟧ and read ⟦LINK_2⟧ before you merge."
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "نتيجة سليمة للمراجعة وأزرار الإدراج معطَّلة حتى تؤكد المراجعة",
+      "ok": true,
+      "detail": "translated"
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "لا إدراج قبل المراجعة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "بعد المراجعة: يُدرج الأصل المفكوك التقنيع (الكود والمسار والرابط) بلا مسح المسودة، بأمر التحرير الحقيقي",
+      "ok": true,
+      "detail": {
+        "value": "Run `npm test` in src/app.js and read https://example.com/docs before you merge.\n\nترجمة: Run `npm test` in src/app.js and read https://example.com/docs before y"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "والتراجع يعيد المسودة حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "AC-F5",
+      "name": "محرك يخلّ بالرموز: يبقى الأصل مع تنبيه ولا إدراج ولا نص مشوَّه",
+      "ok": true,
+      "detail": "original-kept"
+    },
+    {
+      "browser": "Firefox",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "تخطيط ضيق",
+      "name": "اللوحة (وضع القالب) داخل النافذة الضيقة بلا تمرير أفقي للصفحة وزر الإدراج قابل للبلوغ",
+      "ok": true,
+      "detail": {
+        "overflowX": 0,
+        "inViewport": true
+      }
+    }
+  ]
+}
