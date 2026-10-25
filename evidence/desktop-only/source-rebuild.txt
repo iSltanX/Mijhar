@@ -1,0 +1,9 @@
+# إعادة البناء من حزمة المصدر وحدها (mijhar-1.0.0-source.zip، sha256 773cc033…)
+== npm ci
+added 403 packages in 3s
+== npm run build
+chromium: dist/chromium
+firefox: dist/firefox
+== diff -r مقابل dist في النسخة الرئيسية
+chromium: مطابق
+firefox: مطابق

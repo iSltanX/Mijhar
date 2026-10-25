@@ -1,0 +1,38 @@
+# بناء الحزم بعد AD-40 — 2026-10-25T21:03Z
+commit: 6dec96fc3edaee0eefa82d5241747c3ccbb219c4
+node: v24.18.1  npm: 11.16.0
+
+== npm run build
+chromium: dist/chromium
+firefox: dist/firefox
+
+== node scripts/package.mjs
+release/packages/chromium/mijhar-1.0.0-chromium.zip · 1798367 بايت · sha256 c611a68763dd05793e63c4321b6a1dafd66a390c38776370b1eeea9b9313e710
+release/packages/firefox/mijhar-1.0.0-firefox.zip · 1798459 بايت · sha256 e0ad5b03326f9cc957e55fccb604d80b10f087e640c3f180b2418824d0e94566
+release/packages/firefox/mijhar-1.0.0-source.zip · 1837406 بايت · sha256 773cc033e63851729d131e9d7351ccc2c7d1ac747145fdd41fac89b020a0b9d6
+
+== node scripts/package.mjs --check
+release/packages/chromium/mijhar-1.0.0-chromium.zip · 1798367 بايت · sha256 c611a68763dd05793e63c4321b6a1dafd66a390c38776370b1eeea9b9313e710
+release/packages/firefox/mijhar-1.0.0-firefox.zip · 1798459 بايت · sha256 e0ad5b03326f9cc957e55fccb604d80b10f087e640c3f180b2418824d0e94566
+release/packages/firefox/mijhar-1.0.0-source.zip · 1837406 بايت · sha256 773cc033e63851729d131e9d7351ccc2c7d1ac747145fdd41fac89b020a0b9d6
+exit 0
+
+== npm run lint:firefox
+Validation Summary:
+
+errors          0              
+notices         0              
+warnings        1              
+
+WARNINGS:
+
+Code                                  Message       Description              F
+KEY_FIREFOX_ANDROID_UNSUPPORTED_BY…   Manifest      "strict_min_version"     m
+_MIN_VERSION                          key not       requires Firefox for     s
+                                      supported     Android 140, which was    
+                                      by the        released before           
+                                      specified     version 142 introduced    
+                                      minimum       support for               
+                                      Firefox for   "browser_specific_set…    
+                                      Android       tings.gecko.data_coll…    
+                                      version       ection_permissions".      
