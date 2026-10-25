@@ -1,0 +1,24 @@
+# بناء الحزم بعد AD-39 — 2026-10-25T20:32Z
+commit: 3dcafeb5046be6479952df2e32de81bfe3ca39e8
+node: v24.18.1  npm: 11.16.0
+
+== npm run build
+
+chromium: dist/chromium
+firefox: dist/firefox
+
+== node scripts/package.mjs
+release/packages/chromium/mijhar-1.0.0-chromium.zip · 1798367 بايت · sha256 c611a68763dd05793e63c4321b6a1dafd66a390c38776370b1eeea9b9313e710
+release/packages/firefox/mijhar-1.0.0-firefox.zip · 1798479 بايت · sha256 56e3f45a2f699e91b55e3bf53d86a7a1867a7dfba7e50bdd75a932ba136c8b0d
+release/packages/firefox/mijhar-1.0.0-source.zip · 1837426 بايت · sha256 980c8bb1477c2fe0647ccf15388ff4829548eedd4dd6969441d5f8266f7392bb
+
+== node scripts/package.mjs --check
+release/packages/chromium/mijhar-1.0.0-chromium.zip · 1798367 بايت · sha256 c611a68763dd05793e63c4321b6a1dafd66a390c38776370b1eeea9b9313e710
+release/packages/firefox/mijhar-1.0.0-firefox.zip · 1798479 بايت · sha256 56e3f45a2f699e91b55e3bf53d86a7a1867a7dfba7e50bdd75a932ba136c8b0d
+release/packages/firefox/mijhar-1.0.0-source.zip · 1837426 بايت · sha256 980c8bb1477c2fe0647ccf15388ff4829548eedd4dd6969441d5f8266f7392bb
+exit 0
+
+== npm run lint:firefox
+errors          0              
+notices         0              
+warnings        0              

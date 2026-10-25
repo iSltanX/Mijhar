@@ -1,0 +1,8 @@
+== npm ci
+npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+== npm run build
+chromium: dist/chromium
+firefox: dist/firefox
+== diff -r dist (source rebuild) vs main dist
+chromium: identical
+firefox: identical
