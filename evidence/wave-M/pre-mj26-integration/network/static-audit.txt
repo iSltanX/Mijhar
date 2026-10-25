@@ -1,0 +1,50 @@
+# فحص ساكن لمسار الترجمة — 2026-10-25T03:23:25.816Z
+
+المانيفست source/chromium (src/manifest/chromium.json):
+  permissions: ["sidePanel","storage"] · optional_permissions: []
+  مضيفات: github.com [host_permissions] · api.github.com [optional_host_permissions] · api.anthropic.com [optional_host_permissions] · api.openai.com [optional_host_permissions] · generativelanguage.googleapis.com [optional_host_permissions] · github.com [content_scripts[0].matches] · github.com [web_accessible_resources[0].matches]
+  CSP: لا CSP مخصص (الافتراضي لصفحات الإضافة في MV3)
+  مخالفات: 0 · تحذيرات: 0
+
+المانيفست source/firefox (src/manifest/firefox.json):
+  permissions: ["storage"] · optional_permissions: []
+  مضيفات: github.com [host_permissions] · api.github.com [optional_host_permissions] · api.anthropic.com [optional_host_permissions] · api.openai.com [optional_host_permissions] · generativelanguage.googleapis.com [optional_host_permissions] · github.com [content_scripts[0].matches] · github.com [web_accessible_resources[0].matches]
+  CSP: لا CSP مخصص (الافتراضي لصفحات الإضافة في MV3)
+  مخالفات: 0 · تحذيرات: 0
+
+المانيفست built/chromium (dist/chromium/manifest.json):
+  permissions: ["sidePanel","storage"] · optional_permissions: []
+  مضيفات: github.com [host_permissions] · api.github.com [optional_host_permissions] · api.anthropic.com [optional_host_permissions] · api.openai.com [optional_host_permissions] · generativelanguage.googleapis.com [optional_host_permissions] · github.com [content_scripts[0].matches] · github.com [web_accessible_resources[0].matches]
+  CSP: لا CSP مخصص (الافتراضي لصفحات الإضافة في MV3)
+  مخالفات: 0 · تحذيرات: 0
+
+المانيفست built/firefox (dist/firefox/manifest.json):
+  permissions: ["storage"] · optional_permissions: []
+  مضيفات: github.com [host_permissions] · api.github.com [optional_host_permissions] · api.anthropic.com [optional_host_permissions] · api.openai.com [optional_host_permissions] · generativelanguage.googleapis.com [optional_host_permissions] · github.com [content_scripts[0].matches] · github.com [web_accessible_resources[0].matches]
+  CSP: لا CSP مخصص (الافتراضي لصفحات الإضافة في MV3)
+  مخالفات: 0 · تحذيرات: 0
+
+المصدر: 434 ملفًا، منها 37 في مسار الترجمة (src/modules/c/engines/ src/modules/c/masking/ src/modules/c/model-manager/ src/modules/c/ui/)
+  واجهات الشبكة في مسار الترجمة: لا شيء
+  واجهات الشبكة خارج المسار (جرد):
+    src/modules/d/log-parser/module.tsx: fetch,XMLHttpRequest
+    src/modules/d/pr-status/module.tsx: fetch,XMLHttpRequest
+    src/modules/h/first-contribution/sources.ts: fetch
+
+الحزمة chromium:
+  dist/chromium/background.js: 413142 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/chromium/content.js: 1444755 حرفًا · مضيفات: schema.org,github.com,www.w3.org,docs.github.com,api.github.com · واجهات شبكة: fetch,XMLHttpRequest
+  dist/chromium/options.js: 466268 حرفًا · مضيفات: api.github.com,www.w3.org,github.com,docs.github.com · واجهات شبكة: —
+  dist/chromium/reader.js: 317721 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/chromium/sidepanel.js: 844001 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
+الحزمة firefox:
+  dist/firefox/background.js: 413140 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/firefox/content.js: 1444798 حرفًا · مضيفات: schema.org,github.com,www.w3.org,docs.github.com,api.github.com · واجهات شبكة: fetch,XMLHttpRequest
+  dist/firefox/options.js: 466264 حرفًا · مضيفات: api.github.com,www.w3.org,github.com,docs.github.com · واجهات شبكة: —
+  dist/firefox/reader.js: 317719 حرفًا · مضيفات: www.w3.org,github.com · واجهات شبكة: —
+  dist/firefox/sidepanel.js: 843999 حرفًا · مضيفات: www.w3.org,api.github.com,github.com,docs.github.com · واجهات شبكة: fetch
+
+المخالفات: 0
+التحذيرات: 0
+
+النتيجة: اجتاز (لا مخالفة).

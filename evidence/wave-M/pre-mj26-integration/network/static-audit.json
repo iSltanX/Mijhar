@@ -1,0 +1,521 @@
+{
+  "measuredAt": "2026-10-25T03:23:25.816Z",
+  "translationPathDirs": [
+    "src/modules/c/engines/",
+    "src/modules/c/masking/",
+    "src/modules/c/model-manager/",
+    "src/modules/c/ui/"
+  ],
+  "manifests": {
+    "source/chromium": {
+      "file": "src/manifest/chromium.json",
+      "findings": [],
+      "hosts": [
+        {
+          "host": "github.com",
+          "where": "host_permissions"
+        },
+        {
+          "host": "api.github.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.anthropic.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.openai.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "github.com",
+          "where": "content_scripts[0].matches"
+        },
+        {
+          "host": "github.com",
+          "where": "web_accessible_resources[0].matches"
+        }
+      ],
+      "permissions": [
+        "sidePanel",
+        "storage"
+      ],
+      "optionalPermissions": [],
+      "csp": []
+    },
+    "source/firefox": {
+      "file": "src/manifest/firefox.json",
+      "findings": [],
+      "hosts": [
+        {
+          "host": "github.com",
+          "where": "host_permissions"
+        },
+        {
+          "host": "api.github.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.anthropic.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.openai.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "github.com",
+          "where": "content_scripts[0].matches"
+        },
+        {
+          "host": "github.com",
+          "where": "web_accessible_resources[0].matches"
+        }
+      ],
+      "permissions": [
+        "storage"
+      ],
+      "optionalPermissions": [],
+      "csp": []
+    },
+    "built/chromium": {
+      "file": "dist/chromium/manifest.json",
+      "findings": [],
+      "hosts": [
+        {
+          "host": "github.com",
+          "where": "host_permissions"
+        },
+        {
+          "host": "api.github.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.anthropic.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.openai.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "github.com",
+          "where": "content_scripts[0].matches"
+        },
+        {
+          "host": "github.com",
+          "where": "web_accessible_resources[0].matches"
+        }
+      ],
+      "permissions": [
+        "sidePanel",
+        "storage"
+      ],
+      "optionalPermissions": [],
+      "csp": []
+    },
+    "built/firefox": {
+      "file": "dist/firefox/manifest.json",
+      "findings": [],
+      "hosts": [
+        {
+          "host": "github.com",
+          "where": "host_permissions"
+        },
+        {
+          "host": "api.github.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.anthropic.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "api.openai.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "generativelanguage.googleapis.com",
+          "where": "optional_host_permissions"
+        },
+        {
+          "host": "github.com",
+          "where": "content_scripts[0].matches"
+        },
+        {
+          "host": "github.com",
+          "where": "web_accessible_resources[0].matches"
+        }
+      ],
+      "permissions": [
+        "storage"
+      ],
+      "optionalPermissions": [],
+      "csp": []
+    }
+  },
+  "sources": {
+    "scanned": 434,
+    "translationPathFiles": 37,
+    "networkUsage": {
+      "src/modules/d/log-parser/module.tsx": [
+        "fetch",
+        "XMLHttpRequest"
+      ],
+      "src/modules/d/pr-status/module.tsx": [
+        "fetch",
+        "XMLHttpRequest"
+      ],
+      "src/modules/h/first-contribution/sources.ts": [
+        "fetch"
+      ]
+    },
+    "urlsByFile": {
+      "src/core/detector/page-types.ts": [
+        "github.com"
+      ],
+      "src/core/detector/selectors.ts": [
+        "schema.org"
+      ],
+      "src/modules/b/card/display.ts": [
+        "docs.github.com"
+      ],
+      "src/modules/b/tours/resolve.ts": [
+        "github.com"
+      ],
+      "src/modules/d/log-parser/module.tsx": [
+        "github.com"
+      ],
+      "src/modules/d/pr-status/module.tsx": [
+        "github.com"
+      ],
+      "src/modules/e/context/build.ts": [
+        "github.com"
+      ],
+      "src/modules/e/context/collect.ts": [
+        "github.com"
+      ],
+      "src/modules/e/provider/descriptors/anthropic.ts": [
+        "privacy.claude.com"
+      ],
+      "src/modules/e/provider/descriptors/gemini.ts": [
+        "ai.google.dev"
+      ],
+      "src/modules/e/provider/descriptors/openai.ts": [
+        "developers.openai.com"
+      ],
+      "src/modules/f/execution/WriteTokenSection.tsx": [
+        "github.com"
+      ],
+      "src/modules/f/execution/service.ts": [
+        "github.com"
+      ],
+      "src/modules/g/anchor/types.ts": [
+        "github.com"
+      ],
+      "src/modules/g/bookmarks/capture.ts": [
+        "github.com"
+      ],
+      "src/modules/g/bookmarks/types.ts": [
+        "github.com"
+      ],
+      "src/modules/g/bookmarks/ui/LaterCenter.tsx": [
+        "github.com"
+      ],
+      "src/modules/g/notes/ui/NotesWorkspace.tsx": [
+        "github.com"
+      ],
+      "src/modules/h/discovery/DiscoveryView.tsx": [
+        "github.com"
+      ],
+      "src/modules/h/discovery/queries.ts": [
+        "github.com"
+      ],
+      "src/modules/h/first-contribution/GuideView.tsx": [
+        "github.com"
+      ],
+      "src/modules/h/first-contribution/counts.ts": [
+        "github.com"
+      ],
+      "src/modules/h/first-contribution/sources.ts": [
+        "github.com"
+      ],
+      "src/modules/h/readme-detector/detect.ts": [
+        "github.com"
+      ],
+      "src/modules/h/readme-detector/docs-scan.ts": [
+        "github.com"
+      ],
+      "src/modules/h/readme-wizard/draft.ts": [
+        "github.com"
+      ],
+      "src/modules/h/readme-wizard/policy.ts": [
+        "github.com"
+      ],
+      "src/modules/h/readme-wizard/query.ts": [
+        "github.com"
+      ],
+      "src/options/guide/template-url.ts": [
+        "github.com",
+        "docs.github.com"
+      ]
+    }
+  },
+  "bundles": {
+    "chromium": {
+      "findings": [],
+      "summary": {
+        "dist/chromium/background.js": {
+          "bytes": 413142,
+          "hosts": [
+            "www.w3.org",
+            "github.com"
+          ],
+          "networkApis": []
+        },
+        "dist/chromium/content.js": {
+          "bytes": 1444755,
+          "hosts": [
+            "schema.org",
+            "github.com",
+            "www.w3.org",
+            "docs.github.com",
+            "api.github.com"
+          ],
+          "networkApis": [
+            "fetch",
+            "XMLHttpRequest"
+          ]
+        },
+        "dist/chromium/options.js": {
+          "bytes": 466268,
+          "hosts": [
+            "api.github.com",
+            "www.w3.org",
+            "github.com",
+            "docs.github.com"
+          ],
+          "networkApis": []
+        },
+        "dist/chromium/reader.js": {
+          "bytes": 317721,
+          "hosts": [
+            "www.w3.org",
+            "github.com"
+          ],
+          "networkApis": []
+        },
+        "dist/chromium/sidepanel.js": {
+          "bytes": 844001,
+          "hosts": [
+            "www.w3.org",
+            "api.github.com",
+            "github.com",
+            "docs.github.com"
+          ],
+          "networkApis": [
+            "fetch"
+          ]
+        }
+      }
+    },
+    "firefox": {
+      "findings": [],
+      "summary": {
+        "dist/firefox/background.js": {
+          "bytes": 413140,
+          "hosts": [
+            "www.w3.org",
+            "github.com"
+          ],
+          "networkApis": []
+        },
+        "dist/firefox/content.js": {
+          "bytes": 1444798,
+          "hosts": [
+            "schema.org",
+            "github.com",
+            "www.w3.org",
+            "docs.github.com",
+            "api.github.com"
+          ],
+          "networkApis": [
+            "fetch",
+            "XMLHttpRequest"
+          ]
+        },
+        "dist/firefox/options.js": {
+          "bytes": 466264,
+          "hosts": [
+            "api.github.com",
+            "www.w3.org",
+            "github.com",
+            "docs.github.com"
+          ],
+          "networkApis": []
+        },
+        "dist/firefox/reader.js": {
+          "bytes": 317719,
+          "hosts": [
+            "www.w3.org",
+            "github.com"
+          ],
+          "networkApis": []
+        },
+        "dist/firefox/sidepanel.js": {
+          "bytes": 843999,
+          "hosts": [
+            "www.w3.org",
+            "api.github.com",
+            "github.com",
+            "docs.github.com"
+          ],
+          "networkApis": [
+            "fetch"
+          ]
+        }
+      }
+    }
+  },
+  "providerIsolation": [
+    {
+      "target": "chromium",
+      "files": [
+        "background.js",
+        "content.js",
+        "options.js",
+        "reader.js",
+        "sidepanel.js"
+      ],
+      "adapters": {
+        "anthropic": {
+          "anthropic-dangerous-direct-browser-access": [
+            "background.js"
+          ],
+          "anthropic-version": [
+            "background.js"
+          ],
+          "x-api-key": [
+            "background.js"
+          ],
+          "/v1/messages": [
+            "background.js"
+          ],
+          "/v1/models?limit=": [
+            "background.js"
+          ]
+        },
+        "openai": {
+          "max_output_tokens": [
+            "background.js"
+          ],
+          "incomplete_details": [
+            "background.js"
+          ],
+          "context_length_exceeded": [
+            "background.js"
+          ]
+        },
+        "gemini": {
+          "x-goog-api-key": [
+            "background.js"
+          ],
+          "/v1beta/models?pageSize=": [
+            "background.js"
+          ],
+          "/v1beta/models/": [
+            "background.js"
+          ]
+        }
+      },
+      "secrets": {
+        "mijhar-secrets": [
+          "background.js",
+          "options.js"
+        ],
+        "mijhar.secret.": [
+          "background.js",
+          "options.js"
+        ]
+      },
+      "findings": []
+    },
+    {
+      "target": "firefox",
+      "files": [
+        "background.js",
+        "content.js",
+        "options.js",
+        "reader.js",
+        "sidepanel.js"
+      ],
+      "adapters": {
+        "anthropic": {
+          "anthropic-dangerous-direct-browser-access": [
+            "background.js"
+          ],
+          "anthropic-version": [
+            "background.js"
+          ],
+          "x-api-key": [
+            "background.js"
+          ],
+          "/v1/messages": [
+            "background.js"
+          ],
+          "/v1/models?limit=": [
+            "background.js"
+          ]
+        },
+        "openai": {
+          "max_output_tokens": [
+            "background.js"
+          ],
+          "incomplete_details": [
+            "background.js"
+          ],
+          "context_length_exceeded": [
+            "background.js"
+          ]
+        },
+        "gemini": {
+          "x-goog-api-key": [
+            "background.js"
+          ],
+          "/v1beta/models?pageSize=": [
+            "background.js"
+          ],
+          "/v1beta/models/": [
+            "background.js"
+          ]
+        }
+      },
+      "secrets": {
+        "mijhar-secrets": [
+          "background.js",
+          "options.js"
+        ],
+        "mijhar.secret.": [
+          "background.js",
+          "options.js"
+        ]
+      },
+      "findings": []
+    }
+  ],
+  "findings": [],
+  "violations": [],
+  "warnings": []
+}

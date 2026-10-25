@@ -1,0 +1,35 @@
+# عزل المحوّلات والأسرار في الحزم المبنية (I-2، AC-E10 (١)) — 2026-10-25T03:23:26.061Z
+
+الحزمة chromium (background.js · content.js · options.js · reader.js · sidepanel.js):
+  محوّل anthropic «anthropic-dangerous-direct-browser-access»: background.js
+  محوّل anthropic «anthropic-version»: background.js
+  محوّل anthropic «x-api-key»: background.js
+  محوّل anthropic «/v1/messages»: background.js
+  محوّل anthropic «/v1/models?limit=»: background.js
+  محوّل openai «max_output_tokens»: background.js
+  محوّل openai «incomplete_details»: background.js
+  محوّل openai «context_length_exceeded»: background.js
+  محوّل gemini «x-goog-api-key»: background.js
+  محوّل gemini «/v1beta/models?pageSize=»: background.js
+  محوّل gemini «/v1beta/models/»: background.js
+  مخزن الأسرار «mijhar-secrets»: background.js, options.js
+  مخزن الأسرار «mijhar.secret.»: background.js, options.js
+
+الحزمة firefox (background.js · content.js · options.js · reader.js · sidepanel.js):
+  محوّل anthropic «anthropic-dangerous-direct-browser-access»: background.js
+  محوّل anthropic «anthropic-version»: background.js
+  محوّل anthropic «x-api-key»: background.js
+  محوّل anthropic «/v1/messages»: background.js
+  محوّل anthropic «/v1/models?limit=»: background.js
+  محوّل openai «max_output_tokens»: background.js
+  محوّل openai «incomplete_details»: background.js
+  محوّل openai «context_length_exceeded»: background.js
+  محوّل gemini «x-goog-api-key»: background.js
+  محوّل gemini «/v1beta/models?pageSize=»: background.js
+  محوّل gemini «/v1beta/models/»: background.js
+  مخزن الأسرار «mijhar-secrets»: background.js, options.js
+  مخزن الأسرار «mijhar.secret.»: background.js, options.js
+
+المخالفات: 0
+
+النتيجة: اجتاز (ترويسات المحوّلات ومساراتها في background.js وحده، ومخزن الأسرار في الخلفية والإعدادات وحدهما).

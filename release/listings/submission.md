@@ -1,6 +1,6 @@
 # مواد التقديم إلى المتاجر
 
-> مسودة إجابات نماذج التقديم في Chrome Web Store وMicrosoft Edge Add-ons (Partner Center) وFirefox Add-ons (AMO). كل جواب مأخوذ من الشيفرة على الفرع `claude/mijhar-completion-release-8044bf` (فوق `39fa4a2`)، ويُطابَق في `MJ26` مع النسخة المدموجة ومع نموذج كل متجر وقت التقديم. لا يُرفع شيء ولا يُقدَّم إلا بأمر المالك.
+> مسودة إجابات نماذج التقديم في Chrome Web Store وMicrosoft Edge Add-ons (Partner Center) وFirefox Add-ons (AMO). كل جواب مأخوذ من الشيفرة على الفرع `claude/mijhar-completion-release-8044bf` (فوق `39fa4a2`، ودُمج في `main` بـ`f6539eb`)، ويُطابَق في `MJ26` مع النسخة المدموجة ومع نموذج كل متجر وقت التقديم. لا يُرفع شيء ولا يُقدَّم إلا بأمر المالك.
 >
 > العلامات: **[قرار]** ينتظر المالك، و`⟨…⟩` قيمة لا تُملأ إلا بعد وجودها فعلًا.
 
