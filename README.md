@@ -13,7 +13,23 @@
 
 > **الحالة:** مِجهَر لم يُنشر في متاجر الإضافات بعد. تُضاف روابط التثبيت هنا عند نشره، وحتى ذلك الحين يمكنك [بناؤه وتجربته من المصدر](#التثبيت).
 
-<!-- MJ26: تُضاف هنا لقطتان حقيقيتان من النسخة المدموجة (القراءة وحالة الطلب) من release/screenshots/ بالوضعين، بعناصر <picture>. لا تُستعمل تصاميم Figma مكانها. -->
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="release/screenshots/01-reading--clean--dark.png">
+    <img src="release/screenshots/01-reading--clean--light.png" alt="لقطة من مِجهَر: فقرات عربية في مشكلة على GitHub باتجاهها الصحيح، والكود والمسارات معزولة داخلها" width="800">
+  </picture>
+  <br>
+  <sub>العربية في اتجاهها الصحيح، والكود معزول داخلها</sub>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="release/screenshots/03-status--clean--dark.png">
+    <img src="release/screenshots/03-status--clean--light.png" alt="لقطة من مِجهَر: بطاقة حالة طلب الدمج تعرض ما يمنع الدمج والفحوص التي لم تنجح، ومع كل سبب دليله من الصفحة" width="800">
+  </picture>
+  <br>
+  <sub>لماذا لا يُدمج الطلب؟ الموانع والفحوص في بطاقة واحدة</sub>
+</p>
 
 ## لمن مِجهَر؟
 

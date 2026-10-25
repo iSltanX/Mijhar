@@ -39,7 +39,8 @@ export function healthText(id: ConnectionId, status: Pick<ConnectionStatus, 'hea
     case 'expired':
       return typeof d.expiresAt === 'number' && options.now >= d.expiresAt
         ? `انتهت مدة ${noun} في ${utcText(d.expiresAt)}. يتعطل ما يعتمد عليه وحده؛ امسحه واحفظ بدلًا منه.`
-        : `رفض ${service} ${noun} (401): انتهت مدته أو أُلغي أو لم يعد صالحًا. يتعطل ما يعتمد عليه وحده، ولا تُرسل الطلبات بلا ${noun} ما دام محفوظًا؛ امسحه أو استبدله.`;
+        : // L-5 (MJ26): رمز الرفض يختلف بين المزوّدين (Google ترفض المفتاح بـ400)، فلا يُكتب إلا لـGitHub؛ والمحوّل يلحق الرمز الفعلي برسالته.
+          `رفض ${service} ${noun}${id === 'provider-key' ? '' : ' (401)'}: انتهت مدته أو أُلغي أو لم يعد صالحًا. يتعطل ما يعتمد عليه وحده، ولا تُرسل الطلبات بلا ${noun} ما دام محفوظًا؛ امسحه أو استبدله.`;
     case 'insufficient': {
       // MJ21: رفض مزوّد التحليل (403) بسببه المعلن، بلا صلاحية GitHub تُسمّى.
       if (!d.permission && d.reason) return `رفض ${service} الطلب (403): ${d.reason}. يتعطل ما يعتمد عليه وحده؛ راجع صلاحيات ${noun} لدى ${service} ثم تحقق.`;

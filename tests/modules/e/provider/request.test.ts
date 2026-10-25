@@ -93,6 +93,15 @@ describe('AC-E9 (٥): فصل المثبت من المصدر عن الاحتما�
     expect(parsed).toMatchObject({ structured: false, findings: [], steps: [], missing: [], raw: HOSTILE_REPLY, cut: true });
   });
 
+  it('L-2: رد قطعه مرشّح المحتوى (content_filter) أو رفضه المودل (refusal) بعد نص جزئي يُوسم، ولا يُعدّ مقطوعًا بحد الطول', () => {
+    for (const reason of ['content_filter', 'refusal']) {
+      const parsed = parseAnalysis('جزء من الرد', sent, reason);
+      expect(parsed).toMatchObject({ structured: false, raw: 'جزء من الرد', cut: false, filtered: true });
+    }
+    expect(parseAnalysis('رد كامل', sent, 'end_turn').filtered).toBe(false);
+    expect(parseAnalysis('رد', sent, 'max_tokens').filtered).toBe(false);
+  });
+
   it('اقتباس قصير جدًا لا يُعدّ دليلًا وإن ورد', () => {
     const parsed = parseAnalysis(JSON.stringify({ findings: [{ text: 'x', evidence: ['## '] }] }), sent);
     expect(parsed.findings[0]?.evidence[0]?.found).toBe(false);

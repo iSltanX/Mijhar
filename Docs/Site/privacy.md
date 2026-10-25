@@ -155,7 +155,7 @@
 - **أدوات الحذف:** ملاحظة واحدة مع مرساتها، أو رابط واحد من «أكمل لاحقًا»، أو كل ما يخص مستودعًا، أو «حذف الكل» للملاحظات والمراسي والروابط ونسخة ما قبل الاستيراد. وحذف ملاحظة واحدة لا يمس نسخة ما قبل آخر استيراد إن وُجدت؛ يمحوها حذف المستودع أو «حذف الكل».
 - **ما لا يحذفه «حذف الكل»:** الإعدادات، والموارد التي أضفتها، وملح البصمات، وأي نسخة احتياطية يصنعها مِجهَر عند ترحيل بيانات من إصدار أقدم. ولا يوجد اليوم زر واحد يمحو كل بيانات الإضافة.
 - **ما وصل إلى GitHub أو المزوّد:** لا يملك مِجهَر حذفه؛ تحكمه سياسة الجهة كما في القسم السابق.
-- **إزالة الإضافة:** يمحو المتصفح تخزين الإضافة عند إزالتها `⟨يُثبت بفحص في T-10.1⟩` **[بعد M]**. ولا تفتح الإضافة صفحة ولا ترسل طلبًا عند إزالتها.
+- **إزالة الإضافة:** يمحو المتصفح تخزين الإضافة وذاكرة جلستها عند إزالتها؛ وهذا ما وُجد في Chrome وEdge وBrave وFirefox: بعد الإزالة وإعادة التثبيت يبدأ التخزين كتثبيت جديد بلا إعداد ولا رمز ولا مفتاح مما كُتب قبلها. ولا تفتح الإضافة صفحة ولا ترسل طلبًا عند إزالتها.
 
 ## التغييرات — `#changes`
 
@@ -197,6 +197,8 @@
 | سياسات المزوّدين | قُرئت الصفحات الرسمية في 2026-10-24، وأُعيدت قراءتها في 2026-10-25 بلا تغيير في البنود المنقولة (صفحة الاحتفاظ لدى Anthropic مؤرخة 1 يوليو 2026 وتذكر 30 يومًا، وشروط Gemini محدّثة في 28 أبريل 2026)؛ وأوصاف المزوّدين في الشيفرة (`policy`) تلخّصها، وملاحظة على وصف Anthropic في [`README.md`](README.md#ما-وجدته-في-نصوص-الإضافة-وسلوكها) |
 | ما اشتُق من سرّ مُسح أو استُبدل: لا يُعرض ولا يُستعمل فورًا؛ القائمة والاختبار يُحذفان عند قراءة الحالة التالية، وسجل التحقق يُحذف بعد المسح ويبقى مهملًا بعد الاستبدال حتى يُكتب فوقه | `src/modules/e/provider/service.ts` (`status`: `ownedBy` و`cache.forget`)؛ `src/core/connections/service.ts` (`forget` في `status` و`keyStatus` للسرّ غير المحفوظ وحده، و`write` يكتب فوق سجل المزوّد)؛ `src/core/connections/health.ts` (`resolveStatus`: سجل بوقت حفظ آخر يُعرض «لم يُتحقق منه»)؛ `COR-AUD-02` |
 | رسالة تغيّر المفتاح أثناء الطلب بحسب ما حدث له | `src/modules/e/provider/service.ts` (`replaced` و`changed`: `replaced` و`cleared` و`unreadable`)؛ `F-03` |
-| أكثر من نافذة | `src/modules/e/provider/ProviderCard.tsx` (إعادة القراءة عند `visibilitychange` و`focus`، ورسالة مقرونة بالمزوّد و`savedAt`)؛ `src/modules/d/token/TokenSection.tsx` (قراءة عند الفتح وحده)؛ `F-05` |
+| أكثر من نافذة | `src/modules/e/provider/ProviderCard.tsx` (إعادة القراءة عند `visibilitychange` و`focus`، ورسالة مقرونة بالمزوّد و`savedAt`)؛ `src/shared/ui/useOnVisible.ts` في `src/modules/d/token/TokenSection.tsx` و`src/modules/f/execution/WriteTokenSection.tsx` و`src/core/connections/ui/ConnectionsSection.tsx` (`PI-1`)؛ `F-05`؛ مفحوص في المتصفحات الأربعة (`evidence/T-10.1/final/pending-*.txt`) |
 | «حذف الكل» وما يبقى | `src/modules/g/export/plan.ts:177-199`، `broker.ts:108-121`، `store.ts:542-550` |
 | لا صفحة إزالة | لا `runtime.setUninstallURL` في `src` |
+| الإزالة تمحو التخزين | `evidence/T-10.1/final/pending-chromium.txt` و`pending-firefox.txt` (القسم «د. الإزالة»: `management.uninstallSelf` في Chromium و`Addon:Uninstall` في Firefox ثم إعادة التثبيت بالمعرّف نفسه) |
+| خادم البلاغات وما يُرسل | `src/core/report/payload.ts` (`buildPayload` و`isReportPayload`: الحقول وحدها)، `client.ts` (`sendReport`: الصلاحية أولًا، و`credentials: 'omit'`، وبلا إعادة تلقائية)، `port.ts` (`reportPermissions`، ورفض غير صفحات الإضافة)، `src/options/report/ReportPage.tsx` (المراجعة قبل الإرسال)؛ `DEC-12` |

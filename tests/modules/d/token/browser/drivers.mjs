@@ -414,6 +414,11 @@ export async function firefoxSession({ extDir, githubReply, apiReply, authLabel 
       network,
       // سكربت في سياق chrome المميّز (قياس ذاكرة عملية المحتوى في TEST-PERF-01، MJ26).
       chrome: chromeScript,
+      // أمر Marionette في سياق chrome (نقرة WebDriver على عنصر من واجهة المتصفح نفسها، MJ26).
+      async chromeCommand(name, params = {}) {
+        await setContext('chrome');
+        return c.send(name, params);
+      },
       async consoleText() {
         return (await chromeScript(`return Services.console.getMessageArray().map((m) => m.message ?? (m.errorMessage ? m.errorMessage + ' @ ' + m.sourceName : String(m)));`)).join('\n');
       },

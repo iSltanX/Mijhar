@@ -1,0 +1,90 @@
+{
+  "at": "2026-10-25T05:04:56.104Z",
+  "os": "darwin",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "rows": [
+        {
+          "name": "toggle-panel",
+          "want": "MacCtrl+Shift+G",
+          "have": "⌃⇧G",
+          "ok": true
+        },
+        {
+          "name": "open-glossary",
+          "want": "MacCtrl+Shift+K",
+          "have": "⌃⇧K",
+          "ok": true
+        }
+      ],
+      "action": {
+        "title": "مِجهَر"
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "rows": [
+        {
+          "name": "toggle-panel",
+          "want": "MacCtrl+Shift+G",
+          "have": "⌃⇧G",
+          "ok": true
+        },
+        {
+          "name": "open-glossary",
+          "want": "MacCtrl+Shift+K",
+          "have": "⌃⇧K",
+          "ok": true
+        }
+      ],
+      "action": {
+        "title": "مِجهَر"
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "rows": [
+        {
+          "name": "toggle-panel",
+          "want": "MacCtrl+Shift+G",
+          "have": "⌃⇧G",
+          "ok": true
+        },
+        {
+          "name": "open-glossary",
+          "want": "MacCtrl+Shift+K",
+          "have": "⌃⇧K",
+          "ok": true
+        }
+      ],
+      "action": {
+        "title": "مِجهَر"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "rows": [
+        {
+          "name": "toggle-panel",
+          "want": "MacCtrl+Shift+G",
+          "have": "MacCtrl+Shift+G",
+          "ok": true
+        },
+        {
+          "name": "open-glossary",
+          "want": "MacCtrl+Shift+K",
+          "have": "MacCtrl+Shift+K",
+          "ok": true
+        }
+      ],
+      "action": {
+        "title": "مِجهَر"
+      }
+    }
+  ]
+}

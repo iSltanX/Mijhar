@@ -76,7 +76,7 @@ The Firefox build is written to dist/firefox (manifest.json at its root).
 
 ## Microsoft Edge وحده
 
-- **الوصف القصير** يُقرأ من حقل `description` في المانيفست، والمانيفست اليوم بلا هذا الحقل؛ يضيفه `MJ26` من [`store-listing.ar.md`](store-listing.ar.md#الوصف-القصير).
+- **الوصف القصير** يُقرأ من حقل `description` في المانيفست، وهو فيه حرفًا من [`store-listing.ar.md`](store-listing.ar.md#الوصف-القصير).
 - **ملاحظات الاعتماد:** كملاحظة AMO أعلاه، ومعها أن الإضافة لا تعمل خارج github.com.
 
 ## ما لا يُقدَّم

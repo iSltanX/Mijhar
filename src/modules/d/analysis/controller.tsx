@@ -86,7 +86,8 @@ const randomId = (): string => {
 };
 
 const PROVIDER_FAILURE: Readonly<Partial<Record<ProviderFailure, string>>> = {
-  unauthorized: 'رفض المزوّد المفتاح لأنه غير صالح أو منتهٍ (401)',
+  // L-5 (MJ26): بلا رمز HTTP ثابت؛ Google ترفض المفتاح بـ400 وغيرها بـ401.
+  unauthorized: 'رفض المزوّد المفتاح لأنه غير صالح أو منتهٍ',
   forbidden: 'رفض المزوّد الطلب لنقص صلاحية المفتاح (403)',
   'not-found': 'المودل المختار غير متاح لهذا المفتاح (404)',
   'too-large': 'المحتوى أكبر مما يقبله المودل',

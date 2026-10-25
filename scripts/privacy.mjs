@@ -35,7 +35,8 @@ export function generate(source = fs.readFileSync(path.join(ROOT, SOURCE), 'utf8
         .replace(/\| متاح \*\*\[بعد M\]\*\* /g, `| مضمّن في الإصدار ${version} `)
         .replace(/\s*\*\*\[(بعد [A-Z]|قرار)\]\*\*/g, '')
         .replace(/\(\/Mjhr\/privacy(#[a-z-]+)\)/g, '($1)')
-        .replace(/\(\/Mjhr\/support(#[a-z-]+)?\)/g, (_, hash) => `(Docs/Site/help.md${hash ?? ''})`)
+        // عناوين help.md فيها مرساة الموقع نصًّا، فلا تقابلها مرساة GitHub: يُربط الملف نفسه.
+        .replace(/\(\/Mjhr\/support(#[a-z-]+)?\)/g, '(Docs/Site/help.md)')
         .replace(/\(\/Mjhr\)/g, '(README.md)'),
     );
   }
