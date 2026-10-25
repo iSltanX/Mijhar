@@ -128,6 +128,11 @@
       "date": "2026-10-25",
       "text": "دُمج في main محليًا قبل MJ26 فرعا إصلاحات تدقيق ما قبل الإصدار (isltanx-fix/pre-release-audit-remediation عند 39fa4a2: F-01 إلى F-07 وBLK-AUD-01 وBLK-AUD-02 وCOR-AUD-01 إلى COR-AUD-06، دمج f5307d1) وتجهيز الإصدار (claude/mijhar-completion-release-8044bf عند cd84948: نصوص ما بعد التدقيق ومجلد release/ وREADME العربي ونصوص المتاجر وحسم DEC-12 بقرار المالك، دمج f6539eb)، بعد مراجعة تكامل وأمنية في جلسة الدمج نفسها بلا خلل يمنع، والمراجعة المستقلة السابقة وأدلتها للإصلاحات مقبولة. اجتازت البوابة على الشجرة نفسها: tsc بلا أخطاء، والطقم كاملًا 2793 اختبارًا (2 متخطيان قائمان)، والبناء، والتدقيق الساكن للشبكة وعزل المحوّلات والأسرار بلا مخالفة، وweb-ext lint بلا أخطاء. لم يُجرَ التحميل في المتصفحات ولا التدقيق الديناميكي ولا فحوص المتصفح الحقيقي المعلّقة من التدقيق، ولا اللقطات والأيقونات والحزم وقناة البلاغات: كلها لـMJ26. ولم يُنقل الوسم mj-M/base.",
       "how": "`evidence/wave-M/pre-mj26-integration/review.md`؛ `evidence/wave-M/pre-mj26-integration/gate.md`؛ تقرير المعالجة `Mijhar-Audit-Outputs/remediation-2026-10-24/remediation-report-ar.md`"
+    },
+    {
+      "id": "EV-21",
+      "date": "2026-10-25",
+      "text": "أُغلقت الموجة M بدمج MJ26 محليًا في main (fe417c4) بجلسة المرحلة نفسها (AD-34): T-10.1 (التحقق الشامل في Chrome 156 وEdge 155 وBrave 156 وFirefox 158.0.1) وT-10.2 (النسخة 1.0.0 والحزم وحزمة المصدر وPRIVACY.md وREADME واللقطات الحقيقية و«حول» و«الإبلاغ عن مشكلة» على DEC-12). مراجعة ذاتية بمانع واحد R-1 أُصلح (صيغ الأسرار في نص البلاغ)، وبوابة خضراء على d038b36. لم يُرفع شيء ولم يُنشر، ولم يُرسل بلاغ حقيقي؛ والقناة تنتظر وسم product:mijhar من المالك."
     }
   ],
   "deliverables": [],
@@ -192,9 +197,11 @@
       "status": "passed",
       "evidence": [
         "evidence/T-1.2/report.md",
-        "evidence/wave-B/gate.md"
+        "evidence/wave-B/gate.md",
+        "evidence/T-10.1/final/memory-long.txt",
+        "evidence/T-10.1/report.md"
       ],
-      "note": "لا حقن مكرر بعد 40 تنقلًا (حقن واحد لكل وحدة، مستمعات ومراقبات ثابتة)؛ على الشجرة المجمّعة للموجة B."
+      "note": "لا حقن مكرر بعد 40 تنقلًا (حقن واحد لكل وحدة، مستمعات ومراقبات ثابتة)؛ على الشجرة المجمّعة للموجة B. وفي T-10.1 (MJ26) قورن الميل بأساس T-0.1: بعد تسخين 10 و60 تنقلًا في Chrome وEdge وBrave دون مئينه الخامس والتسعين (0.0049 و0.0048 و0.0048 MB/تنقل)، وFirefox سالب."
     },
     "TEST-CORE-03": {
       "status": "passed",
@@ -246,24 +253,42 @@
       "note": "المفاتيح الثمانية تركّب وتزيل وتُحفظ بعد إعادة التحميل في الأربعة (54 اختبار vitest ومعها تجارب المتصفحات)؛ صفر طلب إلى api.github.com قبل المنح من كل السياقات في الأربعة، وعلى الشجرة المجمّعة. المنح والسحب الفعليان قيسا في Firefox وحده؛ والمعالج والاختصار وإعادة ربطه قيست في الأربعة. لم يُجرَ آليًا في Chrome وEdge وBrave: الضغطة الفعلية لـ⌥G، وقبول نافذة الصلاحية ثم سحبها (لا تبلغهما CDP)؛ ينتظران جولة المالك بيده."
     },
     "TEST-PERF-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-10.1/perf.json",
+        "evidence/T-10.1/perf.txt",
+        "evidence/T-10.1/report.md"
+      ],
+      "note": "MJ26 على الحزمة المبنية في Chrome 156 وEdge 155 وBrave 156 وFirefox 158: PB-06 دون 25ms (أعلى p95 20.0ms) وPB-07 دون 100ms (أعلى p95 27.0ms)، وPB-03 في b-search، والذاكرة دون أساس T-0.1. على macOS وحده."
     },
     "TEST-A11Y-ALL": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-10.1/final/axe.json",
+        "evidence/T-10.1/final/axe-edge.json",
+        "evidence/T-10.1/final/ff-contrast-probe.json",
+        "evidence/T-10.1/report.md"
+      ],
+      "note": "اجتاز ما أُجري: axe-core 4.14.0 بالوضعين على الإعدادات ودليليها وصفحة البلاغ واللوحة وواجهات مِجهَر في صفحات GitHub، بلا مخالفة حرجة في الأربعة؛ ولوحة المفاتيح آليًا (b-access وb-tours وf-composer وwelcome-help)؛ وأُصلح تباين بطاقة السجل الداكنة. لم يُجرَ: قارئ شاشة فعلي وعمى الألوان يدويًا (لا جلسة يدوية)."
     },
     "TEST-BROW-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-10.1/matrix/summary.md",
+        "evidence/T-10.1/final/",
+        "evidence/T-10.1/report.md",
+        "evidence/wave-M/gate.md"
+      ],
+      "note": "MJ26: 49 خطوة في الأربعة مع تدقيق الشبكة لكل وحدة؛ 360 أُصلح، وmj10-integration وwelcome-help توقعات قديمة مشروحة؛ والفحوص المعلّقة من التدقيق Chromium 18/18 ×3 وFirefox 25/25. لم يُجرَ: نقرة زر الشريط وضغطة الاختصار في عائلة Chromium، وWindows وLinux."
     },
     "TEST-PKG-01": {
-      "status": "planned",
-      "evidence": [],
-      "note": ""
+      "status": "passed",
+      "evidence": [
+        "evidence/T-10.2/report.md",
+        "evidence/wave-M/gate.md",
+        "evidence/wave-M/attribution-result.json"
+      ],
+      "note": "MJ26: web-ext lint 0/0/0، والتحميل في الأربعة بلا أخطاء (فحص Chrome)، وحزمة المصدر تعيد البناء مطابقًا، وPRIVACY.md يطابق الصلاحيات والوجهات وإعلان Firefox، والنسبة «تصميم وتطوير سلطان» حرفًا ومعها bysltan.com في الأربعة، والإشعارات منفصلة، ولا ترخيص، ورابط المستودع الخاص محجوب."
     },
     "TEST-RTL-01": {
       "status": "passed",
