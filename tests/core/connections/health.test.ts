@@ -168,6 +168,13 @@ describe('النصوص: لكل حالة نصها، ولا «سليم» إلا ب
     expect(none).toContain('تعمل بدونه');
     for (const text of [none, unverified, expired, insufficient, limited, unavailable]) expect(text).not.toContain('قبِل');
   });
+
+  it('L-5: نص المفتاح المرفوض لمزوّد التحليل بلا «(401)» (Google ترفضه بـ400)، ونص رمز GitHub يبقى به', () => {
+    const provider = healthText('provider-key', { health: 'expired', detail: { status: 400 } }, { now: NOW, service: 'Google Gemini' });
+    expect(provider).toContain('رفض Google Gemini');
+    expect(provider).not.toContain('401');
+    expect(healthText('github-write', { health: 'expired', detail: { status: 401 } }, { now: NOW })).toContain('(401)');
+  });
 });
 
 describe('عقد «ميزة تحتاج ربطًا» (AC-11.1 ‏(٣) و(٥))', () => {

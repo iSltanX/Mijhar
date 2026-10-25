@@ -12,7 +12,7 @@ import type { CollectExtras } from './collect';
 export { CONTEXT_SELECTORS, blockText, collectContext, pageKind } from './collect';
 export type { ApiAccess, ApiPartAccess, ChangedFile, Changes, CheckLine, CollectExtras, CommentInfo, ContextPageKind, ContextSource, Gap, GapKind, LogExtra, PrStatus, Snippet } from './collect';
 export { readSelection } from './selection';
-export { CONTEXT_LIMITS, ITEM, contextItems, limitsOf, maskOf, sanitize } from './sanitize';
+export { CONTEXT_LIMITS, ITEM, contextItems, limitsOf, maskOf, sanitize, secretKinds } from './sanitize';
 export type { Limits, SanitizeOptions, SanitizedChanges, SanitizedContext, SanitizedLog, SecretHit, SecretPolicy, SecretsReport } from './sanitize';
 export { PART_KEYS, buildContext, formatParts } from './build';
 export type { ContextOptions, ContextParts, ContextStructure, PartKey, PartState } from './build';

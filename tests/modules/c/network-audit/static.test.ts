@@ -71,7 +71,7 @@ describe('auditManifest', () => {
   it.each(['chromium', 'firefox'])('مانيفست المصدر %s: لا مخالفة ولا تحذير، ومضيفاته github.com وapi.github.com ومضيف مزوّد التحليل الاختياري (MJ21) وحدها', (name) => {
     const result = auditManifest(manifest(name));
     expect(result.findings).toEqual([]);
-    expect([...new Set(result.hosts.map((h: { host: string }) => h.host))].sort()).toEqual(['api.anthropic.com', 'api.github.com', 'api.openai.com', 'generativelanguage.googleapis.com', 'github.com']);
+    expect([...new Set(result.hosts.map((h: { host: string }) => h.host))].sort()).toEqual(['api.anthropic.com', 'api.github.com', 'api.openai.com', 'app-reports.isultantf.workers.dev', 'generativelanguage.googleapis.com', 'github.com']);
   });
 
   it('مضيف مزوّد التحليل (MJ21): صلاحية اختيارية وحدها مقبولة، وفي host_permissions مخالفة؛ وفي شيفرة مسار الترجمة مخالفة وخارجه مقبول', () => {

@@ -41,6 +41,10 @@ html, body { margin: 0; padding: 0; }
 body { background: #ffffff; }
 @media (prefers-color-scheme: dark) { body { background: #171c22; } }
 .mj-root.page { min-height: 100vh; }
+.mj-root .about-brand { display: flex; align-items: center; gap: var(--mijhar-space-12); }
+.mj-root .about-brand .label { display: flex; flex-direction: column; gap: 2px; }
+.mj-root .about-name { font-family: var(--mijhar-font-display); font-size: 20px; line-height: 32px; }
+.mj-root .about h3 { margin-top: var(--mijhar-space-8); }
 `;
 
 /** أنماط الصفحة والرموز، وخطّا الهوية المضمّنان. */

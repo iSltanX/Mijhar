@@ -1,0 +1,4 @@
+Chrome 156.0.8078.47: ✓ toggle-panel = «⌃⇧G» (المانيفست MacCtrl+Shift+G) · ✓ open-glossary = «⌃⇧K» (المانيفست MacCtrl+Shift+K) · زر الشريط: «مِجهَر»
+Edge 155.0.4283.60: ✓ toggle-panel = «⌃⇧G» (المانيفست MacCtrl+Shift+G) · ✓ open-glossary = «⌃⇧K» (المانيفست MacCtrl+Shift+K) · زر الشريط: «مِجهَر»
+Brave 156.0.8078.48: ✓ toggle-panel = «⌃⇧G» (المانيفست MacCtrl+Shift+G) · ✓ open-glossary = «⌃⇧K» (المانيفست MacCtrl+Shift+K) · زر الشريط: «مِجهَر»
+Firefox 158.0.1: ✓ toggle-panel = «MacCtrl+Shift+G» (المانيفست MacCtrl+Shift+G) · ✓ open-glossary = «MacCtrl+Shift+K» (المانيفست MacCtrl+Shift+K) · زر الشريط: «مِجهَر»

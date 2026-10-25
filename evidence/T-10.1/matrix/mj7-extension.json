@@ -1,0 +1,434 @@
+{
+  "measuredAt": "2026-10-25T03:49:16.265Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "page": "https://github.com/octo/mj7-demo",
+  "csp": "ترويسة GitHub الحقيقية (fixtures/github-csp.txt)",
+  "results": [
+    {
+      "key": "chrome",
+      "steps": {
+        "mounted": {
+          "isolated": 9,
+          "flipped": 29,
+          "readingHost": 1,
+          "editorHost": 1,
+          "fontFace": 2,
+          "fontFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ],
+          "prose": "في المستودع 12 ملفًا و3 مجلدات.",
+          "diacritics": 244,
+          "eastern": 0,
+          "textLength": 4052,
+          "arabicFont": "\"Mijhar IBM Plex Sans Arabic\", -apple-system, \"system-ui\", \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\""
+        },
+        "fonts": {
+          "loaded": 1,
+          "error": null,
+          "faces": [
+            {
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "check": true,
+          "violations": [],
+          "resources": []
+        },
+        "hijri": {
+          "matches": 4,
+          "total": 4,
+          "tips": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ],
+          "expected": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ]
+        },
+        "editor": {
+          "host": 1,
+          "dirAfterClick": "rtl"
+        },
+        "reader": {
+          "ready": "true",
+          "sections": 10,
+          "diacritics": 0,
+          "diacriticAt": {
+            "parent": "code",
+            "text": "// انتظر 5 ثوانٍ\nsleep 5"
+          },
+          "hidden": true,
+          "hint": "البحث في الصفحة (Ctrl/⌘+F) في Chrome وEdge وBrave لا يفرّق ب",
+          "alert": null,
+          "title": "وضع القراءة — octo/mijhar-demo: README (fixture-mixed-rtl-readme, MJ6/T-2.1)",
+          "selected": "المطور",
+          "clipboard": "المُطَوِّرُ",
+          "htmlHasDiacritics": true,
+          "copyCarriesOriginal": true
+        },
+        "readerGithubUntouched": {
+          "diacriticsBefore": 244,
+          "diacriticsAfter": 244,
+          "textLengthSame": true
+        },
+        "digits": {
+          "onProse": "في المستودع ١٢ ملفًا و٣ مجلدات.",
+          "eastern": 13,
+          "offProse": "في المستودع 12 ملفًا و3 مجلدات.",
+          "offEastern": 0,
+          "textLengthSame": true
+        },
+        "typography": {
+          "cairoFiles": [
+            "Cairo-Regular.woff2",
+            "Cairo-Bold.woff2"
+          ],
+          "resetFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ]
+        }
+      },
+      "console": [],
+      "browser": "156.0.8078.47",
+      "readerUrl": "chrome-extension://<id>/reader.html?tab=1173276415",
+      "network": [
+        "chrome-extension:…",
+        "https://github.com"
+      ]
+    },
+    {
+      "key": "edge",
+      "steps": {
+        "mounted": {
+          "isolated": 9,
+          "flipped": 29,
+          "readingHost": 1,
+          "editorHost": 1,
+          "fontFace": 2,
+          "fontFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ],
+          "prose": "في المستودع 12 ملفًا و3 مجلدات.",
+          "diacritics": 244,
+          "eastern": 0,
+          "textLength": 4052,
+          "arabicFont": "\"Mijhar IBM Plex Sans Arabic\", -apple-system, \"system-ui\", \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\""
+        },
+        "fonts": {
+          "loaded": 1,
+          "error": null,
+          "faces": [
+            {
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "check": true,
+          "violations": [],
+          "resources": []
+        },
+        "hijri": {
+          "matches": 4,
+          "total": 4,
+          "tips": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ],
+          "expected": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ]
+        },
+        "editor": {
+          "host": 1,
+          "dirAfterClick": "rtl"
+        },
+        "reader": {
+          "ready": "true",
+          "sections": 10,
+          "diacritics": 0,
+          "diacriticAt": {
+            "parent": "code",
+            "text": "// انتظر 5 ثوانٍ\nsleep 5"
+          },
+          "hidden": true,
+          "hint": "البحث في الصفحة (Ctrl/⌘+F) في Chrome وEdge وBrave لا يفرّق ب",
+          "alert": null,
+          "title": "وضع القراءة — octo/mijhar-demo: README (fixture-mixed-rtl-readme, MJ6/T-2.1)",
+          "selected": "المطور",
+          "clipboard": "المُطَوِّرُ",
+          "htmlHasDiacritics": true,
+          "copyCarriesOriginal": true
+        },
+        "readerGithubUntouched": {
+          "diacriticsBefore": 244,
+          "diacriticsAfter": 244,
+          "textLengthSame": true
+        },
+        "digits": {
+          "onProse": "في المستودع ١٢ ملفًا و٣ مجلدات.",
+          "eastern": 13,
+          "offProse": "في المستودع 12 ملفًا و3 مجلدات.",
+          "offEastern": 0,
+          "textLengthSame": true
+        },
+        "typography": {
+          "cairoFiles": [
+            "Cairo-Regular.woff2",
+            "Cairo-Bold.woff2"
+          ],
+          "resetFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ]
+        }
+      },
+      "console": [],
+      "browser": "155.0.4283.60",
+      "readerUrl": "chrome-extension://<id>/reader.html?tab=1430105004",
+      "network": [
+        "chrome-extension:…",
+        "https://github.com"
+      ]
+    },
+    {
+      "key": "brave",
+      "steps": {
+        "mounted": {
+          "isolated": 9,
+          "flipped": 29,
+          "readingHost": 1,
+          "editorHost": 1,
+          "fontFace": 2,
+          "fontFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ],
+          "prose": "في المستودع 12 ملفًا و3 مجلدات.",
+          "diacritics": 244,
+          "eastern": 0,
+          "textLength": 4052,
+          "arabicFont": "\"Mijhar IBM Plex Sans Arabic\", -apple-system, \"system-ui\", \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\""
+        },
+        "fonts": {
+          "loaded": 1,
+          "error": null,
+          "faces": [
+            {
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "check": true,
+          "violations": [],
+          "resources": []
+        },
+        "hijri": {
+          "matches": 4,
+          "total": 4,
+          "tips": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ],
+          "expected": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ]
+        },
+        "editor": {
+          "host": 1,
+          "dirAfterClick": "rtl"
+        },
+        "reader": {
+          "ready": "true",
+          "sections": 10,
+          "diacritics": 0,
+          "diacriticAt": {
+            "parent": "code",
+            "text": "// انتظر 5 ثوانٍ\nsleep 5"
+          },
+          "hidden": true,
+          "hint": "البحث في الصفحة (Ctrl/⌘+F) في Chrome وEdge وBrave لا يفرّق ب",
+          "alert": null,
+          "title": "وضع القراءة — octo/mijhar-demo: README (fixture-mixed-rtl-readme, MJ6/T-2.1)",
+          "selected": "المطور",
+          "clipboard": "المُطَوِّرُ",
+          "htmlHasDiacritics": true,
+          "copyCarriesOriginal": true
+        },
+        "readerGithubUntouched": {
+          "diacriticsBefore": 244,
+          "diacriticsAfter": 244,
+          "textLengthSame": true
+        },
+        "digits": {
+          "onProse": "في المستودع ١٢ ملفًا و٣ مجلدات.",
+          "eastern": 13,
+          "offProse": "في المستودع 12 ملفًا و3 مجلدات.",
+          "offEastern": 0,
+          "textLengthSame": true
+        },
+        "typography": {
+          "cairoFiles": [
+            "Cairo-Regular.woff2",
+            "Cairo-Bold.woff2"
+          ],
+          "resetFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ]
+        }
+      },
+      "console": [],
+      "browser": "156.0.8078.48",
+      "readerUrl": "chrome-extension://<id>/reader.html?tab=886717614",
+      "network": [
+        "chrome-extension:…",
+        "https://github.com"
+      ]
+    },
+    {
+      "key": "firefox",
+      "steps": {
+        "mounted": {
+          "isolated": 9,
+          "flipped": 29,
+          "readingHost": 1,
+          "editorHost": 0,
+          "fontFace": 2,
+          "fontFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ],
+          "prose": "في المستودع 12 ملفًا و3 مجلدات.",
+          "diacritics": 244,
+          "eastern": 0,
+          "textLength": 4052,
+          "arabicFont": "Mijhar IBM Plex Sans Arabic, -apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji"
+        },
+        "fonts": {
+          "loaded": 1,
+          "error": null,
+          "faces": [
+            {
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "check": true,
+          "violations": [],
+          "resources": []
+        },
+        "hijri": {
+          "matches": 4,
+          "total": 4,
+          "tips": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ],
+          "expected": [
+            "الاثنين، 1 رمضان 1445 هـ",
+            "السبت، 1 رمضان 1446 هـ",
+            "الجمعة، 10 ذو الحجة 1446 هـ",
+            "الجمعة، 12 جمادى الأولى 1448 هـ"
+          ]
+        },
+        "editor": {
+          "host": 0,
+          "dirAfterClick": null
+        },
+        "reader": {
+          "ready": "true",
+          "sections": 10,
+          "diacritics": 0,
+          "diacriticAt": {
+            "parent": "code",
+            "text": "// انتظر 5 ثوانٍ\nsleep 5"
+          },
+          "hidden": true,
+          "hint": "البحث في الصفحة في Firefox يتجاهل التشكيل افتراضًا فيجد الكل",
+          "alert": null,
+          "title": "وضع القراءة — octo/mijhar-demo: README (fixture-mixed-rtl-readme, MJ6/T-2.1)",
+          "selected": "المطور",
+          "clipboard": "المُطَوِّرُ",
+          "htmlHasDiacritics": true,
+          "copyCarriesOriginal": true
+        },
+        "readerGithubUntouched": {
+          "diacriticsBefore": 244,
+          "diacriticsAfter": 244,
+          "textLengthSame": true
+        },
+        "digits": {
+          "onProse": "في المستودع ١٢ ملفًا و٣ مجلدات.",
+          "eastern": 13,
+          "offProse": "في المستودع 12 ملفًا و3 مجلدات.",
+          "offEastern": 0,
+          "textLengthSame": true
+        },
+        "typography": {
+          "cairoFiles": [
+            "Cairo-Regular.woff2",
+            "Cairo-Bold.woff2"
+          ],
+          "resetFiles": [
+            "IBMPlexSansArabic-Regular.woff2",
+            "IBMPlexSansArabic-Bold.woff2"
+          ]
+        }
+      },
+      "console": [],
+      "browser": "158.0.1",
+      "readerUrl": "moz-extension://<id>/reader.html?tab=1",
+      "network": {
+        "githubRequests": 2,
+        "refused": [
+          "firefox.settings.services.mozilla.com",
+          "firefox-settings-attachments.cdn.mozilla.net",
+          "content-signature-2.cdn.mozilla.net"
+        ]
+      }
+    }
+  ]
+}

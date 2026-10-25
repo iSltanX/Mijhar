@@ -46,6 +46,8 @@ import { PROVIDER_ID_KEY } from '../modules/e/provider/settings';
 import type { ProviderAdapter } from '../modules/e/provider/types';
 import { isNotesWriteRequest } from '../modules/g/notes/writer';
 import { isExecutionRequest } from '../modules/f/execution/port';
+import { handleReportRequest, isReportRequest, reportPermissions } from '../core/report/port';
+import { secretKinds } from '../modules/e/context';
 import { ExecutionService } from '../modules/f/execution/service';
 
 export interface BackgroundOptions {
@@ -69,6 +71,8 @@ export interface BackgroundOptions {
   readonly writeToken?: Pick<SecretStore, 'info' | 'read'> | null;
   /** fetch لطلبات الكتابة (للاختبار). الافتراضي fetch العام. */
   readonly writeFetch?: typeof fetch;
+  /** fetch لإرسال البلاغ (للاختبار). الافتراضي fetch العام. */
+  readonly reportFetch?: typeof fetch;
   /** قائمة المودلات المقروءة (للاختبار). الافتراضي storage.session. */
   readonly modelsCache?: ModelsCache;
   /** سجل صحة الاتصالات (للاختبار). الافتراضي storage.session. */
@@ -88,6 +92,8 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
   let surface: Surface | undefined;
 
   const panelDeps = () => ({ api, target, surface: () => readSurfaceMirror(options.mirror) ?? surface, ...(options.onOutcome ? { onOutcome: options.onOutcome } : {}) });
+  // MJ26: زر شريط الأدوات يفتح اللوحة بمسار الاختصار نفسه (المكان المختار: اللوحة الأصلية أو الدرج)، متزامنًا داخل النقرة.
+  api.action?.onClicked.addListener((tab) => openPanel(panelDeps(), tab));
   api.commands?.onCommand.addListener((command, tab) => {
     if (command === PANEL_COMMAND) openPanel(panelDeps(), tab);
     else if (command === GLOSSARY_COMMAND) {
@@ -210,6 +216,15 @@ export function startBackground(options: BackgroundOptions = {}): BackgroundHand
     }
     if (isExecutionRequest(message)) {
       void execution.handle(message, fromExtensionPage(sender)).then(sendResponse, () => sendResponse(null));
+      return true;
+    }
+    if (isReportRequest(message)) {
+      // MJ26 (DEC-12 ي-1): البلاغ من صفحة الإضافة وحدها (من sender)، وبصلاحية مضيف القناة (ومعها في Firefox موافقة technicalAndInteraction) لحظة الطلب.
+      const reportFetch = options.reportFetch ?? fetch;
+      void handleReportRequest(message, fromExtensionPage(sender), {
+        fetch: (input, init) => reportFetch(input, init),
+        granted: () => api.permissions?.contains(reportPermissions(target)) ?? Promise.resolve(false),
+      }, (text) => secretKinds(text).length > 0).then(sendResponse, () => sendResponse({ ok: false, failure: 'network', status: null }));
       return true;
     }
     if (isConnectionsRequest(message)) {

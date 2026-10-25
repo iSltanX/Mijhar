@@ -208,6 +208,20 @@ describe('AC-D9: التحليل في شرح سجل الفحص', () => {
     manager.stop();
   });
 
+  it('L-2: رد جزئي قطعه مرشّح المحتوى يُعرض بوسم ظاهر أنه مقطوع', async () => {
+    const f = fakeDeps({
+      reply: (input) => ({ ok: true, status: 200, data: { text: 'بداية تحليل', model: input.model, stopReason: 'content_filter', usage: null, provider: 'OpenAI', host: 'api.openai.com', requestedAt: NOW, completedAt: NOW } }),
+    });
+    const { root, manager } = await logCard(f.deps);
+    trustedClick(root.querySelector('[data-action="analysis-open"]') as HTMLButtonElement);
+    await flush(20);
+    trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
+    await flush(30);
+    expect(text(root.querySelector('[data-analysis-filtered]'))).toContain('قطع المزوّد هذا الرد قبل اكتماله');
+    expect(root.querySelector('[data-analysis-part="raw"]')?.textContent).toContain('بداية تحليل');
+    manager.stop();
+  });
+
   it('الفشل يُعلن بسببه ويقترح بطاقة المفتاح، ولا يُعاد تلقائيًا؛ و«أعد المحاولة» يعود إلى الموافقة لا إلى الإرسال', async () => {
     const f = fakeDeps({ reply: () => ({ ok: false, failure: 'unauthorized', status: 401, message: 'invalid x-api-key', retryAt: null }) });
     const { root, manager } = await logCard(f.deps);
@@ -216,7 +230,8 @@ describe('AC-D9: التحليل في شرح سجل الفحص', () => {
     trustedClick(root.querySelector('[data-action="consent-confirm"]') as HTMLButtonElement);
     await flush(30);
     const failed = root.querySelector('[data-analysis="failed"]');
-    expect(text(failed)).toContain('رفض المزوّد المفتاح لأنه غير صالح أو منتهٍ (401)');
+    expect(text(failed)).toContain('رفض المزوّد المفتاح لأنه غير صالح أو منتهٍ');
+    expect(text(failed)).not.toContain('منتهٍ (401)');
     expect(failed?.querySelector('[data-action="analysis-settings"]')).not.toBeNull();
     await flush(30);
     expect(f.provider.analyze).toHaveBeenCalledTimes(1);

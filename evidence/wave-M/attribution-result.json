@@ -1,0 +1,69 @@
+{
+  "at": "2026-10-25T05:30:26.834Z",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "ok": true,
+      "got": {
+        "attribution": "تصميم وتطوير سلطان",
+        "site": {
+          "href": "https://bysltan.com",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        "versionShown": true,
+        "github": [],
+        "notices": "THIRD-PARTY NOTICES — Mijhar (مِجهَر)\n\nMijhar is designed an"
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "ok": true,
+      "got": {
+        "attribution": "تصميم وتطوير سلطان",
+        "site": {
+          "href": "https://bysltan.com",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        "versionShown": true,
+        "github": [],
+        "notices": "THIRD-PARTY NOTICES — Mijhar (مِجهَر)\n\nMijhar is designed an"
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "ok": true,
+      "got": {
+        "attribution": "تصميم وتطوير سلطان",
+        "site": {
+          "href": "https://bysltan.com",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        "versionShown": true,
+        "github": [],
+        "notices": "THIRD-PARTY NOTICES — Mijhar (مِجهَر)\n\nMijhar is designed an"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "ok": true,
+      "got": {
+        "attribution": "تصميم وتطوير سلطان",
+        "site": {
+          "href": "https://bysltan.com",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        "versionShown": true,
+        "github": [],
+        "notices": "THIRD-PARTY NOTICES — Mijhar (مِجهَر)\n\nMijhar is designed an"
+      }
+    }
+  ]
+}

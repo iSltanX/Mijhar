@@ -1,0 +1,498 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بنقرة الفأرة ينزّل كما كان (حدث تنزيل في المتصفح)",
+        "ok": true
+      },
+      {
+        "name": "زر «نسخ البرومبت» مركَّب",
+        "ok": true
+      },
+      {
+        "name": "فشل حافظة حقيقي يُظهر البديل اليدوي (download-prompt)",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بنقرة الفأرة ينزّل كما كان (حدث تنزيل في المتصفح)",
+        "ok": true
+      },
+      {
+        "name": "B1: لا خطوة ولا موافقة ولا حقل من مسار الإنجاز في أي جذر ظل في صفحة GitHub (لا يصل إليه سكربت الصفحة)",
+        "ok": true
+      },
+      {
+        "name": "B2: رسالة «run» من سكربت المحتوى في صفحة GitHub ترفضها الخلفية ولا يصدر طلب كتابة",
+        "ok": true
+      },
+      {
+        "name": "B3: رمز الكتابة يُحفظ في الجلسة بنقرة الفأرة، ويُفرَّغ حقله ولا يظهر في الصفحة، ولا طلب بعده (لا تحقق بطلب قراءة)",
+        "ok": true
+      },
+      {
+        "name": "B3: «تجهيز تعديل» في تبويب «السياق والفحوص» للمستودع المفتوح",
+        "ok": true
+      },
+      {
+        "name": "B3: المعاينة بثلاث قراءات GET برمز القراءة وحده من الخلفية",
+        "ok": true
+      },
+      {
+        "name": "B3: الفرق كاملًا قبل أي اتصال كتابة",
+        "ok": true
+      },
+      {
+        "name": "B3: النقر البرمجي على الموافقة و«نفّذ» (ولو أُزيل تعطيله) لا يغيّر شيئًا ولا يرسل",
+        "ok": true
+      },
+      {
+        "name": "B3: بنقرات الفأرة ثلاث عمليات بترتيبها برمز الكتابة من الخلفية وحدها، ولا غيرها",
+        "ok": true
+      },
+      {
+        "name": "B3: لا طلب قراءة يحمل رمز الكتابة، ولا طريقة غير GET وPOST وPUT",
+        "ok": true
+      },
+      {
+        "name": "B3: «ما حدث فعلًا» برابط الطلب، ولا دمج ولا إغلاق، ولا رمز في اللوحة",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com (أصول الصفحات المحفوظة وبنية Mozilla مستثناة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo/git/ref/heads/main",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo/contents/README.md?ref=a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "POST",
+          "path": "/repos/octo/demo/git/refs",
+          "from": "background",
+          "auth": "write"
+        },
+        {
+          "method": "PUT",
+          "path": "/repos/octo/demo/contents/README.md",
+          "from": "background",
+          "auth": "write"
+        },
+        {
+          "method": "POST",
+          "path": "/repos/octo/demo/pulls",
+          "from": "background",
+          "auth": "write"
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasSecret": false
+  },
+  "edge": {
+    "label": "Edge",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بنقرة الفأرة ينزّل كما كان (حدث تنزيل في المتصفح)",
+        "ok": true
+      },
+      {
+        "name": "زر «نسخ البرومبت» مركَّب",
+        "ok": true
+      },
+      {
+        "name": "فشل حافظة حقيقي يُظهر البديل اليدوي (download-prompt)",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بنقرة الفأرة ينزّل كما كان (حدث تنزيل في المتصفح)",
+        "ok": true
+      },
+      {
+        "name": "B1: لا خطوة ولا موافقة ولا حقل من مسار الإنجاز في أي جذر ظل في صفحة GitHub (لا يصل إليه سكربت الصفحة)",
+        "ok": true
+      },
+      {
+        "name": "B2: رسالة «run» من سكربت المحتوى في صفحة GitHub ترفضها الخلفية ولا يصدر طلب كتابة",
+        "ok": true
+      },
+      {
+        "name": "B3: رمز الكتابة يُحفظ في الجلسة بنقرة الفأرة، ويُفرَّغ حقله ولا يظهر في الصفحة، ولا طلب بعده (لا تحقق بطلب قراءة)",
+        "ok": true
+      },
+      {
+        "name": "B3: «تجهيز تعديل» في تبويب «السياق والفحوص» للمستودع المفتوح",
+        "ok": true
+      },
+      {
+        "name": "B3: المعاينة بثلاث قراءات GET برمز القراءة وحده من الخلفية",
+        "ok": true
+      },
+      {
+        "name": "B3: الفرق كاملًا قبل أي اتصال كتابة",
+        "ok": true
+      },
+      {
+        "name": "B3: النقر البرمجي على الموافقة و«نفّذ» (ولو أُزيل تعطيله) لا يغيّر شيئًا ولا يرسل",
+        "ok": true
+      },
+      {
+        "name": "B3: بنقرات الفأرة ثلاث عمليات بترتيبها برمز الكتابة من الخلفية وحدها، ولا غيرها",
+        "ok": true
+      },
+      {
+        "name": "B3: لا طلب قراءة يحمل رمز الكتابة، ولا طريقة غير GET وPOST وPUT",
+        "ok": true
+      },
+      {
+        "name": "B3: «ما حدث فعلًا» برابط الطلب، ولا دمج ولا إغلاق، ولا رمز في اللوحة",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com (أصول الصفحات المحفوظة وبنية Mozilla مستثناة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo/git/ref/heads/main",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo/contents/README.md?ref=a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "POST",
+          "path": "/repos/octo/demo/git/refs",
+          "from": "background",
+          "auth": "write"
+        },
+        {
+          "method": "PUT",
+          "path": "/repos/octo/demo/contents/README.md",
+          "from": "background",
+          "auth": "write"
+        },
+        {
+          "method": "POST",
+          "path": "/repos/octo/demo/pulls",
+          "from": "background",
+          "auth": "write"
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasSecret": false
+  },
+  "brave": {
+    "label": "Brave",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بنقرة الفأرة ينزّل كما كان (حدث تنزيل في المتصفح)",
+        "ok": true
+      },
+      {
+        "name": "زر «نسخ البرومبت» مركَّب",
+        "ok": true
+      },
+      {
+        "name": "فشل حافظة حقيقي يُظهر البديل اليدوي (download-prompt)",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بنقرة الفأرة ينزّل كما كان (حدث تنزيل في المتصفح)",
+        "ok": true
+      },
+      {
+        "name": "B1: لا خطوة ولا موافقة ولا حقل من مسار الإنجاز في أي جذر ظل في صفحة GitHub (لا يصل إليه سكربت الصفحة)",
+        "ok": true
+      },
+      {
+        "name": "B2: رسالة «run» من سكربت المحتوى في صفحة GitHub ترفضها الخلفية ولا يصدر طلب كتابة",
+        "ok": true
+      },
+      {
+        "name": "B3: رمز الكتابة يُحفظ في الجلسة بنقرة الفأرة، ويُفرَّغ حقله ولا يظهر في الصفحة، ولا طلب بعده (لا تحقق بطلب قراءة)",
+        "ok": true
+      },
+      {
+        "name": "B3: «تجهيز تعديل» في تبويب «السياق والفحوص» للمستودع المفتوح",
+        "ok": true
+      },
+      {
+        "name": "B3: المعاينة بثلاث قراءات GET برمز القراءة وحده من الخلفية",
+        "ok": true
+      },
+      {
+        "name": "B3: الفرق كاملًا قبل أي اتصال كتابة",
+        "ok": true
+      },
+      {
+        "name": "B3: النقر البرمجي على الموافقة و«نفّذ» (ولو أُزيل تعطيله) لا يغيّر شيئًا ولا يرسل",
+        "ok": true
+      },
+      {
+        "name": "B3: بنقرات الفأرة ثلاث عمليات بترتيبها برمز الكتابة من الخلفية وحدها، ولا غيرها",
+        "ok": true
+      },
+      {
+        "name": "B3: لا طلب قراءة يحمل رمز الكتابة، ولا طريقة غير GET وPOST وPUT",
+        "ok": true
+      },
+      {
+        "name": "B3: «ما حدث فعلًا» برابط الطلب، ولا دمج ولا إغلاق، ولا رمز في اللوحة",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com (أصول الصفحات المحفوظة وبنية Mozilla مستثناة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo/git/ref/heads/main",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "GET",
+          "path": "/repos/octo/demo/contents/README.md?ref=a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+          "from": "background",
+          "auth": "read"
+        },
+        {
+          "method": "POST",
+          "path": "/repos/octo/demo/git/refs",
+          "from": "background",
+          "auth": "write"
+        },
+        {
+          "method": "PUT",
+          "path": "/repos/octo/demo/contents/README.md",
+          "from": "background",
+          "auth": "write"
+        },
+        {
+          "method": "POST",
+          "path": "/repos/octo/demo/pulls",
+          "from": "background",
+          "auth": "write"
+        }
+      ],
+      "blockedExternalHosts": []
+    },
+    "consoleHasSecret": false
+  },
+  "firefox": {
+    "label": "Firefox",
+    "checks": [
+      {
+        "name": "شريط حزمة السياق مركَّب في صفحة الطلب",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: builder-download بنقرة الفأرة ينزّل كما كان",
+        "ok": true
+      },
+      {
+        "name": "زر «نسخ البرومبت» مركَّب",
+        "ok": true
+      },
+      {
+        "name": "فشل حافظة حقيقي يُظهر البديل اليدوي (download-prompt)",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بالنقر البرمجي من عالم الصفحة لا ينزّل شيئًا",
+        "ok": true
+      },
+      {
+        "name": "AD-33: download-prompt بنقرة الفأرة ينزّل كما كان",
+        "ok": true
+      },
+      {
+        "name": "B1: لا خطوة ولا موافقة ولا حقل من مسار الإنجاز في أي جذر ظل في صفحة GitHub (لا يصل إليه سكربت الصفحة)",
+        "ok": true
+      },
+      {
+        "name": "B2: رسالة «run» من سكربت المحتوى في صفحة GitHub ترفضها الخلفية ولا يصدر طلب كتابة",
+        "ok": true
+      },
+      {
+        "name": "B3: المسار كاملًا في اللوحة الأصلية",
+        "ok": true,
+        "notRun": "Firefox: لوحة sidebar_action لا يقودها Marionette، وsidepanel.html في تبويب تجعل نفسها التبويب النشط فلا ترى صفحة GitHub؛ والمسار مقيس في Chrome وEdge وBrave وبالوحدة"
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com (أصول الصفحات المحفوظة وبنية Mozilla مستثناة)",
+        "ok": true
+      }
+    ],
+    "browserVersion": "158.0.1",
+    "extensionErrors": null,
+    "network": {
+      "api": [],
+      "blockedExternalHosts": [
+        "archive.mozilla.org",
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com"
+      ]
+    },
+    "consoleHasSecret": false
+  }
+}

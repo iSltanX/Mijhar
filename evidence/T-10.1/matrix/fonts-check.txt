@@ -1,0 +1,62 @@
+— Chrome 156.0.8078.47
+  ✓ options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ options: النص يُرسم بـAlmarai المضمّن
+  ✓ options: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ sidepanel: النص يُرسم بـAlmarai المضمّن
+  ✓ sidepanel: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ github: النص يُرسم بـAlmarai المضمّن
+  ✓ github: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي
+    options: العنوان Cairo (مضمّن) · النص Almarai (مضمّن)
+    sidepanel: العنوان Cairo (مضمّن) · النص Almarai Bold (مضمّن)
+    github: العنوان Cairo (مضمّن) · النص Almarai Bold (مضمّن)
+Chrome: 11/11
+— Edge 155.0.4283.60
+  ✓ options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ options: النص يُرسم بـAlmarai المضمّن
+  ✓ options: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ sidepanel: النص يُرسم بـAlmarai المضمّن
+  ✓ sidepanel: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ github: النص يُرسم بـAlmarai المضمّن
+  ✓ github: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي
+    options: العنوان Cairo (مضمّن) · النص Almarai (مضمّن)
+    sidepanel: العنوان Cairo (مضمّن) · النص Almarai Bold (مضمّن)
+    github: العنوان Cairo (مضمّن) · النص Almarai Bold (مضمّن)
+Edge: 11/11
+— Brave 156.0.8078.48
+  ✓ options: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ options: النص يُرسم بـAlmarai المضمّن
+  ✓ options: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ sidepanel: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ sidepanel: النص يُرسم بـAlmarai المضمّن
+  ✓ sidepanel: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: العنوان يُرسم بـCairo المضمّن (لا خط مثبت ولا خط النظام)
+  ✓ github: النص يُرسم بـAlmarai المضمّن
+  ✓ github: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي
+    options: العنوان Cairo (مضمّن) · النص Almarai (مضمّن)
+    sidepanel: العنوان Cairo (مضمّن) · النص Almarai Bold (مضمّن)
+    github: العنوان Cairo (مضمّن) · النص Almarai Bold (مضمّن)
+Brave: 11/11
+— Firefox 158.0.1
+  ✓ options: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل
+  ✓ options: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل
+  ✓ options: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ sidepanel: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل
+  ✓ sidepanel: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل
+  ✓ sidepanel: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: العنوان يطلب Cairo المضمّن أولًا ووجهه 700 محمَّل
+  ✓ github: النص يطلب Almarai المضمّن أولًا ووجه 400 محمَّل
+  ✓ github: الأوجه الأربعة مسجّلة في document.fonts
+  ✓ github: لا عنصر أنماط للواجهة في مستند الصفحة (التسجيل بـFontFace)
+  ✓ لا مضيف خارجي للإضافة
+Firefox: 11/11
+المجموع: 44/44

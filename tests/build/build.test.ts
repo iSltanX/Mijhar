@@ -61,10 +61,11 @@ describe('مفاتيح كل هدف', () => {
   });
 
   // AD-15: لا تجمع الإضافة بيانات ولا ترسلها إلى المطوّر أو طرف ثالث؛ كل وحدة تغيّر ذلك تراجع هذا الإعلان.
-  it('Firefox: لا جمع بيانات مطلوب، ومشاركة محتوى المواقع اختيارية، ويشترط 140 فأعلى لدعم هذا الإعلان', () => {
+  it('Firefox: لا جمع بيانات مطلوب، ومشاركة محتوى المواقع والبيانات التقنية اختياريتان، ويشترط 140 فأعلى لدعم هذا الإعلان', () => {
     const { gecko } = readManifest('firefox').browser_specific_settings;
     // AD-15 (MJ21): لا جمع مطلوب؛ ومشاركة محتوى المواقع اختيارية تُطلب في نقرة حفظ مفتاح المزوّد، ولا تحليل في Firefox دونها.
-    expect(gecko.data_collection_permissions).toEqual({ required: ['none'], optional: ['websiteContent'] });
+    // MJ26 (DEC-12): والبيانات التقنية والتفاعل اختيارية تُطلب مع مضيف خادم البلاغات في نقرة «أرسل البلاغ» وحدها.
+    expect(gecko.data_collection_permissions).toEqual({ required: ['none'], optional: ['websiteContent', 'technicalAndInteraction'] });
     expect(Number.parseInt(gecko.strict_min_version, 10)).toBeGreaterThanOrEqual(140);
   });
 
@@ -72,7 +73,7 @@ describe('مفاتيح كل هدف', () => {
     const manifest = readManifest('firefox');
     expect(manifest.background).toEqual({ scripts: ['background.js'] });
     expect(manifest.sidebar_action.default_panel).toBeDefined();
-    expect(manifest.browser_specific_settings.gecko.id).toBe('mijhar@mijhar.invalid');
+    expect(manifest.browser_specific_settings.gecko.id).toBe('mijhar@bysltan.com');
     expect(manifest.side_panel).toBeUndefined();
     expect(manifest.permissions ?? []).not.toContain('sidePanel');
   });

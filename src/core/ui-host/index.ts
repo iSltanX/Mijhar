@@ -12,7 +12,9 @@ export {
   openPanel,
   PANEL_COMMAND,
   PANEL_SHORTCUT,
+  PANEL_SHORTCUT_MAC,
   readSurfaceMirror,
+  shortcutLabel,
   SURFACE_MIRROR_KEY,
   toggleDrawer,
 } from './commands';

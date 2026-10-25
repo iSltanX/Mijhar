@@ -1,0 +1,10 @@
+tree 6bcb09d 2026-10-25 07:12 (+ شجرة العمل)
+build exit=0 1s
+pending-chromium exit=1 211s
+pending-firefox exit=1 72s
+perf exit=0 190s
+axe exit=0 189s
+connections-check exit=0 31s
+token-check exit=0 27s
+exec-check exit=0 87s
+done

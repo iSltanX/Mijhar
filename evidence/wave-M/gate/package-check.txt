@@ -1,0 +1,3 @@
+release/packages/chromium/mijhar-1.0.0-chromium.zip · 1777722 بايت · sha256 03c296265855c25d979584008302de42966dcca25298ae186b2fbb988504eee6
+release/packages/firefox/mijhar-1.0.0-firefox.zip · 1777833 بايت · sha256 25f59cf01207f7e29250c46c8333a730e92427bd0ffb5ddc1f9f8ae8ca380340
+release/packages/firefox/mijhar-1.0.0-source.zip · 1822151 بايت · sha256 ef52083b3169db5cc71438cc539998480afe326b3498cf61e7f4e44f98ef7837

@@ -1,0 +1,31 @@
+{
+  "browser": "Firefox",
+  "version": "158.0.1",
+  "page": "https://github.com/salktbi902/ETOS-LLM-Studio/issues/1",
+  "modes": {
+    "light": {
+      "prefersDark": false,
+      "colorScheme": "normal",
+      "meta": "light dark",
+      "stylesheets": 50,
+      "groupColor": "rgb(0, 0, 0)",
+      "parentColor": "rgb(0, 0, 0)",
+      "parentTag": "li",
+      "groupInlineStyle": null,
+      "opaqueBackgrounds": [],
+      "chainLength": 33
+    },
+    "dark": {
+      "prefersDark": true,
+      "colorScheme": "normal",
+      "meta": "light dark",
+      "stylesheets": 50,
+      "groupColor": "rgb(251, 251, 254)",
+      "parentColor": "rgb(251, 251, 254)",
+      "parentTag": "li",
+      "groupInlineStyle": null,
+      "opaqueBackgrounds": [],
+      "chainLength": 33
+    }
+  }
+}

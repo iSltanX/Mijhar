@@ -1,5 +1,5 @@
 // حالة وضع الشرح (F-B1): تعيش في سكربت المحتوى وتبقى بعد تنقل Turbo (الوحدة تُعاد تركيبها بسياق جديد وتقرأ الحالة من هنا).
-// يُفعَّل بالاختصار الافتراضي المؤقت Alt+H (تحسم قيمته النهائية DEC-08 في T-10.2؛ داخل الصفحة لا في manifest.commands) أو بزر في
+// يُفعَّل بالاختصار الافتراضي Alt+H (DEC-08 ح-2؛ داخل الصفحة لا في manifest.commands) أو بزر في
 // اللوحة الجانبية/الدرج. اللوحة الأصلية صفحة إضافة لا تبلغ هذا السياق مباشرة، فتراسل التبويب النشط برسالة EXPLAIN_MESSAGE.
 
 export const EXPLAIN_SHORTCUT = 'Alt+H';
@@ -54,9 +54,17 @@ export class ExplainMode {
 /** الحالة المشتركة داخل سكربت المحتوى للوحدة المسجَّلة. */
 export const EXPLAIN_MODE = new ExplainMode();
 
-/** هل الحدث ضغطة الاختصار Alt+H (على code لأن Alt يغيّر key في macOS) خارج حقول الإدخال. */
+/**
+ * هل للوضع اختصار في هذا المتصفح؟ لا في Firefox على Windows وLinux: Alt+H يفتح فيه قائمة «Help» (مفتاح وصول القائمة)، فيُرجع إلى «بلا اختصار» كما
+ * يقضي DEC-08 لما يثبت تعارضه، ويبقى الوضع من زر «وضع الشرح» في اللوحة والدرج.
+ */
+export function explainShortcutAvailable(target: 'chromium' | 'firefox' = __TARGET__, userAgent: string = globalThis.navigator?.userAgent ?? ''): boolean {
+  return target !== 'firefox' || /Macintosh|Mac OS X/.test(userAgent);
+}
+
+/** هل الحدث ضغطة الاختصار Alt+H (على code لأن Alt يغيّر key في macOS) خارج حقول الإدخال، حيث للوضع اختصار. */
 export function isExplainShortcut(event: KeyboardEvent): boolean {
-  if (event.repeat || event.defaultPrevented) return false;
+  if (event.repeat || event.defaultPrevented || !explainShortcutAvailable()) return false;
   if (!event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return false;
   if (event.code !== 'KeyH') return false;
   const target = event.target as Element | null;

@@ -1,0 +1,433 @@
+{
+  "at": "2026-10-25T05:30:13.094Z",
+  "server": "محاكى محليًا",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "passed": 7,
+      "total": 7,
+      "steps": [
+        {
+          "part": "أ. الصلاحية",
+          "name": "«أرسل البلاغ» بنقرة فعلية يطلب مضيف القناة وحده؛ وبعد الرفض (محاكى) لا طلب إلى الخادم ويُعرض نص الصلاحية",
+          "ok": true,
+          "detail": {
+            "asked": [
+              {
+                "origins": [
+                  "https://app-reports.isultantf.workers.dev/*"
+                ]
+              }
+            ],
+            "sent": 0,
+            "result": {
+              "state": "failed",
+              "text": "لم يُمنح إذن الاتصال بخادم البلاغات، فلم يُرسل شيء. أعد المحاولة واقبل الإذن حين يطلبه المتصفح، أو انسخ البلاغ. لم يُفقد شيء: أعد المحاولة بالزر نفسه، أو انسخ البلاغ وأرسله بطريقتك."
+            }
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "طلب واحد POST /v1/reports من الخلفية",
+          "ok": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/reports",
+              "from": "background"
+            }
+          ]
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "ترويستا التطبيق Content-Type: application/json وIdempotency-Key بصيغة UUID، ولا Cookie ولا Authorization",
+          "ok": true,
+          "detail": {
+            "contentType": "application/json",
+            "key": "ec39ae13-b83c-458e-a81d-e8d01e4a9591",
+            "cookie": false,
+            "authorization": false,
+            "referer": null
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الجسم هو ما عرضته المراجعة حرفًا: المنتج mijhar والنص والتشخيص، ولا رابط صفحة ولا مستودع",
+          "ok": true,
+          "detail": {
+            "body": {
+              "product": "mijhar",
+              "app_version": "1.0.0",
+              "os": "macos",
+              "os_version": "27.0.1",
+              "arch": "arm64",
+              "locale": "ar",
+              "kind": "bug",
+              "description": "يختفي زر «نسخ البرومبت» بعد تغيير القالب في صفحة طلب الدمج.",
+              "diagnostics": {
+                "browser": "Google Chrome",
+                "browser_version": "156.0.8078.47",
+                "build_target": "chromium",
+                "surface": "native",
+                "disabled_units": "none"
+              },
+              "test": true
+            },
+            "matchesReview": true
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الرد 201 يُعرض رقمه (#4242)",
+          "ok": true,
+          "detail": {
+            "state": "sent",
+            "text": "وصل بلاغك برقم #4242. احتفظ بالرقم إن أردت المتابعة؛ لا يُرسل إليك شيء ولا نطلب بريدًا."
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "400 unknown_product (المنتج قبل وسمه في القناة): نص «أحد حقوله غير مقبول» ودعوة النسخ، ولا إعادة تلقائية",
+          "ok": true,
+          "detail": {
+            "result": {
+              "state": "failed",
+              "text": "رفض خادم البلاغات البلاغ لأن أحد حقوله غير مقبول. انسخه وأرسله بطريقتك."
+            },
+            "requests": 2
+          }
+        },
+        {
+          "part": "الشبكة",
+          "name": "لا مضيف خارجي غير المعترَض (عدا خدمات Firefox نفسه، مسرودة)",
+          "ok": true,
+          "detail": {
+            "foreign": [],
+            "browserOwn": []
+          }
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "passed": 7,
+      "total": 7,
+      "steps": [
+        {
+          "part": "أ. الصلاحية",
+          "name": "«أرسل البلاغ» بنقرة فعلية يطلب مضيف القناة وحده؛ وبعد الرفض (محاكى) لا طلب إلى الخادم ويُعرض نص الصلاحية",
+          "ok": true,
+          "detail": {
+            "asked": [
+              {
+                "origins": [
+                  "https://app-reports.isultantf.workers.dev/*"
+                ]
+              }
+            ],
+            "sent": 0,
+            "result": {
+              "state": "failed",
+              "text": "لم يُمنح إذن الاتصال بخادم البلاغات، فلم يُرسل شيء. أعد المحاولة واقبل الإذن حين يطلبه المتصفح، أو انسخ البلاغ. لم يُفقد شيء: أعد المحاولة بالزر نفسه، أو انسخ البلاغ وأرسله بطريقتك."
+            }
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "طلب واحد POST /v1/reports من الخلفية",
+          "ok": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/reports",
+              "from": "background"
+            }
+          ]
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "ترويستا التطبيق Content-Type: application/json وIdempotency-Key بصيغة UUID، ولا Cookie ولا Authorization",
+          "ok": true,
+          "detail": {
+            "contentType": "application/json",
+            "key": "4b5ccba1-c6cb-4a06-a089-f87fd23aacd3",
+            "cookie": false,
+            "authorization": false,
+            "referer": null
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الجسم هو ما عرضته المراجعة حرفًا: المنتج mijhar والنص والتشخيص، ولا رابط صفحة ولا مستودع",
+          "ok": true,
+          "detail": {
+            "body": {
+              "product": "mijhar",
+              "app_version": "1.0.0",
+              "os": "macos",
+              "os_version": "27.0.1",
+              "arch": "arm64",
+              "locale": "ar",
+              "kind": "bug",
+              "description": "يختفي زر «نسخ البرومبت» بعد تغيير القالب في صفحة طلب الدمج.",
+              "diagnostics": {
+                "browser": "Microsoft Edge",
+                "browser_version": "155.0.4283.60",
+                "build_target": "chromium",
+                "surface": "native",
+                "disabled_units": "none"
+              },
+              "test": true
+            },
+            "matchesReview": true
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الرد 201 يُعرض رقمه (#4242)",
+          "ok": true,
+          "detail": {
+            "state": "sent",
+            "text": "وصل بلاغك برقم #4242. احتفظ بالرقم إن أردت المتابعة؛ لا يُرسل إليك شيء ولا نطلب بريدًا."
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "400 unknown_product (المنتج قبل وسمه في القناة): نص «أحد حقوله غير مقبول» ودعوة النسخ، ولا إعادة تلقائية",
+          "ok": true,
+          "detail": {
+            "result": {
+              "state": "failed",
+              "text": "رفض خادم البلاغات البلاغ لأن أحد حقوله غير مقبول. انسخه وأرسله بطريقتك."
+            },
+            "requests": 2
+          }
+        },
+        {
+          "part": "الشبكة",
+          "name": "لا مضيف خارجي غير المعترَض (عدا خدمات Firefox نفسه، مسرودة)",
+          "ok": true,
+          "detail": {
+            "foreign": [],
+            "browserOwn": []
+          }
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "passed": 7,
+      "total": 7,
+      "steps": [
+        {
+          "part": "أ. الصلاحية",
+          "name": "«أرسل البلاغ» بنقرة فعلية يطلب مضيف القناة وحده؛ وبعد الرفض (محاكى) لا طلب إلى الخادم ويُعرض نص الصلاحية",
+          "ok": true,
+          "detail": {
+            "asked": [
+              {
+                "origins": [
+                  "https://app-reports.isultantf.workers.dev/*"
+                ]
+              }
+            ],
+            "sent": 0,
+            "result": {
+              "state": "failed",
+              "text": "لم يُمنح إذن الاتصال بخادم البلاغات، فلم يُرسل شيء. أعد المحاولة واقبل الإذن حين يطلبه المتصفح، أو انسخ البلاغ. لم يُفقد شيء: أعد المحاولة بالزر نفسه، أو انسخ البلاغ وأرسله بطريقتك."
+            }
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "طلب واحد POST /v1/reports من الخلفية",
+          "ok": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/reports",
+              "from": "background"
+            }
+          ]
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "ترويستا التطبيق Content-Type: application/json وIdempotency-Key بصيغة UUID، ولا Cookie ولا Authorization",
+          "ok": true,
+          "detail": {
+            "contentType": "application/json",
+            "key": "f12b1dc6-8dc5-4833-814f-265d7ec409f7",
+            "cookie": false,
+            "authorization": false,
+            "referer": null
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الجسم هو ما عرضته المراجعة حرفًا: المنتج mijhar والنص والتشخيص، ولا رابط صفحة ولا مستودع",
+          "ok": true,
+          "detail": {
+            "body": {
+              "product": "mijhar",
+              "app_version": "1.0.0",
+              "os": "macos",
+              "os_version": "27.0.1",
+              "arch": "arm64",
+              "locale": "ar",
+              "kind": "bug",
+              "description": "يختفي زر «نسخ البرومبت» بعد تغيير القالب في صفحة طلب الدمج.",
+              "diagnostics": {
+                "browser": "Brave",
+                "browser_version": "156.0.0.0",
+                "build_target": "chromium",
+                "surface": "native",
+                "disabled_units": "none"
+              },
+              "test": true
+            },
+            "matchesReview": true
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الرد 201 يُعرض رقمه (#4242)",
+          "ok": true,
+          "detail": {
+            "state": "sent",
+            "text": "وصل بلاغك برقم #4242. احتفظ بالرقم إن أردت المتابعة؛ لا يُرسل إليك شيء ولا نطلب بريدًا."
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "400 unknown_product (المنتج قبل وسمه في القناة): نص «أحد حقوله غير مقبول» ودعوة النسخ، ولا إعادة تلقائية",
+          "ok": true,
+          "detail": {
+            "result": {
+              "state": "failed",
+              "text": "رفض خادم البلاغات البلاغ لأن أحد حقوله غير مقبول. انسخه وأرسله بطريقتك."
+            },
+            "requests": 2
+          }
+        },
+        {
+          "part": "الشبكة",
+          "name": "لا مضيف خارجي غير المعترَض (عدا خدمات Firefox نفسه، مسرودة)",
+          "ok": true,
+          "detail": {
+            "foreign": [],
+            "browserOwn": []
+          }
+        }
+      ]
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "passed": 7,
+      "total": 7,
+      "steps": [
+        {
+          "part": "ب. الإرسال",
+          "name": "Firefox: مضيف القناة وموافقة technicalAndInteraction ممنوحان (بواجهة Firefox الداخلية لا بالنافذة)",
+          "ok": true,
+          "detail": {
+            "origins": [
+              "https://github.com/*",
+              "https://app-reports.isultantf.workers.dev/*"
+            ],
+            "data_collection": [
+              "technicalAndInteraction"
+            ]
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "طلب واحد POST /v1/reports من الخلفية",
+          "ok": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/reports",
+              "from": "background"
+            }
+          ]
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "ترويستا التطبيق Content-Type: application/json وIdempotency-Key بصيغة UUID، ولا Cookie ولا Authorization",
+          "ok": true,
+          "detail": {
+            "contentType": "application/json",
+            "key": "e7437f3d-45cb-4067-b32e-d43ac8fd2df8",
+            "cookie": false,
+            "authorization": false,
+            "referer": null
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الجسم هو ما عرضته المراجعة حرفًا: المنتج mijhar والنص والتشخيص، ولا رابط صفحة ولا مستودع",
+          "ok": true,
+          "detail": {
+            "body": {
+              "product": "mijhar",
+              "app_version": "1.0.0",
+              "os": "macos",
+              "os_version": "unknown",
+              "arch": "arm64",
+              "locale": "ar",
+              "kind": "bug",
+              "description": "يختفي زر «نسخ البرومبت» بعد تغيير القالب في صفحة طلب الدمج.",
+              "diagnostics": {
+                "browser": "Firefox",
+                "browser_version": "158.0.1",
+                "build_target": "firefox",
+                "surface": "native",
+                "disabled_units": "none"
+              },
+              "test": true
+            },
+            "matchesReview": true
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "الرد 201 يُعرض رقمه (#4242)",
+          "ok": true,
+          "detail": {
+            "state": "sent",
+            "text": "وصل بلاغك برقم #4242. احتفظ بالرقم إن أردت المتابعة؛ لا يُرسل إليك شيء ولا نطلب بريدًا."
+          }
+        },
+        {
+          "part": "ب. الإرسال",
+          "name": "400 unknown_product (المنتج قبل وسمه في القناة): نص «أحد حقوله غير مقبول» ودعوة النسخ، ولا إعادة تلقائية",
+          "ok": true,
+          "detail": {
+            "result": {
+              "state": "failed",
+              "text": "رفض خادم البلاغات البلاغ لأن أحد حقوله غير مقبول. انسخه وأرسله بطريقتك."
+            },
+            "requests": 2
+          }
+        },
+        {
+          "part": "الشبكة",
+          "name": "لا مضيف خارجي غير المعترَض (عدا خدمات Firefox نفسه، مسرودة)",
+          "ok": true,
+          "detail": {
+            "foreign": [],
+            "browserOwn": [
+              "firefox.settings.services.mozilla.com",
+              "firefox-settings-attachments.cdn.mozilla.net",
+              "content-signature-2.cdn.mozilla.net"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

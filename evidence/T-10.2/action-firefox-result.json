@@ -1,0 +1,42 @@
+{
+  "browser": "Firefox",
+  "version": "158.0.1",
+  "steps": [
+    {
+      "step": "قبل النقر",
+      "open": false,
+      "current": "",
+      "title": ""
+    },
+    {
+      "step": "بعد النقرة الأولى",
+      "open": true,
+      "current": "mijhar_bysltan_com-sidebar-action",
+      "title": ""
+    },
+    {
+      "step": "بعد النقرة الثانية",
+      "open": false,
+      "current": "",
+      "title": ""
+    }
+  ],
+  "button": {
+    "widgetId": "mijhar_bysltan_com-browser-action",
+    "found": true,
+    "tag": "toolbaritem",
+    "label": "مِجهَر",
+    "area": "nav-bar",
+    "children": [
+      "box.unified-extensions-item-row-wrapper",
+      "unified-extensions-item-messagebar-wrapper."
+    ]
+  },
+  "click1": {
+    "clicked": true
+  },
+  "click2": {
+    "clicked": true
+  },
+  "ok": true
+}

@@ -327,6 +327,18 @@ function HelpSection({ settings, surface, openOptionsAt }: { settings: SettingsS
             )}
           </div>
         )}
+        {surface !== 'options' && openOptionsAt && (
+          <div class="help-row">
+            <span class="label">
+              <strong>الإبلاغ عن مشكلة</strong>
+              <span class="muted small">صف ما حدث وراجع كل ما سيُرسل قبل أن ترسله بنفسك.</span>
+            </span>
+            <button type="button" class="btn" data-action="report-open" onClick={() => openOptionsAt('report')}>
+              <Icon name="external-link" />
+              افتح البلاغ
+            </button>
+          </div>
+        )}
       </div>
       {message && (
         <p class="notice" role="status">
@@ -337,9 +349,141 @@ function HelpSection({ settings, surface, openOptionsAt }: { settings: SettingsS
   );
 }
 
+/** إصدار الإضافة من مانيفستها، أو null خارج صفحة إضافة. */
+function extensionVersion(): string | null {
+  try {
+    const scope = globalThis as { browser?: { runtime?: { getManifest?(): { version: string } } }; chrome?: { runtime?: { getManifest?(): { version: string } } } };
+    return (scope.browser ?? scope.chrome)?.runtime?.getManifest?.().version ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * «حول مِجهَر» (الإطار O-19، AC-10.3، MJ26) في صفحة الإعدادات وحدها: التعريف والإصدار، والنسبة «تصميم وتطوير سلطان» حرفيًا ورابط الموقع، و«المساعدة
+ * والدعم» (الإبلاغ عن مشكلة، وجولة الترحيب، ودليل رمز GitHub)، و«الخصوصية والتراخيص». رابط مستودع مِجهَر محجوب ما دام المستودع خاصًّا (AD-20)، فلا
+ * يُعرض رابط يعطي 404 لمن لا يملك الوصول؛ ويُضاف حين يصير عامًّا بقرار المالك.
+ */
+function AboutSection({ settings }: { settings: SettingsStore }) {
+  const [message, setMessage] = useState<string | null>(null);
+  const version = extensionVersion();
+  const replay = () => {
+    setMessage(null);
+    settings.set(WELCOME_KEY, 'pending').then(
+      () => setMessage('تظهر جولة الترحيب في اللوحة عند فتحها التالي.'),
+      (error: unknown) => setMessage(`تعذّر الحفظ: ${describeError(error)}`),
+    );
+  };
+  return (
+    <section class="section about" id="about" aria-labelledby="mj-about-title" data-section="about">
+      <Heading id="mj-about-title">حول مِجهَر</Heading>
+      <div class="about-brand">
+        <img src="icons/icon-128.png" width={48} height={48} alt="" />
+        <div class="label">
+          <strong class="about-name">مِجهَر</strong>
+          {version && (
+            <span class="muted small" data-version={version}>
+              الإصدار <Ltr className="mono">{version}</Ltr>
+            </span>
+          )}
+        </div>
+      </div>
+      <p class="muted">
+        إضافة متصفح تعمل فوق صفحات GitHub لتفهمها وتنجز فيها بالعربية: تضبط اتجاه القراءة، وتشرح الواجهة ومصطلحاتها في مكانها، وتلخّص حالة طلبات الدمج
+        والفحوص بأدلتها، وتجهّز السياق برومبتًا تنسخه أو تحلّله بمفتاحك.
+      </p>
+      <h3>الحقوق</h3>
+      <p data-attribution="">تصميم وتطوير سلطان</p>
+      <div class="help-rows">
+        <div class="help-row">
+          <span class="label">
+            <strong>الموقع</strong>
+            <Ltr className="mono muted small">bysltan.com</Ltr>
+          </span>
+          <a class="btn" href="https://bysltan.com" target="_blank" rel="noopener noreferrer" data-action="about-site">
+            <Icon name="globe" />
+            افتح
+          </a>
+        </div>
+      </div>
+      <h3>المساعدة والدعم</h3>
+      <div class="help-rows">
+        <div class="help-row">
+          <span class="label">
+            <strong>الإبلاغ عن مشكلة</strong>
+            <span class="muted small">صف ما حدث، وراجع كل ما سيُرسل قبل أن ترسله بنفسك.</span>
+          </span>
+          <a class="btn btn-primary" href="#report" data-action="about-report">
+            <Icon name="message" />
+            ابدأ البلاغ
+          </a>
+        </div>
+        <div class="help-row">
+          <span class="label">
+            <strong>جولة الترحيب</strong>
+            <span class="muted small">اعرض التعريف بمِجهَر وإضافاته الاختيارية مرة أخرى.</span>
+          </span>
+          <button type="button" class="btn" data-action="welcome-replay" onClick={replay}>
+            <Icon name="play" />
+            اعرضها
+          </button>
+        </div>
+        <div class="help-row">
+          <span class="label">
+            <strong>دليل رمز GitHub</strong>
+            <span class="muted small">فائدته، وطريقة إنشائه بأقل الصلاحيات، وحذفه.</span>
+          </span>
+          <a class="btn" href="#guide/github-token" data-action="token-guide-help">
+            افتح الدليل
+            <Icon name="chevron-left" />
+          </a>
+        </div>
+      </div>
+      {message && (
+        <p class="notice" role="status">
+          {message}
+        </p>
+      )}
+      <h3>الخصوصية والتراخيص</h3>
+      <div class="help-rows">
+        <div class="help-row">
+          <span class="label">
+            <strong>الخصوصية</strong>
+            <span class="muted small">ما يُعالج في متصفحك، وما يُرسل ومتى وإلى أين، وأين تُحفظ الأسرار.</span>
+          </span>
+          <a class="btn" href="#privacy" data-action="about-privacy">
+            اقرأ الملخص
+            <Icon name="chevron-left" />
+          </a>
+        </div>
+        <div class="help-row">
+          <span class="label">
+            <strong>إشعارات الأطراف الثالثة</strong>
+            <span class="muted small">الخطوط والمكتبات بنصوص تراخيصها ونسبتها إلى أصحابها.</span>
+          </span>
+          <a class="btn" href="THIRD_PARTY_NOTICES.txt" target="_blank" rel="noopener" data-action="about-notices">
+            <Icon name="external-link" />
+            افتح الملف
+          </a>
+        </div>
+        <div class="help-row">
+          <span class="label">
+            <strong>الاتصالات والصلاحيات</strong>
+            <span class="muted small">ما تطلبه الإضافة من صلاحيات ولماذا، وما تربطه أنت اختيارًا.</span>
+          </span>
+          <a class="btn" href="#connections" data-action="about-connections">
+            انتقل إليها
+            <Icon name="chevron-left" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function PrivacySection() {
   return (
-    <section class="section" aria-labelledby="mj-privacy-title" data-section="privacy">
+    <section class="section" id="privacy" aria-labelledby="mj-privacy-title" data-section="privacy">
       <Heading id="mj-privacy-title">الخصوصية</Heading>
       <p class="muted">
         يعمل مِجهَر على صفحات <Ltr className="mono">github.com</Ltr> وحدها، ويعالج ما تعرضه داخل متصفحك، ويقرأ من GitHub نفسه ما يحتاجه. إعداداتك
@@ -347,7 +491,7 @@ function PrivacySection() {
       </p>
       <p class="muted" data-privacy-optional="">
         وليس كل شيء محليًا: لا يتصل بـ <Ltr className="mono">api.github.com</Ltr> إلا بطلبك بعد أن تمنح صلاحيته الاختيارية بنفسك، ولا يرسل محتوى من
-        الصفحة إلى مزوّد التحليل الذي تختاره إلا بطلبك وموافقتك على كل طلب.
+        الصفحة إلى مزوّد التحليل الذي تختاره إلا بطلبك وموافقتك على كل طلب، ولا يرسل بلاغًا عن مشكلة إلا حين تراجعه وترسله أنت من «حول مِجهَر».
       </p>
       <p class="muted" data-privacy-secrets="">
         رمز GitHub ومفاتيح المزوّدين اختيارية: تُحفظ في ذاكرة الجلسة افتراضًا، ولا يُرسل أيٌّ منها إلا إلى خدمته، وتمسحها من «الاتصالات والمفاتيح» في صفحة
@@ -384,7 +528,7 @@ export function SettingsTab(props: SettingsTabProps) {
         <PermissionSection {...(props.permission ? { permission: props.permission } : {})} {...(props.openOptions ? { openOptions: props.openOptions } : {})} />
         {surface === 'options' && props.secretSections}
         {props.shortcuts && <ShortcutSection shortcuts={props.shortcuts} />}
-        <HelpSection settings={settings} surface={surface} {...(props.openOptionsAt ? { openOptionsAt: props.openOptionsAt } : {})} />
+        {surface === 'options' ? <AboutSection settings={settings} /> : <HelpSection settings={settings} surface={surface} {...(props.openOptionsAt ? { openOptionsAt: props.openOptionsAt } : {})} />}
         <PrivacySection />
       </div>
     </LevelContext.Provider>

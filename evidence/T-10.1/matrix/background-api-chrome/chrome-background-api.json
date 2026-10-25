@@ -1,0 +1,108 @@
+{
+  "label": "Chrome",
+  "browserVersion": "156.0.8078.47",
+  "grantMethod": "نسخة مشتقة من dist/chromium بإضافة https://api.github.com/* إلى host_permissions",
+  "checks": [
+    {
+      "name": "اللوحة تقرأ المستودع من التبويب النشط",
+      "ok": true
+    },
+    {
+      "name": "قبل أي نقر: صفر طلبات إلى api.github.com",
+      "ok": true
+    },
+    {
+      "name": "فحص docs/: النتيجة ورابطها في تبويب جديد",
+      "ok": true
+    },
+    {
+      "name": "الطلب الأول من service worker (الخلفية) لا من الصفحة، GET بلا Authorization",
+      "ok": true
+    },
+    {
+      "name": "الفحص الثاني (لوحة أعيد فتحها): If-None-Match من ETag الخلفية و304 والنتيجة نفسها",
+      "ok": true
+    },
+    {
+      "name": "الأعداد: ثلاثة طلبات بحث من الخلفية محصورة بالمستودع",
+      "ok": true
+    },
+    {
+      "name": "اللوحة تتبع التبويب النشط إلى مستودع آخر",
+      "ok": true
+    },
+    {
+      "name": "429 بـRetry-After: الفحص لم يكتمل بوقت إعادة المحاولة، وطلب واحد فقط",
+      "ok": true
+    },
+    {
+      "name": "بعد الرفض: لا طلب ثانٍ من اللوحة، وصفحة إضافة أخرى تُرفض محليًا بالموعد نفسه",
+      "ok": true
+    },
+    {
+      "name": "تنقل أثناء فحص بطيء: لا نتيجة للمستودع السابق في الجديد ولا زر معطّل",
+      "ok": true
+    },
+    {
+      "name": "كل الطلبات إلى api.github.com من service worker، بلا Authorization",
+      "ok": true
+    },
+    {
+      "name": "لا رسائل خطأ من الإضافة",
+      "ok": true
+    },
+    {
+      "name": "لا أخطاء تشغيل ولا مانيفست مسجلة للإضافة",
+      "ok": true
+    },
+    {
+      "name": "لا مضيف خارجي غير github.com وapi.github.com",
+      "ok": true
+    }
+  ],
+  "api": [
+    {
+      "method": "GET",
+      "path": "/repos/octo/community/contents/docs",
+      "from": "service-worker",
+      "ifNoneMatch": null,
+      "authorization": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/octo/community/contents/docs",
+      "from": "service-worker",
+      "ifNoneMatch": "\"d1\"",
+      "authorization": null
+    },
+    {
+      "method": "GET",
+      "path": "/search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22&per_page=1",
+      "from": "service-worker",
+      "ifNoneMatch": null,
+      "authorization": null
+    },
+    {
+      "method": "GET",
+      "path": "/search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22help%20wanted%22&per_page=1",
+      "from": "service-worker",
+      "ifNoneMatch": null,
+      "authorization": null
+    },
+    {
+      "method": "GET",
+      "path": "/search/issues?q=repo%3Aocto%2Fcommunity%20is%3Aissue%20is%3Aopen%20label%3A%22documentation%22&per_page=1",
+      "from": "service-worker",
+      "ifNoneMatch": null,
+      "authorization": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/octo/limited/contents/docs",
+      "from": "service-worker",
+      "ifNoneMatch": null,
+      "authorization": null
+    }
+  ],
+  "blockedExternalHosts": []
+}

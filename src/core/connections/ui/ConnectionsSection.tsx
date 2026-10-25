@@ -4,6 +4,7 @@
 import type { ComponentChild } from 'preact';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import { Ltr } from '../../../shared/ui';
+import { useOnVisible } from '../../../shared/ui/useOnVisible';
 import { useStyles } from '../../../shared/ui/useStyles';
 import { CONNECTIONS, connectionById } from '../definitions';
 import type { ConnectionDefinition, ConnectionId } from '../definitions';
@@ -127,6 +128,8 @@ export function ConnectionsSection({ connections, body }: ConnectionsSectionProp
     refresh();
     connections.pending().then(setPending, () => setPending(null));
   }, [connections, refresh]);
+  // سرّ يُحفظ أو يُمسح من صفحة إعدادات أخرى: حالات السجل تُقرأ من جديد حين تعود هذه الصفحة إلى الواجهة، فتصل إلى كل بطاقة (PI-1).
+  useOnVisible(refresh);
 
   const goBack = () => {
     setReturnMessage(null);
@@ -140,7 +143,7 @@ export function ConnectionsSection({ connections, body }: ConnectionsSectionProp
   };
 
   return (
-    <section ref={ref} class="section connections" aria-labelledby="mj-connections-title" data-section="connections">
+    <section ref={ref} class="section connections" id="connections" aria-labelledby="mj-connections-title" data-section="connections">
       <h2 id="mj-connections-title">الاتصالات والمفاتيح</h2>
       <p class="muted">
         مكان واحد لكل اتصال اختياري. لا شيء هنا شرط لعمل مِجهَر: الميزات الأساسية وحزمة السياق تعمل بلا أي اتصال، وكل خيار يحتاج ربطًا يظهر في

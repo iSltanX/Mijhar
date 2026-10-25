@@ -187,6 +187,8 @@ export const COMPONENTS_CSS = `
 .mj-root .toggle-row:last-child { border-bottom: none; }
 .mj-root .toggle-row .label { display: flex; flex-direction: column; gap: 2px; cursor: pointer; }
 .mj-root .toggle-row .label strong { font-weight: 700; }
+/* قائمة في صف إعداد تنكمش مع الصف ولا تدفع الصفحة إلى تمرير أفقي في العرض الضيق (MJ26، 360 بكسل)؛ والخيار الطويل يُقصّ داخلها. */
+.mj-root .toggle-row select { flex: 0 1 auto; min-width: 0; max-width: 55%; }
 .mj-root .choice { display: flex; align-items: flex-start; gap: var(--mijhar-space-8); padding: var(--mijhar-space-6) 0; cursor: pointer; }
 .mj-root .choice input { margin: 3px 0 0; accent-color: var(--mijhar-bg-brand); }
 

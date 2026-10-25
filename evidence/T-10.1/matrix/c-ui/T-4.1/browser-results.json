@@ -1,0 +1,3631 @@
+{
+  "measuredAt": "2026-10-25T04:02:13.336Z",
+  "machine": {
+    "cpu": "Apple M4",
+    "cores": 8,
+    "memoryGB": 16,
+    "os": "Darwin 27.0.0",
+    "node": "v24.18.1"
+  },
+  "conditions": "ملف تعريف مؤقت جديد بلا إضافات وبلا واجهة (headless)؛ نقر وتحديد بالفأرة فعليان؛ محرك وهمي؛ الشيفرة كما تُشحن",
+  "results": [
+    {
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "fixture": {
+        "requests": [
+          "http://127.0.0.1:58296/favicon.ico"
+        ]
+      },
+      "real": {
+        "real-readme": {
+          "phase": "done",
+          "translations": 61,
+          "warnings": 0,
+          "ms": 274,
+          "note": "تُرجمت 61 من 61 فقرة."
+        },
+        "real-pr": {
+          "phase": "done",
+          "translations": 6,
+          "warnings": 0,
+          "ms": 263,
+          "note": "تُرجمت 6 من 6 فقرة."
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "fixture": {
+        "requests": [
+          "http://127.0.0.1:58296/favicon.ico"
+        ]
+      },
+      "real": {
+        "real-readme": {
+          "phase": "done",
+          "translations": 61,
+          "warnings": 0,
+          "ms": 283,
+          "note": "تُرجمت 61 من 61 فقرة."
+        },
+        "real-pr": {
+          "phase": "done",
+          "translations": 6,
+          "warnings": 0,
+          "ms": 262,
+          "note": "تُرجمت 6 من 6 فقرة."
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "fixture": {
+        "requests": [
+          "http://127.0.0.1:58296/favicon.ico"
+        ]
+      },
+      "real": {
+        "real-readme": {
+          "phase": "done",
+          "translations": 61,
+          "warnings": 0,
+          "ms": 275,
+          "note": "تُرجمت 61 من 61 فقرة."
+        },
+        "real-pr": {
+          "phase": "done",
+          "translations": 6,
+          "warnings": 0,
+          "ms": 267,
+          "note": "تُرجمت 6 من 6 فقرة."
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "fixture": {
+        "requests": [
+          "http://127.0.0.1:58296/favicon.ico"
+        ]
+      },
+      "real": {
+        "real-readme": {
+          "phase": "done",
+          "translations": 61,
+          "warnings": 0,
+          "ms": 298,
+          "note": "تُرجمت 61 من 61 فقرة."
+        },
+        "real-pr": {
+          "phase": "done",
+          "translations": 6,
+          "warnings": 0,
+          "ms": 275,
+          "note": "تُرجمت 6 من 6 فقرة."
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "browser": "Chrome",
+      "page": "قبل الفعل",
+      "name": "خمسة أشرطة فوق النصوص المرسومة، وعدّاد المحرك صفر",
+      "ok": true,
+      "detail": {
+        "bars": 5
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "قبل الفعل",
+      "name": "بعد مهلة بلا فعل: العدّاد صفر ولا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "قبل الفعل",
+      "name": "شريط README: زر «ترجمة README إلى العربية» وحده",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 26,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "النقر يترجم الفقرات الـ17 كلها ويبلغ done",
+      "ok": true,
+      "detail": {
+        "st": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 17 من 17 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "eng": {
+          "calls": 17,
+          "received": 17
+        },
+        "sum": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "كل الترجمات ظاهرة بتخطيط حقيقي (ارتفاع > 0) ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "translations": 17,
+        "warnings": 0,
+        "visible": 17,
+        "wrappers": 0,
+        "wrappersHidden": 0,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "الترجمة تحت الأصل مباشرة بالتخطيط الفعلي، والأصل ظاهر (الأصل والترجمة معًا)",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 247,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "الترجمة rtl وlang=ar، ولونها وحجم خطها موروثان من الفقرة",
+      "ok": true,
+      "detail": {
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "العنصر المحمي dir=ltr محسوبًا ومعزول (unicode-bidi: isolate) وبخط ثابت العرض للشيفرة",
+      "ok": true,
+      "detail": {
+        "direction": "ltr",
+        "unicodeBidi": "isolate",
+        "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        "tag": "code"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "ترجمة العنوان بعد غلافه .markdown-heading",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 89,
+            "w": 1264,
+            "h": 37
+          },
+          "display": "block",
+          "offsetHeight": 37,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "32px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 172,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: Mijhar Demo Project"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "README",
+      "name": "الفقرة العربية والشيفرة بلا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: الفقرة الأصلية بلا مساحة في التخطيط (display:none) والترجمة ظاهرة",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          },
+          "display": "none",
+          "offsetHeight": 0,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 109,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: نص عنصر القائمة وخلية الجدول مغلَّف ومخفي والترجمة داخل العنصر ظاهرة بارتفاع فعلي",
+      "ok": true,
+      "detail": {
+        "sum2": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 6,
+          "wrappersHidden": 6,
+          "noOverflow": true
+        },
+        "li": {
+          "rect": {
+            "x": 48,
+            "y": 470,
+            "w": 1224,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        },
+        "td": {
+          "rect": {
+            "x": 124,
+            "y": 666,
+            "w": 353,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الأنماط",
+      "name": "الفقرة بصورة تبقى ظاهرة (الوسائط لا تُترجم)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "الأنماط",
+      "name": "«إظهار الأصل» بنقرة واحدة: الأصل كله ظاهر، لا أغلفة، والترجمات مخفية ومحفوظة",
+      "ok": true,
+      "detail": {
+        "orig": {
+          "rect": {
+            "x": 8,
+            "y": 184,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "sum3": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 0,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الأنماط",
+      "name": "العودة إلى «الأصل والترجمة» بنقرة بلا استدعاء جديد للمحرك",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإلغاء",
+      "name": "«إلغاء الترجمة» يعيد DOM الصفحة حرفيًا إلى حالته قبل الترجمة",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإلغاء",
+      "name": "الإلغاء من «الترجمة فقط» يعيد DOM حرفيًا أيضًا (فك الأغلفة)",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "تعليق",
+      "name": "ترجمة التعليق (فقرتان) وعكس الترتيب مع بقاء الإحالة #42 محمية",
+      "ok": true,
+      "detail": {
+        "c1": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 48,
+            "y": 455,
+            "w": 1224,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "text": "report. earlier the for #42 See"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "تعليق",
+      "name": "README والتعليق الآخر لم يُمسّا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "وصف المشكلة",
+      "name": "ترجمة وصف المشكلة (تخطيط React)",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 2 من 2 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 429,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "تعليق قديم",
+      "name": "ترجمة التعليق بالتخطيط القديم",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 1 من 1 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 718,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "تعليق عربي",
+      "name": "لا نص إنجليزي: رسالة واضحة بلا استدعاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "empty",
+        "note": "لا نص إنجليزي للترجمة هنا؛ ما وُجد عربي أو شيفرة.",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 48,
+          "y": 569,
+          "w": 1224,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الفشل الآمن",
+      "name": "محرك يُسقط الرموز: تنبيه في فقرات الرموز، والباقي يُترجم، والمجموع 17",
+      "ok": true,
+      "detail": {
+        "failSum": {
+          "translations": 9,
+          "warnings": 8,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        },
+        "note": "تُرجمت 9 من 17 فقرة وأُبقي الأصل في 8 لسلامة الرموز المحمية."
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الفشل الآمن",
+      "name": "الأصل المُبقى ظاهر والتنبيه ظاهر بتخطيط فعلي",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 247,
+            "w": 1264,
+            "h": 36
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "شريط التقدم والتقدم «جارٍ الترجمة… n من 17» وزر إلغاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "working",
+        "note": "جارٍ الترجمة… 4 من 17",
+        "pressed": [],
+        "actions": [
+          "cancel"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 26,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "الإلغاء يزيل ما بُني ويعيد DOM حرفيًا ولا استدعاء بعده",
+      "ok": true,
+      "detail": {
+        "cancelled": {
+          "same": true
+        },
+        "calls": 7
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "غياب المحرك",
+      "name": "لا محرك: لا شريط ولا مضيف ولا تغيير في الصفحة (ساكنة)",
+      "ok": true,
+      "detail": {
+        "bars": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "عدم التوفر",
+      "name": "الأشرطة تظهر مع السبب الصريح، والنقر لا يستدعي المحرك ولا يترجم",
+      "ok": true,
+      "detail": {
+        "unavailable": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "unavailable2": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "النص المحدد",
+      "name": "تحديد فعلي يُظهر زر «ترجمة المحدد» داخل النافذة، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "host": true,
+        "selected": "The side panel opens from the toolbar.",
+        "button": {
+          "rect": {
+            "x": 164,
+            "y": 449,
+            "w": 103,
+            "h": 32
+          },
+          "inView": true,
+          "center": {
+            "x": 215,
+            "y": 465
+          }
+        },
+        "card": null
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "النص المحدد",
+      "name": "النقر يفتح بطاقة داخل النافذة بالأصل والترجمة (rtl) والتركيز عليها",
+      "ok": true,
+      "detail": {
+        "status": "translated",
+        "rect": {
+          "x": 8,
+          "y": 451,
+          "w": 380,
+          "h": 126
+        },
+        "inView": true,
+        "focused": true,
+        "original": "The side panel opens from the toolbar.",
+        "translation": "ترجمة: The side panel opens from the toolbar.",
+        "direction": "rtl"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "النص المحدد",
+      "name": "المحرك استُدعي مرة واحدة بنص التحديد",
+      "ok": true,
+      "detail": {
+        "calls": 1,
+        "received": 1
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "النص المحدد",
+      "name": "Escape يغلق البطاقة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف ولا غلاف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "wrappers": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة (لا خدمة سحابية)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-readme",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 65,
+          "y": 833,
+          "w": 838,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-readme",
+      "name": "ترجمة نص حقيقي كبير (61 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 61 من 61 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 65,
+            "y": 429,
+            "w": 838,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 61,
+          "warnings": 0,
+          "visible": 61,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-readme",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 61,
+        "warnings": 0,
+        "visible": 61,
+        "wrappers": 23,
+        "wrappersHidden": 23,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-readme",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-readme",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 89,
+          "y": 389,
+          "w": 814,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "ترجمة نص حقيقي كبير (6 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 6 من 6 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 89,
+            "y": 389,
+            "w": 814,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 6,
+          "warnings": 0,
+          "visible": 6,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 6,
+        "warnings": 0,
+        "visible": 6,
+        "wrappers": 4,
+        "wrappersHidden": 4,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Chrome",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "قبل الفعل",
+      "name": "خمسة أشرطة فوق النصوص المرسومة، وعدّاد المحرك صفر",
+      "ok": true,
+      "detail": {
+        "bars": 5
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "قبل الفعل",
+      "name": "بعد مهلة بلا فعل: العدّاد صفر ولا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "قبل الفعل",
+      "name": "شريط README: زر «ترجمة README إلى العربية» وحده",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 26,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "README",
+      "name": "النقر يترجم الفقرات الـ17 كلها ويبلغ done",
+      "ok": true,
+      "detail": {
+        "st": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 17 من 17 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "eng": {
+          "calls": 17,
+          "received": 17
+        },
+        "sum": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "README",
+      "name": "كل الترجمات ظاهرة بتخطيط حقيقي (ارتفاع > 0) ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "translations": 17,
+        "warnings": 0,
+        "visible": 17,
+        "wrappers": 0,
+        "wrappersHidden": 0,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "README",
+      "name": "الترجمة تحت الأصل مباشرة بالتخطيط الفعلي، والأصل ظاهر (الأصل والترجمة معًا)",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 247,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "README",
+      "name": "الترجمة rtl وlang=ar، ولونها وحجم خطها موروثان من الفقرة",
+      "ok": true,
+      "detail": {
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "README",
+      "name": "العنصر المحمي dir=ltr محسوبًا ومعزول (unicode-bidi: isolate) وبخط ثابت العرض للشيفرة",
+      "ok": true,
+      "detail": {
+        "direction": "ltr",
+        "unicodeBidi": "isolate",
+        "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        "tag": "code"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "README",
+      "name": "ترجمة العنوان بعد غلافه .markdown-heading",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 89,
+            "w": 1264,
+            "h": 37
+          },
+          "display": "block",
+          "offsetHeight": 37,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "32px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 172,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: Mijhar Demo Project"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "README",
+      "name": "الفقرة العربية والشيفرة بلا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: الفقرة الأصلية بلا مساحة في التخطيط (display:none) والترجمة ظاهرة",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          },
+          "display": "none",
+          "offsetHeight": 0,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 109,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: نص عنصر القائمة وخلية الجدول مغلَّف ومخفي والترجمة داخل العنصر ظاهرة بارتفاع فعلي",
+      "ok": true,
+      "detail": {
+        "sum2": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 6,
+          "wrappersHidden": 6,
+          "noOverflow": true
+        },
+        "li": {
+          "rect": {
+            "x": 48,
+            "y": 470,
+            "w": 1224,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        },
+        "td": {
+          "rect": {
+            "x": 124,
+            "y": 666,
+            "w": 353,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الأنماط",
+      "name": "الفقرة بصورة تبقى ظاهرة (الوسائط لا تُترجم)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "الأنماط",
+      "name": "«إظهار الأصل» بنقرة واحدة: الأصل كله ظاهر، لا أغلفة، والترجمات مخفية ومحفوظة",
+      "ok": true,
+      "detail": {
+        "orig": {
+          "rect": {
+            "x": 8,
+            "y": 184,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "sum3": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 0,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الأنماط",
+      "name": "العودة إلى «الأصل والترجمة» بنقرة بلا استدعاء جديد للمحرك",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "الإلغاء",
+      "name": "«إلغاء الترجمة» يعيد DOM الصفحة حرفيًا إلى حالته قبل الترجمة",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الإلغاء",
+      "name": "الإلغاء من «الترجمة فقط» يعيد DOM حرفيًا أيضًا (فك الأغلفة)",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "تعليق",
+      "name": "ترجمة التعليق (فقرتان) وعكس الترتيب مع بقاء الإحالة #42 محمية",
+      "ok": true,
+      "detail": {
+        "c1": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 48,
+            "y": 455,
+            "w": 1224,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "text": "report. earlier the for #42 See"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "تعليق",
+      "name": "README والتعليق الآخر لم يُمسّا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "وصف المشكلة",
+      "name": "ترجمة وصف المشكلة (تخطيط React)",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 2 من 2 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 429,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "تعليق قديم",
+      "name": "ترجمة التعليق بالتخطيط القديم",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 1 من 1 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 718,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "تعليق عربي",
+      "name": "لا نص إنجليزي: رسالة واضحة بلا استدعاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "empty",
+        "note": "لا نص إنجليزي للترجمة هنا؛ ما وُجد عربي أو شيفرة.",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 48,
+          "y": 569,
+          "w": 1224,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الفشل الآمن",
+      "name": "محرك يُسقط الرموز: تنبيه في فقرات الرموز، والباقي يُترجم، والمجموع 17",
+      "ok": true,
+      "detail": {
+        "failSum": {
+          "translations": 9,
+          "warnings": 8,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        },
+        "note": "تُرجمت 9 من 17 فقرة وأُبقي الأصل في 8 لسلامة الرموز المحمية."
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الفشل الآمن",
+      "name": "الأصل المُبقى ظاهر والتنبيه ظاهر بتخطيط فعلي",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 247,
+            "w": 1264,
+            "h": 36
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "شريط التقدم والتقدم «جارٍ الترجمة… n من 17» وزر إلغاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "working",
+        "note": "جارٍ الترجمة… 4 من 17",
+        "pressed": [],
+        "actions": [
+          "cancel"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 26,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "الإلغاء يزيل ما بُني ويعيد DOM حرفيًا ولا استدعاء بعده",
+      "ok": true,
+      "detail": {
+        "cancelled": {
+          "same": true
+        },
+        "calls": 7
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "غياب المحرك",
+      "name": "لا محرك: لا شريط ولا مضيف ولا تغيير في الصفحة (ساكنة)",
+      "ok": true,
+      "detail": {
+        "bars": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "عدم التوفر",
+      "name": "الأشرطة تظهر مع السبب الصريح، والنقر لا يستدعي المحرك ولا يترجم",
+      "ok": true,
+      "detail": {
+        "unavailable": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "unavailable2": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "النص المحدد",
+      "name": "تحديد فعلي يُظهر زر «ترجمة المحدد» داخل النافذة، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "host": true,
+        "selected": "The side panel opens from the toolbar.",
+        "button": {
+          "rect": {
+            "x": 164,
+            "y": 449,
+            "w": 103,
+            "h": 32
+          },
+          "inView": true,
+          "center": {
+            "x": 215,
+            "y": 465
+          }
+        },
+        "card": null
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "النص المحدد",
+      "name": "النقر يفتح بطاقة داخل النافذة بالأصل والترجمة (rtl) والتركيز عليها",
+      "ok": true,
+      "detail": {
+        "status": "translated",
+        "rect": {
+          "x": 8,
+          "y": 451,
+          "w": 380,
+          "h": 126
+        },
+        "inView": true,
+        "focused": true,
+        "original": "The side panel opens from the toolbar.",
+        "translation": "ترجمة: The side panel opens from the toolbar.",
+        "direction": "rtl"
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "النص المحدد",
+      "name": "المحرك استُدعي مرة واحدة بنص التحديد",
+      "ok": true,
+      "detail": {
+        "calls": 1,
+        "received": 1
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "النص المحدد",
+      "name": "Escape يغلق البطاقة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف ولا غلاف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "wrappers": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة (لا خدمة سحابية)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Edge",
+      "page": "real-readme",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 65,
+          "y": 833,
+          "w": 838,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-readme",
+      "name": "ترجمة نص حقيقي كبير (61 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 61 من 61 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 65,
+            "y": 429,
+            "w": 838,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 61,
+          "warnings": 0,
+          "visible": 61,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-readme",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 61,
+        "warnings": 0,
+        "visible": 61,
+        "wrappers": 23,
+        "wrappersHidden": 23,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-readme",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-readme",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 89,
+          "y": 389,
+          "w": 814,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "ترجمة نص حقيقي كبير (6 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 6 من 6 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 89,
+            "y": 389,
+            "w": 814,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 6,
+          "warnings": 0,
+          "visible": 6,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 6,
+        "warnings": 0,
+        "visible": 6,
+        "wrappers": 4,
+        "wrappersHidden": 4,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Edge",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "قبل الفعل",
+      "name": "خمسة أشرطة فوق النصوص المرسومة، وعدّاد المحرك صفر",
+      "ok": true,
+      "detail": {
+        "bars": 5
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "قبل الفعل",
+      "name": "بعد مهلة بلا فعل: العدّاد صفر ولا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "قبل الفعل",
+      "name": "شريط README: زر «ترجمة README إلى العربية» وحده",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 26,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "النقر يترجم الفقرات الـ17 كلها ويبلغ done",
+      "ok": true,
+      "detail": {
+        "st": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 17 من 17 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "eng": {
+          "calls": 17,
+          "received": 17
+        },
+        "sum": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "كل الترجمات ظاهرة بتخطيط حقيقي (ارتفاع > 0) ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "translations": 17,
+        "warnings": 0,
+        "visible": 17,
+        "wrappers": 0,
+        "wrappersHidden": 0,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "الترجمة تحت الأصل مباشرة بالتخطيط الفعلي، والأصل ظاهر (الأصل والترجمة معًا)",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 247,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "الترجمة rtl وlang=ar، ولونها وحجم خطها موروثان من الفقرة",
+      "ok": true,
+      "detail": {
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "العنصر المحمي dir=ltr محسوبًا ومعزول (unicode-bidi: isolate) وبخط ثابت العرض للشيفرة",
+      "ok": true,
+      "detail": {
+        "direction": "ltr",
+        "unicodeBidi": "isolate",
+        "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        "tag": "code"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "ترجمة العنوان بعد غلافه .markdown-heading",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 89,
+            "w": 1264,
+            "h": 37
+          },
+          "display": "block",
+          "offsetHeight": 37,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "32px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 172,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: Mijhar Demo Project"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "README",
+      "name": "الفقرة العربية والشيفرة بلا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: الفقرة الأصلية بلا مساحة في التخطيط (display:none) والترجمة ظاهرة",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          },
+          "display": "none",
+          "offsetHeight": 0,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 109,
+            "w": 1264,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "\"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: نص عنصر القائمة وخلية الجدول مغلَّف ومخفي والترجمة داخل العنصر ظاهرة بارتفاع فعلي",
+      "ok": true,
+      "detail": {
+        "sum2": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 6,
+          "wrappersHidden": 6,
+          "noOverflow": true
+        },
+        "li": {
+          "rect": {
+            "x": 48,
+            "y": 470,
+            "w": 1224,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        },
+        "td": {
+          "rect": {
+            "x": 124,
+            "y": 666,
+            "w": 353,
+            "h": 25
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الأنماط",
+      "name": "الفقرة بصورة تبقى ظاهرة (الوسائط لا تُترجم)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "الأنماط",
+      "name": "«إظهار الأصل» بنقرة واحدة: الأصل كله ظاهر، لا أغلفة، والترجمات مخفية ومحفوظة",
+      "ok": true,
+      "detail": {
+        "orig": {
+          "rect": {
+            "x": 8,
+            "y": 184,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "sum3": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 0,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الأنماط",
+      "name": "العودة إلى «الأصل والترجمة» بنقرة بلا استدعاء جديد للمحرك",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "الإلغاء",
+      "name": "«إلغاء الترجمة» يعيد DOM الصفحة حرفيًا إلى حالته قبل الترجمة",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الإلغاء",
+      "name": "الإلغاء من «الترجمة فقط» يعيد DOM حرفيًا أيضًا (فك الأغلفة)",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "تعليق",
+      "name": "ترجمة التعليق (فقرتان) وعكس الترتيب مع بقاء الإحالة #42 محمية",
+      "ok": true,
+      "detail": {
+        "c1": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 48,
+            "y": 455,
+            "w": 1224,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "text": "report. earlier the for #42 See"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "تعليق",
+      "name": "README والتعليق الآخر لم يُمسّا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "وصف المشكلة",
+      "name": "ترجمة وصف المشكلة (تخطيط React)",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 2 من 2 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 429,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "تعليق قديم",
+      "name": "ترجمة التعليق بالتخطيط القديم",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 1 من 1 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 718,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "تعليق عربي",
+      "name": "لا نص إنجليزي: رسالة واضحة بلا استدعاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "empty",
+        "note": "لا نص إنجليزي للترجمة هنا؛ ما وُجد عربي أو شيفرة.",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 48,
+          "y": 569,
+          "w": 1224,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الفشل الآمن",
+      "name": "محرك يُسقط الرموز: تنبيه في فقرات الرموز، والباقي يُترجم، والمجموع 17",
+      "ok": true,
+      "detail": {
+        "failSum": {
+          "translations": 9,
+          "warnings": 8,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        },
+        "note": "تُرجمت 9 من 17 فقرة وأُبقي الأصل في 8 لسلامة الرموز المحمية."
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الفشل الآمن",
+      "name": "الأصل المُبقى ظاهر والتنبيه ظاهر بتخطيط فعلي",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 213,
+            "w": 1264,
+            "h": 18
+          },
+          "display": "block",
+          "offsetHeight": 18,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 247,
+            "w": 1264,
+            "h": 36
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "شريط التقدم والتقدم «جارٍ الترجمة… n من 17» وزر إلغاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "working",
+        "note": "جارٍ الترجمة… 4 من 17",
+        "pressed": [],
+        "actions": [
+          "cancel"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 26,
+          "w": 1264,
+          "h": 42
+        },
+        "hasProgress": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "الإلغاء يزيل ما بُني ويعيد DOM حرفيًا ولا استدعاء بعده",
+      "ok": true,
+      "detail": {
+        "cancelled": {
+          "same": true
+        },
+        "calls": 7
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "غياب المحرك",
+      "name": "لا محرك: لا شريط ولا مضيف ولا تغيير في الصفحة (ساكنة)",
+      "ok": true,
+      "detail": {
+        "bars": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "عدم التوفر",
+      "name": "الأشرطة تظهر مع السبب الصريح، والنقر لا يستدعي المحرك ولا يترجم",
+      "ok": true,
+      "detail": {
+        "unavailable": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "unavailable2": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 26,
+            "w": 1264,
+            "h": 42
+          },
+          "hasProgress": false
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "النص المحدد",
+      "name": "تحديد فعلي يُظهر زر «ترجمة المحدد» داخل النافذة، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "host": true,
+        "selected": "The side panel opens from the toolbar.",
+        "button": {
+          "rect": {
+            "x": 164,
+            "y": 449,
+            "w": 116,
+            "h": 32
+          },
+          "inView": true,
+          "center": {
+            "x": 221,
+            "y": 465
+          }
+        },
+        "card": null
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "النص المحدد",
+      "name": "النقر يفتح بطاقة داخل النافذة بالأصل والترجمة (rtl) والتركيز عليها",
+      "ok": true,
+      "detail": {
+        "status": "translated",
+        "rect": {
+          "x": 8,
+          "y": 451,
+          "w": 380,
+          "h": 126
+        },
+        "inView": true,
+        "focused": true,
+        "original": "The side panel opens from the toolbar.",
+        "translation": "ترجمة: The side panel opens from the toolbar.",
+        "direction": "rtl"
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "النص المحدد",
+      "name": "المحرك استُدعي مرة واحدة بنص التحديد",
+      "ok": true,
+      "detail": {
+        "calls": 1,
+        "received": 1
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "النص المحدد",
+      "name": "Escape يغلق البطاقة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف ولا غلاف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "wrappers": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة (لا خدمة سحابية)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Brave",
+      "page": "real-readme",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 65,
+          "y": 833,
+          "w": 838,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-readme",
+      "name": "ترجمة نص حقيقي كبير (61 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 61 من 61 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 65,
+            "y": 429,
+            "w": 838,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 61,
+          "warnings": 0,
+          "visible": 61,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-readme",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 61,
+        "warnings": 0,
+        "visible": 61,
+        "wrappers": 23,
+        "wrappersHidden": 23,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-readme",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-readme",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 89,
+          "y": 389,
+          "w": 814,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "ترجمة نص حقيقي كبير (6 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 6 من 6 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 89,
+            "y": 389,
+            "w": 814,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 6,
+          "warnings": 0,
+          "visible": 6,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 6,
+        "warnings": 0,
+        "visible": 6,
+        "wrappers": 4,
+        "wrappersHidden": 4,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Brave",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "قبل الفعل",
+      "name": "خمسة أشرطة فوق النصوص المرسومة، وعدّاد المحرك صفر",
+      "ok": true,
+      "detail": {
+        "bars": 5
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "قبل الفعل",
+      "name": "بعد مهلة بلا فعل: العدّاد صفر ولا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "قبل الفعل",
+      "name": "شريط README: زر «ترجمة README إلى العربية» وحده",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 27,
+          "w": 1350,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "README",
+      "name": "النقر يترجم الفقرات الـ17 كلها ويبلغ done",
+      "ok": true,
+      "detail": {
+        "st": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 17 من 17 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 27,
+            "w": 1350,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "eng": {
+          "calls": 17,
+          "received": 17
+        },
+        "sum": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "README",
+      "name": "كل الترجمات ظاهرة بتخطيط حقيقي (ارتفاع > 0) ولا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "translations": 17,
+        "warnings": 0,
+        "visible": 17,
+        "wrappers": 0,
+        "wrappersHidden": 0,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "README",
+      "name": "الترجمة تحت الأصل مباشرة بالتخطيط الفعلي، والأصل ظاهر (الأصل والترجمة معًا)",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 219,
+            "w": 1350,
+            "h": 19
+          },
+          "display": "block",
+          "offsetHeight": 19,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 254,
+            "w": 1350,
+            "h": 27
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "README",
+      "name": "الترجمة rtl وlang=ar، ولونها وحجم خطها موروثان من الفقرة",
+      "ok": true,
+      "detail": {
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 219,
+            "w": 1350,
+            "h": 19
+          },
+          "display": "block",
+          "offsetHeight": 19,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "README",
+      "name": "العنصر المحمي dir=ltr محسوبًا ومعزول (unicode-bidi: isolate) وبخط ثابت العرض للشيفرة",
+      "ok": true,
+      "detail": {
+        "direction": "ltr",
+        "unicodeBidi": "isolate",
+        "fontFamily": "IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        "tag": "code"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "README",
+      "name": "ترجمة العنوان بعد غلافه .markdown-heading",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 91,
+            "w": 1350,
+            "h": 38
+          },
+          "display": "block",
+          "offsetHeight": 38,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "32px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 176,
+            "w": 1350,
+            "h": 27
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: Mijhar Demo Project"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "README",
+      "name": "الفقرة العربية والشيفرة بلا ترجمة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: الفقرة الأصلية بلا مساحة في التخطيط (display:none) والترجمة ظاهرة",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          },
+          "display": "none",
+          "offsetHeight": 0,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 112,
+            "w": 1350,
+            "h": 27
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar",
+          "text": "ترجمة: This extension helps Arabic readers understand repositories. Run npm install first, then see the installation guide for details."
+        },
+        "prot": {
+          "direction": "ltr",
+          "unicodeBidi": "isolate",
+          "fontFamily": "IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          "tag": "code"
+        },
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الأنماط",
+      "name": "«الترجمة فقط»: نص عنصر القائمة وخلية الجدول مغلَّف ومخفي والترجمة داخل العنصر ظاهرة بارتفاع فعلي",
+      "ok": true,
+      "detail": {
+        "sum2": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 17,
+          "wrappers": 6,
+          "wrappersHidden": 6,
+          "noOverflow": true
+        },
+        "li": {
+          "rect": {
+            "x": 48,
+            "y": 490,
+            "w": 1310,
+            "h": 27
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        },
+        "td": {
+          "rect": {
+            "x": 129,
+            "y": 696,
+            "w": 395,
+            "h": 27
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": true
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الأنماط",
+      "name": "الفقرة بصورة تبقى ظاهرة (الوسائط لا تُترجم)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "الأنماط",
+      "name": "«إظهار الأصل» بنقرة واحدة: الأصل كله ظاهر، لا أغلفة، والترجمات مخفية ومحفوظة",
+      "ok": true,
+      "detail": {
+        "orig": {
+          "rect": {
+            "x": 8,
+            "y": 188,
+            "w": 1350,
+            "h": 19
+          },
+          "display": "block",
+          "offsetHeight": 19,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "sum3": {
+          "translations": 17,
+          "warnings": 0,
+          "visible": 0,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الأنماط",
+      "name": "العودة إلى «الأصل والترجمة» بنقرة بلا استدعاء جديد للمحرك",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإلغاء",
+      "name": "«إلغاء الترجمة» يعيد DOM الصفحة حرفيًا إلى حالته قبل الترجمة",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإلغاء",
+      "name": "الإلغاء من «الترجمة فقط» يعيد DOM حرفيًا أيضًا (فك الأغلفة)",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "تعليق",
+      "name": "ترجمة التعليق (فقرتان) وعكس الترتيب مع بقاء الإحالة #42 محمية",
+      "ok": true,
+      "detail": {
+        "c1": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 2 من 2 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 48,
+            "y": 321,
+            "w": 1310,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "text": "report. earlier the for #42 See"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "تعليق",
+      "name": "README والتعليق الآخر لم يُمسّا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "وصف المشكلة",
+      "name": "ترجمة وصف المشكلة (تخطيط React)",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 2 من 2 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 321,
+          "w": 1350,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "تعليق قديم",
+      "name": "ترجمة التعليق بالتخطيط القديم",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "done",
+        "note": "تُرجمت 1 من 1 فقرة.",
+        "pressed": [
+          "both"
+        ],
+        "actions": [
+          "both",
+          "translation",
+          "original",
+          "remove"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 495,
+          "w": 1350,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "تعليق عربي",
+      "name": "لا نص إنجليزي: رسالة واضحة بلا استدعاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "empty",
+        "note": "لا نص إنجليزي للترجمة هنا؛ ما وُجد عربي أو شيفرة.",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 48,
+          "y": 343,
+          "w": 1310,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الفشل الآمن",
+      "name": "محرك يُسقط الرموز: تنبيه في فقرات الرموز، والباقي يُترجم، والمجموع 17",
+      "ok": true,
+      "detail": {
+        "failSum": {
+          "translations": 9,
+          "warnings": 8,
+          "visible": 17,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        },
+        "note": "تُرجمت 9 من 17 فقرة وأُبقي الأصل في 8 لسلامة الرموز المحمية."
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الفشل الآمن",
+      "name": "الأصل المُبقى ظاهر والتنبيه ظاهر بتخطيط فعلي",
+      "ok": true,
+      "detail": {
+        "original": {
+          "rect": {
+            "x": 8,
+            "y": 219,
+            "w": 1350,
+            "h": 19
+          },
+          "display": "block",
+          "offsetHeight": 19,
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        },
+        "host": {
+          "rect": {
+            "x": 8,
+            "y": 254,
+            "w": 1350,
+            "h": 36
+          },
+          "display": "block",
+          "hidden": false,
+          "inside": false
+        },
+        "root": {
+          "direction": "rtl",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lang": "ar"
+        },
+        "prot": null,
+        "hostIsAfterOriginal": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "شريط التقدم والتقدم «جارٍ الترجمة… n من 17» وزر إلغاء",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "working",
+        "note": "جارٍ الترجمة… 3 من 17",
+        "pressed": [],
+        "actions": [
+          "cancel"
+        ],
+        "rect": {
+          "x": 8,
+          "y": 27,
+          "w": 1350,
+          "h": 42
+        },
+        "hasProgress": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإلغاء أثناء الترجمة",
+      "name": "الإلغاء يزيل ما بُني ويعيد DOM حرفيًا ولا استدعاء بعده",
+      "ok": true,
+      "detail": {
+        "cancelled": {
+          "same": true
+        },
+        "calls": 7
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "غياب المحرك",
+      "name": "لا محرك: لا شريط ولا مضيف ولا تغيير في الصفحة (ساكنة)",
+      "ok": true,
+      "detail": {
+        "bars": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "عدم التوفر",
+      "name": "الأشرطة تظهر مع السبب الصريح، والنقر لا يستدعي المحرك ولا يترجم",
+      "ok": true,
+      "detail": {
+        "unavailable": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 27,
+            "w": 1350,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "unavailable2": {
+          "isBar": true,
+          "phase": "idle",
+          "note": "المحرك غير متاح: Translator API غير مدعومة في هذا المتصفح",
+          "pressed": [],
+          "actions": [
+            "translate",
+            "copy-masked"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 27,
+            "w": 1350,
+            "h": 42
+          },
+          "hasProgress": false
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "النص المحدد",
+      "name": "تحديد فعلي يُظهر زر «ترجمة المحدد» داخل النافذة، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "host": true,
+        "selected": "The side panel opens from the toolbar.",
+        "button": {
+          "rect": {
+            "x": 164,
+            "y": 356,
+            "w": 103,
+            "h": 32
+          },
+          "inView": true,
+          "center": {
+            "x": 215,
+            "y": 372
+          }
+        },
+        "card": null
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "النص المحدد",
+      "name": "النقر يفتح بطاقة داخل النافذة بالأصل والترجمة (rtl) والتركيز عليها",
+      "ok": true,
+      "detail": {
+        "status": "translated",
+        "rect": {
+          "x": 8,
+          "y": 358,
+          "w": 380,
+          "h": 126
+        },
+        "inView": true,
+        "focused": true,
+        "original": "The side panel opens from the toolbar.",
+        "translation": "ترجمة: The side panel opens from the toolbar.",
+        "direction": "rtl"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "النص المحدد",
+      "name": "المحرك استُدعي مرة واحدة بنص التحديد",
+      "ok": true,
+      "detail": {
+        "calls": 1,
+        "received": 1
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "النص المحدد",
+      "name": "Escape يغلق البطاقة",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "الإيقاف",
+      "name": "إيقاف الوحدة يعيد DOM الصفحة حرفيًا بلا مضيف ولا غلاف",
+      "ok": true,
+      "detail": {
+        "hosts": 0,
+        "wrappers": 0,
+        "identical": true,
+        "skipped": 0
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "الشبكة",
+      "name": "لا طلب من الصفحة إلى أي مضيف خارج الخادم المحلي أثناء الترجمة (لا خدمة سحابية)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-readme",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 108,
+          "y": 833,
+          "w": 838,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-readme",
+      "name": "ترجمة نص حقيقي كبير (61 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 61 من 61 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 108,
+            "y": 321,
+            "w": 838,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 61,
+          "warnings": 0,
+          "visible": 61,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-readme",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 61,
+        "warnings": 0,
+        "visible": 61,
+        "wrappers": 23,
+        "wrappersHidden": 23,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-readme",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-readme",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "شريط ترجمة فوق النص الحقيقي، والمحرك لم يُستدعَ",
+      "ok": true,
+      "detail": {
+        "isBar": true,
+        "phase": "idle",
+        "note": "",
+        "pressed": [],
+        "actions": [
+          "translate"
+        ],
+        "rect": {
+          "x": 132,
+          "y": 389,
+          "w": 814,
+          "h": 42
+        },
+        "hasProgress": false
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "ترجمة نص حقيقي كبير (6 فقرة) تنتهي بـdone بلا تمرير أفقي",
+      "ok": true,
+      "detail": {
+        "state": {
+          "isBar": true,
+          "phase": "done",
+          "note": "تُرجمت 6 من 6 فقرة.",
+          "pressed": [
+            "both"
+          ],
+          "actions": [
+            "both",
+            "translation",
+            "original",
+            "remove"
+          ],
+          "rect": {
+            "x": 132,
+            "y": 321,
+            "w": 814,
+            "h": 42
+          },
+          "hasProgress": false
+        },
+        "sum": {
+          "translations": 6,
+          "warnings": 0,
+          "visible": 6,
+          "wrappers": 0,
+          "wrappersHidden": 0,
+          "noOverflow": true
+        }
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "«الترجمة فقط» على النص الحقيقي: الأغلفة (إن وُجدت) كلها مخفية بالتخطيط",
+      "ok": true,
+      "detail": {
+        "translations": 6,
+        "warnings": 0,
+        "visible": 6,
+        "wrappers": 4,
+        "wrappersHidden": 4,
+        "noOverflow": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "إلغاء الترجمة يعيد DOM الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": {
+        "same": true
+      }
+    },
+    {
+      "browser": "Firefox",
+      "page": "real-pr",
+      "name": "إيقاف الوحدة يعيد الصفحة الحقيقية حرفيًا",
+      "ok": true,
+      "detail": null
+    }
+  ]
+}

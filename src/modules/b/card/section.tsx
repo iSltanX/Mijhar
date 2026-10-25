@@ -5,7 +5,7 @@ import { Toggle } from '../../../shared/ui';
 import { useSetting } from '../../../shared/ui/useSetting';
 import type { SettingsSection, SettingsSectionProps } from '../../../options/sections';
 import { CARD_MODULE_ID } from './ids';
-import { EXPLAIN_SHORTCUT } from './mode';
+import { EXPLAIN_SHORTCUT, explainShortcutAvailable } from './mode';
 
 function CardSection({ settings }: SettingsSectionProps) {
   const key = moduleEnabledKey(CARD_MODULE_ID);
@@ -20,7 +20,14 @@ function CardSection({ settings }: SettingsSectionProps) {
         <Toggle id="mj-b-card" checked={enabled} label="بطاقة الشرح" onChange={(value) => void settings.set(key, value)} />
       </div>
       <p class="muted small">
-        تُفعَّل بالاختصار <kbd>{EXPLAIN_SHORTCUT}</kbd> (افتراضي مؤقت) أو بزر «وضع الشرح» في تبويب القاموس. تعمل محليًا بلا شبكة، ولا يُلصق شرح بعنصر لا
+        {explainShortcutAvailable() ? (
+          <>
+            تُفعَّل بالاختصار <kbd>{EXPLAIN_SHORTCUT}</kbd> داخل صفحة GitHub أو بزر «وضع الشرح» في تبويب القاموس.
+          </>
+        ) : (
+          <>تُفعَّل بزر «وضع الشرح» في تبويب القاموس؛ ولا اختصار لها في Firefox على Windows وLinux لأن Alt+H يفتح فيه قائمة Help.</>
+        )}{' '}
+        تعمل محليًا بلا شبكة، ولا يُلصق شرح بعنصر لا
         يُتعرَّف عليه بثقة كافية. المصطلح الإنجليزي يبقى ظاهرًا بجوار العربي دائمًا.
       </p>
     </>

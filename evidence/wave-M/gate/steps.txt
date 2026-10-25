@@ -1,0 +1,22 @@
+tree d038b36 2026-10-25 08:25 · dirty=0
+tsc exit=0 1s
+vitest exit=0 46s
+build exit=0 1s
+notices exit=0 0s
+privacy exit=0 0s
+package exit=0 3s
+package-check exit=0 0s
+web-ext-lint exit=0 3s
+reproduce exit=0 4s
+load-check exit=0 19s
+network-static exit=0 0s
+network-dynamic exit=0 55s
+network-providers exit=0 0s
+provider-check exit=0 38s
+openai-check exit=0 34s
+gemini-check exit=13 47s
+report-check exit=0 20s
+shortcuts exit=0 4s
+action-firefox exit=0 4s
+attribution exit=0 5s
+done

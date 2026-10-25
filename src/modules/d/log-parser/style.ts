@@ -17,7 +17,7 @@ export const LOG_CSS = `${D_CARD_CSS}
 .d-tag[data-tag="possibility"] { color: var(--mijhar-text-warning); background: var(--mijhar-bg-warning-subtle); }
 .d-messages, .d-causes, .d-possible { margin: 0; padding-inline-start: var(--mijhar-space-16); display: flex; flex-direction: column; gap: var(--mijhar-space-8); }
 .d-loc { font-size: 12px; color: var(--mijhar-text-secondary); }
-.d-log { margin: var(--mijhar-space-4) 0 0; padding: var(--mijhar-space-6) var(--mijhar-space-8); overflow-x: auto; direction: ltr; text-align: left; unicode-bidi: isolate; font-family: var(--mijhar-font-mono); font-size: 12px; line-height: 18px; background: var(--mijhar-bg-muted); border-radius: var(--mijhar-radius-6); white-space: pre; }
+.d-log { margin: var(--mijhar-space-4) 0 0; padding: var(--mijhar-space-6) var(--mijhar-space-8); overflow-x: auto; direction: ltr; text-align: left; unicode-bidi: isolate; font-family: var(--mijhar-font-mono); font-size: 12px; line-height: 18px; background: var(--mijhar-bg-subtle); border: 1px solid var(--mijhar-border-muted); border-radius: var(--mijhar-radius-6); white-space: pre; }
 .d-log-line[data-focus="true"] { font-weight: 700; color: var(--mijhar-text-danger); }
 .d-ln { display: inline-block; min-width: 4ch; margin-inline-end: 1ch; color: var(--mijhar-text-tertiary); text-align: right; user-select: none; }
 .d-detail { font-family: var(--mijhar-font-mono); font-size: 12px; font-weight: 400; direction: ltr; unicode-bidi: isolate; overflow-wrap: anywhere; }

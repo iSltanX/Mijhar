@@ -1,0 +1,37 @@
+Edge 155.0.4283.60: 26 فحصًا · critical 0 · serious 0 · تعذّر 0
+  [فاتح] options.html: moderate heading-order (1) Heading levels should only increase by one
+  [فاتح] options.html#report: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [فاتح] sidepanel.html · mj-native-tab-context: moderate landmark-one-main (1) Document should have one main landmark
+  [فاتح] sidepanel.html · mj-native-tab-context: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [فاتح] sidepanel.html · mj-native-tab-context: moderate region (1) All page content should be contained by landmarks
+  [فاتح] sidepanel.html · mj-native-tab-glossary: moderate landmark-one-main (1) Document should have one main landmark
+  [فاتح] sidepanel.html · mj-native-tab-glossary: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [فاتح] sidepanel.html · mj-native-tab-glossary: moderate region (1) All page content should be contained by landmarks
+  [فاتح] sidepanel.html · mj-native-tab-notes: moderate landmark-one-main (1) Document should have one main landmark
+  [فاتح] sidepanel.html · mj-native-tab-notes: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [فاتح] sidepanel.html · mj-native-tab-notes: moderate region (1) All page content should be contained by landmarks
+  [فاتح] sidepanel.html · mj-native-tab-community: moderate landmark-one-main (1) Document should have one main landmark
+  [فاتح] sidepanel.html · mj-native-tab-community: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [فاتح] sidepanel.html · mj-native-tab-community: moderate region (1) All page content should be contained by landmarks
+  [فاتح] sidepanel.html · mj-native-tab-settings: moderate landmark-one-main (1) Document should have one main landmark
+  [فاتح] sidepanel.html · mj-native-tab-settings: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [فاتح] sidepanel.html · mj-native-tab-settings: moderate region (1) All page content should be contained by landmarks
+  [فاتح] github /salktbi902/ETOS-LLM-Studio/issues/1: moderate heading-order (1) Heading levels should only increase by one
+  [داكن] options.html: moderate heading-order (1) Heading levels should only increase by one
+  [داكن] options.html#report: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [داكن] sidepanel.html · mj-native-tab-context: moderate landmark-one-main (1) Document should have one main landmark
+  [داكن] sidepanel.html · mj-native-tab-context: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [داكن] sidepanel.html · mj-native-tab-context: moderate region (1) All page content should be contained by landmarks
+  [داكن] sidepanel.html · mj-native-tab-glossary: moderate landmark-one-main (1) Document should have one main landmark
+  [داكن] sidepanel.html · mj-native-tab-glossary: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [داكن] sidepanel.html · mj-native-tab-glossary: moderate region (1) All page content should be contained by landmarks
+  [داكن] sidepanel.html · mj-native-tab-notes: moderate landmark-one-main (1) Document should have one main landmark
+  [داكن] sidepanel.html · mj-native-tab-notes: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [داكن] sidepanel.html · mj-native-tab-notes: moderate region (1) All page content should be contained by landmarks
+  [داكن] sidepanel.html · mj-native-tab-community: moderate landmark-one-main (1) Document should have one main landmark
+  [داكن] sidepanel.html · mj-native-tab-community: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [داكن] sidepanel.html · mj-native-tab-community: moderate region (1) All page content should be contained by landmarks
+  [داكن] sidepanel.html · mj-native-tab-settings: moderate landmark-one-main (1) Document should have one main landmark
+  [داكن] sidepanel.html · mj-native-tab-settings: moderate page-has-heading-one (1) Page should contain a level-one heading
+  [داكن] sidepanel.html · mj-native-tab-settings: moderate region (1) All page content should be contained by landmarks
+  [داكن] github /salktbi902/ETOS-LLM-Studio/issues/1: moderate heading-order (1) Heading levels should only increase by one

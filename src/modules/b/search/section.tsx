@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'preact/hooks';
 import { extensionApi } from '../../../core/ui-host/browser-api';
 import type { SettingsSection, SettingsSectionProps } from '../../../options/sections';
-import { GLOSSARY_COMMAND, GLOSSARY_SHORTCUT } from './ids';
+import { shortcutLabel } from '../../../core/ui-host/commands';
+import { GLOSSARY_COMMAND, GLOSSARY_SHORTCUT, GLOSSARY_SHORTCUT_MAC } from './ids';
 
 /** اختصار الأمر الفعلي كما عيّنه المتصفح (قد يكون أعاد المستخدم ربطه أو لم يُعيَّن)، أو undefined إن تعذّر القراءة. */
 export function useCommandShortcut(name: string): string | null | undefined {
@@ -36,7 +37,7 @@ function SearchSection(_props: SettingsSectionProps) {
         <span class="muted small"> — يفتح اللوحة على تبويب القاموس والتركيز في خانة البحث. </span>
         {shortcut === undefined ? (
           <span>
-            الاختصار الافتراضي المؤقت <kbd>{GLOSSARY_SHORTCUT}</kbd>.
+            الاختصار الافتراضي <kbd>{shortcutLabel(GLOSSARY_SHORTCUT, GLOSSARY_SHORTCUT_MAC)}</kbd>.
           </span>
         ) : shortcut ? (
           <span>

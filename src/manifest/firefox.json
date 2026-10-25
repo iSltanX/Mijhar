@@ -1,32 +1,70 @@
 {
   "manifest_version": 3,
   "name": "مِجهَر",
+  "description": "يصحّح اتجاه العربية في GitHub، ويشرح الواجهة في مكانها، ويلخّص حالة طلب الدمج وسبب فشل الفحص. يعمل بلا حساب ولا مفتاح.",
+  "homepage_url": "https://bysltan.com",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "64": "icons/icon-64.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
   "browser_specific_settings": {
     "gecko": {
-      "id": "mijhar@mijhar.invalid",
+      "id": "mijhar@bysltan.com",
       "strict_min_version": "140.0",
       "data_collection_permissions": {
-        "required": ["none"],
-        "optional": ["websiteContent"]
+        "required": [
+          "none"
+        ],
+        "optional": [
+          "websiteContent",
+          "technicalAndInteraction"
+        ]
       }
     },
     "gecko_android": {
       "strict_min_version": "142.0"
     }
   },
-  "permissions": ["storage"],
-  "host_permissions": ["https://github.com/*"],
-  "optional_host_permissions": ["https://api.github.com/*", "https://api.anthropic.com/*", "https://api.openai.com/*", "https://generativelanguage.googleapis.com/*"],
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://github.com/*"
+  ],
+  "optional_host_permissions": [
+    "https://api.github.com/*",
+    "https://api.anthropic.com/*",
+    "https://api.openai.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://app-reports.isultantf.workers.dev/*"
+  ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
   "content_scripts": [
     {
-      "matches": ["https://github.com/*"],
-      "js": ["content.js"],
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
+  "action": {
+    "default_title": "مِجهَر",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
   "sidebar_action": {
     "default_panel": "sidepanel.html",
     "default_title": "مِجهَر",
@@ -34,8 +72,12 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["fonts/*.woff2"],
-      "matches": ["https://github.com/*"]
+      "resources": [
+        "fonts/*.woff2"
+      ],
+      "matches": [
+        "https://github.com/*"
+      ]
     }
   ],
   "options_ui": {
@@ -44,11 +86,17 @@
   },
   "commands": {
     "toggle-panel": {
-      "suggested_key": { "default": "Alt+G" },
+      "suggested_key": {
+        "default": "Alt+G",
+        "mac": "MacCtrl+Shift+G"
+      },
       "description": "افتح لوحة مِجهَر أو الدرج"
     },
     "open-glossary": {
-      "suggested_key": { "default": "Alt+K" },
+      "suggested_key": {
+        "default": "Alt+K",
+        "mac": "MacCtrl+Shift+K"
+      },
       "description": "ابحث في قاموس مِجهَر"
     }
   }

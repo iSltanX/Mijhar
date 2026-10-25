@@ -1,0 +1,614 @@
+{
+  "chrome": {
+    "label": "Chrome",
+    "checks": [
+      {
+        "name": "AC-E11: OpenAI في قائمة المزوّد بعد Anthropic (ثم Google Gemini، الموجة L)، في بطاقة «مزوّد التحليل» الواحدة",
+        "ok": true
+      },
+      {
+        "name": "بعد اختيار OpenAI: طلب التحقق المعلن يذكر GET https://api.openai.com/v1/models، ولا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "المفتاح «سليم» بعد التحقق، ولا مفتاح في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٢): بعد إضافة المفتاح طلب واحد هو التحقق المعلن GET /v1/models إلى api.openai.com من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٣) وDEC-13 ن-5: القائمة لا تعلن توافقًا فلا نموذج مقترح ولا مخمَّن، والحقل فارغ معلَّلًا، واختبار واحد للنموذج المكتوب ببيان طلبه (ping وحده، store=false) ولا زر لكل نموذج",
+        "ok": true
+      },
+      {
+        "name": "زر + يعرض قائمة OpenAI المقروءة بلا طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "الاختيار يملأ الحقل ويغلق القائمة ويعيد التركيز إلى الحقل، ويزول تعليل الحقل الفارغ",
+        "ok": true
+      },
+      {
+        "name": "«اختبر النموذج» بنقرة فعلية: «قبِل OpenAI النموذج في الاختبار» للنموذج المكتوب",
+        "ok": true
+      },
+      {
+        "name": "طلب الفحص: POST /v1/responses واحد من الخلفية بنص «ping» وحد مخرجات 16 وstore=false، بلا نظام ولا شيء من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "«حلّل الفشل واقترح الإصلاح» داخل الطبقة الثالثة",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المزوّد المختار فعلًا OpenAI ومضيفه والمودل المفحوص، لا Anthropic",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل تحليلًا",
+        "ok": true
+      },
+      {
+        "name": "نقرة الفأرة الحقيقية: طلب تحليل واحد، والنتيجة في الطبقة الثالثة موسومة بالمودل ولا تدخل الحرفية",
+        "ok": true
+      },
+      {
+        "name": "جسم التحليل: instructions وinput وmax_output_tokens وstore=false والمودل المعروض، بلا المفتاح ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات OpenAI (التحقق والفحص والتحليل) من الخلفية بـAuthorization: Bearer <مفتاح OpenAI> وحده، بلا x-api-key ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.anthropic.com أبدًا (لا تحويل ولا مشاركة مفتاح)",
+        "ok": true
+      },
+      {
+        "name": "المفتاح ليس في عنوان أي طلب، ولا في طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "بحذف مفتاح OpenAI: القسم كامل ولا خيار تحليل، ولا طلب جديد إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com وapi.openai.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.47",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "provider": [
+        {
+          "host": "api.openai.com",
+          "method": "GET",
+          "path": "/v1/models",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 0
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 75
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 3427
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  },
+  "edge": {
+    "label": "Edge",
+    "checks": [
+      {
+        "name": "AC-E11: OpenAI في قائمة المزوّد بعد Anthropic (ثم Google Gemini، الموجة L)، في بطاقة «مزوّد التحليل» الواحدة",
+        "ok": true
+      },
+      {
+        "name": "بعد اختيار OpenAI: طلب التحقق المعلن يذكر GET https://api.openai.com/v1/models، ولا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "المفتاح «سليم» بعد التحقق، ولا مفتاح في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٢): بعد إضافة المفتاح طلب واحد هو التحقق المعلن GET /v1/models إلى api.openai.com من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٣) وDEC-13 ن-5: القائمة لا تعلن توافقًا فلا نموذج مقترح ولا مخمَّن، والحقل فارغ معلَّلًا، واختبار واحد للنموذج المكتوب ببيان طلبه (ping وحده، store=false) ولا زر لكل نموذج",
+        "ok": true
+      },
+      {
+        "name": "زر + يعرض قائمة OpenAI المقروءة بلا طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "الاختيار يملأ الحقل ويغلق القائمة ويعيد التركيز إلى الحقل، ويزول تعليل الحقل الفارغ",
+        "ok": true
+      },
+      {
+        "name": "«اختبر النموذج» بنقرة فعلية: «قبِل OpenAI النموذج في الاختبار» للنموذج المكتوب",
+        "ok": true
+      },
+      {
+        "name": "طلب الفحص: POST /v1/responses واحد من الخلفية بنص «ping» وحد مخرجات 16 وstore=false، بلا نظام ولا شيء من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "«حلّل الفشل واقترح الإصلاح» داخل الطبقة الثالثة",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المزوّد المختار فعلًا OpenAI ومضيفه والمودل المفحوص، لا Anthropic",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل تحليلًا",
+        "ok": true
+      },
+      {
+        "name": "نقرة الفأرة الحقيقية: طلب تحليل واحد، والنتيجة في الطبقة الثالثة موسومة بالمودل ولا تدخل الحرفية",
+        "ok": true
+      },
+      {
+        "name": "جسم التحليل: instructions وinput وmax_output_tokens وstore=false والمودل المعروض، بلا المفتاح ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات OpenAI (التحقق والفحص والتحليل) من الخلفية بـAuthorization: Bearer <مفتاح OpenAI> وحده، بلا x-api-key ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.anthropic.com أبدًا (لا تحويل ولا مشاركة مفتاح)",
+        "ok": true
+      },
+      {
+        "name": "المفتاح ليس في عنوان أي طلب، ولا في طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "بحذف مفتاح OpenAI: القسم كامل ولا خيار تحليل، ولا طلب جديد إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com وapi.openai.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "155.0.4283.60",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "provider": [
+        {
+          "host": "api.openai.com",
+          "method": "GET",
+          "path": "/v1/models",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 0
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 75
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 3427
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  },
+  "brave": {
+    "label": "Brave",
+    "checks": [
+      {
+        "name": "AC-E11: OpenAI في قائمة المزوّد بعد Anthropic (ثم Google Gemini، الموجة L)، في بطاقة «مزوّد التحليل» الواحدة",
+        "ok": true
+      },
+      {
+        "name": "بعد اختيار OpenAI: طلب التحقق المعلن يذكر GET https://api.openai.com/v1/models، ولا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "المفتاح «سليم» بعد التحقق، ولا مفتاح في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٢): بعد إضافة المفتاح طلب واحد هو التحقق المعلن GET /v1/models إلى api.openai.com من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٣) وDEC-13 ن-5: القائمة لا تعلن توافقًا فلا نموذج مقترح ولا مخمَّن، والحقل فارغ معلَّلًا، واختبار واحد للنموذج المكتوب ببيان طلبه (ping وحده، store=false) ولا زر لكل نموذج",
+        "ok": true
+      },
+      {
+        "name": "زر + يعرض قائمة OpenAI المقروءة بلا طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "الاختيار يملأ الحقل ويغلق القائمة ويعيد التركيز إلى الحقل، ويزول تعليل الحقل الفارغ",
+        "ok": true
+      },
+      {
+        "name": "«اختبر النموذج» بنقرة فعلية: «قبِل OpenAI النموذج في الاختبار» للنموذج المكتوب",
+        "ok": true
+      },
+      {
+        "name": "طلب الفحص: POST /v1/responses واحد من الخلفية بنص «ping» وحد مخرجات 16 وstore=false، بلا نظام ولا شيء من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "«حلّل الفشل واقترح الإصلاح» داخل الطبقة الثالثة",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المزوّد المختار فعلًا OpenAI ومضيفه والمودل المفحوص، لا Anthropic",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل تحليلًا",
+        "ok": true
+      },
+      {
+        "name": "نقرة الفأرة الحقيقية: طلب تحليل واحد، والنتيجة في الطبقة الثالثة موسومة بالمودل ولا تدخل الحرفية",
+        "ok": true
+      },
+      {
+        "name": "جسم التحليل: instructions وinput وmax_output_tokens وstore=false والمودل المعروض، بلا المفتاح ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات OpenAI (التحقق والفحص والتحليل) من الخلفية بـAuthorization: Bearer <مفتاح OpenAI> وحده، بلا x-api-key ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.anthropic.com أبدًا (لا تحويل ولا مشاركة مفتاح)",
+        "ok": true
+      },
+      {
+        "name": "المفتاح ليس في عنوان أي طلب، ولا في طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "بحذف مفتاح OpenAI: القسم كامل ولا خيار تحليل، ولا طلب جديد إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com وapi.openai.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      },
+      {
+        "name": "لا أخطاء تشغيل ولا مانيفست للإضافة",
+        "ok": true
+      }
+    ],
+    "browserVersion": "156.0.8078.48",
+    "extensionErrors": {
+      "runtime": [],
+      "manifest": []
+    },
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "auth": "saved"
+        }
+      ],
+      "provider": [
+        {
+          "host": "api.openai.com",
+          "method": "GET",
+          "path": "/v1/models",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 0
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 75
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 3427
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/manifest.json"
+      ],
+      "blockedExternalHosts": [
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  },
+  "firefox": {
+    "label": "Firefox",
+    "checks": [
+      {
+        "name": "AC-E11: OpenAI في قائمة المزوّد بعد Anthropic (ثم Google Gemini، الموجة L)، في بطاقة «مزوّد التحليل» الواحدة",
+        "ok": true
+      },
+      {
+        "name": "بعد اختيار OpenAI: طلب التحقق المعلن يذكر GET https://api.openai.com/v1/models، ولا طلب إلى أي مزوّد قبل الحفظ",
+        "ok": true
+      },
+      {
+        "name": "المفتاح «سليم» بعد التحقق، ولا مفتاح في DOM الإعدادات",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٢): بعد إضافة المفتاح طلب واحد هو التحقق المعلن GET /v1/models إلى api.openai.com من الخلفية، ولا تحليل",
+        "ok": true
+      },
+      {
+        "name": "AC-E11 (٣) وDEC-13 ن-5: القائمة لا تعلن توافقًا فلا نموذج مقترح ولا مخمَّن، والحقل فارغ معلَّلًا، واختبار واحد للنموذج المكتوب ببيان طلبه (ping وحده، store=false) ولا زر لكل نموذج",
+        "ok": true
+      },
+      {
+        "name": "زر + يعرض قائمة OpenAI المقروءة بلا طلب جديد",
+        "ok": true
+      },
+      {
+        "name": "الاختيار يملأ الحقل ويغلق القائمة ويعيد التركيز إلى الحقل، ويزول تعليل الحقل الفارغ",
+        "ok": true
+      },
+      {
+        "name": "«اختبر النموذج» بنقرة فعلية: «قبِل OpenAI النموذج في الاختبار» للنموذج المكتوب",
+        "ok": true
+      },
+      {
+        "name": "طلب الفحص: POST /v1/responses واحد من الخلفية بنص «ping» وحد مخرجات 16 وstore=false، بلا نظام ولا شيء من الصفحات",
+        "ok": true
+      },
+      {
+        "name": "«حلّل الفشل واقترح الإصلاح» داخل الطبقة الثالثة",
+        "ok": true
+      },
+      {
+        "name": "فتح صفحة الفحوص لا يرسل شيئًا إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "الموافقة تذكر المزوّد المختار فعلًا OpenAI ومضيفه والمودل المفحوص، لا Anthropic",
+        "ok": true
+      },
+      {
+        "name": "فتح الموافقة لا يرسل تحليلًا",
+        "ok": true
+      },
+      {
+        "name": "نقرة الفأرة الحقيقية: طلب تحليل واحد، والنتيجة في الطبقة الثالثة موسومة بالمودل ولا تدخل الحرفية",
+        "ok": true
+      },
+      {
+        "name": "جسم التحليل: instructions وinput وmax_output_tokens وstore=false والمودل المعروض، بلا المفتاح ولا الرمز",
+        "ok": true
+      },
+      {
+        "name": "TEST-PRIV-05: كل طلبات OpenAI (التحقق والفحص والتحليل) من الخلفية بـAuthorization: Bearer <مفتاح OpenAI> وحده، بلا x-api-key ولا رمز GitHub ولا مفتاح Anthropic",
+        "ok": true
+      },
+      {
+        "name": "لا طلب إلى api.anthropic.com أبدًا (لا تحويل ولا مشاركة مفتاح)",
+        "ok": true
+      },
+      {
+        "name": "المفتاح ليس في عنوان أي طلب، ولا في طلب إلى api.github.com (ترويسة غير الرمز)",
+        "ok": true
+      },
+      {
+        "name": "بحذف مفتاح OpenAI: القسم كامل ولا خيار تحليل، ولا طلب جديد إلى المزوّد",
+        "ok": true
+      },
+      {
+        "name": "اكتمل التشغيل بلا خطأ",
+        "ok": true
+      },
+      {
+        "name": "لا سرّ في الكونسول (الصفحة والإعدادات والخلفية)",
+        "ok": true
+      },
+      {
+        "name": "لا وجهة للإضافة غير github.com وapi.github.com وapi.openai.com (موارد صفحة GitHub المحفوظة مسرودة منفصلة)",
+        "ok": true
+      }
+    ],
+    "browserVersion": "158.0.1",
+    "extensionErrors": null,
+    "network": {
+      "api": [
+        {
+          "method": "GET",
+          "path": "/rate_limit",
+          "from": "background",
+          "origin": null,
+          "auth": "saved"
+        }
+      ],
+      "provider": [
+        {
+          "host": "api.openai.com",
+          "method": "GET",
+          "path": "/v1/models",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 0
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 75
+        },
+        {
+          "host": "api.openai.com",
+          "method": "POST",
+          "path": "/v1/responses",
+          "from": "background",
+          "authorization": "openai-key",
+          "xApiKey": false,
+          "bytes": 3427
+        }
+      ],
+      "github": [
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911",
+        "/fluidicon.png",
+        "/microsoft/vscode/actions/runs/39905618450/job/120256773911"
+      ],
+      "blockedExternalHosts": [
+        "content-signature-2.cdn.mozilla.net",
+        "firefox-settings-attachments.cdn.mozilla.net",
+        "firefox.settings.services.mozilla.com",
+        "github.githubassets.com"
+      ],
+      "pageResourceHosts": [
+        "github.githubassets.com"
+      ]
+    },
+    "consoleHasSecret": false
+  }
+}

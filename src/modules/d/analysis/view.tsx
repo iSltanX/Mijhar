@@ -137,6 +137,11 @@ function Result({ def, state, onOpen, onHide }: { def: AnalysisSectionDef; state
           توقف الرد عند حد طوله قبل اكتماله؛ ما بعده لم يصل.
         </p>
       )}
+      {parsed.filtered && (
+        <p class="mj-note" data-tone="warning" data-analysis-filtered="">
+          قطع المزوّد هذا الرد قبل اكتماله (مرشّح المحتوى أو رفض المودل)؛ ما يظهر جزء منه، فلا تعتمد عليه وحده.
+        </p>
+      )}
       <p class="an-meta" data-analysis-meta="">
         <bdi dir="ltr">{outcome.model}</bdi> · <bdi dir="ltr">{outcome.provider}</bdi> · إلى <bdi dir="ltr">{outcome.host}</bdi> · طُلب{' '}
         <time dateTime={new Date(outcome.requestedAt).toISOString()}>{clock(outcome.requestedAt)}</time>

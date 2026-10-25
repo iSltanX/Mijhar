@@ -1,0 +1,12 @@
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+npm warn deprecated eslint@9.39.4: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 403 packages in 1s
+
+> mijhar@1.0.0 build
+> node scripts/build.mjs
+
+chromium: dist/chromium
+firefox: dist/firefox
+dist/firefox مطابق
+dist/chromium مطابق

@@ -32,7 +32,12 @@ export interface ParsedAnalysis {
   readonly raw: string | null;
   /** توقف التوليد عند حد الطول قبل اكتمال الرد. */
   readonly cut: boolean;
+  /** L-2 (MJ26): قطع المزوّد الرد بمرشّح المحتوى أو رفض المودل بعد نص جزئي؛ فما يُعرض جزء منه. */
+  readonly filtered: boolean;
 }
+
+/** أسباب توقف تعني أن المزوّد قطع الرد أو رفضه بعد نص جزئي: content_filter في OpenAI، وrefusal في Anthropic. */
+const FILTERED = new Set(['content_filter', 'refusal']);
 
 /** حدود العرض (لا علاقة لها بما يُرسل). */
 const MAX_ITEMS = 12;
@@ -76,6 +81,7 @@ export interface SentAnalysis {
 /** يُقبل الاقتباس دليلًا إن ورد في قيمة واحدة من قيم الصفحة وفي كتلة منقولة واحدة مما أُرسل فعلًا، كلٌّ على حدة. */
 export function parseAnalysis(text: string, sent: SentAnalysis, stopReason: string | null = null): ParsedAnalysis {
   const cut = stopReason === 'max_tokens';
+  const filtered = stopReason !== null && FILTERED.has(stopReason);
   const blocks = transported(sent.prompt).map(normalize);
   const values = sent.sources.flatMap((v) => v.split(MASK)).map(normalize).filter((v) => v.length >= MIN_QUOTE);
   const evidenceOf = (raw: string): EvidenceQuote => {
@@ -86,7 +92,7 @@ export function parseAnalysis(text: string, sent: SentAnalysis, stopReason: stri
   };
   const parsed = jsonOf(text) as { summary?: unknown; findings?: unknown; next_steps?: unknown; missing?: unknown } | null;
   if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.findings)) {
-    return { structured: false, summary: null, findings: [], steps: [], missing: [], raw: text.trim() || null, cut };
+    return { structured: false, summary: null, findings: [], steps: [], missing: [], raw: text.trim() || null, cut, filtered };
   }
   const findings: Finding[] = parsed.findings
     .map((f: unknown): Finding | null => {
@@ -104,5 +110,6 @@ export function parseAnalysis(text: string, sent: SentAnalysis, stopReason: stri
     missing: strings(parsed.missing),
     raw: null,
     cut,
+    filtered,
   };
 }

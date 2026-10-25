@@ -1,6 +1,6 @@
 // الفحص الساكن لمسار الترجمة (T-4.5، AC-C6): المانيفست (الصلاحيات ومضيفاتها واختياريها وCSP وما يطابقه سكربت المحتوى) والشيفرة المصدرية والحزمة المبنية.
 // دوال نقية على نصوص وكائنات: scripts/network-audit.mjs يقرأ الملفات ويستدعيها، وvitest يختبرها بعينات. لا مضيف نموذج للإضافة تحت ج-2 (policy.mjs).
-import { ALLOWED_MODEL_HOSTS, ANALYSIS_PROVIDER_HOSTS, BROAD_HOST_PATTERNS, CLOUD_TRANSLATION_HOSTS, DECLARED_MANIFEST_HOSTS, hostCovers, hostMatches, NETWORK_API_PATTERNS, OTHER_ENGINE_PATTERNS, TRANSLATION_PATH_DIRS } from './policy.mjs';
+import { ALLOWED_MODEL_HOSTS, ANALYSIS_PROVIDER_HOSTS, BROAD_HOST_PATTERNS, CLOUD_TRANSLATION_HOSTS, DECLARED_MANIFEST_HOSTS, hostCovers, hostMatches, NETWORK_API_PATTERNS, OTHER_ENGINE_PATTERNS, REPORT_CHANNEL_HOSTS, TRANSLATION_PATH_DIRS } from './policy.mjs';
 
 /** @typedef {{ severity: 'violation' | 'warning' | 'info', rule: string, where: string, detail: string }} Finding */
 
@@ -46,7 +46,7 @@ function cspStrings(manifest) {
  * تحذير: مضيف لم تُعلنه السياسة (DECLARED_MANIFEST_HOSTS) للمراجعة. معلومة: كل مضيف وأين.
  * @returns {{ findings: Finding[], hosts: { host: string, where: string }[], permissions: string[], optionalPermissions: string[], csp: string[] }}
  */
-export function auditManifest(manifest, { declared = DECLARED_MANIFEST_HOSTS, cloud = CLOUD_TRANSLATION_HOSTS, allowedModel = ALLOWED_MODEL_HOSTS, analysis = ANALYSIS_PROVIDER_HOSTS } = {}) {
+export function auditManifest(manifest, { declared = DECLARED_MANIFEST_HOSTS, cloud = CLOUD_TRANSLATION_HOSTS, allowedModel = ALLOWED_MODEL_HOSTS, analysis = ANALYSIS_PROVIDER_HOSTS, report = REPORT_CHANNEL_HOSTS } = {}) {
   /** @type {Finding[]} */
   const findings = [];
   const hosts = [];
@@ -59,7 +59,7 @@ export function auditManifest(manifest, { declared = DECLARED_MANIFEST_HOSTS, cl
     if (host === null) continue;
     hosts.push({ host, where });
     // مضيف مزوّد التحليل صلاحيةً اختيارية وحدها (MJ21)؛ وفي أي حقل آخر مخالفة كغيره.
-    if (where === 'optional_host_permissions' && hostMatches(host, analysis)) continue;
+    if (where === 'optional_host_permissions' && (hostMatches(host, analysis) || hostMatches(host, report))) continue;
     if (hostCovers(host, cloud) && !hostMatches(host, allowedModel)) findings.push({ severity: 'violation', rule: 'cloud-translation-host', where, detail: `مضيف ترجمة سحابي في المانيفست: ${host}` });
     else if (!hostMatches(host, declared) && !hostMatches(host, allowedModel)) findings.push({ severity: 'warning', rule: 'undeclared-host', where, detail: `مضيف لم تعلنه سياسة المسار: ${host}` });
   }

@@ -17,10 +17,11 @@ const manifests: Record<string, Manifest> = {
 describe.each(Object.keys(manifests))('مانيفست %s', (target) => {
   const command = manifests[target]!.commands[GLOSSARY_COMMAND];
 
-  it('أمر open-glossary باختصار افتراضي مؤقت Alt+K ووصف عربي، ويختلف عن اختصار اللوحة', () => {
+  it('أمر open-glossary باختصاره النهائي (DEC-08 ح-2): Alt+K، وفي macOS Control+Shift+K، ووصف عربي، ويختلف عن اختصار اللوحة', () => {
     expect(GLOSSARY_COMMAND).toBe('open-glossary');
     expect(GLOSSARY_SHORTCUT).toBe('Alt+K');
-    expect(command.suggested_key).toEqual({ default: 'Alt+K' });
+    expect(command.suggested_key).toEqual({ default: 'Alt+K', mac: 'MacCtrl+Shift+K' });
+    expect(command.suggested_key.mac).not.toBe(manifests[target]!.commands['toggle-panel'].suggested_key.mac);
     expect(command.description).toMatch(/[؀-ۿ]/);
     expect(command.suggested_key.default).not.toBe(PANEL_SHORTCUT);
   });
@@ -28,7 +29,8 @@ describe.each(Object.keys(manifests))('مانيفست %s', (target) => {
   it('أمر مانيفست قابل لإعادة الربط من إعدادات المتصفح: لا _execute_* ولا مفتاح مفروض (global) ولا اختصار ثابت خارج suggested_key', () => {
     expect(Object.keys(manifests[target]!.commands).filter((name) => name.startsWith('_execute'))).toEqual([]);
     expect(Object.keys(command).sort()).toEqual(['description', 'suggested_key']);
-    expect(Object.keys(command.suggested_key)).toEqual(['default']);
+    // default لكل الأنظمة وmac وحده (MacCtrl مسموح في mac وحده، وثيقة chrome.commands).
+    expect(Object.keys(command.suggested_key)).toEqual(['default', 'mac']);
   });
 
   it('لا صلاحية جديدة: الأمر لا يطلب شيئًا فوق الأساس', () => {

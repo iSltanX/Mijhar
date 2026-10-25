@@ -1,0 +1,3413 @@
+{
+  "at": "2026-10-25T04:38:30.616Z",
+  "axe": "4.14.0",
+  "results": [
+    {
+      "key": "chrome",
+      "browser": "Chrome",
+      "version": "156.0.8078.47",
+      "axe": "4.14.0",
+      "scans": [
+        {
+          "mode": "فاتح",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "e.builder",
+            "e.copy-prompt",
+            "d.log",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /microsoft/vscode/actions/runs/39905618450/job/120256773911",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "e.builder",
+            "e.copy-prompt",
+            "d.log",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /microsoft/vscode/actions/runs/39905618450/job/120256773911",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        }
+      ],
+      "critical": 0,
+      "serious": 0,
+      "errors": 0
+    },
+    {
+      "key": "edge",
+      "browser": "Edge",
+      "version": "155.0.4283.60",
+      "axe": "4.14.0",
+      "scans": [
+        {
+          "mode": "فاتح",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "e.builder",
+            "e.copy-prompt",
+            "d.log",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /microsoft/vscode/actions/runs/39905618450/job/120256773911",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        }
+      ],
+      "error": "page.evaluate: Target page, context or browser has been closed\n    at Object.github (/Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/tests/modules/d/token/browser/drivers.mjs:116:30)\n    at /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/tests/shared/ui/browser/axe-check.mjs:95:88\n    at scan (/Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/tests/shared/ui/browser/axe-check.mjs:40:28)\n    at /Volumes/iSltanXx/Projects/Brave/Mijhar/.claude/worktrees/mj26-final/tests/shared/ui/browser/axe-check.mjs:95:71",
+      "critical": 0,
+      "serious": 0,
+      "errors": 0
+    },
+    {
+      "key": "brave",
+      "browser": "Brave",
+      "version": "156.0.8078.48",
+      "axe": "4.14.0",
+      "scans": [
+        {
+          "mode": "فاتح",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "e.builder",
+            "e.copy-prompt",
+            "d.log",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /microsoft/vscode/actions/runs/39905618450/job/120256773911",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "e.builder",
+            "e.copy-prompt",
+            "d.log",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /microsoft/vscode/actions/runs/39905618450/job/120256773911",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        }
+      ],
+      "critical": 0,
+      "serious": 0,
+      "errors": 0
+    },
+    {
+      "key": "firefox",
+      "browser": "Firefox",
+      "version": "158.0.1",
+      "axe": "4.14.0",
+      "scans": [
+        {
+          "mode": "فاتح",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "فاتح",
+          "hosts": [
+            "e.builder",
+            "e.copy-prompt",
+            "d.log",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /microsoft/vscode/actions/runs/39905618450/job/120256773911",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html",
+          "violations": [
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    "#mj-data-export"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/github-token",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#guide/provider-key",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "options.html#report",
+          "violations": [
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-context",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-glossary",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-notes",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-community",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "label": "sidepanel.html · mj-native-tab-settings",
+          "violations": [
+            {
+              "id": "landmark-one-main",
+              "impact": "moderate",
+              "help": "Document should have one main landmark",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Document does not have a main landmark"
+                }
+              ]
+            },
+            {
+              "id": "page-has-heading-one",
+              "impact": "moderate",
+              "help": "Page should contain a level-one heading",
+              "nodes": [
+                {
+                  "target": [
+                    "html"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix all of the following:\n  Page must have a level-one heading"
+                }
+              ]
+            },
+            {
+              "id": "region",
+              "impact": "moderate",
+              "help": "All page content should be contained by landmarks",
+              "nodes": [
+                {
+                  "target": [
+                    "#app"
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "a.reading",
+            "c.ui.bar",
+            "h",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /mohataher/arabic-stop-words",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "d.pr-status",
+            "e.copy-prompt",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /Watad-Project/Watad/pull/80",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "g",
+            "g-bookmarks",
+            "e.builder",
+            "e.copy-prompt",
+            "d.analysis",
+            "a.reading",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "c.ui.bar",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /salktbi902/ETOS-LLM-Studio/issues/1",
+          "violations": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "help": "Elements must meet minimum color contrast ratio thresholds",
+              "nodes": [
+                {
+                  "target": [
+                    "ol > li:nth-child(2) > .mijhar-bidi-group[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "ol > li:nth-child(2) > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]:nth-child(1)"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "li:nth-child(2) > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]:nth-child(2)"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "p:nth-child(12) > .mijhar-bidi-group[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "p:nth-child(12) > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "li:nth-child(1) > .mijhar-bidi-group[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "li:nth-child(1) > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "div[data-timeline-event-id=\"IC_kwDOVRiEVc8AAAABd_YOJQ\"] > .react-issue-comment.IssueCommentLayout__fNsTnn > .IssueCommentContent__ViXx9n > .IssueCommentBody__DGWd7U > div[data-testid=\"markdown-body\"][data-team-hovercards-enabled=\"true\"][data-turbolinks=\"false\"] > .safe-html-box__Uwc6Al.markdown-body > ul > li:nth-child(2) > .mijhar-bidi-group[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "div[data-timeline-event-id=\"IC_kwDOVRiEVc8AAAABd_YOJQ\"] > .react-issue-comment.IssueCommentLayout__fNsTnn > .IssueCommentContent__ViXx9n > .IssueCommentBody__DGWd7U > div[data-testid=\"markdown-body\"][data-team-hovercards-enabled=\"true\"][data-turbolinks=\"false\"] > .safe-html-box__Uwc6Al.markdown-body > ul > li:nth-child(2) > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "li[data-mijhar-orig-dir=\"\"][data-mijhar-dir=\"rtl\"]:nth-child(3) > p > .mijhar-bidi-group[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "li[data-mijhar-orig-dir=\"\"][data-mijhar-dir=\"rtl\"]:nth-child(3) > p > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]:nth-child(1)"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "p > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]:nth-child(2)"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".mijhar-bidi-isolate[data-mijhar-injected=\"true\"]:nth-child(3)"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "li[data-mijhar-orig-dir=\"\"][data-mijhar-dir=\"rtl\"]:nth-child(2) > .mijhar-bidi-group[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    "li[data-mijhar-orig-dir=\"\"][data-mijhar-dir=\"rtl\"]:nth-child(2) > .mijhar-bidi-group[data-mijhar-injected=\"true\"] > .mijhar-bidi-isolate[data-mijhar-injected=\"true\"]"
+                  ],
+                  "impact": "serious",
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.03 (foreground color: #fbfbfe, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+                }
+              ]
+            },
+            {
+              "id": "heading-order",
+              "impact": "moderate",
+              "help": "Heading levels should only increase by one",
+              "nodes": [
+                {
+                  "target": [
+                    [
+                      "mijhar-host[data-mijhar-host=\"d.analysis\"]",
+                      "#mj-issue-analysis-title"
+                    ]
+                  ],
+                  "impact": "moderate",
+                  "summary": "Fix any of the following:\n  Heading order invalid"
+                }
+              ]
+            }
+          ],
+          "critical": 0,
+          "serious": 1
+        },
+        {
+          "mode": "داكن",
+          "hosts": [
+            "e.builder",
+            "e.copy-prompt",
+            "d.log",
+            "drawer"
+          ],
+          "drawer": true,
+          "label": "github /microsoft/vscode/actions/runs/39905618450/job/120256773911",
+          "violations": [],
+          "critical": 0,
+          "serious": 0
+        }
+      ],
+      "critical": 0,
+      "serious": 1,
+      "errors": 0
+    }
+  ]
+}
