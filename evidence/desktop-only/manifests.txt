@@ -1,0 +1,31 @@
+# المانيفست داخل الحزم النهائية بعد AD-40
+== chromium/mijhar-1.0.0-chromium.zip
+{
+ "name": "مِجهَر - مساعدك على GitHub",
+ "short_name": "مِجهَر",
+ "version": "1.0.0",
+ "browser_specific_settings_keys": [],
+ "gecko_strict_min_version": null,
+ "has_gecko_android": false
+}
+== firefox/mijhar-1.0.0-firefox.zip
+{
+ "name": "مِجهَر - مساعدك على GitHub",
+ "short_name": "مِجهَر",
+ "version": "1.0.0",
+ "browser_specific_settings_keys": [
+  "gecko"
+ ],
+ "gecko_strict_min_version": "140.0",
+ "has_gecko_android": false
+}
+== source.zip: src/manifest/firefox.json يطابق المصدر؟
+مطابق لـsrc/manifest/firefox.json عند 6dec96f
+== shasum -c
+chromium/mijhar-1.0.0-chromium.zip: OK
+firefox/mijhar-1.0.0-firefox.zip: OK
+firefox/mijhar-1.0.0-source.zip: OK
+== unzip -t
+No errors detected in compressed data of release/packages/chromium/mijhar-1.0.0-chromium.zip.
+No errors detected in compressed data of release/packages/firefox/mijhar-1.0.0-firefox.zip.
+No errors detected in compressed data of release/packages/firefox/mijhar-1.0.0-source.zip.
