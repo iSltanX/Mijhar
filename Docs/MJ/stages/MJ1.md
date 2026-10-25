@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة A
 
 # MJ1 — هيكل الإضافة ونظام البناء
 
-> «ماذا ولماذا» في الخطة: [`T-1.1`](../../phases/phase-01-core.md#T-1.1)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-1.1`](../../../phases/phase-01-core.md#T-1.1)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -53,7 +53,7 @@ resume: مغلقة — دُمجت في الموجة A
 
 ## المهام
 
-1. `T-1.1` — إعداد هيكل إضافة Manifest V3 متعدد المتصفحات ونظام البناء (مستقل عن إطار الواجهة) ([التفاصيل ومعايير القبول](../../phases/phase-01-core.md#T-1.1)).
+1. `T-1.1` — إعداد هيكل إضافة Manifest V3 متعدد المتصفحات ونظام البناء (مستقل عن إطار الواجهة) ([التفاصيل ومعايير القبول](../../../phases/phase-01-core.md#T-1.1)).
 
 ## الاعتماديات
 
@@ -81,8 +81,8 @@ resume: مغلقة — دُمجت في الموجة A
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [البنية والنواة](../../phases/phase-01-core.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [البنية والنواة](../../../phases/phase-01-core.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام

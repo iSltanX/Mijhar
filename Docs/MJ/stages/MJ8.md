@@ -20,7 +20,7 @@ resume: مغلقة — دُمجت في الموجة D
 
 # MJ8 — بطاقة الشرح وحالة طلب الدمج والمقارنة
 
-> «ماذا ولماذا» في الخطة: [`T-3.2`](../../phases/phase-03-module-b.md#T-3.2) · [`T-5.1`](../../phases/phase-05-module-d.md#T-5.1) · [`T-5.4`](../../phases/phase-05-module-d.md#T-5.4)، والقسم 6 من [`EXECUTION_PLAN.md`](../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
+> «ماذا ولماذا» في الخطة: [`T-3.2`](../../../phases/phase-03-module-b.md#T-3.2) · [`T-5.1`](../../../phases/phase-05-module-d.md#T-5.1) · [`T-5.4`](../../../phases/phase-05-module-d.md#T-5.4)، والقسم 6 من [`EXECUTION_PLAN.md`](../../../EXECUTION_PLAN.md). و«متى وكيف» في [`Docs/MJ/README.md`](../README.md).
 
 ## الهدف
 
@@ -48,9 +48,9 @@ resume: مغلقة — دُمجت في الموجة D
 
 ## المهام
 
-1. `T-3.2` — بطاقة الشرح السياقية بالمستويات الثلاثة وبيانات القرار والربط الآمن بالواجهة ([التفاصيل ومعايير القبول](../../phases/phase-03-module-b.md#T-3.2)).
-2. `T-5.1` — بطاقة ملخص حالة طلب الدمج والتصنيفات السبعة للفحوص (`F-D1`, `F-D2`) ([التفاصيل ومعايير القبول](../../phases/phase-05-module-d.md#T-5.1)).
-3. `T-5.4` — المقارنة بين فرعين أو التزامين أو إصدارين (`F-D6`) ([التفاصيل ومعايير القبول](../../phases/phase-05-module-d.md#T-5.4)).
+1. `T-3.2` — بطاقة الشرح السياقية بالمستويات الثلاثة وبيانات القرار والربط الآمن بالواجهة ([التفاصيل ومعايير القبول](../../../phases/phase-03-module-b.md#T-3.2)).
+2. `T-5.1` — بطاقة ملخص حالة طلب الدمج والتصنيفات السبعة للفحوص (`F-D1`, `F-D2`) ([التفاصيل ومعايير القبول](../../../phases/phase-05-module-d.md#T-5.1)).
+3. `T-5.4` — المقارنة بين فرعين أو التزامين أو إصدارين (`F-D6`) ([التفاصيل ومعايير القبول](../../../phases/phase-05-module-d.md#T-5.4)).
 
 ## الاعتماديات
 
@@ -82,8 +82,8 @@ resume: مغلقة — دُمجت في الموجة D
 
 ## المراجع
 
-- ملفات المرحلة في الخطة: [الوحدة (ب)](../../phases/phase-03-module-b.md)، [الوحدة (د)](../../phases/phase-05-module-d.md).
-- [`TRACEABILITY.md`](../../TRACEABILITY.md) و[`DECISIONS.md`](../../DECISIONS.md).
+- ملفات المرحلة في الخطة: [الوحدة (ب)](../../../phases/phase-03-module-b.md)، [الوحدة (د)](../../../phases/phase-05-module-d.md).
+- [`TRACEABILITY.md`](../../../TRACEABILITY.md) و[`DECISIONS.md`](../../../DECISIONS.md).
 - إن فشل `node` برسالة `_load_nvm` فابدأ الجلسة بـ`unfunction node npm npx corepack 2>/dev/null; hash -r`.
 
 ## حالة المهام
