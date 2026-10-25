@@ -37,7 +37,7 @@
 | صورة ترويجية كبيرة | 1400×560 (اختيارية، شرط للظهور في الواجهة) | 1400×560 PNG (اختيارية) | — |
 | الوصف القصير | حقل `description` في المانيفست، حتى 132 حرفًا | من `description` في المانيفست | الملخص حتى 250 حرفًا |
 | الوصف الكامل | بلا حد معلن | من 250 إلى 10000 حرف | بلا حد عملي |
-| أخرى | وصف الغرض الواحد، ومبررات الأذونات، وإفصاح البيانات، ورابط سياسة الخصوصية | الغرض الواحد، ومبررات الأذونات، والشيفرة البعيدة، وإفصاح البيانات، ورابط سياسة الخصوصية، وكلمات بحث (حتى 7، وكل منها حتى 30 حرفًا) | سياسة خصوصية لأن بيانات قد تخرج من الجهاز، وترخيص يختاره المالك، و**رفع الشيفرة المصدرية** لأن الحزمة مجمّعة بـVite |
+| أخرى | وصف الغرض الواحد، ومبررات الأذونات، وإفصاح البيانات، ورابط سياسة الخصوصية | الغرض الواحد، ومبررات الأذونات، والشيفرة البعيدة، وإفصاح البيانات، ورابط سياسة الخصوصية، وكلمات بحث (حتى 7، وكل منها حتى 30 حرفًا) | سياسة خصوصية لأن بيانات قد تخرج من الجهاز، وترخيص يُختار من قائمة AMO (المعتمد All Rights Reserved، `AD-36`)، و**رفع الشيفرة المصدرية** لأن الحزمة مجمّعة بـVite |
 
 المصادر: [Chrome: Supplying images](https://developer.chrome.com/docs/webstore/images) · [Chrome: Store listing](https://developer.chrome.com/docs/webstore/cws-dashboard-listing) · [Chrome: manifest description](https://developer.chrome.com/docs/extensions/reference/manifest/description) · [Edge: Publish an extension](https://learn.microsoft.com/en-us/microsoft-edge/extensions/publish/publish-extension) · [AMO: Create an appealing listing](https://extensionworkshop.com/documentation/develop/create-an-appealing-listing/) · [AMO: Submitting an add-on](https://extensionworkshop.com/documentation/publish/submitting-an-add-on/)
 
@@ -55,4 +55,4 @@
 4. الحزم في `packages/<المتصفح>/` وحزمة الشيفرة المصدرية لـAMO، مفحوصة بـ`node scripts/package.mjs --check` و`web-ext lint`.
 5. المتطلبات الرسمية مراجعة، ونصوص [`listings/`](listings/) مطابقة للسلوك المبني.
 
-ويبقى للنشر وحده (بأمر المالك): رفع الحزم إلى المتاجر، ونشر صفحة الخصوصية في `bysltan.com/Mjhr/privacy` قبل التقديم، وإضافة روابط المتاجر إلى README بعد قبولها. والتفصيل في [`Docs/MJ/stages/MJ26.md`](../Docs/MJ/stages/MJ26.md).
+وسُجّل مِجهَر في قناة البلاغات (`product:mijhar`، 2026-10-25) وأُثبتت ببلاغ تجريبي مغلق، وأُكملت فحوص زر الشريط والاختصارات في Chrome وEdge وBrave ([`evidence/release-launch/report.md`](../evidence/release-launch/report.md)). ويبقى للنشر وحده (بأمر المالك): رفع الحزم إلى المتاجر، ونشر صفحة الخصوصية في `bysltan.com/Mjhr/privacy` قبل التقديم، وإضافة روابط المتاجر إلى README بعد قبولها. والتفصيل في [`Docs/MJ/stages/MJ26.md`](../Docs/MJ/stages/MJ26.md).

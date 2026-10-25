@@ -1,0 +1,19 @@
+مِجهَر (Mijhar)
+
+© 2026 تصميم وتطوير سلطان. جميع الحقوق محفوظة.
+
+شيفرة مِجهَر وتصميمه ونصوصه وهويته ليست مرخّصة بأي ترخيص مفتوح المصدر. لا يُمنح أي حق في نسخها أو تعديلها أو توزيعها أو نشرها أو بيعها أو الترخيص بها لغيرك، كليًّا أو جزئيًّا، إلا بإذن مكتوب مسبق من صاحب الحقوق. وتثبيت الإضافة من متاجر المتصفحات واستعمالها لا يمنح شيئًا من ذلك.
+
+مكوّنات الأطراف الثالثة المضمّنة في المستودع أو في الحزم (الخطوط وPreact وأدوات البناء والفحص) ليست من عمل مِجهَر، وتبقى لأصحابها بتراخيصها كما هي، ونصوصها ونسبتها في THIRD_PARTY_NOTICES.txt وفي ملفات assets/fonts/OFL-*.txt. ولا يغيّر هذا الملف شيئًا من حقوقهم أو تراخيصهم.
+
+https://bysltan.com
+
+------------------------------------------------------------------------------
+
+Mijhar
+
+Copyright © 2026 تصميم وتطوير سلطان. All rights reserved.
+
+Mijhar's code, design, text and visual identity are not offered under any open-source license. No right to copy, modify, distribute, publish, sell or sublicense them, in whole or in part, is granted without prior written permission from the copyright holder. Installing or using the extension from a browser store does not grant any of these rights.
+
+Third-party components included in this repository or in the packages (fonts, Preact, and build and test tools) are not the work of the Mijhar author. They remain the property of their owners under their own licenses, whose texts and attributions are in THIRD_PARTY_NOTICES.txt and assets/fonts/OFL-*.txt. Nothing in this file changes their rights or licenses.

@@ -267,9 +267,11 @@
         "evidence/T-10.1/final/axe.json",
         "evidence/T-10.1/final/axe-edge.json",
         "evidence/T-10.1/final/ff-contrast-probe.json",
-        "evidence/T-10.1/report.md"
+        "evidence/T-10.1/report.md",
+        "evidence/release-launch/vision/",
+        "evidence/release-launch/report.md"
       ],
-      "note": "اجتاز ما أُجري: axe-core 4.14.0 بالوضعين على الإعدادات ودليليها وصفحة البلاغ واللوحة وواجهات مِجهَر في صفحات GitHub، بلا مخالفة حرجة في الأربعة؛ ولوحة المفاتيح آليًا (b-access وb-tours وf-composer وwelcome-help)؛ وأُصلح تباين بطاقة السجل الداكنة. لم يُجرَ: قارئ شاشة فعلي وعمى الألوان يدويًا (لا جلسة يدوية)."
+      "note": "اجتاز ما أُجري: axe-core 4.14.0 بالوضعين على الإعدادات ودليليها وصفحة البلاغ واللوحة وواجهات مِجهَر في صفحات GitHub، بلا مخالفة حرجة في الأربعة؛ ولوحة المفاتيح آليًا (b-access وb-tours وf-composer وwelcome-help)؛ وأُصلح تباين بطاقة السجل الداكنة. وبعد الإغلاق: عمى الألوان بمحاكاة Chrome (achromatopsia وdeuteranopia) على بطاقة الحالة وشرح السجل: الحالات معلنة بنص لا باللون وحده. لم يُجرَ: قارئ شاشة فعلي (VoiceOver، جلسة يدوية يقررها المالك)."
     },
     "TEST-BROW-01": {
       "status": "passed",
@@ -277,9 +279,11 @@
         "evidence/T-10.1/matrix/summary.md",
         "evidence/T-10.1/final/",
         "evidence/T-10.1/report.md",
-        "evidence/wave-M/gate.md"
+        "evidence/wave-M/gate.md",
+        "evidence/release-launch/chromium-toolbar-result.json",
+        "evidence/release-launch/report.md"
       ],
-      "note": "MJ26: 49 خطوة في الأربعة مع تدقيق الشبكة لكل وحدة؛ 360 أُصلح، وmj10-integration وwelcome-help توقعات قديمة مشروحة؛ والفحوص المعلّقة من التدقيق Chromium 18/18 ×3 وFirefox 25/25. لم يُجرَ: نقرة زر الشريط وضغطة الاختصار في عائلة Chromium، وWindows وLinux."
+      "note": "MJ26: 49 خطوة في الأربعة مع تدقيق الشبكة لكل وحدة؛ 360 أُصلح، وmj10-integration وwelcome-help توقعات قديمة مشروحة؛ والفحوص المعلّقة من التدقيق Chromium 18/18 ×3 وFirefox 25/25. وبعد الإغلاق (2026-10-25): زر الشريط بواجهة الإتاحة وضغطتا Control+Shift+G وControl+Shift+K الحقيقيتان تفتح اللوحة (والقاموس) في Chrome وEdge وBrave، 5/5 لكل منها. لم يُجرَ: Windows وLinux."
     },
     "TEST-PKG-01": {
       "status": "passed",

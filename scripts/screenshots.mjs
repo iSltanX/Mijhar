@@ -6,7 +6,7 @@
 //   - ما يظهر من مِجهَر حقيقي: لا يُعدَّل شيء في واجهته ولا يُضاف إليها؛ والتفاعل نقرات وضغطات فعلية (Playwright).
 //   - لا شبكة إلا أنماط GitHub الساكنة؛ وgithub.com يُخدم محليًا، وكل مضيف آخر محجوب ويُسجَّل.
 // ويكتب manifest.json بجانب اللقطات: لكل لقطة متصفحها وإصداره والتزام البناء ووقتها ومقاسها ومصادر صفحتها (يُنسخ إلى evidence/T-10.2).
-// الاستعمال: npm run build && node scripts/screenshots.mjs --out <مجلد> [--scene 01-reading ...] [--theme light|dark]
+// الاستعمال: npm run build && node scripts/screenshots.mjs --out <مجلد> [--scene 01-reading ...] [--theme light|dark] [--vision achromatopsia|deuteranopia|protanopia|tritanopia]
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -25,6 +25,8 @@ const opt = (name) => {
 const OUT = path.resolve(opt('--out') ?? path.join(os.tmpdir(), 'mijhar-screens'));
 const ONLY = args.flatMap((a, i) => (args[i - 1] === '--scene' ? [a] : []));
 const THEMES = opt('--theme') ? [opt('--theme')] : ['light', 'dark'];
+// فحص عمى الألوان (TEST-A11Y-ALL): محاكاة Chrome نفسها (Emulation.setEmulatedVisionDeficiency)، ولا تُستعمل لقطاتها مواد إصدار.
+const VISION = opt('--vision');
 const SIZES = { captioned: { width: 1280, height: 688 }, clean: { width: 1280, height: 800 } };
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -292,11 +294,12 @@ async function capture() {
           await cdp.send('Extensions.loadUnpacked', { path: path.join(ROOT, 'dist/chromium') });
           await sleep(800);
           const page = await context.newPage();
+          if (VISION) await (await context.newCDPSession(page)).send('Emulation.setEmulatedVisionDeficiency', { type: VISION });
           await page.goto(PAGES[scene.page].url, { waitUntil: 'load' });
           await sleep(1500);
           await scene.run(page);
           await sleep(400);
-          const file = path.join(OUT, `${scene.id}--${kind}--${theme}.png`);
+          const file = path.join(OUT, `${scene.id}--${kind}--${theme}${VISION ? `--${VISION}` : ''}.png`);
           await page.screenshot({ path: file });
           records.push({ file: path.basename(file), scene: scene.id, caption: scene.caption, kind, theme, width: size.width, height: size.height, browser: `Chrome ${context.browser().version()}`, extension: `مِجهَر ${version} (dist/chromium)`, commit: dirty ? `${commit} + تعديلات غير ملتزمة في src` : commit, page: PAGES[scene.page].url, at: new Date().toISOString() });
           console.log(`✓ ${path.basename(file)}`);
