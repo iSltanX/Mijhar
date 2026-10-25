@@ -4,6 +4,8 @@ const SOURCE = 'Docs/Site/privacy.md';
 export const EFFECTIVE_PLACEHOLDER = '⟨تاريخ النشر⟩';
 export const PUBLISH_TIME_ZONE = 'Asia/Riyadh';
 const LINE_RE = /^- \*\*تاريخ السريان:\*\* (.+)$/m;
+/** مطلع عبارة السريان في `PRIVACY.md` وفي صفحة الموقع — نصّ المالك يوم النشر (2026-10-26). */
+export const EFFECTIVE_LEAD = 'تسري هذه السياسة اعتبارًا من';
 const MONTHS = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
 
 export function isValidISODate(value) {
@@ -23,6 +25,11 @@ export function formatArabicDate(iso) {
   if (!isValidISODate(iso)) throw new Error(`تاريخ غير صالح: ${iso}`);
   const [y, m, d] = iso.split('-').map(Number);
   return `${d} ${MONTHS[m - 1]} ${y}`;
+}
+
+/** «تسري هذه السياسة اعتبارًا من 26 أكتوبر 2026» — العبارة كاملة كما تُكتب في `PRIVACY.md`. */
+export function effectiveSentence(iso) {
+  return `${EFFECTIVE_LEAD} ${formatArabicDate(iso)}`;
 }
 
 /**
