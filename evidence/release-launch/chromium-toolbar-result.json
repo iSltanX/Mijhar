@@ -1,0 +1,207 @@
+{
+  "at": "2026-10-25T12:12:55.627Z",
+  "os": "macOS",
+  "results": [
+    {
+      "browser": "Chrome",
+      "passed": 5,
+      "total": 5,
+      "steps": [
+        {
+          "name": "عملية المتصفح المؤقت معروفة، والزر مثبَّت في الشريط",
+          "ok": true,
+          "detail": {
+            "pid": 95005,
+            "pinned": "ok"
+          }
+        },
+        {
+          "name": "اللوحة مغلقة قبل البدء",
+          "ok": true,
+          "detail": null
+        },
+        {
+          "name": "أ. AXPress على زر «مِجهَر» في الشريط يفتح اللوحة الجانبية",
+          "ok": true,
+          "detail": {
+            "pressed": {
+              "pressed": true,
+              "err": 0,
+              "role": "AXPopUpButton",
+              "title": "مِجهَر\nيمكنها الوصول إلى الموقع الإلكتروني هذا",
+              "desc": "مِجهَر\nيمكنها الوصول إلى الموقع الإلكتروني هذا"
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-context"
+            }
+          }
+        },
+        {
+          "name": "ب. Control+Shift+G (ضغطة نظام) يفتح اللوحة",
+          "ok": true,
+          "detail": {
+            "closedBefore": true,
+            "sent": {
+              "sent": true,
+              "frontPid": 95005
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-context"
+            }
+          }
+        },
+        {
+          "name": "ج. Control+Shift+K (ضغطة نظام) يفتح اللوحة على تبويب القاموس",
+          "ok": true,
+          "detail": {
+            "closedBefore": true,
+            "sent": {
+              "sent": true,
+              "frontPid": 95005
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-glossary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "browser": "Edge",
+      "passed": 5,
+      "total": 5,
+      "steps": [
+        {
+          "name": "عملية المتصفح المؤقت معروفة، والزر مثبَّت في الشريط",
+          "ok": true,
+          "detail": {
+            "pid": 95085,
+            "pinned": "ok"
+          }
+        },
+        {
+          "name": "اللوحة مغلقة قبل البدء",
+          "ok": true,
+          "detail": null
+        },
+        {
+          "name": "أ. AXPress على زر «مِجهَر» في الشريط يفتح اللوحة الجانبية",
+          "ok": true,
+          "detail": {
+            "pressed": {
+              "pressed": true,
+              "err": 0,
+              "role": "AXPopUpButton",
+              "title": "مِجهَر\nيتمتع بإمكانية الوصول إلى هذا الموقع\nيحتوي على تجربة شريط جانبي",
+              "desc": "مِجهَر\nيتمتع بإمكانية الوصول إلى هذا الموقع\nيحتوي على تجربة شريط جانبي"
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-context"
+            }
+          }
+        },
+        {
+          "name": "ب. Control+Shift+G (ضغطة نظام) يفتح اللوحة",
+          "ok": true,
+          "detail": {
+            "closedBefore": true,
+            "sent": {
+              "sent": true,
+              "frontPid": 95085
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-context"
+            }
+          }
+        },
+        {
+          "name": "ج. Control+Shift+K (ضغطة نظام) يفتح اللوحة على تبويب القاموس",
+          "ok": true,
+          "detail": {
+            "closedBefore": true,
+            "sent": {
+              "sent": true,
+              "frontPid": 95085
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-glossary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "browser": "Brave",
+      "passed": 5,
+      "total": 5,
+      "steps": [
+        {
+          "name": "عملية المتصفح المؤقت معروفة، والزر مثبَّت في الشريط",
+          "ok": true,
+          "detail": {
+            "pid": 95170,
+            "pinned": "ok"
+          }
+        },
+        {
+          "name": "اللوحة مغلقة قبل البدء",
+          "ok": true,
+          "detail": null
+        },
+        {
+          "name": "أ. AXPress على زر «مِجهَر» في الشريط يفتح اللوحة الجانبية",
+          "ok": true,
+          "detail": {
+            "pressed": {
+              "pressed": true,
+              "err": 0,
+              "role": "AXPopUpButton",
+              "title": "مِجهَر\nيمكنها الوصول إلى الموقع الإلكتروني هذا",
+              "desc": "مِجهَر\nيمكنها الوصول إلى الموقع الإلكتروني هذا"
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-context"
+            }
+          }
+        },
+        {
+          "name": "ب. Control+Shift+G (ضغطة نظام) يفتح اللوحة",
+          "ok": true,
+          "detail": {
+            "closedBefore": true,
+            "sent": {
+              "sent": true,
+              "frontPid": 95170
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-context"
+            }
+          }
+        },
+        {
+          "name": "ج. Control+Shift+K (ضغطة نظام) يفتح اللوحة على تبويب القاموس",
+          "ok": true,
+          "detail": {
+            "closedBefore": true,
+            "sent": {
+              "sent": true,
+              "frontPid": 95170
+            },
+            "panel": {
+              "open": true,
+              "tab": "mj-native-tab-glossary"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
