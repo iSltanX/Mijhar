@@ -19,7 +19,7 @@ function call(outcome: { verify?: Outcome; analyze?: Outcome; retryAfter?: numbe
 }
 
 describe('صيغة المفتاح تُفحص محليًا من وصف المزوّد', () => {
-  it('يقبل sk-ant-api… ويرفض الفارغ ومفتاح الإدارة وغيرهما، بلا إرسال', () => {
+  it('يقبل sk-ant-… (ومنه api03) ويرفض الفارغ ومفتاح الإدارة وغيرهما، بلا إرسال؛ والأنواع الأخرى في anthropic-key-types (AD-38)', () => {
     expect(checkKey(ANTHROPIC, `  ${KEY}  `)).toEqual({ ok: true, key: KEY });
     expect(checkKey(ANTHROPIC, '')).toMatchObject({ ok: false });
     expect(checkKey(ANTHROPIC, ['sk', 'ant', 'admin01', 'x'.repeat(40)].join('-'))).toMatchObject({ ok: false, reason: expect.stringContaining('مفتاح إدارة') });

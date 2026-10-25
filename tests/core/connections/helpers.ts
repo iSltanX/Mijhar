@@ -16,7 +16,7 @@ export type { Call, Reply };
 
 /** مفتاح مزوّد بصيغة مختلَقة تُولَّد وقت التشغيل (لا يظهر حرفيًا في المستودع). */
 export const fakeProviderKey = (tag = 'A'): string => ['sk', 'ant', 'api03', `${tag}MIJHARFAKEKEY`.repeat(6)].join('-');
-export const PROVIDER_PATTERN = /sk-ant-api03-[A-Za-z0-9_-]{20,}/;
+export const PROVIDER_PATTERN = /sk-ant-[A-Za-z0-9_-]{20,}/;
 
 export const pathOf = (call: Call): string => {
   const url = new URL(call.url);

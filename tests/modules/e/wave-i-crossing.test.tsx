@@ -146,7 +146,7 @@ describe('H-5 على الشجرة المجمّعة: مفتاح مختلَق بص
     expect(text).toContain('Set ANTHROPIC_API_KEY=');
     expect(text).toContain('[محجوب:');
     expect(text).not.toContain(FAKE_KEY);
-    expect(text).not.toContain('sk-ant-api03');
+    expect(text).not.toMatch(/sk-ant-[A-Za-z0-9_-]{16,}/);
     expect([...(ui.q('[data-note="private"]')?.querySelectorAll('[data-private-item]') ?? [])].map((el) => el.textContent)).toEqual(['1× مفتاح Anthropic API']);
     expect(ui.root().textContent).not.toContain(FAKE_KEY);
     manager.stop();
@@ -161,7 +161,7 @@ describe('H-5 على الشجرة المجمّعة: مفتاح مختلَق بص
     const sent = r.sent[0] as AnalyzeInput;
     expect(sent.prompt).toContain('[محجوب:');
     expect(`${sent.system}\n${sent.prompt}`).not.toContain(FAKE_KEY);
-    expect(sent.prompt).not.toContain('sk-ant-api03');
+    expect(sent.prompt).not.toMatch(/sk-ant-[A-Za-z0-9_-]{16,}/);
   });
 });
 

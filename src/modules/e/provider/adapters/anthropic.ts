@@ -1,10 +1,14 @@
 // محوّل المزوّد الأول (DEC-09 ز-4): Anthropic (Claude API) عبر api.anthropic.com وحده، من خلفية الإضافة (evidence/T-0.5، HYP-17). وصفه (الاسم والمضيف
 // وصيغة المفتاح وطلب التحقق المعلن) في descriptors/anthropic.ts؛ وهنا وحده ما لا يصل غير الخلفية (I-2):
-//  - الترويسات التي لزمت في القياس: x-api-key وanthropic-version وcontent-type وanthropic-dangerous-direct-browser-access (بدونها يرفض الخادم
-//    طلب سياق الإضافة بـ401). لا وسيط خارجي.
+//  - الترويسات: المفتاح في Authorization: Bearer (AD-38: الطريقة الأساسية لكل أنواع مفاتيح Claude API في التوثيق الرسمي، و x-api-key التي قيست
+//    في T-0.5 «قديمة» فيه، ورُفض بها مفتاح حساب خدمة حقيقي بـ401)، وanthropic-version وcontent-type وanthropic-dangerous-direct-browser-access
+//    (بدونها يرفض الخادم طلب سياق الإضافة بـ401). لا وسيط خارجي.
 //  - المودلات من GET /v1/models وقت التشغيل (وهي طلب التحقق المعلن: لا يحمل محتوى)، والتحليل POST /v1/messages بلا بث. والتوافق (DEC-13 ن-3) معلن
 //    من الواجهة الرسمية: ما تسرده نقطة المودلات متاح لواجهة الرسائل، والمتقاعد لا يُعرض؛ فلا فحص صريح ولا استنتاج من الاسم.
 //  - لا سعر ولا تكلفة هنا (AD-31)؛ وما يعلنه المزوّد من حدود (429 وretry-after، وmax_tokens للمودل) يُحترم ويُعاد كما هو.
+//  - AD-38: anthropic-workspace-id حين أدخل المستخدم معرّف مساحة عمل (لمفتاح شخصي أو لحساب خدمة غير مقيّد بمساحة عمل)، ولا يُرسل غير ذلك. وأخطاء
+//    مساحة العمل (400 «not scoped to a workspace» أو «must be a valid workspace ID»، و404 «Workspace … not found») تُصنَّف «workspace» لا رفضًا للمفتاح،
+//    و401 رفض المفتاح، و403 نقص صلاحيته، والشبكة شبكة؛ فلا يُحكم بطلان نوع المفتاح من رفض طلب واحد.
 import { ANTHROPIC } from '../descriptors/anthropic';
 import { ProviderPermissionError, redactKey } from '../gate';
 import type { AnalysisReply, AnalysisRequest, ModelsList, ProviderAdapter, ProviderCall, ProviderFailure, ProviderModel, ProviderResult } from '../types';
@@ -13,12 +17,16 @@ const HOST = ANTHROPIC.host;
 const VERSION = '2023-06-01';
 const MODELS_PATH = '/v1/models?limit=100';
 
-const headers = (key: string, json: boolean): Record<string, string> => ({
-  'x-api-key': key,
+const headers = (call: ProviderCall, json: boolean): Record<string, string> => ({
+  authorization: `Bearer ${call.key}`,
   'anthropic-version': VERSION,
   'anthropic-dangerous-direct-browser-access': 'true',
+  ...(call.workspace && ANTHROPIC.workspaceHeader ? { [ANTHROPIC.workspaceHeader]: call.workspace } : {}),
   ...(json ? { 'content-type': 'application/json' } : {}),
 });
+
+/** رفض يخص مساحة العمل لا المفتاح: غيابها لمفتاح غير مقيّد، أو معرّف غير صالح، أو مساحة غير موجودة أو لا يصلها المفتاح. */
+const WORKSPACE_ERROR = /anthropic-workspace-id|not scoped to a workspace|^Workspace\b.*\bnot found/i;
 
 interface RawError {
   error?: { type?: unknown; message?: unknown };
@@ -33,7 +41,8 @@ function retryAtOf(response: Response, now: number): number | null {
   return Number.isFinite(seconds) && seconds > 0 ? now + seconds * 1000 : null;
 }
 
-function failureOf(status: number): ProviderFailure {
+function failureOf(status: number, message: string | null): ProviderFailure {
+  if ((status === 400 || status === 404) && message && WORKSPACE_ERROR.test(message)) return 'workspace';
   if (status === 401) return 'unauthorized';
   if (status === 403) return 'forbidden';
   if (status === 404) return 'not-found';
@@ -62,7 +71,7 @@ async function send<T>(call: ProviderCall, path: string, init: RequestInit, pars
   }
   if (!response.ok) {
     const message = str((body as RawError | null)?.error?.message) ?? `HTTP ${response.status}`;
-    return fail(failureOf(response.status), message, response.status, retryAtOf(response, call.now()));
+    return fail(failureOf(response.status, str((body as RawError | null)?.error?.message)), message, response.status, retryAtOf(response, call.now()));
   }
   const data = parse(body);
   return data === null ? fail('http', 'استجابة غير متوقعة من المزوّد', response.status) : { ok: true, status: response.status, data };
@@ -88,7 +97,7 @@ export const ANTHROPIC_ADAPTER: ProviderAdapter = {
   descriptor: ANTHROPIC,
 
   listModels(call) {
-    return send<ModelsList>(call, MODELS_PATH, { method: 'GET', headers: headers(call.key, false) }, (body) => {
+    return send<ModelsList>(call, MODELS_PATH, { method: 'GET', headers: headers(call, false) }, (body) => {
       const b = body as { data?: unknown; has_more?: unknown } | null;
       if (!Array.isArray(b?.data)) return null;
       const models = b.data.map(parseModel).filter((m): m is ProviderModel => m !== null && m.lifecycle !== 'retired');
@@ -98,7 +107,7 @@ export const ANTHROPIC_ADAPTER: ProviderAdapter = {
 
   analyze(call, request: AnalysisRequest) {
     const body = JSON.stringify({ model: request.model, max_tokens: request.maxTokens, system: request.system, messages: [{ role: 'user', content: request.prompt }] });
-    return send<AnalysisReply>(call, '/v1/messages', { method: 'POST', headers: headers(call.key, true), body }, (raw) => {
+    return send<AnalysisReply>(call, '/v1/messages', { method: 'POST', headers: headers(call, true), body }, (raw) => {
       const r = raw as { content?: unknown; model?: unknown; stop_reason?: unknown; usage?: { input_tokens?: unknown; output_tokens?: unknown } } | null;
       if (!Array.isArray(r?.content)) return null;
       const text = r.content

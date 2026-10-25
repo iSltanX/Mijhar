@@ -31,7 +31,7 @@ import type { HostPermissionState } from './gate';
 import { MODEL_FIELD_CSS, ModelField } from './ModelField';
 import type { FieldOutcome } from './ModelField';
 import type { ProviderPort, ProviderStatus } from './port';
-import { PROVIDER_ID_KEY, modelSettingKey } from './settings';
+import { PROVIDER_ID_KEY, isWorkspaceChoice, modelSettingKey, workspaceSettingKey } from './settings';
 import type { ProviderDescriptor } from './types';
 
 export type ProviderKeyArea = Pick<SecretStore, 'info' | 'save' | 'clear' | 'sessionAvailable' | 'diskAvailable'>;
@@ -68,6 +68,7 @@ const CARD_CSS = `
 }
 .mj-root .key-input:focus-visible { outline: none; border-color: var(--mijhar-border-focus); box-shadow: var(--mijhar-focus-ring); }
 .mj-root .choice input:disabled + .label { color: var(--mijhar-text-disabled); }
+.mj-root .provider-card .ws-invalid { color: var(--mijhar-text-danger); }
 `;
 
 const PLACE_TEXT: Readonly<Record<SecretPlace, string>> = { session: 'ذاكرة الجلسة', disk: 'القرص في هذا المتصفح' };
@@ -77,11 +78,77 @@ const TONE_ATTR: Readonly<Record<HealthTone, string | undefined>> = { danger: 'd
  * رسالة البطاقة لمزوّدها وحده. وما يصف مفتاحًا بعينه (قُبل، لم يُتحقق منه، حُفظ، مُسح) يحمل هويته (savedAt، أو null لـ«لا مفتاح»)، فيختفي إن
  * استُبدل المفتاح أو مُسح من صفحة أخرى بعده (F-05)؛ وما لا يحمل هوية (فشل، صلاحية) يبقى حتى العملية التالية أو تغيير المزوّد.
  */
-type Message = { readonly tone: 'danger' | 'info' | 'success'; readonly text: string; readonly provider: string; readonly key?: number | null };
+type Message = { readonly tone: 'danger' | 'warning' | 'info' | 'success'; readonly text: string; readonly provider: string; readonly key?: number | null };
 
 /** حالة مفتاح مزوّد كما تذكرها قائمة المزوّد («المفتاح: سليم»). */
 const keyLabel = (health: ProviderStatus['providers'][number]['health'] | undefined): string =>
   health === undefined || health === null ? 'غير معروف' : health === 'none' ? 'لم يُضف' : HEALTH_LABEL[health];
+
+/**
+ * AD-38: معرّف مساحة العمل الاختياري لمزوّد له ترويستها (Anthropic): يلزم المفتاح الشخصي أو مفتاح حساب الخدمة غير المقيّد بمساحة عمل. يكتبه المستخدم ولا
+ * يُخمَّن، ويُفحص شكله محليًا (wrkspc_…)؛ والحكم عليه (موجود، يصله المفتاح) للمزوّد. ليس سرًّا فيُحفظ في الإعدادات. الحفظ عند المغادرة أو Enter (compat).
+ */
+function WorkspaceField({ descriptor, settings, onSaved }: { descriptor: ProviderDescriptor; settings: SettingsStore; onSaved: (value: string) => void }) {
+  const key = workspaceSettingKey(descriptor.id);
+  const stored = useSetting<string>(settings, key) ?? '';
+  const [draft, setDraft] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const commit = () => {
+    if (draft === null) return;
+    const next = draft.trim();
+    if (next === stored) {
+      setDraft(null);
+      setError(null);
+      return;
+    }
+    if (!isWorkspaceChoice(next)) {
+      setError('لا يشبه معرّف مساحة عمل: يبدأ بـwrkspc_ ثم حروف وأرقام، كما في عمود ID في صفحة Workspaces. لم يُحفظ.');
+      return;
+    }
+    settings.set(key, next).then(
+      () => {
+        setDraft(null);
+        setError(null);
+        onSaved(next);
+      },
+      (e: unknown) => setError(`لم يُحفظ: ${e instanceof Error ? e.message : 'خطأ غير معروف'}`),
+    );
+  };
+  return (
+    <div class="field" data-workspace-field="">
+      <label for="mj-workspace-input">معرّف مساحة العمل (اختياري)</label>
+      <input
+        id="mj-workspace-input"
+        type="text"
+        dir="ltr"
+        class="key-input"
+        spellcheck={false}
+        autocomplete="off"
+        placeholder="wrkspc_…"
+        value={draft ?? stored}
+        aria-describedby="mj-workspace-help"
+        aria-invalid={error ? 'true' : undefined}
+        data-workspace-input=""
+        onInput={(e) => setDraft((e.currentTarget as HTMLInputElement).value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          commit();
+        }}
+      />
+      <p id="mj-workspace-help" class="muted small">
+        يلزم المفتاح الشخصي أو مفتاح حساب الخدمة إن لم يكن مقيّدًا بمساحة عمل واحدة؛ تجده في عمود ID في صفحة Workspaces في Claude Console. يُرسل في ترويسة{' '}
+        <Ltr className="mono">{descriptor.workspaceHeader ?? ''}</Ltr> مع كل طلب إلى <Ltr className="mono">{descriptor.host}</Ltr>، ولا يُخمَّن. اتركه فارغًا لمفتاح مقيّد بمساحة عمل.
+      </p>
+      {error && (
+        <p class="small ws-invalid" role="alert" data-workspace-error="">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
 
 export function ProviderCard({ settings, port, stores, permissions, target, status, onChange, now = () => Date.now(), descriptors = PROVIDER_DESCRIPTORS }: ProviderCardProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -225,6 +292,9 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
           key,
         ),
       );
+    } else if (result.failure === 'workspace') {
+      // AD-38: المفتاح لم يُرفض؛ يلزمه معرّف مساحة عمل (أو المعرّف المكتوب غير صالح أو لا يصله المفتاح).
+      setMessage(say('warning', `لم يُتحقق من المفتاح بعد: يلزمه معرّف مساحة عمل صالح يصله، فأدخله في «معرّف مساحة العمل» ثم «تحقق من المفتاح». ردّ ${descriptor.title}: ${result.message}`, key));
     } else setMessage(say('danger', `لم يُتحقق من المفتاح: ${result.message}`, key));
     onChange?.();
   };
@@ -532,6 +602,19 @@ export function ProviderCard({ settings, port, stores, permissions, target, stat
           </p>
         )}
       </div>
+
+      {descriptor.workspaceHeader && (
+        <WorkspaceField
+          key={`ws-${id}`}
+          descriptor={descriptor}
+          settings={settings}
+          onSaved={(value) =>
+            setMessage(
+              say('info', value ? `حُفظ معرّف مساحة العمل؛ يُرسل في ترويسة ${descriptor.workspaceHeader} مع كل طلب إلى ${descriptor.host}. اضغط «تحقق من المفتاح» ليُتحقق به.` : 'مُسح معرّف مساحة العمل؛ لا ترويسة بعد الآن.'),
+            )
+          }
+        />
+      )}
 
       <ModelField
         key={id}

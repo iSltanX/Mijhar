@@ -24,7 +24,7 @@ const keys = args.filter((a) => BROWSERS[a]);
 
 const TOKEN = ['github', 'pat', `11CONNMIJHARFAKE00000_${'xFakeConnectionsCheck'.repeat(3).slice(0, 59)}`].join('_');
 const KEY = ['sk', 'ant', 'api03', 'ConnFakeProviderKeyOnly'.repeat(3)].join('-');
-const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-ant-api03-[A-Za-z0-9_-]{20,}/;
+const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-ant-[A-Za-z0-9_-]{20,}/;
 const hasSecret = (value) => SECRET_RE.test(typeof value === 'string' ? value : JSON.stringify(value ?? null));
 
 const FIXTURE = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests/modules/d/token/fixtures/fixture-token-states.json'), 'utf8'));

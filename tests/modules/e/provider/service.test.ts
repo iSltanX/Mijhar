@@ -37,10 +37,10 @@ describe('AC-E9 (١): إضافة المفتاح لا تبدأ تحليلًا، �
     const [req] = s.provider.requests;
     expect(req?.method).toBe('GET');
     expect(req?.url).toBe('https://api.anthropic.com/v1/models?limit=100');
-    expect(req?.headers['x-api-key']).toBe(s.key);
+    expect(req?.headers.authorization).toBe(`Bearer ${s.key}`);
+    expect(req?.headers['x-api-key']).toBeUndefined();
     expect(req?.headers['anthropic-version']).toBe('2023-06-01');
     expect(req?.headers['anthropic-dangerous-direct-browser-access']).toBe('true');
-    expect(req?.headers.authorization).toBeUndefined();
     expect(req?.credentials).toBe('omit');
     expect(allText(req)).not.toContain(s.token);
     expect(req?.body).toBeNull();
@@ -130,8 +130,8 @@ describe('AC-E9 (٢) و(٤) وTEST-PRIV-04: طلب التحليل', () => {
     expect(posts).toHaveLength(1);
     const [post] = posts;
     expect(post?.url).toBe('https://api.anthropic.com/v1/messages');
-    expect(post?.headers['x-api-key']).toBe(s.key);
-    expect(post?.headers.authorization).toBeUndefined();
+    expect(post?.headers.authorization).toBe(`Bearer ${s.key}`);
+    expect(post?.headers['x-api-key']).toBeUndefined();
     expect(allText(post)).not.toContain(s.token);
     const body = JSON.parse(post?.body ?? '{}') as { model: string; system: string; messages: Array<{ role: string; content: string }>; max_tokens: number };
     expect(body.model).toBe('mock-sonnet-2');

@@ -27,7 +27,7 @@ const keys = args.filter((a) => BROWSERS[a]);
 
 const TOKEN = ['github', 'pat', `11PROVMIJHARFAKE00000_${'xFakeProviderCheckOnly'.repeat(3).slice(0, 59)}`].join('_');
 const KEY = ['sk', 'ant', 'api03', 'ProvCheckFakeKeyOnly'.repeat(3)].join('-');
-const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-ant-api03-[A-Za-z0-9_-]{20,}/;
+const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-ant-[A-Za-z0-9_-]{20,}/;
 const hasSecret = (value) => SECRET_RE.test(typeof value === 'string' ? value : JSON.stringify(value ?? null));
 
 const FIXTURE = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests/modules/d/token/fixtures/fixture-token-states.json'), 'utf8'));
@@ -148,7 +148,7 @@ async function scenario(d, target, checks, network) {
 
   // 4. تدقيق الشبكة.
   const provider = network.extra;
-  check('TEST-PRIV-04: كل طلبات المزوّد إلى api.anthropic.com من الخلفية بالمفتاح وحده (x-api-key)، بلا Authorization ولا رمز GitHub', provider.length === 4 && provider.every((r) => r.host === 'api.anthropic.com' && r.from === 'background' && r.headers['x-api-key'] === KEY && !r.headers.authorization && !JSON.stringify(r).includes(TOKEN)), provider.map((r) => ({ path: r.path, from: r.from, key: r.headers['x-api-key'] === KEY ? 'key' : 'other', auth: Boolean(r.headers.authorization), token: JSON.stringify(r).includes(TOKEN) })));
+  check('TEST-PRIV-04: كل طلبات المزوّد إلى api.anthropic.com من الخلفية بالمفتاح وحده (Authorization: Bearer، AD-38)، بلا x-api-key ولا رمز GitHub', provider.length === 4 && provider.every((r) => r.host === 'api.anthropic.com' && r.from === 'background' && r.headers.authorization === `Bearer ${KEY}` && !r.headers['x-api-key'] && !JSON.stringify(r).includes(TOKEN)), provider.map((r) => ({ path: r.path, from: r.from, key: r.headers['x-api-key'] === KEY ? 'key' : 'other', auth: Boolean(r.headers.authorization), token: JSON.stringify(r).includes(TOKEN) })));
   check('أجسام طلبات التحليل بلا المفتاح ولا الرمز، وبالمودل المختار', posts().every((r) => !r.body.includes(KEY) && !r.body.includes(TOKEN) && JSON.parse(r.body).model === 'mock-sonnet-2'), posts().map((r) => r.path));
   check('لا مفتاح في أي طلب إلى api.github.com (ترويسة غير الرمز)', network.api.every((c) => c.auth !== 'other'), network.api);
 
@@ -181,7 +181,7 @@ async function run(key) {
       // لا قيم ترويسات ولا أجسام في الناتج: وسوم فقط.
       result.network = {
         api: session.network.api,
-        provider: session.network.extra.map((r) => ({ method: r.method, path: r.path, from: r.from, key: r.headers['x-api-key'] === KEY ? 'saved' : r.headers['x-api-key'] ? 'other' : null, authorization: Boolean(r.headers.authorization), bytes: r.body?.length ?? 0 })),
+        provider: session.network.extra.map((r) => ({ method: r.method, path: r.path, from: r.from, key: r.headers.authorization === `Bearer ${KEY}` ? 'saved' : r.headers.authorization ? 'other' : null, xApiKey: Boolean(r.headers['x-api-key']), bytes: r.body?.length ?? 0 })),
         github: session.network.github,
         blockedExternalHosts: [...session.network.blocked].sort(),
       };

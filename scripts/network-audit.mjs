@@ -56,7 +56,7 @@ const rel = (file) => path.relative(ROOT, file);
  * مدموج علاماته هنا وأنها في ملفه وحده من src؛ وإضافة محوّل تضيف سطره. ونص طلب التحقق المعلن (في السجل الوصفي) لا يحمل علامة منها.
  */
 export const PROVIDER_ADAPTER_MARKERS = /** @type {Readonly<Record<string, readonly string[]>>} */ ({
-  anthropic: ['anthropic-dangerous-direct-browser-access', 'anthropic-version', 'x-api-key', '/v1/messages', '/v1/models?limit='],
+  anthropic: ['anthropic-dangerous-direct-browser-access', 'anthropic-version', '/v1/messages', '/v1/models?limit='],
   // OpenAI: مسار التحليل نفسه (/v1/responses) يرد نصًّا في وصف طلب التحقق، فالعلامات أسماء حقول الطلب والرد وكود الخطأ في ملف المحوّل وحده.
   openai: ['max_output_tokens', 'incomplete_details', 'context_length_exceeded'],
   gemini: ['x-goog-api-key', '/v1beta/models?pageSize=', '/v1beta/models/'],

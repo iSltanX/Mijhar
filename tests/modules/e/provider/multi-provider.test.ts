@@ -55,7 +55,7 @@ async function multi(options: { status?: Readonly<Record<string, number>>; probe
   });
   /** كل طلب خرج: مضيفه والمفتاح الذي حمله. */
   const sent = (): Array<{ host: string; key: string | null; method: string; path: string }> => [
-    ...anthropic.requests.map((r) => ({ host: new URL(r.url).host, key: r.headers['x-api-key'] ?? null, method: r.method, path: new URL(r.url).pathname })),
+    ...anthropic.requests.map((r) => ({ host: new URL(r.url).host, key: r.headers.authorization?.replace(/^Bearer /, '') ?? null, method: r.method, path: new URL(r.url).pathname })),
     ...hosts.requests.map((r) => ({ host: r.host, key: r.key, method: r.method, path: r.path })),
   ];
   const select = (id: Id) => settings.set(PROVIDER_ID_KEY, id);

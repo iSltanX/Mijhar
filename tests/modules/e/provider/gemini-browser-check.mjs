@@ -28,7 +28,7 @@ const ANTHROPIC_HOST = 'api.anthropic.com';
 const TOKEN = ['github', 'pat', `11GEMMIJHARFAKE00000_${'xFakeGeminiCheckOnly'.repeat(3).slice(0, 59)}`].join('_');
 const A_KEY = ['sk', 'ant', 'api03', 'GemCheckAnthropicFake'.repeat(3)].join('-');
 const KEY = ['AIza', 'Sy', 'GemBrowserCheckFakeKey0000000000x'].join('');
-const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-ant-api03-[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{35}/;
+const SECRET_RE = /github_pat_[A-Za-z0-9_]{20,}|sk-ant-[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{35}/;
 const hasSecret = (value) => SECRET_RE.test(typeof value === 'string' ? value : JSON.stringify(value ?? null));
 
 const FIXTURE = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests/modules/d/token/fixtures/fixture-token-states.json'), 'utf8'));
@@ -183,7 +183,7 @@ async function scenario(d, target, checks, network) {
   await d.click('[data-action="key-save"]');
   await until((c) => c.provider === 'anthropic' && c.health === 'healthy');
   await sleep(600);
-  check('كل مفتاح إلى مضيفه: طلب Anthropic واحد بمفتاحه (x-api-key) إلى مضيفه، ولم يصل Gemini طلب جديد', on(ANTHROPIC_HOST).length === 1 && on(ANTHROPIC_HOST)[0].headers['x-api-key'] === A_KEY && !on(ANTHROPIC_HOST)[0].headers['x-goog-api-key'] && gemini().length === 3, { anthropic: on(ANTHROPIC_HOST).length, gemini: gemini().length });
+  check('كل مفتاح إلى مضيفه: طلب Anthropic واحد بمفتاحه (Authorization: Bearer، AD-38) إلى مضيفه، ولم يصل Gemini طلب جديد', on(ANTHROPIC_HOST).length === 1 && on(ANTHROPIC_HOST)[0].headers.authorization === `Bearer ${A_KEY}` && !on(ANTHROPIC_HOST)[0].headers['x-goog-api-key'] && gemini().length === 3, { anthropic: on(ANTHROPIC_HOST).length, gemini: gemini().length });
   await d.options(SELECT('gemini'));
   const back = await until((c) => c.provider === 'gemini' && c.health === 'healthy' && c.model === 'mock-gem-2');
   check('العودة إلى Gemini: مفتاحه «سليم» ونموذجه في حقله كما هو، وملخص المزوّدين يذكر Anthropic سليمًا؛ والتبديل لا يرسل شيئًا', Boolean(back) && back.model === 'mock-gem-2' && back.others.includes('Anthropic') && gemini().length === 3 && on(ANTHROPIC_HOST).length === 1, back && { model: back.model, others: back.others, health: back.health, g: gemini().length, a: on(ANTHROPIC_HOST).length });
@@ -223,7 +223,7 @@ async function scenario(d, target, checks, network) {
   const g = gemini();
   const a = on(ANTHROPIC_HOST);
   check('TEST-PRIV-05: كل طلبات Gemini إلى مضيفه من الخلفية بمفتاحه وحده، بلا مفتاح مزوّد آخر ولا رمز GitHub ولا Authorization', g.length === 5 && g.every((r) => r.from === 'background' && r.headers['x-goog-api-key'] === KEY && !r.headers.authorization && !r.headers['x-api-key'] && !JSON.stringify(r).includes(TOKEN) && !JSON.stringify(r).includes(A_KEY)), g.map((r) => ({ path: r.path, from: r.from })));
-  check('TEST-PRIV-05: طلب Anthropic واحد بمفتاحه وحده، بلا مفتاح Gemini ولا الرمز', a.length === 1 && a.every((r) => r.headers['x-api-key'] === A_KEY && !JSON.stringify(r).includes(KEY) && !JSON.stringify(r).includes(TOKEN)), a.length);
+  check('TEST-PRIV-05: طلب Anthropic واحد بمفتاحه وحده، بلا مفتاح Gemini ولا الرمز', a.length === 1 && a.every((r) => r.headers.authorization === `Bearer ${A_KEY}` && !JSON.stringify(r).includes(KEY) && !JSON.stringify(r).includes(TOKEN)), a.length);
   check('لا مفتاح ولا رمز في أي طلب إلى api.github.com (ترويسة غير الرمز)', network.api.every((c) => c.auth !== 'other'), network.api);
 
   // 7. حذف مفتاح Gemini.
@@ -255,7 +255,7 @@ async function run(key) {
   } finally {
     if (session) {
       // لا قيم ترويسات ولا أجسام في الناتج: وسوم فقط.
-      const tag = (r) => (r.headers['x-goog-api-key'] === KEY ? 'gemini-key' : r.headers['x-api-key'] === A_KEY ? 'anthropic-key' : r.headers['x-goog-api-key'] || r.headers['x-api-key'] ? 'other' : null);
+      const tag = (r) => (r.headers['x-goog-api-key'] === KEY ? 'gemini-key' : r.headers.authorization === `Bearer ${A_KEY}` ? 'anthropic-key' : r.headers['x-goog-api-key'] || r.headers['x-api-key'] || r.headers.authorization ? 'other' : null);
       result.network = {
         api: session.network.api,
         providers: session.network.extra.map((r) => ({ host: r.host, method: r.method, path: r.path, query: r.query ?? (r.path.includes('?') ? r.path.slice(r.path.indexOf('?')) : ''), from: r.from, key: tag(r), authorization: Boolean(r.headers.authorization), bytes: r.body?.length ?? 0 })),
