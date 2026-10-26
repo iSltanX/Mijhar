@@ -1,5 +1,7 @@
 # صفحات مِجهَر في الموقع: حزمة التسليم
 
+> **الحالة اليوم (2026-10-26):** الصفحات الثلاث منشورة في bysltan.com ([`/Mjhr`](https://bysltan.com/Mjhr) و[`/Mjhr/privacy`](https://bysltan.com/Mjhr/privacy) و[`/Mjhr/support`](https://bysltan.com/Mjhr/support))، وفُحصت فعليًا بـHTTP 200. والفقرة التالية تاريخ الإعداد كما كتبت يوم إعداده.
+>
 > تصميم ونصوص لثلاث صفحات تُنشر لاحقًا ضمن bysltan.com: `/Mjhr` و`/Mjhr/privacy` و`/Mjhr/support`. **لم يُنفَّذ شيء في الموقع ولم يُنشر.** أُعدّت في 2026-10-24 على الفرع `claude/microscope-pages-privacy-68a2b0` من `main` المحلي عند `37d86c0`، دون مسّ فروع `MJ24` و`MJ25` ولا ملفاتهما.
 
 ## الملفات
