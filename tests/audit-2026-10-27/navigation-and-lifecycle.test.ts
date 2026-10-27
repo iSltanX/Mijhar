@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 // @vitest-environment-options {"url":"https://github.com/octo/demo/issues/1"}
 // معالجة تدقيقي 2026-10-27 — الدفعة B: التنقل وهوية الصفحة ودورة الحياة غير المتزامنة.
-//  - GEMINI-001: تنقل أُعلن ولم يصل DOM صفحته (بقي عنصر هوية الصفحة السابقة) يُعاد إعلانه حين يصل خلال النافذة، ولا إعادة لإعادة رسم عادية.
+//  - GEMINI-001: تنقل أُعلن ولم يصل DOM صفحته (بقي عنصر هوية الصفحة السابقة) يُعاد إعلانه حين يصل خلال النافذة، ولا إعادة لإعادة رسم عادية
+//    (ولا لإعادة رسم عنصر الهوية بمحتواه نفسه خلال النافذة بعد تنقل وصل DOM فيه قبل الرابط: مراجعة 2026-10-28، الحالة أ6).
 //  - GEMINI-002: بيانات react-app.embeddedData الباقية من ملف سابق لا تطغى على رابط الملف الحالي.
 //  - CODEX-004: ترجمة فقرة تغيّرت أو أُزيلت أثناء انتظار المحرك لا تُعرض ولا تخفي النص الجديد، والجلسة لا تبقى «جارية».
 //  - GEMINI-009: «الترجمة فقط» لا تخفي الكتل المتداخلة في اقتباس، وتخفي النص المباشر بعد قائمة فرعية.
@@ -80,6 +81,50 @@ describe('GEMINI-001: إعلان سبق DOM التنقل يُصحَّح حين �
     await vi.advanceTimersByTimeAsync(300);
     expect(seen).toHaveLength(2);
     detector.stop();
+  });
+
+  it('DOM وصل قبل الرابط وبقي عنصر الهوية، ثم أعادت الصفحة رسمه بمحتواه نفسه بلا تنقل خلال النافذة: لا إعادة تركيب، ولوحة المساعد وحالتها باقية', async () => {
+    vi.useFakeTimers();
+    window.history.replaceState({}, '', '/org/repo/issues/1');
+    document.body.innerHTML =
+      '<main><div data-testid="issue-viewer-issue-container"><h1 data-testid="issue-title">Issue 1</h1></div><form><markdown-toolbar for="new_comment_field"></markdown-toolbar><textarea id="new_comment_field"></textarea></form></main>';
+    const reconciles: string[] = [];
+    manager = new LifecycleManager({
+      registry: new ModuleRegistry([createComposerModule({ debounceMs: 2 })]),
+      detector: new PageDetector({ document, settleMs: 2 }),
+      document,
+      isEnabled: () => true,
+      onReconcile: (result) => void reconciles.push(new URL(result.page.href).pathname),
+    });
+    manager.start();
+    await vi.advanceTimersByTimeAsync(50);
+    const container = document.querySelector('[data-testid="issue-viewer-issue-container"]')!;
+    // مسار «DOM أولًا» (تبويبات طلب الدمج في T-1.2): React يضع محتوى الصفحة الجديدة في العقدة نفسها ثم يغيّر الرابط، فيُعلن التنقل على DOM الجديد.
+    container.querySelector('h1')!.textContent = 'Issue 2';
+    await vi.advanceTimersByTimeAsync(10);
+    window.history.pushState({}, '', '/org/repo/issues/2');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    await vi.advanceTimersByTimeAsync(50);
+    expect(reconciles).toEqual(['/org/repo/issues/1', '/org/repo/issues/2']);
+    // المستخدم يكتب في حقل GitHub ويفتح المساعد ويكتب في أحد حقوله.
+    const field = document.querySelector<HTMLTextAreaElement>('#new_comment_field')!;
+    field.value = 'مسودة المستخدم';
+    document.querySelector('[data-mijhar-host="f.composer.button"]')!.shadowRoot!.querySelector('button')!.click();
+    await vi.advanceTimersByTimeAsync(20);
+    const panel = document.querySelector('[data-mijhar-host="f.composer.panel"]')!;
+    expect(panel).not.toBeNull();
+    const actual = panel.shadowRoot!.getElementById('mj-composer-actual') as HTMLTextAreaElement;
+    actual.value = 'Fixes the toggle';
+    actual.dispatchEvent(new Event('input', { bubbles: true }));
+    await vi.advanceTimersByTimeAsync(20);
+    // بعد 3 ثوانٍ (داخل LATE_DOM_WINDOW_MS) تستبدل الصفحة حاوية المشكلة بنسخة بمحتواها نفسه: إعادة رسم، لا وصول صفحة.
+    await vi.advanceTimersByTimeAsync(3000);
+    container.replaceWith(container.cloneNode(true));
+    await vi.advanceTimersByTimeAsync(LATE_DOM_WINDOW_MS);
+    expect(reconciles).toHaveLength(2);
+    expect(document.querySelector('[data-mijhar-host="f.composer.panel"]')).toBe(panel);
+    expect((panel.shadowRoot!.getElementById('mj-composer-actual') as HTMLTextAreaElement).value).toBe('Fixes the toggle');
+    expect(field.value).toBe('مسودة المستخدم');
   });
 });
 

@@ -22,8 +22,11 @@
 // يُعلَن التغيّر فقط حين تتغير «بصمة» الصفحة (المسار والنوع والثقة وهوية body والحاوية الرئيسية)، فيُطلَق turbo:render
 // ثم turbo:load للتنقل الواحد حدثًا واحدًا لا اثنين، ويمرّ تعديل الوحدات لشجرة الصفحة دون إعلان ما دامت البصمة ثابتة.
 // استثناء واحد (GEMINI-001): تنقل أُعلن وعنصر تأكيد الصفحة (أو أول ابن للحاوية إن لم يتأكد) هو عنصر الصفحة السابقة نفسه، أي أن DOM الجديد
-// ربما لم يصل بعد (React يبقي <main> ويضع مؤشر تحميل). إن استُبدل ذلك العنصر خلال LATE_DOM_WINDOW_MS أُعيد الإعلان مرة واحدة فتُركَّب الوحدات
-// على DOM الصفحة الجديدة؛ وبعد النافذة أو بلا هذا الشرط تبقى إعادة رسم GitHub داخل الصفحة لسطوح keepAttached لا لإعادة التركيب.
+// ربما لم يصل بعد (React يبقي <main> ويضع مؤشر تحميل). إن استُبدل ذلك العنصر خلال LATE_DOM_WINDOW_MS بعنصر محتواه النصي غير ما رآه الإعلان
+// أُعيد الإعلان مرة واحدة فتُركَّب الوحدات على DOM الصفحة الجديدة. واستبداله بمحتواه نفسه إعادة رسم للصفحة المعلنة لا وصول صفحة (ومنه تنقل
+// «DOM أولًا» يبقي العقدة ويضع فيها الصفحة الجديدة قبل الرابط ثم تُعاد رسمها: مراجعة 2026-10-28، الحالة أ6): يُتابَع العنصر الجديد ولا يُعاد
+// الإعلان، فلا تُعاد تركيب الوحدات وتُغلق واجهاتها المفتوحة. وبعد النافذة أو بلا هذا الشرط تبقى إعادة رسم GitHub لسطوح keepAttached.
+// المقارنة بنص العنصر عند الإعلان لا بين إعلانين: مؤشر تحميل داخل العنصر نفسه أو تحديث حي فيه قبل التنقل لا يُحسبان وصولًا.
 import { EXTERNAL_ROUTE, GITHUB_ORIGIN, classifyPath } from './page-types';
 import type { Confidence, PageState } from './page-types';
 import { DEFAULT_SELECTORS, SelectorsRegistry } from './selectors';
@@ -47,6 +50,12 @@ const DEFAULT_SETTLE_MS = 100;
 const DEFAULT_SETTLE_MAX_MS = 1000;
 /** مدة ترقّب DOM تنقل أُعلن قبل وصوله: بطء الشبكة المعتاد دونها، وبعدها لا يُعاد تركيب الصفحة لاستبدال عنصر فيها. */
 export const LATE_DOM_WINDOW_MS = 10_000;
+
+/**
+ * نص عنصر الهوية (textContent) بمسافات مطبَّعة. نص الإضافة في جذور ظلية لا يدخله، وتغليفها لنص الصفحة (العزل، و«الترجمة فقط») يبقيه كما هو.
+ * يُحسب عند إعلان تنقل بقي فيه العنصر، ثم عند استبداله خلال النافذة فقط، لا في كل فحص.
+ */
+const identityText = (element: Element): string => (element.textContent ?? '').replace(/\s+/g, ' ').trim();
 
 /** ما تحقنه الإضافة في الصفحة: المضيفات وعناصر الوحدات المعلَّمة، والعقد التي نُقلت إلى داخلها (تغليف نص). */
 const OWN = 'mijhar-host, [data-mijhar-injected]';
@@ -85,8 +94,10 @@ export class PageDetector {
   private capTimer: ReturnType<typeof setTimeout> | null = null;
   /** عنصر هوية الصفحة عند آخر إعلان (عنصر التأكيد، أو أول ابن للحاوية). */
   private lastMarker: Element | null = null;
-  /** تنقل أُعلن وعنصر الهوية هو عنصر الصفحة السابقة نفسه: يُرتقب استبداله حتى pendingUntil. */
+  /** تنقل أُعلن وعنصر الهوية هو عنصر الصفحة السابقة نفسه: يُرتقب استبداله بمحتوى غير pendingText حتى pendingUntil. */
   private pendingMarker: Element | null = null;
+  /** محتوى عنصر الهوية عند ذلك الإعلان (identityText). */
+  private pendingText: string | null = null;
   private pendingUntil = 0;
 
   constructor(options: PageDetectorOptions = {}) {
@@ -173,6 +184,7 @@ export class PageDetector {
     this.lastSignature = null;
     this.lastMarker = null;
     this.pendingMarker = null;
+    this.pendingText = null;
   }
 
   /**
@@ -184,8 +196,7 @@ export class PageDetector {
     this.observeTree();
     const { page, marker } = this.measure();
     const signature = this.signature(page);
-    // DOM تنقل أُعلن قبله وصل الآن: استُبدل عنصر هوية الصفحة السابقة الذي بقي عند الإعلان (GEMINI-001).
-    const lateDom = this.pendingMarker !== null && marker !== null && marker !== this.pendingMarker && Date.now() <= this.pendingUntil;
+    const lateDom = this.lateDom(marker);
     if (signature === this.lastSignature && !lateDom) {
       this.urlChangedAt = null;
       this.clearCap();
@@ -201,6 +212,7 @@ export class PageDetector {
     if (navigated) this.navigationSeq = ++this.seq;
     const stale = navigated && this.last !== null && marker !== null && marker === this.lastMarker;
     this.pendingMarker = stale ? marker : null;
+    this.pendingText = stale && marker ? identityText(marker) : null;
     this.pendingUntil = stale ? Date.now() + LATE_DOM_WINDOW_MS : 0;
     const previous = this.last;
     this.last = page;
@@ -214,6 +226,22 @@ export class PageDetector {
       }
     }
     return true;
+  }
+
+  /**
+   * DOM تنقل أُعلن قبله وصل الآن (GEMINI-001): عنصر الهوية الذي بقي عند الإعلان استُبدل خلال النافذة بعنصر محتواه غير ما رآه الإعلان. وإن
+   * استُبدل بمحتواه نفسه فهي إعادة رسم للصفحة المعلنة: يُتابَع العنصر الجديد (لاستبدال لاحق) ولا يُعاد الإعلان. بانقضاء النافذة يُترك الترقب.
+   */
+  private lateDom(marker: Element | null): boolean {
+    if (this.pendingMarker === null || marker === null || marker === this.pendingMarker) return false;
+    if (Date.now() > this.pendingUntil) {
+      this.pendingMarker = null;
+      this.pendingText = null;
+      return false;
+    }
+    if (identityText(marker) !== this.pendingText) return true;
+    this.pendingMarker = marker;
+    return false;
   }
 
   /** هل وصل DOM التنقل الجاري: تعديل مؤهل بعد آخر إعلان تنقل، لا يسبق تغيّر المسار بأكثر من settleMaxMs؛ أو بلغ الانتظار حده. */
