@@ -2,7 +2,7 @@
 // @vitest-environment-options {"url":"https://github.com/octo/demo/issues/1"}
 // معالجة تدقيقي 2026-10-27 — الدفعة B: التنقل وهوية الصفحة ودورة الحياة غير المتزامنة.
 //  - GEMINI-001: تنقل أُعلن ولم يصل DOM صفحته (بقي عنصر هوية الصفحة السابقة) يُعاد إعلانه حين يصل خلال النافذة، ولا إعادة لإعادة رسم عادية
-//    (ولا لإعادة رسم عنصر الهوية بمحتواه نفسه خلال النافذة بعد تنقل وصل DOM فيه قبل الرابط: مراجعة 2026-10-28، الحالة أ6).
+//    (ولا لإعادة رسم عنصر الهوية خلال النافذة بعد تنقل وصل DOM فيه قبل الرابط: مراجعة 2026-10-28، الحالات أ2 وأ6 وف4 وف5 وف7).
 //  - GEMINI-002: بيانات react-app.embeddedData الباقية من ملف سابق لا تطغى على رابط الملف الحالي.
 //  - CODEX-004: ترجمة فقرة تغيّرت أو أُزيلت أثناء انتظار المحرك لا تُعرض ولا تخفي النص الجديد، والجلسة لا تبقى «جارية».
 //  - GEMINI-009: «الترجمة فقط» لا تخفي الكتل المتداخلة في اقتباس، وتخفي النص المباشر بعد قائمة فرعية.
@@ -125,6 +125,112 @@ describe('GEMINI-001: إعلان سبق DOM التنقل يُصحَّح حين �
     expect(document.querySelector('[data-mijhar-host="f.composer.panel"]')).toBe(panel);
     expect((panel.shadowRoot!.getElementById('mj-composer-actual') as HTMLTextAreaElement).value).toBe('Fixes the toggle');
     expect(field.value).toBe('مسودة المستخدم');
+  });
+});
+
+describe('GEMINI-001 (مراجعة 2026-10-28): وصول DOM التنقل يُميَّز من إعادة رسم الصفحة بترتيب التعديل والرابط', () => {
+  // الحالات بأسماء المراجعة: أ2 رجوع Back؛ ف4 نوع بلا عنصر تأكيد عنصر هويته ترويسة نصها واحد في الصفحتين؛ أ6 في مهمة واحدة؛ ف7 «DOM أولًا» في نوع
+  // بلا عنصر تأكيد؛ ف5 تحديث حي في عنصر الهوية قبيل تنقل بالرابط أولًا. مؤقتات وهمية، ولا انتظار ثابت في الكاشف.
+  const ISSUE = (n: number, extra = ''): string => `<div data-testid="issue-viewer-issue-container"><h1 data-testid="issue-title">Issue ${n}</h1>${extra}</div>`;
+  const COMPARE = (range: string): string => `<div id="repo-header">org/repo</div><div class="compare-body">Compare ${range}</div>`;
+  const detectors: PageDetector[] = [];
+  afterEach(() => {
+    for (const detector of detectors.splice(0)) detector.stop();
+  });
+  function follow(path: string, mainHtml: string) {
+    vi.useFakeTimers();
+    window.history.replaceState({}, '', path);
+    document.body.innerHTML = `<main>${mainHtml}</main>`;
+    const detector = new PageDetector({ document });
+    detectors.push(detector);
+    const seen: Array<{ path: string; text: string }> = [];
+    detector.subscribe((state) => void seen.push({ path: new URL(state.href).pathname, text: document.querySelector('main')!.textContent!.replace(/\s+/g, ' ').trim() }));
+    detector.start();
+    return { seen, main: document.querySelector('main')! };
+  }
+  const go = (path: string): void => {
+    window.history.pushState({}, '', path);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+  const loading = (parent: Element): void => {
+    const el = document.createElement('div');
+    el.textContent = 'Loading…';
+    parent.appendChild(el);
+  };
+  const tick = async (ms: number): Promise<void> => {
+    await vi.advanceTimersByTimeAsync(ms);
+  };
+
+  it('أ2 رجوع Back (الرابط أولًا ثم يصل DOM الصفحة السابقة): إعلان ثانٍ عليه', async () => {
+    const { seen, main } = follow('/org/repo/issues/2', ISSUE(2));
+    go('/org/repo/issues/1');
+    loading(main);
+    await tick(150);
+    expect(seen).toHaveLength(2);
+    expect(seen.at(-1)!.text).toContain('Issue 2');
+    main.innerHTML = ISSUE(1);
+    await tick(300);
+    expect(seen).toHaveLength(3);
+    expect(seen.at(-1)).toMatchObject({ path: '/org/repo/issues/1' });
+    expect(seen.at(-1)!.text).toContain('Issue 1');
+  });
+
+  it('ف4 نوع بلا عنصر تأكيد وعنصر هويته ترويسة نصها واحد في الصفحتين: استبدالها مع وصول الصفحة الجديدة يعيد الإعلان', async () => {
+    const { seen, main } = follow('/org/repo/compare/a...b', COMPARE('a...b'));
+    go('/org/repo/compare/c...d');
+    loading(main);
+    await tick(150);
+    expect(seen).toHaveLength(2);
+    expect(seen.at(-1)!.text).toContain('Compare a...b');
+    main.innerHTML = COMPARE('c...d');
+    await tick(300);
+    expect(seen).toHaveLength(3);
+    expect(seen.at(-1)!.text).toContain('Compare c...d');
+  });
+
+  it('أ6 في مهمة واحدة (React يكتب الصفحة الجديدة في العقدة نفسها ويغيّر الرابط بلا فاصل)، ثم إعادة رسم عنصر الهوية خلال النافذة: لا إعادة إعلان', async () => {
+    const { seen, main } = follow('/org/repo/issues/1', ISSUE(1));
+    const container = main.firstElementChild!;
+    container.querySelector('h1')!.textContent = 'Issue 2';
+    go('/org/repo/issues/2');
+    await tick(150);
+    expect(seen).toHaveLength(2);
+    expect(seen.at(-1)).toMatchObject({ path: '/org/repo/issues/2' });
+    expect(seen.at(-1)!.text).toContain('Issue 2');
+    await tick(3000);
+    container.replaceWith(container.cloneNode(true));
+    await tick(LATE_DOM_WINDOW_MS);
+    expect(seen).toHaveLength(2);
+  });
+
+  it('ف7 «DOM أولًا» في نوع بلا عنصر تأكيد، ثم إعادة رسم الترويسة خلال النافذة: لا إعادة إعلان', async () => {
+    const { seen, main } = follow('/org/repo/compare/a...b', COMPARE('a...b'));
+    main.querySelector('.compare-body')!.textContent = 'Compare c...d';
+    await tick(10);
+    go('/org/repo/compare/c...d');
+    await tick(150);
+    expect(seen).toHaveLength(2);
+    expect(seen.at(-1)!.text).toContain('Compare c...d');
+    await tick(3000);
+    const header = main.querySelector('#repo-header')!;
+    header.replaceWith(header.cloneNode(true));
+    await tick(LATE_DOM_WINDOW_MS);
+    expect(seen).toHaveLength(2);
+  });
+
+  it('ف5 تحديث حي في عنصر الهوية قبيل تنقل بالرابط أولًا: وصول DOM الصفحة الجديدة يعيد الإعلان (فلا تُستثنى إعادة رسم بنص مختلف بعد «DOM أولًا»: ف3)', async () => {
+    const { seen, main } = follow('/org/repo/issues/1', ISSUE(1));
+    main.firstElementChild!.insertAdjacentHTML('beforeend', '<p>New comment arrived</p>');
+    await tick(300);
+    go('/org/repo/issues/2');
+    loading(main);
+    await tick(150);
+    expect(seen).toHaveLength(2);
+    expect(seen.at(-1)!.text).toContain('Issue 1');
+    main.innerHTML = ISSUE(2);
+    await tick(300);
+    expect(seen).toHaveLength(3);
+    expect(seen.at(-1)!.text).toContain('Issue 2');
   });
 });
 
