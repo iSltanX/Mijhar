@@ -65,6 +65,12 @@ export class ManagedTranslationEngine implements TranslationService {
       this.packPresent = true;
       return output;
     } catch (error) {
+      // GEMINI-019: QuotaExceededError بعد اكتمال تنزيل الحزمة في هذا الطلب نفسه حدّ إدخال الفقرة لا امتلاء قرص: يُسأل المتصفح عن الحزمة قبل التصنيف،
+      // فلا يُعرض «لا تتسع مساحة التخزين» ولا تُسحب الموافقة لحزمة صارت موجودة.
+      if (!this.packPresent && (error instanceof Error || error instanceof DOMException) && error.name === 'QuotaExceededError') {
+        const state = await this.status().catch(() => null);
+        if (state === 'available') this.packPresent = true;
+      }
       throw this.explain(error);
     }
   }

@@ -257,33 +257,49 @@ describe('مركز «ملاحظاتي وأكمل لاحقًا» في اللوح�
 
     const index = buildIndex(set.notes, set.bookmarks);
     const search = $<HTMLInputElement>('#mj-later-search');
-    const timings: Array<{ text: string; results: number; medianMs: number; p90Ms: number }> = [];
+    // تدقيق 2026-10-27: الحد يُفحص على زمن معالج خيط الاختبار للحلقة نفسها لا على زمن الساعة. زمن الساعة في jsdom يقيس انتظار الجدولة حين
+    // يجري الطقم بعمّاله المتوازية مع حمل خارجي (رُصد 15–112ms)، بينما العمل نفسه 3–5ms في jsdom منفردًا و≈2ms في Chrome 156 الحقيقي
+    // (workbench/remediation/mijhar-audit-2026-10-27/evidence/pb04-*). زمن المعالج يشمل عمل المنتج وكلفة jsdom وجمع الذاكرة، ولا يشمل الانتظار؛
+    // ويُفحص وسيطه ومئينه 90 تحت 15ms (كان الوسيط وحده)، ويُسجَّل زمن الساعة معه.
+    const cpu = (): number => {
+      const usage = (process.threadCpuUsage ?? process.cpuUsage)();
+      return (usage.user + usage.system) / 1000;
+    };
+    const timings: Array<{ text: string; results: number; medianMs: number; p90Ms: number; cpuMedianMs: number; cpuP90Ms: number }> = [];
     for (const text of ['ا', 'cache', 'الاداء مراجعة', 'refactor router', 'test']) {
       const runs: number[] = [];
+      const cpuRuns: number[] = [];
       for (let i = 0; i < 12; i += 1) {
         act(() => {
           search.value = '';
           search.dispatchEvent(new Event('input', { bubbles: true }));
         });
         const t0 = performance.now();
+        const c0 = cpu();
         act(() => {
           search.value = text;
           search.dispatchEvent(new Event('input', { bubbles: true }));
         });
+        cpuRuns.push(cpu() - c0);
         runs.push(performance.now() - t0);
       }
       const expected = queryCenter(index, { text }).length;
       expect($('[data-result-count]').getAttribute('data-result-count')).toBe(String(expected));
       expect(container.querySelectorAll('[data-entry-kind]').length).toBe(Math.min(expected, CENTER_PAGE_SIZE));
       runs.sort((a, b) => a - b);
-      timings.push({ text, results: expected, medianMs: Number(runs[6]!.toFixed(2)), p90Ms: Number(runs[10]!.toFixed(2)) });
+      cpuRuns.sort((a, b) => a - b);
+      timings.push({ text, results: expected, medianMs: Number(runs[6]!.toFixed(2)), p90Ms: Number(runs[10]!.toFixed(2)), cpuMedianMs: Number(cpuRuns[6]!.toFixed(2)), cpuP90Ms: Number(cpuRuns[10]!.toFixed(2)) });
     }
     if (process.env.MIJHAR_EVIDENCE === '1') {
       const out = path.join(ROOT, 'evidence/T-8.2/pb04-render-jsdom.json');
       fs.mkdirSync(path.dirname(out), { recursive: true });
       fs.writeFileSync(out, JSON.stringify({ budget: 'PB-04 < 15ms (إدخال ← ظهور النتائج)', env: 'jsdom (أبطأ من المتصفح)، الدفعة الأولى 50', items: 500, timings }, null, 2) + '\n');
     }
-    for (const t of timings) expect(t.medianMs).toBeLessThan(15);
+    if (process.env.PB04_TIMINGS === '1') console.log(`PB04_TIMINGS ${JSON.stringify(timings)}`);
+    for (const t of timings) {
+      expect(t.cpuMedianMs, `${t.text}: زمن المعالج الوسيط (الساعة ${t.medianMs}ms)`).toBeLessThan(15);
+      expect(t.cpuP90Ms, `${t.text}: زمن المعالج للمئين 90 (الساعة ${t.p90Ms}ms)`).toBeLessThan(15);
+    }
   });
 
   it('مسجَّل في تبويب «ملاحظاتي»: اللوحة الأصلية وحدها، وفي الدرج رسالة بديلة؛ وقسم الإعدادات يبيّن ما يُحفظ من السطر', () => {

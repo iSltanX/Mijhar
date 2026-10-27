@@ -21,6 +21,16 @@
 //    وEdge وBrave وFirefox 158 حيث فُحصت) وتعديلات شجرة body (childList) غير الصادرة عن الإضافة واستبدال body/head.
 // يُعلَن التغيّر فقط حين تتغير «بصمة» الصفحة (المسار والنوع والثقة وهوية body والحاوية الرئيسية)، فيُطلَق turbo:render
 // ثم turbo:load للتنقل الواحد حدثًا واحدًا لا اثنين، ويمرّ تعديل الوحدات لشجرة الصفحة دون إعلان ما دامت البصمة ثابتة.
+// استثناء واحد (GEMINI-001): تنقل أُعلن وعنصر تأكيد الصفحة (أو أول ابن للحاوية إن لم يتأكد) هو عنصر الصفحة السابقة نفسه، أي أن DOM الجديد
+// ربما لم يصل بعد (React يبقي <main> ويضع مؤشر تحميل). إن استُبدل ذلك العنصر خلال LATE_DOM_WINDOW_MS أُعيد الإعلان مرة واحدة فتُركَّب الوحدات
+// على DOM الصفحة الجديدة؛ وبعد النافذة أو بلا هذا الشرط تبقى إعادة رسم GitHub لسطوح keepAttached لا لإعادة التركيب.
+// ووصول DOM التنقل يُميَّز من إعادة رسم الصفحة بترتيب التعديل والرابط لا بالنص وحده (مراجعة 2026-10-28، الحالات أ6 وف4 وف5 وف7):
+//  - «منطقة هوية» الصفحة المعلنة عنصر تأكيدها، أو حاويتها كلها إن لم تتأكد (أول ابن للحاوية، كترويسة المستودع، قد يتطابق بين صفحتين).
+//  - إن لم يسبق تغيّرَ الرابط تعديلٌ في تلك المنطقة (الرابط أولًا) فالإعلان على DOM الصفحة السابقة، واستبدال عنصر الهوية هو وصول الجديد.
+//  - وإن سبقه تعديل فيها خلال settleMaxMs (DOM أولًا) فالإعلان رأى الصفحة الجديدة على الأرجح، واستبدال العنصر بعدها لا يعيد الإعلان ما دامت
+//    المنطقة تعرض ما رآه الإعلان (إعادة رسم)؛ وإن تغيّرت فلا يُفصل بين تحديث حي (ف3) وتعديل لا علاقة له سبق تنقلًا بالرابط أولًا (ف5)، فيُعاد.
+//  - التعديلات المنتظرة في طابور المراقب حين يُرى تغيّر الرابط سبقته (React يكتب DOM ويستدعي pushState في مهمة واحدة، وتُطلق Navigation API
+//    حدث currententrychange أثناءه)، فتُسجَّل قبل الحكم. ولا تأخير لأي إعلان.
 import { EXTERNAL_ROUTE, GITHUB_ORIGIN, classifyPath } from './page-types';
 import type { Confidence, PageState } from './page-types';
 import { DEFAULT_SELECTORS, SelectorsRegistry } from './selectors';
@@ -42,6 +52,14 @@ export interface PageDetectorOptions {
 
 const DEFAULT_SETTLE_MS = 100;
 const DEFAULT_SETTLE_MAX_MS = 1000;
+/** مدة ترقّب DOM تنقل أُعلن قبل وصوله: بطء الشبكة المعتاد دونها، وبعدها لا يُعاد تركيب الصفحة لاستبدال عنصر فيها. */
+export const LATE_DOM_WINDOW_MS = 10_000;
+
+/**
+ * نص منطقة الهوية (textContent) بمسافات مطبَّعة. نص الإضافة في جذور ظلية لا يدخله، وتغليفها لنص الصفحة (العزل، و«الترجمة فقط») يبقيه كما هو.
+ * يُحسب فقط عند إعلان تنقل سبقه تعديل في المنطقة وبقي فيه عنصر الهوية، ثم عند استبدال العنصر خلال النافذة.
+ */
+const regionText = (element: Element): string => (element.textContent ?? '').replace(/\s+/g, ' ').trim();
 
 /** ما تحقنه الإضافة في الصفحة: المضيفات وعناصر الوحدات المعلَّمة، والعقد التي نُقلت إلى داخلها (تغليف نص). */
 const OWN = 'mijhar-host, [data-mijhar-injected]';
@@ -78,6 +96,21 @@ export class PageDetector {
   private navigationSeq = 0;
   private urlChangedAt: number | null = null;
   private capTimer: ReturnType<typeof setTimeout> | null = null;
+  /** عنصر هوية الصفحة عند آخر إعلان (عنصر التأكيد، أو أول ابن للحاوية). */
+  private lastMarker: Element | null = null;
+  /** منطقة هوية الصفحة عند آخر إعلان: عنصر تأكيدها، أو حاويتها إن لم تتأكد. */
+  private lastRegion: Element | null = null;
+  /** آخر تعديل من الصفحة مسّ تلك المنطقة، بوقته وترتيبه. */
+  private regionAt: number | null = null;
+  private regionSeq = 0;
+  /** تغيّر الرابط الجاري سبقه تعديل في منطقة الهوية خلال settleMaxMs (DOM أولًا)؛ يُحكم عند أول رؤية لتغيّر الرابط. */
+  private domFirst = false;
+  /** تنقل أُعلن وعنصر الهوية هو عنصر الصفحة السابقة نفسه: يُرتقب استبداله حتى pendingUntil. */
+  private pendingMarker: Element | null = null;
+  /** حين سبق الرابطَ تعديلٌ في المنطقة: نصها عند الإعلان، وهل هي الحاوية (وإلا عنصر التأكيد). null حين أُعلن بالرابط أولًا. */
+  private pendingRegionText: string | null = null;
+  private pendingRegionIsRoot = false;
+  private pendingUntil = 0;
 
   constructor(options: PageDetectorOptions = {}) {
     this.doc = options.document ?? document;
@@ -90,14 +123,20 @@ export class PageDetector {
 
   /** يقيس الصفحة الآن دون إعلان ولا تغيير حالة. */
   detect(): PageState {
+    return this.measure().page;
+  }
+
+  /** الصفحة الآن، وعنصر هويتها: عنصر التأكيد إن وُجد، وإلا أول ابن للحاوية ليس من الإضافة. */
+  private measure(): { page: PageState; marker: Element | null; confirm: Element | null } {
     const view = this.doc.defaultView;
     const url = new URL(view?.location.href ?? this.doc.URL);
     const route = url.origin === GITHUB_ORIGIN ? classifyPath(url.pathname) : EXTERNAL_ROUTE;
     const contentRoot = this.selectors.resolve(this.doc, 'content-root')?.element ?? null;
     const confirmKey = `confirm.${route.type}`;
-    const confirmed = this.selectors.has(confirmKey) && this.selectors.resolve(this.doc, confirmKey) !== null;
-    const confidence: Confidence = confirmed ? 'high' : 'low';
-    return { href: url.href, type: route.type, owner: route.owner, repo: route.repo, number: route.number, confidence, contentRoot };
+    const confirm = this.selectors.has(confirmKey) ? (this.selectors.resolve(this.doc, confirmKey)?.element ?? null) : null;
+    const confidence: Confidence = confirm ? 'high' : 'low';
+    const marker = confirm ?? [...(contentRoot?.children ?? [])].find((child) => !isOwn(child)) ?? null;
+    return { page: { href: url.href, type: route.type, owner: route.owner, repo: route.repo, number: route.number, confidence, contentRoot }, marker, confirm };
   }
 
   /** آخر حالة أُعلنت، أو null قبل start(). */
@@ -155,6 +194,11 @@ export class PageDetector {
     this.listeners.clear();
     this.last = null;
     this.lastSignature = null;
+    this.lastMarker = null;
+    this.lastRegion = null;
+    this.regionAt = null;
+    this.domFirst = false;
+    this.clearPending();
   }
 
   /**
@@ -164,10 +208,12 @@ export class PageDetector {
   check(domReady = false): boolean {
     if (!this.started) return false;
     this.observeTree();
-    const page = this.detect();
+    const { page, marker, confirm } = this.measure();
     const signature = this.signature(page);
-    if (signature === this.lastSignature) {
+    const lateDom = this.lateDom(marker, confirm, page.contentRoot);
+    if (signature === this.lastSignature && !lateDom) {
       this.urlChangedAt = null;
+      this.domFirst = false;
       this.clearCap();
       return false;
     }
@@ -176,12 +222,23 @@ export class PageDetector {
       this.awaitDom();
       return false;
     }
+    // DOM أولًا: تعديل في منطقة هوية الصفحة المعلنة سبق تغيّر الرابط (أو سبق هذا الفحص إن لم يُرَ التغيّر قبله).
+    const domFirst = navigated && this.last !== null && (this.urlChangedAt !== null ? this.domFirst : this.regionChangedBefore(Date.now()));
     this.clearCap();
     this.urlChangedAt = null;
+    this.domFirst = false;
     if (navigated) this.navigationSeq = ++this.seq;
+    const stale = navigated && this.last !== null && marker !== null && marker === this.lastMarker;
+    const region = confirm ?? page.contentRoot;
+    this.pendingMarker = stale ? marker : null;
+    this.pendingRegionText = stale && domFirst && region ? regionText(region) : null;
+    this.pendingRegionIsRoot = confirm === null;
+    this.pendingUntil = stale ? Date.now() + LATE_DOM_WINDOW_MS : 0;
     const previous = this.last;
     this.last = page;
     this.lastSignature = signature;
+    this.lastMarker = marker;
+    this.lastRegion = region;
     for (const listener of [...this.listeners]) {
       try {
         listener(page, previous);
@@ -190,6 +247,35 @@ export class PageDetector {
       }
     }
     return true;
+  }
+
+  /**
+   * DOM تنقل أُعلن قبله وصل الآن (GEMINI-001): استُبدل خلال النافذة عنصر الهوية الذي بقي عند الإعلان. إن أُعلن بالرابط أولًا فالاستبدال هو
+   * الوصول. وإن سبق الرابطَ تعديلٌ في منطقة الهوية فالإعلان رأى الصفحة الجديدة، والاستبدال إعادة رسم ما دامت المنطقة تعرض ما رآه: يُتابَع
+   * العنصر الجديد ولا يُعاد الإعلان. بانقضاء النافذة يُترك الترقب.
+   */
+  private lateDom(marker: Element | null, confirm: Element | null, contentRoot: Element | null): boolean {
+    if (this.pendingMarker === null || marker === null || marker === this.pendingMarker) return false;
+    if (Date.now() > this.pendingUntil) {
+      this.clearPending();
+      return false;
+    }
+    if (this.pendingRegionText === null) return true;
+    const region = this.pendingRegionIsRoot ? contentRoot : confirm;
+    if (region === null || regionText(region) !== this.pendingRegionText) return true;
+    this.pendingMarker = marker;
+    return false;
+  }
+
+  private clearPending(): void {
+    this.pendingMarker = null;
+    this.pendingRegionText = null;
+    this.pendingUntil = 0;
+  }
+
+  /** هل مسّ تعديلٌ من الصفحة منطقةَ الهوية بعد آخر إعلان تنقل، في حدود settleMaxMs قبل at. */
+  private regionChangedBefore(at: number): boolean {
+    return this.regionAt !== null && this.regionSeq > this.navigationSeq && at - this.regionAt <= this.settleMaxMs;
   }
 
   /** هل وصل DOM التنقل الجاري: تعديل مؤهل بعد آخر إعلان تنقل، لا يسبق تغيّر المسار بأكثر من settleMaxMs؛ أو بلغ الانتظار حده. */
@@ -201,7 +287,10 @@ export class PageDetector {
 
   // المسار تغيّر ولم يصل DOM: فحص عند الحد الأقصى من تغيّره إن لم يحرّكه تعديل مؤهل قبله.
   private awaitDom(): void {
-    this.urlChangedAt ??= Date.now();
+    if (this.urlChangedAt === null) {
+      this.urlChangedAt = Date.now();
+      this.domFirst = this.regionChangedBefore(this.urlChangedAt);
+    }
     if (this.capTimer !== null) return;
     this.capTimer = setTimeout(() => {
       this.capTimer = null;
@@ -214,30 +303,48 @@ export class PageDetector {
     this.capTimer = null;
   }
 
-  // أول لحظة يُرى فيها المسار مختلفًا عن آخر إعلان (من حدث تنقل أو تعديل).
+  // أول لحظة يُرى فيها المسار مختلفًا عن آخر إعلان (من حدث تنقل أو تعديل). ما ينتظر في طابور المراقب سبق هذه الرؤية فيُسجَّل أولًا، ثم يُحكم
+  // هل سبق الرابطَ تعديلٌ في منطقة الهوية (DOM أولًا). يُستدعى من settle() وحدها، فيتبعه ضبط مؤقت الهدوء لما سُجِّل.
   private noteUrl(): void {
     if (this.urlChangedAt !== null || !this.last) return;
     const view = this.doc.defaultView;
-    if (urlKey(view?.location.href ?? this.doc.URL) !== urlKey(this.last.href)) this.urlChangedAt = Date.now();
+    if (urlKey(view?.location.href ?? this.doc.URL) === urlKey(this.last.href)) return;
+    const queued = this.observer?.takeRecords() ?? [];
+    if (queued.length) this.classify(queued);
+    this.urlChangedAt = Date.now();
+    this.domFirst = this.regionChangedBefore(this.urlChangedAt);
   }
 
-  // تعديلات الإضافة وحدها لا تحرّك شيئًا؛ وما عداها يحرّك الهدوء، والمؤهل منه (داخل الحاوية) يُسجَّل بوقته وترتيبه.
   private mutated(records: readonly MutationRecord[]): void {
+    if (this.classify(records)) this.settle();
+  }
+
+  // تعديلات الإضافة وحدها لا تحرّك شيئًا؛ وما عداها يحرّك الهدوء، والمؤهل منه (داخل الحاوية) يُسجَّل بوقته وترتيبه، وكذلك ما مسّ منطقة هوية
+  // الصفحة المعلنة. يعيد هل فيها تعديل من الصفحة.
+  private classify(records: readonly MutationRecord[]): boolean {
     let foreign = false;
     let qualifying = false;
+    let region = false;
     const roots = this.roots();
+    const announced = this.lastRegion;
     for (const record of records) {
       if (record.type !== 'childList') continue;
       const nodes = [...record.addedNodes, ...record.removedNodes];
       if (nodes.every(isOwn)) continue;
       foreign = true;
-      if (!roots.length || roots.some((root) => root.contains(record.target) || nodes.some((node) => node === root || node.contains(root)))) qualifying = true;
+      const touches = (root: Element): boolean => root.contains(record.target) || nodes.some((node) => node === root || node.contains(root));
+      if (!roots.length || roots.some(touches)) qualifying = true;
+      if (announced && touches(announced)) region = true;
     }
     if (qualifying) {
       this.qualifyingAt = Date.now();
       this.qualifyingSeq = ++this.seq;
     }
-    if (foreign) this.settle();
+    if (region) {
+      this.regionAt = Date.now();
+      this.regionSeq = ++this.seq;
+    }
+    return foreign;
   }
 
   // حاوية المحتوى المعلنة، والحالية إن فُصلت تلك (استبدال الحاوية نفسها).

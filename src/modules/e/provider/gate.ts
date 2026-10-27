@@ -45,7 +45,9 @@ export function gatedFetch(descriptor: Pick<ProviderDescriptor, 'host' | 'origin
     const url = new URL(path, `https://${descriptor.host}/`);
     if (url.protocol !== 'https:' || url.host !== descriptor.host) throw new Error(`طلب المزوّد لا يقبل إلا https://${descriptor.host}: ${url.href}`);
     if (!(await deps.permissions.contains(set))) throw new ProviderPermissionError(descriptor.origin);
-    return (deps.fetch ?? globalThis.fetch)(url.href, { ...init, credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-store' });
+    // redirect: 'error': لا يُتبع تحويل من مضيف المزوّد إلى غيره ومعه ترويسة المفتاح والمحتوى (Fetch يُبقي الترويسات المخصصة عبر التحويل). عقد
+    // الشبكة طلب إلى مضيف المزوّد نفسه، وواجهاته لا تحوّل في الاستعمال العادي؛ فالتحويل يُرفض خطأً معلنًا بدل اتباعه.
+    return (deps.fetch ?? globalThis.fetch)(url.href, { ...init, credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-store', redirect: 'error' });
   };
 }
 

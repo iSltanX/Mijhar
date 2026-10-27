@@ -44,6 +44,7 @@ const set = async (el: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElemen
     el.dispatchEvent(new Event(event, { bubbles: true }));
   });
 };
+const githubish = (url: string): boolean => url.startsWith('https://github.com/');
 const titles = (): string[] => [...container.querySelectorAll('[data-resource-id] .item-head strong')].map((n) => n.textContent ?? '');
 
 async function mount(options: { access?: ReturnType<typeof fakeAccess>; readFile?: (f: File) => Promise<string>; ctx?: MemoryResources } = {}) {
@@ -126,6 +127,27 @@ describe('الإضافة والتعديل والحذف', () => {
     await set($(`#mj-res-url-${target.id}`) as HTMLInputElement, 'https://example.com/changed');
     await click($('[data-action="save-resource"]', $(`[data-resource-id="${target.id}"]`)));
     expect(ctx.repository.get(target.id)).toMatchObject({ url: 'https://example.com/changed', status: 'unverified', lastVerified: null, source: 'عدّله المستخدم' });
+  });
+
+  // GEMINI-014 (تدقيق 2026-10-27): نموذج التعديل كان يُهيَّأ مرة عند التركيب، فيعيد الحفظ بعد «اعتمد العنوان الجديد» الرابطَ القديم.
+  it('«اعتمد العنوان الجديد» ثم تعديل الوصف وحفظه: يبقى الرابط الجديد ولا يُسقط تحققه', async () => {
+    const { ctx } = await mount();
+    const target = ctx.repository.list().find((r) => githubish(r.url))!;
+    const moved = 'https://github.com/new-owner/new-repo';
+    await act(async () => void (await ctx.repository.update(target.id, { movedTo: moved })));
+    await settle();
+    const item = () => $(`[data-resource-id="${target.id}"]`);
+    // يُفتح نموذج التعديل مرة قبل الاعتماد (فتُهيَّأ حالته المحلية بالرابط القديم) ثم يُلغى.
+    await click($('[data-action="edit-resource"]', item()));
+    await click($('[data-action="cancel-edit"]', item()));
+    await click($('[data-action="apply-moved"]', item()));
+    expect(ctx.repository.get(target.id)?.url).toBe(moved);
+    await click($('[data-action="edit-resource"]', item()));
+    expect(($(`#mj-res-url-${target.id}`) as HTMLInputElement).value).toBe(moved);
+    await set($(`#mj-res-desc-${target.id}`) as HTMLTextAreaElement, 'وصف معدّل');
+    await click($('[data-action="save-resource"]', item()));
+    expect(ctx.repository.get(target.id)).toMatchObject({ url: moved, description: 'وصف معدّل' });
+    expect(ctx.repository.get(target.id)?.source).not.toBe('عدّله المستخدم');
   });
 
   it('إضافة غير صالحة تظهر تنبيهًا ولا تُحفظ', async () => {

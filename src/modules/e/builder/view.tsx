@@ -7,7 +7,7 @@ import { useMemo, useRef, useState } from 'preact/hooks';
 import { isTrustedActivation } from '../../../shared/ui/user-activation';
 import { GAPS_HEADING, ITEM } from '../context';
 import type { ContextSource, Gap, Snippet } from '../context';
-import { PrivacyCheck, scanText } from '../privacy-check';
+import { PrivacyCheck, mergeOverlapping, scanText } from '../privacy-check';
 import type { Finding } from '../privacy-check';
 import { TEMPLATES, bundleFileName, renderTemplate } from '../templates';
 import type { TemplateId } from '../templates';
@@ -64,7 +64,7 @@ export function BuilderPanel(props: BuilderPanelProps) {
   );
   const [edited, setEdited] = useState<string | null>(null);
   const text = edited ?? generated.text;
-  const findings = useMemo(() => scanText(text), [text]);
+  const findings = useMemo(() => mergeOverlapping(scanText(text)), [text]);
   const previewRef = useRef<HTMLTextAreaElement>(null);
   const [copyState, setCopyState] = useState<CopyResult | null>(null);
   const [downloadState, setDownloadState] = useState<DownloadResult | null>(null);

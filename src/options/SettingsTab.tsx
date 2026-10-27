@@ -501,18 +501,24 @@ function PrivacySection() {
   );
 }
 
+/** قسم وحدة يتبع مفتاح تشغيلها (GEMINI-018): إيقافها من «الوحدات» أعلى الصفحة يحدّث ملاحظة «الوحدة موقوفة» فيه فورًا. */
+function ModuleSection({ settings, surface, section }: { settings: SettingsStore; surface: SettingsSurface; section: SettingsSection }) {
+  useSetting<boolean>(settings, moduleEnabledKey(section.unit));
+  const Component = section.component;
+  return (
+    <section class="section" data-section={`module-${section.id}`} aria-label={section.title}>
+      <Heading>{section.title}</Heading>
+      <Component settings={settings} surface={surface} unitEnabled={settings.isModuleEnabled(section.unit)} />
+    </section>
+  );
+}
+
 function ModuleSections({ settings, surface, sections }: { settings: SettingsStore; surface: SettingsSurface; sections: readonly SettingsSection[] }) {
   return (
     <>
-      {sectionsFor(surface, sections).map((section) => {
-        const Component = section.component;
-        return (
-          <section class="section" key={section.id} data-section={`module-${section.id}`} aria-label={section.title}>
-            <Heading>{section.title}</Heading>
-            <Component settings={settings} surface={surface} unitEnabled={settings.isModuleEnabled(section.unit)} />
-          </section>
-        );
-      })}
+      {sectionsFor(surface, sections).map((section) => (
+        <ModuleSection key={section.id} settings={settings} surface={surface} section={section} />
+      ))}
     </>
   );
 }

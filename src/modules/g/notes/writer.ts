@@ -24,6 +24,8 @@ export type NotesWriteOperation =
   | { readonly op: 'note-remove'; readonly id: string }
   | { readonly op: 'anchor-save'; readonly anchor: LineAnchor }
   | { readonly op: 'anchor-prune' }
+  // CODEX-007: «احصل على الملح أو أنشئه» عملية واحدة في طابور الخلفية، فيعود سياقان متسابقان بالملح نفسه.
+  | { readonly op: 'salt-ensure' }
   // T-8.4 (AD-25): الاستيراد والحذف المفرد والمستودعي والكلي واستعادة نسخة الاستيراد الاحتياطية. الرسالة تحمل الملف والوضع أو النطاق، والخلفية
   // تفحص وتحسب وتكتب من حالتها هي.
   | { readonly op: 'data-import'; readonly content: unknown; readonly mode: ImportMode }
@@ -47,6 +49,8 @@ export interface NotesWriter extends BookmarksWriter {
   removeNote(id: string): Promise<void>;
   saveAnchor(anchor: LineAnchor): Promise<void>;
   pruneAnchors(): Promise<number>;
+  /** ملح البصمات المحلي، تنشئه الخلفية في طابورها عند أول حاجة. */
+  ensureSalt(): Promise<string>;
   /** يستورد ملف تصدير (نصه أو كائنه) بالدمج أو الاستبدال بعد نسخة احتياطية تلقائية؛ ملف تالف يُرفض دون مساس بالبيانات. */
   importBundle(content: unknown, mode: ImportMode): Promise<ImportSummary>;
   /** يحذف ملاحظة أو رابطًا أو كل ما يخص مستودعًا أو كل شيء، مع المراسي، في الخلفية وحدها. */
@@ -149,6 +153,7 @@ export function parseNotesWriteRequest(message: unknown): NotesWriteRequest | nu
     case 'anchor-save':
       return onlyKeys(message, ['type', 'op', 'anchor']) && isLineAnchor(message.anchor) && isId(message.anchor.noteId) ? (message as NotesWriteRequest) : null;
     case 'anchor-prune':
+    case 'salt-ensure':
       return onlyKeys(message, ['type', 'op']) ? (message as NotesWriteRequest) : null;
     case 'data-import':
       return onlyKeys(message, ['type', 'op', 'content', 'mode']) && (message.mode === 'merge' || message.mode === 'replace') && (isRecord(message.content) || typeof message.content === 'string')
@@ -201,6 +206,11 @@ export function runtimeNotesWriter(runtime: Pick<ExtensionApi['runtime'], 'sendM
     removeNote: async (id) => void (await send({ op: 'note-remove', id })),
     saveAnchor: async (anchor) => void (await send({ op: 'anchor-save', anchor })),
     pruneAnchors: async () => Number(await send({ op: 'anchor-prune' })),
+    ensureSalt: async () => {
+      const salt = await send({ op: 'salt-ensure' });
+      if (typeof salt !== 'string' || !/^[0-9a-f]{64}$/.test(salt)) throw new Error('ردّت الخلفية بملح غير صالح');
+      return salt;
+    },
     importBundle: async (content, mode) => (await send({ op: 'data-import', content, mode })) as ImportSummary,
     deleteData: async (scope) => (await send({ op: 'data-delete', scope })) as DeleteCounts,
     restoreImportBackup: async () => (await send({ op: 'data-restore' })) as ImportSummary,

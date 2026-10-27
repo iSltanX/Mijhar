@@ -9,10 +9,21 @@ import type { CheckItem, PrSummary } from '../pr-status/summary';
 import { have } from '../pr-status/value';
 import type { ApiPrData } from './api-read';
 
+/**
+ * اسم صف DOM بلا اسم سير العمل قبله ولا الحدث بعده («ci / build (pull_request)» ← «build»): check run في API يحمل اسم المهمة وحده. يُستعمل
+ * لصف DOM بلا معرّف (لا رابط مهمة فيه)، وحين يطابق صفًا واحدًا وفحصًا واحدًا في API فقط، فلا يُدمج فحصان مختلفان (GEMINI-003).
+ */
+const bareName = (name: string): string => (name.replace(/\s*\([\w-]+\)\s*$/, '').split(' / ').at(-1) ?? name).trim();
+
 function mergeItems(dom: readonly CheckItem[], api: readonly CheckItem[]): CheckItem[] {
   const used = new Set<CheckItem>();
   const merged = api.map((item) => {
-    const twin = dom.find((d) => !used.has(d) && ((item.id !== null && d.id === item.id) || d.name === item.name));
+    const loose = (): CheckItem | undefined => {
+      if (api.filter((a) => a.name === item.name).length !== 1) return undefined;
+      const candidates = dom.filter((d) => !used.has(d) && d.id === null && d.name !== item.name && bareName(d.name) === item.name);
+      return candidates.length === 1 ? candidates[0] : undefined;
+    };
+    const twin = dom.find((d) => !used.has(d) && ((item.id !== null && d.id === item.id) || d.name === item.name)) ?? loose();
     if (!twin) return item;
     used.add(twin);
     return twin.required === true && item.required !== true ? { ...item, required: true } : item;

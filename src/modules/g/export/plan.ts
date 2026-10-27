@@ -109,6 +109,16 @@ export function planImport(current: DataSnapshot, bundle: ExportBundle, mode: Im
     if (decision === 'added' || decision === 'updated') writes.push({ name: anchorRecordName(anchor.noteId), value: anchor });
   }
 
+  // GEMINI-015: ملاحظة فازت نسختها المستوردة ولم تعد ملاحظة سطر، ولا مرساة لها في الملف: تُزال مرساتها المحلية فلا تبقى يتيمة.
+  const incomingAnchors = new Set(bundle.anchors.map((a) => a.noteId));
+  const strayAnchors: string[] = [];
+  if (mode === 'merge') {
+    for (const note of bundle.notes) {
+      const decision = winners.get(note.id);
+      if ((decision === 'updated' || decision === 'added') && note.target.level !== 'line' && !incomingAnchors.has(note.id) && current.anchors.has(note.id)) strayAnchors.push(note.id);
+    }
+  }
+
   for (const bookmark of bundle.bookmarks) {
     const decision = decide(current.bookmarks.get(bookmark.id), bookmark, (b) => b.updatedAt, mode);
     bookmarkTally[decision] += 1;
@@ -130,6 +140,11 @@ export function planImport(current: DataSnapshot, bundle: ExportBundle, mode: Im
   } else if (options.exactSalt && current.salt) {
     salt = 'removed';
     removes.push(SALT_NAME);
+  }
+
+  for (const id of strayAnchors) {
+    removes.push(anchorRecordName(id));
+    anchorTally.removed += 1;
   }
 
   if (mode === 'replace') {

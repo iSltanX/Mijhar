@@ -153,8 +153,18 @@ export function takeSnapshot(doc: Document, containers: readonly Element[]): Rea
 }
 
 /** فحص بنية لقطة وصلت عبر الرسائل قبل عرضها (العارض لا يثق بشكلها). */
+/** رابط المصدر يُعرض رابطًا في صفحة القارئ: http(s) وحده (GEMINI-020؛ دفاع إضافي فوق CSP صفحات الإضافة التي تمنع javascript:). */
+const isWebUrl = (url: string): boolean => {
+  try {
+    const { protocol } = new URL(url);
+    return protocol === 'https:' || protocol === 'http:';
+  } catch {
+    return false;
+  }
+};
+
 export function isSnapshot(value: unknown): value is ReadingSnapshot {
   if (!value || typeof value !== 'object') return false;
   const v = value as Partial<ReadingSnapshot>;
-  return v.version === SNAPSHOT_VERSION && typeof v.url === 'string' && typeof v.title === 'string' && Array.isArray(v.sections) && typeof v.truncated === 'boolean';
+  return v.version === SNAPSHOT_VERSION && typeof v.url === 'string' && isWebUrl(v.url) && typeof v.title === 'string' && Array.isArray(v.sections) && typeof v.truncated === 'boolean';
 }

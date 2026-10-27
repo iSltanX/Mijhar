@@ -279,9 +279,9 @@ export class PublicApiClient {
 }
 
 /** رسالة GitHub للحد الثانوي («You have exceeded a secondary rate limit»). */
-const SECONDARY_LIMIT = /secondary rate limit/i;
+export const SECONDARY_LIMIT = /secondary rate limit/i;
 /** «انتظر دقيقة على الأقل» حين لا يعلن GitHub موعدًا للحد الثانوي. */
-const SECONDARY_WAIT_MS = 60_000;
+export const SECONDARY_WAIT_MS = 60_000;
 
 /** retry-after بالثواني أو بتاريخ HTTP، موعدًا مطلقًا (ms) بعد الآن؛ وإلا null. */
 export function readRetryAfter(headers: Pick<Headers, 'get'>, now: number): number | null {

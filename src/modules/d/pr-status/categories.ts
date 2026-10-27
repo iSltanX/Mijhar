@@ -111,9 +111,14 @@ export interface DomCheckSignal {
 
 const has = (text: string, ...needles: string[]): boolean => needles.some((n) => text.includes(n));
 
+/** عدّادات أداة الاختبار في الوصف («12 passed, 0 failed, 2 skipped»): تصف مخرجات الأداة لا حالة الفحص، فلا تُقرأ حالةً (GEMINI-003). */
+const TOOL_COUNTS = /\b\d+\s+(?:passed|failed|failing|failures?|errors?|errored|skipped|cancell?ed|succeeded|successful|warnings?|tests?|pending|todo)\b/g;
+
 /**
  * يصنّف فحصًا من رمزه ونصه في DOM (جدول الربط في T-0.3: ما يظهر في DOM بلا تسجيل دخول). DOM لا يميّز neutral عن success،
  * ولا يعرض timed_out/action_required/stale بشكل رُصد، فتظهر ضمن «غير معروف» أو ما يطابقها نصًّا فقط.
+ * الأولوية (GEMINI-003): رمز الحالة ثم وسمه (aria-label) يحسمان؛ ونص الوصف لا يُقرأ إلا إن لم يحسماها، وبعد إسقاط عدّادات الأدوات منه،
+ * فلا يصير فحص ناجح فاشلًا لأن وصفه «0 failed» أو متخطّى لأن فيه «2 skipped».
  */
 export function classifyDomCheck(signal: DomCheckSignal): Classification {
   const icon = (signal.iconClass ?? '').toLowerCase();
@@ -124,15 +129,25 @@ export function classifyDomCheck(signal: DomCheckSignal): Classification {
   // «Expected — Waiting for status to be reported»: فحص إلزامي منتظر لم يُبلَّغ بعد (DOM المسجَّل فقط، octicon-dot-fill).
   if (has(text, 'expected') && has(text, 'waiting for status')) return { category: 'not-run', raw, verified: true, note: 'منتظر الإبلاغ' };
 
-  if (has(label, 'in progress') || has(icon, 'anim-rotate') || has(icon, 'spinner') || /^in progress\b/.test(text) || has(text, 'queued', 'awaiting approval', 'waiting')) {
-    return { category: 'running', raw, verified: has(label, 'in progress') || has(icon, 'anim-rotate') };
-  }
-  if (has(icon, 'octicon-skip') || has(label, 'skipped') || /\bskipped\b/.test(text)) return { category: 'skipped', raw, verified: true };
-  if (has(icon, 'octicon-stop') || has(label, 'cancelled', 'canceled') || /\bcancell?ed\b/.test(text)) return { category: 'cancelled', raw, verified: true };
-  if (has(icon, 'octicon-x') || has(label, 'failed', 'failing', 'error') || /\b(failing|failed|errored)\b/.test(text)) return { category: 'failure', raw, verified: true };
-  if (has(icon, 'octicon-check') || has(label, 'succeeded', 'passed') || /\b(successful|succeeded|passed)\b/.test(text)) {
-    return { category: 'success', raw, verified: true };
-  }
+  // ١) الرمز.
+  if (has(icon, 'anim-rotate') || has(icon, 'spinner')) return { category: 'running', raw, verified: true };
+  if (has(icon, 'octicon-skip')) return { category: 'skipped', raw, verified: true };
+  if (has(icon, 'octicon-stop')) return { category: 'cancelled', raw, verified: true };
+  if (has(icon, 'octicon-x')) return { category: 'failure', raw, verified: true };
+  if (has(icon, 'octicon-check')) return { category: 'success', raw, verified: true };
+  // ٢) وسم الرمز.
+  if (has(label, 'in progress')) return { category: 'running', raw, verified: true };
+  if (has(label, 'skipped')) return { category: 'skipped', raw, verified: true };
+  if (has(label, 'cancelled', 'canceled')) return { category: 'cancelled', raw, verified: true };
+  if (has(label, 'failed', 'failing', 'error')) return { category: 'failure', raw, verified: true };
+  if (has(label, 'succeeded', 'passed', 'successful')) return { category: 'success', raw, verified: true };
+  // ٣) نص الوصف بلا عدّادات الأدوات.
+  const status = text.replace(TOOL_COUNTS, ' ');
+  if (/^in progress\b/.test(status) || has(status, 'queued', 'awaiting approval', 'waiting')) return { category: 'running', raw, verified: false };
+  if (/\bskipped\b/.test(status)) return { category: 'skipped', raw, verified: true };
+  if (/\bcancell?ed\b/.test(status)) return { category: 'cancelled', raw, verified: true };
+  if (/\b(failing|failed|errored)\b/.test(status)) return { category: 'failure', raw, verified: true };
+  if (/\b(successful|succeeded|passed)\b/.test(status)) return { category: 'success', raw, verified: true };
   if (has(icon, 'dot-fill') || has(icon, 'pending')) return { category: 'running', raw, verified: false, note: 'في الانتظار' };
   return { category: 'unknown', raw, verified: false };
 }

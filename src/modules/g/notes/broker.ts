@@ -72,6 +72,8 @@ export class NotesBroker {
       }
       case 'anchor-prune':
         return anchors.pruneOrphans();
+      case 'salt-ensure':
+        return anchors.ensureSalt(this.now);
       case 'data-import':
         return this.importContent(store, request.content, request.mode);
       case 'data-delete':

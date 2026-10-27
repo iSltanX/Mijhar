@@ -80,7 +80,12 @@ export const LOG_PATTERNS: readonly LogPattern[] = [
     cause: `الأمر «${m.groups?.cmd}» غير موجود في بيئة المشغّل`,
   })),
   pattern('node-heap-oom', 'نفاد ذاكرة Node.js', 'node', /JavaScript heap out of memory|Reached heap limit Allocation failed/, () => ({ key: 'heap', cause: 'نفدت ذاكرة كومة Node.js فتوقفت العملية' })),
-  pattern('disk-full', 'امتلاء القرص', 'os', /No space left on device|\bENOSPC\b/, () => ({ key: 'disk', cause: 'امتلأ قرص المشغّل (No space left on device)' })),
+  // CODEX-003: ENOSPC وحده رمز يستعمله Node.js أيضًا لبلوغ حد مراقِبات الملفات (inotify)، فلا يُثبت امتلاء القرص: الحد له نمطه، والقرص بنصّه الصريح وحده.
+  pattern('file-watcher-limit', 'حد مراقِبات الملفات', 'node / inotify', /ENOSPC: System limit for number of file watchers reached/i, () => ({
+    key: 'watchers',
+    cause: 'بلغ نظام المشغّل حد عدد مراقِبات الملفات (inotify) فتعذّرت مراقبة ملفات جديدة؛ هذا ليس امتلاءً للقرص',
+  })),
+  pattern('disk-full', 'امتلاء القرص', 'os', /No space left on device/i, () => ({ key: 'disk', cause: 'امتلأ قرص المشغّل (No space left on device)' })),
   pattern(
     'job-timeout',
     'تجاوز مهلة المهمة',
@@ -89,9 +94,10 @@ export const LOG_PATTERNS: readonly LogPattern[] = [
     (m) => ({ key: 'timeout', cause: `أوقف GitHub Actions المهمة لتجاوزها مهلتها القصوى (${m.groups?.min} دقيقة)` }),
   ),
   pattern('operation-cancelled', 'إلغاء العملية', 'GitHub Actions', /^The operation was canceled\.$/, () => ({ key: 'cancel', cause: 'أُلغيت المهمة قبل اكتمالها (The operation was canceled)' })),
+  // CODEX-003: الرسالة لا تسمّي الرمز: قد يكون GITHUB_TOKEN أو رمز تطبيق GitHub أو غيرهما، فلا يُنسب الرفض إلى نوع بعينه.
   pattern('integration-permission', 'صلاحية رمز سير العمل', 'GitHub API', /Resource not accessible by integration/, () => ({
     key: 'integration',
-    cause: 'رفض GitHub طلبًا من سير العمل لأن رمزه (GITHUB_TOKEN) لا يملك الصلاحية اللازمة',
+    cause: 'رفض GitHub طلبًا من سير العمل لأن الرمز الذي استعمله لا يملك الصلاحية اللازمة لهذا المورد (Resource not accessible by integration)',
   })),
   pattern('eslint-errors', 'أخطاء ESLint', 'eslint', /✖ (?<n>\d+) problems? \((?<e>\d+) errors?, (?<w>\d+) warnings?\)/, (m) =>
     Number(m.groups?.e) > 0 ? { key: 'eslint', cause: `أبلغ ESLint عن ${m.groups?.e} خطأ (${m.groups?.n} مشكلة إجمالًا)` } : null,

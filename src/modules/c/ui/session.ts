@@ -7,7 +7,7 @@
 import type { ModuleContext } from '../../../core';
 import { INTEGRITY_WARNING, maskSegments, translateProtected } from '../masking';
 import type { ProtectedTranslation } from '../masking';
-import { BLOCKISH, collectBlocks, tokenNodes } from './blocks';
+import { BLOCKISH, blockOf, collectBlocks, tokenNodes } from './blocks';
 import type { TranslatableBlock } from './blocks';
 import { MAX_BLOCKS } from './ids';
 import { isAbort } from './service';
@@ -28,6 +28,8 @@ export interface SessionSnapshot {
   readonly skipped: number;
   /** اقتُصر على أول MAX_BLOCKS فقرة. */
   readonly truncated: boolean;
+  /** فقرات غيّرتها الصفحة أو أزالتها أثناء ترجمتها، فلم تُعرض ترجمتها القديمة وتحتاج ترجمة من جديد (CODEX-004). */
+  readonly stale?: number;
   readonly error?: string;
 }
 
@@ -63,26 +65,46 @@ function hideAfter(anchor: Element): () => void {
   };
 }
 
+/**
+ * يخفي محتوى العنصر المباشر وحده (ما تُرجم منه)، ويبقي ما فيه من كتل متداخلة ظاهرة (قائمة فرعية أو فقرة أو شيفرة داخل اقتباس) فلها
+ * ترجمتها أو هي مستثناة منها (GEMINI-009). كل سلسلة متصلة من العقد المباشرة بين الكتل تُلف بغلاف واحد، فيُخفى النص قبل القائمة الفرعية وبعدها.
+ */
 function hideInside(element: Element, host: Element): () => void {
   const doc = element.ownerDocument;
-  const stop = firstBlockishChild(element);
-  const nodes: ChildNode[] = [];
+  const runs: ChildNode[][] = [];
+  let run: ChildNode[] = [];
   for (const node of element.childNodes) {
     if (node === host) continue;
-    if (stop && node === stop) break;
-    nodes.push(node);
+    const block = node.nodeType === 1 && (node as Element).matches(BLOCKISH);
+    if (block || (node.nodeType === 1 && (node as Element).localName === 'mijhar-host')) {
+      if (run.length) runs.push(run);
+      run = [];
+    } else run.push(node);
   }
-  if (!nodes.length) return () => {};
-  const wrapper = doc.createElement('mijhar-original');
-  wrapper.setAttribute('data-mijhar-injected', 'true');
-  wrapper.style.setProperty('display', 'none', 'important');
-  element.insertBefore(wrapper, nodes[0] as ChildNode);
-  for (const node of nodes) wrapper.append(node);
+  if (run.length) runs.push(run);
+  const wrappers = runs
+    .filter((nodes) => nodes.some((node) => node.nodeType !== 3 || (node.nodeValue ?? '').trim() !== ''))
+    .map((nodes) => {
+      const wrapper = doc.createElement('mijhar-original');
+      wrapper.setAttribute('data-mijhar-injected', 'true');
+      wrapper.style.setProperty('display', 'none', 'important');
+      element.insertBefore(wrapper, nodes[0] as ChildNode);
+      for (const node of nodes) wrapper.append(node);
+      return wrapper;
+    });
   return () => {
-    for (const node of [...wrapper.childNodes]) element.insertBefore(node, wrapper);
-    wrapper.remove();
+    for (const wrapper of wrappers) {
+      for (const node of [...wrapper.childNodes]) wrapper.parentNode?.insertBefore(node, wrapper);
+      wrapper.remove();
+    }
   };
 }
+
+/** بصمة محتوى الفقرة كما تُرسل إلى المترجم: تتغير بتغيّر نصها أو عناصرها المحمية، لا بما تدرجه الإضافة. */
+const fingerprint = (element: Element): string | null => {
+  const block = blockOf(element);
+  return typeof block === 'string' ? null : JSON.stringify(block.segments);
+};
 
 export interface SessionOptions {
   readonly mode?: DisplayMode;
@@ -132,9 +154,10 @@ export class TranslationSession {
       this.set({ phase: 'empty', total: 0, done: 0, kept: 0, skipped, truncated: false });
       return;
     }
-    this.set({ phase: 'working', total: blocks.length, done: 0, kept: 0, skipped, truncated });
+    this.set({ phase: 'working', total: blocks.length, done: 0, kept: 0, skipped, truncated, stale: 0 });
     let done = 0;
     let kept = 0;
+    let stale = 0;
     for (const block of blocks) {
       if (signal.aborted || this.ctx.signal.aborted) return;
       let result: ProtectedTranslation;
@@ -146,13 +169,26 @@ export class TranslationSession {
         return;
       }
       if (signal.aborted || this.ctx.signal.aborted) return;
-      if (result.status === 'translated') {
-        const { expectedTokens } = maskSegments(block.segments);
-        const body = buildTranslationBody(this.ctx.document, result.masked, expectedTokens, tokenNodes(block, expectedTokens));
-        this.add(block, 'translated', createTranslationHost(this.ctx.document, body).parts.host);
-      } else {
-        kept += 1;
-        this.add(block, 'kept', createWarningHost(this.ctx.document, result.warning ?? INTEGRITY_WARNING).parts.host);
+      // CODEX-004: الترجمة لقطة من الفقرة قبل الانتظار. فقرة أزالتها الصفحة أو غيّرت نصها أثناءه لا تُعرض عليها ترجمة قديمة ولا يُخفى نصها الجديد.
+      if (!block.element.isConnected || !this.body.contains(block.element) || fingerprint(block.element) !== JSON.stringify(block.segments)) {
+        stale += 1;
+        done += 1;
+        this.set({ done, stale });
+        continue;
+      }
+      try {
+        if (result.status === 'translated') {
+          const { expectedTokens } = maskSegments(block.segments);
+          const body = buildTranslationBody(this.ctx.document, result.masked, expectedTokens, tokenNodes(block, expectedTokens));
+          this.add(block, 'translated', createTranslationHost(this.ctx.document, body).parts.host);
+        } else {
+          kept += 1;
+          this.add(block, 'kept', createWarningHost(this.ctx.document, result.warning ?? INTEGRITY_WARNING).parts.host);
+        }
+      } catch (error) {
+        // تعذّر الإدراج (فقرة فُصلت بين الفحص والإدراج مثلًا): حالة خطأ قابلة للإعادة لا «جارٍ» لا ينتهي.
+        this.set({ phase: 'error', error: error instanceof Error ? error.message : String(error) });
+        return;
       }
       done += 1;
       this.set({ done, kept });
@@ -162,7 +198,8 @@ export class TranslationSession {
 
   private add(block: TranslatableBlock, kind: Entry['kind'], host: HTMLElement): void {
     const element = block.element;
-    const placement: Entry['placement'] = element.matches(INSIDE) ? 'inside' : 'after';
+    // فقرة فيها كتل متداخلة (اقتباس فيه فقرات أو شيفرة) تُترجم في داخلها: إخفاؤها كلها في «الترجمة فقط» يخفي ما فيها معها (GEMINI-009).
+    const placement: Entry['placement'] = element.matches(INSIDE) || firstBlockishChild(element) ? 'inside' : 'after';
     const anchor = placement === 'after' ? anchorOf(element) : element;
     if (placement === 'after') this.ctx.mutations.insert(anchor.parentNode as Node, host, anchor.nextSibling);
     else this.ctx.mutations.insert(element, host, firstBlockishChild(element));

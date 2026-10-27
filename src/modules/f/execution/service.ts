@@ -2,7 +2,8 @@
 // ولا يعبر رسالة ولا يحمله طلب قراءة. تستقبل خطة كتابة من صفحة الإضافة وحدها (تتحقق الخلفية من المرسل)، وتتحقق منها كاملة، ثم ثلاث عمليات
 // بترتيبها عبر بوابة الكتابة: الفرع ثم الملف ثم الطلب، وكلٌّ بعد نجاح ما قبله. لا إعادة محاولة تلقائية، ولا تراجع بكتابة أخرى (حذف فرع مثلًا)
 // إن تعذّر ما بعد الفرع: يُعلن ما حدث فعلًا بروابطه. ولا دمج ولا إغلاق: البوابة لا تبني غير العمليات الثلاث.
-import { redactToken } from '../../../core/api/client';
+import { SECONDARY_LIMIT, SECONDARY_WAIT_MS, readRetryAfter, redactToken } from '../../../core/api/client';
+import { readRateLimit } from '../../../core/api/rate-limit';
 import type { ConnectionStatus, Verdict } from '../../../core/connections/health';
 import { isLinked } from '../../../core/connections/health';
 import type { SecretStore } from '../../../core/connections/secrets';
@@ -24,6 +25,7 @@ export interface ExecutionServiceOptions {
   readonly fetch?: typeof fetch;
   readonly connections: { status(): Promise<readonly ConnectionStatus[]>; observe(id: 'github-write', verdict: Verdict | null, provider?: undefined, savedAt?: number): Promise<void> };
   readonly onError?: (error: unknown) => void;
+  readonly now?: () => number;
 }
 
 const enc = encodeURIComponent;
@@ -39,6 +41,25 @@ async function messageOf(response: Response, fallback: string): Promise<string> 
     return fallback;
   }
 }
+
+/**
+ * حد طلبات في ردّ كتابة (CODEX-006)، بقاعدة عميل القراءة نفسها (MJ-TA-06): 429، أو 403 بنفاد الحد الأساسي (x-ratelimit-remaining = 0) أو بترويسة
+ * retry-after أو برسالة «secondary rate limit». موعده من retry-after، وإلا reset للحد الأساسي، وإلا دقيقة. و403 بلا شيء من ذلك رفض صلاحية لا حد.
+ */
+export function writeRateLimit(status: number, headers: Pick<Headers, 'get'>, message: string, now: number): { readonly retryAt: number } | null {
+  if (status !== 403 && status !== 429) return null;
+  const retryAfter = readRetryAfter(headers, now);
+  const rate = readRateLimit(headers, now);
+  const exhausted = rate?.remaining === 0;
+  if (!exhausted && status !== 429 && retryAfter === null && !SECONDARY_LIMIT.test(message)) return null;
+  const reset = exhausted && rate?.reset ? rate.reset * 1000 : null;
+  return { retryAt: retryAfter ?? (reset !== null && reset > now ? reset : now + SECONDARY_WAIT_MS) };
+}
+
+const waitText = (retryAt: number, now: number): string => {
+  const seconds = Math.max(1, Math.ceil((retryAt - now) / 1000));
+  return seconds < 120 ? `${seconds} ثانية` : `${Math.ceil(seconds / 60)} دقيقة`;
+};
 
 /** حكم صحة رمز الكتابة من استجابة عملية كتابة، أو null حين لا تغيّرها. */
 export function writeVerdict(status: number, message: string): Verdict | null {
@@ -60,8 +81,14 @@ function explain(step: WriteStep, status: number, message: string): string {
 
 export class ExecutionService {
   private running = false;
+  /** لا إرسال قبل موعد حد الطلبات الذي أعلنه GitHub لآخر عملية كتابة (Retry-After)، ولا إعادة تلقائية بعده. */
+  private retryAt = 0;
 
   constructor(private readonly options: ExecutionServiceOptions) {}
+
+  private now(): number {
+    return this.options.now?.() ?? Date.now();
+  }
 
   /** حالة صلاحية الكتابة الآن، بلا أي طلب شبكة. */
   async status(): Promise<WriteStatus> {
@@ -85,6 +112,11 @@ export class ExecutionService {
     if (!check.ok) return notRun(name, 'precheck', `${check.reason} لم يُكتب شيء.`);
     const plan = value as WritePlan;
     if (this.running) return notRun(name, 'precheck', 'خطوة تنفيذ جارية؛ انتظرها. لم يُرسل طلب آخر.');
+    const now = this.now();
+    if (now < this.retryAt) {
+      const message = `أعلن GitHub حدًّا لطلبات الكتابة لم ينقضِ بعد؛ أعد المحاولة بعد نحو ${waitText(this.retryAt, now)}. لم يُرسل شيء.`;
+      return { ...notRun(name, 'precheck', message), failure: { step: 'precheck', status: null, message, retryAt: this.retryAt } };
+    }
     // الحجز متزامن قبل أي await: نقرتان متتاليتان لا تُصدران تنفيذين.
     this.running = true;
     try {
@@ -128,6 +160,24 @@ export class ExecutionService {
       pull: { opened: false, number: null as number | null, url: null as string | null, draft: null as boolean | null },
     };
     const stop = (step: WriteStep, status: number | null, message: string): RunOutcome => ({ ok: false, ...outcome, failure: { step, status, message: redactToken(message, token) } });
+    // أُرسلت ولم يثبت ردّها نتيجة: لا يُدّعى أنها لم تحدث (GEMINI-005).
+    const unsure = (step: WriteStep, status: number | null, message: string): RunOutcome => ({ ...stop(step, status, message), uncertainStep: step });
+
+    /** ما لم ينجح من ردود الخطوة: حد طلبات بموعده، أو خطأ خادم لا يُعرف معه ما نُفّذ، أو رفض بسببه. null للنجاح (codes). */
+    const refused = async (step: WriteStep, response: Response, codes: readonly number[]): Promise<RunOutcome | null> => {
+      const message = await messageOf(response, `HTTP ${response.status}`);
+      const limit = writeRateLimit(response.status, response.headers, message, this.now());
+      // حد الطلبات لا يقول شيئًا عن صلاحيات الرمز: لا يُكتب حكم «ينقصه صلاحية» ولا يُعرض.
+      await this.observe(limit ? null : writeVerdict(response.status, message), savedAt);
+      if (codes.includes(response.status)) return null;
+      if (limit) {
+        this.retryAt = Math.max(this.retryAt, limit.retryAt);
+        const text = `${STEP_TEXT[step]}: بلغ GitHub حد الطلبات (${response.status})، فلم تُنفَّذ هذه الخطوة. هذا حد مؤقت لا نقص صلاحيات؛ أعد المحاولة بعد نحو ${waitText(limit.retryAt, this.now())}. ${message}`;
+        return { ...stop(step, response.status, text), failure: { step, status: response.status, message: redactToken(text, token), retryAt: limit.retryAt } };
+      }
+      if (response.status >= 500) return unsure(step, response.status, `${STEP_TEXT[step]}: ردّ GitHub بخطأ خادم (${response.status})؛ لا يُعرف إن نُفّذت هذه الخطوة، فراجع المستودع قبل أي إعادة.`);
+      return stop(step, response.status, explain(step, response.status, message));
+    };
 
     const send = async (step: WriteStep): Promise<{ response: Response } | { error: RunOutcome }> => {
       try {
@@ -136,7 +186,7 @@ export class ExecutionService {
         if (error instanceof PermissionNotGrantedError) return { error: stop(step, null, `${STEP_TEXT[step]}: ${error.message}`) };
         // انقطاع أو انتهاء مهلة بعد الإرسال: لا يُعرف إن نفّذها GitHub، فلا يُدّعى أنها لم تحدث.
         const name = error instanceof Error ? error.name : 'Error';
-        return { error: stop(step, null, `${STEP_TEXT[step]}: تعذّر الوصول إلى GitHub أو انتهت المهلة (${name})؛ لا يُعرف إن نُفّذت هذه الخطوة، فراجع المستودع قبل أي إعادة.`) };
+        return { error: unsure(step, null, `${STEP_TEXT[step]}: تعذّر الوصول إلى GitHub أو انتهت المهلة (${name})؛ لا يُعرف إن نُفّذت هذه الخطوة، فراجع المستودع قبل أي إعادة.`) };
       }
     };
 
@@ -144,10 +194,8 @@ export class ExecutionService {
     const branch = await send('branch');
     if ('error' in branch) return branch.error;
     {
-      const { response } = branch;
-      const message = await messageOf(response, `HTTP ${response.status}`);
-      await this.observe(writeVerdict(response.status, message), savedAt);
-      if (response.status !== 201) return stop('branch', response.status, explain('branch', response.status, message));
+      const failed = await refused('branch', branch.response, [201]);
+      if (failed) return failed;
       outcome.branch.created = true;
       outcome.branch.url = `${site}/tree/${encPath(plan.branch)}`;
     }
@@ -156,9 +204,8 @@ export class ExecutionService {
     if ('error' in file) return file.error;
     {
       const { response } = file;
-      const message = await messageOf(response, `HTTP ${response.status}`);
-      await this.observe(writeVerdict(response.status, message), savedAt);
-      if (response.status !== 200 && response.status !== 201) return stop('file', response.status, explain('file', response.status, message));
+      const failed = await refused('file', response, [200, 201]);
+      if (failed) return failed;
       const body = (await response.json().catch(() => null)) as { commit?: { sha?: unknown } } | null;
       const sha = typeof body?.commit?.sha === 'string' && /^[0-9a-f]{40}$/.test(body.commit.sha) ? body.commit.sha : null;
       outcome.file.written = true;
@@ -170,9 +217,8 @@ export class ExecutionService {
     if ('error' in pull) return pull.error;
     {
       const { response } = pull;
-      const message = await messageOf(response, `HTTP ${response.status}`);
-      await this.observe(writeVerdict(response.status, message), savedAt);
-      if (response.status !== 201) return stop('pull', response.status, explain('pull', response.status, message));
+      const failed = await refused('pull', response, [201]);
+      if (failed) return failed;
       const body = (await response.json().catch(() => null)) as { number?: unknown; draft?: unknown } | null;
       const number = typeof body?.number === 'number' && Number.isInteger(body.number) && body.number > 0 ? body.number : null;
       outcome.pull.opened = true;

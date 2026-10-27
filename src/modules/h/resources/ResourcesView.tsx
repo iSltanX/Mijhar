@@ -153,7 +153,16 @@ function ResourceItem({ resource, categoryTitle, repository, categories, onCheck
                 تحقق الآن
               </button>
             )}
-            <button type="button" class="btn" data-action="edit-resource" onClick={() => setEditing(true)}>
+            <button
+              type="button"
+              class="btn"
+              data-action="edit-resource"
+              onClick={() => {
+                // النموذج من المورد كما هو الآن (GEMINI-014): بعد «اعتمد العنوان الجديد» لا يعيد الحفظ الرابط القديم.
+                setForm({ title: resource.title, url: resource.url, category: resource.category, description: resource.description });
+                setEditing(true);
+              }}
+            >
               عدّل
             </button>
             {confirming ? (

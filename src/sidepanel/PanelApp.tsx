@@ -40,9 +40,10 @@ export interface PanelAppProps extends Omit<SettingsTabProps, 'surface'> {
 
 const letterOf = (unit: UnitId): string => UNITS.find((u) => u.id === unit)?.letter ?? unit;
 
-function UnitGate({ settings, unit, children }: { settings: SettingsStore; unit: UnitId; children: ComponentChildren }) {
+function UnitGate({ settings, unit, title, children }: { settings: SettingsStore; unit: UnitId; title: string; children: ComponentChildren }) {
   const enabled = useSetting<boolean>(settings, moduleEnabledKey(unit));
-  if (!enabled) return <p class="empty">الوحدة ({letterOf(unit)}) موقوفة. شغّلها من «الإعدادات والخصوصية».</p>;
+  // الرسالة تسمّي الواجهة ووحدتها (GEMINI-006): تبويب «السياق والفحوص» فيه «تجهيز تعديل» من الوحدة (و)، فلا يُفهم أن (د) و(هـ) موقوفتان.
+  if (!enabled) return <p class="empty" data-unit-off={unit}>«{title}»: الوحدة ({letterOf(unit)}) موقوفة. شغّلها من «الإعدادات والخصوصية».</p>;
   return <>{children}</>;
 }
 
@@ -63,7 +64,7 @@ function ContentPanel({ tab, views, settings, surface }: { tab: ContentTab; view
       {own.map((view) => {
         const View = view.component;
         return (
-          <UnitGate key={view.id} settings={settings} unit={view.unit}>
+          <UnitGate key={view.id} settings={settings} unit={view.unit} title={view.title}>
             <View settings={settings} surface={surface} />
           </UnitGate>
         );
