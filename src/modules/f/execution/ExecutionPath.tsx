@@ -389,9 +389,23 @@ function ScopeFacts({ plan, prepared, issue }: { plan: WritePlan; prepared: Prep
 
 /** خانة لم تُبلَّغ نتيجتها بعد انقطاع القناة (MJ-TA-H01). */
 const UNKNOWN = 'غير معروف؛ راجع المستودع.';
+/** خطوة أُرسلت ولم يثبت ردّها نتيجتها (GEMINI-005): لا يُجزم بأنها لم تحدث. */
+const UNSURE = 'غير مؤكد: أُرسلت ولم يصل ردّ يثبت نتيجتها؛ راجع المستودع قبل أي إعادة.';
+const STEP_ORDER = ['branch', 'file', 'pull'] as const;
+
+/** ما يُكتب في خانة خطوة لم تثبت: غير معروف (انقطاع القناة)، أو غير مؤكد (هي التي أُرسلت)، أو لم يُرسل (بعدها)، أو نفي ما لم يحدث. */
+function notDone(outcome: RunOutcome, step: (typeof STEP_ORDER)[number], none: string): { readonly text: string; readonly state: string } {
+  if (outcome.uncertain) return { text: UNKNOWN, state: 'unknown' };
+  if (outcome.uncertainStep === step) return { text: UNSURE, state: 'uncertain' };
+  if (outcome.uncertainStep && STEP_ORDER.indexOf(step) > STEP_ORDER.indexOf(outcome.uncertainStep)) return { text: 'لم يُرسل.', state: 'not-sent' };
+  return { text: none, state: 'none' };
+}
 
 function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutcome; plan: WritePlan; copied: string | null; onCopy: () => void; onRestart: () => void }) {
   const repo = `${plan.owner}/${plan.repo}`;
+  const branch = notDone(outcome, 'branch', 'لم يُنشأ.');
+  const file = notDone(outcome, 'file', 'لم يُكتب الملف.');
+  const pull = notDone(outcome, 'pull', 'لم يُفتح.');
   return (
     <div class="exec-result" data-step-view="done" data-outcome={outcome.ok ? 'ok' : 'failed'}>
       {outcome.ok ? (
@@ -402,7 +416,7 @@ function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutc
           </strong>{' '}
           أُنشئ الفرع وكُتب <Ltr className="mono">{plan.path}</Ltr> وفُتح الطلب. لم يُدمج شيء ولم يُغلق شيء.
         </p>
-      ) : outcome.uncertain ? (
+      ) : outcome.uncertain || outcome.uncertainStep ? (
         <p class="notice" data-tone="danger" role="alert" data-failure-step={outcome.failure?.step} data-uncertain="">
           <strong>تعذّر التأكد من النتيجة. </strong>
           {outcome.failure?.message} ولم تُعَد أي محاولة تلقائيًا.
@@ -416,19 +430,17 @@ function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutc
       <h4>ما حدث فعلًا</h4>
       <dl class="facts" data-happened="">
         <dt>الفرع</dt>
-        <dd data-happened-branch={outcome.branch.created ? 'created' : 'none'}>
+        <dd data-happened-branch={outcome.branch.created ? 'created' : branch.state}>
           {outcome.branch.created && outcome.branch.url ? (
             <a href={outcome.branch.url} target="_blank" rel="noopener noreferrer">
               <Ltr className="mono">{outcome.branch.name}</Ltr>
             </a>
-          ) : outcome.uncertain ? (
-            UNKNOWN
           ) : (
-            'لم يُنشأ.'
+            branch.text
           )}
         </dd>
         <dt>الالتزام</dt>
-        <dd data-happened-commit={outcome.file.written ? 'written' : 'none'}>
+        <dd data-happened-commit={outcome.file.written ? 'written' : file.state}>
           {outcome.file.written ? (
             outcome.file.url ? (
               <a href={outcome.file.url} target="_blank" rel="noopener noreferrer">
@@ -437,23 +449,19 @@ function Result({ outcome, plan, copied, onCopy, onRestart }: { outcome: RunOutc
             ) : (
               <Ltr className="mono">{plan.title}</Ltr>
             )
-          ) : outcome.uncertain ? (
-            UNKNOWN
           ) : (
-            'لم يُكتب الملف.'
+            file.text
           )}
         </dd>
         <dt>الطلب</dt>
-        <dd data-happened-pull={outcome.pull.opened ? 'opened' : 'none'}>
+        <dd data-happened-pull={outcome.pull.opened ? 'opened' : pull.state}>
           {outcome.pull.opened ? (
             <>
               <Ltr className="mono">{`${repo}#${outcome.pull.number ?? '?'}`}</Ltr>
               {outcome.pull.draft ? ' (مسودة)' : ''}
             </>
-          ) : outcome.uncertain ? (
-            UNKNOWN
           ) : (
-            'لم يُفتح.'
+            pull.text
           )}
         </dd>
         <dt>الصلاحية</dt>

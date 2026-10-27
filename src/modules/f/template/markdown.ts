@@ -72,6 +72,8 @@ export interface FillEdit {
 }
 
 export interface FillPlan {
+  /** المسودة التي حُسبت عليها الفهارس: إن تغيّر نص الحقل بعدها فالخطة قديمة ولا تُطبَّق (فهارسها تقع في غير موضعها). */
+  readonly draft: string;
   readonly edits: readonly FillEdit[];
   /** المسودة بعد تطبيق كل الإدراجات، كما سيراها الحقل. */
   readonly result: string;
@@ -117,7 +119,7 @@ export function planFill(draft: string, fields: ComposerFields, options: FillOpt
     const { text } = compose(subset, { kind: options.kind, language: options.language });
     if (text.trim()) edits.push({ field: loose[0]!, index: draft.length, text, heading: null });
   }
-  return { edits, result: applyToString(draft, edits), mapped, appended: loose, skipped };
+  return { draft, edits, result: applyToString(draft, edits), mapped, appended: loose, skipped };
 }
 
 /** ترتيب التطبيق: من الأعلى فهرسًا إلى الأدنى فلا ينزاح فهرس سابق؛ وعند التساوي يُلحق ما في الآخر أولًا فيبقى بعد ما تحت عنوان آخر القالب. */

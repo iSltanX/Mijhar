@@ -63,6 +63,7 @@ const arabicCount = (n: number): string => (n === 1 ? 'حرف واحد' : n === 
 
 export function ComposerPanel({ state, onState, draft, template, canUndo, status, onInsert, onCopy, onInsertText, onUndo, onCopyPrevious, onClose }: PanelProps) {
   const first = useRef<HTMLTextAreaElement>(null);
+  const section = useRef<HTMLElement>(null);
   const output = buildOutput({ info: template, kind: state.kind, language: state.language, fields: state.fields, single: state.single ?? '', phrase: state.phrase?.text ?? null, draft });
   const preview = previewText(output);
   const empty = isEmptyOutput(output);
@@ -71,13 +72,16 @@ export function ComposerPanel({ state, onState, draft, template, canUndo, status
   // العناوين المقابلة للحقول تُحسب من القالب نفسه لا من الحقول المكتوبة، فتظهر قبل أن يكتب المستخدم شيئًا.
   const mapping = template.kind === 'markdown' ? mapHeadings(template.template) : null;
   const mappedHeading = (id: FieldId): string | undefined => mapping?.get(id)?.text;
+  // التركيز داخل اللوحة عند فتحها في كل أنواع القوالب (ومنها Issue Form)، فيبلغها Escape: أول حقل في القسم الثابت، وإلا اللوحة نفسها.
   useEffect(() => {
-    first.current?.focus({ preventScroll: true });
+    const target = first.current ?? section.current?.querySelector<HTMLElement>('[data-section="static"] textarea, [data-section="static"] input:not([type="hidden"])') ?? section.current;
+    target?.focus({ preventScroll: true });
   }, []);
   const set = (id: FieldId, value: string): void => onState({ ...state, fields: { ...state.fields, [id]: value } });
   const phrasing = state.phrase != null;
   return (
     <section
+      ref={section}
       class="panel"
       role="dialog"
       aria-modal="false"

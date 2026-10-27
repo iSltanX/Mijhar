@@ -47,9 +47,20 @@ interface Session {
   state: PanelState;
 }
 
+/** زر مساعد أدرجته الوحدة: مضيفه والحقل الذي يخدمه الآن. */
+interface Binding {
+  readonly host: HTMLElement;
+  readonly button: HTMLButtonElement;
+  field: TextField;
+}
+
 class ComposerController {
-  private readonly attached = new WeakSet<Element>();
-  private readonly buttons = new Map<TextField, HTMLButtonElement>();
+  // CODEX-005: الربط يُطابَق مع الصفحة في كل فحص (الحقل الحالي للشريط ووجود المضيف فيه)، لا بسجل تاريخي لما رُكِّب مرة.
+  /** شريط الأدوات ← زره. */
+  private readonly toolbars = new Map<Element, Binding>();
+  /** حقل بلا شريط ← زره الاحتياطي قبله. */
+  private readonly fallbacks = new Map<TextField, Binding>();
+  private readonly hosts = new WeakSet<Node>();
   private readonly sessions = new WeakMap<TextField, Session>();
   private panel: ShadowParts | null = null;
   private current: TextField | null = null;
@@ -57,6 +68,9 @@ class ComposerController {
   private last: readonly Insertion[] | null = null;
   private status: PanelStatus | null = null;
   private timer: ReturnType<typeof setTimeout> | null = null;
+  /** الحقل الذي تتبع المعاينة نصه ما دام المساعد مفتوحًا له. */
+  private watched: TextField | null = null;
+  private readonly repaint = (): void => this.paint();
 
   constructor(
     private readonly ctx: ModuleContext,
@@ -70,7 +84,8 @@ class ComposerController {
     const root = ctx.document.body ?? ctx.document.documentElement;
     ctx.observe(root, { childList: true, subtree: true }, (records) => {
       const own = (n: Node): boolean => (n as Element).localName === 'mijhar-host';
-      if (records.some((r) => [...r.addedNodes, ...r.removedNodes].some((n) => !own(n)))) this.schedule();
+      // تعديل من الصفحة، أو إزالة أحد أزرارنا (ولو وحده): يُعاد الفحص فيعود الزر إلى شريطه.
+      if (records.some((r) => [...r.addedNodes, ...r.removedNodes].some((n) => !own(n)) || [...r.removedNodes].some((n) => this.hosts.has(n)))) this.schedule();
     });
   }
 
@@ -91,14 +106,33 @@ class ComposerController {
       const field = fieldForToolbar(toolbar);
       if (!field || !isSupportedField(field)) continue;
       covered.add(field);
-      if (!this.attached.has(toolbar)) this.attachToToolbar(toolbar, field);
+      const bound = this.toolbars.get(toolbar);
+      if (!bound) this.attachToToolbar(toolbar, field);
+      else {
+        // حقل استُبدل والشريط باقٍ: الزر نفسه يخدم الحقل الجديد؛ ومضيف أُزيل من شريط حي يعود إليه (هو نفسه لا نسخة).
+        bound.field = field;
+        if (bound.host.parentNode !== toolbar) this.ctx.mutations.reattach(toolbar, bound.host);
+      }
     }
+    for (const toolbar of [...this.toolbars.keys()]) if (!toolbar.isConnected) this.toolbars.delete(toolbar);
     // احتياطي: حقل كتابة بلا شريط أدوات (تغيّر المحرر). المحددات كلها معًا (اتحاد)، لا أولها ذو النتائج: الحقل المقصود غالبًا ما يطابق غير الأول.
+    // وحين يصل شريط الحقل بعد زره الاحتياطي يُزال الاحتياطي، فيبقى زر واحد للحقل.
+    for (const [field, bound] of [...this.fallbacks]) {
+      if (covered.has(field) || !field.isConnected || !isSupportedField(field)) {
+        bound.host.remove();
+        this.fallbacks.delete(field);
+      } else if (bound.host.nextSibling !== field && field.parentNode) this.ctx.mutations.reattach(field.parentNode, bound.host, field);
+    }
     const fieldSelector = ctx.selectors.entry(COMPOSER_SELECTOR_KEYS.field).candidates.join(', ');
     for (const field of ctx.document.querySelectorAll<HTMLTextAreaElement>(fieldSelector)) {
-      if (covered.has(field) || !isSupportedField(field) || this.attached.has(field) || this.hasToolbar(field)) continue;
+      if (covered.has(field) || !isSupportedField(field) || this.fallbacks.has(field) || this.hasToolbar(field)) continue;
       this.attachBeforeField(field);
     }
+  }
+
+  /** أزرار المساعد الحية الآن بحقولها. */
+  private bindings(): Binding[] {
+    return [...this.toolbars.values(), ...this.fallbacks.values()];
   }
 
   private hasToolbar(field: TextField): boolean {
@@ -106,7 +140,7 @@ class ComposerController {
     return false;
   }
 
-  private makeButton(field: TextField, parts: ShadowParts): HTMLButtonElement {
+  private makeButton(field: TextField, parts: ShadowParts): Binding {
     const { ctx } = this;
     const button = ctx.document.createElement('button');
     button.type = 'button';
@@ -119,18 +153,17 @@ class ComposerController {
     button.title = text;
     // الضغط لا ينقل التركيز من الحقل فيبقى المؤشر والتحديد حيث هما (موضع الإدراج «عند المؤشر»). المستمع على زر الإضافة نفسه لا على GitHub.
     button.addEventListener('mousedown', (event) => event.preventDefault());
-    button.addEventListener('click', () => (this.panel && this.current === field ? this.close() : this.open(field)));
+    const binding: Binding = { host: parts.host, button, field };
+    button.addEventListener('click', () => (this.panel && this.current === binding.field ? this.close() : this.open(binding.field)));
     parts.root.append(button);
-    this.buttons.set(field, button);
-    return button;
+    this.hosts.add(parts.host);
+    return binding;
   }
 
   private attachToToolbar(toolbar: Element, field: TextField): void {
     const parts = createShadowHost(this.ctx.document, { name: COMPOSER_BUTTON_HOST, styles: BUTTON_CSS });
     parts.host.setAttribute('data-display', 'inline');
-    this.makeButton(field, parts);
-    this.attached.add(toolbar);
-    this.attached.add(field);
+    this.toolbars.set(toolbar, this.makeButton(field, parts));
     this.ctx.mutations.insert(toolbar, parts.host);
   }
 
@@ -138,9 +171,16 @@ class ComposerController {
     const parent = field.parentNode;
     if (!parent) return;
     const parts = createShadowHost(this.ctx.document, { name: COMPOSER_BUTTON_HOST, hostCss: BAR_HOST_CSS, styles: BUTTON_CSS });
-    this.makeButton(field, parts);
-    this.attached.add(field);
+    this.fallbacks.set(field, this.makeButton(field, parts));
     this.ctx.mutations.insert(parent, parts.host, field);
+  }
+
+  // كتابة المستخدم في الحقل والمساعد مفتوح تعيد رسم المعاينة على النص الحالي (مستمع input لا يغيّر شيئًا في الحقل).
+  private watch(field: TextField | null): void {
+    if (this.watched === field) return;
+    this.watched?.removeEventListener('input', this.repaint);
+    this.watched = field;
+    field?.addEventListener('input', this.repaint);
   }
 
   private session(field: TextField): Session {
@@ -155,6 +195,7 @@ class ComposerController {
   private open(field: TextField): void {
     if (this.ctx.signal.aborted) return;
     this.current = field;
+    this.watch(field);
     if (this.last?.[0] && this.last[0].field !== field) this.last = null;
     this.status = null;
     if (!this.panel) {
@@ -163,22 +204,23 @@ class ComposerController {
       this.ctx.mutations.insert(this.ctx.document.body ?? this.ctx.document.documentElement, parts.host);
       this.panel = parts;
     }
-    for (const [f, button] of this.buttons) button.setAttribute('aria-expanded', f === field ? 'true' : 'false');
+    for (const { button, field: f } of this.bindings()) button.setAttribute('aria-expanded', f === field ? 'true' : 'false');
     this.paint();
   }
 
   private close(): void {
     const field = this.current;
     this.current = null;
+    this.watch(null);
     this.status = null;
-    for (const button of this.buttons.values()) button.setAttribute('aria-expanded', 'false');
+    for (const { button } of this.bindings()) button.setAttribute('aria-expanded', 'false');
     if (this.panel) {
       render(null, this.panel.root);
       this.panel.host.remove();
       this.panel = null;
     }
     // يعود التركيز إلى زر المساعد الذي فتح اللوحة.
-    if (field) this.buttons.get(field)?.focus({ preventScroll: true });
+    if (field) this.bindings().find((b) => b.field === field && b.host.isConnected)?.button.focus({ preventScroll: true });
   }
 
   private paint(): void {
@@ -219,6 +261,11 @@ class ComposerController {
     }
     if (output.kind === 'copy') return; // هيكل القالب غير معروف: لا إدراج في حقول الصفحة (يُنسخ يدويًا).
     if (output.kind === 'edits') {
+      // فهارس الخطة من المسودة التي رُسمت عليها المعاينة؛ نص تغيّر بعدها (كتابة المستخدم أو GitHub) يجعلها تقع وسط كلماته، فلا إدراج حتى تُعاد المعاينة على النص الحالي.
+      if (field.value !== output.plan.draft) {
+        this.say({ tone: 'warn', text: 'تغيّر نص الحقل بعد آخر معاينة، فلم يُدرج شيء ولم يُمس نصك. حُدّثت المعاينة على النص الحالي؛ راجعها ثم أدرج من جديد.' });
+        return;
+      }
       const done = applyEdits(field, output.plan.edits);
       if (!done.length) return;
       this.last = done;
@@ -286,6 +333,7 @@ class ComposerController {
     if (this.timer) clearTimeout(this.timer);
     this.timer = null;
     this.current = null;
+    this.watch(null);
     this.last = null;
     if (this.panel) {
       render(null, this.panel.root);

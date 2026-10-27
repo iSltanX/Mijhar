@@ -81,22 +81,33 @@ export function createEditorFeature(options: EditorFeatureOptions = {}): ModuleA
       // لا زر حيث يثبت أن الحقل لا يتحمل التبديل (AC-A4): الزر لا يُعرض بدل المخاطرة بسجل التراجع.
       if (UNSUPPORTED_EDITORS.some((e) => e.selector === 'textarea' && e.browsers?.includes(target))) return;
       const doc = ctx.document;
-      const attached = new WeakSet<Element>();
+      // CODEX-005: شريط الأدوات ← زره والحقل الذي يخدمه الآن. يُطابَق مع الصفحة عند كل تعديل: حقل استُبدل والشريط باقٍ يُعاد إليه الزر نفسه،
+      // ومضيف أُزيل من شريط حي يعود إليه؛ لا سجل تاريخي يمنع العودة.
+      const bound = new Map<Element, { readonly host: HTMLElement; field: TextField; readonly render: () => void }>();
+      const hosts = new WeakSet<Node>();
       const toolbarSelector = ctx.selectors.entry(EDITOR_SELECTOR_KEYS.toolbar).candidates.join(', ');
       const write = (field: TextField, value: FieldDirection): void => ctx.mutations.setAttribute(field, 'dir', value);
 
       const attach = (toolbar: Element): void => {
-        if (attached.has(toolbar) || ctx.signal.aborted) return;
+        if (ctx.signal.aborted) return;
         const field = fieldForToolbar(toolbar);
         if (!field || field.closest('.cm-editor')) return;
-        attached.add(toolbar);
+        const current = bound.get(toolbar);
+        if (current) {
+          if (current.field !== field) {
+            current.field = field;
+            current.render();
+          }
+          if (current.host.parentNode !== toolbar) ctx.mutations.reattach(toolbar, current.host);
+          return;
+        }
         const { host, root } = createShadowHost(doc, { name: EDITOR_HOST_NAME, styles: BUTTON_CSS });
         host.setAttribute('data-display', 'inline');
         const button = doc.createElement('button');
         button.type = 'button';
         button.className = 'btn toggle';
         const render = (): void => {
-          const current = fieldDirection(field);
+          const current = fieldDirection(binding.field);
           const label = LABELS[current ?? 'none'];
           const next = LABELS[nextDirection(current)];
           button.textContent = label.short;
@@ -104,27 +115,31 @@ export function createEditorFeature(options: EditorFeatureOptions = {}): ModuleA
           button.setAttribute('aria-label', text);
           button.title = text;
         };
+        const binding = { host, field, render };
         // الضغط لا ينقل التركيز من الحقل، فيبقى المؤشر والتحديد حيث هما. المستمع على زر الإضافة نفسه لا على GitHub.
         button.addEventListener('mousedown', (event) => event.preventDefault());
         button.addEventListener('click', () => {
-          if (ctx.signal.aborted || !field.isConnected) return;
-          setFieldDirection(field, nextDirection(fieldDirection(field)), write);
+          if (ctx.signal.aborted || !binding.field.isConnected) return;
+          setFieldDirection(binding.field, nextDirection(fieldDirection(binding.field)), write);
           render();
         });
         render();
         root.append(button);
+        bound.set(toolbar, binding);
+        hosts.add(host);
         ctx.mutations.insert(toolbar, host);
       };
 
-      const scan = (root: ParentNode): void => {
-        if ((root as Element).matches?.(toolbarSelector)) attach(root as Element);
-        for (const toolbar of root.querySelectorAll(toolbarSelector)) attach(toolbar);
+      const reconcile = (): void => {
+        for (const toolbar of doc.querySelectorAll(toolbarSelector)) attach(toolbar);
+        for (const toolbar of [...bound.keys()]) if (!toolbar.isConnected) bound.delete(toolbar);
       };
       for (const toolbar of ctx.selectors.resolveAll(doc, EDITOR_SELECTOR_KEYS.toolbar)) attach(toolbar);
       const body = doc.body;
       if (body) {
         ctx.observe(body, { childList: true, subtree: true }, (records) => {
-          for (const record of records) for (const added of record.addedNodes) if (added.nodeType === 1) scan(added as Element);
+          const relevant = records.some((r) => [...r.addedNodes, ...r.removedNodes].some((n) => hosts.has(n) || (n as Element).localName !== 'mijhar-host'));
+          if (relevant) reconcile();
         });
       }
     },

@@ -48,8 +48,10 @@ export function describe(snapshot: SessionSnapshot): string {
     case 'error':
       return `تعذّرت الترجمة: ${error ?? 'خطأ في المحرك'}${done ? `. تُرجمت ${done} من ${total} قبل الخطأ.` : '.'}`;
     case 'done': {
-      const parts = [`تُرجمت ${done - kept} من ${total} فقرة`];
+      const stale = snapshot.stale ?? 0;
+      const parts = [`تُرجمت ${done - kept - stale} من ${total} فقرة`];
       if (kept > 0) parts.push(`وأُبقي الأصل في ${kept} لسلامة الرموز المحمية`);
+      if (stale > 0) parts.push(`وتغيّرت ${stale} أثناء الترجمة فلم تُعرض ترجمتها القديمة؛ أعد الترجمة لتشملها`);
       if (truncated) parts.push('(اقتُصر على أول الفقرات)');
       return `${parts.join(' ')}.`;
     }
@@ -79,6 +81,11 @@ export function TranslationBar({ kind, snapshot, unavailable, engineLabel, copyN
             إلغاء
           </button>
         </>
+      )}
+      {translated && (phase === 'error' || (snapshot.stale ?? 0) > 0) && (
+        <button type="button" class="btn btn-primary" data-action="retry" title="يعيد ترجمة النص كما هو الآن" onClick={onTranslate}>
+          أعد الترجمة
+        </button>
       )}
       {translated && (
         <>

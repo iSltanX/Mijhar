@@ -183,14 +183,16 @@ export function enrichFromDocument(info: PageInfo, doc: Document): PageInfo {
   }
   if (next.type === 'blob') {
     const embedded = embeddedBlob(doc);
-    if (embedded) {
-      const path = embedded.path ?? next.path;
+    // بيانات React المضمّنة تُكتب عند تحميل الصفحة ولا تُحدَّث في التنقل بين الملفات (GEMINI-002): تُعتمد لتقسيم المرجع والمسار ما دامت
+    // تصف الرابط الحالي نفسه (المرجع ثم المسار هما ما بعد blob/)، وإلا بقي ما في الرابط ولا يُنسب الملف الجديد إلى القديم.
+    const rest = next.blobRest;
+    const path = embedded && rest ? (embedded.path ?? (rest.startsWith(`${embedded.name}/`) ? rest.slice(embedded.name.length + 1) : null)) : null;
+    if (embedded && path && rest === `${embedded.name}/${path}`) {
       next = {
         ...next,
         ref: embedded.name,
         refKind: embedded.oid && embedded.name.toLowerCase() === embedded.oid.toLowerCase() ? 'sha' : 'ref',
         path,
-        blobRest: path ? `${embedded.name}/${path}` : next.blobRest,
       };
     }
   }

@@ -21,6 +21,9 @@
 //    وEdge وBrave وFirefox 158 حيث فُحصت) وتعديلات شجرة body (childList) غير الصادرة عن الإضافة واستبدال body/head.
 // يُعلَن التغيّر فقط حين تتغير «بصمة» الصفحة (المسار والنوع والثقة وهوية body والحاوية الرئيسية)، فيُطلَق turbo:render
 // ثم turbo:load للتنقل الواحد حدثًا واحدًا لا اثنين، ويمرّ تعديل الوحدات لشجرة الصفحة دون إعلان ما دامت البصمة ثابتة.
+// استثناء واحد (GEMINI-001): تنقل أُعلن وعنصر تأكيد الصفحة (أو أول ابن للحاوية إن لم يتأكد) هو عنصر الصفحة السابقة نفسه، أي أن DOM الجديد
+// ربما لم يصل بعد (React يبقي <main> ويضع مؤشر تحميل). إن استُبدل ذلك العنصر خلال LATE_DOM_WINDOW_MS أُعيد الإعلان مرة واحدة فتُركَّب الوحدات
+// على DOM الصفحة الجديدة؛ وبعد النافذة أو بلا هذا الشرط تبقى إعادة رسم GitHub داخل الصفحة لسطوح keepAttached لا لإعادة التركيب.
 import { EXTERNAL_ROUTE, GITHUB_ORIGIN, classifyPath } from './page-types';
 import type { Confidence, PageState } from './page-types';
 import { DEFAULT_SELECTORS, SelectorsRegistry } from './selectors';
@@ -42,6 +45,8 @@ export interface PageDetectorOptions {
 
 const DEFAULT_SETTLE_MS = 100;
 const DEFAULT_SETTLE_MAX_MS = 1000;
+/** مدة ترقّب DOM تنقل أُعلن قبل وصوله: بطء الشبكة المعتاد دونها، وبعدها لا يُعاد تركيب الصفحة لاستبدال عنصر فيها. */
+export const LATE_DOM_WINDOW_MS = 10_000;
 
 /** ما تحقنه الإضافة في الصفحة: المضيفات وعناصر الوحدات المعلَّمة، والعقد التي نُقلت إلى داخلها (تغليف نص). */
 const OWN = 'mijhar-host, [data-mijhar-injected]';
@@ -78,6 +83,11 @@ export class PageDetector {
   private navigationSeq = 0;
   private urlChangedAt: number | null = null;
   private capTimer: ReturnType<typeof setTimeout> | null = null;
+  /** عنصر هوية الصفحة عند آخر إعلان (عنصر التأكيد، أو أول ابن للحاوية). */
+  private lastMarker: Element | null = null;
+  /** تنقل أُعلن وعنصر الهوية هو عنصر الصفحة السابقة نفسه: يُرتقب استبداله حتى pendingUntil. */
+  private pendingMarker: Element | null = null;
+  private pendingUntil = 0;
 
   constructor(options: PageDetectorOptions = {}) {
     this.doc = options.document ?? document;
@@ -90,14 +100,20 @@ export class PageDetector {
 
   /** يقيس الصفحة الآن دون إعلان ولا تغيير حالة. */
   detect(): PageState {
+    return this.measure().page;
+  }
+
+  /** الصفحة الآن، وعنصر هويتها: عنصر التأكيد إن وُجد، وإلا أول ابن للحاوية ليس من الإضافة. */
+  private measure(): { page: PageState; marker: Element | null } {
     const view = this.doc.defaultView;
     const url = new URL(view?.location.href ?? this.doc.URL);
     const route = url.origin === GITHUB_ORIGIN ? classifyPath(url.pathname) : EXTERNAL_ROUTE;
     const contentRoot = this.selectors.resolve(this.doc, 'content-root')?.element ?? null;
     const confirmKey = `confirm.${route.type}`;
-    const confirmed = this.selectors.has(confirmKey) && this.selectors.resolve(this.doc, confirmKey) !== null;
-    const confidence: Confidence = confirmed ? 'high' : 'low';
-    return { href: url.href, type: route.type, owner: route.owner, repo: route.repo, number: route.number, confidence, contentRoot };
+    const confirm = this.selectors.has(confirmKey) ? (this.selectors.resolve(this.doc, confirmKey)?.element ?? null) : null;
+    const confidence: Confidence = confirm ? 'high' : 'low';
+    const marker = confirm ?? [...(contentRoot?.children ?? [])].find((child) => !isOwn(child)) ?? null;
+    return { page: { href: url.href, type: route.type, owner: route.owner, repo: route.repo, number: route.number, confidence, contentRoot }, marker };
   }
 
   /** آخر حالة أُعلنت، أو null قبل start(). */
@@ -155,6 +171,8 @@ export class PageDetector {
     this.listeners.clear();
     this.last = null;
     this.lastSignature = null;
+    this.lastMarker = null;
+    this.pendingMarker = null;
   }
 
   /**
@@ -164,9 +182,11 @@ export class PageDetector {
   check(domReady = false): boolean {
     if (!this.started) return false;
     this.observeTree();
-    const page = this.detect();
+    const { page, marker } = this.measure();
     const signature = this.signature(page);
-    if (signature === this.lastSignature) {
+    // DOM تنقل أُعلن قبله وصل الآن: استُبدل عنصر هوية الصفحة السابقة الذي بقي عند الإعلان (GEMINI-001).
+    const lateDom = this.pendingMarker !== null && marker !== null && marker !== this.pendingMarker && Date.now() <= this.pendingUntil;
+    if (signature === this.lastSignature && !lateDom) {
       this.urlChangedAt = null;
       this.clearCap();
       return false;
@@ -179,9 +199,13 @@ export class PageDetector {
     this.clearCap();
     this.urlChangedAt = null;
     if (navigated) this.navigationSeq = ++this.seq;
+    const stale = navigated && this.last !== null && marker !== null && marker === this.lastMarker;
+    this.pendingMarker = stale ? marker : null;
+    this.pendingUntil = stale ? Date.now() + LATE_DOM_WINDOW_MS : 0;
     const previous = this.last;
     this.last = page;
     this.lastSignature = signature;
+    this.lastMarker = marker;
     for (const listener of [...this.listeners]) {
       try {
         listener(page, previous);

@@ -24,8 +24,12 @@ export interface RunOutcome {
   readonly branch: { readonly created: boolean; readonly name: string; readonly url: string | null };
   readonly file: { readonly written: boolean; readonly commit: string | null; readonly url: string | null };
   readonly pull: { readonly opened: boolean; readonly number: number | null; readonly url: string | null; readonly draft: boolean | null };
-  /** أول ما تعذّر وسببه (منقّحًا من أي سرّ)، أو null. */
-  readonly failure: { readonly step: WriteStep | 'precheck'; readonly status: number | null; readonly message: string } | null;
+  /** أول ما تعذّر وسببه (منقّحًا من أي سرّ)، أو null. retryAt: موعد أعلنه GitHub لحد الطلبات (ms)، لا يُعاد الإرسال قبله. */
+  readonly failure: { readonly step: WriteStep | 'precheck'; readonly status: number | null; readonly message: string; readonly retryAt?: number } | null;
+  /**
+   * أُرسلت هذه الخطوة ولم يصل ردّ يثبت نتيجتها (انقطاع أو انتهاء مهلة أو خطأ خادم 5xx): قد تكون نُفّذت على GitHub. ما قبلها كما في الحقول، وما بعدها لم يُرسل.
+   */
+  readonly uncertainStep?: WriteStep;
   /**
    * MJ-TA-H01: انقطعت قناة الخلفية بعد أن وصلتها الخطة، فلا يُعرف ما نُفّذ منها: الحقول أعلاه «لم يحدث» لأنها لم تُبلَّغ، لا لأنها لم تحدث.
    */
