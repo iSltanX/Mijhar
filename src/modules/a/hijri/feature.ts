@@ -59,6 +59,8 @@ export const HIJRI_FEATURE: ModuleAFeature = {
     const calendar = availableCalendar();
     let parts: ShadowParts | null = null;
     let current: Element | null = null;
+    /** المؤشر فوق العنصر المعروض تلميحه (لا يُغلق التلميح بخروج التركيز وهو فوقه، ولا بخروج المؤشر والتركيز فيه). */
+    let hovering = false;
 
     const ensure = (): ShadowParts => {
       if (parts) return parts;
@@ -70,6 +72,7 @@ export const HIJRI_FEATURE: ModuleAFeature = {
 
     const hide = (): void => {
       current = null;
+      hovering = false;
       if (!parts?.host.hasAttribute(OPEN_ATTR)) return;
       parts.host.removeAttribute(OPEN_ATTR);
       if (supportsPopover(parts.host)) {
@@ -115,26 +118,36 @@ export const HIJRI_FEATURE: ModuleAFeature = {
       const height = host.offsetHeight || 48;
       const vw = view?.innerWidth ?? 1024;
       const vh = view?.innerHeight ?? 768;
-      const left = Math.min(Math.max(8, rect.right - width), vw - width - 8);
+      // الهامش 8 من الطرفين، وفي نافذة أضيق من التلميح يبقى طرفه الأيسر داخلها (GEMINI-016) لا بإحداثي سالب.
+      const left = Math.max(8, Math.min(rect.right - width, vw - width - 8));
       const top = rect.bottom + 6 + height > vh ? Math.max(8, rect.top - height - 6) : rect.bottom + 6;
       host.style.setProperty('--mj-left', `${Math.round(left)}px`);
       host.style.setProperty('--mj-top', `${Math.round(top)}px`);
     };
 
+    const focused = (): boolean => Boolean(current && doc.activeElement && current.contains(doc.activeElement));
     ctx.listen(doc, 'mouseover', (event) => {
       const time = relativeTimeFor(event.target);
       if (time && time !== current) show(time);
+      if (time && time === current) hovering = true;
     });
+    // GEMINI-016: الإغلاق بخروج المؤشر من العنصر المعروض وحده (لا أي mouseout في الصفحة)، وما دام التركيز عليه يبقى التلميح لمستخدم لوحة المفاتيح.
     ctx.listen(doc, 'mouseout', (event) => {
-      if (!current) return;
+      if (!current || !current.contains(event.target as Node)) return;
       const next = (event as MouseEvent).relatedTarget as Node | null;
-      if (!next || !current.contains(next)) hide();
+      if (next && current.contains(next)) return;
+      hovering = false;
+      if (!focused()) hide();
     });
     ctx.listen(doc, 'focusin', (event) => {
       const time = relativeTimeFor(event.target, true);
       if (time) show(time);
     });
-    ctx.listen(doc, 'focusout', () => hide());
+    ctx.listen(doc, 'focusout', (event) => {
+      const next = (event as FocusEvent).relatedTarget as Node | null;
+      if (current && next && current.contains(next)) return;
+      if (!hovering) hide();
+    });
     ctx.listen(doc, 'keydown', (event) => {
       if ((event as KeyboardEvent).key === 'Escape') hide();
     });

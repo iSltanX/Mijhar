@@ -67,7 +67,8 @@ function safe<T>(make: () => T): T | null {
 }
 
 /** منافذ الإضافة الافتراضية؛ خارجها (اختبار بلا إضافة) null فلا يظهر شيء من التحليل. */
-export function defaultAnalysisDeps(): SectionAnalysisDeps {
+/** signal: عمر الوحدة المستهلكة (ctx.signal)، تُطلق به موارد قارئ حد الأسطر. */
+export function defaultAnalysisDeps(signal?: AbortSignal): SectionAnalysisDeps {
   const runtime = safe(() => extensionApi().runtime);
   return {
     provider: runtime ? runtimeProviderPort(runtime) : null,
@@ -76,7 +77,7 @@ export function defaultAnalysisDeps(): SectionAnalysisDeps {
       void runtime?.sendMessage({ type: OPEN_OPTIONS_MESSAGE, target: 'provider-key', feature } satisfies OpenOptionsMessage).catch(() => undefined);
     },
     messages: runtime ? (runtime.onMessage as unknown as ExtEvent<(message: unknown) => unknown>) : null,
-    lineLimit: storedLineLimit(),
+    lineLimit: storedLineLimit(signal),
   };
 }
 

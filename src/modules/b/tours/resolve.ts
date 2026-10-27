@@ -32,7 +32,7 @@ export function resolveStep(step: TourStep, doc: Document, page: PageLike, entri
   const paths = new Set<string>();
   let here = false;
   for (const entry of found) {
-    const { result, elements } = locateEntry(entry, doc, page);
+    const { result, elements } = locateEntry(entry, doc, page, entries);
     if (result.status === 'found') return { kind: 'found', entry, elements };
     if (result.status === 'elsewhere') {
       for (const path of result.paths) paths.add(path);

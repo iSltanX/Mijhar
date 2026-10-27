@@ -14,7 +14,8 @@ export interface SecretPattern {
 export const SECRET_PATTERNS: readonly SecretPattern[] = [
   { id: 'github-token', label: 'رمز GitHub (ghp_ وgho_ وghu_ وghs_ وghr_)', regex: /(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{16,}/g },
   { id: 'github-fine-grained', label: 'رمز GitHub بصلاحيات محددة (github_pat_)', regex: /(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{16,}/g },
-  { id: 'bearer', label: 'ترويسة Bearer', regex: /(?<![A-Za-z0-9])Bearer\s+[A-Za-z0-9\-._~+/]{16,}=*/g },
+  // GEMINI-013: مخطط HTTP غير حساس لحالة الأحرف (authorization: bearer … شائعة في HTTP/2 وسجلات الأدوات).
+  { id: 'bearer', label: 'ترويسة Bearer', regex: /(?<![A-Za-z0-9])[Bb][Ee][Aa][Rr][Ee][Rr]\s+[A-Za-z0-9\-._~+/]{16,}=*/g },
   { id: 'aws-access-key', label: 'معرّف مفتاح AWS (AKIA أو ASIA)', regex: /(?<![A-Za-z0-9])(?:AKIA|ASIA)[0-9A-Z]{16}(?![A-Za-z0-9])/g },
   // MJ-TA-01: الكتلة كاملة لا ترويستها وحدها: من BEGIN إلى أول END (مطابقة كسولة لا تعبر ترويسة BEGIN أخرى). وبلا END (كتلة ناقصة) تمدّها scanText على
   // الأسطر التالية ما دامت تشبه جسم المفتاح (keyBodyEnd)، فلا يُمحى ما بعدها من نثر أو سجل.
@@ -98,6 +99,20 @@ export function scanText(text: string, extra: readonly SecretPattern[] = []): Fi
     }
   }
   return found.sort((a, b) => a.start - b.start || a.end - b.end);
+}
+
+/**
+ * موضع واحد لكل سرّ (GEMINI-013): المتراكبان (Bearer ghp_… يطابقه نمطا Bearer ورمز GitHub) موضع واحد يمتد عليهما، ويُسمّى بأول ما بدأ منهما
+ * كما يُحجب؛ فلا يُعدّ السرّ الواحد سرّين. findings مرتبة بالبداية كما يعيدها scanText.
+ */
+export function mergeOverlapping(findings: readonly Finding[]): Finding[] {
+  const merged: Finding[] = [];
+  for (const finding of findings) {
+    const last = merged.at(-1);
+    if (last && finding.start < last.end) merged[merged.length - 1] = { ...last, end: Math.max(last.end, finding.end) };
+    else merged.push(finding);
+  }
+  return merged;
 }
 
 export interface FindingView {

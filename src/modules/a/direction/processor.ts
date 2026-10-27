@@ -2,7 +2,8 @@
 // data-mijhar-dir="rtl" وdata-mijhar-orig-dir (قيمة dir الأصلية، أو '' إن غابت) عبر سجل التعديلات، ولا يمس سمة dir نفسها ولا
 // هيكل الصفحة (شجرة الملفات والترويسة والمخطط تبقى ltr). القائمة تُقلب كلها حين تكون كل عناصرها عربية، فتنتقل علاماتها وحشوتها
 // معها؛ وفي القائمة المختلطة يُقلب العنصر العربي وحده فلا يتغير اتجاه عنصر إنجليزي (AC-A1 بند ب).
-// الكتلة التي قُلبت لا يُعاد تقييمها؛ وما لم يُقلب يُقاس ثانية إذا تغيّر محتواه أو أضاف GitHub محتوى جديدًا.
+// الكتلة التي قُلبت يُعاد تقييمها إن تغيّر نصها فقط (CODEX-008): صارت إنجليزية كلها فيُزال قلبها ويعود اتجاه GitHub الأصلي؛ وما لم يُقلب
+// يُقاس ثانية إذا تغيّر محتواه أو أضاف GitHub محتوى جديدًا. والقائمة المقلوبة تُعاد إن لم تعد كل عناصرها عربية.
 import type { MutationRecorder, SelectorsRegistry } from '../../../core';
 import { measureBlock, measureContainer, resolveNative } from './bidi';
 import type { BlockMeasure, Direction } from './bidi';
@@ -19,7 +20,7 @@ export const ORIG_DIR_ATTR = 'data-mijhar-orig-dir';
 export interface DirectionHost {
   readonly document: Document;
   readonly selectors: SelectorsRegistry;
-  readonly mutations: Pick<MutationRecorder, 'setAttribute'>;
+  readonly mutations: Pick<MutationRecorder, 'setAttribute' | 'removeAttribute'>;
 }
 
 export interface DirectionStats {
@@ -44,6 +45,8 @@ export class DirectionProcessor {
   private readonly options: DirectionOptions;
   private readonly containerSelector: string;
   private readonly standaloneSelector: string;
+  /** نص كل كتلة قلبها المعالج لحظة قلبها: تغيّره وحده يعيد تقييمها، فلا يُقاس كل ما قُلب في كل تعديل. */
+  private readonly flippedText = new WeakMap<Element, string>();
 
   constructor(host: DirectionHost, options: DirectionOptions = DEFAULT_DIRECTION_OPTIONS) {
     this.host = host;
@@ -108,6 +111,7 @@ export class DirectionProcessor {
     const flippedOrRtl = new Set<Element>();
     for (const block of container.querySelectorAll(CONTAINER_BLOCKS)) {
       if (block.hasAttribute(DIR_ATTR)) {
+        if (!this.stillFlipped(block, { containerRatio: null, ratio })) continue;
         flippedOrRtl.add(block);
         continue;
       }
@@ -127,14 +131,20 @@ export class DirectionProcessor {
         this.flip(block);
         stats.flipped += 1;
         flippedOrRtl.add(block);
-      }
+      } else if (native.direction === 'rtl') flippedOrRtl.add(block); // عنصر عربي اتجاهه rtl أصلًا (dir="rtl"): يكفي لقلب قائمته (GEMINI-020).
     }
     for (const list of container.querySelectorAll(LISTS)) {
-      if (list.hasAttribute(DIR_ATTR) || this.nearestContainer(list) !== container) continue;
+      if (this.nearestContainer(list) !== container) continue;
+      const items = (): Element[] => [...list.children].filter((child) => child.localName === 'li' && (flippedOrRtl.has(child) || measureBlock(child).letters > 0));
+      if (list.hasAttribute(DIR_ATTR)) {
+        // قائمة قلبها المعالج ثم صار فيها عنصر غير عربي: يُعاد اتجاهها الأصلي.
+        if (this.flippedText.has(list) && !items().every((item) => flippedOrRtl.has(item))) this.unflip(list);
+        continue;
+      }
       const native = resolveNative(list, auto);
       if (native.direction !== 'ltr' || native.source === 'explicit' || list.closest(NEVER_INSIDE)) continue;
-      const items = [...list.children].filter((child) => child.localName === 'li' && (flippedOrRtl.has(child) || measureBlock(child).letters > 0));
-      if (items.length && items.every((item) => flippedOrRtl.has(item))) {
+      const listed = items();
+      if (listed.length && listed.every((item) => flippedOrRtl.has(item))) {
         this.flip(list);
         stats.lists += 1;
       }
@@ -146,7 +156,11 @@ export class DirectionProcessor {
   }
 
   private processStandalone(el: Element, stats: DirectionStats): void {
-    if (el.hasAttribute(DIR_ATTR) || el.closest(NEVER_INSIDE)) return;
+    if (el.hasAttribute(DIR_ATTR)) {
+      this.stillFlipped(el, { containerRatio: this.nearestContainer(el) ? 0 : null });
+      return;
+    }
+    if (el.closest(NEVER_INSIDE)) return;
     const container = this.nearestContainer(el);
     const native = resolveNative(el);
     const measure = native.direction === 'rtl' || native.source === 'explicit' ? EMPTY : measureBlock(el);
@@ -160,9 +174,38 @@ export class DirectionProcessor {
     }
   }
 
+  /**
+   * كتلة قلبها المعالج: إن تغيّر نصها منذ قلبها تُقاس من جديد، فإن لم تعد عربية أُزيل قلبها (CODEX-008). كتلة قلبها غيره (السمة بلا نص محفوظ)
+   * لا تُمس. يعيد هل بقيت مقلوبة.
+   */
+  private stillFlipped(el: Element, context: { containerRatio: number | null; ratio?: () => number }): boolean {
+    const before = this.flippedText.get(el);
+    if (before === undefined) return true;
+    const now = el.textContent ?? '';
+    if (now === before) return true;
+    const measure = measureBlock(el);
+    const containerRatio = context.ratio && this.isMixed(measure) ? context.ratio() : context.containerRatio;
+    // اتجاه GitHub الأصلي لا يتأثر بقلبنا (سمتنا data-mijhar-dir لا dir)، فيُقاس كما لو لم تُقلب.
+    if (decide(measure, { native: resolveNative(el), containerRatio }, this.options) === 'flip') {
+      this.flippedText.set(el, now);
+      return true;
+    }
+    this.unflip(el);
+    return false;
+  }
+
   private flip(el: Element): void {
     const { mutations } = this.host;
     mutations.setAttribute(el, ORIG_DIR_ATTR, el.getAttribute('dir') ?? '');
     mutations.setAttribute(el, DIR_ATTR, 'rtl');
+    this.flippedText.set(el, el.textContent ?? '');
+  }
+
+  /** يعيد الكتلة كما كانت قبل قلبها (السمتان عبر السجل، فيبقى الإيقاف يعيد الصفحة حرفيًا). */
+  private unflip(el: Element): void {
+    const { mutations } = this.host;
+    mutations.removeAttribute(el, DIR_ATTR);
+    mutations.removeAttribute(el, ORIG_DIR_ATTR);
+    this.flippedText.delete(el);
   }
 }

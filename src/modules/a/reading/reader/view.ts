@@ -55,6 +55,8 @@ export function realign(shown: string, stream: string): string {
   let j = 0;
   for (const ch of shown) {
     if (!/\s/.test(ch)) while (j < stream.length && /\s/.test(stream[j] as string)) j += 1;
+    // حركات تسبق الحرف في التسلسل (أول عقدة بعد حدّ وسم: <span>ك</span><em>َتَبَ…</em>) تُنقل كما هي ولا توقف المحاذاة (GEMINI-008، VR-14).
+    if (!DIACRITIC.test(ch)) while (j < stream.length && DIACRITIC.test(stream[j] as string) && stream[j] !== ch) out += stream[j++];
     if (j < stream.length && stream[j] === ch) {
       out += ch;
       j += 1;

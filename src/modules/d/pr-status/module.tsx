@@ -194,7 +194,7 @@ export function createPrStatusModule(options: PrStatusOptions = {}): ExtensionMo
         connections,
         openConnect: options.openConnect ?? defaultOpenConnect,
         messages,
-        analysis: options.analysis ?? defaultAnalysisDeps(),
+        analysis: options.analysis ?? defaultAnalysisDeps(ctx.signal),
       }).start();
     },
   };

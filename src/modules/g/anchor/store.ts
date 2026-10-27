@@ -82,8 +82,9 @@ export class AnchorStore {
     return isSaltRecord(record) ? record.salt : null;
   }
 
-  /** الملح المحلي، يُنشأ عند أول حاجة. */
+  /** الملح المحلي، يُنشأ عند أول حاجة؛ وعبر الخلفية تنشئه هي في طابورها فلا يُنشئ سياقان ملحين (CODEX-007). */
   async ensureSalt(now: () => Date = () => new Date()): Promise<string> {
+    if (this.writer) return this.writer.ensureSalt();
     const record = await this.store.update<unknown>(SALT_RECORD, null, (current) => (isSaltRecord(current) ? current : { salt: newSalt(), createdAt: now().toISOString() }));
     if (!isSaltRecord(record)) throw new Error('تعذّر إنشاء الملح المحلي');
     return record.salt;

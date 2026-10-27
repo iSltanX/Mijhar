@@ -12,7 +12,7 @@ import { ConsentPanel } from '../model-manager/consent-panel';
 import type { ConsentCard } from '../model-manager/consent';
 import { INTEGRITY_WARNING, maskSegments, translateProtected } from '../masking';
 import type { ProtectedTranslation } from '../masking';
-import { inlineSegments, skipReasonFor, tokenNodes } from './blocks';
+import { EXCLUDED_SELECTOR, inlineSegments, skipReasonFor, tokenNodes } from './blocks';
 import { isAbort } from './service';
 import type { TranslationService } from './service';
 import { FLOAT_CSS, FLOAT_HOST_CSS } from './styles';
@@ -47,6 +47,9 @@ export function selectionTarget(doc: Document, bodySelector = '.markdown-body'):
   const start = root.nodeType === 1 ? (root as Element) : root.parentElement;
   const body = start?.closest(bodySelector);
   if (!body || start?.closest('mijhar-host, textarea, [contenteditable], input')) return null;
+  // تحديد داخل شيفرة أو ما عُلِّم «لا يُترجم» كله: لا زر ولا إرسال (GEMINI-010)، كمترجم الكتل الذي يستثنيها. والتحديد العابر لنثر وشيفرة يبقى
+  // مسموحًا، ففيه عنصر الشيفرة نفسه فيحميه التقنيع.
+  if (start?.closest(`${EXCLUDED_SELECTOR}, code, kbd, samp, tt`)) return null;
   const text = selection.toString().replace(/\s+/g, ' ').trim();
   if (text.length < 3 || skipReasonFor(text) !== null) return null;
   return { range, body, text };

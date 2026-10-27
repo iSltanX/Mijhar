@@ -18,7 +18,8 @@ interface ContentItem {
 }
 
 export type DocsScanResult =
-  | { readonly state: 'found'; readonly matches: readonly ArabicReadmeMatch[]; readonly requests: number }
+  /** partial: لم يكتمل فحص بقية مجلدات اللغة (حد الطلبات أو تعذّر مجلد)، وما في matches وُجد فعلًا. */
+  | { readonly state: 'found'; readonly matches: readonly ArabicReadmeMatch[]; readonly requests: number; readonly partial?: string }
   | { readonly state: 'none-in-docs'; readonly requests: number; readonly listed: number; readonly message: string }
   | { readonly state: 'incomplete'; readonly reason: ApiFailure | 'declined' | 'unexpected'; readonly requests: number; readonly message: string };
 
@@ -55,10 +56,12 @@ export async function scanDocsFolder(access: GithubApiAccess, owner: string, rep
     if (item.type === 'file' && (ARABIC_FILE_NAME.test(item.name) || ARABIC_DOC_FILE.test(item.name))) matches.set(item.path, { name: item.name, href: itemUrl(owner, repo, item), source: 'tree' });
     else if (item.type === 'dir' && LANGUAGE_FOLDER.test(item.name)) languageFolders.push(item);
   }
+  // GEMINI-014: ما وُجد قبل نفاد الحد أو تعذّر مجلد لاحق يُعرض (مع بيان أن الفحص لم يكتمل)، لا يُسقط.
+  const stop = (result: Extract<DocsScanResult, { state: 'incomplete' }>): DocsScanResult => (matches.size ? { state: 'found', matches: [...matches.values()], requests, partial: result.message } : result);
   for (const folder of languageFolders) {
-    if (requests >= MAX_SCAN_REQUESTS) return { state: 'incomplete', reason: 'unexpected', requests, message: `بلغ الفحص حد ${MAX_SCAN_REQUESTS} طلبات قبل فتح كل مجلدات اللغة؛ الفحص لم يكتمل.` };
+    if (requests >= MAX_SCAN_REQUESTS) return stop({ state: 'incomplete', reason: 'unexpected', requests, message: `بلغ الفحص حد ${MAX_SCAN_REQUESTS} طلبات قبل فتح كل مجلدات اللغة؛ الفحص لم يكتمل.` });
     const inner = await read(`docs/${encodeURIComponent(folder.name)}`);
-    if (!inner.ok) return inner.result;
+    if (!inner.ok) return stop(inner.result as Extract<DocsScanResult, { state: 'incomplete' }>);
     listed += inner.items.length;
     for (const item of inner.items) {
       if (item.type === 'file' && /^readme(\.[a-z]+)?$/i.test(item.name.replace(/\.(md|markdown|rst|txt|adoc)$/i, ''))) matches.set(item.path, { name: item.path.replace(/^docs\//, ''), href: itemUrl(owner, repo, item), source: 'tree' });

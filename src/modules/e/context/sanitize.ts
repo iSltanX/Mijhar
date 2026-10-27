@@ -10,7 +10,7 @@
 import type { Blocker } from '../../d/blockers/explain';
 import type { LogAnalysis } from '../../d/log-parser/parse';
 import { groupMessages } from '../../d/log-parser/view';
-import { SECRET_PATTERNS, scanText } from '../privacy-check/scan';
+import { SECRET_PATTERNS, mergeOverlapping, scanText } from '../privacy-check/scan';
 import type { Finding } from '../privacy-check/scan';
 import type { ChangedFile, Changes, CommentInfo, ContextPageKind, ContextSource, Gap, PrStatus, Snippet } from './collect';
 import { LINE_LIMIT_DEFAULT } from './settings';
@@ -209,10 +209,11 @@ function maskText(text: string, onFind: (finding: Finding) => void): string {
     span = null;
   };
   for (const finding of found) {
-    onFind(finding);
     if (span && finding.start < span.end) span.end = Math.max(span.end, finding.end);
     else {
       flush();
+      // يُبلَّغ مرة لكل موضع محجوب، لا لكل نمط طابقه (GEMINI-013): السرّ الواحد سرّ واحد في العدّاد كما في النص.
+      onFind(finding);
       span = { start: finding.start, end: finding.end, id: finding.patternId };
     }
   }
@@ -289,7 +290,7 @@ export function sanitize(source: ContextSource, snippets: readonly Snippet[], op
   const pass = <T>(value: T, part: string): T => {
     if (policy === 'mask') return mapStrings(value, (text) => maskText(text, (f) => count(part, f)));
     visitStrings(value, (text) => {
-      for (const f of scanText(text)) count(part, f);
+      for (const f of mergeOverlapping(scanText(text))) count(part, f);
     });
     return value;
   };

@@ -98,7 +98,12 @@ export function relationTo(note: Note, page: PageInfo): Relation | null {
 function blobRelation(ref: string, path: string, page: PageInfo): Relation | null {
   if (page.type !== 'blob' || page.blobRest === null) return null;
   if (page.blobRest === `${ref}/${path}`) return 'exact';
-  return page.blobRest.endsWith(`/${path}`) ? 'other-ref' : null;
+  if (!page.blobRest.endsWith(`/${path}`)) return null;
+  // GEMINI-007: ما قبل المسار هو المرجع المعروض إن لم يكن مرجع الملاحظة نفسه يليه مجلد: README.md على main لا يقابل main/packages/core/README.md
+  // (المرجع نفسه وملف آخر في مجلد فرعي). وإن عرفت الصفحة مرجعها ومسارها (من بياناتها) فالمقارنة بهما.
+  if (page.refKind !== 'unknown' && page.ref !== null && page.path !== null) return page.path === path && page.ref !== ref ? 'other-ref' : null;
+  const shownRef = page.blobRest.slice(0, -(path.length + 1));
+  return shownRef.startsWith(`${ref}/`) ? null : 'other-ref';
 }
 
 function sameDiffPage(target: DiffLineTarget, page: PageInfo): boolean {

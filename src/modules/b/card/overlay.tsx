@@ -117,6 +117,14 @@ export function placeBadges(matches: readonly Match[], viewport: { width: number
 
 const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), Math.max(min, max));
 
+/** موضع البطاقة المفتوحة حين خرج عنصرها من نافذة العرض: ما دام متصلًا وله حجم. */
+function keptOpen(matches: readonly Match[], index: number, rectOf: (element: Element) => Rect = defaultRect): Placed | null {
+  const match = matches[index];
+  if (!match?.element.isConnected) return null;
+  const rect = rectOf(match.element);
+  return rect.width > 0 && rect.height > 0 ? { index, match, rect } : null;
+}
+
 function badgePosition(rect: Rect, viewport: { width: number; height: number }, size: number): { left: number; top: number } {
   // أعلى الطرف الأيمن للعنصر (خارج محتواه قدر الإمكان) ويبقى داخل نافذة العرض.
   return { left: clamp(rect.left + rect.width - size / 2, MARGIN, viewport.width - size - MARGIN), top: clamp(rect.top - size / 2, MARGIN, viewport.height - size - MARGIN) };
@@ -135,7 +143,9 @@ export function ExplainOverlay(props: ExplainOverlayProps) {
   const { matches, viewport, openIndex, active, onOpen, onClose, onStop, closeReason = null } = props;
   const size = props.badgeSize ?? BADGE_SIZE.fine;
   const placed = placeBadges(matches, viewport, props.rectOf);
-  const open = openIndex === null ? null : (placed.find((p) => p.index === openIndex) ?? null);
+  // البطاقة المفتوحة تبقى ما دام عنصرها في الصفحة ولو خرج من نافذة العرض بالتمرير (GEMINI-012): موضعها مقيَّد بالنافذة، فلا تختفي وهي تُقرأ ولا
+  // يضيع تبويبها، ويبقى Escape يغلقها.
+  const open = openIndex === null ? null : (placed.find((p) => p.index === openIndex) ?? keptOpen(matches, openIndex, props.rectOf));
   const cardRef = useRef<HTMLDivElement>(null);
   const lastOpen = useRef<number | null>(null);
 

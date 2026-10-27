@@ -100,7 +100,8 @@ const DETECTORS: readonly Detector[] = [
   // اسم ملف مجرد بامتداد معروف: package.json وvite.config.ts
   { type: 'PATH', pattern: new RegExp(`${BEFORE}[\\w+-][\\w+-]*(?:\\.[\\w+-]+)*\\.(?:${FILE_EXTENSIONS})\\b`, 'g') },
   // أوامر: أداة + أمر فرعي معروف + أعلام وسلاسل مقتبسة تليه. الأمر الفرعي من قائمة مغلقة حتى لا تُبتلع جملة مثل «use git for».
-  { type: 'CMD', pattern: COMMAND_PATTERN },
+  // علامة ترقيم بعد آخر علم («(git checkout --branch=main).») من الجملة لا من الأمر (GEMINI-020).
+  { type: 'CMD', pattern: COMMAND_PATTERN, trim: trimTrailingPunctuation },
   // curl وwget لا أمر فرعي لهما: يلزم بعدهما علم أو رابط.
   { type: 'CMD', pattern: /\b(?:curl|wget)\s+(?:-{1,2}[A-Za-z][\w-]*|https?:\/\/\S+)(?:\s+(?:-{1,2}[A-Za-z][\w-]*(?:=\S+)?|"[^"\n]*"|'[^'\n]*'|https?:\/\/[^\s<>"'`⟦⟧]+))*/g, trim: trimTrailingPunctuation },
   // إشارات: owner/repo#123 ثم #123 ثم SHA ثم @user وفرق @org/team

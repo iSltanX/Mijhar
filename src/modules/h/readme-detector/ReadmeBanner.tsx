@@ -66,6 +66,7 @@ export function DocsScanControl({ owner, repo, access = UNAVAILABLE_ACCESS, newT
               <div class="row">
                 <MatchLinks matches={state.result.matches} newTab={newTab} />
               </div>
+              {state.result.partial && <p class="notice" data-scan-partial="">{state.result.partial}</p>}
             </>
           ) : (
             <p class={state.result.state === 'incomplete' ? 'notice' : 'muted'}>{state.result.message}</p>

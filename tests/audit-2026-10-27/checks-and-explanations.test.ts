@@ -9,14 +9,15 @@ import { describe, expect, it } from 'vitest';
 import { SelectorsRegistry } from '../../src/core';
 import { classifyDomCheck } from '../../src/modules/d/pr-status/categories';
 import { PR_STATUS_SELECTORS, parseStatusDetails, readChecks, readPrSummary } from '../../src/modules/d/pr-status/extract';
-import { explainBlockers } from '../../src/modules/d/blockers/explain';
+import { explainBlockers, readDomEvidence } from '../../src/modules/d/blockers/explain';
 import { mergeApi } from '../../src/modules/d/blockers/merge';
 import { have, missing } from '../../src/modules/d/pr-status/value';
 import { analyzeLog } from '../../src/modules/d/log-parser/parse';
 import type { CheckItem } from '../../src/modules/d/pr-status/summary';
 
 const selectors = new SelectorsRegistry(PR_STATUS_SELECTORS);
-const DOM = { stateLabel: 'Open', mergeboxPresent: true, conflictsText: null, reviewText: null, behindText: null };
+/** أدلة DOM الحالية كما يقرؤها تفسير الموانع من الصفحة نفسها. */
+const dom = () => readDomEvidence(document, selectors);
 
 describe('GEMINI-003: الحالة من الرمز ووسمه قبل الوصف', () => {
   it.each([
@@ -53,7 +54,7 @@ describe('GEMINI-003: الحالة من الرمز ووسمه قبل الوصف'
     const [item] = summary.checks.items;
     expect(item).toMatchObject({ name: 'ci / unit-tests', required: true, detail: '12 passed, 0 failed in 34s' });
     expect(item?.classification.category).toBe('success');
-    const report = explainBlockers(summary, DOM, null);
+    const report = explainBlockers(summary, dom(), null);
     expect([...report.blockers, ...report.attention].map((b) => b.id)).not.toContain('required-failed');
   });
 
@@ -73,7 +74,7 @@ describe('GEMINI-003: الحالة من الرمز ووسمه قبل الوصف'
     const run: CheckItem = { name: 'build', id: '9001', classification: { category: 'failure', raw: 'failure', verified: true }, required: true, detail: null, source: 'api' };
     const data = apiData([run], 'a'.repeat(40), 'actions');
     const summary = { ...emptySummary(), headSha: 'a'.repeat(40) };
-    const report = explainBlockers(mergeApi(summary, data), DOM, data);
+    const report = explainBlockers(mergeApi(summary, data), dom(), data);
     const where = report.blockers.find((b) => b.id === 'required-failed')?.evidence[0]?.where;
     expect(where).toContain('/actions/');
     expect(where).not.toContain('/check-runs');
@@ -112,7 +113,7 @@ describe('CODEX-002: الإلزام من شارة مستقلة لا من الا�
     document.body.innerHTML = `<div data-testid="mergebox-partial"><div class="merge-status-list">${row('<strong>Required dependencies</strong><span class="color-fg-muted text-small">Failing after 1m — Required step failed</span>')}</div></div>`;
     const summary = readPrSummary(document, selectors);
     expect(summary.checks.items[0]?.required).toBeNull();
-    const report = explainBlockers(summary, DOM, null);
+    const report = explainBlockers(summary, dom(), null);
     expect(report.blockers.map((b) => b.id)).not.toContain('required-failed');
     expect(report.blockers.flatMap((b) => b.evidence.map((e) => e.text)).join(' ')).not.toContain('(Required)');
   });
@@ -121,7 +122,7 @@ describe('CODEX-002: الإلزام من شارة مستقلة لا من الا�
     document.body.innerHTML = `<div data-testid="mergebox-partial"><div class="merge-status-list">${row('<strong>ci / lint</strong><span class="color-fg-muted text-small">Failing after 4m</span> <span class="Label">Required</span>')}</div></div>`;
     const summary = readPrSummary(document, selectors);
     expect(summary.checks.items[0]?.required).toBe(true);
-    expect(explainBlockers(summary, DOM, null).blockers.map((b) => b.id)).toContain('required-failed');
+    expect(explainBlockers(summary, dom(), null).blockers.map((b) => b.id)).toContain('required-failed');
   });
 
   it('جزء status-details لا يثبت الإلزام ولو كان فيه «Required»', () => {

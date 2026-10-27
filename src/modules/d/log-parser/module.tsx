@@ -71,7 +71,7 @@ export function createLogModule(options: LogModuleOptions = {}): ExtensionModule
     // MJ21: ومحددات جامع الطبقة المشتركة، فيُبنى سياق التحليل وإن لم تُسجَّل وحدة غيرها.
     selectors: [...JOB_PAGE_SELECTORS, ...COLLECTOR_SELECTORS],
     mount(ctx) {
-      new LogController(ctx, fetchLog, debounceMs, options.analysis ?? defaultAnalysisDeps()).start();
+      new LogController(ctx, fetchLog, debounceMs, options.analysis ?? defaultAnalysisDeps(ctx.signal)).start();
     },
   };
 }

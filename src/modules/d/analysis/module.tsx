@@ -24,7 +24,7 @@ export function createAnalysisModule(deps?: SectionAnalysisDeps): ExtensionModul
     pages: ['issue'],
     selectors: [...COLLECTOR_SELECTORS, ANCHOR],
     mount(ctx) {
-      new IssueAnalysis(ctx, deps ?? defaultAnalysisDeps()).start();
+      new IssueAnalysis(ctx, deps ?? defaultAnalysisDeps(ctx.signal)).start();
     },
   };
 }
