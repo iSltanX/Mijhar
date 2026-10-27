@@ -262,13 +262,20 @@ describe('الوحدة d.pr-status على الصفحة', () => {
     manager.stop();
   });
 
-  it('لا فحوص مُبلَّغ عنها: جزء status-details بلا صفوف يعلن ذلك ولا يعرضه «قيد التشغيل»', async () => {
+  // CODEX-001 (تدقيق 2026-10-27): كان هذا الاختبار يتوقع «لا فحوص» من جزء بلا صفوف فوق عينة يثبت رمزها المجمَّع فحصًا؛ والصحيح أن ردًّا بلا صفوف
+  // مفهومة تعذّر قراءة، لا نفي لوجود الفحوص، ولا «قيد التشغيل» كذلك.
+  it('جزء status-details بلا صفوف والرمز المجمَّع يدل على فحوص: «تعذّرت القراءة» لا «لا فحوص» ولا «قيد التشغيل»', async () => {
     loadHtml(REAL_PR);
     const { manager } = await mountModules([createPrStatusModule({ debounceMs: 5, fetchDetails: async () => '<div class="merge-status-list"></div>' })]);
-    await flush(30);
-    const [host] = hostsOf('d.pr-status');
-    expect(host?.shadowRoot?.querySelector('[data-checks-state="none-reported"]')?.textContent).toContain('لا فحوص مُبلَّغ عنها');
-    manager.stop();
+    try {
+      await flush(30);
+      const [host] = hostsOf('d.pr-status');
+      expect(host?.shadowRoot?.querySelector('[data-checks-state="none-reported"]')).toBeNull();
+      expect(host?.shadowRoot?.querySelector('[data-checks-state="error"]')?.textContent).toContain('لم يُفهم ردّ تفاصيل الفحوص');
+      expect(host?.shadowRoot?.textContent).not.toContain('قيد التشغيل');
+    } finally {
+      manager.stop();
+    }
   });
 
   it('إعادة تركيب الوحدة (تنقل أو إعادة رسم الصفحة) لا تكرر طلب الالتزام نفسه، وتنتهي صلاحية النتيجة بعد مهلتها، والفشل لا يُحفظ', async () => {

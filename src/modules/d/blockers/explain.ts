@@ -98,8 +98,10 @@ const verbatimOf = (text: string): string => (text.length > 240 && text.endsWith
 
 const rowText = (item: CheckItem): string => `${item.name}${item.detail ? ` — ${item.detail}` : ''}${item.required ? ' (Required)' : ''}`;
 
-// طلبات readPrApi بترتيبها: الطلب، ثم check-runs، ثم commit status (عنصره بلا معرّف)، ثم الفرع (VR-19).
+// طلبات readPrApi بترتيبها: الطلب، ثم check-runs، ثم commit status (عنصره بلا معرّف)، ثم الفرع (VR-19)؛ وحين رُفضت check-runs فقُرئت مهام
+// Actions بدلها (via: 'actions') فالفحص بمعرّف من طلبات Actions لا من check-runs التي رُفضت (GEMINI-003).
 const whereOf = (item: CheckItem, api: ApiPrData | null): string => {
+  if (item.source === 'api' && item.id !== null && api?.checks.available && api.checks.value.via === 'actions') return api.requests.find((r) => r.includes('/actions/')) ?? 'GitHub API (Actions)';
   if (item.source === 'api') return api?.requests[item.id === null ? 2 : 1] ?? 'GitHub API';
   return item.source === 'mergebox' ? MERGEBOX : 'جزء status-details لالتزام الرأس';
 };

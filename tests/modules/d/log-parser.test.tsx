@@ -192,6 +192,7 @@ describe('قائمة الأنماط الحتمية', () => {
     ['/bin/sh: 1: yarn: not found', 'command-not-found'],
     ['FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory', 'node-heap-oom'],
     ['write /tmp/x: No space left on device', 'disk-full'],
+    ["Error: ENOSPC: System limit for number of file watchers reached, watch '/workspace/project/src'", 'file-watcher-limit'],
     ['The job running on runner GitHub Actions 12 has exceeded the maximum execution time of 360 minutes.', 'job-timeout'],
     ['The operation was canceled.', 'operation-cancelled'],
     ['HttpError: Resource not accessible by integration', 'integration-permission'],

@@ -265,17 +265,36 @@ function rowIcon(row: Element): Element | null {
   return row.querySelector('svg[aria-label]') ?? row.querySelector('svg');
 }
 
+const REQUIRED_BADGE = 'Required';
+
+/**
+ * شارة «Required» عنصرًا مستقلًا في صف صندوق الدمج (CODEX-002): عنصر بلا أبناء نصه «Required» وحده، خارج اسم الفحص ووصفه ورابطه. الكلمة في
+ * اسم فحص («Required dependencies») أو وصفه لا تثبت إلزامًا.
+ */
+function hasRequiredBadge(row: Element, name: Element | null, description: Element | null): boolean {
+  for (const el of row.querySelectorAll('span, div, small, b, i, em, label')) {
+    if (el.children.length || text(el) !== REQUIRED_BADGE) continue;
+    if (name?.contains(el) || description?.contains(el) || el.closest('a')) continue;
+    return true;
+  }
+  return false;
+}
+
 function parseRow(row: Element, source: CheckSource): CheckItem | null {
   const svg = rowIcon(row);
   if (!svg) return null;
-  const strong = text(row.querySelector('strong'));
+  const nameEl = row.querySelector('strong');
+  const strong = text(nameEl);
   const full = text(row);
   const sep = full.indexOf(' — ');
   const name = strong || (sep > 0 ? full.slice(0, sep) : '');
   if (!name) return null;
-  const description = text(row.querySelector('.text-small, .color-fg-muted, [title]')) || (sep > 0 ? full.slice(sep + 3) : full.slice(name.length).trim());
+  // الوصف: عنصر الوصف لا الرابط (الذي قد يحمل title باسم الفحص) ولا الشارة (GEMINI-003).
+  const descEl = [...row.querySelectorAll('.text-small, .color-fg-muted, :not(a)[title]')].find((el) => !el.closest('a') && text(el) !== REQUIRED_BADGE) ?? null;
+  const description = text(descEl) || (sep > 0 ? full.slice(sep + 3) : full.slice(name.length).trim());
   const href = row.querySelector('a[href]')?.getAttribute('href') ?? '';
-  const required = /\bRequired\b/.test(full) ? true : null;
+  // جزء status-details لا يذكر الإلزامي أصلًا؛ وفي صندوق الدمج الشارة وحدها دليله.
+  const required = source !== 'status-details' && hasRequiredBadge(row, nameEl, descEl) ? true : null;
   return {
     name,
     id: CHECK_ID.exec(href)?.[1] ?? null,
@@ -347,13 +366,18 @@ export function readChecks(doc: Document, selectors: SelectorsRegistry, headSha:
   let items: readonly CheckItem[] = [];
   let source: ChecksSection['source'] = rollup.available ? 'rollup' : 'none';
   let noneReported = false;
+  let error = fetched?.error ?? null;
   if (boxItems.length) {
     items = boxItems;
     source = 'mergebox';
   } else if (fetched && !fetched.error) {
     items = fetched.items;
     source = fetched.items.length ? 'status-details' : source;
-    noneReported = fetched.items.length === 0;
+    // CODEX-001: ردّ بلا صفوف مفهومة (صفحة دخول أو تخطيط آخر) ليس «لا فحوص»: الرمز المجمَّع نفسه يدل على فحوص. الصفر يثبت فقط حين يعلنه الرمز.
+    if (!fetched.items.length) {
+      if (rollup.available && rollup.value.total === 0) noneReported = true;
+      else error = 'لم يُفهم ردّ تفاصيل الفحوص: لا صفوف فحوص فيه، والرمز المجمَّع يدل على فحوص';
+    }
   }
   return {
     items,
@@ -363,7 +387,7 @@ export function readChecks(doc: Document, selectors: SelectorsRegistry, headSha:
     detailsUrl: items.length || noneReported ? null : detailsUrl,
     requiredKnown: boxItems.length > 0,
     noneReported,
-    error: fetched?.error ?? null,
+    error,
   };
 }
 
