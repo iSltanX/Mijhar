@@ -11,9 +11,11 @@
 
 **إضافة متصفح تجعل GitHub أوضح لمن يقرأ ويكتب بالعربية.** يصحّح اتجاه النص العربي في صفحات GitHub، ويشرح الأزرار والمصطلحات في مكانها، ويقرأ لك حالة طلب الدمج وأين فشل الفحص ولماذا. يعمل فور التثبيت، بلا حساب ولا مفتاح. وهو مشروع مستقل لا يتبع GitHub.
 
-**[ثبّته من Chrome Web Store](https://chromewebstore.google.com/detail/kokeicdjnamobmhmcnhhebklhcacgimf)** · [صفحة مِجهَر](https://bysltan.com/Mjhr) · [سياسة الخصوصية](https://bysltan.com/Mjhr/privacy) · [المساعدة والدعم](https://bysltan.com/Mjhr/support) · [التثبيت من المصدر](#من-المصدر)
+**ثبّته من المتجر الرسمي:** **[Chrome Web Store](https://chromewebstore.google.com/detail/kokeicdjnamobmhmcnhhebklhcacgimf)** · **[Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/%D9%85%D9%90%D8%AC%D9%87%D9%8E%D8%B1-%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D9%83-%D8%B9%D9%84%D9%89-githu/jdloffiadppmpmbajflbjofiojcjfikl)** · **[Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/%D9%85-%D8%AC%D9%87-%D8%B1-%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D9%83-%D8%B9%D9%84%D9%89-github/)**
 
-> **الحالة:** الإصدار الحالي 1.0.0، منشور في [Chrome Web Store](https://chromewebstore.google.com/detail/kokeicdjnamobmhmcnhhebklhcacgimf) باسم «مِجهَر - مساعدك على GitHub»، ومنه يثبّته Brave أيضًا. ولم يُنشر بعد في Microsoft Edge Add-ons ولا Firefox Add-ons، وتُضاف روابطهما هنا عند نشره فيهما؛ وحتى ذلك الحين يمكنك [بناؤه وتجربته من المصدر](#من-المصدر). وشيفرة المستودع معروضة للقراءة والتدقيق، وليست مفتوحة المصدر ([الحقوق](#الحقوق)).
+[صفحة مِجهَر](https://bysltan.com/Mjhr) · [سياسة الخصوصية](https://bysltan.com/Mjhr/privacy) · [المساعدة والدعم](https://bysltan.com/Mjhr/support) · [التثبيت من المصدر](#من-المصدر)
+
+> **الحالة:** منشور في [Chrome Web Store](https://chromewebstore.google.com/detail/kokeicdjnamobmhmcnhhebklhcacgimf) و[Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/%D9%85%D9%90%D8%AC%D9%87%D9%8E%D8%B1-%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D9%83-%D8%B9%D9%84%D9%89-githu/jdloffiadppmpmbajflbjofiojcjfikl) و[Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/%D9%85-%D8%AC%D9%87-%D8%B1-%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D9%83-%D8%B9%D9%84%D9%89-github/) باسم «مِجهَر - مساعدك على GitHub»، ويثبّته Brave أيضًا من متجر Chrome. والإصدار الحالي في المستودع 1.0.2؛ وقد يتأخر اعتماد إصدار في متجر عن آخر، فرقم الإصدار المنشور في كل متجر تجده في صفحته. وشيفرة المستودع معروضة للقراءة والتدقيق، وليست مفتوحة المصدر ([الحقوق](#الحقوق)).
 
 ## لمن مِجهَر؟
 
@@ -108,14 +110,17 @@
 
 ## التثبيت
 
-### من المتاجر
+### من المتاجر الرسمية
+
+هذا طريق التثبيت للعموم، ويحدّثه المتصفح من المتجر.
 
 - **في Chrome وBrave:** من [Chrome Web Store](https://chromewebstore.google.com/detail/kokeicdjnamobmhmcnhhebklhcacgimf) اختر «إضافة إلى Chrome». ويقبل Brave إضافات متجر Chrome، فيثبّته من الرابط نفسه.
-- **في Edge وFirefox:** لم يُنشر بعد في Microsoft Edge Add-ons ولا Firefox Add-ons، فلا روابط لهما الآن، وتُضاف هنا عند النشر.
+- **في Edge:** من [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/%D9%85%D9%90%D8%AC%D9%87%D9%8E%D8%B1-%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D9%83-%D8%B9%D9%84%D9%89-githu/jdloffiadppmpmbajflbjofiojcjfikl) اختر «الحصول».
+- **في Firefox:** من [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/%D9%85-%D8%AC%D9%87-%D8%B1-%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D9%83-%D8%B9%D9%84%D9%89-github/) اختر «إضافة إلى Firefox». ويتطلب Firefox 140 أو أحدث على الحاسوب.
 
 ### من المصدر
 
-هذا تثبيت تطويري للمطوّرين، ولمن يجرّبه في Edge أو Firefox قبل نشره فيهما؛ لا بديل عن المتجر. تحتاج Node.js 22 أو أحدث. من مجلد المستودع:
+هذا تثبيت تطويري يدوي لمن يبني مِجهَر من مصدره ويجرّبه؛ وليس طريق التثبيت للعموم، ولا يحدّثه المتجر، فثبّته من المتجر الرسمي لمتصفحك. تحتاج Node.js 22 أو أحدث. من مجلد المستودع:
 
 </div>
 
@@ -202,7 +207,6 @@ npm run build
 
 ## القيود الحالية
 
-- **لم يُنشر في متجري Edge وFirefox بعد:** منشور في Chrome Web Store وحده، فالتثبيت في Edge وFirefox الآن من المصدر.
 - **يعمل على `github.com` وحده:** لا في نطاق آخر، ومنه خوادم GitHub المؤسسية بنطاقاتها الخاصة.
 - **الترجمة في Chrome وBrave وحدهما:** تعتمد على مترجم المتصفح نفسه (إنجليزية إلى عربية). وفي Edge وFirefox يقول مِجهَر إنها غير متاحة بدل أن يرسل النص إلى خدمة خارجية.
 - **في Firefox الأسرار في ذاكرة الجلسة وحدها:** يُمحى رمز GitHub ومفاتيح المزوّدين بإغلاق المتصفح، ولا خيار لحفظها على القرص هناك.
