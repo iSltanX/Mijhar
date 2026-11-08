@@ -1,6 +1,0 @@
-
-> mijhar@1.0.0 build
-> node scripts/build.mjs
-
-chromium: dist/chromium
-firefox: dist/firefox

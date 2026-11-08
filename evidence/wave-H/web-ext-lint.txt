@@ -1,7 +1,0 @@
-Validation Summary:
-
-errors          0              
-notices         0              
-warnings        0              
-
-lint exit=0

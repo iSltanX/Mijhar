@@ -1,7 +1,0 @@
-{
- "control": "content.js بعلامتين محقونتين: ترويسة محوّل Gemini ومفتاح مخزن الأسرار",
- "detected": [
-  "adapter-outside-background dist/chromium/content.js",
-  "secret-store-outside-trusted dist/chromium/content.js"
- ]
-}
